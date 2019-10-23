@@ -1,0 +1,20 @@
+{
+  "name": "komondor-api",
+  "version": "1.0.0",
+  "description": "TSL Sequence Data API",
+  "author": "Martin Page",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "ldapauth-fork": "^4.2.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.6",
+    "tus-node-server": "^0.3.2"
+  }
+}
