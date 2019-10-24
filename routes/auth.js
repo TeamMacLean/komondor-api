@@ -124,8 +124,6 @@ function updateDB(user) {
 }
 
 function signAndReturn(userTokenObject, res) {
-
-
     sign(userTokenObject)
         .then(token => {
             res.status(200).json({token: token});

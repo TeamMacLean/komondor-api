@@ -13,14 +13,9 @@ router.route('/news')
         if (req.user) {
 
             NewsItem.iCanSee(req.user)
+                .sort('-createdAt')
                 .limit(20)
                 .then(news => {
-
-                    news.sort(function (a, b) {
-                        return new Date(b.date) - new Date(a.date);
-                    });
-
-                    //TODO format the news
 
                     news = news.map(ni => {
                         return {

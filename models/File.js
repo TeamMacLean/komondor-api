@@ -6,10 +6,10 @@ const schema = new Schema({
     name: {type: String, required: true},
     type: {type: String, required: true},
     originalName: {type: String, required: true},
-    description: {type: String}
+    description: {type: String},
+    path: {type: String, required: true},
 }, {timestamps: true});
 
 const File = mongoose.model('File', schema);
 
-
-module.exports =  File
+module.exports = File;
