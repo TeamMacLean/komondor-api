@@ -1,27 +1,26 @@
-const mongoose = require('mongoose');
-const Utils = require( '../utils');
-const Project  = require( "./Project");
-const NewsItem  = require( "./NewsItem");
+import mongoose from 'mongoose'
+import { generateSafeName } from '../utils';
+import Project from "./Project";
+import NewsItem from "./NewsItem";
 
-const Schema = mongoose.Schema;
-const schema = new Schema({
+const schema = new mongoose.Schema({
   name: {type: String, required: true},
   safeName: {type: String, required: true},
-  project: {type: Schema.Types.ObjectId, ref: 'Project', required: true},
+  project: {type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true},
   scientificName: {type: String, required: true},
   commonName: {type: String, required: true},
   ncbi: {type: String, required: true},
   conditions: {type: String, required: true},
 
   owner: {type: String, required: true},
-  group: {type: Schema.Types.ObjectId, ref: 'Group', required: true},
+  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},
 
 }, {timestamps: true, toJSON: {virtuals: true}});
 
 schema.pre('validate', function () {
   return Sample.find({})
     .then(allOthers => {
-      return Utils.generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
+      return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
     })
     .then(safeName => {
       this.safeName = safeName;
@@ -76,4 +75,4 @@ schema.statics.iCanSee = function iCanSee(user) {
 
 const Sample = mongoose.model('Sample', schema);
 
-module.exports =  Sample
+export default  Sample

@@ -1,12 +1,12 @@
-const Middleware = require("./middleware");
+import { isAuthenticated } from "./middleware";
 
-const express = require('express');
-const router = express.Router();
-const Project = require('../models/Project');
+import express from "express";
+let router = express.Router();
+import Project from '../models/Project';
 
 router
     .route('/search/projects')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
 
         if (req.query.name.length) {
@@ -25,4 +25,4 @@ router
 
     });
 
-module.exports =  router;
+export default  router;

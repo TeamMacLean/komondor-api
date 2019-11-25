@@ -1,13 +1,14 @@
-const Middleware = require("./middleware");
-const User = require('../models/User');
-const Project = require('../models/Project');
+import { isAuthenticated } from "./middleware";
 
-const express = require('express');
-const router = express.Router();
+import User from '../models/User';
+import Project from '../models/Project';
+
+import express from "express";
+let router = express.Router();
 
 router
     .route('/users')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         User.find({})
             .then(users => {
@@ -34,7 +35,7 @@ function getUsersProjects(user) {
 }
 
 router.route('/user')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
 
         function promiseHandle(user) {
@@ -71,4 +72,4 @@ router.route('/user')
 
     });
 
-module.exports =  router;
+export default  router;

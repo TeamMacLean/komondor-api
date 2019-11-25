@@ -1,15 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const Project = require('../models/Project');
-const Middleware = require('./middleware');
-const FileGroup = require('../models/FileGroup');
+import express from "express";
+let router = express.Router();
+import Project from '../models/Project';
+import { isAuthenticated } from './middleware';
+import FileGroup from '../models/FileGroup';
 
 router.route('/projects')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         //TODO must be in same group as user
         Project.iCanSee(req.user)
             .populate('group')
+            .sort('-createdAt')
             .then(projects => {
                 res.status(200).send({projects})
             })
@@ -21,7 +22,7 @@ router.route('/projects')
     });
 
 router.route('/project')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         if (req.query.id) {
 
@@ -50,11 +51,11 @@ router.route('/project')
     });
 
 router.route('/projects/new')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .post((req, res) => {
 //TODO check permission
 
-        FileGroup.findOne({uploadID: req.body.uploadID})
+FileGroup.findOne({uploadID: req.body.uploadID})
             .then(foundFileGroup => {
 
                 const newProject = new Project({
@@ -84,4 +85,4 @@ router.route('/projects/new')
 
     });
 
-module.exports = router;
+export default router;

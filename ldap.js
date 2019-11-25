@@ -1,4 +1,4 @@
-var LdapAuth = require('ldapauth-fork');
+import LdapAuth from 'ldapauth-fork';
 // LDAP Connection Settings
 const server = process.env.LDAP_URL; // 192.168.1.1
 const bindDN = process.env.LDAP_BIND_DN; // Username
@@ -7,7 +7,7 @@ const bindSearchBase = process.env.LDAP_SEARCH_BASE; // test.com
 const searchFilter = process.env.LDAP_SEARCH_FILTER;
 
 
-function authenticate(username, password) {
+export function authenticate(username, password) {
   return new Promise((good, bad) => {
 
     const options = {
@@ -43,5 +43,3 @@ function authenticate(username, password) {
     });
   })
 }
-
-module.exports = {authenticate};

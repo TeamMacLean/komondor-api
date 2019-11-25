@@ -4,8 +4,11 @@
   "description": "TSL Sequence Data API",
   "author": "Martin Page",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "dev": "nodemon --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node server.js",
+    "start": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node server.js",
+    "test": "jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -16,5 +19,9 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.6",
     "tus-node-server": "^0.3.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "supertest": "^4.0.2"
   }
 }

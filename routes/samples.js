@@ -1,13 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const Sample = require('../models/Sample');
-const Middleware = require('./middleware');
+import express from "express";
+let router = express.Router();
+import Sample from '../models/Sample';
+import { isAuthenticated } from './middleware';
 
 router.route('/samples')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         //TODO must be in same group as user
         Sample.iCanSee(req.user)
+            .sort('-createdAt')
             .then(samples => {
                 res.status(200).send({samples})
             })
@@ -18,7 +19,7 @@ router.route('/samples')
     });
 
 router.route('/sample')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         if (req.query.id) {
 
@@ -45,7 +46,7 @@ router.route('/sample')
     });
 
 router.route('/samples/new')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .post((req, res) => {
 //TODO check permission
         new Sample({
@@ -69,4 +70,4 @@ router.route('/samples/new')
 
     });
 
-module.exports =  router;
+export default  router;

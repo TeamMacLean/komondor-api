@@ -1,13 +1,13 @@
-const Middleware = require("./middleware");
+import { isAuthenticated } from "./middleware";
 
-const express = require('express');
-const router = express.Router();
-const NewsItem = require('../models/NewsItem');
-const moment = require('moment');
+import express from "express";
+let router = express.Router();
+import NewsItem from '../models/NewsItem';
+import moment from 'moment';
 
 
 router.route('/news')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
 
         if (req.user) {
@@ -43,4 +43,4 @@ router.route('/news')
 
     });
 
-module.exports =  router;
+export default  router;

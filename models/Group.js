@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const Utils  = require( "../utils");
+import mongoose from 'mongoose'
+import { generateSafeName } from "../utils";
 // import Project from "./Project";
 
-const Schema = mongoose.Schema;
-const schema = new Schema({
+const schema = new mongoose.Schema({
   name: {type: String, required: true, unique: true},
   safeName: {type: String, required: true},
   ldapGroups: {type: [String], required: true},
@@ -17,7 +16,7 @@ schema.pre('validate', function () {
 
       allOthers.filter(f => f._id.toString() === this._id.toString());
 
-      return Utils.generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
+      return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
     })
     .then(safeName => {
       this.safeName = safeName;
@@ -52,4 +51,4 @@ schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {
 
 const Group = mongoose.model('Group', schema);
 
-module.exports =  Group
+export default  Group

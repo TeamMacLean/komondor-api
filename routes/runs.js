@@ -1,13 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const Run = require('../models/Run');
-const Middleware = require('./middleware');
+import express from "express";
+let router = express.Router();
+import Run, { iCanSee, findById } from '../models/Run';
+import { isAuthenticated } from './middleware';
 
 router.route('/runs')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         //TODO must be in same group as user
-        Run.iCanSee(req.user)
+        iCanSee(req.user)
+            .sort('-createdAt')
             .then(runs => {
                 res.status(200).send({runs})
             })
@@ -18,11 +19,11 @@ router.route('/runs')
     });
 
 router.route('/run')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .get((req, res) => {
         if (req.query.id) {
 
-            Run.findById(req.query.id)
+            findById(req.query.id)
                 .populate('group')
                 .then(run => {
                     //TODO check they have permissions
@@ -45,7 +46,7 @@ router.route('/run')
     });
 
 router.route('/runs/new')
-    .all(Middleware.isAuthenticated)
+    .all(isAuthenticated)
     .post((req, res) => {
 //TODO check permission
         new Run({
@@ -72,4 +73,4 @@ router.route('/runs/new')
 
     });
 
-module.exports =  router;
+export default router;

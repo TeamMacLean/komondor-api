@@ -1,12 +1,12 @@
-const Middleware =require( "./middleware");
+import { isAuthenticated } from "./middleware";
 
-const express = require('express');
-const router = express.Router();
-const Group  =require( '../models/Group');
+import express from "express";
+let router = express.Router();
+import Group from '../models/Group';
 
 router
   .route('/groups')
-  .all(Middleware.isAuthenticated)
+  .all(isAuthenticated)
   .get((req, res) => {
 
     Group.GroupsIAmIn(req.user)
@@ -21,7 +21,7 @@ router
 
 router
   .route('/groups/new')
-  .all(Middleware.isAuthenticated)
+  .all(isAuthenticated)
   .post((req, res) => {
 
 
@@ -43,7 +43,7 @@ router
   });
 
 router.route('/groups/edit')
-  .all(Middleware.isAuthenticated)
+  .all(isAuthenticated)
   .post((req, res) => {
     if (req.body.id) {
 
@@ -82,14 +82,14 @@ router.route('/groups/edit')
   });
 
 router.route('/groups/delete')
-  .all(Middleware.isAuthenticated)
+  .all(isAuthenticated)
   .post((req, res) => {
 
     if (req.user.isAdmin) {
 
       if (req.body.id) {
 
-        Group.findById(req.body.id)
+        findById(req.body.id)
           .then((group) => {
             if (group) {
               group.deleted = true;
@@ -122,14 +122,14 @@ router.route('/groups/delete')
 
 
 router.route('/groups/resurrect')
-  .all(Middleware.isAuthenticated)
+  .all(isAuthenticated)
   .post((req, res) => {
 
     if (req.user.isAdmin) {
 
       if (req.body.id) {
 
-        Group.findById(req.body.id)
+        findById(req.body.id)
           .then((group) => {
             if (group) {
               group.deleted = false;
@@ -159,4 +159,4 @@ router.route('/groups/resurrect')
 
 
   });
-module.exports =  router;
+export default  router;

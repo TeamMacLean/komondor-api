@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const Schema = mongoose.Schema;
-const schema = new Schema({
+const schema = new mongoose.Schema({
 
   type: {type: String, required: true},
   typeId: {type: String, required: true},
@@ -31,4 +30,4 @@ schema.statics.iCanSee = function iCanSee(user) {
 const NewsItem = mongoose.model('NewsItem', schema);
 
 
-module.exports =  NewsItem
+export default  NewsItem

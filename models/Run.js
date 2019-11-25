@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-const Utils = require('../utils');
+import mongoose from 'mongoose'
+import Utils from '../utils';
 import Project from "./Project";
 
-const NewsItem = require("./NewsItem");
+import NewsItem from "./NewsItem";
 
-const Schema = mongoose.Schema;
-const schema = new Schema({
+const schema = new mongoose.Schema({
     name: {type: String, required: true},
     safeName: {type: String, required: true},
     sample: {type: Schema.Types.ObjectId, ref: 'Sample', required: true},

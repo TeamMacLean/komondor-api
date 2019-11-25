@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 
-const Schema = mongoose.Schema;
-const schema = new Schema({
+const schema = new mongoose.Schema({
     uploadID: {type: String, required: true},
 }, {timestamps: true});
 
@@ -16,4 +15,4 @@ schema.virtual('files', {
 const FileGroup = mongoose.model('FileGroup', schema);
 
 
-module.exports = FileGroup;
+export default FileGroup;
