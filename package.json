@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "nodemon --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node server.js",
     "start": "node --experimental-modules --experimental-json-modules --es-module-specifier-resolution=node server.js",
+    "pm2":"pm2 start server.js --name komondor-api --node-args='--experimental-modules --experimental-json-modules --es-module-specifier-resolution=node'"
     "test": "jest"
   },
   "dependencies": {
