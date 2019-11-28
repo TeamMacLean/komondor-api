@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { generateSafeName } from '../utils';
+import { generateSafeName } from '../lib/utils';
 import NewsItem from './NewsItem';
 import FileGroup from './FileGroup';
 
@@ -32,6 +32,10 @@ schema.pre('save', function (next) {
 });
 schema.post('save', function (doc) {
     if (this.wasNew) {
+
+        function makeFolder(){
+            fs.promises.mkdir(dirpath, { recursive: true })
+        }
 
         function moveFilesToFolder() {
             return FileGroup.findOne(doc.additionalFiles)

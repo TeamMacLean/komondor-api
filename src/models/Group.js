@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { generateSafeName } from "../utils";
+import { generateSafeName } from "../lib/utils";
 // import Project from "./Project";
 
 const schema = new mongoose.Schema({

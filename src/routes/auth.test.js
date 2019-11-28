@@ -1,6 +1,6 @@
 // const app = require('../index')
 import app from '../app';
-import { getUserForToken, sign } from '../Utils';
+import { getUserForToken, sign } from '../lib/utils';
 import request from 'supertest';
 
 let userToken;

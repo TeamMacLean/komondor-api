@@ -3,7 +3,7 @@ import { authenticate } from "../ldap";
 import express from "express";
 let router = express.Router();
 
-import { getUserFromRequest, sign, getUserForToken } from "../utils";
+import { getUserFromRequest, sign, getUserForToken } from "../lib/utils";
 import User from "../models/User";
 
 const JWT_SECRET = process.env.JWT_SECRET;

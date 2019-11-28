@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Group from "./models/Group";
+import Group from "../models/Group";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 

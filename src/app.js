@@ -1,6 +1,8 @@
-import "dotenv/config";
+import dotenv from 'dotenv';
+dotenv.config({path: path.join(process.cwd(), '../', '.env')});
 import express from "express";
 import cors from "cors";
+
 import authRoutes from "./routes/auth";
 import projectsRoutes from "./routes/projects";
 import samplesRoutes from "./routes/samples";
@@ -9,13 +11,13 @@ import groupRoutes from "./routes/groups";
 import userRoutes from "./routes/users";
 import newsRoutes from "./routes/news";
 import uploadRoutes from "./routes/uploads";
-import { getUserFromRequest } from "./utils";
+import {getUserFromRequest} from "./lib/utils";
 
 const app = express();
 app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 
 // app.use((req, res, next) => {
 //     console.log(req.method, req.url);
@@ -26,16 +28,16 @@ app.use(express.urlencoded({ extended: false }));
  * get user if auth token in request
  */
 app.use((req, res, next) => {
-  getUserFromRequest(req)
-    .then(user => {
-      if (user) {
-        req.user = user;
-      }
-      next();
-    })
-    .catch(err => {
-      next(err);
-    });
+    getUserFromRequest(req)
+        .then(user => {
+            if (user) {
+                req.user = user;
+            }
+            next();
+        })
+        .catch(err => {
+            next(err);
+        });
 });
 
 app.use(authRoutes);
