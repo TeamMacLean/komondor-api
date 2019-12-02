@@ -7,13 +7,13 @@
   "type": "module",
   "scripts": {
     "start": "npm run prod",
-    "server": "babel-node ./src/server",
-    "server:prod": "node ./dist/server",
+    "server": "babel-node ./src/server.js",
+    "server:prod": "node ./dist/server.js",
     "dev": "NODE_ENV=development npm-run-all server",
     "clean": "rimraf dist",
     "build": "babel ./src --out-dir dist",
     "prod": "NODE_ENV=production npm-run-all clean build server:prod",
-    "pm2": "pm2 start ./dist/server --name komondor-api",
+    "pm2": "pm2 start ./dist/server.js --name komondor-api",
     "watch": "nodemon",
     "test": "jest"
   },
