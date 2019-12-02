@@ -1,7 +1,12 @@
 import jwt from "jsonwebtoken";
-import Group from "../models/Group";
+
+import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config({path: path.join(__dirname, '../', '.env')});
+
+import Group from "../models/Group";
+
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
