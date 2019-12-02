@@ -4,9 +4,8 @@ import express from "express";
 import cors from "cors";
 
 const envFile = path.join(__dirname, '../', '.env')
-console.log('loading', envFile)
+console.log('loading env', envFile)
 dotenv.config({path: envFile})
-console.log('ENV',process.env)
 
 
 import authRoutes from "./routes/auth";
