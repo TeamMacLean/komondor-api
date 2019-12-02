@@ -32,6 +32,7 @@
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "jest": "^24.9.0",
     "supertest": "^4.0.2"
   }
