@@ -4,7 +4,6 @@
   "description": "TSL Sequence Data API",
   "author": "Martin Page",
   "private": true,
-  "type": "module",
   "scripts": {
     "start": "npm run prod",
     "server": "babel-node ./src/server.js",
