@@ -92,7 +92,7 @@ export function getUserForToken(user) {
       });
   });
 }
-export async function sign(user) {
+export function sign(user) {
   return jwt.sign(user, JWT_SECRET);
 }
 

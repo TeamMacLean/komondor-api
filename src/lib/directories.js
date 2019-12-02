@@ -9,20 +9,19 @@ import Run from '../models/Run';
 
 const DATASTORE_ROOT = process.env.DATASTORE_ROOT;
 
-const _create = async (dirpath) => {
+const _create = (dirpath) => {
     try {
         //check parent folder exists
-        await fs.promises.access(path.dirname(dirpath));
-        //create folder
-        await fs.promises.mkdir(dirpath)
+        return fs.promises.access(path.dirname(dirpath))
+            .then(() => fs.promises.mkdir(dirpath))
     } catch (err) {
         throw err;
     }
 };
 
-const createGroup = async (group) => {
+const createGroup = (group) => {
     const absPath = path.join(DATASTORE_ROOT, group.safeName);
-    await _create(absPath)
+    return _create(absPath)
 };
 
 const createProject = (project) => {
@@ -40,7 +39,7 @@ const createProject = (project) => {
         });
 };
 
-const createSample = async (sample) => {
+const createSample = (sample) => {
     Sample.get(sample._id)
         .populate({
             path: 'project',
@@ -60,7 +59,7 @@ const createSample = async (sample) => {
         });
 };
 
-const createRun = async (run) => {
+const createRun = (run) => {
     Run.get(run._id)
         .populate({
             path: 'sample',
