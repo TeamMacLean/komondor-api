@@ -1,21 +1,14 @@
 import LdapAuth from 'ldapauth-fork';
-// LDAP Connection Settings
-const server = process.env.LDAP_URL; // 192.168.1.1
-const bindDN = process.env.LDAP_BIND_DN; // Username
-const bindCredentials = process.env.LDAP_BIND_CREDENTIALS; // User password
-const bindSearchBase = process.env.LDAP_SEARCH_BASE; // test.com
-const searchFilter = process.env.LDAP_SEARCH_FILTER;
-
 
 export function authenticate(username, password) {
   return new Promise((good, bad) => {
 
     const options = {
-      url: server,
-      bindDN: bindDN,
-      bindCredentials: bindCredentials,
-      searchBase: bindSearchBase,
-      searchFilter: searchFilter
+      url: process.env.LDAP_URL,
+      bindDNz: process.env.LDAP_BIND_DN,
+      bindCredentials: process.env.LDAP_BIND_CREDENTIALS,
+      searchBase: process.env.LDAP_SEARCH_BASE,
+      searchFilter: process.env.LDAP_SEARCH_FILTER
     };
     const auth = new LdapAuth(options);
     auth.authenticate(username, password, function (err, user) {
