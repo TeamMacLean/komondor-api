@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 
 try {
-    dotenv.config({path: path.join(process.cwd(), '../', '.env')});
+    dotenv.config({path: path.join(__dirname, '../', '.env')});
 } catch(err){
     console.error(err);
     process.exit(1);
