@@ -1,8 +1,14 @@
 import dotenv from 'dotenv';
 import path from 'path';
-dotenv.config({path: path.join(process.cwd(), '../', '.env')});
 import express from "express";
 import cors from "cors";
+
+try {
+    dotenv.config({path: path.join(process.cwd(), '../', '.env')});
+} catch(err){
+    console.error(err);
+    process.exit(1);
+}
 
 import authRoutes from "./routes/auth";
 import projectsRoutes from "./routes/projects";
