@@ -6,9 +6,6 @@ let router = express.Router();
 import { getUserFromRequest, sign, getUserForToken } from "../lib/utils";
 import User from "../models/User";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const groupRequirement = process.env.LDAP_MUST_BE_MEMBER_OF;
-
 router.get("/me", (req, res, next) => {
   getUserFromRequest(req)
     .then(user => {

@@ -1,5 +1,4 @@
 import { isAuthenticated } from "./middleware";
-
 import express from "express";
 let router = express.Router();
 import NewsItem from '../models/NewsItem';
