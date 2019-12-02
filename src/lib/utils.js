@@ -1,14 +1,12 @@
 import jwt from "jsonwebtoken";
 
-import path from 'path';
-import dotenv from 'dotenv';
-dotenv.config({path: path.join(__dirname, '../', '.env')});
+// import path from 'path';
+// import dotenv from 'dotenv';
+// dotenv.config({path: path.join(__dirname, '../', '.env')});
 
 import Group from "../models/Group";
 
 
-
-const JWT_SECRET = process.env.JWT_SECRET;
 
 export function _toSafeName(unsafeName) {
   return unsafeName
@@ -53,7 +51,7 @@ export function getUserFromRequest(req) {
       try {
         const decoded = jwt.verify(
           authorizationHeader.split(" ")[1],
-          JWT_SECRET
+          process.env.JWT_SECRET
         );
         good(decoded);
       } catch (err) {
@@ -100,6 +98,6 @@ export function getUserForToken(user) {
   });
 }
 export function sign(user) {
-  return jwt.sign(user, JWT_SECRET);
+  return jwt.sign(user, process.env.JWT_SECRET);
 }
 
