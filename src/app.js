@@ -1,12 +1,10 @@
-import dotenv from 'dotenv';
+
 import path from 'path';
 import express from "express";
 import cors from "cors";
 
-const envFile = path.join(__dirname, '../', '.env')
-console.log('loading env', envFile)
-dotenv.config({path: envFile})
-
+import dotenv from 'dotenv';
+dotenv.config({path: path.join(__dirname, '../', '.env')});
 
 import authRoutes from "./routes/auth";
 import projectsRoutes from "./routes/projects";
