@@ -3,12 +3,11 @@ import path from 'path';
 import express from "express";
 import cors from "cors";
 
-try {
-    dotenv.config({path: path.join(__dirname, '../', '.env')});
-} catch(err){
-    console.error(err);
-    process.exit(1);
-}
+const envFile = path.join(__dirname, '../', '.env')
+console.log('loading', envFile)
+dotenv.config({path: envFile})
+console.log('ENV',process.env)
+
 
 import authRoutes from "./routes/auth";
 import projectsRoutes from "./routes/projects";
