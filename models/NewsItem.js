@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
+
 
 const schema = new mongoose.Schema({
 
@@ -30,4 +31,4 @@ schema.statics.iCanSee = function iCanSee(user) {
 const NewsItem = mongoose.model('NewsItem', schema);
 
 
-export default  NewsItem
+module.exports= NewsItem

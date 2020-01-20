@@ -1,6 +1,6 @@
-import LdapAuth from 'ldapauth-fork';
+const LdapAuth = require('ldapauth-fork')
 
-export function authenticate(username, password) {
+module.exports = function authenticate(username, password) {
   return new Promise((good, bad) => {
 
     const options = {

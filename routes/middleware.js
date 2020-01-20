@@ -1,4 +1,4 @@
-export function isAuthenticated(req, res, next) {
+module.exports.isAuthenticated = function (req, res, next) {
   if (req.user) {
     console.log("have user");
     next();

@@ -1,10 +1,8 @@
-import express from "express";
+const express =require( "express")
 let router = express.Router();
 // import {Server,DataStore,FileStore,EVENTS} from "tus-node-server";
 // import { Server, FileStore } from 'tus-node-server';
-import tus from 'tus-node-server'
-import { create } from "../fileUpload";
-// import path from 'path';
+const tus =require( 'tus-node-server')
 
 
 const tusServer = new tus.Server();
@@ -21,4 +19,4 @@ const uploadApp = express();
 uploadApp.all("*", tusServer.handle.bind(tusServer));
 router.use("/uploads", uploadApp);
 
-export default router;
+module.exports =  router;

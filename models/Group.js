@@ -1,5 +1,6 @@
-import mongoose from 'mongoose'
-import { generateSafeName } from "../lib/utils";
+const mongoose = require('mongoose')
+
+const { generateSafeName } = require(  "../lib/utils")
 // import Project from "./Project";
 
 const schema = new mongoose.Schema({
@@ -51,4 +52,4 @@ schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {
 
 const Group = mongoose.model('Group', schema);
 
-export default  Group
+module.exports = Group

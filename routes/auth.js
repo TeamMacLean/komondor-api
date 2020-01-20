@@ -1,10 +1,10 @@
 //AUTH
-import { authenticate } from "../ldap";
-import express from "express";
+const { authenticate } = require("../ldap")
+const express = require("express")
 let router = express.Router();
 
-import { getUserFromRequest, sign, getUserForToken } from "../lib/utils";
-import User from "../models/User";
+const { getUserFromRequest, sign, getUserForToken } = require("../lib/utils")
+const User = require("../models/User")
 
 router.get("/me", (req, res, next) => {
   getUserFromRequest(req)
@@ -17,7 +17,7 @@ router.get("/me", (req, res, next) => {
 });
 
 function updateDB(user) {
-    User.findOne({ username: user.username })
+  User.findOne({ username: user.username })
     .then(foundUser => {
       if (foundUser) {
         foundUser.notifyLogin();
@@ -93,4 +93,4 @@ router.post("/logout", (err, req, res, next) => {
   res.sendStatus(200);
 });
 
-export default router;
+module.exports = router;

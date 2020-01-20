@@ -1,8 +1,8 @@
-import { isAuthenticated } from "./middleware";
-import express from "express";
+const { isAuthenticated } =require( "./middleware")
+const express =require( "express")
 let router = express.Router();
-import NewsItem from '../models/NewsItem';
-import moment from 'moment';
+const NewsItem =require( '../models/NewsItem')
+const moment =require( 'moment')
 
 
 router.route('/news')
@@ -42,4 +42,4 @@ router.route('/news')
 
     });
 
-export default  router;
+    module.exports =   router;

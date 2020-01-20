@@ -1,27 +1,23 @@
+const express = require("express")
+const cors = require("cors")
+const dotenv = require('dotenv')
+dotenv.config();
 
-
-import express from "express";
-import cors from "cors";
-
-import path from 'path';
-import dotenv from 'dotenv';
-dotenv.config({path: path.join(__dirname, '../', '.env')});
-
-import authRoutes from "./routes/auth";
-import projectsRoutes from "./routes/projects";
-import samplesRoutes from "./routes/samples";
-import searchRoutes from "./routes/search";
-import groupRoutes from "./routes/groups";
-import userRoutes from "./routes/users";
-import newsRoutes from "./routes/news";
-import uploadRoutes from "./routes/uploads";
-import {getUserFromRequest} from "./lib/utils";
+const authRoutes = require("./routes/auth")
+const projectsRoutes = require("./routes/projects")
+const samplesRoutes = require("./routes/samples")
+const searchRoutes = require("./routes/search")
+const groupRoutes = require("./routes/groups")
+const userRoutes = require("./routes/users")
+const newsRoutes = require("./routes/news")
+const uploadRoutes = require("./routes/uploads")
+const { getUserFromRequest } = require("./lib/utils")
 
 const app = express();
 app.use(cors());
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // app.use((req, res, next) => {
 //     console.log(req.method, req.url);
@@ -53,4 +49,4 @@ app.use(userRoutes);
 app.use(newsRoutes);
 app.use(uploadRoutes);
 
-export default app;
+module.exports = app;

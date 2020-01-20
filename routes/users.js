@@ -1,9 +1,9 @@
-import { isAuthenticated } from "./middleware";
+const { isAuthenticated } =require( "./middleware")
 
-import User from '../models/User';
-import Project from '../models/Project';
+const User =require( '../models/User')
+const Project =require( '../models/Project')
 
-import express from "express";
+const express =require( "express")
 let router = express.Router();
 
 router
@@ -71,5 +71,4 @@ router.route('/user')
         }
 
     });
-
-export default  router;
+    module.exports =  router;

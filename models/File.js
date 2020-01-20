@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
     fileGroup: {type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: true},
@@ -11,4 +11,4 @@ const schema = new mongoose.Schema({
 
 const File = mongoose.model('File', schema);
 
-export default File;
+module.exports =  File;

@@ -1,8 +1,8 @@
-import express from "express";
+const express = require("express")
 let router = express.Router();
-import Project from '../models/Project';
-import { isAuthenticated } from './middleware';
-import FileGroup from '../models/FileGroup';
+const Project = require('../models/Project')
+const { isAuthenticated } = require('./middleware')
+const FileGroup = require('../models/FileGroup')
 
 router.route('/projects')
     .all(isAuthenticated)
@@ -12,11 +12,11 @@ router.route('/projects')
             .populate('group')
             .sort('-createdAt')
             .then(projects => {
-                res.status(200).send({projects})
+                res.status(200).send({ projects })
             })
             .catch(err => {
                 console.error('error!!!!!', err);
-                res.status(500).send({error: err})
+                res.status(500).send({ error: err })
             });
 
     });
@@ -28,34 +28,34 @@ router.route('/project')
 
             //TODO check permission
             Project.findById(req.query.id)
-                .populate({path: 'additionalFiles', populate: {path: 'files'}})
+                .populate({ path: 'additionalFiles', populate: { path: 'files' } })
                 .populate('group')
                 .populate('samples')
                 .then(project => {
                     //TODO check they have permissions
 
                     if (project) {
-                        res.status(200).send({project});
+                        res.status(200).send({ project });
                     } else {
-                        res.status(501).send({error: 'not found'});
+                        res.status(501).send({ error: 'not found' });
                     }
 
                 })
                 .catch(err => {
-                    res.status(500).send({error: err});
+                    res.status(500).send({ error: err });
                 })
 
         } else {
-            res.status(500).send({error: new Error('param :id not provided')})
+            res.status(500).send({ error: new Error('param :id not provided') })
         }
     });
 
 router.route('/projects/new')
     .all(isAuthenticated)
     .post((req, res) => {
-//TODO check permission
+        //TODO check permission
 
-FileGroup.findOne({uploadID: req.body.uploadID})
+        FileGroup.findOne({ uploadID: req.body.uploadID })
             .then(foundFileGroup => {
 
                 const newProject = new Project({
@@ -72,11 +72,11 @@ FileGroup.findOne({uploadID: req.body.uploadID})
 
                 newProject.save()
                     .then(savedProject => {
-                        res.status(200).send({project: savedProject})
+                        res.status(200).send({ project: savedProject })
                     })
                     .catch(err => {
                         console.error(err);
-                        res.status(500).send({error: err})
+                        res.status(500).send({ error: err })
                     })
             })
             .catch(err => {
@@ -85,4 +85,4 @@ FileGroup.findOne({uploadID: req.body.uploadID})
 
     });
 
-export default router;
+module.exports = router;

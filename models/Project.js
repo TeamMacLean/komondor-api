@@ -1,18 +1,19 @@
-import mongoose from 'mongoose'
-import { generateSafeName } from '../lib/utils';
-import NewsItem from './NewsItem';
-import FileGroup from './FileGroup';
+const mongoose = require('mongoose')
+
+const { generateSafeName } = require('../lib/utils')
+const NewsItem = require('./NewsItem')
+const FileGroup = require('./FileGroup')
 
 const schema = new mongoose.Schema({
-    name: {type: String, required: true},
-    safeName: {type: String, required: true},
-    owner: {type: String, required: true},
-    shortDesc: {type: String, required: true},
-    longDesc: {type: String, required: true},
-    group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},
-    isPublic: {type: Boolean, default: false},
-    additionalFiles: {type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false},
-}, {timestamps: true, toJSON: {virtuals: true}});
+    name: { type: String, required: true },
+    safeName: { type: String, required: true },
+    owner: { type: String, required: true },
+    shortDesc: { type: String, required: true },
+    longDesc: { type: String, required: true },
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
+    isPublic: { type: Boolean, default: false },
+    additionalFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false },
+}, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
     return Project.find({})
@@ -33,7 +34,7 @@ schema.pre('save', function (next) {
 schema.post('save', function (doc) {
     if (this.wasNew) {
 
-        function makeFolder(){
+        function makeFolder() {
             fs.promises.mkdir(dirpath, { recursive: true })
         }
 
@@ -61,7 +62,7 @@ schema.post('save', function (doc) {
             })
                 .save()
                 .then((savedNewsItem) => {
-                    console.log('created news item',savedNewsItem)
+                    console.log('created news item', savedNewsItem)
                     return Promise.resolve();
                 })
                 .catch(err => {
@@ -105,16 +106,16 @@ schema.statics.iCanSee = function iCanSee(user) {
         return Project.find({})
     }
     const filters = [
-        {'owner': user.username}
+        { 'owner': user.username }
     ];
     if (user.groups) {
         user.groups.map(g => {
-            filters.push({'group': g})
+            filters.push({ 'group': g })
         });
     }
-    return Project.find({$or: filters})
+    return Project.find({ $or: filters })
 };
 
 const Project = mongoose.model('Project', schema);
 
-export default Project;
+module.exports = Project;

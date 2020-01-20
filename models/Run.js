@@ -1,8 +1,6 @@
-import mongoose from 'mongoose'
-import Utils from '../lib/utils';
-import Project from "./Project";
-
-import NewsItem from "./NewsItem";
+const mongoose = require('mongoose')
+const Utils = require(  '../lib/utils')
+const NewsItem = require(  "./NewsItem")
 
 const schema = new mongoose.Schema({
     name: {type: String, required: true},

@@ -1,16 +1,16 @@
-import express from "express";
+const express =require( "express")
 let router = express.Router();
-import Sample from '../models/Sample';
-import { isAuthenticated } from './middleware';
+const Run, { iCanSee, findById } =require( '../models/Run')
+const { isAuthenticated } =require( './middleware')
 
-router.route('/samples')
+router.route('/runs')
     .all(isAuthenticated)
     .get((req, res) => {
         //TODO must be in same group as user
-        Sample.iCanSee(req.user)
+        iCanSee(req.user)
             .sort('-createdAt')
-            .then(samples => {
-                res.status(200).send({samples})
+            .then(runs => {
+                res.status(200).send({runs})
             })
             .catch(err => {
                 res.status(500).send({error: err})
@@ -18,20 +18,20 @@ router.route('/samples')
 
     });
 
-router.route('/sample')
+router.route('/run')
     .all(isAuthenticated)
     .get((req, res) => {
         if (req.query.id) {
 
-            Sample.findById(req.query.id)
+            findById(req.query.id)
                 .populate('group')
-                .then(sample => {
+                .then(run => {
                     //TODO check they have permissions
 
-                    console.log('sample', sample);
+                    console.log('run', run);
 
-                    if (sample) {
-                        res.status(200).send({sample});
+                    if (run) {
+                        res.status(200).send({run});
                     } else {
                         res.status(501).send({error: 'not found'});
                     }
@@ -45,23 +45,26 @@ router.route('/sample')
         }
     });
 
-router.route('/samples/new')
+router.route('/runs/new')
     .all(isAuthenticated)
     .post((req, res) => {
 //TODO check permission
-        new Sample({
-            project: req.body.project,
-            scientificName: req.body.scientificName,
-            commonName: req.body.commonName,
-            ncbi: req.body.ncbi,
-            conditions: req.body.conditions,
+        new Run({
+            sample: req.body.sample,
+            sequencingProvider: req.body.sequencingProvider,
+            sequencingTechnology: req.body.sequencingTechnology,
+            librarySource: req.body.librarySource,
+            libraryType: req.body.libraryType,
+            librarySelection: req.body.librarySelection,
+            insertSize: req.body.insertSize,
+            submitToGalaxy: req.body.submitToGalaxy,
+
             owner: req.body.owner,
             group: req.body.group,
-            // tags: req.body.tags || []
         })
             .save()
-            .then(savedSample => {
-                res.status(200).send({sample: savedSample})
+            .then(savedRun => {
+                res.status(200).send({run: savedRun})
             })
             .catch(err => {
                 console.error(err);
@@ -70,4 +73,4 @@ router.route('/samples/new')
 
     });
 
-export default  router;
+    module.exports =  router;

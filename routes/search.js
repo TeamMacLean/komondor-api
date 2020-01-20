@@ -1,8 +1,8 @@
-import { isAuthenticated } from "./middleware";
+const { isAuthenticated } = require("./middleware")
 
-import express from "express";
+const express = require("express")
 let router = express.Router();
-import Project from '../models/Project';
+const Project = require('../models/Project')
 
 router
     .route('/search/projects')
@@ -11,18 +11,18 @@ router
 
         if (req.query.name.length) {
             //TODO check permission
-            Project.find({name: {$in: req.query.name}})
+            Project.find({ name: { $in: req.query.name } })
                 .then(projects => {
-                    res.status(200).send({results: projects})
+                    res.status(200).send({ results: projects })
                     // res.status(200).send({results:projects})
                 })
                 .catch(err => {
-                    res.status(500).send({error: err})
+                    res.status(500).send({ error: err })
                 })
         } else {
-            res.status(200).send({results: []})
+            res.status(200).send({ results: [] })
         }
 
     });
 
-export default  router;
+    module.exports =  router;

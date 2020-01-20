@@ -1,8 +1,8 @@
-import { isAuthenticated } from "./middleware";
+const { isAuthenticated } = require("./middleware")
 
-import express from "express";
+const express = require("express")
 let router = express.Router();
-import Group from '../models/Group';
+const Group = require('../models/Group')
 
 router
   .route('/groups')
@@ -11,10 +11,10 @@ router
 
     Group.GroupsIAmIn(req.user)
       .then(groups => {
-        res.status(200).send({groups})
+        res.status(200).send({ groups })
       })
       .catch(err => {
-        res.status(500).send({error: err})
+        res.status(500).send({ error: err })
       });
 
   });
@@ -33,11 +33,11 @@ router
     })
       .save()
       .then(savedGroup => {
-        res.status(200).send({group: savedGroup})
+        res.status(200).send({ group: savedGroup })
       })
       .catch(err => {
         console.error(err);
-        res.status(500).send({error: err})
+        res.status(500).send({ error: err })
       })
 
   });
@@ -63,19 +63,19 @@ router.route('/groups/edit')
 
             group.save()
               .then(savedGroup => {
-                res.status(200).send({group: savedGroup});
+                res.status(200).send({ group: savedGroup });
               })
               .catch(err => {
-                res.status(500).send({error: err})
+                res.status(500).send({ error: err })
               })
 
           } else {
-            res.status(500).send({error: new Error('group not found')})
+            res.status(500).send({ error: new Error('group not found') })
           }
 
         })
         .catch(err => {
-          res.status(500).send({error: err})
+          res.status(500).send({ error: err })
         })
 
     }
@@ -99,22 +99,22 @@ router.route('/groups/delete')
                   res.status(200).send({})
                 })
                 .catch(err => {
-                  res.status(500).send({error: err});
+                  res.status(500).send({ error: err });
                 })
             } else {
-              res.status(500).send({error: new Error('group not found')});
+              res.status(500).send({ error: new Error('group not found') });
             }
 
           }).catch(err => {
-          res.status(500).send({error: err});
-        })
+            res.status(500).send({ error: err });
+          })
 
       } else {
-        res.status(500).send({error: new Error('id not received')})
+        res.status(500).send({ error: new Error('id not received') })
       }
 
     } else {
-      res.status(500).send({error: new Error('only an ADMIN can delete groups')})
+      res.status(500).send({ error: new Error('only an ADMIN can delete groups') })
     }
 
 
@@ -139,24 +139,24 @@ router.route('/groups/resurrect')
                   res.status(200).send({})
                 })
                 .catch(err => {
-                  res.status(500).send({error: err});
+                  res.status(500).send({ error: err });
                 })
             } else {
-              res.status(500).send({error: new Error('group not found')});
+              res.status(500).send({ error: new Error('group not found') });
             }
 
           }).catch(err => {
-          res.status(500).send({error: err});
-        })
+            res.status(500).send({ error: err });
+          })
 
       } else {
-        res.status(500).send({error: new Error('id not received')})
+        res.status(500).send({ error: new Error('id not received') })
       }
 
     } else {
-      res.status(500).send({error: new Error('only an ADMIN can resurrect groups')})
+      res.status(500).send({ error: new Error('only an ADMIN can resurrect groups') })
     }
 
 
   });
-export default  router;
+  module.exports =  router;
