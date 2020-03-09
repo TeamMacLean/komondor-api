@@ -17,6 +17,7 @@ const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
 app.use(cors());
+app.options('*', cors())
 
 app.use(function (req, res, next) {
     console.log('DEBUG:', req.method, req.originalUrl);
