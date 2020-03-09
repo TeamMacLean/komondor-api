@@ -17,10 +17,10 @@ const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
 const corsOptions = {
-    "origin": "*",
+    "origin": "http://api.datahogbeta.tsl.ac.uk",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": true,
-    "optionsSuccessStatus": 204
+    "optionsSuccessStatus": 200
 }
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))
