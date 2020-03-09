@@ -2,7 +2,7 @@ const express = require("express")
 let router = express.Router();
 const Project = require('../models/Project')
 const { isAuthenticated } = require('./middleware')
-const FileGroup = require('../models/FileGroup')
+// const FileGroup = require('../models/FileGroup')
 
 router.route('/projects')
     .all(isAuthenticated)
@@ -28,13 +28,13 @@ router.route('/project')
 
             //TODO check permission
             Project.findById(req.query.id)
-                .populate({ path: 'additionalFiles', populate: { path: 'files' } })
                 .populate('group')
-                .populate('samples')
+                .populate({ path: 'samples', populate: { path: 'group' } })
+                .populate({ path: 'additionalFiles' })
                 .then(project => {
                     //TODO check they have permissions
-
                     if (project) {
+
                         res.status(200).send({ project });
                     } else {
                         res.status(501).send({ error: 'not found' });
@@ -55,33 +55,34 @@ router.route('/projects/new')
     .post((req, res) => {
         //TODO check permission
 
-        FileGroup.findOne({ uploadID: req.body.uploadID })
-            .then(foundFileGroup => {
+        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
+        // .then(foundFileGroup => {
 
-                const newProject = new Project({
-                    name: req.body.name,
-                    group: req.body.group,
-                    shortDesc: req.body.shortDesc,
-                    longDesc: req.body.longDesc,
-                    owner: req.body.owner,
-                });
+        const newProject = new Project({
+            name: req.body.name,
+            group: req.body.group,
+            shortDesc: req.body.shortDesc,
+            longDesc: req.body.longDesc,
+            owner: req.body.owner,
+            additionalFilesUploadID: req.body.additionalUploadID
+        });
 
-                if (foundFileGroup) {
-                    newProject.additionalFiles = foundFileGroup._id;
-                }
+        // if (foundFileGroup) {
+        //     newProject.additionalFiles = foundFileGroup._id;
+        // }
 
-                newProject.save()
-                    .then(savedProject => {
-                        res.status(200).send({ project: savedProject })
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        res.status(500).send({ error: err })
-                    })
+        newProject.save()
+            .then(savedProject => {
+                res.status(200).send({ project: savedProject })
             })
             .catch(err => {
-
+                console.error(err);
+                res.status(500).send({ error: err })
             })
+        // })
+        // .catch(err => {
+        //     res.status(500).send({ error: err })
+        // })
 
     });
 

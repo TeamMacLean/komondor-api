@@ -1,22 +1,25 @@
-const express =require( "express")
+const express = require("express")
 let router = express.Router();
-// import {Server,DataStore,FileStore,EVENTS} from "tus-node-server";
-// import { Server, FileStore } from 'tus-node-server';
-const tus =require( 'tus-node-server')
-
+const tus = require('tus-node-server')
+const fileUpload = require('../lib/fileUpload')
+const path = require("path")
+const UPLOAD_PATH = path.join(process.cwd(), 'uploads');
 
 const tusServer = new tus.Server();
 tusServer.datastore = new tus.FileStore({
-  directory: process.env.UPLOAD_PATH,
+  directory: UPLOAD_PATH,
   path: "/uploads"
 });
-// tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
-//   create(event);
-// });
+tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
+  fileUpload.create(event)
+});
 
 // const express = require('express');
 const uploadApp = express();
+// uploadApp.all('*', function(req, res, next){
+//   console.log('event!!', req.originalUrl);
+// })
 uploadApp.all("*", tusServer.handle.bind(tusServer));
 router.use("/uploads", uploadApp);
 
-module.exports =  router;
+module.exports = router;

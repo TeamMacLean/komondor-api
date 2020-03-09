@@ -61,11 +61,14 @@ router.route('/groups/edit')
               group.sendToEna = req.body.sendToEna;
             }
 
+            
+
             group.save()
               .then(savedGroup => {
                 res.status(200).send({ group: savedGroup });
               })
               .catch(err => {
+                console.error(err);
                 res.status(500).send({ error: err })
               })
 
@@ -89,7 +92,7 @@ router.route('/groups/delete')
 
       if (req.body.id) {
 
-        findById(req.body.id)
+        Group.findById(req.body.id)
           .then((group) => {
             if (group) {
               group.deleted = true;

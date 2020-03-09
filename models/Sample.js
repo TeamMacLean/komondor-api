@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
+const path = require('path')
 const js2xmlparser = require("js2xmlparser");
 
-const { generateSafeName } = require('../lib/utils')
+const generateSafeName = require('../lib/utils/generateSafeName')
 const NewsItem = require("./NewsItem")
+// const FileGroup = require('./FileGroup')
 
+const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
 
 
 const schema = new mongoose.Schema({
@@ -14,15 +17,17 @@ const schema = new mongoose.Schema({
   commonName: { type: String, required: true },
   ncbi: { type: String, required: true },
   conditions: { type: String, required: true },
-
+  additionalFilesUploadID: { type: String },
   owner: { type: String, required: true },
   group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
+
 
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
   return Sample.find({})
     .then(allOthers => {
+      console.log('this', this)
       return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
     })
     .then(safeName => {
@@ -33,7 +38,18 @@ schema.pre('validate', function () {
 
 schema.pre('save', function (next) {
   this.wasNew = this.isNew;
-  next();
+
+
+  const doc = this;
+
+
+  moveAdditionalFilesToFolder(doc)
+    .then(() => {
+      next();
+    })
+    .catch(err => {
+      next(err);
+    })
 });
 schema.post('save', function (doc) {
   if (this.wasNew) {
@@ -59,6 +75,43 @@ schema.post('save', function (doc) {
   }
 });
 
+schema.virtual('runs', {
+  ref: 'Run',
+  localField: '_id',
+  foreignField: 'sample',
+  justOne: false, // set true for one-to-one relationship
+});
+
+schema.virtual('additionalFiles', {
+  ref: 'File',
+  localField: 'additionalFilesUploadID',
+  foreignField: 'uploadID',
+  justOne: false, // set true for one-to-one relationship
+});
+
+schema.methods.getRelativePath = function () {
+  const doc = this;
+  return doc
+    .populate({
+      path: 'group',
+    })
+    .populate({
+      path: 'project'
+    })
+    .execPopulate()
+    .then(populatedDoc => {
+      return path.join(populatedDoc.group.safeName, populatedDoc.project.safeName, populatedDoc.safeName)
+    })
+}
+
+schema.methods.getAbsPath = function getPath() {
+  const doc = this;
+
+  return doc.getRelativePath()
+    .then(relPath => {
+      return path.join(process.env.DATASTORE_ROOT, relPath);
+    })
+};
 
 schema.statics.iCanSee = function iCanSee(user) {
   if (user.username === 'admin') {

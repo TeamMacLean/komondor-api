@@ -1,9 +1,11 @@
 //AUTH
-const { authenticate } = require("../ldap")
+const { authenticate } = require("../lib/ldap")
 const express = require("express")
 let router = express.Router();
 
-const { getUserFromRequest, sign, getUserForToken } = require("../lib/utils")
+const getUserFromRequest = require('../lib/utils/getUserFromRequest');
+const sign = require('../lib/utils/jwtSign');
+const getUserForToken = require('../lib/utils/getUserForToken');
 const User = require("../models/User")
 
 router.get("/me", (req, res, next) => {
@@ -80,7 +82,6 @@ router.post("/login", (req, res, next) => {
         });
     }
   } else {
-    console.log(req.body);
     console.log("Bad credentials");
     res.status(401).json({ message: "Bad credentials" });
   }

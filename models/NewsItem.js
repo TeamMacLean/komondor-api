@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
   name: {type: String, required: true},
   body: {type: String, required: true}
 
-}, {timestamps: true});
+}, {timestamps: true,toJSON: { virtuals: true }});
 
 schema.statics.iCanSee = function iCanSee(user) {
   if (user.username === 'admin') {

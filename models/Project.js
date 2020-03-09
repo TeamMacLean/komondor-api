@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
-
-const { generateSafeName } = require('../lib/utils')
+const path = require('path')
+const generateSafeName = require('../lib/utils/generateSafeName')
 const NewsItem = require('./NewsItem')
-const FileGroup = require('./FileGroup')
+// const FileGroup = require('./FileGroup')
+const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -12,7 +13,8 @@ const schema = new mongoose.Schema({
     longDesc: { type: String, required: true },
     group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
     isPublic: { type: Boolean, default: false },
-    additionalFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false },
+    additionalFilesUploadID: { type: String },
+    // additionalFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
@@ -28,27 +30,22 @@ schema.pre('validate', function () {
 
 
 schema.pre('save', function (next) {
+
     this.wasNew = this.isNew;
-    next();
+
+    const doc = this;
+
+    moveAdditionalFilesToFolder(doc)
+        .then(() => {
+            next();
+        })
+        .catch(err => {
+            next(err);
+        })
+
 });
 schema.post('save', function (doc) {
     if (this.wasNew) {
-
-        function makeFolder() {
-            fs.promises.mkdir(dirpath, { recursive: true })
-        }
-
-        function moveFilesToFolder() {
-            return FileGroup.findOne(doc.additionalFiles)
-                .populate('files')
-                .then(fileGroup => {
-                    console.log('fileGroup', fileGroup);
-                    return Promise.resolve()
-                })
-                .catch(err => {
-                    return Promise.reject(err);
-                });
-        }
 
         function createNewsItem() {
             console.log('making news item');
@@ -56,7 +53,7 @@ schema.post('save', function (doc) {
                 type: 'project',
                 typeId: doc._id,
                 owner: doc.owner,
-                group: doc.group,
+                group: doc.group._id || doc.group,
                 name: doc.name,
                 body: doc.shortDesc
             })
@@ -71,7 +68,8 @@ schema.post('save', function (doc) {
                 })
         }
 
-        return Promise.all([createNewsItem(), moveFilesToFolder()])
+
+        return createNewsItem()
 
     } else {
         return Promise.resolve()
@@ -85,20 +83,31 @@ schema.virtual('samples', {
     justOne: false, // set true for one-to-one relationship
 });
 
-schema.methods.getPath = function getPath(doc) {
+schema.virtual('additionalFiles', {
+    ref: 'File',
+    localField: 'additionalFilesUploadID',
+    foreignField: 'uploadID',
+    justOne: false, // set true for one-to-one relationship
+});
 
-    //root + group + project
-
+schema.methods.getRelativePath = function () {
+    const doc = this;
     return doc.populate({
         path: 'group',
-    }).exec()
+    })
+        .execPopulate()
         .then(populatedDoc => {
-            return populatedDoc.group.safeName + populatedDoc.safeName
+            return path.join(populatedDoc.group.safeName, populatedDoc.safeName)
         })
-        .catch(err => {
-            console.error(err);
-        })
+}
 
+schema.methods.getAbsPath = function getPath() {
+    const doc = this;
+
+    return doc.getRelativePath()
+        .then(relPath => {
+            return path.join(process.env.DATASTORE_ROOT, relPath);
+        })
 };
 
 schema.statics.iCanSee = function iCanSee(user) {

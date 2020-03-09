@@ -1,19 +1,21 @@
-const express =require( "express")
+const express = require("express")
 let router = express.Router();
-const Run, { iCanSee, findById } =require( '../models/Run')
-const { isAuthenticated } =require( './middleware')
+const Run = require('../models/Run')
+const { isAuthenticated } = require('./middleware')
+const FileGroup = require('../models/FileGroup')
 
 router.route('/runs')
     .all(isAuthenticated)
     .get((req, res) => {
         //TODO must be in same group as user
         iCanSee(req.user)
+            .populate('group')
             .sort('-createdAt')
             .then(runs => {
-                res.status(200).send({runs})
+                res.status(200).send({ runs })
             })
             .catch(err => {
-                res.status(500).send({error: err})
+                res.status(500).send({ error: err })
             });
 
     });
@@ -22,55 +24,105 @@ router.route('/run')
     .all(isAuthenticated)
     .get((req, res) => {
         if (req.query.id) {
-
-            findById(req.query.id)
+            Run.findById(req.query.id)
                 .populate('group')
+                .populate('sample')
+                .populate({ path: 'additionalFiles' })
+                .populate({ path: 'rawFiles' })
                 .then(run => {
                     //TODO check they have permissions
 
                     console.log('run', run);
 
                     if (run) {
-                        res.status(200).send({run});
+                        res.status(200).send({ run });
                     } else {
-                        res.status(501).send({error: 'not found'});
+                        res.status(501).send({ error: 'not found' });
                     }
                 })
                 .catch(err => {
-                    res.status(500).send({error: err});
+                    res.status(500).send({ error: err });
                 })
 
         } else {
-            res.status(500).send({error: new Error('param :id not provided')})
+            res.status(500).send({ error: new Error('param :id not provided') })
         }
     });
 
 router.route('/runs/new')
     .all(isAuthenticated)
     .post((req, res) => {
-//TODO check permission
-        new Run({
+        //TODO check permission
+
+        let additionalFileGroup;
+        let rawFileGroup;
+        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
+        //     .then(foundFileGroup => {
+        //         additionalFileGroup = foundFileGroup;
+        //         return FileGroup.findOne({ uploadID: req.body.rawUploadID })
+        //     })
+        //     .then(foundFileGroup => {
+        //         rawFileGroup = foundFileGroup;
+        //         return Promise.resolve();
+        //     })
+        //     .then(() => {
+        //         console.log('additional', additionalFileGroup)
+        //         console.log('raw', rawFileGroup)
+
+        console.log('body', req.body)
+        const newRun = new Run({
             sample: req.body.sample,
+            name: req.body.name,
             sequencingProvider: req.body.sequencingProvider,
             sequencingTechnology: req.body.sequencingTechnology,
             librarySource: req.body.librarySource,
             libraryType: req.body.libraryType,
             librarySelection: req.body.librarySelection,
+            libraryStrategy: req.body.libraryStrategy,
             insertSize: req.body.insertSize,
-            submitToGalaxy: req.body.submitToGalaxy,
+            // submitToGalaxy: req.body.submitToGalaxy,
+
+            additionalFilesUploadID: req.body.additionalUploadID,
+            rawFilesUploadID: req.body.rawUploadID,
 
             owner: req.body.owner,
             group: req.body.group,
         })
-            .save()
+
+        // if (additionalFileGroup) {
+        //     newRun.additionalFiles = additionalFileGroup._id;
+        // }
+        // if (rawFileGroup) {
+        //     newRun.rawFiles = rawFileGroup._id;
+        // }
+
+        newRun.save()
             .then(savedRun => {
-                res.status(200).send({run: savedRun})
+                res.status(200).send({ run: savedRun })
             })
             .catch(err => {
                 console.error(err);
-                res.status(500).send({error: err})
+                res.status(500).send({ error: err })
             })
+        // })
+
+
+
+
+
+
+        // sample: res.data.sample._id,
+        //               libraryType: null,
+        //               sequencingProvider: null,
+        //               sequencingTechnology: null,
+        //               librarySource: null,
+        //               librarySelection: null,
+        //               libraryStrategy: null,
+        //               insertSize: null,
+        //               additionalUploadID: uuidv4(),
+        //               rawUploadID: uuidv4()
+
 
     });
 
-    module.exports =  router;
+module.exports = router;

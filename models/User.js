@@ -8,7 +8,7 @@ const schema = new mongoose.Schema({
   lastLogin: { type: 'Date', default: Date.now },
   isAdmin: { type: Boolean, default: false },
   groups: { type: [String], default: [] }
-}, { timestamps: true });
+}, { timestamps: true,toJSON: { virtuals: true }});
 
 schema.statics.login = function login(id) {
   return this.findByIdAndUpdate(id, { $set: { 'lastLogin': Date.now() } });

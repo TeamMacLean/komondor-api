@@ -8,6 +8,7 @@ router.route('/samples')
     .get((req, res) => {
         //TODO must be in same group as user
         Sample.iCanSee(req.user)
+            .populate('group')
             .sort('-createdAt')
             .then(samples => {
                 res.status(200).send({ samples })
@@ -25,6 +26,9 @@ router.route('/sample')
 
             Sample.findById(req.query.id)
                 .populate('group')
+                .populate('project')
+                .populate({ path: 'runs', populate: { path: 'group' } })
+                .populate({ path: 'additionalFiles' })
                 .then(sample => {
                     //TODO check they have permissions
 
@@ -49,25 +53,40 @@ router.route('/samples/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
-        new Sample({
-            project: req.body.project,
-            scientificName: req.body.scientificName,
-            commonName: req.body.commonName,
-            ncbi: req.body.ncbi,
-            conditions: req.body.conditions,
-            owner: req.body.owner,
-            group: req.body.group,
-            // tags: req.body.tags || []
-        })
-            .save()
-            .then(savedSample => {
-                res.status(200).send({ sample: savedSample })
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send({ error: err })
-            })
 
+        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
+        //     .then(foundFileGroup => {
+
+                const newSample = new Sample({
+                    name: req.body.name,
+                    project: req.body.project,
+                    scientificName: req.body.scientificName,
+                    commonName: req.body.commonName,
+                    ncbi: req.body.ncbi,
+                    conditions: req.body.conditions,
+                    owner: req.body.owner,
+                    group: req.body.group,
+                    additionalFilesUploadID: req.body.additionalUploadID
+                    // tags: req.body.tags || []
+                })
+
+
+                // if (foundFileGroup) {
+                //     newSample.additionalFiles = foundFileGroup._id;
+                // }
+                newSample.save()
+                    .then(savedSample => {
+                        res.status(200).send({ sample: savedSample })
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        res.status(500).send({ error: err })
+                    })
+
+            // })
+            // .catch(err => {
+            //     res.status(500).send({ error: err })
+            // })
     });
 
-    module.exports =  router;
+module.exports = router;

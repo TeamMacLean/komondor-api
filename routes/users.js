@@ -66,7 +66,6 @@ router.route('/user')
 
 
         } else {
-            console.log('has not');
             res.status(500).send({error: new Error('user "id" or "username" param required')})
         }
 
