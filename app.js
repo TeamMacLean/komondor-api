@@ -16,20 +16,7 @@ const optionRoutes = require('./routes/options')
 const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
-const corsOptions = {
-    "origin": "http://api.datahogbeta.tsl.ac.uk",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": true,
-    "optionsSuccessStatus": 200
-}
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions))
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors());
 
 app.use(function (req, res, next) {
     console.log('DEBUG:', req.method, req.originalUrl);
