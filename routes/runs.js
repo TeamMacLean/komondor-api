@@ -2,7 +2,6 @@ const express = require("express")
 let router = express.Router();
 const Run = require('../models/Run')
 const { isAuthenticated } = require('./middleware')
-const FileGroup = require('../models/FileGroup')
 
 router.route('/runs')
     .all(isAuthenticated)
@@ -56,18 +55,7 @@ router.route('/runs/new')
 
         let additionalFileGroup;
         let rawFileGroup;
-        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
-        //     .then(foundFileGroup => {
-        //         additionalFileGroup = foundFileGroup;
-        //         return FileGroup.findOne({ uploadID: req.body.rawUploadID })
-        //     })
-        //     .then(foundFileGroup => {
-        //         rawFileGroup = foundFileGroup;
-        //         return Promise.resolve();
-        //     })
-        //     .then(() => {
-        //         console.log('additional', additionalFileGroup)
-        //         console.log('raw', rawFileGroup)
+
 
         console.log('body', req.body)
         const newRun = new Run({
