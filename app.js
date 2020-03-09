@@ -16,8 +16,14 @@ const optionRoutes = require('./routes/options')
 const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
-app.use(cors());
-app.options('*', cors())
+const corsOptions = {
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": true,
+    "optionsSuccessStatus": 204
+}
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
