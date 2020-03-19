@@ -4,10 +4,7 @@ const js2xmlparser = require("js2xmlparser");
 
 const generateSafeName = require('../lib/utils/generateSafeName')
 const NewsItem = require("./NewsItem")
-// const FileGroup = require('./FileGroup')
-
 const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
-
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -38,11 +35,7 @@ schema.pre('validate', function () {
 
 schema.pre('save', function (next) {
   this.wasNew = this.isNew;
-
-
   const doc = this;
-
-
   moveAdditionalFilesToFolder(doc)
     .then(() => {
       next();
@@ -51,6 +44,7 @@ schema.pre('save', function (next) {
       next(err);
     })
 });
+
 schema.post('save', function (doc) {
   if (this.wasNew) {
     //create news item

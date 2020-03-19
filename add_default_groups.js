@@ -176,7 +176,7 @@ Promise.all([
     ntalbot()
 ])
     .then(() => {
-        console.log('done');
+         
         clearInterval(timeout);
     })
     .catch(err => {

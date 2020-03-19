@@ -77,12 +77,12 @@ router.post("/login", (req, res, next) => {
           });
         })
         .catch(err => {
-          console.log(err);
+           
           res.status(401).json({ message: "Bad credentials" });
         });
     }
   } else {
-    console.log("Bad credentials");
+     
     res.status(401).json({ message: "Bad credentials" });
   }
 });

@@ -32,7 +32,7 @@ router.route('/sample')
                 .then(sample => {
                     //TODO check they have permissions
 
-                    console.log('sample', sample);
+                     
 
                     if (sample) {
                         res.status(200).send({ sample });

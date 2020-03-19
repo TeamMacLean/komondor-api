@@ -9,8 +9,10 @@ const schema = new mongoose.Schema({
     originalName: { type: String, required: true },
     description: { type: String },
     path: { type: String, required: true },
-    rowID: { type: String },
-    uploadID: {type: String, required: true},
+    // rowID: { type: String },
+    // uploadID: { type: String, required: true },
+    // MD5: { type: String },
+    // UUID: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 

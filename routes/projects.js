@@ -50,6 +50,37 @@ router.route('/project')
         }
     });
 
+// router.route('/project/ena/submit')
+//     .all(isAuthenticated)
+//     .post((req, res) => {
+//         if (req.body.id) {
+
+//             Project.findById(req.body.id)
+//                 .populate('group')
+//                 .populate('submission')
+//                 .then(project => {
+
+//                     project.toXML()
+//                         .then(xml => {
+//                             res.status(200).send({})
+//                         })
+//                         .catch(err => {
+//                             console.error(err);
+//                             res.status(500).send({ error: err });
+//                         })
+
+
+//                 })
+//                 .catch(err => {
+//                     console.error(err);
+//                     res.status(500).send({ error: err });
+//                 })
+
+//         } else {
+//             res.status(500).send({ error: new Error('param :id not provided') })
+//         }
+//     })
+
 router.route('/projects/new')
     .all(isAuthenticated)
     .post((req, res) => {
@@ -64,7 +95,9 @@ router.route('/projects/new')
             shortDesc: req.body.shortDesc,
             longDesc: req.body.longDesc,
             owner: req.body.owner,
-            additionalFilesUploadID: req.body.additionalUploadID
+            additionalFilesUploadID: req.body.additionalUploadID,
+            doNotSendToEna: req.body.doNotSendToEna,
+            doNotSendToEnaReason: req.body.doNotSendToEnaReason,
         });
 
         // if (foundFileGroup) {

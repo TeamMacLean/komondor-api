@@ -31,7 +31,7 @@ router.route('/run')
                 .then(run => {
                     //TODO check they have permissions
 
-                    console.log('run', run);
+                     
 
                     if (run) {
                         res.status(200).send({ run });
@@ -56,6 +56,9 @@ router.route('/runs/new')
         let additionalFileGroup;
         let rawFileGroup;
 
+        const MD5s = req.body.MD5s;
+
+        //TODO: update files with MD5s
 
         console.log('body', req.body)
         const newRun = new Run({
@@ -68,7 +71,6 @@ router.route('/runs/new')
             librarySelection: req.body.librarySelection,
             libraryStrategy: req.body.libraryStrategy,
             insertSize: req.body.insertSize,
-            // submitToGalaxy: req.body.submitToGalaxy,
 
             additionalFilesUploadID: req.body.additionalUploadID,
             rawFilesUploadID: req.body.rawUploadID,
@@ -76,13 +78,6 @@ router.route('/runs/new')
             owner: req.body.owner,
             group: req.body.group,
         })
-
-        // if (additionalFileGroup) {
-        //     newRun.additionalFiles = additionalFileGroup._id;
-        // }
-        // if (rawFileGroup) {
-        //     newRun.rawFiles = rawFileGroup._id;
-        // }
 
         newRun.save()
             .then(savedRun => {

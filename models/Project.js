@@ -2,8 +2,9 @@ const mongoose = require('mongoose')
 const path = require('path')
 const generateSafeName = require('../lib/utils/generateSafeName')
 const NewsItem = require('./NewsItem')
-// const FileGroup = require('./FileGroup')
 const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
+
+const ENAParse = require('../../ena-js/lib/parse');
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -14,6 +15,9 @@ const schema = new mongoose.Schema({
     group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
     isPublic: { type: Boolean, default: false },
     additionalFilesUploadID: { type: String },
+
+    doNotSendToEna: { type: Boolean, default: false },
+    doNotSendToEnaReason: { type: String }
     // additionalFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
@@ -48,7 +52,7 @@ schema.post('save', function (doc) {
     if (this.wasNew) {
 
         function createNewsItem() {
-            console.log('making news item');
+             
             return new NewsItem({
                 type: 'project',
                 typeId: doc._id,
@@ -109,6 +113,22 @@ schema.methods.getAbsPath = function getPath() {
             return path.join(process.env.DATASTORE_ROOT, relPath);
         })
 };
+
+schema.methods.toXML = function toXML() {
+    const doc = this;
+    return new Promise((resolve, reject) => {
+
+        //TODO ALIAS NEEDS TO BE UINIQUE!!!!
+        // const xml = ENAParse.study({
+        //     title: doc.name, alias: doc._id, abstract: doc.shortDesc, center: 'TODO! TSL', studyType: ENAParse.StudyTypes.wholeGenomeSequencing
+        // })
+        const xml = ENAParse.study({
+            title: 'doc.name', alias: 'doc._id', abstract: 'doc.shortDesc', center: 'TODO! TSL', studyType: 'ENAParse.StudyTypes.wholeGenomeSequencing'
+        })
+
+        resolve(xml);
+    })
+}
 
 schema.statics.iCanSee = function iCanSee(user) {
     if (user.username === 'admin') {

@@ -9,14 +9,14 @@ const LibraryStrategy = require('./models/options/LibraryStrategy')
 // libraryType
 function libraryType() {
     const lt = [
-        { value: "CRAM", paired: false },
-        { value: "BAM", paired: false },
-        { value: "SFF", paired: false },
-        { value: "FASTQ - Single", paired: false },
-        { value: "FASTQ - Paired", paired: true },
-        { value: "Complete Genomics", paired: false },
-        { value: "PacBio HDF5", paired: false },
-        { value: "Oxford Nanopore", paired: false }
+        { value: "CRAM", paired: false, extensions:['.cram'] },
+        { value: "BAM", paired: false, extensions:['.bam'] },
+        { value: "SFF", paired: false, extensions:['.sff'] },
+        { value: "FASTQ - Single", paired: false, extensions:['.fastq.gz', '.fq.gz'] },
+        { value: "FASTQ - Paired", paired: true, extensions:['.fastq.gz', '.fq.gz'] },
+        // { value: "Complete Genomics", paired: false },
+        { value: "PacBio HDF5", paired: false, extensions:['.bax.h5', '.bas.h5', '.xml'] },
+        { value: "Oxford Nanopore", paired: false, extensions:['.fast5.gz', '.fastq.gz', '.zip', '.tar.gz', '.tar', '.gz'] }
     ]
     return Promise.all(
         lt.map(o => {
