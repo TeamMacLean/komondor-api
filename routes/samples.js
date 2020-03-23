@@ -32,7 +32,7 @@ router.route('/sample')
                 .then(sample => {
                     //TODO check they have permissions
 
-                     
+
 
                     if (sample) {
                         res.status(200).send({ sample });
@@ -57,36 +57,59 @@ router.route('/samples/new')
         // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
         //     .then(foundFileGroup => {
 
-                const newSample = new Sample({
-                    name: req.body.name,
-                    project: req.body.project,
-                    scientificName: req.body.scientificName,
-                    commonName: req.body.commonName,
-                    ncbi: req.body.ncbi,
-                    conditions: req.body.conditions,
-                    owner: req.body.owner,
-                    group: req.body.group,
-                    additionalFilesUploadID: req.body.additionalUploadID
-                    // tags: req.body.tags || []
+        const newSample = new Sample({
+            name: req.body.name,
+            project: req.body.project,
+            scientificName: req.body.scientificName,
+            commonName: req.body.commonName,
+            ncbi: req.body.ncbi,
+            conditions: req.body.conditions,
+            owner: req.body.owner,
+            group: req.body.group,
+            additionalFilesUploadID: req.body.additionalUploadID
+            // tags: req.body.tags || []
+        })
+
+
+        // if (foundFileGroup) {
+        //     newSample.additionalFiles = foundFileGroup._id;
+        // }
+        newSample.save()
+            .then(savedSample => {
+                const additionalFiles = req.body.additionalFiles;
+                const filePromises = additionalFiles.map(file => {
+                    return File.findOne({
+                        name: file.uploadName
+                    })
+                        .then(foundFile => {
+                            if (foundFile) {
+                                return new additionalFile({
+                                    sample: savedSample._id,
+                                    file: foundFile._id
+                                })
+                                    .save()
+                            } else {
+                                Promise.resolve()//TODO:bad
+                            }
+                        })
                 })
 
 
-                // if (foundFileGroup) {
-                //     newSample.additionalFiles = foundFileGroup._id;
-                // }
-                newSample.save()
-                    .then(savedSample => {
-                        res.status(200).send({ sample: savedSample })
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        res.status(500).send({ error: err })
-                    })
+                return Promise.all([filePromises])
 
-            // })
-            // .catch(err => {
-            //     res.status(500).send({ error: err })
-            // })
+            })
+            .then(() => {
+                res.status(200).send({ sample: newSample })
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).send({ error: err })
+            })
+
+        // })
+        // .catch(err => {
+        //     res.status(500).send({ error: err })
+        // })
     });
 
 module.exports = router;

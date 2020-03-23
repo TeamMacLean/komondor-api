@@ -34,7 +34,6 @@ router.route('/project')
                 .then(project => {
                     //TODO check they have permissions
                     if (project) {
-
                         res.status(200).send({ project });
                     } else {
                         res.status(501).send({ error: 'not found' });
@@ -106,7 +105,32 @@ router.route('/projects/new')
 
         newProject.save()
             .then(savedProject => {
-                res.status(200).send({ project: savedProject })
+
+                const additionalFiles = req.body.additionalFiles;
+                const filePromises = additionalFiles.map(file => {
+                    return File.findOne({
+                        name: file.uploadName
+                    })
+                        .then(foundFile => {
+                            if (foundFile) {
+                                return new additionalFile({
+                                    project: savedProject._id,
+                                    file: foundFile._id
+                                })
+                                    .save()
+                            } else {
+                                Promise.resolve()//TODO:bad
+                            }
+                        })
+                })
+
+
+                return Promise.all([filePromises])
+
+            })
+            .then(() => {
+                res.status(200).send({ project: newProject })
+
             })
             .catch(err => {
                 console.error(err);

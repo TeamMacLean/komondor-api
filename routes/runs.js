@@ -54,14 +54,6 @@ router.route('/runs/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
-        console.log('body', req.body)
-
-
-        let additionalFileGroup;
-        let rawFileGroup;
-
-        // const MD5s = req.body.MD5s;
-
 
         const newRun = new Run({
             sample: req.body.sample,
@@ -87,20 +79,25 @@ router.route('/runs/new')
                 const additionalFiles = req.body.additionalFiles;
                 const rawFiles = req.body.rawFiles;
 
-                const rawFilePromises = additionalFiles.map(file => {
+                const filePromises = additionalFiles.map(file => {
                     return File.findOne({
                         name: file.uploadName
                     })
-                    .then(found=>{
-                        if(found){
+                        .then(foundFile => {
+                            if (foundFile) {
 
-                        } else {
-                            Promise.resolve()//TODO:bad
-                        }
-                    })
+                                return new additionalFile({
+                                    run: savedRun._id,
+                                    file: foundFile._id
+                                })
+                                    .save()
+                            } else {
+                                Promise.resolve()//TODO:bad
+                            }
+                        })
                 })
 
-                const filePromises = rawFiles.map(file => {
+                const rawFilePromises = rawFiles.map(file => {
                     return File.findOne({
                         name: file.uploadName
                     })
@@ -113,6 +110,7 @@ router.route('/runs/new')
                                     MD5: file.md5,
                                     file: found._id
                                 })
+                                    .save()
                             } else {
                                 return Promise.resolve()//TODO:bad
                             }
@@ -120,13 +118,11 @@ router.route('/runs/new')
 
                 })
 
+                return Promise.all(rawFilePromises.concat(filePromises))
 
-
-                return Promise.all(filePromises)
-                    .then(() => {
-                        res.status(200).send({ run: savedRun })
-                    })
-
+            })
+            .then(() => {
+                res.status(200).send({ run: newRun })
             })
             .catch(err => {
                 console.error(err);
