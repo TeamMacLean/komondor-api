@@ -1,6 +1,8 @@
 const express = require("express")
 let router = express.Router();
 const Run = require('../models/Run')
+const Read = require('../models/Read');
+const File = require('../models/File');
 const { isAuthenticated } = require('./middleware')
 
 router.route('/runs')
@@ -31,7 +33,7 @@ router.route('/run')
                 .then(run => {
                     //TODO check they have permissions
 
-                     
+
 
                     if (run) {
                         res.status(200).send({ run });
@@ -52,15 +54,15 @@ router.route('/runs/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
+        console.log('body', req.body)
+
 
         let additionalFileGroup;
         let rawFileGroup;
 
-        const MD5s = req.body.MD5s;
+        // const MD5s = req.body.MD5s;
 
-        //TODO: update files with MD5s
 
-        console.log('body', req.body)
         const newRun = new Run({
             sample: req.body.sample,
             name: req.body.name,
@@ -72,8 +74,8 @@ router.route('/runs/new')
             libraryStrategy: req.body.libraryStrategy,
             insertSize: req.body.insertSize,
 
-            additionalFilesUploadID: req.body.additionalUploadID,
-            rawFilesUploadID: req.body.rawUploadID,
+            // additionalFilesUploadID: req.body.additionalUploadID,
+            // rawFilesUploadID: req.body.rawUploadID,
 
             owner: req.body.owner,
             group: req.body.group,
@@ -81,7 +83,50 @@ router.route('/runs/new')
 
         newRun.save()
             .then(savedRun => {
-                res.status(200).send({ run: savedRun })
+
+                const additionalFiles = req.body.additionalFiles;
+                const rawFiles = req.body.rawFiles;
+
+                const rawFilePromises = additionalFiles.map(file => {
+                    return File.findOne({
+                        name: file.uploadName
+                    })
+                    .then(found=>{
+                        if(found){
+
+                        } else {
+                            Promise.resolve()//TODO:bad
+                        }
+                    })
+                })
+
+                const filePromises = rawFiles.map(file => {
+                    return File.findOne({
+                        name: file.uploadName
+                    })
+                        .then(found => {
+                            if (found) {
+                                return new Read({
+                                    run: savedRun._id,
+                                    paired: file.paired,
+                                    // sibling: 'TODO', 
+                                    MD5: file.md5,
+                                    file: found._id
+                                })
+                            } else {
+                                return Promise.resolve()//TODO:bad
+                            }
+                        })
+
+                })
+
+
+
+                return Promise.all(filePromises)
+                    .then(() => {
+                        res.status(200).send({ run: savedRun })
+                    })
+
             })
             .catch(err => {
                 console.error(err);

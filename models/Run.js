@@ -3,7 +3,6 @@ const generateSafeName = require('../lib/utils/generateSafeName')
 const NewsItem = require("./NewsItem")
 const path = require('path')
 const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
-const moveRawFilesToFolder = require('../lib/utils/moveRawFilesToFolder');
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -17,12 +16,7 @@ const schema = new mongoose.Schema({
     librarySelection: { type: String, required: true },
     insertSize: { type: String, required: true },
     libraryStrategy: { type: String, required: true },
-
     additionalFilesUploadID: { type: String },
-    rawFilesUploadID: { type: String },
-    // additionalFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: false },
-    // rawFiles: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: true },
-
     owner: { type: String, required: true },
     group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
 
@@ -45,10 +39,7 @@ schema.pre('save', function (next) {
     this.wasNew = this.isNew;
     const doc = this;
 
-    Promise.all([
-        moveRawFilesToFolder(doc),
-        moveAdditionalFilesToFolder(doc)
-    ])
+    moveAdditionalFilesToFolder(doc)
         .then(() => {
             next();
         })
@@ -89,9 +80,9 @@ schema.virtual('additionalFiles', {
     justOne: false, // set true for one-to-one relationship
 });
 schema.virtual('rawFiles', {
-    ref: 'File',
-    localField: 'rawFilesUploadID',
-    foreignField: 'uploadID',
+    ref: 'Read',
+    localField: 'id',
+    foreignField: 'run',
     justOne: false, // set true for one-to-one relationship
 });
 
