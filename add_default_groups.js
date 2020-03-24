@@ -176,12 +176,13 @@ Promise.all([
     ntalbot()
 ])
     .then(() => {
-         
         clearInterval(timeout);
+        process.exit(0)
     })
     .catch(err => {
         console.error(err)
         clearInterval(timeout);
+        process.exit(0)
     })
 
 

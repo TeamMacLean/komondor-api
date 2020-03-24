@@ -19,7 +19,6 @@ const app = express();
 app.use(cors());
 
 app.use(function (req, res, next) {
-     
     next();
 })
 

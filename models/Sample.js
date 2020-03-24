@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 const path = require('path')
-const js2xmlparser = require("js2xmlparser");
-
 const generateSafeName = require('../lib/utils/generateSafeName')
-const NewsItem = require("./NewsItem")
-const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -24,7 +20,6 @@ const schema = new mongoose.Schema({
 schema.pre('validate', function () {
   return Sample.find({})
     .then(allOthers => {
-      console.log('this', this)
       return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
     })
     .then(safeName => {
@@ -35,19 +30,13 @@ schema.pre('validate', function () {
 
 schema.pre('save', function (next) {
   this.wasNew = this.isNew;
-  const doc = this;
-  moveAdditionalFilesToFolder(doc)
-    .then(() => {
-      next();
-    })
-    .catch(err => {
-      next(err);
-    })
+  next()
 });
 
 schema.post('save', function (doc) {
   if (this.wasNew) {
     //create news item
+    const NewsItem = require("./NewsItem")
     return new NewsItem({
       type: 'sample',
       typeId: doc._id,
@@ -77,9 +66,9 @@ schema.virtual('runs', {
 });
 
 schema.virtual('additionalFiles', {
-  ref: 'File',
-  localField: 'additionalFilesUploadID',
-  foreignField: 'uploadID',
+  ref: 'AdditionalFile',
+  localField: '_id',
+  foreignField: 'sample',
   justOne: false, // set true for one-to-one relationship
 });
 

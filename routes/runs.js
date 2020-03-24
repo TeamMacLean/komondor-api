@@ -3,6 +3,7 @@ let router = express.Router();
 const Run = require('../models/Run')
 const Read = require('../models/Read');
 const File = require('../models/File');
+const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
 
 router.route('/runs')
@@ -28,8 +29,8 @@ router.route('/run')
             Run.findById(req.query.id)
                 .populate('group')
                 .populate('sample')
-                .populate({ path: 'additionalFiles' })
-                .populate({ path: 'rawFiles' })
+                .populate({ path: 'additionalFiles', populate: { path: 'file' } })
+                .populate({ path: 'rawFiles', populate: { path: 'file' } })
                 .then(run => {
                     //TODO check they have permissions
 
@@ -72,10 +73,10 @@ router.route('/runs/new')
             owner: req.body.owner,
             group: req.body.group,
         })
-
+        let returnedRun;
         newRun.save()
             .then(savedRun => {
-
+                returnedRun = savedRun;
                 const additionalFiles = req.body.additionalFiles;
                 const rawFiles = req.body.rawFiles;
 
@@ -85,8 +86,7 @@ router.route('/runs/new')
                     })
                         .then(foundFile => {
                             if (foundFile) {
-
-                                return new additionalFile({
+                                return new AdditionalFile({
                                     run: savedRun._id,
                                     file: foundFile._id
                                 })
@@ -122,7 +122,7 @@ router.route('/runs/new')
 
             })
             .then(() => {
-                res.status(200).send({ run: newRun })
+                res.status(200).send({ run: returnedRun })
             })
             .catch(err => {
                 console.error(err);

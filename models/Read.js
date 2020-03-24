@@ -1,8 +1,5 @@
 const mongoose = require('mongoose')
-const moveRawFilesToFolder = require('../lib/utils/moveRawFilesToFolder');
 
-// const fs = require('fs')
-// const path = require('path')
 
 const schema = new mongoose.Schema({
     file: { type: mongoose.Schema.Types.ObjectId, ref: 'File', required: true },
@@ -12,30 +9,34 @@ const schema = new mongoose.Schema({
     MD5: { type: String },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
-
-// schema.methods.moveToFolderAndSave = function (relNewPath) {
-//     const file = this;
-//     const fullNewPath = path.join(process.env.DATASTORE_ROOT, relNewPath);
-
-//     return fs.promises.rename(file.path, fullNewPath)
-//         .then(() => {
-//             file.path = relNewPath;
-//             return file.save()
-//         })
-// }
-
-
 schema.pre('save', function (next) {
-    this.wasNew = this.isNew;
-    const doc = this;
+    const Run = require('./Run');
+    const read = this;
+    const path = require('path');
+    const fs = require('fs');
 
-    moveRawFilesToFolder(doc)
-        .then(() => {
-            next();
+    function makeFolder(dirpath) {
+        return fs.promises.mkdir(dirpath, { recursive: true })
+    }
+
+    return Promise.all([Run.findById(this.run), read.populate('file').execPopulate()])
+        .then(out => {
+            const run = out[0];
+            const reeeeed = out[1];
+            return run.getRelativePath()
+                .then(relPath => {
+                    relPath = path.join(relPath, 'raw')
+                    const absPath = path.join(process.env.DATASTORE_ROOT, relPath);
+                    return makeFolder(absPath)
+                        .then(() => {
+                            const relPathWithFilename = path.join(relPath, reeeeed.file.originalName)
+                            return reeeeed.file.moveToFolderAndSave(relPathWithFilename)
+                        })
+
+                })
         })
-        .catch(err => {
-            next(err);
-        })
+        .then(next)
+        .catch(next)
 
 });
 

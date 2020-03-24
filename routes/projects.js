@@ -1,6 +1,8 @@
 const express = require("express")
 let router = express.Router();
 const Project = require('../models/Project')
+const File = require('../models/File');
+const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
 // const FileGroup = require('../models/FileGroup')
 
@@ -30,7 +32,7 @@ router.route('/project')
             Project.findById(req.query.id)
                 .populate('group')
                 .populate({ path: 'samples', populate: { path: 'group' } })
-                .populate({ path: 'additionalFiles' })
+                .populate({ path: 'additionalFiles', populate: { path: 'file' } })
                 .then(project => {
                     //TODO check they have permissions
                     if (project) {
@@ -49,44 +51,12 @@ router.route('/project')
         }
     });
 
-// router.route('/project/ena/submit')
-//     .all(isAuthenticated)
-//     .post((req, res) => {
-//         if (req.body.id) {
-
-//             Project.findById(req.body.id)
-//                 .populate('group')
-//                 .populate('submission')
-//                 .then(project => {
-
-//                     project.toXML()
-//                         .then(xml => {
-//                             res.status(200).send({})
-//                         })
-//                         .catch(err => {
-//                             console.error(err);
-//                             res.status(500).send({ error: err });
-//                         })
-
-
-//                 })
-//                 .catch(err => {
-//                     console.error(err);
-//                     res.status(500).send({ error: err });
-//                 })
-
-//         } else {
-//             res.status(500).send({ error: new Error('param :id not provided') })
-//         }
-//     })
 
 router.route('/projects/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
 
-        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
-        // .then(foundFileGroup => {
 
         const newProject = new Project({
             name: req.body.name,
@@ -99,13 +69,11 @@ router.route('/projects/new')
             doNotSendToEnaReason: req.body.doNotSendToEnaReason,
         });
 
-        // if (foundFileGroup) {
-        //     newProject.additionalFiles = foundFileGroup._id;
-        // }
+        let returnedProject;
 
         newProject.save()
             .then(savedProject => {
-
+                returnedProject = savedProject;
                 const additionalFiles = req.body.additionalFiles;
                 const filePromises = additionalFiles.map(file => {
                     return File.findOne({
@@ -113,7 +81,7 @@ router.route('/projects/new')
                     })
                         .then(foundFile => {
                             if (foundFile) {
-                                return new additionalFile({
+                                return new AdditionalFile({
                                     project: savedProject._id,
                                     file: foundFile._id
                                 })
@@ -129,17 +97,12 @@ router.route('/projects/new')
 
             })
             .then(() => {
-                res.status(200).send({ project: newProject })
-
+                res.status(200).send({ project: returnedProject })
             })
             .catch(err => {
-                console.error(err);
+                console.error('ERROR', err);
                 res.status(500).send({ error: err })
             })
-        // })
-        // .catch(err => {
-        //     res.status(500).send({ error: err })
-        // })
 
     });
 

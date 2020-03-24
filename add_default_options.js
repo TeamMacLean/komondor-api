@@ -27,7 +27,7 @@ function libraryType() {
                             resolve();
                         } else {
                             new LibraryType({
-                                value: o.value, paired: o.paired
+                                value: o.value, paired: o.paired, extensions:o.extensions
                             })
                                 .save()
                                 .then(resolve)
@@ -287,10 +287,13 @@ Promise.all([
     .then(() => {
         console.log('done')
         clearInterval(timeout);
+        process.exit(0)
     })
     .catch(err => {
         console.error(err);
         clearInterval(timeout);
+        process.exit(0)
+
     })
 
     

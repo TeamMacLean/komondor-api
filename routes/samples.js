@@ -1,6 +1,8 @@
 const express = require("express")
 let router = express.Router();
 const Sample = require('../models/Sample')
+const File = require('../models/File');
+const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
 
 router.route('/samples')
@@ -28,12 +30,9 @@ router.route('/sample')
                 .populate('group')
                 .populate('project')
                 .populate({ path: 'runs', populate: { path: 'group' } })
-                .populate({ path: 'additionalFiles' })
+                .populate({ path: 'additionalFiles', populate: { path: 'file' } })
                 .then(sample => {
                     //TODO check they have permissions
-
-
-
                     if (sample) {
                         res.status(200).send({ sample });
                     } else {
@@ -52,11 +51,6 @@ router.route('/sample')
 router.route('/samples/new')
     .all(isAuthenticated)
     .post((req, res) => {
-        //TODO check permission
-
-        // FileGroup.findOne({ uploadID: req.body.additionalUploadID })
-        //     .then(foundFileGroup => {
-
         const newSample = new Sample({
             name: req.body.name,
             project: req.body.project,
@@ -66,24 +60,23 @@ router.route('/samples/new')
             conditions: req.body.conditions,
             owner: req.body.owner,
             group: req.body.group,
-            additionalFilesUploadID: req.body.additionalUploadID
-            // tags: req.body.tags || []
         })
 
-
-        // if (foundFileGroup) {
-        //     newSample.additionalFiles = foundFileGroup._id;
-        // }
+        let returnedSample;
         newSample.save()
             .then(savedSample => {
+                returnedSample = savedSample;
                 const additionalFiles = req.body.additionalFiles;
+
+                console.log('body', req.body)
+
                 const filePromises = additionalFiles.map(file => {
                     return File.findOne({
                         name: file.uploadName
                     })
                         .then(foundFile => {
                             if (foundFile) {
-                                return new additionalFile({
+                                return new AdditionalFile({
                                     sample: savedSample._id,
                                     file: foundFile._id
                                 })
@@ -99,10 +92,10 @@ router.route('/samples/new')
 
             })
             .then(() => {
-                res.status(200).send({ sample: newSample })
+                res.status(200).send({ sample: returnedSample })
             })
             .catch(err => {
-                console.error(err);
+                console.error('ERROR', err);
                 res.status(500).send({ error: err })
             })
 

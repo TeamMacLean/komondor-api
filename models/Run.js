@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
-const generateSafeName = require('../lib/utils/generateSafeName')
-const NewsItem = require("./NewsItem")
 const path = require('path')
-const moveAdditionalFilesToFolder = require('../lib/utils/moveAdditionalFilesToFolder');
+const generateSafeName = require('../lib/utils/generateSafeName')
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -37,21 +35,13 @@ schema.pre('validate', function () {
 
 schema.pre('save', function (next) {
     this.wasNew = this.isNew;
-    const doc = this;
-
-    moveAdditionalFilesToFolder(doc)
-        .then(() => {
-            next();
-        })
-        .catch(err => {
-            next(err);
-        })
-
+    next()
 });
 
 schema.post('save', function (doc) {
     if (this.wasNew) {
         //create news item
+        const NewsItem = require("./NewsItem")
         return new NewsItem({
             type: 'run',
             typeId: doc._id,
@@ -74,14 +64,14 @@ schema.post('save', function (doc) {
 });
 
 schema.virtual('additionalFiles', {
-    ref: 'File',
-    localField: 'additionalFilesUploadID',
-    foreignField: 'uploadID',
+    ref: 'AdditionalFile',
+    localField: '_id',
+    foreignField: 'run',
     justOne: false, // set true for one-to-one relationship
 });
 schema.virtual('rawFiles', {
     ref: 'Read',
-    localField: 'id',
+    localField: '_id',
     foreignField: 'run',
     justOne: false, // set true for one-to-one relationship
 });

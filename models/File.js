@@ -3,17 +3,12 @@ const fs = require('fs')
 const path = require('path')
 
 const schema = new mongoose.Schema({
-    // fileGroup: { type: mongoose.Schema.Types.ObjectId, ref: 'FileGroup', required: true },
     name: { type: String, required: true },
     type: { type: String, required: true },
     uploadName: { type: String, required: true },
     originalName: { type: String, required: true },
     description: { type: String },
     path: { type: String, required: true },
-    // rowID: { type: String },
-    // uploadID: { type: String, required: true },
-    // MD5: { type: String },
-    // UUID: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 
@@ -26,11 +21,10 @@ schema.methods.moveToFolderAndSave = function (relNewPath) {
             file.path = relNewPath;
             return file.save()
         })
+        .catch(err => {
+            console.error(err);
+        })
 }
-
-// schema.methods.getPair = function(){
-//     const file = this;
-// }
 
 const File = mongoose.model('File', schema);
 
