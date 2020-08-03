@@ -3,12 +3,14 @@ let router = express.Router();
 const tus = require('tus-node-server')
 const fileUpload = require('../lib/fileUpload')
 const { isAuthenticated } = require("./middleware")
-const path = require("path")
-const UPLOAD_PATH = path.join(process.cwd(), 'uploads');
+//const path = require("path")
+//const UPLOAD_PATH = path.join(process.cwd(), 'uploads');
 
 const tusServer = new tus.Server();
 tusServer.datastore = new tus.FileStore({
-  directory: UPLOAD_PATH,
+  //directory: UPLOAD_PATH, I don't think we need this
+  // this uploads the file temporarily locally
+  // on form submission we will move this temp file to actual upload location
   path: "/uploads"
 });
 

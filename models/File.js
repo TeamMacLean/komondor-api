@@ -9,6 +9,7 @@ const schema = new mongoose.Schema({
     originalName: { type: String, required: true },
     description: { type: String },
     path: { type: String, required: true },
+    tempUploadPath: { type: String, required: true },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 
@@ -16,9 +17,13 @@ schema.methods.moveToFolderAndSave = function (relNewPath) {
     const file = this;
     const fullNewPath = path.join(process.env.DATASTORE_ROOT, relNewPath);
 
+    // console.log('HELLO! moving', file.path, 'to', fullNewPath)
+
     return fs.promises.rename(file.path, fullNewPath)
         .then(() => {
-            file.path = relNewPath;
+            // console.log('NEED to update path property for File')
+            // console.log('old path', file.path, 'new path', relNewPath)
+            file.path = fullNewPath; // martin had it as relNewPath
             return file.save()
         })
         .catch(err => {
