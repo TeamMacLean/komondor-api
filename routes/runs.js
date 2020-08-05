@@ -115,8 +115,8 @@ router.route('/runs/new')
                                 return Promise.resolve()//TODO:bad
                             }
                         })
-
-                })
+                        
+                    })
 
                 return Promise.all(rawFilePromises.concat(filePromises))
 

@@ -18,7 +18,7 @@ schema.pre('save', function (next) {
     function makeFolder(dirpath) {
         return fs.promises.mkdir(dirpath, { recursive: true })
     }
-
+    
     return Promise.all([Run.findById(this.run), read.populate('file').execPopulate()])
         .then(out => {
             const run = out[0];
@@ -32,10 +32,11 @@ schema.pre('save', function (next) {
                             const relPathWithFilename = path.join(relPath, reeeeed.file.originalName)
                             return reeeeed.file.moveToFolderAndSave(relPathWithFilename)
                         })
-
                 })
         })
-        .then(next)
+        .then((res) => {
+            next()
+        })
         .catch(next)
 
 });
