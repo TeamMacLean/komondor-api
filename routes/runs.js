@@ -56,6 +56,18 @@ router.route('/runs/new')
     .post((req, res) => {
         //TODO check permission
 
+        /* example data
+        sample 5f2a8e39a8b19126e8b882de 
+        name Hoggy 
+        sequencingProvider EL 
+        sequencingTechnology 454 GS 
+        librarySource GENOMIC 
+        libraryType BAM 
+        librarySelection ChIP 
+        libraryStrategy CLONE 
+        insertSize 123
+        */
+
         const newRun = new Run({
             sample: req.body.sample,
             name: req.body.name,
