@@ -170,17 +170,17 @@ router
             value: req.body.value
         })
             .save()
-            .then(savedDoc => {
+            .then(savedDoc => {                
                 res.status(200).send({ doc: savedDoc });
             })
             .catch(err => {
                 res.status(500).send({ error: err })
             })
     })
-    .delete((req, res) => {
+    .delete((req, res) => {        
         SequencingTechnology.deleteOne({ _id: req.body.id })
             .then(() => {
-                es.status(200).send({})
+                res.status(200).send({})
             })
             .catch(err => {
                 res.status(500).send({ error: err })
