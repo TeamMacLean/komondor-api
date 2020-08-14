@@ -20,8 +20,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
 
     try {
         await fs.promises.rename(file.path, fullNewPath);
-        // console.log('NEED to update path property for File')
-        // console.log('old path', file.path, 'new path', relNewPath)
+        // do we need to update path property for File?
         file.path = fullNewPath; // martin had it as relNewPath
         return file.save();
     }

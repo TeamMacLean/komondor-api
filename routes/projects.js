@@ -78,63 +78,20 @@ router.route('/projects/new')
                 returnedProject = savedProject;
                 const additionalFiles = req.body.additionalFiles;
                 const filePromises = additionalFiles.map(file => {
-                    // const jon = File.findOne({name: file.uploadName})
-                    // console.log('keysy', Object.keys(file))
-                    // console.log('trying to find a file called', file.uploadName, 'so returning result of looking as: ', jon)
                     return File.findOne({
                         name: file.uploadName
                     })
                         .then(foundFile => {
                             if (foundFile) {
-                                console.log('success! found a(nother) file to save as additional file to this project')
-                                
-                                // move it
-
                                 // TODO returnedProject.group only gives us ID of group name, we need the string name itself
 
-                                // const targetDirPath = path
-                                //     .join('/', 'Users', 'deeks', 'Downloads', 'komondor-uploads', 
-                                //         'jjones', 'additional')
-                                // console.log('attempting to make: ', targetDirPath)
-
-                                // fs.promises.mkdir(targetDirPath, { recursive: true }).then(result => {
-
-                                //     console.log('success making that targetPath')
-
-                                //     const targetPath = path.join(targetDirPath, file.uploadName)
-                                //     const currentPath = path.join(process.cwd(), 'uploads', file.uploadName);
-
-                                //     console.log('attempting to move', currentPath, 'into', targetPath)
-
-
-
-                                //     fs.promises.rename(currentPath, targetPath, err => {
-                                //         if (err) {
-                                //             console.log('big problem')
-                                //             throw err;
-                                //         }
-                                //         console.log('fs rename a success!')
-
-                                //         console.log('moving onto adidtional file db creation...')
-
-                                //         // associate it
-
-                                        
-                                //     }).then(res => {
-    
-                                        return new AdditionalFile({
-                                            project: savedProject._id,
-                                            file: foundFile._id
-                                        })
-                                            .save()
-
-                                //     })
-
-                                // })
-
-
+                                return new AdditionalFile({
+                                    project: savedProject._id,
+                                    file: foundFile._id
+                                })            
+                                .save()
                             } else {
-                                console.log('BIG ERROR: did not find it')
+                                console.log('Error finding file record in db')
                                 Promise.resolve()//TODO:bad
                             }
                         })

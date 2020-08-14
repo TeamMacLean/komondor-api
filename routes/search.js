@@ -62,7 +62,7 @@ router
             ])
                 .then(outputs => {
 
-                    console.log('pi', outputs)
+                    console.log('pi', Date.now(), outputs)
 
                     const results = {
                         projects: outputs[0],

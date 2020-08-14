@@ -32,7 +32,7 @@ schema.pre('save', function (next) {
             return fs.promises.mkdir(dirpath, { recursive: true })
         }
 
-        console.log('DOC', doc)
+        //console.log('DOC', doc)
         return Promise.all([prom, doc.populate('file').execPopulate()])
             .then(out => {
                 const parent = out[0];

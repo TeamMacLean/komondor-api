@@ -15,20 +15,19 @@ tusServer.datastore = new tus.FileStore({
 });
 
 tusServer.on('*', event=>{
-  console.log('EVENT!, event')
+  // console.log('EVENT!, event')
 })
 tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
-  console.log(tus.EVENTS.EVENT_UPLOAD_COMPLETE)
+  // console.log(tus.EVENTS.EVENT_UPLOAD_COMPLETE)
   fileUpload.create(event)
 });
 
 tusServer.on(tus.EVENTS.EVENT_FILE_CREATED, event => {
-  console.log(tus.EVENTS.EVENT_FILE_CREATED)
+  // console.log(tus.EVENTS.EVENT_FILE_CREATED)
 });
 tusServer.on(tus.EVENTS.EVENT_ENDPOINT_CREATED, event => {
-  console.log(tus.EVENTS.EVENT_ENDPOINT_CREATED)
+  // console.log(tus.EVENTS.EVENT_ENDPOINT_CREATED)
 });
-
 
 // const express = require('express');
 const uploadApp = express();

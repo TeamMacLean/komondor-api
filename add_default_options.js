@@ -285,7 +285,7 @@ Promise.all([
     libraryStrategy()
 ])
     .then(() => {
-        console.log('done')
+        console.log('add defulat options done')
         clearInterval(timeout);
         process.exit(0)
     })

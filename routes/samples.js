@@ -68,8 +68,6 @@ router.route('/samples/new')
                 returnedSample = savedSample;
                 const additionalFiles = req.body.additionalFiles;
 
-                console.log('body', req.body)
-
                 const filePromises = additionalFiles.map(file => {
                     return File.findOne({
                         name: file.uploadName
