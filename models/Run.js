@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
     sequencingProvider: { type: String, required: true },
     sequencingTechnology: { type: String, required: true },
     librarySource: { type: String, required: true },
-    libraryType: { type: String, required: true },
+    libraryType: { type: String, required: true }, // TODO link to librarytype actual model
     librarySelection: { type: String, required: true },
     insertSize: { type: String, required: true },
     libraryStrategy: { type: String, required: true },
@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
 schema.pre('validate', function () {
     return Run.find({})
         .then(allOthers => {
-            console.log(this.name, allOthers)
+            // console.log(this.name, allOthers)
             return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
         })
         .then(safeName => {

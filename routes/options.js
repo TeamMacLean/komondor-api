@@ -130,7 +130,8 @@ router
     .post((req, res) => {
         new LibraryType({
             value: req.body.value,
-            paired: req.body.paired || false
+            paired: req.body.paired || false,
+            extensions: req.body.extensions || [],
         })
             .save()
             .then(savedDoc => {
