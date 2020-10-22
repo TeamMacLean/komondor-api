@@ -79,7 +79,7 @@ router.route('/projects/new')
                 const additionalFiles = req.body.additionalFiles;
                 const filePromises = additionalFiles.map(file => {
                     return File.findOne({
-                        name: file.uploadName
+                        name: file.uploadName // TODO ensure getting the MOST RECENT one, otherwise duplicate file names bug
                     })
                         .then(foundFile => {
                             if (foundFile) {
