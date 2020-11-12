@@ -25,11 +25,10 @@ schema.pre('validate', function () {
     })
 });
 
-schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {
+schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {  
   if (user.isAdmin) {
     return Group.find({})
   }
-
 
   if (user.groups) {
     return Group.find({

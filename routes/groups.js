@@ -9,7 +9,10 @@ router
   .all(isAuthenticated)
   .get((req, res) => {
 
-    Group.GroupsIAmIn(req.user)
+    // useful for testing using http live server extension on VSCode
+    const user = req.user || req.body.user;
+
+    Group.GroupsIAmIn(user)
       .then(groups => {
         res.status(200).send({ groups })
       })
@@ -56,12 +59,10 @@ router.route('/groups/edit')
 
             group.ldapGroups = req.body.ldapGroups;
             group.name = req.body.name;
-             
+
             if (req.body.sendToEna) {
               group.sendToEna = req.body.sendToEna;
             }
-
-            
 
             group.save()
               .then(savedGroup => {

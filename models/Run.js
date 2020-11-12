@@ -1,6 +1,12 @@
-import { Schema, model } from 'mongoose';
-import { join } from 'path';
-import generateSafeName from '../lib/utils/generateSafeName';
+//import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose')
+const { Schema, model } = mongoose;
+
+//import { join } from 'path';
+const { join } = require('path');
+
+//import generateSafeName from '../lib/utils/generateSafeName';
+const generateSafeName = require('../lib/utils/generateSafeName')
 
 const schema = new Schema({
     name: { type: String, required: true }, // should NOT have unique, rely on path instead
@@ -142,4 +148,4 @@ schema.statics.iCanSee = function iCanSee(user) {
 
 const Run = model('Run', schema);
 
-export default Run
+module.exports = Run

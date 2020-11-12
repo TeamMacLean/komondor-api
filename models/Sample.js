@@ -1,6 +1,12 @@
-import { Schema, model } from 'mongoose';
-import { join } from 'path';
-import generateSafeName from '../lib/utils/generateSafeName';
+//import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose')
+const { Schema, model } = mongoose;
+//import { join } from 'path';
+const { join } = require('path');
+
+//import generateSafeName from '../lib/utils/generateSafeName';
+const generateSafeName = require('../lib/utils/generateSafeName')
+
 
 const schema = new Schema({
   name: { type: String, required: true }, // should NOT have unique, rely on path instead
@@ -22,6 +28,8 @@ const schema = new Schema({
   sampleGroup: {type: String, required: false},
   // i could add oldProjectID, but I dont see the point
 
+  // not sure if 'required' cos its in validate function, TODO check
+  //originallyAdded: {type: Number} // timestamp (w. 2dp) from original datahog, OR timestamp from creation (i.e. komondor)
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
@@ -34,6 +42,9 @@ schema.pre('validate', function () {
     })
     .then(safeName => {
       this.safeName = safeName;
+      // if (!this.originallyAdded){
+      //   this.originallyAdded = Date.now();
+      // }
       return Promise.resolve()
     })
 });
@@ -53,7 +64,9 @@ schema.post('save', function (doc) {
       owner: doc.owner,
       group: doc.group,
       name: doc.name,
-      body: doc.conditions
+      body: doc.conditions,
+      //originallyAdded: doc.originallyAdded,
+
     })
       .save()
       .then(() => {
@@ -132,4 +145,4 @@ schema.methods.toENA = function toENA() {
 
 const Sample = model('Sample', schema);
 
-export default Sample
+module.exports = Sample

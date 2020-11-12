@@ -1,5 +1,9 @@
-import { Schema, model } from 'mongoose';
-import _path from 'path';
+//import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose')
+const { Schema, model } = mongoose;
+
+//import _path from 'path';
+const _path = require('path');
 
 const schema = new Schema({
     run: { type: Schema.Types.ObjectId, ref: 'Run', unique: false },
@@ -9,6 +13,8 @@ const schema = new Schema({
     MD5: {type: String, required: false},
     oldAdditionalFileId: {type: String}, // i.e. if migration boolean
     // added file unique true, and md5 field, and oldAddFileId
+    // originallyAdded: {type: Number}, // see sample
+
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 
@@ -29,6 +35,10 @@ schema.pre('save', function (next) {
         const Project = require('./Project');
         prom = Project.findById(doc.project)
     }
+
+    // if (!this.originallyAdded){
+    //     this.originallyAdded = Date.now();
+    // }
 
     // skip this if migrating (i.e,. oldAdditionalFileId is truthy)
     if (prom && !doc.oldAdditionalFileId) {
@@ -65,4 +75,4 @@ schema.pre('save', function (next) {
 
 const AdditionalFile = model('AdditionalFile', schema);
 
-export default AdditionalFile;
+module.exports = AdditionalFile;

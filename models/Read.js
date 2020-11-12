@@ -1,11 +1,13 @@
-import { Schema as _Schema, model } from 'mongoose';
+//import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose')
+const { Schema, model } = mongoose;
 
-const schema = new _Schema({
-    run: { type: _Schema.Types.ObjectId, ref: 'Run', required: true, unique: false },
-    file: { type: _Schema.Types.ObjectId, ref: 'File', required: true, unique: true },
+const schema = new Schema({
+    run: { type: Schema.Types.ObjectId, ref: 'Run', required: true, unique: false },
+    file: { type: Schema.Types.ObjectId, ref: 'File', required: true, unique: true },
     MD5: { type: String }, // TODO one day migrate to File object (along with File)
     paired: { type: Boolean }, // removed required because of migration script
-    sibling: { type: _Schema.Types.ObjectId, ref: 'Read' },
+    sibling: { type: Schema.Types.ObjectId, ref: 'Read' },
 
     oldReadId: {type: String}, // George added, basically a flag for migration
     oldSiblingID: {type: String}, //https://stackoverflow.com/questions/7955040/mongodb-mongoose-unique-if-not-null
@@ -60,4 +62,4 @@ schema.pre('save', function (next) {
 
 const Read = model('Read', schema);
 
-export default Read;
+module.exports = Read;
