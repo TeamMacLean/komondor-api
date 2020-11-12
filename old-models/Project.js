@@ -1,25 +1,16 @@
 const mongoose = require('mongoose')
 const path = require('path')
-const generateSafeName = require('../lib/utils/generateSafeName').default
+const generateSafeName = require('../lib/utils/generateSafeName')
 
 
 const schema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true }, // keep unique but update UI to reflect this // TODO
-    safeName: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    safeName: { type: String, required: true },
     owner: { type: String, required: true },
     shortDesc: { type: String, required: true },
     longDesc: { type: String, required: true },
     group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
     isPublic: { type: Boolean, default: false },
-
-    // GG new fields
-    oldId: {type: String, unique: true}, // temp?
-    oldSafeName: {type: String, unique: false, required: false}, // temp?
-    secondaryOwner: {type: String, required: false},
-    path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? 
-
-    // TODO ensure each is unique?
-    additionalFilesUploadIDs: [{ type: String }], // George has created (was missing with Martin)
 
     doNotSendToEna: { type: Boolean, default: false },
     doNotSendToEnaReason: { type: String }
@@ -56,7 +47,7 @@ schema.post('save', function (doc) {
             })
                 .save()
                 .then((savedNewsItem) => {
-                    //console.log('created news item', savedNewsItem)
+                    console.log('created news item', savedNewsItem)
                     return Promise.resolve();
                 })
                 .catch(err => {

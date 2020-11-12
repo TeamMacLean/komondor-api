@@ -1,36 +1,26 @@
-import { Schema, model } from 'mongoose';
-import { join } from 'path';
-import generateSafeName from '../lib/utils/generateSafeName';
+const mongoose = require('mongoose')
+const path = require('path')
+const generateSafeName = require('../lib/utils/generateSafeName')
 
-const schema = new Schema({
-  name: { type: String, required: true }, // should NOT have unique, rely on path instead
-  safeName: { type: String, required: true }, //should have unique
-  project: { type: Schema.Types.ObjectId, ref: 'Project', required: true },
+const schema = new mongoose.Schema({
+  name: { type: String, required: true },
+  safeName: { type: String, required: true },
+  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', required: true },
   scientificName: { type: String, required: true },
   commonName: { type: String, required: true },
   ncbi: { type: String, required: true },
   conditions: { type: String, required: true },
+  additionalFilesUploadID: { type: String },
   owner: { type: String, required: true },
-  group: { type: Schema.Types.ObjectId, ref: 'Group', required: true },
+  group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
 
-  // TODO ensure each is unique?
-  additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
-
-  // GG added
-  path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? 
-  oldSafeName: {type: String, unique: false, required: false}, // temp?
-  sampleGroup: {type: String, required: false},
-  // i could add oldProjectID, but I dont see the point
 
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
   return Sample.find({})
     .then(allOthers => {
-      // if (this.safeName){
-      //   console.log('already has a safename, so not generating one');
-      // }
-      return this.safeName || generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
+      return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
     })
     .then(safeName => {
       this.safeName = safeName;
@@ -93,7 +83,7 @@ schema.methods.getRelativePath = function () {
     })
     .execPopulate()
     .then(populatedDoc => {
-      return join(populatedDoc.group.safeName, populatedDoc.project.safeName, populatedDoc.safeName)
+      return path.join(populatedDoc.group.safeName, populatedDoc.project.safeName, populatedDoc.safeName)
     })
 }
 
@@ -102,7 +92,7 @@ schema.methods.getAbsPath = function getPath() {
 
   return doc.getRelativePath()
     .then(relPath => {
-      return join(process.env.DATASTORE_ROOT, relPath);
+      return path.join(process.env.DATASTORE_ROOT, relPath);
     })
 };
 
@@ -130,6 +120,6 @@ schema.methods.toENA = function toENA() {
 }
 
 
-const Sample = model('Sample', schema);
+const Sample = mongoose.model('Sample', schema);
 
-export default Sample
+module.exports = Sample

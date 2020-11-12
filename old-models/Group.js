@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const generateSafeName = require("../lib/utils/generateSafeName").default
+const generateSafeName = require("../lib/utils/generateSafeName")
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -10,7 +10,6 @@ const schema = new mongoose.Schema({
 }, { timestamps: true,toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
-
   return Group.find({})
     .then(allOthers => {
 
@@ -20,7 +19,6 @@ schema.pre('validate', function () {
     })
     .then(safeName => {
       this.safeName = safeName;
-      
       return Promise.resolve()
     })
 });

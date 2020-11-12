@@ -1,13 +1,11 @@
-import { Schema, model } from 'mongoose';
-import { join } from 'path';
-import generateSafeName from '../lib/utils/generateSafeName';
+const mongoose = require('mongoose')
+const path = require('path')
+const generateSafeName = require('../lib/utils/generateSafeName')
 
-const schema = new Schema({
-    name: { type: String, required: true }, // should NOT have unique, rely on path instead
-    safeName: { type: String, required: true, unique: true },
-    sample: { type: Schema.Types.ObjectId, ref: 'Sample', required: true },
-
-    forceSafeName: {type: Boolean, default: false}, // workaround for old db migration
+const schema = new mongoose.Schema({
+    name: { type: String, required: true },
+    safeName: { type: String, required: true },
+    sample: { type: mongoose.Schema.Types.ObjectId, ref: 'Sample', required: true },
 
     sequencingProvider: { type: String, required: true },
     sequencingTechnology: { type: String, required: true },
@@ -16,35 +14,16 @@ const schema = new Schema({
     librarySelection: { type: String, required: true },
     insertSize: { type: String, required: true },
     libraryStrategy: { type: String, required: true },
+    additionalFilesUploadID: { type: String },
     owner: { type: String, required: true },
-    group: { type: Schema.Types.ObjectId, ref: 'Group', required: true },
-
-    // ensure each element in array is unique?
-    additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
-
-    // George add
-    oldId: {type: String, required: false},
-    oldSafeName: {type: String, unique: false, required: false}, // temp?
-    path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? Also, why did Martin remove this?
-
-    // Martin has removed
-    // submissionToGalaxy: true/false,
-
-    // NB
-    // create new ID
-    // create new safeName
-
-    // no reference to reads , nb
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true },
 
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
-    if (this.forceSafeName){        
-        return Promise.resolve();
-    }
-    
     return Run.find({})
         .then(allOthers => {
+            // console.log(this.name, allOthers)
             return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
         })
         .then(safeName => {
@@ -111,7 +90,7 @@ schema.methods.getRelativePath = function () {
         })
         .execPopulate()
         .then(populatedDoc => {
-            return join(populatedDoc.group.safeName, populatedDoc.sample.project.safeName, populatedDoc.sample.safeName, populatedDoc.safeName)
+            return path.join(populatedDoc.group.safeName, populatedDoc.sample.project.safeName, populatedDoc.sample.safeName, populatedDoc.safeName)
         })
 }
 
@@ -120,7 +99,7 @@ schema.methods.getAbsPath = function getPath() {
 
     return doc.getRelativePath()
         .then(relPath => {
-            return join(process.env.DATASTORE_ROOT, relPath);
+            return path.join(process.env.DATASTORE_ROOT, relPath);
         })
 };
 
@@ -140,6 +119,6 @@ schema.statics.iCanSee = function iCanSee(user) {
 };
 
 
-const Run = model('Run', schema);
+const Run = mongoose.model('Run', schema);
 
-export default Run
+module.exports = Run

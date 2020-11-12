@@ -3,20 +3,14 @@ const fs = require('fs')
 const path = require('path')
 
 const schema = new mongoose.Schema({
-    name: { type: String, required: true }, // should NOT have unique, rely on path instead
-    type: { type: String, required: true }, // used to be required FALSE TODO check if needed still I think it fixed a bug
+    name: { type: String, required: true },
+    type: { type: String, required: true },
     uploadName: { type: String, required: true },
     originalName: { type: String, required: true },
     description: { type: String },
-    path: { type: String, required: false }, // HACK to required false
-    tempUploadPath: { type: String, required: true }, // new field i added to help with bugs
-    oldParentID: {type: String}, // George added
-    oldReadId: {type: String}, // George added
-    oldAdditionalFileId: {type: String}, // George added
+    path: { type: String, required: true },
+    tempUploadPath: { type: String, required: true },
 }, { timestamps: true, toJSON: { virtuals: true } });
-
-// create a unique combo of name and path
-schema.index({ name: 1, path: 1}, { unique: true });
 
 // i converted to async function, check this still works
 schema.methods.moveToFolderAndSave = async function (relNewPath) {
