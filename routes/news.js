@@ -20,7 +20,6 @@ router.route('/news')
                         return {
                             type: ni.type,
                             user: ni.owner,
-                            title: 'created a new ' + ni.type,
                             name: ni.name,
                             body: ni.body,
                             date: ni.createdAt,
