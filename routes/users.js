@@ -17,57 +17,35 @@ router
             .catch(err => {
                 res.status(500).send({error: err})
             });
-
     });
 
-function getUsersProjects(user) {
-
-    Project.find({owner: user.username})
-        .then(projects => {
-            //TODO filter what I can see
-
-            user.projects = projects.filter(p => {
-                //public //i am the owner //same i am in that group
-                return (p.public || p.owner && p.owner === user.username || user.groups.indexOf(p.group) > -1);
-            });
-            Promise.resolve(user)
-        })
-}
-
-router.route('/user')
+router
+    .route('/user')
     .all(isAuthenticated)
     .get((req, res) => {
 
-        function promiseHandle(user) {
-            if (req.body.projects) {
-                return getUsersProjects(user)
-            } else {
-                return Promise.resolve(user)
-            }
+        if (!req.query.username) {
+            res.status(500).send({error: new Error('"username" param required')})
         }
 
-        if (req.query.id || req.query.username) {
-
-            if (req.query.id) {
-                User.findOneById(req.query.id)
-                    .then(promiseHandle)
-                    .then(user => {
-                        res.status(200).send({user})
-                    })
-                    .catch(err => res.status(500).send({error: err}));
-            } else {
-                User.findOne({username: req.query.username})
-                    .then(promiseHandle)
-                    .then(user => {
-                        res.status(200).send({user})
-                    })
-                    .catch(err => res.status(500).send({error: err}));
-            }
-
-
-        } else {
-            res.status(500).send({error: new Error('user "id" or "username" param required')})
+        const targetFunction = new Promise(async (resolve, _) => {
+            let foundProjects = await Project.find({owner: req.query.username})
+            let foundUser = await User.findOne({username: req.query.username})
+            
+            resolve({
+                user: {
+                    ...foundUser,
+                    username: req.query.username,
+                    projects: foundProjects,
+                }
+            });
+        });            
+        async function executeExternalFunctionAndExit(promiseFunction) {
+            let result = await promiseFunction;
+            //console.log('about to send result', result)
+            res.status(200).send(result)             
         }
-
+        executeExternalFunctionAndExit(targetFunction);
     });
-    module.exports =  router;
+
+module.exports =  router;
