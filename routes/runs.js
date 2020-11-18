@@ -5,6 +5,8 @@ const Read = require('../models/Read');
 const File = require('../models/File');
 const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
+const _path = require('path')
+const fs = require('fs');
 
 router.route('/runs')
     .all(isAuthenticated)
@@ -33,11 +35,47 @@ router.route('/run')
                 .populate({ path: 'rawFiles', populate: { path: 'file' } })
                 .then(run => {
                     //TODO check they have permissions
-
-
-
                     if (run) {
-                        res.status(200).send({ run });
+
+                        try {                            
+                            const dir = _path.join(process.env.DATASTORE_ROOT, run.path)
+                            // console.log('dir listing', dir);
+
+                            fs.readdir(dir, (err, files) => {
+                                if (err || !files.length) {
+                                    // TEMP HACK TODO remove before making site live
+                                    console.log(`TEMP HACK only returning ${run.rawFiles.length} raw read database entries`);
+
+                                    // console.log('randy', run.rawFiles);
+                                    
+                                    res.status(200).send({
+                                        run: run,
+                                        reads: run.rawFiles.map(rf => rf.file.originalName),
+                                    });
+                                } else {
+                                    
+                                const filteredFiles = files.filter(file => { 
+
+                                        if (file.includes('.DS_Store') || file.includes('.md5')){
+                                            // console.log('ommitting: ', file);                                        
+                                            return false
+                                        }
+                                        return true                                    
+                                    })
+                                
+                                    // files object contains all files names
+                                    res.status(200).send({ 
+                                        run: run, 
+                                        reads: filteredFiles,
+                                    });
+                                }
+                            });
+
+                        } catch (e) {
+                            console.error(e, e.message)
+                            res.status(501).send({error: 'custom GG error'})
+                        }
+
                     } else {
                         res.status(501).send({ error: 'not found' });
                     }
