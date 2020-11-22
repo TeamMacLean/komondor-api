@@ -120,7 +120,7 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
-  if (user.username === 'admin') {
+  if (user.username === 'admin' || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)) {
     return Sample.find({})
   }
   const filters = [

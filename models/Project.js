@@ -108,7 +108,10 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
-    if (user.username === 'admin') {
+    // const res = process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username);
+    // console.log('full access allowed?', !!res);
+    
+    if (user.username === 'admin' || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)) {
         return Project.find({})
     }
     const filters = [

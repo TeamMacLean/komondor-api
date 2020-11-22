@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
 }, {timestamps: true,toJSON: { virtuals: true }});
 
 schema.statics.iCanSee = function iCanSee(user) {
-  if (user.username === 'admin') {
+  if (user.username === 'admin' || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)) {
     return NewsItem.find({})
   }
   const filters = [
