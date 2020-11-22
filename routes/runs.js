@@ -56,7 +56,7 @@ router.route('/run')
                                     
                                 const filteredFiles = files.filter(file => { 
 
-                                        if (file.includes('.DS_Store') || file.includes('.md5')){
+                                        if (file.includes('.DS_Store')){
                                             // console.log('ommitting: ', file);                                        
                                             return false
                                         }
