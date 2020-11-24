@@ -4,6 +4,9 @@ const Sample = require('../models/Sample')
 const File = require('../models/File');
 const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
+const _path = require('path')
+const fs = require('fs');
+const { sortAdditionalFiles } = require('../lib/sortAssociatedFiles');
 
 router.route('/samples')
     .all(isAuthenticated)
@@ -34,7 +37,32 @@ router.route('/sample')
                 .then(sample => {
                     //TODO check they have permissions
                     if (sample) {
-                        res.status(200).send({ sample });
+                        try {                            
+                            const dirRoot = _path.join(process.env.DATASTORE_ROOT, sample.path);
+                            const additionalDir = _path.join(dirRoot, 'additional');
+
+                            fs.stat(additionalDir, function(err, stats) {
+                                if (err || !stats.isDirectory()){                                    
+                                    res.status(200).send({
+                                        sample: sample,
+                                        actualAdditionalFiles: [],
+                                    });
+                                } else {
+                                    fs.readdir(additionalDir, (additionalFilesErr, additionalFiles) => {
+                                        if (additionalFilesErr){
+                                            throw new Error(additionalFilesErr)
+                                        }
+                                        res.status(200).send({
+                                            sample: sample,
+                                            actualAdditionalFiles: additionalFiles,
+                                        });
+                                    })  
+                                }                                
+                            });
+                        } catch (e) {
+                            console.error(e, e.message)
+                            res.status(501).send({error: 'unexpected readdir error'})
+                        }
                     } else {
                         res.status(501).send({ error: 'not found' });
                     }
@@ -64,30 +92,21 @@ router.route('/samples/new')
 
         let returnedSample;
         newSample.save()
-            .then(savedSample => {
+            .then(async savedSample => {
                 returnedSample = savedSample;
                 const additionalFiles = req.body.additionalFiles;
 
-                const filePromises = additionalFiles.map(file => {
-                    return File.findOne({
-                        name: file.uploadName
-                    })
-                        .then(foundFile => {
-                            if (foundFile) {
-                                return new AdditionalFile({
-                                    sample: savedSample._id,
-                                    file: foundFile._id
-                                })
-                                    .save()
-                            } else {
-                                Promise.resolve()//TODO:bad
-                            }
-                        })
-                })
-
-
-                return Promise.all([filePromises])
-
+                if (additionalFiles.length){
+                    try {
+                        return await sortAdditionalFiles(additionalFiles, 'sample', returnedSample._id, returnedSample.path)
+                    } catch (e){
+                        // if issue with files, remove newProject
+                        await Sample.deleteOne({ '_id': returnedSample._id });                        
+                        return Promise.reject(e);
+                    }
+                } else {
+                    return Promise.resolve()
+                }
             })
             .then(() => {
                 res.status(200).send({ sample: returnedSample })

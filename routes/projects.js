@@ -1,12 +1,10 @@
 const express = require("express")
 let router = express.Router();
 const Project = require('../models/Project')
-const File = require('../models/File');
-const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
-// const FileGroup = require('../models/FileGroup')
-const path = require('path')
-const fs = require('fs')
+const _path = require('path')
+const fs = require('fs');
+const { sortAdditionalFiles } = require('../lib/sortAssociatedFiles');
 
 router.route('/projects')
     .all(isAuthenticated)
@@ -38,11 +36,35 @@ router.route('/project')
                 .then(project => {
                     //TODO check they have permissions
                     if (project) {
-                        res.status(200).send({ project });
+                        try {                            
+                            const dirRoot = _path.join(process.env.DATASTORE_ROOT, project.path);
+                            const additionalDir = _path.join(dirRoot, 'additional');
+
+                            fs.stat(additionalDir, function(err, stats) {
+                                if (err || !stats.isDirectory()){                                    
+                                    res.status(200).send({
+                                        project: project,
+                                        actualAdditionalFiles: [],
+                                    });
+                                } else {
+                                    fs.readdir(additionalDir, (additionalFilesErr, additionalFiles) => {
+                                        if (additionalFilesErr){
+                                            throw new Error(additionalFilesErr)
+                                        }
+                                        res.status(200).send({
+                                            project: project,
+                                            actualAdditionalFiles: additionalFiles,
+                                        });
+                                    })  
+                                }                                
+                            });
+                        } catch (e) {
+                            console.error(e, e.message)
+                            res.status(501).send({error: 'unexpected readdir error'})
+                        }
                     } else {
                         res.status(501).send({ error: 'not found' });
                     }
-
                 })
                 .catch(err => {
                     res.status(500).send({ error: err });
@@ -53,12 +75,10 @@ router.route('/project')
         }
     });
 
-
 router.route('/projects/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
-
 
         const newProject = new Project({
             name: req.body.name,
@@ -69,48 +89,33 @@ router.route('/projects/new')
             additionalFilesUploadID: req.body.additionalUploadID,
             doNotSendToEna: req.body.doNotSendToEna,
             doNotSendToEnaReason: req.body.doNotSendToEnaReason,
+            oldId: Math.random().toString(16).substr(2, 6), // TODO remove
         });
 
-        let returnedProject;
-
+        let setAsSavedProject;
         newProject.save()
-            .then(savedProject => {
-                returnedProject = savedProject;
+            .then(async savedProject => {
+                setAsSavedProject = savedProject;
                 const additionalFiles = req.body.additionalFiles;
-                const filePromises = additionalFiles.map(file => {
-                    return File.findOne({
-                        name: file.uploadName // TODO ensure getting the MOST RECENT one, otherwise duplicate file names bug
-                    })
-                        .then(foundFile => {
-                            if (foundFile) {
-                                // TODO returnedProject.group only gives us ID of group name, we need the string name itself
 
-                                return new AdditionalFile({
-                                    project: savedProject._id,
-                                    file: foundFile._id
-                                })            
-                                .save()
-                            } else {
-                                console.log('Error finding file record in db')
-                                Promise.resolve()//TODO:bad
-                            }
-                        })
-                })
-
-
-                return Promise.all([filePromises])
-
+                if (additionalFiles.length){
+                    try {
+                        return await sortAdditionalFiles(additionalFiles, 'project', setAsSavedProject._id, setAsSavedProject.path)
+                    } catch (e){
+                        // if issue with files, remove newProject
+                        await Project.deleteOne({ '_id': setAsSavedProject._id });                        
+                        return Promise.reject(e);
+                    }
+                } else {
+                    return Promise.resolve()
+                }
             })
-            .then(() => {
-                res.status(200).send({ project: returnedProject })
+            .then(() => {                
+                res.status(200).send({ project: setAsSavedProject })
             })
             .catch(err => {
-                console.error('ERROR', err);
                 res.status(500).send({ error: err })
-                // tidy up bad file uploads? either as a routine db maintenance job 
-                // or as sophisticated error handling somewhere here
             })
-
     });
 
 module.exports = router;

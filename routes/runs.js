@@ -7,6 +7,7 @@ const AdditionalFile = require('../models/AdditionalFile');
 const { isAuthenticated } = require('./middleware')
 const _path = require('path')
 const fs = require('fs');
+const { sortAdditionalFiles, sortReadFiles } = require('../lib/sortAssociatedFiles');
 
 router.route('/runs')
     .all(isAuthenticated)
@@ -38,46 +39,57 @@ router.route('/run')
                     if (run) {
 
                         try {                            
-                            const dir = _path.join(process.env.DATASTORE_ROOT, run.path)
-                            // console.log('dir listing', dir);
+                            const dirRoot = _path.join(process.env.DATASTORE_ROOT, run.path);
+                            const rawDir = _path.join(dirRoot, 'raw');
+                            const additionalDir = _path.join(dirRoot, 'additional');
 
-                            fs.readdir(dir, (err, files) => {
-                                if (err || !files.length) {
-                                    // TEMP HACK TODO remove before making site live
-                                    console.log(`TEMP HACK only returning ${run.rawFiles.length} raw read database entries`);
+                            var rawDirExists = false;
+                            try {
+                                rawDirExists = fs.statSync(rawDir).isDirectory();
+                            } catch (e) {
+                                rawDirExists = false
+                            }
+                            
+                            var readFiles = [];
+                            var readFilesResults = [];
 
-                                    // console.log('randy', run.rawFiles);
-                                    
-                                    res.status(200).send({
-                                        run: run,
-                                        reads: run.rawFiles.map(rf => rf.file.originalName),
-                                    });
-                                } else {
-                                    
-                                const filteredFiles = files.filter(file => { 
+                            if (rawDirExists){
+                                readFilesResults = fs.readdirSync(rawDir)
+                            }
+                            if (readFilesResults.length){
+                                readFiles = readFilesResults.filter(file => !file.includes('.DS_Store'))
+                            }
 
-                                        if (file.includes('.DS_Store')){
-                                            // console.log('ommitting: ', file);                                        
-                                            return false
-                                        }
-                                        return true                                    
-                                    })
-                                
-                                    // files object contains all files names
-                                    res.status(200).send({ 
-                                        run: run, 
-                                        reads: filteredFiles,
-                                    });
-                                }
+                            var additionalDirExists = false;
+                            try {
+                                additionalDirExists = fs.statSync(additionalDir).isDirectory();
+                            } catch (e) {
+                                additionalDirExists = false
+                            }
+
+                            var additionalFiles = [];
+                            var additionalFilesResults = [];
+
+                            if (additionalDirExists){
+                                additionalFilesResults = fs.readdirSync(additionalDir)
+                            }
+                            if (additionalFilesResults.length){
+                                additionalFiles = additionalFilesResults
+                            }
+
+                            res.status(200).send({
+                                run: run,
+                                actualReads: readFiles,
+                                actualAdditionalFiles: additionalFiles,
                             });
 
                         } catch (e) {
                             console.error(e, e.message)
-                            res.status(501).send({error: 'custom GG error'})
+                            res.status(501).send({error: 'readdir error'})
                         }
 
                     } else {
-                        res.status(501).send({ error: 'not found' });
+                        res.status(501).send({ error: 'runnot found' });
                     }
                 })
                 .catch(err => {
@@ -93,18 +105,6 @@ router.route('/runs/new')
     .all(isAuthenticated)
     .post((req, res) => {
         //TODO check permission
-
-        /* example data
-        sample 5f2a8e39a8b19126e8b882de 
-        name Hoggy 
-        sequencingProvider EL 
-        sequencingTechnology 454 GS 
-        librarySource GENOMIC 
-        libraryType BAM 
-        librarySelection ChIP 
-        libraryStrategy CLONE 
-        insertSize 123
-        */
 
         const newRun = new Run({
             sample: req.body.sample,
@@ -123,53 +123,34 @@ router.route('/runs/new')
             owner: req.body.owner,
             group: req.body.group,
         })
+
         let returnedRun;
         newRun.save()
-            .then(savedRun => {
+            .then(async savedRun => {
                 returnedRun = savedRun;
                 const additionalFiles = req.body.additionalFiles;
-                const rawFiles = req.body.rawFiles;
+                const readFiles = req.body.rawFiles;
 
-                const filePromises = additionalFiles.map(file => {
-                    return File.findOne({
-                        name: file.uploadName
-                    })
-                        .then(foundFile => {
-                            if (foundFile) {
-                                return new AdditionalFile({
-                                    run: savedRun._id,
-                                    file: foundFile._id
-                                })
-                                    .save()
-                            } else {
-                                Promise.resolve()//TODO:bad
-                            }
-                        })
-                })
+                try {
 
-                const rawFilePromises = rawFiles.map(file => {
-                    return File.findOne({
-                        name: file.uploadName
-                    })
-                        .then(found => {
-                            if (found) {
-                                return new Read({
-                                    run: savedRun._id,
-                                    paired: file.paired,
-                                    // sibling: 'TODO', 
-                                    MD5: file.md5,
-                                    file: found._id
-                                })
-                                    .save()
-                            } else {
-                                return Promise.resolve()//TODO:bad
-                            }
-                        })
-                        
-                    })
+                    const promList = []
+                    if (readFiles.length){
+                        promList.push(sortReadFiles(readFiles, returnedRun._id, returnedRun.path))
+                    }
+                    if (additionalFiles.length){
+                        promList.push(sortAdditionalFiles(additionalFiles, 'run', returnedRun._id, returnedRun.path))
+                    }
 
-                return Promise.all(rawFilePromises.concat(filePromises))
+                    return await Promise.all(promList);
+                    //const output = await Promise.all(promList)  
+                    // console.log('output', output);
+                    // return Promise.resolve();
 
+                } catch (e){
+                    // if issue with files, remove run
+                    await Run.deleteOne({ '_id': returnedRun._id });                        
+                    return Promise.reject(e);
+                }                
             })
             .then(() => {
                 res.status(200).send({ run: returnedRun })
@@ -178,25 +159,6 @@ router.route('/runs/new')
                 console.error(err);
                 res.status(500).send({ error: err })
             })
-        // })
-
-
-
-
-
-
-        // sample: res.data.sample._id,
-        //               libraryType: null,
-        //               sequencingProvider: null,
-        //               sequencingTechnology: null,
-        //               librarySource: null,
-        //               librarySelection: null,
-        //               libraryStrategy: null,
-        //               insertSize: null,
-        //               additionalUploadID: uuidv4(),
-        //               rawUploadID: uuidv4()
-
-
     });
 
 module.exports = router;

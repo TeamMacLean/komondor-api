@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const path = require('path')
+const { join } = require('path')
 const generateSafeName = require('../lib/utils/generateSafeName').default
-
+const fs = require('fs')
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true, unique: true }, // keep unique but update UI to reflect this // TODO
@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
     isPublic: { type: Boolean, default: false },
 
     // GG new fields
-    oldId: {type: String, unique: true}, // temp?
+    oldId : {type: String, unique: true}, // TODO i dont think i need this but hard to extract
     oldSafeName: {type: String, unique: false, required: false}, // temp?
     secondaryOwner: {type: String, required: false},
     path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? 
@@ -25,48 +25,53 @@ const schema = new mongoose.Schema({
     doNotSendToEnaReason: { type: String }
 }, { timestamps: true, toJSON: { virtuals: true } });
 
-schema.pre('validate', function () {
-    return Project.find({})
-        .then(allOthers => {
-            return generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
-        })
-        .then(safeName => {
-            this.safeName = safeName;
-            return Promise.resolve()
-        })
+schema.pre('validate', async function () {
+    const allOthers = await Project.find({});
+    const safeName = await generateSafeName(this.name, allOthers.filter(f => f._id.toString() !== this._id.toString()));
+    this.safeName = safeName;
+    const doc = this;
+    const populatedDoc = await doc.populate({
+        path: 'group',
+    })
+        .execPopulate();
+    try {
+        this.path = join('/', populatedDoc.group.safeName, populatedDoc.safeName);
+        return Promise.resolve();
+    } catch (e) {
+        return Promise.reject(e);
+    }
 });
-
 
 schema.pre('save', function (next) {
     this.wasNew = this.isNew;
     next()
 });
-schema.post('save', function (doc) {
+schema.post('save', async function (doc) {
     if (this.wasNew) {
 
-        function createNewsItem() {
+        async function createNewsItem() {
             const NewsItem = require('./NewsItem')
-            return new NewsItem({
-                type: 'project',
-                typeId: doc._id,
-                owner: doc.owner,
-                group: doc.group._id || doc.group,
-                name: doc.name,
-                body: doc.shortDesc
-            })
-                .save()
-                .then((savedNewsItem) => {
-                    //console.log('created news item', savedNewsItem)
-                    return Promise.resolve();
+            try {
+                const savedNewsItem = await new NewsItem({
+                    type: 'project',
+                    typeId: doc._id,
+                    owner: doc.owner,
+                    group: doc.group._id || doc.group,
+                    name: doc.name,
+                    body: doc.shortDesc
                 })
-                .catch(err => {
-                    console.error(err);
-                    return Promise.resolve();
-                })
+                    .save();
+                return Promise.resolve();
+            } catch (err) {
+                console.error(err);
+                return Promise.resolve();
+            }
         }
 
-
-        return createNewsItem()
+        // create directory
+        const absPath = join(process.env.DATASTORE_ROOT, this.path);                        
+        await fs.promises.mkdir(absPath);
+        return createNewsItem(); 
 
     } else {
         return Promise.resolve()
@@ -94,7 +99,7 @@ schema.methods.getRelativePath = function () {
     })
         .execPopulate()
         .then(populatedDoc => {
-            return path.join(populatedDoc.group.safeName, populatedDoc.safeName)
+            return join(populatedDoc.group.safeName, populatedDoc.safeName)
         })
 }
 
@@ -103,7 +108,7 @@ schema.methods.getAbsPath = function getPath() {
 
     return doc.getRelativePath()
         .then(relPath => {
-            return path.join(process.env.DATASTORE_ROOT, relPath);
+            return join(process.env.DATASTORE_ROOT, relPath);
         })
 };
 

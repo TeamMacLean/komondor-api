@@ -2,7 +2,10 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
 
-//import _path from 'path';
+const Sample = require('./Sample');
+const Project = require('./Project');
+const Run = require('./Run');
+
 const _path = require('path');
 
 const schema = new Schema({
@@ -20,57 +23,47 @@ const schema = new Schema({
 
 schema.pre('save', function (next) {
     this.wasNew = this.isNew;
+    next()
+});
+
+schema.post('save', function (next) {
+
     const doc = this;
-    const path = require('path');
-    const fs = require('fs');
+    if (doc.oldAdditionalFileId){
+        // skip moving folder
+        next()
+    }
+    
+    // move file
 
     let prom;
     if (doc.run) {
-        const Run = require('./Run').default;
         prom = Run.findById(doc.run)
     } else if (doc.sample) {
-        const Sample = require('./Sample').default;
+        console.log('doc.sampe', doc.sample);
         prom = Sample.findById(doc.sample)
     } else if (doc.project) {
-        const Project = require('./Project');
         prom = Project.findById(doc.project)
-    }
-
-    // if (!this.originallyAdded){
-    //     this.originallyAdded = Date.now();
-    // }
-
-    // skip this if migrating (i.e,. oldAdditionalFileId is truthy)
-    if (prom && !doc.oldAdditionalFileId) {
-
-        function makeFolder(dirpath) {
-            return fs.promises.mkdir(dirpath, { recursive: true })
-        }
-
-        // George: why do we do this here?
-        //console.log('DOC', doc)
-        return Promise.all([prom, doc.populate('file').execPopulate()])
-            .then(out => {
-                const parent = out[0];
-                const additionalFile = out[1];
-                return parent.getRelativePath()
-                    .then(relPath => {
-                        relPath = _path.join(relPath, 'additional')
-                        const absPath = _path.join(process.env.DATASTORE_ROOT, relPath);
-                        return makeFolder(absPath)
-                            .then(() => {
-                                const relPathWithFilename = _path.join(relPath, additionalFile.file.originalName)
-                                return additionalFile.file.moveToFolderAndSave(relPathWithFilename)
-                            })
-
-                    })
-            })
-
-            .catch(next)
     } else {
-        next();
+        throw new Error('No run/sample/project found for additional file')
     }
 
+    return Promise.all([prom, doc.populate('file').execPopulate()])
+        .then(out => {
+            const parent = out[0];
+            const additionalFile = out[1];
+            return parent.getRelativePath()
+                .then(relPath => {
+                    relPath = _path.join(relPath, 'additional')
+                    const relPathWithFilename = _path.join(relPath, additionalFile.file.originalName)
+                    // we are relying on /additional dir to have been previously created!
+                    return additionalFile.file.moveToFolderAndSave(relPathWithFilename)
+                })
+        })
+        .catch(e => {
+            console.error(e);
+            next();
+        });
 });
 
 const AdditionalFile = model('AdditionalFile', schema);

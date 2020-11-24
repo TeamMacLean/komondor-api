@@ -11,22 +11,22 @@ tusServer.datastore = new tus.FileStore({
   //directory: UPLOAD_PATH, I don't think we need this
   // this uploads the file temporarily locally
   // on form submission we will move this temp file to actual upload location
-  path: "/uploads"
+  path: "/uploads" //'/uploads'
 });
 
-tusServer.on('*', event=>{
-  // console.log('EVENT!, event')
+tusServer.on('*', event => {
+  console.log('EVENT!', event)
 })
 tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
-  // console.log(tus.EVENTS.EVENT_UPLOAD_COMPLETE)
-  fileUpload.create(event)
+  console.log(tus.EVENTS.EVENT_UPLOAD_COMPLETE)
+  //fileUpload.create(event)
 });
 
 tusServer.on(tus.EVENTS.EVENT_FILE_CREATED, event => {
-  // console.log(tus.EVENTS.EVENT_FILE_CREATED)
+  console.log(tus.EVENTS.EVENT_FILE_CREATED)
 });
 tusServer.on(tus.EVENTS.EVENT_ENDPOINT_CREATED, event => {
-  // console.log(tus.EVENTS.EVENT_ENDPOINT_CREATED)
+  console.log(tus.EVENTS.EVENT_ENDPOINT_CREATED)
 });
 
 // const express = require('express');

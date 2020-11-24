@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const generateSafeName = require("../lib/utils/generateSafeName").default
+const generateSafeName = require('../lib/utils/generateSafeName').default
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },

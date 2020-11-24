@@ -2,11 +2,11 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
 
-//import { join } from 'path';
+const fs = require('fs')
 const { join } = require('path');
 
 //import generateSafeName from '../lib/utils/generateSafeName';
-const generateSafeName = require('../lib/utils/generateSafeName')
+const generateSafeName = require('../lib/utils/generateSafeName').default;
 
 const schema = new Schema({
     name: { type: String, required: true }, // should NOT have unique, rely on path instead
@@ -55,7 +55,20 @@ schema.pre('validate', function () {
         })
         .then(safeName => {
             this.safeName = safeName;
-            return Promise.resolve()
+
+            const doc = this;
+            return doc.populate({
+                path: 'sample',
+            })
+                .execPopulate()
+                .then(populatedDoc => {
+                    try {                        
+                        this.path = join(populatedDoc.sample.path, populatedDoc.safeName)                   
+                        return Promise.resolve()                                                                                         
+                    } catch (e) {
+                        return Promise.reject(e)
+                    }
+                })
         })
 });
 
@@ -79,7 +92,9 @@ schema.post('save', function (doc) {
         })
             .save()
             .then(() => {
-                Promise.resolve();
+                // create directory
+                const absPath = join(process.env.DATASTORE_ROOT, this.path);     
+                return fs.promises.mkdir(absPath) 
             })
             .catch(err => {
                 console.error(err);

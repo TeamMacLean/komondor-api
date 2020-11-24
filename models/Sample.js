@@ -2,10 +2,10 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
 //import { join } from 'path';
-const { join } = require('path');
 
-//import generateSafeName from '../lib/utils/generateSafeName';
-const generateSafeName = require('../lib/utils/generateSafeName')
+const generateSafeName = require('../lib/utils/generateSafeName').default
+const fs = require('fs')
+const { join } = require('path');
 
 
 const schema = new Schema({
@@ -45,7 +45,21 @@ schema.pre('validate', function () {
       // if (!this.originallyAdded){
       //   this.originallyAdded = Date.now();
       // }
-      return Promise.resolve()
+      const doc = this;
+      return doc.populate({
+          path: 'project',
+      })
+          .execPopulate()
+          .then(populatedDoc => {
+            //console.log('poplateddoc', populatedDoc);
+            
+              try {                        
+                  this.path = join(populatedDoc.project.path, populatedDoc.safeName)                   
+                  return Promise.resolve()                                             
+              } catch (e) {
+                  return Promise.reject(e)
+              }
+          })
     })
 });
 
@@ -70,7 +84,9 @@ schema.post('save', function (doc) {
     })
       .save()
       .then(() => {
-        Promise.resolve();
+        // create directory
+        const absPath = join(process.env.DATASTORE_ROOT, this.path);     
+        return fs.promises.mkdir(absPath) 
       })
       .catch(err => {
         console.error(err);
