@@ -8,20 +8,41 @@ const { sortAdditionalFiles } = require('../lib/sortAssociatedFiles');
 
 router.route('/projects')
     .all(isAuthenticated)
-    .get((req, res) => {
+    .get(async (req, res) => {
         //TODO must be in same group as user
-        Project.iCanSee(req.user)
-            .populate('group')
-            .sort('-createdAt')
-            .then(projects => {
-                res.status(200).send({ projects })
+
+        try {
+            const limit = await Project.iCanSee(req.user)
+            // consider refactoring to reduce load
+            const orderByMostRecent = limit.sort((a, b) => {
+                const aDate = new Date(a.createdAt).getTime()
+                const bDate = new Date(b.createdAt).getTime()
+                
+                const res = (aDate > bDate) ? -1 : 1
+                //console.log('aDate', aDate, 'bDate', bDate, 'res', res);
+                return res
             })
+            res.status(200).send({ projects: orderByMostRecent })
+        } catch (err) {
+            console.error('error!!!!!', err);
+            res.status(500).send({ error: err })
+        }
+    });
+
+router.route('/projects/safeNames')
+    //.all(isAuthenticated)
+    .get(async (req, res) => {
+        Project.find({}).select('safeName')
+            .then((resPros => {
+                const results = resPros.map(resPro => resPro.safeName)
+                console.log('results', results);
+                res.status(200).send({ projectsSafeNames: results })
+            }))
             .catch(err => {
                 console.error('error!!!!!', err);
                 res.status(500).send({ error: err })
-            });
-
-    });
+            });        
+});
 
 router.route('/project')
     .all(isAuthenticated)

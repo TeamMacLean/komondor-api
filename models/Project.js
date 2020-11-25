@@ -112,11 +112,9 @@ schema.methods.getAbsPath = function getPath() {
         })
 };
 
-schema.statics.iCanSee = function iCanSee(user) {
-    // const res = process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username);
-    // console.log('full access allowed?', !!res);
+schema.statics.iCanSee = async function iCanSee(user) {
     
-    if (user.username === 'admin' || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)) {
+    if (user.username === 'admin'/** || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username) */) {
         return Project.find({})
     }
     const filters = [
@@ -127,7 +125,10 @@ schema.statics.iCanSee = function iCanSee(user) {
             filters.push({ 'group': g })
         });
     }
-    return Project.find({ $or: filters })
+    
+    const results = await Project.find({ $or: filters });
+    // console.log('results', results);
+    return results;
 };
 
 const Project = mongoose.model('Project', schema);
