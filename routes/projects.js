@@ -29,14 +29,13 @@ router.route('/projects')
         }
     });
 
-router.route('/projects/safeNames')
+router.route('/projects/names')
     //.all(isAuthenticated)
     .get(async (req, res) => {
-        Project.find({}).select('safeName')
+        Project.find({}).select('name')
             .then((resPros => {
-                const results = resPros.map(resPro => resPro.safeName)
-                console.log('results', results);
-                res.status(200).send({ projectsSafeNames: results })
+                const results = resPros.map(resPro => resPro.name)
+                res.status(200).send({ projectsNames: results })
             }))
             .catch(err => {
                 console.error('error!!!!!', err);
@@ -62,6 +61,7 @@ router.route('/project')
                             const additionalDir = _path.join(dirRoot, 'additional');
 
                             fs.stat(additionalDir, function(err, stats) {
+
                                 if (err || !stats.isDirectory()){                                    
                                     res.status(200).send({
                                         project: project,
@@ -124,7 +124,10 @@ router.route('/projects/new')
                         return await sortAdditionalFiles(additionalFiles, 'project', setAsSavedProject._id, setAsSavedProject.path)
                     } catch (e){
                         // if issue with files, remove newProject
-                        await Project.deleteOne({ '_id': setAsSavedProject._id });                        
+                        await Project.deleteOne({ '_id': setAsSavedProject._id });  
+                        
+                        // TODO great chance to report back to user what is saved and what is not!!!
+
                         return Promise.reject(e);
                     }
                 } else {

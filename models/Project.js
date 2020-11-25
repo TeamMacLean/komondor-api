@@ -69,8 +69,15 @@ schema.post('save', async function (doc) {
         }
 
         // create directory
-        const absPath = join(process.env.DATASTORE_ROOT, this.path);                        
-        await fs.promises.mkdir(absPath);
+        const absPath = join(process.env.DATASTORE_ROOT, this.path);
+        try {
+            await fs.promises.mkdir(absPath);
+        } catch (e) {
+            console.log('error mkdir', e, absPath);
+            // find another way to mkdir
+            return Promise.reject(e)
+        }                        
+
         return createNewsItem(); 
 
     } else {

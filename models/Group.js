@@ -44,7 +44,9 @@ schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {
     return Group.find({ $or: filters })
 
   } else {
-    return Promise.resolve([])
+    // user has no group, so let them store in bioinformatics
+    console.log('no groups for user' + (user.username || user) + ', returning bioinformatics');    
+    return Group.find({'name': 'bioinformatics'})
   }
 
 };

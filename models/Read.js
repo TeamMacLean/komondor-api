@@ -8,6 +8,7 @@ const schema = new Schema({
     run: { type: Schema.Types.ObjectId, ref: 'Run', required: true, unique: false },
     file: { type: Schema.Types.ObjectId, ref: 'File', required: true, unique: true },
     MD5: { type: String }, // TODO one day migrate to File object (along with File)
+    MD5LastChecked: {type: String}, // for future productivity
     paired: { type: Boolean }, // removed required because of migration script
     sibling: { type: Schema.Types.ObjectId, ref: 'Read' },
 

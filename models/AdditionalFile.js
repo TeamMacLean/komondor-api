@@ -14,6 +14,7 @@ const schema = new Schema({
     project: { type: Schema.Types.ObjectId, ref: 'Project', unique: false },
     file: { type: Schema.Types.ObjectId, ref: 'File', required: true, unique: true },
     MD5: {type: String, required: false},
+    MD5LastChecked: {type: String},
     oldAdditionalFileId: {type: String}, // i.e. if migration boolean
     // added file unique true, and md5 field, and oldAddFileId
     // originallyAdded: {type: Number}, // see sample
