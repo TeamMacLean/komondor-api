@@ -46,7 +46,16 @@ schema.pre('save', function (next) {
     this.wasNew = this.isNew;
     next()
 });
-schema.post('save', async function (doc) {
+schema.post('save', async function (next) {
+
+    const doc = this;
+    if (doc.oldId){
+        if (next && typeof(next) === 'function'){
+            next()
+        } 
+        return Promise.resolve(); 
+    }
+
     if (this.wasNew) {
 
         async function createNewsItem() {

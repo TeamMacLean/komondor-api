@@ -7,7 +7,6 @@ const generateSafeName = require('../lib/utils/generateSafeName').default
 const fs = require('fs')
 const { join } = require('path');
 
-
 const schema = new Schema({
   name: { type: String, required: true }, // should NOT have unique, rely on path instead
   safeName: { type: String, required: true }, //should have unique
@@ -18,6 +17,8 @@ const schema = new Schema({
   conditions: { type: String, required: true },
   owner: { type: String, required: true },
   group: { type: Schema.Types.ObjectId, ref: 'Group', required: true },
+
+  oldId: {type: String},
 
   // TODO ensure each is unique?
   additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
@@ -68,7 +69,15 @@ schema.pre('save', function (next) {
   next()
 });
 
-schema.post('save', function (doc) {
+schema.post('save', function (next) {
+  const doc = this;
+  if (doc.oldId){
+      if (next && typeof(next) === 'function'){
+          next()
+      } 
+      return Promise.resolve(); 
+  } 
+
   if (this.wasNew) {
     //create news item
     const NewsItem = require("./NewsItem")

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const generateSafeName = require('../lib/utils/generateSafeName').default
+const _path = require('path')
+const fs = require('fs')
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -32,13 +34,12 @@ schema.post('save', function () {
   
   fs.promises.access(absDestPath)
     .then(() => {
-        console.log(`Directory already exists for ${this.name}. Skipping.`)
+        //console.log(`Directory already exists for ${this.name}. Skipping.`)
     })
     .catch(() => {
-        console.log(`Directory does not exist for ${this.name}. Creating...`)
-        try {
+        try {            
             return fs.promises.mkdir(absDestPath).then(() => {
-              console.log('Directory successfully created!')
+              console.log('Directory for ' + this.name + ' did not exist, so now created!')
               return Promise.resolve()
             })
         } catch (e) {

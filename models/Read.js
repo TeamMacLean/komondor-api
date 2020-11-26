@@ -31,10 +31,12 @@ schema.pre('save', function (next) {
 
 schema.post('save', function (next) {
 
-    const readDoc = this;
-    if (readDoc.oldReadId){
-        // skip moving folder
-        next()
+    const doc = this;
+    if (doc.oldReadId){
+        if (next && typeof(next) === 'function'){
+            next()
+        } 
+        return Promise.resolve(); 
     }
 
     return Promise.all([

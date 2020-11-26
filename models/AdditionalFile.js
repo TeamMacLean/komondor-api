@@ -27,12 +27,14 @@ schema.pre('save', function (next) {
     next()
 });
 
-schema.post('save', function (next) {
+schema.post('save', async function (next) {
 
     const doc = this;
     if (doc.oldAdditionalFileId){
-        // skip moving folder
-        next()
+        if (next && typeof(next) === 'function'){
+            next()
+        } 
+        return Promise.resolve(); 
     }
     
     // move file
@@ -63,7 +65,7 @@ schema.post('save', function (next) {
         })
         .catch(e => {
             console.error(e);
-            next();
+            return Promise.resolve()
         });
 });
 
