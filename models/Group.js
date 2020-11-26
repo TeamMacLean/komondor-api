@@ -6,7 +6,8 @@ const schema = new mongoose.Schema({
   safeName: { type: String, required: true },
   ldapGroups: { type: [String], required: true },
   deleted: { type: Boolean, default: false },
-  sendToEna: { type: Boolean, default: false }
+  sendToEna: { type: Boolean, default: false },
+  oldId: {type: String}
 }, { timestamps: true,toJSON: { virtuals: true } });
 
 schema.pre('validate', function () {
@@ -24,6 +25,29 @@ schema.pre('validate', function () {
       return Promise.resolve()
     })
 });
+
+schema.post('save', function () { 
+
+  const absDestPath = _path.join(process.env.DATASTORE_ROOT, this.safeName);
+  
+  fs.promises.access(absDestPath)
+    .then(() => {
+        console.log(`Directory already exists for ${this.name}. Skipping.`)
+    })
+    .catch(() => {
+        console.log(`Directory does not exist for ${this.name}. Creating...`)
+        try {
+            return fs.promises.mkdir(absDestPath).then(() => {
+              console.log('Directory successfully created!')
+              return Promise.resolve()
+            })
+        } catch (e) {
+            console.log('Error creating directory. Please create yourself.', e);
+            
+            return Promise.resolve();
+        }
+    })
+})
 
 schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {  
   if (user.isAdmin) {
