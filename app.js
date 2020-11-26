@@ -13,6 +13,7 @@ const userRoutes = require("./routes/users")
 const newsRoutes = require("./routes/news")
 const uploadRoutes = require("./routes/uploads")
 const optionRoutes = require('./routes/options')
+const testRoutes = require("./routes/test")
 const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
@@ -56,5 +57,6 @@ app.use(userRoutes);
 app.use(newsRoutes);
 app.use(optionRoutes);
 app.use(uploadRoutes);
+app.use(testRoutes);
 
 module.exports = app;
