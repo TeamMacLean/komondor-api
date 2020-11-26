@@ -63,7 +63,10 @@ schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {
     user.username &&
     FULL_RECORDS_ACCESS_USERS.includes(user.username)
   ){  
-      return Group.find({})
+    console.log('in full records access users, returning all Groups');
+    return Group.find({})
+  } else {
+    console.log('just one group');    
   }
 
   if (user.groups) {
