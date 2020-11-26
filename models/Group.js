@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const generateSafeName = require('../lib/utils/generateSafeName').default
 const _path = require('path')
 const fs = require('fs')
+const FULL_RECORDS_ACCESS_USERS = process.env.FULL_RECORDS_ACCESS_USERS;
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
@@ -53,6 +54,16 @@ schema.post('save', function () {
 schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {  
   if (user.isAdmin) {
     return Group.find({})
+  }
+
+  if (
+    FULL_RECORDS_ACCESS_USERS &&
+    FULL_RECORDS_ACCESS_USERS.length &&
+    user &&
+    user.username &&
+    FULL_RECORDS_ACCESS_USERS.includes(user.username)
+  ){  
+      return Group.find({})
   }
 
   if (user.groups) {
