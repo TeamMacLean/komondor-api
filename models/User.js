@@ -7,7 +7,8 @@ const schema = new mongoose.Schema({
   email: { type: String, required: true },
   lastLogin: { type: 'Date', default: Date.now },
   isAdmin: { type: Boolean, default: false },
-  groups: { type: [String], default: [] }
+  groups: { type: [String], default: [] },
+  // TODO hasLeftCompany: {type: Boolean, default: false},
 }, { timestamps: true,toJSON: { virtuals: true }});
 
 schema.statics.login = function login(id) {
