@@ -80,14 +80,6 @@ schema.pre('save', function (next) {
 
 schema.post('save', function (next) {
 
-    const doc = this;
-    if (doc.oldId && doc.oldId.length){
-        if (next && typeof(next) === 'function'){
-            next()
-        } 
-        return Promise.resolve(); 
-    } 
-
     //create news item
     const NewsItem = require("./NewsItem")
     return new NewsItem({

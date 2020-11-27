@@ -48,14 +48,6 @@ schema.pre('save', function (next) {
 });
 schema.post('save', async function (next) {
 
-    const doc = this;
-    if (doc.oldId && doc.oldId.length){
-        if (next && typeof(next) === 'function'){
-            next()
-        } 
-        return Promise.resolve(); 
-    }
-
     async function createNewsItem() {
         const NewsItem = require('./NewsItem')
         try {
@@ -75,17 +67,23 @@ schema.post('save', async function (next) {
         }
     }
 
+    // PLEASE ADJUST OTHER MODELS
+
     // create directory
     const absPath = join(process.env.DATASTORE_ROOT, this.path);
     try {
-        await fs.promises.mkdir(absPath);
+        console.log('about to try to make', absPath);
+
+        const result = await fs.promises.mkdir(absPath);
+        console.log('result of making path was: ', result);
+        
+        return createNewsItem(); 
     } catch (e) {
-        console.log('error mkdir', e, absPath);
+        console.log('error mkdir of new project', e, absPath);
         // find another way to mkdir
         return Promise.reject(e)
     }                        
 
-    return createNewsItem(); 
 });
 
 schema.virtual('samples', {
