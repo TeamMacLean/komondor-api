@@ -128,7 +128,7 @@ schema.methods.getAbsPath = function getPath() {
         })
 };
 
-schema.statics.iCanSee = async function iCanSee(user) {
+schema.statics.iCanSee = function iCanSee(user) {
     
     if (user.username === 'admin' || process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)) {
         return Project.find({})
@@ -142,9 +142,7 @@ schema.statics.iCanSee = async function iCanSee(user) {
         });
     }
     
-    const results = await Project.find({ $or: filters });
-    // console.log('results', results);
-    return results;
+    return Project.find({ $or: filters });
 };
 
 const Project = mongoose.model('Project', schema);
