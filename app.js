@@ -37,7 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://sequences.tsl.ac.uk/');
+    // TODO try variants of this: http://sequences.tsl.ac.uk/ 
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
