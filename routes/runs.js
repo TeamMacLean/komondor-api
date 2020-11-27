@@ -48,18 +48,16 @@ router.route('/run')
                                 rawDirExists = fs.statSync(rawDir).isDirectory();
                             } catch (e) {
                                 rawDirExists = false
-                            }
-                            console.log('does this rawdir exist (false means not reading)?', rawDir, rawDirExists);
-                            
+                            }                            
                             
                             var readFiles = [];
                             var readFilesResults = [];
 
                             if (rawDirExists){
                                 readFilesResults = fs.readdirSync(rawDir)
-                                console.log('Reading this dir:', rawDir, 'Getting these results:', readFilesResults);
-                                
+                                //console.log('Reading this dir:', rawDir, 'Getting these results:', readFilesResults);                                
                             }
+
                             if (readFilesResults.length){
                                 readFiles = readFilesResults.filter(file => !file.includes('.DS_Store'))
                             }
