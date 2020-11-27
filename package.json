@@ -18,6 +18,7 @@
     "ldapauth-fork": "^4.2.0",
     "moment": "^2.24.0",
     "mongoose": "^5.8.9",
+    "mv": "^2.1.1",
     "tus-node-server": "^0.3.2"
   },
   "devDependencies": {

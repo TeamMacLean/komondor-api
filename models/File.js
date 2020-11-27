@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const fs = require('fs')
-const path = require('path')
+const _path = require('path')
+var mv = require('mv');
 
 const schema = new mongoose.Schema({
     name: { type: String, required: true }, // should NOT have unique, rely on path instead
@@ -22,14 +23,26 @@ schema.index({ name: 1, path: 1, createFileDocumentId: 1}, { unique: true });
 // i converted to async function, check this still works
 schema.methods.moveToFolderAndSave = async function (relNewPath) {
     const file = this;
-    const fullNewPath = path.join(process.env.DATASTORE_ROOT, relNewPath);
+    const fullNewPath = _path.join(process.env.DATASTORE_ROOT, relNewPath);
 
     try {
-        //console.log('moving (rel):', file.path, 'to (abs):', fullNewPath );
+
+        // console.log('file.path is tempUploadPath, on rename upload doc property');
+
+        console.log('moving file from', file.path, 'to', fullNewPath);
         
-        await fs.promises.rename(file.path, fullNewPath);
-        file.path = relNewPath; 
-        return file.save();
+        mv(file.path, fullNewPath, {mkdirp: true}, function(err) {
+            // done. it tried fs.rename first, and then falls back to
+            // piping the source file to the dest file and then unlinking
+            // the source file.
+            if (err){
+                console.log('...but error moving file! :(');
+                
+                Promise.reject(err)
+            }
+            file.path = relNewPath;
+            return file.save();
+        });
     }
     catch (err) {
         console.error(err);
