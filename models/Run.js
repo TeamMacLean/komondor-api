@@ -81,37 +81,34 @@ schema.pre('save', function (next) {
 schema.post('save', function (next) {
 
     const doc = this;
-    if (doc.oldId){
+    if (doc.oldId && doc.oldId.length){
         if (next && typeof(next) === 'function'){
             next()
         } 
         return Promise.resolve(); 
     } 
 
-    if (this.wasNew) {
-        //create news item
-        const NewsItem = require("./NewsItem")
-        return new NewsItem({
-            type: 'run',
-            typeId: doc._id,
-            owner: doc.owner,
-            group: doc.group,
-            name: doc.name,
-            body: doc.sequencingProvider
+    //create news item
+    const NewsItem = require("./NewsItem")
+    return new NewsItem({
+        type: 'run',
+        typeId: doc._id,
+        owner: doc.owner,
+        group: doc.group,
+        name: doc.name,
+        body: doc.sequencingProvider
+    })
+        .save()
+        .then(() => {
+            // create directory
+            const absPath = join(process.env.DATASTORE_ROOT, this.path);     
+            return fs.promises.mkdir(absPath) 
         })
-            .save()
-            .then(() => {
-                // create directory
-                const absPath = join(process.env.DATASTORE_ROOT, this.path);     
-                return fs.promises.mkdir(absPath) 
-            })
-            .catch(err => {
-                console.error(err);
-                Promise.resolve();
-            })
-    } else {
-        return Promise.resolve()
-    }
+        .catch(err => {
+            console.error(err);
+            Promise.resolve();
+        })
+
 });
 
 schema.virtual('additionalFiles', {

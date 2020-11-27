@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
     isPublic: { type: Boolean, default: false },
 
     // GG new fields
-    oldId : {type: String, unique: true}, // TODO i dont think i need this but hard to extract
+    oldId: {type: String}, // TODO i dont think i need this but hard to extract // warning, post migration i removed unique=true
     oldSafeName: {type: String, unique: false, required: false}, // temp?
     secondaryOwner: {type: String, required: false},
     path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? 
@@ -49,49 +49,43 @@ schema.pre('save', function (next) {
 schema.post('save', async function (next) {
 
     const doc = this;
-    if (doc.oldId){
+    if (doc.oldId && doc.oldId.length){
         if (next && typeof(next) === 'function'){
             next()
         } 
         return Promise.resolve(); 
     }
 
-    if (this.wasNew) {
-
-        async function createNewsItem() {
-            const NewsItem = require('./NewsItem')
-            try {
-                const savedNewsItem = await new NewsItem({
-                    type: 'project',
-                    typeId: doc._id,
-                    owner: doc.owner,
-                    group: doc.group._id || doc.group,
-                    name: doc.name,
-                    body: doc.shortDesc
-                })
-                    .save();
-                return Promise.resolve();
-            } catch (err) {
-                console.error(err);
-                return Promise.resolve();
-            }
-        }
-
-        // create directory
-        const absPath = join(process.env.DATASTORE_ROOT, this.path);
+    async function createNewsItem() {
+        const NewsItem = require('./NewsItem')
         try {
-            await fs.promises.mkdir(absPath);
-        } catch (e) {
-            console.log('error mkdir', e, absPath);
-            // find another way to mkdir
-            return Promise.reject(e)
-        }                        
-
-        return createNewsItem(); 
-
-    } else {
-        return Promise.resolve()
+            const savedNewsItem = await new NewsItem({
+                type: 'project',
+                typeId: doc._id,
+                owner: doc.owner,
+                group: doc.group._id || doc.group,
+                name: doc.name,
+                body: doc.shortDesc
+            })
+                .save();
+            return Promise.resolve();
+        } catch (err) {
+            console.error(err);
+            return Promise.resolve();
+        }
     }
+
+    // create directory
+    const absPath = join(process.env.DATASTORE_ROOT, this.path);
+    try {
+        await fs.promises.mkdir(absPath);
+    } catch (e) {
+        console.log('error mkdir', e, absPath);
+        // find another way to mkdir
+        return Promise.reject(e)
+    }                        
+
+    return createNewsItem(); 
 });
 
 schema.virtual('samples', {

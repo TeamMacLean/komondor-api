@@ -32,7 +32,7 @@ schema.pre('save', function (next) {
 schema.post('save', function (next) {
 
     const doc = this;
-    if (doc.oldReadId){
+    if (doc.oldReadId && doc.oldReadId.length){
         if (next && typeof(next) === 'function'){
             next()
         } 
