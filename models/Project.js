@@ -73,17 +73,18 @@ schema.post('save', async function (next) {
     // create directory
     const absPath = join(process.env.DATASTORE_ROOT, this.path);
     try {
-        console.log('about to try to make', absPath);
+        console.log('will make this dir', absPath, '...:');
 
-        const result = await fs.promises.mkdir(absPath);
-        console.log('result of making path was: ', result);
+        await fs.promises.mkdir(absPath, {recursive: true});
         
-        return createNewsItem(); 
     } catch (e) {
-        console.log('error mkdir of new project', e, absPath);
+        console.log('...error mkdir of new project', e, absPath);
         // find another way to mkdir
         return Promise.reject(e)
-    }                        
+    }             
+    console.log('...dir creation (probably) successful, now create newsitem');
+
+    return createNewsItem();           
 
 });
 
