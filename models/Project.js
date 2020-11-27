@@ -47,6 +47,7 @@ schema.pre('save', function (next) {
     next()
 });
 schema.post('save', async function (next) {
+    const doc = this;
 
     async function createNewsItem() {
         const NewsItem = require('./NewsItem')

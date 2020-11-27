@@ -71,6 +71,8 @@ schema.pre('save', function (next) {
 
 schema.post('save', function (next) {
 
+  const doc = this;
+
   //create news item
   const NewsItem = require("./NewsItem")
   return new NewsItem({

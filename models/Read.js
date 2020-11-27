@@ -32,16 +32,10 @@ schema.pre('save', function (next) {
 schema.post('save', function (next) {
 
     const doc = this;
-    if (doc.oldReadId && doc.oldReadId.length){
-        if (next && typeof(next) === 'function'){
-            next()
-        } 
-        return Promise.resolve(); 
-    }
 
     return Promise.all([
-        Run.findById(readDoc.run), 
-        readDoc.populate('file').execPopulate()
+        Run.findById(doc.run), 
+        doc.populate('file').execPopulate()
     ])
         .then(out => {
             const run = out[0];

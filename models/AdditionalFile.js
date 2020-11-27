@@ -30,14 +30,6 @@ schema.pre('save', function (next) {
 schema.post('save', async function (next) {
 
     const doc = this;
-    if (doc.oldAdditionalFileId && doc.oldAdditionalFileId.length){
-        if (next && typeof(next) === 'function'){
-            next()
-        } 
-        return Promise.resolve(); 
-    }
-    
-    // move file
 
     let prom;
     if (doc.run) {
