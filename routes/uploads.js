@@ -61,7 +61,7 @@ uploadApp.all("*", function (req, res, next) {
   // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', false);
 
-  console.log('upload res headers', res.headers, res);
+  //console.log('upload res headers', res.headers, res);
   
   tusServer.handle.bind(tusServer)(req, res, next);
 })
