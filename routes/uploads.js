@@ -38,6 +38,9 @@ uploadApp.all("*", function (req, res, next) {
   req.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   req.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
   req.setHeader('Access-Control-Allow-Credentials', false);
+
+  console.log('upload req headers', req.headers, req);
+  
   
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -48,7 +51,8 @@ uploadApp.all("*", function (req, res, next) {
   // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', false);
 
-
+  console.log('upload res headers', res.headers, res);
+  
   tusServer.handle.bind(tusServer)(req, res, next);
 })
 // uploadApp.all("*", tusServer.handle.bind(tusServer));
