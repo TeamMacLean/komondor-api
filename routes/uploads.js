@@ -34,12 +34,22 @@ const uploadApp = express();
 uploadApp.all("*", function (req, res, next) {
 
   // George freestyling
-  req.setHeader('Access-Control-Allow-Origin', '*');
-  req.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  req.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
-  req.setHeader('Access-Control-Allow-Credentials', false);
+  // req.setHeader('Access-Control-Allow-Origin', '*');
+  // req.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // req.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
+  // req.setHeader('Access-Control-Allow-Credentials', false);
 
-  console.log('upload req headers', req.headers, req);
+  console.log('useful request info: ' + 
+    '\nreq.method', (req && req.method) ? req.method : 'unknown',
+    '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
+    '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
+    '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
+    '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
+    '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
+    '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
+
+  );
+  
   
   
   // Website you wish to allow to connect
