@@ -36,20 +36,7 @@ app.use(express.urlencoded({ extended: false }));
  */
 app.use((req, res, next) => {
 
-    // Website you wish to allow to connect
-    // TODO try variants of this: http://sequences.tsl.ac.uk/ (this itself didnt work)
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    // false cos of line 41
-    res.setHeader('Access-Control-Allow-Credentials', false);
+    // removed res.setHeaders to uploads route only
 
     getUserFromRequest(req)
         .then(user => {
