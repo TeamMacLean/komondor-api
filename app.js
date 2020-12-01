@@ -18,14 +18,29 @@ const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
 
-
-
+const HEADERS = [
+    'Authorization',
+    'Content-Type',
+    'Location',
+    'Tus-Extension',
+    'Tus-Max-Size',
+    'Tus-Resumable',
+    'Tus-Version',
+    'Upload-Defer-Length',
+    'Upload-Length',
+    'Upload-Metadata',
+    'Upload-Offset',
+    'X-HTTP-Method-Override',
+    'X-Requested-With',
+];
+const EXPOSED_HEADERS = HEADERS.join(', ');
 var corsOptions = {
     origin: '*',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    exposedHeaders: EXPOSED_HEADERS,
 }
-  
+
 app.use(cors(corsOptions));
 
 // if desperate, try
