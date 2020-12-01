@@ -17,7 +17,21 @@ const testRoutes = require("./routes/test")
 const getUserFromRequest = require("./lib/utils/getUserFromRequest")
 
 const app = express();
-app.use(cors());
+
+
+
+var corsOptions = {
+    origin: '*',
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+  
+app.use(cors(corsOptions));
+
+// if desperate, try
+//app.options('*', cors(corsOptions));
+
+
 
 app.use(function (req, res, next) {
     next();
@@ -37,6 +51,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
 
     // removed res.setHeaders to uploads route only
+
+    console.log('Got a APP_LEVEL req! useful info: ' + 
+    '\nreq.method', (req && req.method) ? req.method : 'unknown',
+    '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
+    '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
+    '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
+    '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
+    '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
+    '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
+  );  
 
     getUserFromRequest(req)
         .then(user => {

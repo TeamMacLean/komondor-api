@@ -37,7 +37,7 @@ uploadApp.all("*", function (req, res, next) {
   // This doesnt work
   // req.setHeader('Access-Control-Allow-Origin', '*');
 
-  console.log('useful request info: ' + 
+  console.log('Got an UPLOADS req! useful info: ' + 
     '\nreq.method', (req && req.method) ? req.method : 'unknown',
     '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
     '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
