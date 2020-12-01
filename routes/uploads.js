@@ -15,7 +15,7 @@ tusServer.datastore = new tus.FileStore({
   // this uploads the file temporarily locally
   // on form submission we will move this temp file to actual upload location
   path: "/files",
-  relativeLocation: true,
+  //relativeLocation: true,
 });
 
 // console.log('tusserver', tusServer.options, tusServer, Object.keys(tusServer));
