@@ -65,7 +65,15 @@ const uploadApp = express();
 uploadApp.use(cors(corsOptions));
 uploadApp.all("*", function (req, res, next) {
   //res.setHeader('Access-Control-Allow-Origin', '*');
-  console.log('req', req);
+  if (req.method === 'POST'){
+    console.log('post method');
+  } else if (req.method === 'PATCH'){
+    console.log('post method');
+  } else if (!req.method){
+    console.log('no req method found for this req');
+  } else {
+    console.log('req method used:', req.method);
+  }
     
   tusServer.handle.bind(tusServer)(req, res, next);
 })
