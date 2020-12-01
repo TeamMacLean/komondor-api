@@ -7,6 +7,10 @@ const _path = require("path")
 const UPLOAD_PATH = _path.join(process.cwd(), 'uploads');
 
 const tusServer = new tus.Server();
+
+tusServer.relativeLocation = true;
+
+
 tusServer.datastore = new tus.FileStore({
   //directory: UPLOAD_PATH,
   // this uploads the file temporarily locally
