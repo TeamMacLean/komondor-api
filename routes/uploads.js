@@ -8,10 +8,10 @@ const UPLOAD_PATH = _path.join(process.cwd(), 'uploads');
 
 const tusServer = new tus.Server();
 tusServer.datastore = new tus.FileStore({
-  directory: UPLOAD_PATH,
+  //directory: UPLOAD_PATH,
   // this uploads the file temporarily locally
   // on form submission we will move this temp file to actual upload location
-  path: "/uploads",
+  path: "/files",
 });
 
 // tusServer.on('*', event => {
