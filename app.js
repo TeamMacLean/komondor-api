@@ -46,12 +46,6 @@ app.use(cors(corsOptions));
 // if desperate, try
 //app.options('*', cors(corsOptions));
 
-
-
-app.use(function (req, res, next) {
-    next();
-})
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -78,6 +72,8 @@ app.use((req, res, next) => {
 //     '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
 //   );  
 
+    console.log('req method used:', req.method, req.url);
+    
     getUserFromRequest(req)
         .then(user => {
             if (user) {
