@@ -37,24 +37,24 @@ uploadApp.all("*", function (req, res, next) {
   // This doesnt work
   // req.setHeader('Access-Control-Allow-Origin', '*');
 
-  console.log('Got an UPLOADS req! useful info: ' + 
-    '\nreq.method', (req && req.method) ? req.method : 'unknown',
-    '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
-    '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
-    '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
-    '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
-    '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
-    '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
-  );  
+  // console.log('Got an UPLOADS req! useful info: ' + 
+  //   '\nreq.method', (req && req.method) ? req.method : 'unknown',
+  //   '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
+  //   '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
+  //   '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
+  //   '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
+  //   '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
+  //   '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
+  // );  
   
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS, PUT, PATCH, DELETE');
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
-  // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', false);
+  // res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS, PUT, PATCH, DELETE');
+  // // Request headers you wish to allow
+  // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
+  // // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
+  // res.setHeader('Access-Control-Allow-Credentials', false);
 
   //console.log('upload res headers', res.headers, res);
   

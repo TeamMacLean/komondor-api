@@ -52,15 +52,16 @@ app.use((req, res, next) => {
 
     // removed res.setHeaders to uploads route only
 
-    console.log('Got a APP_LEVEL req! useful info: ' + 
-    '\nreq.method', (req && req.method) ? req.method : 'unknown',
-    '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
-    '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
-    '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
-    '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
-    '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
-    '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
-  );  
+    // REQUESTING MIGHT REMOVE THE REQ HEADERS
+//     console.log('Got a APP_LEVEL req! useful info: ' + 
+//     '\nreq.method', (req && req.method) ? req.method : 'unknown',
+//     '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
+//     '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
+//     '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
+//     '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
+//     '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
+//     '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
+//   );  
 
     getUserFromRequest(req)
         .then(user => {
