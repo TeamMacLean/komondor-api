@@ -1,5 +1,7 @@
 const express = require("express")
 let router = express.Router();
+const cors = require("cors")
+
 const tus = require('tus-node-server')
 const fileUpload = require('../lib/fileUpload')
 const { isAuthenticated } = require("./middleware")
@@ -34,34 +36,37 @@ tusServer.on(tus.EVENTS.EVENT_ENDPOINT_CREATED, event => {
   console.log('EVENT_ENDPOINT_CREATED', event)
 });
 
+const HEADERS = [
+  'Authorization',
+  'Content-Type',
+  'Location',
+  'Tus-Extension',
+  'Tus-Max-Size',
+  'Tus-Resumable',
+  'Tus-Version',
+  'Upload-Defer-Length',
+  'Upload-Length',
+  'Upload-Metadata',
+  'Upload-Offset',
+  'X-HTTP-Method-Override',
+  'X-Requested-With',
+];
+const EXPOSED_HEADERS = HEADERS.join(', ');
+var corsOptions = {
+  origin: '*',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  exposedHeaders: EXPOSED_HEADERS,
+}
+
+
 // const express = require('express');
 const uploadApp = express();
+uploadApp.use(cors(corsOptions));
 uploadApp.all("*", function (req, res, next) {
-
-  // This doesnt work
-  // req.setHeader('Access-Control-Allow-Origin', '*');
-
-  // console.log('Got an UPLOADS req! useful info: ' + 
-  //   '\nreq.method', (req && req.method) ? req.method : 'unknown',
-  //   '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
-  //   '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
-  //   '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
-  //   '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
-  //   '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
-  //   '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
-  // );  
-  
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  // Request methods you wish to allow
-  // res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, OPTIONS, PUT, PATCH, DELETE');
-  // // Request headers you wish to allow
-  // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Authorization, Origin, Accept');
-  // // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
-  // res.setHeader('Access-Control-Allow-Credentials', false);
-
-  //console.log('upload res headers', res.headers, res);
-  
+  //res.setHeader('Access-Control-Allow-Origin', '*');
+  console.log('req', req);
+    
   tusServer.handle.bind(tusServer)(req, res, next);
 })
 // uploadApp.all("*", tusServer.handle.bind(tusServer));
