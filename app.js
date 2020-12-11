@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 //     '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
 //   );  
 
-    console.log('req method used:', req.method, req.url);
+    // console.log('req method used:', req.method, req.url);
     
     getUserFromRequest(req)
         .then(user => {
