@@ -46,22 +46,30 @@ router.route('/projects/names')
 router.route('/project')
     .all(isAuthenticated)
     .get((req, res) => {
-        if (req.query.id) {
 
-            //TODO check permission
-            Project.findById(req.query.id)
+        if (!req.query.id) {
+            res.status(500).send({ error: new Error('param :id not provided') })
+        } else {
+            // proceed
+
+            Project
+                .findById(req.query.id)
                 .populate('group')
                 .populate({ path: 'samples', populate: { path: 'group' } })
                 .populate({ path: 'additionalFiles', populate: { path: 'file' } })
                 .then(project => {
-                    //TODO check they have permissions
-                    if (project) {
+                    if (!project) {
+                        res.status(501).send({ error: 'Project not found' });
+                    } else {                       
+                        // proceed
+                        
                         try {                            
                             const dirRoot = _path.join(process.env.DATASTORE_ROOT, project.path);
                             const additionalDir = _path.join(dirRoot, 'additional');
 
                             fs.stat(additionalDir, function(err, stats) {
 
+                                // handle errors as dir probably nonexistent
                                 if (err || !stats.isDirectory()){                                    
                                     res.status(200).send({
                                         project: project,
@@ -69,6 +77,7 @@ router.route('/project')
                                     });
                                 } else {
                                     fs.readdir(additionalDir, (additionalFilesErr, additionalFiles) => {
+                                        // throw errors as unexpected
                                         if (additionalFilesErr){
                                             throw new Error(additionalFilesErr)
                                         }
@@ -81,20 +90,19 @@ router.route('/project')
                             });
                         } catch (e) {
                             console.error(e, e.message)
-                            res.status(501).send({error: 'unexpected readdir error'})
+                            res.status(501).send({error: 'Unexpected readdir error'})
                         }
-                    } else {
-                        res.status(501).send({ error: 'not found' });
                     }
                 })
                 .catch(err => {
+                    // error during db inflation
+                    console.error(e, e.message)
                     res.status(500).send({ error: err });
                 })
-
-        } else {
-            res.status(500).send({ error: new Error('param :id not provided') })
+            ;
         }
-    });
+    }
+);
 
 router.route('/projects/new')
     .all(isAuthenticated)
