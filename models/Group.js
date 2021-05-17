@@ -51,43 +51,36 @@ schema.post('save', function () {
     })
 })
 
-schema.statics.GroupsIAmIn = function GroupsIAmIn(user) {  
+schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {  
+  const allGroupsFilter = {};
+  var groupFindCriteria;
   if (user.isAdmin) {
-    return Group.find({})
-  }
-
-  if (
+    groupFindCriteria = allGroupsFilter;  
+  } else if (
     FULL_RECORDS_ACCESS_USERS &&
     FULL_RECORDS_ACCESS_USERS.length &&
     user &&
     user.username &&
     FULL_RECORDS_ACCESS_USERS.includes(user.username)
   ){  
-    // console.log('in full records access users, returning all Groups');
-    return Group.find({})
-  } else {
-    // console.log('just one group');    
-  }
-
-  if (user.groups) {
-    return Group.find({
+    groupFindCriteria = allGroupsFilter;  
+  } else if (user.groups) {
+    groupFindCriteria = {
       '_id': { $in: user.groups }
-    });
-
+    }
   } else if (user.memberOf) {
-
-    const filters = [];
-    user.memberOf.map(g => {
-      filters.push({ 'ldapGroups': g })
-    });
-    return Group.find({ $or: filters })
-
+    const filters = user.memberOf.map(g => ({
+      'ldapGroups': g
+    }));
+    groupFindCriteria = { $or: filters };
   } else {
     // user has no group, so let them store in bioinformatics
+    console.log('user obj to determine group', user)
     console.log('no groups for user' + (user.username || user) + ', returning bioinformatics');    
-    return Group.find({'name': 'bioinformatics'})
+    groupFindCriteria = {'name': 'bioinformatics'};
   }
 
+  return await Group.find(groupFindCriteria);
 };
 
 const Group = mongoose.model('Group', schema);

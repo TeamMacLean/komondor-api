@@ -12,9 +12,10 @@ const schema = new mongoose.Schema({
     path: { type: String, required: false }, // HACK to required false
     createFileDocumentId: {type: String},
     tempUploadPath: { type: String, required: true }, // new field i added to help with bugs
-    oldParentID: {type: String}, // George added
-    oldReadId: {type: String}, // George added
-    oldAdditionalFileId: {type: String}, // George added
+    oldParentID: {type: String},
+    oldReadId: {type: String},
+    oldAdditionalFileId: {type: String},
+    uploadMethod: {type: String},
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 // create a unique combo of name and path (and when uploaded)
@@ -29,7 +30,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
 
         // console.log('file.path is tempUploadPath, on rename upload doc property');
 
-        console.log('moving file from', file.path, 'to', fullNewPath);
+        console.log('Moving file from', file.path, 'to', fullNewPath);
         
         mv(file.path, fullNewPath, {mkdirp: true}, function(err) {
             // done. it tried fs.rename first, and then falls back to

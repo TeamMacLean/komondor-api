@@ -118,36 +118,79 @@ router.route('/runs/new')
             librarySelection: req.body.librarySelection,
             libraryStrategy: req.body.libraryStrategy,
             insertSize: req.body.insertSize,
-
-            // additionalFilesUploadID: req.body.additionalUploadID,
-            // rawFilesUploadID: req.body.rawUploadID,
-
             owner: req.body.owner,
             group: req.body.group,
         })
+
+        /** 
+            this.run.rawFilesUploadMethod = "hpc-mv" or 'local-filesystem'
+            this.run.paired
+            this.run.hpcRawFiles = {
+                relativePath: this.targetDirectoryName,
+                files: [{
+                    name: '',
+                    MD5: '',
+                    sibling: '',
+                }],
+            }
+        */
+
+        // console.log('paired', req.body.paired);
+        // console.log('rawFilesUploadMethod', req.body.rawFilesUploadMethod);
+        // console.log('hpcRawFiles', req.body.hpcRawFiles);
+        // console.log('jic', req.body);
+
+        const rawFilesUploadInfo = req.body.rawFilesUploadInfo;
+
+        // res.status(500).send({ error: 'no chances to escape' })
+        
+        /** 
+            data: File
+                lastModified: 1592992875792
+                name: "additional-demo.bam"
+                size: 2560
+                type: ""
+            extension: "bam"
+            id: "uppy-additional/demo/bam-1d-1e-application/octet-stream-2560-1592992875792"
+            md5: "a371492f16c0940507435909603efe88"
+            meta: Object
+                name: "additional-demo.bam"
+                relativePath: null
+                type: "application/octet-stream"
+            name: "additional-demo.bam"
+            paired: false
+            response: Object
+                uploadURL: "http://localhost:3030/uploads/files/f6578457a259abc8ecf69a5b2b4c4b59"
+            rowID: "1c90e017-561b-4a54-8f6c-c1cf8a3400b3"
+            size: 2560
+            source: "DragDrop"
+            tus: Object
+                uploadUrl: "http://localhost:3030/uploads/files/f6578457a259abc8ecf69a5b2b4c4b59"
+            type: "application/octet-stream"
+            uploadName: "f6578457a259abc8ecf69a5b2b4c4b59"
+            uploadURL: "http://localhost:3030/uploads/files/f6578457a259abc8ecf69a5b2b4c4b59"
+        */
 
         let returnedRun;
         newRun.save()
             .then(async savedRun => {
                 returnedRun = savedRun;
-                const additionalFiles = req.body.additionalFiles;
-                const readFiles = req.body.rawFiles;
+                
+                const additionalFiles = req.body.additionalFiles;         
 
+                let readFiles = req.body.rawFiles || null;
+                
                 try {
-
                     const promList = []
+    
                     if (readFiles.length){
-                        promList.push(sortReadFiles(readFiles, returnedRun._id, returnedRun.path))
+                        promList.push(sortReadFiles(readFiles, returnedRun._id, returnedRun.path, rawFilesUploadInfo))
                     }
                     if (additionalFiles.length){
                         promList.push(sortAdditionalFiles(additionalFiles, 'run', returnedRun._id, returnedRun.path))
                     }
 
                     return await Promise.all(promList);
-                    //const output = await Promise.all(promList)  
-                    // console.log('output', output);
-                    // return Promise.resolve();
-
                 } catch (e){
                     // if issue with files, remove run
                     await Run.deleteOne({ '_id': returnedRun._id });                        
@@ -161,6 +204,7 @@ router.route('/runs/new')
                 console.error(err);
                 res.status(500).send({ error: err })
             })
+            
     });
 
 module.exports = router;

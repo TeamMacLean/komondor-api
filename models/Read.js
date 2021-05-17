@@ -45,6 +45,7 @@ schema.post('save', function (next) {
                     // we are relying on /raw dir to have been previously created!
                     relPath = _path.join(relPath, 'raw')
                     const relPathWithFilename = _path.join(relPath, reeeeed.file.originalName)
+                    console.log('calling file.moveToFolderAndSave() with', relPathWithFilename);                    
                     return reeeeed.file.moveToFolderAndSave(relPathWithFilename)
                 })
         })
