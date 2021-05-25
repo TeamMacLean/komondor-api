@@ -25,14 +25,12 @@ router
   .get(async (req, res) => {
     const { targetDirectoryName } = req.query;
 
-    console.log('targetDirectoryName', targetDirectoryName);
-
     try {                            
       const cleanedTargetDirectoryName = cleanTargetDirectoryName(targetDirectoryName);
       
       const dirRoot = _path.join(process.env.HPC_TRANSFER_DIRECTORY, cleanedTargetDirectoryName);
 
-      console.log('dirRoot', dirRoot);
+      console.log('directory to search', dirRoot);
       
       var dirExists = false;
       try {
