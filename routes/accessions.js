@@ -115,7 +115,8 @@ const getMatrixOfData = async () => {
                 })
                 
                 // TODO TEMP HACK use .env
-                const relatedReadsPaths = relatedReads.map(read => ('/tsl/data/reads/' + read.file.path));
+                // this works on production but misses a slash on local dev
+                const relatedReadsPaths = relatedReads.map(read => ('/tsl/data/reads' + read.file.path));
                 const relatedReadsPathsString = relatedReadsPaths.join(';');
 
                 const groupString = runPlus.group.safeName;
