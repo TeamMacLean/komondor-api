@@ -11,6 +11,7 @@ const searchRoutes = require("./routes/search")
 const groupRoutes = require("./routes/groups")
 const directoryFilesRoutes = require("./routes/directory-files")
 const userRoutes = require("./routes/users")
+const accessionRoutes = require("./routes/accessions")
 const newsRoutes = require("./routes/news")
 const uploadRoutes = require("./routes/uploads")
 const optionRoutes = require('./routes/options')
@@ -95,6 +96,7 @@ app.use(searchRoutes);
 app.use(groupRoutes);
 app.use(directoryFilesRoutes);
 app.use(userRoutes);
+app.use(accessionRoutes);
 app.use(newsRoutes);
 app.use(optionRoutes);
 app.use(uploadRoutes);

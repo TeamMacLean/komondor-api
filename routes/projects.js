@@ -5,6 +5,7 @@ const { isAuthenticated } = require('./middleware')
 const _path = require('path')
 const fs = require('fs');
 const { sortAdditionalFiles } = require('../lib/sortAssociatedFiles');
+const sendOverseerEmail = require('../lib/utils/sendOverseerEmail')
 
 router.route('/projects')
     .all(isAuthenticated)
@@ -63,7 +64,8 @@ router.route('/project')
                     } else {                       
                         // proceed
                         
-                        try {                            
+                        try {                         
+                            
                             const dirRoot = _path.join(process.env.DATASTORE_ROOT, project.path);
                             const additionalDir = _path.join(dirRoot, 'additional');
 
@@ -142,8 +144,10 @@ router.route('/projects/new')
                     return Promise.resolve()
                 }
             })
-            .then(() => {                
-                res.status(200).send({ project: setAsSavedProject })
+            .then(() => { 
+                sendOverseerEmail({type: 'Project', data: setAsSavedProject}).then((emailResult) => {
+                    res.status(200).send({ project: setAsSavedProject })
+                })
             })
             .catch(err => {
                 res.status(500).send({ error: err })

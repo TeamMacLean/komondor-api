@@ -18,6 +18,9 @@ const schema = new mongoose.Schema({
     secondaryOwner: {type: String, required: false},
     path: {type: String, required: false, unique: true}, // George add unique: true; surely required is true also? 
 
+    accession: {type: String, unique: false}, // unique except null TODO
+    releaseDate: {type: String, unique: false}, // 'DD-MM-YYYY' format; ENA
+
     // TODO ensure each is unique?
     additionalFilesUploadIDs: [{ type: String }], // George has created (was missing with Martin)
 

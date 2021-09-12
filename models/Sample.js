@@ -20,6 +20,8 @@ const schema = new Schema({
 
   oldId: {type: String},
 
+  accession: {type: String, unique: false}, // unique except null TODO
+
   // TODO ensure each is unique?
   additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
 

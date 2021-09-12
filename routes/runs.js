@@ -8,6 +8,7 @@ const { isAuthenticated } = require('./middleware')
 const _path = require('path')
 const fs = require('fs');
 const { sortAdditionalFiles, sortReadFiles } = require('../lib/sortAssociatedFiles');
+const sendOverseerEmail = require('../lib/utils/sendOverseerEmail')
 
 router.route('/runs')
     .all(isAuthenticated)
@@ -198,7 +199,9 @@ router.route('/runs/new')
                 }                
             })
             .then(() => {
-                res.status(200).send({ run: returnedRun })
+                sendOverseerEmail({type: 'Run', data: returnedRun}).then((emailResult) => {
+                    res.status(200).send({ run: returnedRun })
+                })
             })
             .catch(err => {
                 console.error(err);
