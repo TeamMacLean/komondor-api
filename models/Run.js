@@ -1,6 +1,7 @@
 //import { Schema, model } from 'mongoose';
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
+const NewsItem = require('./NewsItem')
 
 const fs = require('fs')
 const { join } = require('path');
@@ -28,7 +29,7 @@ const schema = new Schema({
     // ensure each element in array is unique?
     additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
 
-    accession: {type: String, unique: false, required: false}, // unique except null TODO
+    accessions: [{type: String, unique: false, required: false}], // unique except null TODO
 
     // George add
     oldId: {type: String, required: false},
@@ -80,30 +81,39 @@ schema.pre('save', function (next) {
     next()
 });
 
-schema.post('save', function (next) {
+schema.post('save', async function (next) {
     const doc = this;
 
-    //create news item
-    const NewsItem = require("./NewsItem")
-    return new NewsItem({
-        type: 'run',
-        typeId: doc._id,
-        owner: doc.owner,
-        group: doc.group,
-        name: doc.name,
-        body: doc.sequencingProvider
-    })
-        .save()
-        .then(() => {
-            // create directory
-            const absPath = join(process.env.DATASTORE_ROOT, this.path);     
-            return fs.promises.mkdir(absPath) 
-        })
-        .catch(err => {
-            console.error(err);
-            Promise.resolve();
-        })
+    const alreadyMadeArray = await NewsItem.find(
+        {'typeId': doc._id}
+    );
+    const alreadyMade = !!(alreadyMadeArray.length)
 
+    if (alreadyMade) {
+        console.log('Run already a newsitem, so not creating that or making directory')
+        return Promise.resolve();
+    } else {
+        //create news item
+        const NewsItem = require("./NewsItem")
+        return new NewsItem({
+            type: 'run',
+            typeId: doc._id,
+            owner: doc.owner,
+            group: doc.group,
+            name: doc.name,
+            body: doc.sequencingProvider
+        })
+            .save()
+            .then(() => {
+                // create directory
+                const absPath = join(process.env.DATASTORE_ROOT, this.path);     
+                return fs.promises.mkdir(absPath) 
+            })
+            .catch(err => {
+                console.error(err);
+                Promise.resolve();
+            })    
+    }
 });
 
 schema.virtual('additionalFiles', {

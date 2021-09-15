@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose;
 //import { join } from 'path';
+const NewsItem = require('./NewsItem')
 
 const generateSafeName = require('../lib/utils/generateSafeName').default
 const fs = require('fs')
@@ -20,7 +21,7 @@ const schema = new Schema({
 
   oldId: {type: String},
 
-  accession: {type: String, unique: false}, // unique except null TODO
+  accessions: [{type: String, unique: false}], // unique except null TODO
 
   // TODO ensure each is unique?
   additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
@@ -71,32 +72,39 @@ schema.pre('save', function (next) {
   next()
 });
 
-schema.post('save', function (next) {
-
+schema.post('save', async function (next) {
   const doc = this;
 
-  //create news item
-  const NewsItem = require("./NewsItem")
-  return new NewsItem({
-    type: 'sample',
-    typeId: doc._id,
-    owner: doc.owner,
-    group: doc.group,
-    name: doc.name,
-    body: doc.conditions,
-    //originallyAdded: doc.originallyAdded,
-  })
-    .save()
-    .then(() => {
-      // create directory
-      const absPath = join(process.env.DATASTORE_ROOT, this.path);     
-      return fs.promises.mkdir(absPath) 
+  const alreadyMadeArray = await NewsItem.find(
+    {'typeId': doc._id}
+  );
+  const alreadyMade = !!(alreadyMadeArray.length)
+
+  if (alreadyMade) {
+    console.log('Sample already a newsitem, so not creating that or making directory')
+    return Promise.resolve();
+  } else {
+    //create news item
+    return new NewsItem({
+      type: 'sample',
+      typeId: doc._id,
+      owner: doc.owner,
+      group: doc.group,
+      name: doc.name,
+      body: doc.conditions,
+      //originallyAdded: doc.originallyAdded,
     })
-    .catch(err => {
-      console.error(err);
-      Promise.resolve();
-    })
-  
+      .save()
+      .then(() => {
+        // create directory
+        const absPath = join(process.env.DATASTORE_ROOT, this.path);     
+        return fs.promises.mkdir(absPath) 
+      })
+      .catch(err => {
+        console.error(err);
+        Promise.resolve();
+      })
+  }  
 });
 
 schema.virtual('runs', {
