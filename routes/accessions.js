@@ -10,30 +10,26 @@ const fs = require('fs');
 const { sortAdditionalFiles } = require('../lib/sortAssociatedFiles');
 const sendOverseerEmail = require('../lib/utils/sendOverseerEmail')
 
-const updateProject = async (accession, releaseDate, typeId) => {
+const updateProject = async (accessions, releaseDate, typeId) => {
     return await new Promise(async (res, rej) => {
-
         try {
             let updateInfo = {
-                accession,
+                accessions,
             };
             if (releaseDate){
                 updateInfo.releaseDate = releaseDate;
             }
-
             const updatedProject = await (await Project.findByIdAndUpdate(typeId, updateInfo)).save();
-
             res(updatedProject)
-            
         } catch (error) {
             rej(error)
         }
     });
 }
-const updateSample = async (accession, typeId) => {
+const updateSample = async (accessions, typeId) => {
     return await new Promise(async (res, rej) => {
         try {
-            const updatedSample = await (await Sample.findByIdAndUpdate(typeId, {accession: accession})).save();
+            const updatedSample = await (await Sample.findByIdAndUpdate(typeId, {accessions: accessions})).save();
             res(updatedSample)            
         } catch (error) {
             rej(error)
@@ -41,11 +37,11 @@ const updateSample = async (accession, typeId) => {
     });
 }
 
-const updateRun = async (accession, typeId) => {
+const updateRun = async (accessions, typeId) => {
     return await new Promise(async (res, rej) => {
         try {
-            const updatedSample = await (await Run.findByIdAndUpdate(typeId, {accession: accession})).save();
-            res(updatedSample)            
+            const updatedRun = await (await Run.findByIdAndUpdate(typeId, {accessions: accessions})).save();
+            res(updatedRun)            
         } catch (error) {
             rej(error)
         }
@@ -56,38 +52,23 @@ router.route('/accessions/new')
     .all(isAuthenticated)
     .post(async (req, res) => {
         const {
-            accession,
+            accessions,
             releaseDate,
             type,
             typeId,
         } = req.body;
 
-        // TODO
-        // type === 'project' && 
-
-        if (type === 'project'){
-            try {
-                await updateProject(accession, releaseDate, typeId)
-                res.status(200).send()
-            } catch (error) {
-                res.status(500).send({ error: err })
-            }
-        } else if (type === 'sample'){
-            try {
-                await updateSample(accession, typeId)
-                res.status(200).send()
-            } catch (error) {
-                res.status(500).send({ error: err })
-            }
-        } else if (type === 'run'){
-            try {
-                await updateRun(accession, typeId)
-                res.status(200).send()
-            } catch (error) {
-                res.status(500).send({ error: err })
-            }
-        } else {
+        if (!type){
             res.status(500).send({error: 'Could not find type'})
+        }
+
+        try {
+            type === 'project' && await updateProject(accessions, releaseDate, typeId);
+            type === 'sample' && await updateSample(accessions, typeId);
+            type === 'run' && await updateRun(accessions, typeId);
+            res.status(200).send()
+        } catch (error) {
+            res.status(500).send({ error })
         }
 });
 
@@ -124,13 +105,13 @@ const getMatrixOfData = async () => {
                 const ena_submission_dateString = targetProjectObj.releaseDate;
                 const project_nameString = targetProjectObj.safeName;
                 const project_idString = runsProjIdStr;
-                const project_accessionString = targetProjectObj.accession;
+                const project_accessionsString = targetProjectObj.accessions.join(';');
                 const sample_nameString = runPlus.sample.safeName;
                 const sample_idString = runPlus.sample._id.toString();
-                const sample_accessionString = runPlus.sample.accession;
+                const sample_accessionsString = runPlus.sample.accessions.join(';');
                 const run_nameString = runPlus.safeName;
                 const run_idString = runPlus._id.toString();
-                const run_accessionString = runPlus.accession;
+                const run_accessionsString = runPlus.accessions.join(';');
                 const run_creation_dateString = runPlus.createdAt;
                 const list_of_read_filesString = relatedReadsPathsString;
 
@@ -140,13 +121,13 @@ const getMatrixOfData = async () => {
                     ena_submission_dateString,
                     project_nameString,
                     project_idString,
-                    project_accessionString,
+                    project_accessionsString,
                     sample_nameString,
                     sample_idString,
-                    sample_accessionString,
+                    sample_accessionsString,
                     run_nameString,
                     run_idString,
-                    run_accessionString,
+                    run_accessionsString,
                     run_creation_dateString,
                     list_of_read_filesString,
                 ];
@@ -161,7 +142,7 @@ const getMatrixOfData = async () => {
 
 const HEADINGS = [
     'group', 'owner', 
-    'ena_submission_date', 'project_name', 'project_id', 'project_accession', 
+    'ena_project_submission_date', 'project_name', 'project_id', 'project_accession', 
     'sample_name', 'sample_id', 'sample_accession', 
     'run_name', 'run_id', 'run_accession', 'run_creation_date', 'list_of_read_files'
 ];
