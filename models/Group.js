@@ -52,7 +52,7 @@ schema.post('save', function () {
 })
 
 schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {  
-  console.log('figuring out everton', user)
+  console.log('figuring out brabhamh', user)
   const allGroupsFilter = {};
   var groupFindCriteria;
   if (user.isAdmin) {
