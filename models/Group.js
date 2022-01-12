@@ -52,7 +52,7 @@ schema.post('save', function () {
 })
 
 schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {  
-  console.log('figuring out brabhamh', user)
+  console.log('figuring out user', user)
   const allGroupsFilter = {};
   var groupFindCriteria;
   if (user.isAdmin) {
@@ -80,14 +80,17 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     groupFindCriteria = { $or: filters };
     console.log('user.memberOf', user.memberOf, filters, groupFindCriteria)
   } else {
-    // George, i'm not sure this works, please test
-    // user has no group, so let them store in bioinformatics
-    console.log('user obj to determine group', user)
-    console.log('no groups for user' + (user.username || user) + ', returning bioinformatics');    
-    groupFindCriteria = {'name': 'bioinformatics'};
   }
   const result = await Group.find(groupFindCriteria);
-  console.log('result from groupsiamin', result);  
+  console.log('result to send to frontend:', result);
+  
+  // HACK for bad LDAP groups for specific users
+  if (result === []){
+    if (user.username === 'grandelc'){
+      return await Group.find({'name': 'two_blades'});
+    }
+  }
+
   return result; 
 };
 
