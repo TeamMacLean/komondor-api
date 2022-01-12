@@ -87,7 +87,11 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   // HACK for bad LDAP groups for specific users
   if (result === []){
     if (user.username === 'grandelc'){
+      console.log('grandelc as result = [], forming two blades instead')
       return await Group.find({'name': 'two_blades'});
+    } else {
+      console.log('reached no results unexpectedly', );
+      
     }
   }
 
