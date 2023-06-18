@@ -6,6 +6,7 @@ const _path = require("path");
 const fs = require("fs");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
+const mongoose = require("mongoose");
 
 router
   .route("/projects")
@@ -111,10 +112,46 @@ router
   });
 
 router
+  .route("/project/toggle-nudgeable")
+  .all(isAuthenticated)
+  .put(async (req, res) => {
+    if (
+      !req.body._id ||
+      req.body.nudgeable === undefined ||
+      req.body.nudgeable === null
+    ) {
+      res
+        .status(500)
+        .send({ error: new Error("param :id and/or nudgeable not provided") });
+    } else {
+      const theId = mongoose.Types.ObjectId(req.body._id);
+
+      try {
+        const result = await Project.findByIdAndUpdate(
+          theId,
+          {
+            $set: { nudgeable: req.body.nudgeable },
+          },
+          { new: true, useFindAndModify: false }
+        );
+        res.status(200).send();
+      } catch (e) {
+        console.error(e, e.message);
+        res.status(500).send({ error: e });
+      }
+    }
+  });
+
+router
   .route("/projects/new")
   .all(isAuthenticated)
   .post((req, res) => {
     //TODO check permission
+
+    // TODO hacky (should fetch groups)
+    const twoBladesObjectId = mongoose.Types.ObjectId(
+      "5fc012bda3efcb29338b7cf3"
+    );
 
     const newProject = new Project({
       name: req.body.name,
@@ -126,7 +163,8 @@ router
       doNotSendToEna: req.body.doNotSendToEna,
       doNotSendToEnaReason: req.body.doNotSendToEnaReason,
       oldId: Math.random().toString(16).substr(2, 6), // TODO remove
-      nudgeable: true,
+      nudgeable: req.body.group !== twoBladesObjectId,
+      nudges: [],
     });
 
     let setAsSavedProject;
