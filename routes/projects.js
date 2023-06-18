@@ -126,7 +126,6 @@ router
       doNotSendToEna: req.body.doNotSendToEna,
       doNotSendToEnaReason: req.body.doNotSendToEnaReason,
       oldId: Math.random().toString(16).substr(2, 6), // TODO remove
-      doNotNudge: false,
       nudgeable: true,
     });
 

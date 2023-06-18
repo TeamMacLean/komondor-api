@@ -35,9 +35,10 @@ const schema = new mongoose.Schema(
     doNotSendToEnaReason: { type: String },
 
     // NUDGE feature 13-9-2022
-    lastNudged: { type: Date, default: null },
-    doNotNudge: { type: Boolean, default: false },
-    nudgeable: { type: Boolean, default: true }, // all new Projects are nudgeable by default
+    nudges: {
+      type: [Date],
+    },
+    nudgeable: { type: Boolean, default: true },
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
