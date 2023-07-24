@@ -37,8 +37,7 @@ const HEADERS = [
 ];
 const EXPOSED_HEADERS = HEADERS.join(", ");
 var corsOptions = {
-  //origin: process.env.WEB_APP_URL,
-  origin: "*",
+  origin: process.env.WEB_APP_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   optionsSuccessStatus: 200,
   exposedHeaders: EXPOSED_HEADERS,
