@@ -37,7 +37,8 @@ const HEADERS = [
 ];
 const EXPOSED_HEADERS = HEADERS.join(", ");
 var corsOptions = {
-  origin: process.env.WEB_APP_URL,
+  //origin: process.env.WEB_APP_URL,
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   optionsSuccessStatus: 200,
   exposedHeaders: EXPOSED_HEADERS,
@@ -45,36 +46,13 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-// if desperate, try
-//app.options('*', cors(corsOptions));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// app.use((req, res, next) => {
-//
-//     next();
-// });
 
 /**
  * get user if auth token in request
  */
-app.use((req, res, next) => {
-  // removed res.setHeaders to uploads route only
-
-  // REQUESTING MIGHT REMOVE THE REQ HEADERS
-  //     console.log('Got a APP_LEVEL req! useful info: ' +
-  //     '\nreq.method', (req && req.method) ? req.method : 'unknown',
-  //     '\nreq.protocol', (req && req.protocol) ? req.protocol : 'unknown',
-  //     '\nreq.xhr', (req && req.xhr) ? req.xhr : 'unknown',
-  //     '\nreq.getHeader(Access-Control-Allow-Origin)', req.get('Access-Control-Allow-Origin'),
-  //     '\nreq.getHeader(Access-Control-Allow-Methods)', req.get('Access-Control-Allow-Methods'),
-  //     '\nreq.getHeader(Access-Control-Allow-Headers)', req.get('Access-Control-Allow-Headers'),
-  //     '\nreq.getHeader(Access-Control-Allow-Credentials)', req.get('Access-Control-Allow-Credentials'),
-  //   );
-
-  // console.log('req method used:', req.method, req.url);
-
+app.use((req, _, next) => {
   getUserFromRequest(req)
     .then((user) => {
       if (user) {
