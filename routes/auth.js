@@ -1,26 +1,26 @@
 //AUTH
-const { authenticate } = require("../lib/ldap")
-const express = require("express")
+const { authenticate } = require("../lib/ldap");
+const express = require("express");
 let router = express.Router();
 
-const getUserFromRequest = require('../lib/utils/getUserFromRequest');
-const sign = require('../lib/utils/jwtSign');
-const getUserForToken = require('../lib/utils/getUserForToken');
-const User = require("../models/User")
+const getUserFromRequest = require("../lib/utils/getUserFromRequest");
+const sign = require("../lib/utils/jwtSign");
+const getUserForToken = require("../lib/utils/getUserForToken");
+const User = require("../models/User");
 
 router.get("/me", (req, res, next) => {
   getUserFromRequest(req)
-    .then(user => {
+    .then((user) => {
       res.status(200).json({ user: user });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).json({ error: err });
     });
 });
 
 function updateDB(user) {
   User.findOne({ username: user.username })
-    .then(foundUser => {
+    .then((foundUser) => {
       if (foundUser) {
         foundUser.notifyLogin();
       } else {
@@ -29,22 +29,22 @@ function updateDB(user) {
           name: user.name,
           company: user.company,
           email: user.email,
-          isAdmin: user.username === "admin"
+          isAdmin: user.username === "admin",
         }).save();
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     });
 }
 
 function signAndReturn(userTokenObject, res) {
   sign(userTokenObject)
-    .then(token => {
+    .then((token) => {
       res.status(200).json({ token: token });
       updateDB(userTokenObject);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       res.status(500).json({ error: err });
     });
@@ -65,24 +65,22 @@ router.post("/login", (req, res, next) => {
           company: "admins",
           email: "admin@example.org",
           isAdmin: true,
-          groups: []
+          groups: [],
         },
         res
       );
     } else {
       authenticate(req.body.username, req.body.password)
-        .then(user => {
-          getUserForToken(user).then(userTokenObject => {
+        .then((user) => {
+          getUserForToken(user).then((userTokenObject) => {
             signAndReturn(userTokenObject, res);
           });
         })
-        .catch(err => {
-           
+        .catch((err) => {
           res.status(401).json({ message: "Bad credentials" });
         });
     }
   } else {
-     
     res.status(401).json({ message: "Bad credentials" });
   }
 });
