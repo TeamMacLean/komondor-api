@@ -22,7 +22,7 @@ const schema = new Schema(
     librarySource: { type: String, required: true },
     libraryType: { type: String, required: true }, // TODO link to librarytype actual model
     librarySelection: { type: String, required: true },
-    insertSize: { type: String, required: false },
+    insertSize: { type: String, required: false }, // required for some types, let frontend decide
     libraryStrategy: { type: String, required: true },
     owner: { type: String, required: true },
     group: { type: Schema.Types.ObjectId, ref: "Group", required: true },
