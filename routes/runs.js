@@ -1,129 +1,135 @@
-const express = require("express")
+const express = require("express");
 let router = express.Router();
-const Run = require('../models/Run')
-const Read = require('../models/Read');
-const File = require('../models/File');
-const AdditionalFile = require('../models/AdditionalFile');
-const { isAuthenticated } = require('./middleware')
-const _path = require('path')
-const fs = require('fs');
-const { sortAdditionalFiles, sortReadFiles } = require('../lib/sortAssociatedFiles');
-const sendOverseerEmail = require('../lib/utils/sendOverseerEmail')
+const Run = require("../models/Run");
+const Read = require("../models/Read");
+const File = require("../models/File");
+const AdditionalFile = require("../models/AdditionalFile");
+const { isAuthenticated } = require("./middleware");
+const _path = require("path");
+const fs = require("fs");
+const {
+  sortAdditionalFiles,
+  sortReadFiles,
+} = require("../lib/sortAssociatedFiles");
+const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 
-router.route('/runs')
-    .all(isAuthenticated)
-    .get((req, res) => {
-        //TODO must be in same group as user
-        iCanSee(req.user)
-            .populate('group')
-            .sort('-createdAt')
-            .then(runs => {
-                res.status(200).send({ runs })
-            })
-            .catch(err => {
-                res.status(500).send({ error: err })
-            });
+router
+  .route("/runs")
+  .all(isAuthenticated)
+  .get((req, res) => {
+    //TODO must be in same group as user
+    iCanSee(req.user)
+      .populate("group")
+      .sort("-createdAt")
+      .then((runs) => {
+        res.status(200).send({ runs });
+      })
+      .catch((err) => {
+        res.status(500).send({ error: err });
+      });
+  });
 
-    });
+router
+  .route("/run")
+  .all(isAuthenticated)
+  .get((req, res) => {
+    if (req.query.id) {
+      Run.findById(req.query.id)
+        .populate("group")
+        .populate("sample")
+        .populate({ path: "additionalFiles", populate: { path: "file" } })
+        .populate({ path: "rawFiles", populate: { path: "file" } })
+        .then((run) => {
+          //TODO check they have permissions
+          if (run) {
+            try {
+              const dirRoot = _path.join(process.env.DATASTORE_ROOT, run.path);
+              const rawDir = _path.join(dirRoot, "raw");
+              const additionalDir = _path.join(dirRoot, "additional");
 
-router.route('/run')
-    .all(isAuthenticated)
-    .get((req, res) => {
-        if (req.query.id) {
-            Run.findById(req.query.id)
-                .populate('group')
-                .populate('sample')
-                .populate({ path: 'additionalFiles', populate: { path: 'file' } })
-                .populate({ path: 'rawFiles', populate: { path: 'file' } })
-                .then(run => {
-                    //TODO check they have permissions
-                    if (run) {
+              var rawDirExists = false;
+              try {
+                rawDirExists = fs.statSync(rawDir).isDirectory();
+              } catch (e) {
+                rawDirExists = false;
+              }
 
-                        try {                            
-                            const dirRoot = _path.join(process.env.DATASTORE_ROOT, run.path);
-                            const rawDir = _path.join(dirRoot, 'raw');
-                            const additionalDir = _path.join(dirRoot, 'additional');
+              var readFiles = [];
+              var readFilesResults = [];
 
-                            var rawDirExists = false;
-                            try {
-                                rawDirExists = fs.statSync(rawDir).isDirectory();
-                            } catch (e) {
-                                rawDirExists = false
-                            }                            
-                            
-                            var readFiles = [];
-                            var readFilesResults = [];
+              if (rawDirExists) {
+                readFilesResults = fs.readdirSync(rawDir);
+                //console.log('Reading this dir:', rawDir, 'Getting these results:', readFilesResults);
+              }
 
-                            if (rawDirExists){
-                                readFilesResults = fs.readdirSync(rawDir)
-                                //console.log('Reading this dir:', rawDir, 'Getting these results:', readFilesResults);                                
-                            }
+              if (readFilesResults.length) {
+                readFiles = readFilesResults.filter(
+                  (file) => !file.includes(".DS_Store")
+                );
+              }
 
-                            if (readFilesResults.length){
-                                readFiles = readFilesResults.filter(file => !file.includes('.DS_Store'))
-                            }
+              var additionalDirExists = false;
+              try {
+                additionalDirExists = fs.statSync(additionalDir).isDirectory();
+              } catch (e) {
+                additionalDirExists = false;
+              }
 
-                            var additionalDirExists = false;
-                            try {
-                                additionalDirExists = fs.statSync(additionalDir).isDirectory();
-                            } catch (e) {
-                                additionalDirExists = false
-                            }
+              var additionalFiles = [];
+              var additionalFilesResults = [];
 
-                            var additionalFiles = [];
-                            var additionalFilesResults = [];
+              if (additionalDirExists) {
+                additionalFilesResults = fs.readdirSync(additionalDir);
+              }
+              if (additionalFilesResults.length) {
+                additionalFiles = additionalFilesResults;
+              }
 
-                            if (additionalDirExists){
-                                additionalFilesResults = fs.readdirSync(additionalDir)
-                            }
-                            if (additionalFilesResults.length){
-                                additionalFiles = additionalFilesResults
-                            }
-
-                            res.status(200).send({
-                                run: run,
-                                actualReads: readFiles,
-                                actualAdditionalFiles: additionalFiles,
-                            });
-
-                        } catch (e) {
-                            console.error(e, e.message)
-                            res.status(501).send({error: 'readdir error'})
-                        }
-
-                    } else {
-                        res.status(501).send({ error: 'runnot found' });
-                    }
-                })
-                .catch(err => {
-                    res.status(500).send({ error: err });
-                })
-
-        } else {
-            res.status(500).send({ error: new Error('param :id not provided') })
-        }
-    });
-
-router.route('/runs/new')
-    .all(isAuthenticated)
-    .post((req, res) => {
-        //TODO check permission
-
-        const newRun = new Run({
-            sample: req.body.sample,
-            name: req.body.name,
-            sequencingProvider: req.body.sequencingProvider,
-            sequencingTechnology: req.body.sequencingTechnology,
-            librarySource: req.body.librarySource,
-            libraryType: req.body.libraryType,
-            librarySelection: req.body.librarySelection,
-            libraryStrategy: req.body.libraryStrategy,
-            insertSize: req.body.insertSize,
-            owner: req.body.owner,
-            group: req.body.group,
+              res.status(200).send({
+                run: run,
+                actualReads: readFiles,
+                actualAdditionalFiles: additionalFiles,
+              });
+            } catch (e) {
+              console.error(e, e.message);
+              res.status(501).send({ error: "readdir error" });
+            }
+          } else {
+            res.status(501).send({ error: "runnot found" });
+          }
         })
+        .catch((err) => {
+          res.status(500).send({ error: err });
+        });
+    } else {
+      res.status(500).send({ error: new Error("param :id not provided") });
+    }
+  });
 
-        /** 
+router
+  .route("/runs/new")
+  .all(isAuthenticated)
+  .post((req, res) => {
+    //TODO check permission
+
+    // no longer required
+    var theInsertSize = req.body.insertSize || null;
+
+    const newRun = new Run({
+      sample: req.body.sample,
+      name: req.body.name,
+      sequencingProvider: req.body.sequencingProvider,
+      sequencingTechnology: req.body.sequencingTechnology,
+      librarySource: req.body.librarySource,
+      libraryType: req.body.libraryType,
+      librarySelection: req.body.librarySelection,
+      libraryStrategy: req.body.libraryStrategy,
+      insertSize: theInsertSize,
+      owner: req.body.owner,
+      group: req.body.group,
+    });
+
+    /** 
             this.run.rawFilesUploadMethod = "hpc-mv" or 'local-filesystem'
             this.run.paired
             this.run.hpcRawFiles = {
@@ -136,16 +142,16 @@ router.route('/runs/new')
             }
         */
 
-        // console.log('paired', req.body.paired);
-        // console.log('rawFilesUploadMethod', req.body.rawFilesUploadMethod);
-        // console.log('hpcRawFiles', req.body.hpcRawFiles);
-        // console.log('jic', req.body);
+    // console.log('paired', req.body.paired);
+    // console.log('rawFilesUploadMethod', req.body.rawFilesUploadMethod);
+    // console.log('hpcRawFiles', req.body.hpcRawFiles);
+    // console.log('jic', req.body);
 
-        const rawFilesUploadInfo = req.body.rawFilesUploadInfo;
+    const rawFilesUploadInfo = req.body.rawFilesUploadInfo;
 
-        // res.status(500).send({ error: 'no chances to escape' })
-        
-        /** 
+    // res.status(500).send({ error: 'no chances to escape' })
+
+    /** 
             data: File
                 lastModified: 1592992875792
                 name: "additional-demo.bam"
@@ -172,42 +178,58 @@ router.route('/runs/new')
             uploadURL: "http://localhost:3030/uploads/files/f6578457a259abc8ecf69a5b2b4c4b59"
         */
 
-        let returnedRun;
-        newRun.save()
-            .then(async savedRun => {
-                returnedRun = savedRun;
-                
-                const additionalFiles = req.body.additionalFiles;         
+    let returnedRun;
+    newRun
+      .save()
+      .then(async (savedRun) => {
+        returnedRun = savedRun;
 
-                let readFiles = req.body.rawFiles || null;
-                
-                try {
-                    const promList = []
-    
-                    if (readFiles.length){
-                        promList.push(sortReadFiles(readFiles, returnedRun._id, returnedRun.path, rawFilesUploadInfo))
-                    }
-                    if (additionalFiles.length){
-                        promList.push(sortAdditionalFiles(additionalFiles, 'run', returnedRun._id, returnedRun.path))
-                    }
+        const additionalFiles = req.body.additionalFiles;
 
-                    return await Promise.all(promList);
-                } catch (e){
-                    // if issue with files, remove run
-                    await Run.deleteOne({ '_id': returnedRun._id });                        
-                    return Promise.reject(e);
-                }                
-            })
-            .then(() => {
-                sendOverseerEmail({type: 'Run', data: returnedRun}).then((emailResult) => {
-                    res.status(200).send({ run: returnedRun })
-                })
-            })
-            .catch(err => {
-                console.error(err);
-                res.status(500).send({ error: err })
-            })
-            
-    });
+        let readFiles = req.body.rawFiles || null;
+
+        try {
+          const promList = [];
+
+          if (readFiles.length) {
+            promList.push(
+              sortReadFiles(
+                readFiles,
+                returnedRun._id,
+                returnedRun.path,
+                rawFilesUploadInfo
+              )
+            );
+          }
+          if (additionalFiles.length) {
+            promList.push(
+              sortAdditionalFiles(
+                additionalFiles,
+                "run",
+                returnedRun._id,
+                returnedRun.path
+              )
+            );
+          }
+
+          return await Promise.all(promList);
+        } catch (e) {
+          // if issue with files, remove run
+          await Run.deleteOne({ _id: returnedRun._id });
+          return Promise.reject(e);
+        }
+      })
+      .then(() => {
+        sendOverseerEmail({ type: "Run", data: returnedRun }).then(
+          (emailResult) => {
+            res.status(200).send({ run: returnedRun });
+          }
+        );
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ error: err });
+      });
+  });
 
 module.exports = router;
