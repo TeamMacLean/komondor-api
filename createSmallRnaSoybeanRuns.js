@@ -247,7 +247,7 @@ async function main() {
         runSafeName
       );
 
-      const runPathString = runPath.toString();
+      // const runPathString = runPath.toString();
       const runPathString = "hello gary";
 
       if (typeof runPathString === "string") {
