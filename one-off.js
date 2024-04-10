@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
-const Sample = require("./models/Sample"); // Update the path as necessary
+const Sample = require("./models/Sample");
+const Read = require("./models/Read");
+const Run = require("./models/Run");
+const File = require("./models/File");
 
 mongoose
   .connect("mongodb://localhost:27017/komondor", {
