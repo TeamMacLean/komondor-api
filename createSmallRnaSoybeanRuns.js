@@ -226,30 +226,19 @@ async function main() {
     for (let i = 0; i < runNames.length; i++) {
       // Create a run document:
 
+      console.log("Sample object:", sRnaSoybeanSampleObjs[index]);
+      console.log("Path:", sRnaSoybeanSampleObjs[index]?.path);
+      console.log("runSafeName:", runSafeName);
+
       const runName = runNames[i];
       const runSafeName = runNames[i].toLowerCase();
-      const runPath = path
-        .join(sRnaSoybeanSampleObjs[index].path, runSafeName)
-        .toString();
-
-      if (
-        runName &&
-        runSafeName &&
-        runPath &&
-        typeof runName === "string" &&
-        runName.trim() !== "" &&
-        typeof runSafeName === "string" &&
-        runSafeName.trim() !== "" &&
-        typeof runPath === "string" &&
-        runPath.trim() !== ""
-      ) {
-        // console.log("All variables are truthy strings.");
-      } else {
-        throw new Error("One or more variables are not truthy strings.");
-      }
+      const runPath = path.join(
+        sRnaSoybeanSampleObjs[index]?.path ?? "",
+        runSafeName ?? ""
+      );
 
       console.log(
-        "JERRY",
+        "JERRY:",
         "runName",
         runName,
         "runPath",
