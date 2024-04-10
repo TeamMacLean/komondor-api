@@ -218,8 +218,8 @@ async function main() {
 
   // For each of these srna in soybean sample IDs:
 
-  // for (let index = 0; index < sRnaSoybeanSampleObjs.length; index++) {
-  for (let index = 0; index < 1; index++) {
+  // for (let index = 0; index < 1; index++) {
+  for (let index = 0; index < sRnaSoybeanSampleObjs.length; index++) {
     const runNames = ["Rep1", "Rep2"];
 
     // for paired, have to pair 'sibling' after loop iteration
@@ -301,8 +301,8 @@ async function main() {
         tempUploadPath: filePath,
         uploadName: fileName,
         uploadMethod: "admin-manual",
-        createdAt: new Date("2024-04-08T12:23:23.683Z"),
-        updatedAt: new Date("2024-04-08T12:23:25.626Z"),
+        createdAt: new Date("2024-04-10T12:23:23.683Z"),
+        updatedAt: new Date("2024-04-10T12:23:25.626Z"),
         __v: 0,
       });
 
@@ -325,8 +325,8 @@ async function main() {
         run: ObjectId(newRunResult._id),
         file: ObjectId(newFileResult._id),
         paired: false, // false for soybean sRNA
-        createdAt: new Date("2024-04-08T12:23:23.687Z"),
-        updatedAt: new Date("2024-04-08T12:23:23.714Z"),
+        createdAt: new Date("2024-04-10T12:23:23.687Z"),
+        updatedAt: new Date("2024-04-10T12:23:23.714Z"),
         __v: 0,
         skipPostSave: true,
         // sibling: ObjectId("6613e1bbe372f7554d754a84"),
