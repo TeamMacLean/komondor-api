@@ -228,10 +228,9 @@ async function main() {
 
       console.log("Sample object:", sRnaSoybeanSampleObjs[index]);
       console.log("Path:", sRnaSoybeanSampleObjs[index].path);
-      console.log("runSafeName:", runSafeName);
-
       const runName = runNames[i];
       const runSafeName = runNames[i].toLowerCase();
+      console.log("runSafeName:", runSafeName);
       const runPath = path.join(
         sRnaSoybeanSampleObjs[index].path || "",
         runSafeName || ""
