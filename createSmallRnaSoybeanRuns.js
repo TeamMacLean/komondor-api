@@ -218,7 +218,8 @@ async function main() {
 
   // For each of these srna in soybean sample IDs:
 
-  for (let index = 0; index < sRnaSoybeanSampleObjs.length; index++) {
+  // for (let index = 0; index < sRnaSoybeanSampleObjs.length; index++) {
+  for (let index = 0; index < 1; index++) {
     const runNames = ["Rep1", "Rep2"];
 
     // for paired, have to pair 'sibling' after loop iteration
@@ -247,6 +248,7 @@ async function main() {
       );
 
       const runPathString = runPath.toString();
+      const runPathString = "hello gary";
 
       if (typeof runPathString === "string") {
         console.log("entering string!");
