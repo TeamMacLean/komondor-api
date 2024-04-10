@@ -290,12 +290,15 @@ async function main() {
         typeof fileName !== "string" ||
         fileName.length === 0 ||
         typeof filePath !== "string" ||
-        filePath.length === 0
+        filePath.length === 0 ||
+        filePath === undefined ||
+        filePath === null
       ) {
         throw new Error("Invalid file path", filePath, fileName, i, index);
+      } else {
       }
 
-      const fileDocId = generateRandomSixDigitString();
+      var fileDocId = generateRandomSixDigitString();
 
       // Create a file document:
       const newFileResult = await new File(
