@@ -35,7 +35,7 @@ const schema = new Schema(
     // George add
     oldId: { type: String, required: false },
     oldSafeName: { type: String, unique: false, required: false }, // temp?
-    path: { type: String, required: false, unique: true }, // George add unique: true; surely required is true also? Also, why did Martin remove this?
+    path: { type: String }, // George add unique: true; surely required is true also? Also, why did Martin remove this?
 
     // Martin has removed
     // submissionToGalaxy: true/false,

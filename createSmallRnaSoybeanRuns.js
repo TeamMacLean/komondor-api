@@ -227,38 +227,16 @@ async function main() {
     for (let i = 0; i < runNames.length; i++) {
       // Create a run document:
 
-      console.log("Sample object:", sRnaSoybeanSampleObjs[index]);
-      console.log("Path:", sRnaSoybeanSampleObjs[index].path);
       const runName = runNames[i];
       const runSafeName = runNames[i].toLowerCase();
-      console.log("runSafeName:", runSafeName);
       const runPath = path.join(
         sRnaSoybeanSampleObjs[index].path || "",
         runSafeName || ""
       );
 
-      console.log(
-        "JERRY:",
-        "runName",
-        runName,
-        "runPath",
-        runPath,
-        "runSafeName",
-        runSafeName
-      );
-
-      // const runPathString = runPath.toString();
-      const runPathString = "hello gary";
-
-      if (typeof runPathString === "string") {
-        console.log("entering string!");
-      } else {
-        console.log("BAD!");
-      }
-
       const newRunResult = await new Run({
         _id: ObjectId(),
-        forceSafeName: false,
+        forceSafeName: true, // bypasses pre-validate check
         additionalFilesUploadIDs: [],
         accessions: [],
         sample: ObjectId(sRnaSoybeanSampleObjs[index].idString),
@@ -273,7 +251,7 @@ async function main() {
         owner: "lfeng",
         group: ObjectId("5fc012bda3efcb29338b7cf0"),
         safeName: runSafeName,
-        path: runPathString,
+        path: runPath,
         createdAt: new Date("2024-04-09T12:23:23.649Z"),
         updatedAt: new Date("2024-04-09T12:23:23.649Z"),
         __v: 0,
@@ -348,6 +326,7 @@ async function main() {
         createdAt: new Date("2024-04-08T12:23:23.687Z"),
         updatedAt: new Date("2024-04-08T12:23:23.714Z"),
         __v: 0,
+        skipPostSave: true;
         // sibling: ObjectId("6613e1bbe372f7554d754a84"),
       }).save();
 
