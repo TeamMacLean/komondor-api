@@ -249,7 +249,7 @@ async function main() {
         createdAt: new Date("2024-04-09T12:23:23.649Z"),
         updatedAt: new Date("2024-04-09T12:23:23.649Z"),
         __v: 0,
-      });
+      }).save();
 
       if (!newRunResult._id) {
         errors += `Issue creating run document ${
@@ -257,6 +257,7 @@ async function main() {
         } at Sample index ${index}.\n`;
         throw new Error(errors);
       } else {
+        console.log("Created Run document: " + newRunResult._id);
         successfulRunCount++;
       }
 
@@ -270,20 +271,22 @@ async function main() {
       const fileDocId = generateRandomSixDigitString();
 
       // Create a file document:
-      const newFileResult = await new File({
-        _id: ObjectId(),
-        name: fileName,
-        type: "run",
-        originalName: fileName,
-        path: filePath,
-        createFileDocumentId: fileDocId,
-        tempUploadPath: filePath,
-        uploadName: fileName,
-        uploadMethod: "admin-manual",
-        createdAt: new Date("2024-04-08T12:23:23.683Z"),
-        updatedAt: new Date("2024-04-08T12:23:25.626Z"),
-        __v: 0,
-      });
+      const newFileResult = await new File(
+        {
+          _id: ObjectId(),
+          name: fileName,
+          type: "run",
+          originalName: fileName,
+          path: filePath,
+          createFileDocumentId: fileDocId,
+          tempUploadPath: filePath,
+          uploadName: fileName,
+          uploadMethod: "admin-manual",
+          createdAt: new Date("2024-04-08T12:23:23.683Z"),
+          updatedAt: new Date("2024-04-08T12:23:25.626Z"),
+          __v: 0,
+        }.save()
+      );
 
       if (!newFileResult._id) {
         errors += `Issue creating file document ${
@@ -291,6 +294,7 @@ async function main() {
         } at Sample index ${index}.\n`;
         throw new Error(errors);
       } else {
+        console.log("Created File document: " + newFileResult._id);
         successfulFileCount++;
       }
 
@@ -305,7 +309,7 @@ async function main() {
         updatedAt: new Date("2024-04-08T12:23:23.714Z"),
         __v: 0,
         // sibling: ObjectId("6613e1bbe372f7554d754a84"),
-      });
+      }).save();
 
       if (!newReadResult._id) {
         errors += `Issue creating read document ${
@@ -313,6 +317,7 @@ async function main() {
         } at Sample index ${index}.\n`;
         throw new Error(errors);
       } else {
+        console.log("Created Read document: " + newReadResult._id);
         successfulReadCount++;
       }
     } // end making multi-Runs loop
@@ -326,7 +331,7 @@ async function main() {
   console.log(
     `Total Samples: ${sRnaSoybeanSampleObjs.length}\nExpecting ${
       sRnaSoybeanSampleObjs.length * 2
-    } successful runs/files/reads: ${successfulRunCount}\nSuccessful reads: ${successfulReadCount}\nSuccessful files: ${successfulFileCount}`
+    } successful runs/files/reads:\nSuccessful runs: ${successfulRunCount}\nSuccessful reads: ${successfulReadCount}\nSuccessful files: ${successfulFileCount}`
   );
 }
 
