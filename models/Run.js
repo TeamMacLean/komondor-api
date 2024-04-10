@@ -12,7 +12,7 @@ const generateSafeName = require("../lib/utils/generateSafeName").default;
 const schema = new Schema(
   {
     name: { type: String, required: true }, // should NOT have unique, rely on path instead
-    safeName: { type: String, required: true, unique: true },
+    safeName: { type: String, required: true },
     sample: { type: Schema.Types.ObjectId, ref: "Sample", required: true },
 
     forceSafeName: { type: Boolean, default: false }, // workaround for old db migration
