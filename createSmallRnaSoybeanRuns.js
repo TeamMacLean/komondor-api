@@ -228,7 +228,9 @@ async function main() {
 
       const runName = runNames[i];
       const runSafeName = runNames[i].toLowerCase();
-      const runPath = path.join(sRnaSoybeanSampleObjs[index].path, runSafeName);
+      const runPath = path
+        .join(sRnaSoybeanSampleObjs[index].path, runSafeName)
+        .toString();
 
       if (
         runName &&
