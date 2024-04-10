@@ -219,7 +219,7 @@ async function main() {
   // For each of these srna in soybean sample IDs:
 
   // for (let index = 0; index < 1; index++) {
-  for (let index = 0; index < sRnaSoybeanSampleObjs.length; index++) {
+  for (let index = 2; index < sRnaSoybeanSampleObjs.length; index++) {
     const runNames = ["Rep1", "Rep2"];
 
     // for paired, have to pair 'sibling' after loop iteration
