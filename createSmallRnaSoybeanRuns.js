@@ -326,7 +326,7 @@ async function main() {
         createdAt: new Date("2024-04-08T12:23:23.687Z"),
         updatedAt: new Date("2024-04-08T12:23:23.714Z"),
         __v: 0,
-        skipPostSave: true;
+        skipPostSave: true,
         // sibling: ObjectId("6613e1bbe372f7554d754a84"),
       }).save();
 
