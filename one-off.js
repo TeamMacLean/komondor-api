@@ -8,10 +8,17 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connected to MongoDB");
+    //console.log("Connected to MongoDB");
 
     // Your query
-    Sample.findOne({}, "_id safeName", { sort: { createdAt: -1 } }) // Sorting by createdAt in descending order
+    // Sample.findOne({}, "_id safeName", { sort: { createdAt: -1 } }) // Sorting by createdAt in descending order
+
+    Sample.find(
+      { path: "/maw/srna_sequencing_in_soybean/ev" },
+      "_id safeName",
+      { sort: { createdAt: -1 } }
+    )
+
       .then((result) => {
         console.log(result);
         mongoose.disconnect(); // Disconnect after the operation is complete
