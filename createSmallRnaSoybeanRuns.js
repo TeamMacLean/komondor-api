@@ -4,6 +4,7 @@ const Project = require("./models/Project");
 const Run = require("./models/Run");
 const File = require("./models/File");
 const Read = require("./models/Read");
+const Sample = require("./models/Sample");
 const { ObjectId } = mongoose.Types;
 
 // Your existing sRnaSoybeanSampleObjs array and helper functions...
