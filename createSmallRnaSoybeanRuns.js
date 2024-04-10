@@ -246,6 +246,16 @@ async function main() {
         throw new Error("One or more variables are not truthy strings.");
       }
 
+      console.log(
+        "JERRY",
+        "runName",
+        runName,
+        "runPath",
+        runPath,
+        "runSafeName",
+        runSafeName
+      );
+
       const newRunResult = await new Run({
         _id: ObjectId(),
         forceSafeName: false,
