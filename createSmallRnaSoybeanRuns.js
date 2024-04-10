@@ -246,6 +246,14 @@ async function main() {
         runSafeName
       );
 
+      const runPathString = runPath.toString();
+
+      if (typeof runPathString === "string") {
+        console.log("entering string!");
+      } else {
+        console.log("BAD!");
+      }
+
       const newRunResult = await new Run({
         _id: ObjectId(),
         forceSafeName: false,
@@ -263,7 +271,7 @@ async function main() {
         owner: "lfeng",
         group: ObjectId("5fc012bda3efcb29338b7cf0"),
         safeName: runSafeName,
-        path: runPath,
+        path: runPathString,
         createdAt: new Date("2024-04-09T12:23:23.649Z"),
         updatedAt: new Date("2024-04-09T12:23:23.649Z"),
         __v: 0,
