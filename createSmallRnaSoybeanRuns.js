@@ -234,7 +234,7 @@ async function main() {
         runSafeName || ""
       );
 
-      const newRunResult = await new Run({
+      const newRun = new Run({
         _id: ObjectId(),
         forceSafeName: true, // bypasses pre-validate check
         additionalFilesUploadIDs: [],
@@ -255,7 +255,9 @@ async function main() {
         createdAt: new Date("2024-04-09T12:23:23.649Z"),
         updatedAt: new Date("2024-04-09T12:23:23.649Z"),
         __v: 0,
-      }).save();
+      });
+
+      const newRunResult = await newRun.save();
 
       if (!newRunResult._id) {
         errors += `Issue creating run document ${
@@ -289,22 +291,22 @@ async function main() {
       var fileDocId = generateRandomSixDigitString();
 
       // Create a file document:
-      const newFileResult = await new File(
-        {
-          _id: ObjectId(),
-          name: fileName,
-          type: "run",
-          originalName: fileName,
-          path: filePath,
-          createFileDocumentId: fileDocId,
-          tempUploadPath: filePath,
-          uploadName: fileName,
-          uploadMethod: "admin-manual",
-          createdAt: new Date("2024-04-08T12:23:23.683Z"),
-          updatedAt: new Date("2024-04-08T12:23:25.626Z"),
-          __v: 0,
-        }.save()
-      );
+      const newFile = new File({
+        _id: ObjectId(),
+        name: fileName,
+        type: "run",
+        originalName: fileName,
+        path: filePath,
+        createFileDocumentId: fileDocId,
+        tempUploadPath: filePath,
+        uploadName: fileName,
+        uploadMethod: "admin-manual",
+        createdAt: new Date("2024-04-08T12:23:23.683Z"),
+        updatedAt: new Date("2024-04-08T12:23:25.626Z"),
+        __v: 0,
+      });
+
+      const newFileResult = await newFile.save();
 
       if (!newFileResult._id) {
         errors += `Issue creating file document ${
@@ -318,7 +320,7 @@ async function main() {
 
       // Create a read document:
 
-      const newReadResult = await new Read({
+      const newRead = new Read({
         _id: ObjectId(),
         run: ObjectId(newRunResult._id),
         file: ObjectId(newFileResult._id),
@@ -328,7 +330,9 @@ async function main() {
         __v: 0,
         skipPostSave: true,
         // sibling: ObjectId("6613e1bbe372f7554d754a84"),
-      }).save();
+      });
+
+      const newReadResult = await newRead.save();
 
       if (!newReadResult._id) {
         errors += `Issue creating read document ${
