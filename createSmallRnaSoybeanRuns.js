@@ -6,6 +6,7 @@ const File = require("./models/File");
 const Read = require("./models/Read");
 const Sample = require("./models/Sample");
 const { ObjectId } = mongoose.Types;
+const path = require("path");
 
 // Your existing sRnaSoybeanSampleObjs array and helper functions...
 
@@ -227,7 +228,23 @@ async function main() {
 
       const runName = runNames[i];
       const runSafeName = runNames[i].toLowerCase();
-      const runPath = sRnaSoybeanSampleObjs[index].path + "/" + runSafeName;
+      const runPath = path.join(sRnaSoybeanSampleObjs[index].path, runSafeName);
+
+      if (
+        runName &&
+        runSafeName &&
+        runPath &&
+        typeof runName === "string" &&
+        runName.trim() !== "" &&
+        typeof runSafeName === "string" &&
+        runSafeName.trim() !== "" &&
+        typeof runPath === "string" &&
+        runPath.trim() !== ""
+      ) {
+        // console.log("All variables are truthy strings.");
+      } else {
+        throw new Error("One or more variables are not truthy strings.");
+      }
 
       const newRunResult = await new Run({
         _id: ObjectId(),
@@ -267,7 +284,16 @@ async function main() {
           ? sRnaSoybeanSampleObjs[index].firstRunOnlyFilename
           : sRnaSoybeanSampleObjs[index].secondRunOnlyFilename;
 
-      const filePath = runPath + "/" + fileName;
+      const filePath = path.join(runPath, fileName);
+
+      if (
+        typeof fileName !== "string" ||
+        fileName.length === 0 ||
+        typeof filePath !== "string" ||
+        filePath.length === 0
+      ) {
+        throw new Error("Invalid file path", filePath, fileName, i, index);
+      }
 
       const fileDocId = generateRandomSixDigitString();
 
