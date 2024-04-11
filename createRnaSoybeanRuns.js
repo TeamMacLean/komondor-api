@@ -224,12 +224,20 @@ async function main() {
   // For each of these srna in soybean sample IDs:
 
   // for (let samples_index = 0; samples_index < 1; samples_index++) {
-  for (let samples_index = 0; samples_index < rnaSoybeanSampleObjs.length; samples_index++) {
+  for (
+    let samples_index = 0;
+    samples_index < rnaSoybeanSampleObjs.length;
+    samples_index++
+  ) {
     const runNames = ["Rep1", "Rep2"];
 
     // for paired, have to pair 'sibling' after loop iteration
 
-    for (let runNames_index = 0; runNames_index < runNames.length; runNames_index++) {
+    for (
+      let runNames_index = 0;
+      runNames_index < runNames.length;
+      runNames_index++
+    ) {
       // Create a run document:
 
       const runName = runNames[runNames_index];
@@ -274,91 +282,84 @@ async function main() {
         successfulRunCount++;
       }
 
-      keyNamesForPairedFiles.forEach((keyName, paired_filenames_index) => {
+      keyNamesForPairedFiles.forEach(
+        async (keyName, paired_filenames_index) => {
+          var fileName = "";
 
-        var fileName = '';
-
-        if (runNames_index === 0){
-          if (paired_filenames_index === 0) {
-            fileName = rnaSoybeanSampleObjs[samples_index].firstRunPairedFilenames[0];
+          if (runNames_index === 0) {
+            if (paired_filenames_index === 0) {
+              fileName =
+                rnaSoybeanSampleObjs[samples_index].firstRunPairedFilenames[0];
+            } else {
+              fileName =
+                rnaSoybeanSampleObjs[samples_index].firstRunPairedFilenames[1];
+            }
           } else {
-            fileName = rnaSoybeanSampleObjs[samples_index].firstRunPairedFilenames[1];
+            // runNames_index === 1
+            if (paired_filenames_index === 0) {
+              fileName =
+                rnaSoybeanSampleObjs[samples_index].secondRunPairedFilenames[0];
+            } else {
+              fileName =
+                rnaSoybeanSampleObjs[samples_index].secondRunPairedFilenames[1];
+            }
           }
-        } else { // runNames_index === 1
-          if (paired_filenames_index === 0) {
-            fileName = rnaSoybeanSampleObjs[samples_index].secondRunPairedFilenames[0];
+
+          const filePath = path.join(runPath, fileName);
+
+          var fileDocId = generateRandomSixDigitString();
+
+          // Create a file document:
+          const newFile = new File({
+            _id: ObjectId(),
+            name: fileName,
+            type: "run",
+            originalName: fileName,
+            path: filePath,
+            createFileDocumentId: fileDocId,
+            tempUploadPath: filePath,
+            uploadName: fileName,
+            uploadMethod: "admin-manual",
+            createdAt: new Date("2024-04-10T13:23:23.683Z"),
+            updatedAt: new Date("2024-04-10T13:23:25.626Z"),
+            __v: 0,
+          });
+
+          const newFileResult = await newFile.save();
+
+          if (!newFileResult._id) {
+            errors += `Issue creating file document with paired_filenames_index of ${paired_filenames_index} and runNames_index of ${runNames_index} and samples_index of ${samples_index}.\n`;
+            throw new Error(errors);
           } else {
-            fileName = rnaSoybeanSampleObjs[samples_index].secondRunPairedFilenames[1];
+            console.log("Created File document: " + newFileResult._id);
+            successfulFileCount++;
+          }
+
+          // Create a read document:
+
+          const newRead = new Read({
+            _id: ObjectId(),
+            run: ObjectId(newRunResult._id),
+            file: ObjectId(newFileResult._id),
+            paired: true, // true for soybean rna
+            createdAt: new Date("2024-04-10T12:23:23.687Z"),
+            updatedAt: new Date("2024-04-10T12:23:23.714Z"),
+            __v: 0,
+            skipPostSave: true,
+            // sibling: ObjectId("6613e1bbe372f7554d754a84"),
+          });
+
+          const newReadResult = await newRead.save();
+
+          if (!newReadResult._id) {
+            errors += `Issue creating Read document with paired_filenames_index of ${paired_filenames_index} and runNames_index of ${runNames_index} and samples_index of ${samples_index}.\n`;
+            throw new Error(errors);
+          } else {
+            console.log("Created Read document: " + newReadResult._id);
+            successfulReadCount++;
           }
         }
-
-        const filePath = path.join(runPath, fileName);
-
-        var fileDocId = generateRandomSixDigitString();
-
-        // Create a file document:
-        const newFile = new File({
-          _id: ObjectId(),
-          name: fileName,
-          type: "run",
-          originalName: fileName,
-          path: filePath,
-          createFileDocumentId: fileDocId,
-          tempUploadPath: filePath,
-          uploadName: fileName,
-          uploadMethod: "admin-manual",
-          createdAt: new Date("2024-04-10T13:23:23.683Z"),
-          updatedAt: new Date("2024-04-10T13:23:25.626Z"),
-          __v: 0,
-        });
-
-        const newFileResult = await newFile.save();
-
-        if (!newFileResult._id) {
-          errors += `Issue creating file document with paired_filenames_index of ${
-            paired_filenames_index
-          } and runNames_index of ${
-            runNames_index
-          } and samples_index of ${
-            samples_index
-          }.\n`;
-          throw new Error(errors);
-        } else {
-          console.log("Created File document: " + newFileResult._id);
-          successfulFileCount++;
-        }
-
-        // Create a read document:
-
-        const newRead = new Read({
-          _id: ObjectId(),
-          run: ObjectId(newRunResult._id),
-          file: ObjectId(newFileResult._id),
-          paired: true, // true for soybean rna
-          createdAt: new Date("2024-04-10T12:23:23.687Z"),
-          updatedAt: new Date("2024-04-10T12:23:23.714Z"),
-          __v: 0,
-          skipPostSave: true,
-          // sibling: ObjectId("6613e1bbe372f7554d754a84"),
-        });
-
-        const newReadResult = await newRead.save();
-
-        if (!newReadResult._id) {
-          errors += `Issue creating Read document with paired_filenames_index of ${
-            paired_filenames_index
-          } and runNames_index of ${
-            runNames_index
-          } and samples_index of ${
-            samples_index
-          }.\n`;
-          throw new Error(errors);
-        } else {
-          console.log("Created Read document: " + newReadResult._id);
-          successfulReadCount++;
-        }  
-      
-      }); // end making multi-Files and multi-Reads loop
+      ); // end making multi-Files and multi-Reads loop
     } // end making multi-Runs loop
   } // end making multi-Samples loop
 
