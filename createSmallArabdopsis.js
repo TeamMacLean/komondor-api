@@ -34,7 +34,7 @@ const sRnaArabdopsisSampleObjs = [
   {
     sampleSafeName: "ct_1",
     firstRunOnlyFilename: "Ct-1_rep1.fastq.gz",
-    secozdRunOnlyFilename: "Ct-1_rep2.fastq.gz",
+    secondRunOnlyFilename: "Ct-1_rep2.fastq.gz",
     path: "/maw/srna_sequencing_in_soybean/ct_1",
     idString: "66102d32b6a4079eae8295ab",
   },
