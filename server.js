@@ -1,7 +1,7 @@
 const app = require("./app");
 const mongoose = require("mongoose");
-const PORT = process.env.PORT;
-const mongoosePort = process.env.MONGODB_PORT || 27017;
+const PORT = process.env.PORT || 3000;
+const moongoosePort = process.env.MONGODB_PORT || 27017;
 
 try {
   // will create database if it can't see one
@@ -13,12 +13,16 @@ try {
 
   mongoose.connect(`mongodb://localhost:${mongoosePort}/komondor`, {
     useNewUrlParser: true,
-    // useFindAndModify: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000 // 10 seconds
+  }).then(() => {
+    console.log('Connected to MongoDB');
+  }).catch(err => {
+    console.error('Error connecting to MongoDB', err);
   });
 } catch (err) {
-  console.error(err);
+  console.error('Unexpected error:', err);
 }
 
 app.listen(PORT, () => console.log(`API running on port ${PORT}!`));
