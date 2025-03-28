@@ -11,7 +11,7 @@ try {
   // even if you tried to do this, the server would probably complain
   // you probably dont want to tinker the live db, just the local db (e.g. modify a model file)
 
-  mongoose.connect(`mongodb://localhost:${MONGODB_PORT}/komondor`, {
+  mongoose.connect(`mongodb://localhost:${mongoosePort}/komondor`, {
     useNewUrlParser: true,
     // useFindAndModify: true,
     useCreateIndex: true,
