@@ -1,8 +1,6 @@
 const express = require("express");
 let router = express.Router();
 const Sample = require("../models/Sample"); // Make sure this path is correct
-const File = require("../models/File"); // Make sure this path is correct
-const AdditionalFile = require("../models/AdditionalFile"); // Make sure this path is correct
 const { isAuthenticated } = require("./middleware"); // Make sure this path is correct
 const _path = require("path");
 const fs = require("fs");
@@ -41,7 +39,7 @@ router
             try {
               const dirRoot = _path.join(
                 process.env.DATASTORE_ROOT,
-                sample.path,
+                sample.path
               );
               const additionalDir = _path.join(dirRoot, "additional");
 
@@ -62,7 +60,7 @@ router
                         sample: sample,
                         actualAdditionalFiles: additionalFiles,
                       });
-                    },
+                    }
                   );
                 }
               });
@@ -113,7 +111,7 @@ router
               additionalFiles,
               "sample",
               returnedSample._id,
-              returnedSample.path,
+              returnedSample.path
             );
           } catch (e) {
             // if issue with files, remove newProject
@@ -128,7 +126,7 @@ router
         sendOverseerEmail({ type: "Sample", data: returnedSample }).then(
           (emailResult) => {
             res.status(200).send({ sample: returnedSample });
-          },
+          }
         );
       })
       .catch((err) => {
