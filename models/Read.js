@@ -29,6 +29,8 @@ const schema = new Schema(
 
     skipPostSave: { type: Boolean, default: false },
 
+    indexed: { type: Boolean, default: false },
+
     // check with Martin whether to keep these
     // oldLegacyPath: { type: String },
     // oldFileName: { type: String },
