@@ -13,8 +13,17 @@ router
 
     Group.GroupsIAmIn(user)
       .then((groups) => {
-        console.log("user", user?.username || user);
-        console.log("groups", groups);
+        console.log("user", user.username || user);
+
+        const tidy = groups.map((g) => {
+          return {
+            name: g.name,
+            ldapGroups: g.ldapGroups,
+          };
+        });
+
+        console.log("API returning these groups", tidy);
+
         res.status(200).send({ groups });
       })
       .catch((err) => {

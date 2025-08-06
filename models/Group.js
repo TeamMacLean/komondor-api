@@ -60,6 +60,7 @@ schema.post("save", function () {
 schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   const allGroupsFilter = {};
   var groupFindCriteria;
+  console.log("groupsIAmIn for user");
   if (user.isAdmin) {
     groupFindCriteria = allGroupsFilter;
   } else if (
@@ -86,7 +87,15 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   }
   const result = await Group.find(groupFindCriteria);
   console.log("groupFindCriteria", groupFindCriteria);
-  console.log("result of find", result);
+
+  const tidy = result.map((g) => {
+    return {
+      name: g.name,
+      ldapGroups: g.ldapGroups,
+    };
+  });
+
+  console.log("result of find", tidy);
 
   // HACK TODO fix for bad LDAP groups for specific users
   // if (user.username === "naf24zog") {
