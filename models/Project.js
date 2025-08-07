@@ -118,17 +118,14 @@ schema.post("save", async function (next) {
 });
 
 schema.pre("bulkWrite", (next) => {
-  console.log("rooney");
   next();
 });
 schema.pre("updateOne", (next) => {
   const data = this.getUpdate();
-  console.log("reached pre!", data);
   next();
 });
 schema.post("update", (next) => {
   const data = this.getUpdate();
-  console.log("reached post!", data);
   next();
 });
 

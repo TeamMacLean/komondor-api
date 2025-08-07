@@ -4,25 +4,22 @@ const express = require("express");
 let router = express.Router();
 const Group = require("../models/Group");
 
+// useful for testing using http live server extension on VSCode
 router
   .route("/groups")
   .all(isAuthenticated)
   .get((req, res) => {
-    // useful for testing using http live server extension on VSCode
     const user = req.user || req.body.user;
 
     Group.GroupsIAmIn(user)
       .then((groups) => {
-        console.log("user", user.username || user);
-
-        const tidy = groups.map((g) => {
-          return {
-            name: g.name,
-            ldapGroups: g.ldapGroups,
-          };
-        });
-
-        console.log("API returning these groups", tidy);
+        // const tidy = groups.map((g) => {
+        //   return {
+        //     name: g.name,
+        //     ldapGroups: g.ldapGroups,
+        //   };
+        // });
+        // console.log("API returning these groups", tidy);
 
         res.status(200).send({ groups });
       })
