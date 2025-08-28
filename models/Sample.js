@@ -39,7 +39,7 @@ const schema = new Schema(
     // not sure if 'required' cos its in validate function, TODO check
     //originallyAdded: {type: Number} // timestamp (w. 2dp) from original datahog, OR timestamp from creation (i.e. komondor)
   },
-  { timestamps: true, toJSON: { virtuals: true } },
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
 schema.pre("validate", function () {
@@ -49,7 +49,7 @@ schema.pre("validate", function () {
         this.safeName ||
         generateSafeName(
           this.name,
-          allOthers.filter((f) => f._id.toString() !== this._id.toString()),
+          allOthers.filter((f) => f._id.toString() !== this._id.toString())
         )
       );
     })
@@ -90,7 +90,7 @@ schema.post("save", async function (next) {
 
   if (alreadyMade) {
     console.log(
-      "Sample already a newsitem, so not creating that or making directory",
+      "Sample already a newsitem, so not creating that or making directory"
     );
   } else {
     //create news item
@@ -144,7 +144,7 @@ schema.methods.getRelativePath = function () {
       return join(
         populatedDoc.group.safeName,
         populatedDoc.project.safeName,
-        populatedDoc.safeName,
+        populatedDoc.safeName
       );
     });
 };
@@ -158,6 +158,7 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
+  // if statement unnecessary
   if (
     user.username === "admin" ||
     process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)

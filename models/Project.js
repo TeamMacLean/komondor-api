@@ -164,6 +164,7 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
+  // if statement unnecessary
   if (
     user.username === "admin" ||
     process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
@@ -176,7 +177,6 @@ schema.statics.iCanSee = function iCanSee(user) {
       filters.push({ group: g });
     });
   }
-
   return Project.find({ $or: filters });
 };
 

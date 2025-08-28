@@ -59,15 +59,22 @@ schema.post("save", function () {
 
 schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   const allGroupsFilter = {};
+
+  // debug by changing these
+  let userIsAdmin = user.isAdmin;
+  let fullAccessUsers = FULL_RECORDS_ACCESS_USERS;
+  // let userIsAdmin = false;
+  // let fullAccessUsers = [];
+
   var groupFindCriteria;
-  if (user.isAdmin) {
+  if (userIsAdmin) {
     groupFindCriteria = allGroupsFilter;
   } else if (
-    FULL_RECORDS_ACCESS_USERS &&
-    FULL_RECORDS_ACCESS_USERS.length &&
+    fullAccessUsers &&
+    fullAccessUsers.length &&
     user &&
     user.username &&
-    FULL_RECORDS_ACCESS_USERS.includes(user.username)
+    fullAccessUsers.includes(user.username)
   ) {
     groupFindCriteria = allGroupsFilter;
   } else if (user.groups) {
@@ -75,24 +82,34 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
       _id: { $in: user.groups },
     };
   } else if (user.memberOf) {
-    // BEST FOR DEBUGGING USER AND GROUPS LDAP
-    //console.log("user.memberOf", user.memberOf);
-    const filters = user.memberOf.map((g) => ({
+    // BEST FOR DEBUGGING USER'S GROUPS LDAP
+
+    const groupLdapStrings = user.memberOf;
+    // debug
+    // const groupLdapStrings = user.memberOf.splice(0, 1);
+    // groupLdapStrings.push(
+    //   "CN=TSL-Data-Bioinformatics,OU=TSLGroups,OU=NBIGroups,DC=nbi,DC=ac,DC=uk"
+    // );
+
+    const filters = groupLdapStrings.map((g) => ({
       ldapGroups: g,
     }));
+    // console.log("filters", filters);
     groupFindCriteria = { $or: filters };
   } else {
   }
   const result = await Group.find(groupFindCriteria);
 
-  const tidy = result.map((g) => {
+  // simple name and ldapStrings output
+  const debugOutput = result.map((g) => {
     return {
       name: g.name,
       ldapGroups: g.ldapGroups,
     };
   });
+  console.log("debugOutput user and groups", user.username, debugOutput);
 
-  // HACK
+  // HACK here if necessary
   // if (user.username === "naf24zog") {
   //   return await Group.find({ name: "maw" });
   // }
