@@ -85,27 +85,26 @@ router
   .all(isAuthenticated)
   .post((req, res) => {
     const newSample = new Sample({
-      name: req.body.name,
+      name: req.body.name, // Will be null if it's a Tplex sample from frontend
       project: req.body.project,
-      scientificName: req.body.scientificName,
-      commonName: req.body.commonName,
-      ncbi: req.body.ncbi,
-      conditions: req.body.conditions,
+      scientificName: req.body.scientificName, // Will be null if it's a Tplex sample from frontend
+      commonName: req.body.commonName, // Will be null if it's a Tplex sample from frontend
+      ncbi: req.body.ncbi, // Will be null if it's a Tplex sample from frontend
+      conditions: req.body.conditions, // Will be null if it's a Tplex sample from frontend
       owner: req.body.owner,
       group: req.body.group,
-      // --- NEW: Add tplexCsv field ---
-      tplexCsv: req.body.tplexCsv, // Mongoose will handle `null` or `undefined`
-      // --- END NEW ---
+      tplexCsv: req.body.tplexCsv, // Will be truthy if Tplex, or null if not from frontend
     });
 
     let returnedSample;
     newSample
-      .save()
+      .save() // Mongoose's validation (including your pre-validate hook) runs here
       .then(async (savedSample) => {
         returnedSample = savedSample;
         const additionalFiles = req.body.additionalFiles;
 
         if (additionalFiles.length) {
+          // This `additionalFiles` should be an empty array if isTplexChecked is true on frontend
           try {
             return await sortAdditionalFiles(
               additionalFiles,
@@ -124,13 +123,16 @@ router
       })
       .then(() => {
         sendOverseerEmail({ type: "Sample", data: returnedSample }).then(
-          (emailResult) => {
+          (/**emailResult*/) => {
             res.status(200).send({ sample: returnedSample });
           }
         );
       })
       .catch((err) => {
         console.error("ERROR", err);
+        // Mongoose validation errors will be caught here if they occur.
+        // You might want more granular error handling here to check for `err.name === 'ValidationError'`
+        // and send more user-friendly messages for validation issues.
         res.status(500).send({ error: err });
       });
   });
