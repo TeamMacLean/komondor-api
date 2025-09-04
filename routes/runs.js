@@ -64,7 +64,7 @@ router
 
               if (readFilesResults.length) {
                 readFiles = readFilesResults.filter(
-                  (file) => !file.includes(".DS_Store")
+                  (file) => !file.includes(".DS_Store"),
                 );
               }
 
@@ -129,7 +129,7 @@ router
       group: req.body.group,
     });
 
-    /** 
+    /**
             this.run.rawFilesUploadMethod = "hpc-mv" or 'local-filesystem'
             this.run.paired
             this.run.hpcRawFiles = {
@@ -151,7 +151,7 @@ router
 
     // res.status(500).send({ error: 'no chances to escape' })
 
-    /** 
+    /**
             data: File
                 lastModified: 1592992875792
                 name: "additional-demo.bam"
@@ -197,8 +197,8 @@ router
                 readFiles,
                 returnedRun._id,
                 returnedRun.path,
-                rawFilesUploadInfo
-              )
+                rawFilesUploadInfo,
+              ),
             );
           }
           if (additionalFiles.length) {
@@ -207,8 +207,8 @@ router
                 additionalFiles,
                 "run",
                 returnedRun._id,
-                returnedRun.path
-              )
+                returnedRun.path,
+              ),
             );
           }
 
@@ -223,7 +223,7 @@ router
         sendOverseerEmail({ type: "Run", data: returnedRun }).then(
           (emailResult) => {
             res.status(200).send({ run: returnedRun });
-          }
+          },
         );
       })
       .catch((err) => {
