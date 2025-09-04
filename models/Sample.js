@@ -1,7 +1,5 @@
-//import { Schema, model } from 'mongoose';
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
-//import { join } from 'path';
 const NewsItem = require("./NewsItem");
 
 const generateSafeName = require("../lib/utils/generateSafeName").default;

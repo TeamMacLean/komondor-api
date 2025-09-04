@@ -70,7 +70,7 @@ router
             try {
               const dirRoot = _path.join(
                 process.env.DATASTORE_ROOT,
-                project.path
+                project.path,
               );
               const additionalDir = _path.join(dirRoot, "additional");
 
@@ -93,7 +93,7 @@ router
                         project: project,
                         actualAdditionalFiles: additionalFiles,
                       });
-                    }
+                    },
                   );
                 }
               });
@@ -132,7 +132,7 @@ router
           {
             $set: { nudgeable: req.body.nudgeable },
           },
-          { new: true, useFindAndModify: false }
+          { new: true, useFindAndModify: false },
         );
         res.status(200).send();
       } catch (e) {
@@ -146,11 +146,9 @@ router
   .route("/projects/new")
   .all(isAuthenticated)
   .post((req, res) => {
-    //TODO check permission
-
     // TODO hacky (should fetch groups)
     const twoBladesObjectId = mongoose.Types.ObjectId(
-      "5fc012bda3efcb29338b7cf3"
+      "5fc012bda3efcb29338b7cf3",
     );
 
     const newProject = new Project({
@@ -180,7 +178,7 @@ router
               additionalFiles,
               "project",
               setAsSavedProject._id,
-              setAsSavedProject.path
+              setAsSavedProject.path,
             );
           } catch (e) {
             // if issue with files, remove newProject
@@ -198,7 +196,7 @@ router
         sendOverseerEmail({ type: "Project", data: setAsSavedProject }).then(
           (emailResult) => {
             res.status(200).send({ project: setAsSavedProject });
-          }
+          },
         );
       })
       .catch((err) => {
