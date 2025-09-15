@@ -101,13 +101,13 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   const result = await Group.find(groupFindCriteria);
 
   // simple name and ldapStrings output
-  const debugOutput = result.map((g) => {
-    return {
-      name: g.name,
-      ldapGroups: g.ldapGroups,
-    };
-  });
-  console.log("debugOutput user and groups", user.username, debugOutput);
+  // const debugOutput = result.map((g) => {
+  //   return {
+  //     name: g.name,
+  //     ldapGroups: g.ldapGroups,
+  //   };
+  // });
+  // console.log("debugOutput user and groups", user.username, debugOutput);
 
   // HACK here if necessary
   // if (user.username === "naf24zog") {
