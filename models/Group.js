@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
     sendToEna: { type: Boolean, default: false },
     oldId: { type: String },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 schema.pre("validate", function () {
@@ -23,7 +23,7 @@ schema.pre("validate", function () {
 
       return generateSafeName(
         this.name,
-        allOthers.filter((f) => f._id.toString() !== this._id.toString())
+        allOthers.filter((f) => f._id.toString() !== this._id.toString()),
       );
     })
     .then((safeName) => {
@@ -45,7 +45,7 @@ schema.post("save", function () {
       try {
         return fs.promises.mkdir(absDestPath).then(() => {
           console.log(
-            "Directory for " + this.name + " did not exist, so now created!"
+            "Directory for " + this.name + " did not exist, so now created!",
           );
           return Promise.resolve();
         });
@@ -97,8 +97,23 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     // console.log("filters", filters);
     groupFindCriteria = { $or: filters };
   } else {
+    console.error(
+      "No criteria if statement activated for groupfind...",
+      user.username,
+    );
+  }
+  if (!groupFindCriteria) {
+    throw new Error("No groupfind criteria for user found", user.username);
   }
   const result = await Group.find(groupFindCriteria);
+
+  if (!result.length) {
+    console.error(
+      "No groups found for user",
+      user,
+      new Date().format("DD-MM-YYYY HH:mm:ss"),
+    );
+  }
 
   // simple name and ldapStrings output
   // const debugOutput = result.map((g) => {
