@@ -60,6 +60,8 @@ schema.post("save", function () {
 schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   const allGroupsFilter = {};
 
+  console.log("debug user attempt to login:", user);
+
   // debug by changing these
   let userIsAdmin = user.isAdmin;
   let fullAccessUsers = FULL_RECORDS_ACCESS_USERS;
@@ -68,6 +70,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
   var groupFindCriteria;
   if (userIsAdmin) {
+    console.log("user is admin");
     groupFindCriteria = allGroupsFilter;
   } else if (
     fullAccessUsers &&
@@ -76,25 +79,28 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     user.username &&
     fullAccessUsers.includes(user.username)
   ) {
+    console.log("user is full access");
     groupFindCriteria = allGroupsFilter;
   } else if (user.groups) {
+    console.log("user has group assigned already");
     groupFindCriteria = {
       _id: { $in: user.groups },
     };
   } else if (user.memberOf) {
+    console.log("user has ldap strings to go after");
     // BEST FOR DEBUGGING USER'S GROUPS LDAP
 
     const groupLdapStrings = user.memberOf;
-    // debug
+    // debug here by only having one group (good for testing me/admin only)
     // const groupLdapStrings = user.memberOf.splice(0, 1);
     // groupLdapStrings.push(
-    //   "CN=TSL-Data-Bioinformatics,OU=TSLGroups,OU=NBIGroups,DC=nbi,DC=ac,DC=uk"
+    //   "CN=TSL-Data-Bioinformatics,OU=TSLGroups,OU=NBIGroups,DC=nbi,DC=ac,DC=uk",
     // );
 
     const filters = groupLdapStrings.map((g) => ({
       ldapGroups: g,
     }));
-    // console.log("filters", filters);
+    console.log("filters", filters);
     groupFindCriteria = { $or: filters };
   } else {
     console.error(
@@ -116,13 +122,13 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   }
 
   // simple name and ldapStrings output
-  // const debugOutput = result.map((g) => {
-  //   return {
-  //     name: g.name,
-  //     ldapGroups: g.ldapGroups,
-  //   };
-  // });
-  // console.log("debugOutput user and groups", user.username, debugOutput);
+  const debugOutput = result.map((g) => {
+    return {
+      name: g.name,
+      ldapGroups: g.ldapGroups,
+    };
+  });
+  console.log("debugOutput user and groups", user.username, debugOutput);
 
   // HACK here if necessary
   // if (user.username === "naf24zog") {

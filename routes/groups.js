@@ -13,6 +13,10 @@ router
 
     Group.GroupsIAmIn(user)
       .then((groups) => {
+        console.log(
+          user.username,
+          groups.map((g) => g.name),
+        );
         res.status(200).send({ groups });
       })
       .catch((err) => {
