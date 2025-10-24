@@ -33,21 +33,12 @@ const schema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } },
 );
 
-// --- MODIFIED pre('validate') hook ---
 schema.pre("validate", function (next) {
   const doc = this;
 
-  // Step 1: Handle conditional required fields based on tplexCsv
+  // Handle conditional required fields based on tplexCsv
   if (!doc.tplexCsv) {
-    // If tplexCsv is falsey (not a tplex sample), make these fields effectively required for validation
-    // `name` is now always set via safeName, so its explicit invalidation here is only for user-provided name validity.
-    // If name is null/undefined at this point, it means the user didn't provide it, and we will set it from safeName later.
-    // This part should focus on validating user-provided input.
-    if (!doc.name) {
-      // This will be overridden by safeName later, but if you want to *force* user input
-      // OR handle a backend-initiated save of a non-Tplex without a name.
-      // doc.invalidate("name", "Name is required for non-Tplex samples.", doc.name);
-    }
+    // Non-tplex samples require these fields
     if (!doc.scientificName) {
       doc.invalidate(
         "scientificName",
@@ -80,81 +71,76 @@ schema.pre("validate", function (next) {
       doc.invalidate("ncbi", "NCBI Taxonomy ID must be a number.", doc.ncbi);
     }
   } else {
-    // If it IS a tplex sample, ensure these fields are explicitly null/undefined if they come as empty strings
+    // Tplex samples: convert empty strings to null
     if (doc.scientificName === "") doc.scientificName = null;
     if (doc.commonName === "") doc.commonName = null;
     if (doc.ncbi === "") doc.ncbi = null;
     if (doc.conditions === "") doc.conditions = null;
-    // `name` is explicitly set via safeName below, so no need to nullify it here.
   }
 
-  // Step 2: Handle safeName generation and then assign it to 'name'
-  // safeName must *always* be generated.
-  // The base name for safeName generation:
-  // - If it's a non-tplex sample with a name: use doc.name
-  // - If it's a tplex sample OR a non-tplex without a name: use a fallback based on project ID
+  // Generate base name for safeName creation
   const baseNameForSafeName =
     doc.name && doc.name.length > 0
       ? doc.name
       : `tplex-sample-${doc.project.toString().slice(-6)}`;
 
+  // Generate safeName and set paths
   Sample.find({})
-    .then((allOthers) => {
-      const filteredOthers = allOthers.filter(
-        (f) => f._id.toString() !== doc._id.toString(),
+    .then((allSamples) => {
+      const otherSamples = allSamples.filter(
+        (sample) => sample._id.toString() !== doc._id.toString(),
       );
-      // Generate safeName. If doc.safeName already exists (e.g., on update), keep it.
-      return (
-        this.safeName ||
-        generateSafeName(
-          this.name,
-          allOthers.filter((f) => f._id.toString() !== this._id.toString()),
-        )
-      );
-    })
-    .then((generatedSafeName) => {
-      doc.safeName = generatedSafeName;
 
-      // --- NEW: Assign generated safeName to 'name' if 'name' is not already provided ---
-      // This ensures 'name' always has a value for all samples.
-      // If doc.name was already set by user input (non-Tplex), it keeps that value.
-      // If doc.name was null/empty (Tplex), it gets the safeName.
+      // Return existing safeName or generate new one
+      if (doc.safeName) {
+        return Promise.resolve(doc.safeName);
+      }
+
+      return generateSafeName(baseNameForSafeName, otherSamples);
+    })
+    .then((safeName) => {
+      doc.safeName = safeName;
+
+      // Set name to safeName if not already provided
       if (!doc.name || doc.name === "") {
         doc.name = doc.safeName;
       }
-      // --- END NEW ---
 
-      return doc
-        .populate({
-          path: "project",
-        })
-        .execPopulate();
+      return doc.populate({ path: "project" }).execPopulate();
     })
     .then((populatedDoc) => {
-      try {
-        if (!populatedDoc.project || !populatedDoc.project.path) {
-          throw new Error(
-            "Project or Project path not found for sample path generation.",
-          );
-        }
-        doc.path = join(populatedDoc.project.path, doc.safeName);
-        next();
-      } catch (e) {
-        console.error("Error generating sample path:", e);
-        doc.invalidate("path", e.message, doc.path);
-        next(e);
+      // Debug logging
+      // console.log("Debug path generation:", {
+      //   projectExists: !!populatedDoc.project,
+      //   projectPath: populatedDoc.project && populatedDoc.project.path,
+      //   safeName: doc.safeName,
+      //   safeNameType: typeof doc.safeName,
+      // });
+
+      if (!populatedDoc.project) {
+        throw new Error("Project not found for sample path generation.");
       }
+
+      if (!populatedDoc.project.path) {
+        throw new Error("Project path not found for sample path generation.");
+      }
+
+      if (!doc.safeName) {
+        throw new Error("SafeName not generated for sample path generation.");
+      }
+
+      doc.path = join(populatedDoc.project.path, doc.safeName);
+      next();
     })
     .catch((err) => {
       console.error("Error in Sample pre-validate hook:", err);
       doc.invalidate(
         "general",
-        "An error occurred during sample validation: " + err.message,
+        `An error occurred during sample validation: ${err.message}`,
       );
       next(err);
     });
 });
-// --- END MODIFIED pre('validate') hook ---
 
 schema.pre("save", function (next) {
   this.wasNew = this.isNew;
