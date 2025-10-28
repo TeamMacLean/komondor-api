@@ -81,12 +81,12 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   ) {
     console.log("user is full access");
     groupFindCriteria = allGroupsFilter;
-  } else if (user.groups) {
+  } else if (user.groups && user.groups.length) {
     console.log("user has group assigned already");
     groupFindCriteria = {
       _id: { $in: user.groups },
     };
-  } else if (user.memberOf) {
+  } else if (user.memberOf && user.memberOf.length) {
     console.log("user has ldap strings to go after");
     // BEST FOR DEBUGGING USER'S GROUPS LDAP
 
@@ -131,9 +131,9 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   console.log("debugOutput user and groups", user.username, debugOutput);
 
   // HACK here if necessary
-  // if (user.username === "naf24zog") {
-  //   return await Group.find({ name: "maw" });
-  // }
+  if (user.username === "ges23jir") {
+    return await Group.find({ name: "ntalbot" });
+  }
 
   return result;
 };
