@@ -18,7 +18,7 @@ const schema = new mongoose.Schema(
 );
 
 /**
- * Pre-validate hook to generate a safe name for the group
+ * Pre-validate hook to generate a safe name for the grouph
  */
 schema.pre("validate", async function () {
   try {
@@ -73,40 +73,67 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     throw new Error("User object is required");
   }
 
-  console.log(`GroupsIAmIn: Processing user "${user.username}"`);
+  // Log the full user object structure for debugging
+  console.log(
+    "GroupsIAmIn: Full user object received:",
+    JSON.stringify(
+      {
+        username: user.username,
+        isAdmin: user.isAdmin,
+        hasGroups: Boolean(user.groups && user.groups.length),
+        groupsCount: user.groups ? user.groups.length : 0,
+        hasMemberOf: Boolean(user.memberOf && user.memberOf.length),
+        memberOfCount: user.memberOf ? user.memberOf.length : 0,
+        allKeys: Object.keys(user),
+      },
+      null,
+      2,
+    ),
+  );
+
+  // Detect username from various possible properties
+  const username =
+    user.username || user.name || user.uid || user.cn || "unknown";
+  console.log(`GroupsIAmIn: Processing user "${username}"`);
 
   // Parse full access users from environment variable
   const fullAccessUsers = FULL_RECORDS_ACCESS_USERS
     ? FULL_RECORDS_ACCESS_USERS.split(",").map((u) => u.trim())
     : [];
 
+  // Log FULL_RECORDS_ACCESS_USERS for debugging
+  console.log(
+    `GroupsIAmIn: FULL_RECORDS_ACCESS_USERS configured:`,
+    fullAccessUsers.length > 0 ? fullAccessUsers : "NONE",
+  );
+  console.log(
+    `GroupsIAmIn: Checking if "${username}" is in full access list:`,
+    fullAccessUsers.includes(username),
+  );
+
   let groupFindCriteria = null;
 
   // Determine group find criteria based on user permissions
   if (user.isAdmin) {
     console.log(
-      `GroupsIAmIn: User "${user.username}" is admin - granting all groups access`,
+      `GroupsIAmIn: User "${username}" is admin - granting all groups access`,
     );
     groupFindCriteria = {};
-  } else if (
-    fullAccessUsers.length &&
-    user.username &&
-    fullAccessUsers.includes(user.username)
-  ) {
+  } else if (fullAccessUsers.length && fullAccessUsers.includes(username)) {
     console.log(
-      `GroupsIAmIn: User "${user.username}" has full access - granting all groups access`,
+      `GroupsIAmIn: User "${username}" has full access - granting all groups access`,
     );
     groupFindCriteria = {};
   } else if (user.groups && user.groups.length) {
     console.log(
-      `GroupsIAmIn: User "${user.username}" has ${user.groups.length} group(s) directly assigned`,
+      `GroupsIAmIn: User "${username}" has ${user.groups.length} group(s) directly assigned`,
     );
     groupFindCriteria = {
       _id: { $in: user.groups },
     };
   } else if (user.memberOf && user.memberOf.length) {
     console.log(
-      `GroupsIAmIn: User "${user.username}" has ${user.memberOf.length} LDAP group(s) to match`,
+      `GroupsIAmIn: User "${username}" has ${user.memberOf.length} LDAP group(s) to match`,
     );
 
     const filters = user.memberOf.map((ldapString) => ({
@@ -116,11 +143,11 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     groupFindCriteria = { $or: filters };
   } else {
     console.error(
-      `GroupsIAmIn: No valid criteria found for user "${user.username}". ` +
+      `GroupsIAmIn: No valid criteria found for user "${username}". ` +
         `User object:`,
       JSON.stringify(
         {
-          username: user.username,
+          username: username,
           isAdmin: user.isAdmin,
           hasGroups: Boolean(user.groups && user.groups.length),
           hasMemberOf: Boolean(user.memberOf && user.memberOf.length),
@@ -134,7 +161,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   // If no criteria was set, throw error
   if (!groupFindCriteria) {
     throw new Error(
-      `No group find criteria could be determined for user "${user.username}"`,
+      `No group find criteria could be determined for user "${username}"`,
     );
   }
 
@@ -145,7 +172,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
     if (!groups || groups.length === 0) {
       console.error(
-        `GroupsIAmIn: No groups found for user "${user.username}". ` +
+        `GroupsIAmIn: No groups found for user "${username}". ` +
           `Criteria used:`,
         JSON.stringify(groupFindCriteria, null, 2),
       );
@@ -175,13 +202,13 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
       }
     } else {
       console.log(
-        `GroupsIAmIn: Found ${groups.length} group(s) for user "${user.username}":`,
+        `GroupsIAmIn: Found ${groups.length} group(s) for user "${username}":`,
         groups.map((g) => ({ name: g.name, ldapGroups: g.ldapGroups })),
       );
     }
   } catch (error) {
     console.error(
-      `GroupsIAmIn: Database error while finding groups for user "${user.username}":`,
+      `GroupsIAmIn: Database error while finding groups for user "${username}":`,
       error,
     );
     throw error;
