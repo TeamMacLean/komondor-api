@@ -74,60 +74,57 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   }
 
   // Log the full user object structure for debugging
-  console.log(
-    "GroupsIAmIn: Full user object received:",
-    JSON.stringify(
-      {
-        username: user.username,
-        isAdmin: user.isAdmin,
-        hasGroups: Boolean(user.groups && user.groups.length),
-        groupsCount: user.groups ? user.groups.length : 0,
-        hasMemberOf: Boolean(user.memberOf && user.memberOf.length),
-        memberOfCount: user.memberOf ? user.memberOf.length : 0,
-        allKeys: Object.keys(user),
-      },
-      null,
-      2,
-    ),
-  );
+  // console.log(
+  //   "GroupsIAmIn: Full user object received:",
+  //   JSON.stringify(user, null, 2),
+  // );
 
   // Detect username from various possible properties
   const username =
-    user.username || user.name || user.uid || user.cn || "unknown";
-  console.log(`GroupsIAmIn: Processing user "${username}"`);
+    user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+  // console.log(`GroupsIAmIn: Processing user "${username}"`);
 
   // Parse full access users from environment variable
-  const fullAccessUsers = FULL_RECORDS_ACCESS_USERS
-    ? FULL_RECORDS_ACCESS_USERS.split(",").map((u) => u.trim())
-    : [];
+  let fullAccessUsers = [];
+  if (FULL_RECORDS_ACCESS_USERS) {
+    try {
+      // Try parsing as JSON array first
+      fullAccessUsers = JSON.parse(FULL_RECORDS_ACCESS_USERS);
+    } catch (e) {
+      // Fall back to comma-separated string
+      fullAccessUsers = FULL_RECORDS_ACCESS_USERS.split(",").map((u) =>
+        u.trim(),
+      );
+    }
+  }
 
   // Log FULL_RECORDS_ACCESS_USERS for debugging
-  console.log(
-    `GroupsIAmIn: FULL_RECORDS_ACCESS_USERS configured:`,
-    fullAccessUsers.length > 0 ? fullAccessUsers : "NONE",
-  );
-  console.log(
-    `GroupsIAmIn: Checking if "${username}" is in full access list:`,
-    fullAccessUsers.includes(username),
-  );
+  // console.log(
+  //   `GroupsIAmIn: FULL_RECORDS_ACCESS_USERS configured:`,
+  //   fullAccessUsers.length > 0 ? fullAccessUsers : "NONE",
+  // );
+  // console.log(
+  //   `GroupsIAmIn: Checking if "${username}" is in full access list:`,
+  //   fullAccessUsers.includes(username),
+  // );
 
   let groupFindCriteria = null;
 
   // Determine group find criteria based on user permissions
   if (user.isAdmin) {
-    console.log(
-      `GroupsIAmIn: User "${username}" is admin - granting all groups access`,
-    );
+    // console.log(
+    //   `GroupsIAmIn: User "${username}" is admin - granting all groups access`,
+    // );
     groupFindCriteria = {};
   } else if (fullAccessUsers.length && fullAccessUsers.includes(username)) {
-    console.log(
-      `GroupsIAmIn: User "${username}" has full access - granting all groups access`,
-    );
+    // console.log(
+    //   `GroupsIAmIn: User "${username}" has full access - granting all groups access`,
+    // );
     groupFindCriteria = {};
   } else if (user.groups && user.groups.length) {
-    console.log(
-      `GroupsIAmIn: User "${username}" has ${user.groups.length} group(s) directly assigned`,
-    );
+    // console.log(
+    //   `GroupsIAmIn: User "${username}" has ${user.groups.length} group(s) directly assigned`,
+    // );
     groupFindCriteria = {
       _id: { $in: user.groups },
     };
@@ -149,8 +146,8 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
         {
           username: username,
           isAdmin: user.isAdmin,
-          hasGroups: Boolean(user.groups && user.groups.length),
-          hasMemberOf: Boolean(user.memberOf && user.memberOf.length),
+          groups: user.groups,
+          memberOf: user.memberOf,
         },
         null,
         2,
@@ -158,17 +155,10 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     );
   }
 
-  // If no criteria was set, throw error
-  if (!groupFindCriteria) {
-    throw new Error(
-      `No group find criteria could be determined for user "${username}"`,
-    );
-  }
-
   // Find groups matching criteria
   let groups = [];
   try {
-    groups = await Group.find(groupFindCriteria);
+    groups = await Group.find(groupFindCriteria); // empty object will find all groups
 
     if (!groups || groups.length === 0) {
       console.error(
