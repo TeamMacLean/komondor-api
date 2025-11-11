@@ -8,6 +8,28 @@ const sign = require("../lib/utils/jwtSign");
 const getUserForToken = require("../lib/utils/getUserForToken");
 const User = require("../models/User");
 
+// Development mode user list - only used when NODE_ENV is 'development'
+const DEV_USERS = [
+  {
+    username: "testadmin",
+    password: "testpass",
+    name: "Test Admin",
+    company: "Test Company",
+    email: "testadmin@example.org",
+    isAdmin: true,
+    groups: [],
+  },
+  {
+    username: "testuser",
+    password: "testpass",
+    name: "Test User",
+    company: "Test Company",
+    email: "testuser@example.org",
+    isAdmin: false,
+    groups: [],
+  },
+];
+
 router.get("/me", (req, res, next) => {
   getUserFromRequest(req)
     .then((user) => {
@@ -69,6 +91,39 @@ router.post("/login", (req, res, next) => {
         },
         res
       );
+    } else if (process.env.NODE_ENV === "development") {
+      // Check against dev users list in development mode
+      const devUser = DEV_USERS.find(
+        (user) =>
+          user.username === req.body.username &&
+          user.password === req.body.password
+      );
+
+      if (devUser) {
+        console.log(`Dev mode: Authenticated user ${devUser.username}`);
+        signAndReturn(
+          {
+            username: devUser.username,
+            name: devUser.name,
+            company: devUser.company,
+            email: devUser.email,
+            isAdmin: devUser.isAdmin,
+            groups: devUser.groups,
+          },
+          res
+        );
+      } else {
+        // Fall through to LDAP authentication in development mode
+        authenticate(req.body.username, req.body.password)
+          .then((user) => {
+            getUserForToken(user).then((userTokenObject) => {
+              signAndReturn(userTokenObject, res);
+            });
+          })
+          .catch((err) => {
+            res.status(401).json({ message: "Bad credentials" });
+          });
+      }
     } else {
       authenticate(req.body.username, req.body.password)
         .then((user) => {
