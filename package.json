@@ -2,7 +2,7 @@
   "name": "komondor-api",
   "version": "1.0.0",
   "description": "TSL Sequence Data API",
-  "author": "Martin Page",
+  "author": "George Deeks",
   "private": true,
   "scripts": {
     "dev": "nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
@@ -20,6 +20,7 @@
     "tus-node-server": "^0.3.2"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "supertest": "^6.3.4"
   }
 }
