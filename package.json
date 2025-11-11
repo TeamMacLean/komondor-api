@@ -11,18 +11,15 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "js2xmlparser": "^4.0.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.21.2",
     "jsonwebtoken": "^8.5.1",
     "ldapauth-fork": "^5.0.1",
-    "moment": "^2.29.1",
-    "mongoose": "^5.11.0",
-    "mv": "^2.1.1",
-    "nodemailer": "^6.6.3",
+    "mongoose": "^5.13.23",
+    "nodemailer": "^6.10.1",
     "tus-node-server": "^0.3.2"
   },
   "devDependencies": {
-    "supertest": "^6.0.1"
+    "supertest": "^6.3.4"
   }
 }

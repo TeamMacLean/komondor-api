@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const _path = require("path");
-var mv = require("mv");
+const fs = require("fs").promises;
+const { createReadStream, createWriteStream } = require("fs");
 
 const schema = new mongoose.Schema(
   {
@@ -29,24 +30,37 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
   const fullNewPath = _path.join(process.env.DATASTORE_ROOT, relNewPath);
 
   try {
-    // console.log('file.path is tempUploadPath, on rename upload doc property');
-
     console.log("Moving file from", file.path, "to", fullNewPath);
 
-    mv(file.path, fullNewPath, { mkdirp: true }, function (err) {
-      // done. it tried fs.rename first, and then falls back to
-      // piping the source file to the dest file and then unlinking
-      // the source file.
-      if (err) {
-        console.log("...but error moving file! :(");
+    // Create directory if it doesn't exist (native mkdirp equivalent)
+    await fs.mkdir(_path.dirname(fullNewPath), { recursive: true });
 
-        Promise.reject(err);
-      }
-      file.path = relNewPath;
-      return file.save();
-    });
+    // Try rename first (faster if on same filesystem)
+    try {
+      await fs.rename(file.path, fullNewPath);
+    } catch (renameErr) {
+      // If rename fails (likely cross-device), fall back to copy+unlink
+      await new Promise((resolve, reject) => {
+        const readStream = createReadStream(file.path);
+        const writeStream = createWriteStream(fullNewPath);
+
+        readStream.on('error', reject);
+        writeStream.on('error', reject);
+        writeStream.on('finish', resolve);
+
+        readStream.pipe(writeStream);
+      });
+
+      // Remove source file after successful copy
+      await fs.unlink(file.path);
+    }
+
+    file.path = relNewPath;
+    return file.save();
   } catch (err) {
+    console.log("...but error moving file! :(");
     console.error(err);
+    throw err;
   }
 };
 

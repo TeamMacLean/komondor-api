@@ -245,11 +245,6 @@ schema.statics.iCanSee = function iCanSee(user) {
   return Sample.find({ $or: filters });
 };
 
-schema.methods.toENA = function toENA() {
-  const sample = this;
-
-  js2xmlparser.parse("sample", sample);
-};
 
 const Sample = model("Sample", schema);
 
