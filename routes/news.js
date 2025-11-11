@@ -2,7 +2,27 @@ const { isAuthenticated } =require( "./middleware")
 const express =require( "express")
 let router = express.Router();
 const NewsItem =require( '../models/NewsItem')
-const moment =require( 'moment')
+
+// Native replacement for moment().calendar()
+function formatDateCalendar(date) {
+    const now = new Date();
+    const dateObj = new Date(date);
+    const diffMs = now - dateObj;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    const timeStr = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+    if (diffDays === 0) {
+        return `Today at ${timeStr}`;
+    } else if (diffDays === 1) {
+        return `Yesterday at ${timeStr}`;
+    } else if (diffDays < 7) {
+        const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+        return `Last ${dayName} at ${timeStr}`;
+    } else {
+        return dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ` at ${timeStr}`;
+    }
+}
 
 
 router.route('/news')
@@ -23,7 +43,7 @@ router.route('/news')
                             name: ni.name,
                             body: ni.body,
                             date: ni.createdAt,
-                            dateHuman: moment(ni.createdAt).calendar(),
+                            dateHuman: formatDateCalendar(ni.createdAt),
                             link: {name: ni.type, query: {id: ni.typeId}}
                         }
                     });
