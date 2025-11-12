@@ -110,6 +110,8 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
   let groupFindCriteria = null;
 
+  //console.log(user);
+
   // Determine group find criteria based on user permissions
   if (user.isAdmin) {
     // console.log(
@@ -191,10 +193,10 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
         }
       }
     } else {
-      console.log(
-        `GroupsIAmIn: Found ${groups.length} group(s) for user "${username}":`,
-        groups.map((g) => ({ name: g.name, ldapGroups: g.ldapGroups })),
-      );
+      // console.log(
+      //   `GroupsIAmIn: Found ${groups.length} group(s) for user "${username}":`,
+      //   groups.map((g) => ({ name: g.name, ldapGroups: g.ldapGroups })),
+      // );
     }
   } catch (error) {
     console.error(
