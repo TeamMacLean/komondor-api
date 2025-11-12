@@ -32,21 +32,16 @@ router
     }
   });
 
-router
-  .route("/projects/names")
-  //.all(isAuthenticated)
-  .get(async (req, res) => {
-    Project.find({})
-      .select("name")
-      .then((resPros) => {
-        const results = resPros.map((resPro) => resPro.name);
-        res.status(200).send({ projectsNames: results });
-      })
-      .catch((err) => {
-        console.error("error!!!!!", err);
-        res.status(500).send({ error: err });
-      });
-  });
+router.route("/projects/names").get(async (req, res) => {
+  try {
+    const projects = await Project.find({}).select("name");
+    const projectNames = projects.map((project) => project.name);
+    res.status(200).send({ projectNames: projectNames });
+  } catch (err) {
+    console.error("error!!!!!", err);
+    res.status(500).send({ error: err });
+  }
+});
 
 router
   .route("/project")
