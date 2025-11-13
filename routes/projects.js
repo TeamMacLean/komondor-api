@@ -1,202 +1,190 @@
 const express = require("express");
-let router = express.Router();
+const router = express.Router();
+const mongoose = require("mongoose");
+const _path = require("path");
+
 const Project = require("../models/Project");
 const { isAuthenticated } = require("./middleware");
-const _path = require("path");
-const fs = require("fs");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const mongoose = require("mongoose");
+const { handleError, getActualFiles } = require("./_utils");
 
+/**
+ * GET /projects
+ * Fetches all projects visible to the authenticated user, sorted by most recent.
+ */
 router
   .route("/projects")
   .all(isAuthenticated)
   .get(async (req, res) => {
-    //TODO must be in same group as user
-
     try {
-      const limit = await Project.iCanSee(req.user);
-      // consider refactoring to reduce load
-      const orderByMostRecent = limit.sort((a, b) => {
-        const aDate = new Date(a.createdAt).getTime();
-        const bDate = new Date(b.createdAt).getTime();
-
-        const res = aDate > bDate ? -1 : 1;
-        //console.log('aDate', aDate, 'bDate', bDate, 'res', res);
-        return res;
-      });
-      res.status(200).send({ projects: orderByMostRecent });
-    } catch (err) {
-      console.error("error!!!!!", err);
-      res.status(500).send({ error: err });
+      const projects = await Project.iCanSee(req.user);
+      // Sort projects by creation date in descending order
+      const sortedProjects = projects.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+      res.status(200).send({ projects: sortedProjects });
+    } catch (error) {
+      handleError(res, error, 500, "Failed to retrieve projects.");
     }
   });
 
-router.route("/projects/names").get(async (req, res) => {
+/**
+ * GET /projects/names
+ * Fetches the names of all projects. This is a public endpoint.
+ */
+router.get("/projects/names", async (req, res) => {
   try {
     const projects = await Project.find({}).select("name");
     const projectNames = projects.map((project) => project.name);
-    res.status(200).send({ projectNames: projectNames });
-  } catch (err) {
-    console.error("error!!!!!", err);
-    res.status(500).send({ error: err });
+    res.status(200).send({ projectNames });
+  } catch (error) {
+    handleError(res, error, 500, "Failed to retrieve project names.");
   }
 });
 
+/**
+ * GET /project?id=:id
+ * Fetches a single project by its ID, along with its associated data and files on disk.
+ */
 router
   .route("/project")
   .all(isAuthenticated)
-  .get((req, res) => {
-    if (!req.query.id) {
-      res.status(500).send({ error: new Error("param :id not provided") });
-    } else {
-      // proceed
+  .get(async (req, res) => {
+    const { id } = req.query;
+    if (!id) {
+      return handleError(res, new Error("Project ID not provided."), 400);
+    }
 
-      Project.findById(req.query.id)
+    try {
+      const project = await Project.findById(id)
         .populate("group")
         .populate({ path: "samples", populate: { path: "group" } })
         .populate({ path: "additionalFiles", populate: { path: "file" } })
-        .then((project) => {
-          if (!project) {
-            res.status(501).send({ error: "Project not found" });
-          } else {
-            // proceed
+        .exec();
 
-            try {
-              const dirRoot = _path.join(
-                process.env.DATASTORE_ROOT,
-                project.path,
-              );
-              const additionalDir = _path.join(dirRoot, "additional");
+      if (!project) {
+        return handleError(res, new Error("Project not found."), 404);
+      }
 
-              fs.stat(additionalDir, function (err, stats) {
-                // handle errors as dir probably nonexistent
-                if (err || !stats.isDirectory()) {
-                  res.status(200).send({
-                    project: project,
-                    actualAdditionalFiles: [],
-                  });
-                } else {
-                  fs.readdir(
-                    additionalDir,
-                    (additionalFilesErr, additionalFiles) => {
-                      // throw errors as unexpected
-                      if (additionalFilesErr) {
-                        throw new Error(additionalFilesErr);
-                      }
-                      res.status(200).send({
-                        project: project,
-                        actualAdditionalFiles: additionalFiles,
-                      });
-                    },
-                  );
-                }
-              });
-            } catch (e) {
-              console.error(e, e.message);
-              res.status(501).send({ error: "Unexpected readdir error" });
-            }
-          }
-        })
-        .catch((err) => {
-          // error during db inflation
-          console.error(e, e.message);
-          res.status(500).send({ error: err });
-        });
+      const additionalDir = _path.join(
+        process.env.DATASTORE_ROOT,
+        project.path,
+        "additional",
+      );
+      const actualAdditionalFiles = await getActualFiles(additionalDir);
+
+      res.status(200).send({ project, actualAdditionalFiles });
+    } catch (error) {
+      handleError(res, error, 500, `Failed to retrieve project ${id}.`);
     }
   });
 
+/**
+ * PUT /project/toggle-nudgeable
+ * Toggles the 'nudgeable' status of a project.
+ */
 router
   .route("/project/toggle-nudgeable")
   .all(isAuthenticated)
   .put(async (req, res) => {
-    if (
-      !req.body._id ||
-      req.body.nudgeable === undefined ||
-      req.body.nudgeable === null
-    ) {
-      res
-        .status(500)
-        .send({ error: new Error("param :id and/or nudgeable not provided") });
-    } else {
-      const theId = mongoose.Types.ObjectId(req.body._id);
+    const { _id, nudgeable } = req.body;
 
-      try {
-        const result = await Project.findByIdAndUpdate(
-          theId,
-          {
-            $set: { nudgeable: req.body.nudgeable },
-          },
-          { new: true, useFindAndModify: false },
-        );
-        res.status(200).send();
-      } catch (e) {
-        console.error(e, e.message);
-        res.status(500).send({ error: e });
+    if (!_id || nudgeable === undefined) {
+      return handleError(
+        res,
+        new Error(
+          "Required parameters '_id' and 'nudgeable' were not provided.",
+        ),
+        400,
+      );
+    }
+
+    try {
+      const updatedProject = await Project.findByIdAndUpdate(
+        _id,
+        { $set: { nudgeable } },
+        { new: true, useFindAndModify: false },
+      );
+
+      if (!updatedProject) {
+        return handleError(res, new Error("Project not found."), 404);
       }
+
+      res
+        .status(200)
+        .send({ message: "Nudgeable status updated successfully." });
+    } catch (error) {
+      handleError(
+        res,
+        error,
+        500,
+        "Failed to update project's nudgeable status.",
+      );
     }
   });
 
+/**
+ * POST /projects/new
+ * Creates a new project, handles associated file uploads, and sends a notification email.
+ */
 router
   .route("/projects/new")
   .all(isAuthenticated)
-  .post((req, res) => {
-    // TODO hacky (should fetch groups)
-    const twoBladesObjectId = mongoose.Types.ObjectId(
-      "5fc012bda3efcb29338b7cf3",
-    );
+  .post(async (req, res) => {
+    let savedProject; // To hold the created project document
 
-    const newProject = new Project({
-      name: req.body.name,
-      group: req.body.group,
-      shortDesc: req.body.shortDesc,
-      longDesc: req.body.longDesc,
-      owner: req.body.owner,
-      additionalFilesUploadID: req.body.additionalUploadID,
-      doNotSendToEna: req.body.doNotSendToEna,
-      doNotSendToEnaReason: req.body.doNotSendToEnaReason,
-      oldId: Math.random().toString(16).substr(2, 6), // TODO remove
-      nudgeable: req.body.group !== twoBladesObjectId,
-      nudges: [],
-    });
+    try {
+      // A specific group ID that has special 'nudgeable' logic.
+      // TODO: This could be made more robust, e.g., by fetching group by name or using an env variable.
+      const twoBladesObjectId = "5fc012bda3efcb29338b7cf3";
 
-    let setAsSavedProject;
-    newProject
-      .save()
-      .then(async (savedProject) => {
-        setAsSavedProject = savedProject;
-        const additionalFiles = req.body.additionalFiles;
-
-        if (additionalFiles.length) {
-          try {
-            return await sortAdditionalFiles(
-              additionalFiles,
-              "project",
-              setAsSavedProject._id,
-              setAsSavedProject.path,
-            );
-          } catch (e) {
-            // if issue with files, remove newProject
-            await Project.deleteOne({ _id: setAsSavedProject._id });
-
-            // TODO great chance to report back to user what is saved and what is not!!!
-
-            return Promise.reject(e);
-          }
-        } else {
-          return Promise.resolve();
-        }
-      })
-      .then(() => {
-        sendOverseerEmail({ type: "Project", data: setAsSavedProject }).then(
-          (emailResult) => {
-            res.status(200).send({ project: setAsSavedProject });
-          },
-        );
-      })
-      .catch((err) => {
-        res.status(500).send({ error: err });
+      const newProject = new Project({
+        name: req.body.name,
+        group: req.body.group,
+        shortDesc: req.body.shortDesc,
+        longDesc: req.body.longDesc,
+        owner: req.body.owner,
+        doNotSendToEna: req.body.doNotSendToEna,
+        doNotSendToEnaReason: req.body.doNotSendToEnaReason,
+        // Nudgeable is false only if the group is '2Blades'.
+        nudgeable: req.body.group !== twoBladesObjectId,
+        nudges: [],
       });
+
+      savedProject = await newProject.save();
+
+      const { additionalFiles } = req.body;
+      if (additionalFiles && additionalFiles.length > 0) {
+        await sortAdditionalFiles(
+          additionalFiles,
+          "project",
+          savedProject._id,
+          savedProject.path,
+        );
+      }
+
+      // Email is sent after all database and file operations are successful.
+      await sendOverseerEmail({ type: "Project", data: savedProject });
+
+      res.status(201).send({ project: savedProject });
+    } catch (error) {
+      // If an error occurs after the project has been saved, we must roll back the change.
+      if (savedProject && savedProject._id) {
+        console.error(
+          `An error occurred. Rolling back creation of project ${savedProject._id}.`,
+        );
+        await Project.deleteOne({ _id: savedProject._id });
+        // Note: This doesn't clean up partially moved files. That would require a more complex transaction system.
+      }
+
+      // Check for Mongoose validation error
+      if (error.name === "ValidationError") {
+        return handleError(res, error, 400, "Project validation failed.");
+      }
+
+      handleError(res, error, 500, "Failed to create new project.");
+    }
   });
 
 module.exports = router;
