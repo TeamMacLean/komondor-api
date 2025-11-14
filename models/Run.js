@@ -46,7 +46,7 @@ const schema = new Schema(
 
     // no reference to reads , nb
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 schema.pre("validate", function () {
@@ -58,7 +58,7 @@ schema.pre("validate", function () {
     .then((allOthers) => {
       return generateSafeName(
         this.name,
-        allOthers.filter((f) => f._id.toString() !== this._id.toString())
+        allOthers.filter((f) => f._id.toString() !== this._id.toString()),
       );
     })
     .then((safeName) => {
@@ -94,7 +94,7 @@ schema.post("save", async function (next) {
 
   if (alreadyMade) {
     console.log(
-      "Run already a newsitem, so not creating that or making directory"
+      "Run already a newsitem, so not creating that or making directory",
     );
     return Promise.resolve();
   } else {
@@ -152,7 +152,7 @@ schema.methods.getRelativePath = function () {
         populatedDoc.group.safeName,
         populatedDoc.sample.project.safeName,
         populatedDoc.sample.safeName,
-        populatedDoc.safeName
+        populatedDoc.safeName,
       );
     });
 };

@@ -38,7 +38,7 @@ const schema = new Schema(
     // oldProcessed: { type: Boolean },
     // oldFastQCLocation: { type: String },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 schema.pre("save", function (next) {
@@ -65,11 +65,11 @@ schema.post("save", function (next) {
         relPath = _path.join(relPath, "raw");
         const relPathWithFilename = _path.join(
           relPath,
-          reeeeed.file.originalName
+          reeeeed.file.originalName,
         );
         console.log(
           "calling file.moveToFolderAndSave() with",
-          relPathWithFilename
+          relPathWithFilename,
         );
         return reeeeed.file.moveToFolderAndSave(relPathWithFilename);
       });
