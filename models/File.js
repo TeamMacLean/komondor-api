@@ -12,13 +12,13 @@ const schema = new mongoose.Schema(
     description: { type: String },
     path: { type: String, required: false }, // HACK to required false
     createFileDocumentId: { type: String },
-    tempUploadPath: { type: String, required: true }, // new field i added to help with bugs
+    tempUploadPath: { type: String, required: false }, // optional: only used for local filesystem uploads
     oldParentID: { type: String },
     oldReadId: { type: String },
     oldAdditionalFileId: { type: String },
     uploadMethod: { type: String },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 // create a unique combo of name and path (and when uploaded)
@@ -44,9 +44,9 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
         const readStream = createReadStream(file.path);
         const writeStream = createWriteStream(fullNewPath);
 
-        readStream.on('error', reject);
-        writeStream.on('error', reject);
-        writeStream.on('finish', resolve);
+        readStream.on("error", reject);
+        writeStream.on("error", reject);
+        writeStream.on("finish", resolve);
 
         readStream.pipe(writeStream);
       });

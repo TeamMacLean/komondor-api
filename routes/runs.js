@@ -32,6 +32,44 @@ router
   });
 
 /**
+ * GET /runs/names/:sampleId
+ * Fetches all unique run names for a given sample.
+ * Used for validation when creating new runs to prevent duplicate names.
+ */
+router
+  .route("/runs/names/:sampleId")
+  .all(isAuthenticated)
+  .get(async (req, res) => {
+    const { sampleId } = req.params;
+
+    if (!sampleId) {
+      return handleError(res, new Error("Sample ID not provided."), 400);
+    }
+
+    try {
+      // Find all runs for this sample and get their names
+      const runs = await Run.find({ sample: sampleId }).select("name").exec();
+
+      // Extract names and filter out null/undefined/empty values
+      const runNames = runs
+        .map((run) => run.name)
+        .filter((name) => name && name.trim() !== "");
+
+      // Return unique names only
+      const uniqueRunNames = [...new Set(runNames)];
+
+      res.status(200).send({ runNames: uniqueRunNames });
+    } catch (error) {
+      handleError(
+        res,
+        error,
+        500,
+        `Failed to retrieve run names for sample ${sampleId}.`,
+      );
+    }
+  });
+
+/**
  * GET /run?id=:id
  * Fetches a single run by its ID, along with its associated data and files on disk.
  */
