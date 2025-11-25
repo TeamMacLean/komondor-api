@@ -27,6 +27,13 @@ const schema = new Schema(
     owner: { type: String, required: true },
     group: { type: Schema.Types.ObjectId, ref: "Group", required: true },
 
+    // Run processing status
+    status: {
+      type: String,
+      enum: ["pending", "processing", "complete", "error"],
+      default: "pending",
+    },
+
     // ensure each element in array is unique?
     additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
 

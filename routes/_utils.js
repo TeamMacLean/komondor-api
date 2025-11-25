@@ -1,4 +1,12 @@
-const fs = require('fs').promises;
+const fs = require("fs").promises;
+
+/**
+ * Generates a unique request ID for log correlation.
+ * @returns {string} A unique request ID.
+ */
+const generateRequestId = () => {
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+};
 
 /**
  * A utility function to handle errors in route handlers.
@@ -7,22 +15,38 @@ const fs = require('fs').promises;
  * @param {Error} error - The error object.
  * @param {number} [statusCode=500] - The HTTP status code.
  * @param {string} [message] - A custom message to send.
+ * @param {string} [requestId] - Optional request ID for log correlation.
  */
-const handleError = (res, error, statusCode = 500, message) => {
-  // Log the full error for debugging purposes, but don't expose it to the client.
-  console.error(error);
+const handleError = (res, error, statusCode = 500, message, requestId) => {
+  const reqId = requestId || generateRequestId();
 
-  const clientMessage = message || (error instanceof Error ? error.message : 'An unexpected error occurred.');
+  // Log the full error for debugging purposes
+  console.error(`[${reqId}] Error (${statusCode}):`, message || error.message);
+  console.error(`[${reqId}] Stack:`, error.stack);
+  if (error.errors) {
+    console.error(
+      `[${reqId}] Validation errors:`,
+      JSON.stringify(error.errors, null, 2),
+    );
+  }
 
-  // In a production environment, you might want to avoid sending back internal error messages.
-  // For now, this provides more descriptive errors during development.
-  if (process.env.NODE_ENV === 'production' && statusCode === 500) {
-      res.status(500).send({ error: 'An internal server error occurred.' });
+  const clientMessage =
+    message ||
+    (error instanceof Error ? error.message : "An unexpected error occurred.");
+
+  // In production, hide internal details for 500 errors
+  if (process.env.NODE_ENV === "production" && statusCode === 500) {
+    res.status(500).send({
+      error: "An internal server error occurred.",
+      requestId: reqId,
+    });
   } else {
-      res.status(statusCode).send({ error: clientMessage });
+    res.status(statusCode).send({
+      error: clientMessage,
+      requestId: reqId,
+    });
   }
 };
-
 
 /**
  * Reads the contents of a directory and filters out system files (e.g., .DS_Store).
@@ -33,10 +57,10 @@ const handleError = (res, error, statusCode = 500, message) => {
 const getActualFiles = async (directoryPath) => {
   try {
     const files = await fs.readdir(directoryPath);
-    return files.filter(file => !file.startsWith('.')); // Filter out hidden files
+    return files.filter((file) => !file.startsWith(".")); // Filter out hidden files
   } catch (error) {
     // If the directory doesn't exist, it's a non-critical error, so return an empty array.
-    if (error.code === 'ENOENT') {
+    if (error.code === "ENOENT") {
       return [];
     }
     // For other fs errors, re-throw to be caught by the main error handler.
@@ -45,8 +69,8 @@ const getActualFiles = async (directoryPath) => {
   }
 };
 
-
 module.exports = {
   handleError,
   getActualFiles,
+  generateRequestId,
 };

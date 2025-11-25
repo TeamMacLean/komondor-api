@@ -9,7 +9,7 @@ const {
   sortReadFiles,
 } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { handleError, getActualFiles } = require("./_utils");
+const { handleError, getActualFiles, generateRequestId } = require("./_utils");
 
 /**
  * GET /runs
@@ -116,6 +116,77 @@ router
   });
 
 /**
+ * Validates the request body for creating a new run.
+ * @param {object} body - The request body
+ * @returns {{ valid: boolean, errors: string[] }} Validation result
+ */
+const validateNewRunRequest = (body) => {
+  const errors = [];
+  const required = [
+    "sample",
+    "name",
+    "sequencingProvider",
+    "sequencingTechnology",
+    "librarySource",
+    "libraryType",
+    "librarySelection",
+    "libraryStrategy",
+    "owner",
+    "group",
+  ];
+
+  // Check required fields
+  for (const field of required) {
+    if (!body[field]) {
+      errors.push(`Missing required field: ${field}`);
+    }
+  }
+
+  // Validate name length
+  if (body.name && (body.name.length < 3 || body.name.length > 80)) {
+    errors.push("Run name must be between 3 and 80 characters");
+  }
+
+  // Validate rawFiles
+  if (!body.rawFiles || body.rawFiles.length === 0) {
+    errors.push("At least one raw file is required");
+  }
+
+  // Validate rawFilesUploadInfo
+  if (!body.rawFilesUploadInfo || !body.rawFilesUploadInfo.method) {
+    errors.push("Upload method is required (rawFilesUploadInfo.method)");
+  } else if (
+    !["hpc-mv", "local-filesystem"].includes(body.rawFilesUploadInfo.method)
+  ) {
+    errors.push(
+      "Invalid upload method. Must be 'hpc-mv' or 'local-filesystem'",
+    );
+  }
+
+  // For HPC uploads, validate relativePath
+  if (body.rawFilesUploadInfo?.method === "hpc-mv") {
+    if (
+      !body.rawFilesUploadInfo.relativePath &&
+      !body.rawFiles?.[0]?.relativePath
+    ) {
+      errors.push("HPC uploads require a relativePath");
+    }
+  }
+
+  // Validate each raw file has required properties
+  if (body.rawFiles && Array.isArray(body.rawFiles)) {
+    body.rawFiles.forEach((file, index) => {
+      const fileName = file.name || file.data?.name;
+      if (!fileName) {
+        errors.push(`Raw file at index ${index} is missing a name`);
+      }
+    });
+  }
+
+  return { valid: errors.length === 0, errors };
+};
+
+/**
  * POST /runs/new
  * Creates a new run, handles associated file uploads, and sends a notification email.
  */
@@ -124,8 +195,40 @@ router
   .all(isAuthenticated)
   .post(async (req, res) => {
     let savedRun; // To hold the created run document for potential rollback
+    const requestId = generateRequestId();
+
+    console.log(`=== POST /runs/new [${requestId}] ===`);
+    console.log(`[${requestId}] User: ${req.user?.username || "unknown"}`);
+    console.log(`[${requestId}] Request body keys:`, Object.keys(req.body));
+    console.log(
+      `[${requestId}] rawFilesUploadInfo:`,
+      JSON.stringify(req.body.rawFilesUploadInfo, null, 2),
+    );
+    console.log(
+      `[${requestId}] rawFiles count:`,
+      req.body.rawFiles?.length || 0,
+    );
+    if (req.body.rawFiles?.length > 0) {
+      console.log(
+        `[${requestId}] First rawFile:`,
+        JSON.stringify(req.body.rawFiles[0], null, 2),
+      );
+    }
 
     try {
+      // Validate request body before proceeding
+      const validation = validateNewRunRequest(req.body);
+      if (!validation.valid) {
+        console.error(`[${requestId}] Validation failed:`, validation.errors);
+        return handleError(
+          res,
+          new Error(validation.errors.join("; ")),
+          400,
+          `Validation failed: ${validation.errors.join("; ")}`,
+          requestId,
+        );
+      }
+
       // TODO: Add permission check to ensure user can create a run for this sample/project.
       const {
         sample,
@@ -201,16 +304,35 @@ router
         // A more robust transaction or cleanup mechanism would be needed for that.
       }
 
+      // Log the full error details for debugging
+      console.error("=== Error in POST /runs/new ===");
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+      if (error.errors) {
+        console.error(
+          "Validation errors:",
+          JSON.stringify(error.errors, null, 2),
+        );
+      }
+
       if (error.name === "ValidationError") {
         return handleError(
           res,
           error,
           400,
           `Run validation failed: ${error.message}`,
+          requestId,
         );
       }
 
-      handleError(res, error, 500, "Failed to create new run.");
+      handleError(
+        res,
+        error,
+        500,
+        `Failed to create new run: ${error.message}`,
+        requestId,
+      );
     }
   });
 

@@ -18,8 +18,10 @@ const schema = new Schema(
       required: true,
       unique: true,
     },
-    MD5: { type: String }, // TODO one day migrate to File object (along with File)
-    MD5LastChecked: { type: String }, // for future productivity
+    MD5: { type: String }, // Original MD5 checksum provided by user
+    destinationMd5: { type: String }, // MD5 calculated after file moved to destination
+    md5Mismatch: { type: Boolean, default: null }, // null = not checked, true = mismatch, false = match
+    MD5LastChecked: { type: Date }, // Timestamp when MD5 was last checked
     paired: { type: Boolean }, // removed required because of migration script
     sibling: { type: Schema.Types.ObjectId, ref: "Read" },
 
