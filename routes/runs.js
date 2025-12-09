@@ -3,6 +3,8 @@ const router = express.Router();
 const _path = require("path");
 
 const Run = require("../models/Run");
+const Sample = require("../models/Sample");
+const Group = require("../models/Group");
 const { isAuthenticated } = require("./middleware");
 const {
   sortAdditionalFiles,
@@ -10,6 +12,15 @@ const {
 } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { handleError, getActualFiles, generateRequestId } = require("./_utils");
+
+/**
+ * Helper to check if user has access to a resource via group membership
+ */
+async function userCanAccessGroup(user, groupId) {
+  if (user.isAdmin) return true;
+  const userGroups = await Group.GroupsIAmIn(user);
+  return userGroups.some((g) => g._id.toString() === groupId.toString());
+}
 
 /**
  * GET /runs
@@ -94,7 +105,15 @@ router
         return handleError(res, new Error("Run not found."), 404);
       }
 
-      // TODO: Add permission check to ensure user can view this run.
+      // Permission check: user must belong to the run's group or be admin
+      const canAccess = await userCanAccessGroup(req.user, run.group._id);
+      if (!canAccess) {
+        return handleError(
+          res,
+          new Error("You do not have permission to view this run."),
+          403,
+        );
+      }
 
       const runDirectory = _path.join(process.env.DATASTORE_ROOT, run.path);
       const rawDir = _path.join(runDirectory, "raw");
@@ -229,7 +248,19 @@ router
         );
       }
 
-      // TODO: Add permission check to ensure user can create a run for this sample/project.
+      // Permission check: user must belong to the target group
+      const canCreate = await userCanAccessGroup(req.user, req.body.group);
+      if (!canCreate) {
+        return handleError(
+          res,
+          new Error(
+            "You do not have permission to create a run in this group.",
+          ),
+          403,
+          "Permission denied",
+          requestId,
+        );
+      }
       const {
         sample,
         name,

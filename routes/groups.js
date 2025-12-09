@@ -1,15 +1,26 @@
-const { isAuthenticated } = require("./middleware");
+const { isAuthenticated, isAdmin } = require("./middleware");
 
 const express = require("express");
 let router = express.Router();
 const Group = require("../models/Group");
 
-// useful for testing using http live server extension on VSCode
+/**
+ * Helper to check if user belongs to a group
+ */
+async function userBelongsToGroup(user, groupId) {
+  const userGroups = await Group.GroupsIAmIn(user);
+  return userGroups.some((g) => g._id.toString() === groupId.toString());
+}
+
+/**
+ * GET /groups
+ * Fetches all groups the authenticated user belongs to.
+ */
 router
   .route("/groups")
   .all(isAuthenticated)
   .get((req, res) => {
-    const user = req.user || req.body.user;
+    const user = req.user;
 
     Group.GroupsIAmIn(user)
       .then((groups) => {
@@ -20,134 +31,130 @@ router
         res.status(200).send({ groups });
       })
       .catch((err) => {
-        res.status(500).send({ error: err });
+        res.status(500).send({ error: err.message || err });
       });
   });
 
+/**
+ * POST /groups/new
+ * Creates a new group. Only admins can create groups.
+ */
 router
   .route("/groups/new")
   .all(isAuthenticated)
+  .all(isAdmin)
   .post((req, res) => {
-    //TODO check permission
-
     new Group({
       name: req.body.name,
       ldapGroups: req.body.ldapGroups,
     })
       .save()
       .then((savedGroup) => {
-        res.status(200).send({ group: savedGroup });
+        res.status(201).send({ group: savedGroup });
       })
       .catch((err) => {
         console.error(err);
-        res.status(500).send({ error: err });
+        res.status(500).send({ error: err.message || err });
       });
   });
 
+/**
+ * POST /groups/edit
+ * Edits an existing group. Only admins or members of the group can edit it.
+ */
 router
   .route("/groups/edit")
   .all(isAuthenticated)
-  .post((req, res) => {
-    if (req.body.id) {
-      //TODO check permission
-      Group.findById(req.body.id)
-        .then((group) => {
-          if (group) {
-            group.ldapGroups = req.body.ldapGroups;
-            group.name = req.body.name;
+  .post(async (req, res) => {
+    if (!req.body.id) {
+      return res.status(400).send({ error: "Group ID not provided" });
+    }
 
-            if (req.body.sendToEna) {
-              group.sendToEna = req.body.sendToEna;
-            }
+    try {
+      // Check permission: must be admin or member of the group
+      const canEdit =
+        req.user.isAdmin || (await userBelongsToGroup(req.user, req.body.id));
 
-            group
-              .save()
-              .then((savedGroup) => {
-                res.status(200).send({ group: savedGroup });
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send({ error: err });
-              });
-          } else {
-            res.status(500).send({ error: new Error("group not found") });
-          }
-        })
-        .catch((err) => {
-          res.status(500).send({ error: err });
-        });
+      if (!canEdit) {
+        return res
+          .status(403)
+          .send({ error: "You do not have permission to edit this group" });
+      }
+
+      const group = await Group.findById(req.body.id);
+      if (!group) {
+        return res.status(404).send({ error: "Group not found" });
+      }
+
+      group.ldapGroups = req.body.ldapGroups;
+      group.name = req.body.name;
+
+      if (req.body.sendToEna !== undefined) {
+        group.sendToEna = req.body.sendToEna;
+      }
+
+      const savedGroup = await group.save();
+      res.status(200).send({ group: savedGroup });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ error: err.message || err });
     }
   });
 
+/**
+ * POST /groups/delete
+ * Soft-deletes a group. Only admins can delete groups.
+ */
 router
   .route("/groups/delete")
   .all(isAuthenticated)
-  .post((req, res) => {
-    if (req.user.isAdmin) {
-      if (req.body.id) {
-        Group.findById(req.body.id)
-          .then((group) => {
-            if (group) {
-              group.deleted = true;
+  .all(isAdmin)
+  .post(async (req, res) => {
+    if (!req.body.id) {
+      return res.status(400).send({ error: "Group ID not provided" });
+    }
 
-              group
-                .save()
-                .then((savedGroup) => {
-                  res.status(200).send({});
-                })
-                .catch((err) => {
-                  res.status(500).send({ error: err });
-                });
-            } else {
-              res.status(500).send({ error: new Error("group not found") });
-            }
-          })
-          .catch((err) => {
-            res.status(500).send({ error: err });
-          });
-      } else {
-        res.status(500).send({ error: new Error("id not received") });
+    try {
+      const group = await Group.findById(req.body.id);
+      if (!group) {
+        return res.status(404).send({ error: "Group not found" });
       }
-    } else {
-      res
-        .status(500)
-        .send({ error: new Error("only an ADMIN can delete groups") });
+
+      group.deleted = true;
+      await group.save();
+      res.status(200).send({ message: "Group deleted successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ error: err.message || err });
     }
   });
 
+/**
+ * POST /groups/resurrect
+ * Restores a soft-deleted group. Only admins can resurrect groups.
+ */
 router
   .route("/groups/resurrect")
   .all(isAuthenticated)
-  .post((req, res) => {
-    if (req.user.isAdmin) {
-      if (req.body.id) {
-        findById(req.body.id)
-          .then((group) => {
-            if (group) {
-              group.deleted = false;
+  .all(isAdmin)
+  .post(async (req, res) => {
+    if (!req.body.id) {
+      return res.status(400).send({ error: "Group ID not provided" });
+    }
 
-              group
-                .save()
-                .then((savedGroup) => {
-                  res.status(200).send({});
-                })
-                .catch((err) => {
-                  res.status(500).send({ error: err });
-                });
-            } else {
-              res.status(500).send({ error: new Error("group not found") });
-            }
-          })
-          .catch((err) => {
-            res.status(500).send({ error: err });
-          });
-      } else {
-        res.status(500).send({ error: new Error("id not received") });
+    try {
+      const group = await Group.findById(req.body.id);
+      if (!group) {
+        return res.status(404).send({ error: "Group not found" });
       }
-    } else {
-      res
-        .status(500)
-        .send({ error: new Error("only an ADMIN can resurrect groups") });
+
+      group.deleted = false;
+      await group.save();
+      res.status(200).send({ message: "Group restored successfully" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ error: err.message || err });
     }
   });
+
 module.exports = router;

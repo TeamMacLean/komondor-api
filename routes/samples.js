@@ -3,10 +3,20 @@ const router = express.Router();
 const _path = require("path");
 
 const Sample = require("../models/Sample");
+const Group = require("../models/Group");
 const { isAuthenticated } = require("./middleware");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { handleError, getActualFiles } = require("./_utils");
+
+/**
+ * Helper to check if user has access to a resource via group membership
+ */
+async function userCanAccessGroup(user, groupId) {
+  if (user.isAdmin) return true;
+  const userGroups = await Group.GroupsIAmIn(user);
+  return userGroups.some((g) => g._id.toString() === groupId.toString());
+}
 
 /**
  * GET /samples
@@ -93,7 +103,15 @@ router
         return handleError(res, new Error("Sample not found."), 404);
       }
 
-      // TODO: Add permission check to ensure user can view this sample.
+      // Permission check: user must belong to the sample's group or be admin
+      const canAccess = await userCanAccessGroup(req.user, sample.group._id);
+      if (!canAccess) {
+        return handleError(
+          res,
+          new Error("You do not have permission to view this sample."),
+          403,
+        );
+      }
 
       const additionalDir = _path.join(
         process.env.DATASTORE_ROOT,
@@ -120,6 +138,21 @@ router
     let savedSample; // To hold the created sample document for potential rollback
 
     try {
+      // Permission check: user must belong to the target group
+      if (!req.body.group) {
+        return handleError(res, new Error("Group ID is required."), 400);
+      }
+      const canCreate = await userCanAccessGroup(req.user, req.body.group);
+      if (!canCreate) {
+        return handleError(
+          res,
+          new Error(
+            "You do not have permission to create a sample in this group.",
+          ),
+          403,
+        );
+      }
+
       const { tplexCsv, additionalFiles } = req.body;
 
       // Determine if this is a TPlex sample

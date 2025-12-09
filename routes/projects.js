@@ -4,10 +4,20 @@ const mongoose = require("mongoose");
 const _path = require("path");
 
 const Project = require("../models/Project");
+const Group = require("../models/Group");
 const { isAuthenticated } = require("./middleware");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { handleError, getActualFiles } = require("./_utils");
+
+/**
+ * Helper to check if user has access to a resource via group membership
+ */
+async function userCanAccessGroup(user, groupId) {
+  if (user.isAdmin) return true;
+  const userGroups = await Group.GroupsIAmIn(user);
+  return userGroups.some((g) => g._id.toString() === groupId.toString());
+}
 
 /**
  * GET /projects
@@ -65,6 +75,16 @@ router
 
       if (!project) {
         return handleError(res, new Error("Project not found."), 404);
+      }
+
+      // Permission check: user must belong to the project's group or be admin
+      const canAccess = await userCanAccessGroup(req.user, project.group._id);
+      if (!canAccess) {
+        return handleError(
+          res,
+          new Error("You do not have permission to view this project."),
+          403,
+        );
       }
 
       const additionalDir = _path.join(
@@ -135,6 +155,21 @@ router
     let savedProject; // To hold the created project document
 
     try {
+      // Permission check: user must belong to the target group
+      if (!req.body.group) {
+        return handleError(res, new Error("Group ID is required."), 400);
+      }
+      const canCreate = await userCanAccessGroup(req.user, req.body.group);
+      if (!canCreate) {
+        return handleError(
+          res,
+          new Error(
+            "You do not have permission to create a project in this group.",
+          ),
+          403,
+        );
+      }
+
       // A specific group ID that has special 'nudgeable' logic.
       // TODO: This could be made more robust, e.g., by fetching group by name or using an env variable.
       const twoBladesObjectId = "5fc012bda3efcb29338b7cf3";
