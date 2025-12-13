@@ -48,38 +48,30 @@ schema.pre("save", function (next) {
   next();
 });
 
-schema.post("save", function (next) {
-  if (this.skipPostSave) {
+schema.post("save", async function (doc) {
+  if (doc.skipPostSave) {
     return;
   }
 
-  const doc = this;
+  try {
+    const [run, populatedDoc] = await Promise.all([
+      Run.findById(doc.run),
+      doc.populate("file"),
+    ]);
 
-  return Promise.all([
-    Run.findById(doc.run),
-    doc.populate("file").execPopulate(),
-  ])
-    .then((out) => {
-      const run = out[0];
-      const reeeeed = out[1];
-      return run.getRelativePath().then((relPath) => {
-        // we are relying on /raw dir to have been previously created!
-        relPath = _path.join(relPath, "raw");
-        const relPathWithFilename = _path.join(
-          relPath,
-          reeeeed.file.originalName,
-        );
-        console.log(
-          "calling file.moveToFolderAndSave() with",
-          relPathWithFilename,
-        );
-        return reeeeed.file.moveToFolderAndSave(relPathWithFilename);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-      next();
-    });
+    let relPath = await run.getRelativePath();
+    // we are relying on /raw dir to have been previously created!
+    relPath = _path.join(relPath, "raw");
+    const relPathWithFilename = _path.join(
+      relPath,
+      populatedDoc.file.originalName,
+    );
+    console.log("calling file.moveToFolderAndSave() with", relPathWithFilename);
+    await populatedDoc.file.moveToFolderAndSave(relPathWithFilename);
+  } catch (e) {
+    console.error("Error in Read post-save hook:", e);
+    throw e;
+  }
 });
 
 const Read = model("Read", schema);
