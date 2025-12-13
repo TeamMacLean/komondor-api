@@ -54,20 +54,26 @@ schema.post("save", async function (doc) {
   }
 
   try {
-    const [run, populatedDoc] = await Promise.all([
-      Run.findById(doc.run),
-      doc.populate("file"),
-    ]);
+    const run = await Run.findById(doc.run);
+    if (!run) {
+      throw new Error(`Run not found for Read: ${doc._id}, run ID: ${doc.run}`);
+    }
 
-    let relPath = await run.getRelativePath();
+    await doc.populate("file").execPopulate();
+    if (!doc.file) {
+      throw new Error(`File not found for Read: ${doc._id}`);
+    }
+
+    const relPath = await run.getRelativePath();
+    if (!relPath) {
+      throw new Error(`Could not get relative path for Run: ${run._id}`);
+    }
+
     // we are relying on /raw dir to have been previously created!
-    relPath = _path.join(relPath, "raw");
-    const relPathWithFilename = _path.join(
-      relPath,
-      populatedDoc.file.originalName,
-    );
+    const rawPath = _path.join(relPath, "raw");
+    const relPathWithFilename = _path.join(rawPath, doc.file.originalName);
     console.log("calling file.moveToFolderAndSave() with", relPathWithFilename);
-    await populatedDoc.file.moveToFolderAndSave(relPathWithFilename);
+    await doc.file.moveToFolderAndSave(relPathWithFilename);
   } catch (e) {
     console.error("Error in Read post-save hook:", e);
     throw e;

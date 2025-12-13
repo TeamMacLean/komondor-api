@@ -5,8 +5,10 @@
   "author": "George Deeks",
   "private": true,
   "scripts": {
-    "dev": "nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
-    "start": "node server.js",
+    "dev": "NODE_ENV=development nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
+    "dev:email": "NODE_ENV=production nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
+    "dev:no-email": "NODE_ENV=development nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
+    "start": "NODE_ENV=production node server.js",
     "test": "jest"
   },
   "dependencies": {
