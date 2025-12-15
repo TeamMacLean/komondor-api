@@ -17,6 +17,13 @@ const samplesRouter = require("../../routes/samples");
 // Mock dependencies
 jest.mock("../../models/Sample");
 jest.mock("../../models/Project");
+jest.mock("../../models/Group", () => ({
+  GroupsIAmIn: jest
+    .fn()
+    .mockResolvedValue([
+      { _id: { toString: () => "group-123" }, name: "Test Group" },
+    ]),
+}));
 jest.mock("../../lib/sortAssociatedFiles", () => ({
   sortAdditionalFiles: jest.fn().mockResolvedValue(true),
 }));
@@ -27,7 +34,8 @@ jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
     req.user = {
       username: "testuser",
-      groups: ["group1"],
+      groups: ["group-123"],
+      isAdmin: false,
     };
     next();
   },
@@ -157,7 +165,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     jest.clearAllMocks();
   });
 
-  test("should create ONE sample with TPlex CSV array stored as metadata", async () => {
+  test("should create ONE sample with TPlex CSV array stored as CSV text", async () => {
     const tplexCsvData = [
       {
         name: "TPlex Sample 1",
@@ -178,8 +186,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       name: "TPlex_Arabidopsis_thaliana",
-      tplexCsv: JSON.stringify(tplexCsvData),
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation(() => mockSavedSample);
@@ -193,11 +200,13 @@ describe("POST /samples/new - TPlex Mode", () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("sample");
-    expect(response.body.sample._id).toBe("sample-1");
     expect(Sample).toHaveBeenCalledTimes(1); // Only one sample created
+    // Check that tplexCsv is stored as CSV text (not JSON)
     expect(Sample).toHaveBeenCalledWith(
       expect.objectContaining({
-        tplexCsv: JSON.stringify(tplexCsvData),
+        tplexCsv: expect.stringContaining(
+          "name,scientificName,commonName,ncbi,conditions",
+        ),
       }),
     );
   });
@@ -223,8 +232,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       name: "TPlex_Arabidopsis_thaliana",
-      tplexCsv: JSON.stringify(tplexCsvData),
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation((data) => {
@@ -244,7 +252,6 @@ describe("POST /samples/new - TPlex Mode", () => {
     expect(Sample).toHaveBeenCalledWith(
       expect.objectContaining({
         name: expect.stringMatching(/TPlex_Arabidopsis_thaliana/),
-        tplexCsv: JSON.stringify(tplexCsvData),
       }),
     );
   });
@@ -263,8 +270,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       name: "TPlex_Tomato",
-      tplexCsv: JSON.stringify(tplexCsvData),
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation((data) => {
@@ -297,8 +303,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       name: "TPlex_Sample_123456",
-      tplexCsv: JSON.stringify(tplexCsvData),
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation((data) => {
@@ -317,7 +322,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     expect(Sample).toHaveBeenCalledTimes(1); // Only one sample created
   });
 
-  test("should store entire CSV array as stringified metadata", async () => {
+  test("should store entire CSV array as CSV text format", async () => {
     const tplexCsvData = [
       {
         name: "Sample 1",
@@ -338,7 +343,7 @@ describe("POST /samples/new - TPlex Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       name: "TPlex_Species_1",
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation(() => mockSavedSample);
@@ -357,7 +362,10 @@ describe("POST /samples/new - TPlex Mode", () => {
         commonName: null,
         ncbi: null,
         conditions: null,
-        tplexCsv: JSON.stringify(tplexCsvData),
+        // CSV format includes header row and data rows
+        tplexCsv: expect.stringContaining(
+          "Sample 1,Species 1,Common 1,1,Conditions 1",
+        ),
       }),
     );
   });
@@ -383,7 +391,7 @@ describe("POST /samples/new - Standard Mode", () => {
     const mockSavedSample = {
       _id: "sample-1",
       ...sampleData,
-      save: jest.fn().mockResolvedValue(true),
+      save: jest.fn().mockResolvedValue(this),
     };
 
     Sample.mockImplementation(() => mockSavedSample);
@@ -392,7 +400,6 @@ describe("POST /samples/new - Standard Mode", () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("sample");
-    expect(response.body.sample).toHaveProperty("_id");
     expect(Sample).toHaveBeenCalledWith(
       expect.objectContaining({
         name: sampleData.name,

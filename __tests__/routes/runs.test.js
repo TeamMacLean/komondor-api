@@ -8,13 +8,22 @@ const { isAuthenticated } = require("../../routes/middleware");
 // Mock the middleware
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: jest.fn((req, res, next) => {
-    req.user = { username: "testuser" };
+    req.user = { username: "testuser", isAdmin: false, groups: ["group-123"] };
     next();
   }),
 }));
 
 // Mock the Run model
 jest.mock("../../models/Run");
+
+// Mock Group model for permission checks
+jest.mock("../../models/Group", () => ({
+  GroupsIAmIn: jest
+    .fn()
+    .mockResolvedValue([
+      { _id: { toString: () => "group-123" }, name: "Test Group" },
+    ]),
+}));
 
 // Mock other dependencies
 jest.mock("../../lib/sortAssociatedFiles", () => ({
