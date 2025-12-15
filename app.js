@@ -65,6 +65,11 @@ app.use((req, _, next) => {
     });
 });
 
+// Health check endpoint for monitoring and test automation
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.use(authRoutes);
 app.use(projectsRoutes);
 app.use(samplesRoutes);
