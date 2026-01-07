@@ -62,14 +62,6 @@ router
         cleanedTargetDirectoryName,
       );
 
-      console.log("directory to search", dirRoot);
-      console.log("working directory:", process.cwd());
-      console.log(
-        "HPC_TRANSFER_DIRECTORY:",
-        process.env.HPC_TRANSFER_DIRECTORY,
-      );
-      console.log("resolved path:", dirRoot);
-
       var dirExists = false;
       try {
         dirExists = fs.statSync(dirRoot).isDirectory();
@@ -142,14 +134,9 @@ router
         });
       }
 
-      console.log(`[${requestId}] Calculating MD5 for: ${filePath}`);
       const calculatedMd5 = await calculateFileMd5(filePath);
       const normalizedExpected = expectedMd5.toLowerCase().trim();
       const matches = calculatedMd5 === normalizedExpected;
-
-      console.log(
-        `[${requestId}] Expected: ${normalizedExpected}, Calculated: ${calculatedMd5}, Match: ${matches}`,
-      );
 
       res.status(200).send({
         fileName,

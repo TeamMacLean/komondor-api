@@ -1,12 +1,12 @@
-const express = require("express")
+const express = require("express");
 let router = express.Router();
-const cors = require("cors")
+const cors = require("cors");
 
-const tus = require('tus-node-server')
-const fileUpload = require('../lib/fileUpload')
-const { isAuthenticated } = require("./middleware")
-const _path = require("path")
-const UPLOAD_PATH = _path.join(process.cwd(), 'uploads');
+const tus = require("tus-node-server");
+const fileUpload = require("../lib/fileUpload");
+const { isAuthenticated } = require("./middleware");
+const _path = require("path");
+const UPLOAD_PATH = _path.join(process.cwd(), "uploads");
 
 const tusServer = new tus.Server();
 
@@ -23,42 +23,40 @@ tusServer.datastore = new tus.FileStore({
 // tusServer.on('*', event => {
 //   console.log('EVENT!', event)
 // })
-tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
+tusServer.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
   // Fired when a PATCH request finishes writing the file
-  console.log('EVENT_UPLOAD_COMPLETE', event)
   //fileUpload.create(event)
 });
 
-tusServer.on(tus.EVENTS.EVENT_FILE_CREATED, event => {
-  console.log('EVENT_FILE_CREATED', event)
+tusServer.on(tus.EVENTS.EVENT_FILE_CREATED, (event) => {
+  // File created event
 });
-tusServer.on(tus.EVENTS.EVENT_ENDPOINT_CREATED, event => {
-  console.log('EVENT_ENDPOINT_CREATED', event)
+tusServer.on(tus.EVENTS.EVENT_ENDPOINT_CREATED, (event) => {
+  // Endpoint created event
 });
 
 const HEADERS = [
-  'Authorization',
-  'Content-Type',
-  'Location',
-  'Tus-Extension',
-  'Tus-Max-Size',
-  'Tus-Resumable',
-  'Tus-Version',
-  'Upload-Defer-Length',
-  'Upload-Length',
-  'Upload-Metadata',
-  'Upload-Offset',
-  'X-HTTP-Method-Override',
-  'X-Requested-With',
+  "Authorization",
+  "Content-Type",
+  "Location",
+  "Tus-Extension",
+  "Tus-Max-Size",
+  "Tus-Resumable",
+  "Tus-Version",
+  "Upload-Defer-Length",
+  "Upload-Length",
+  "Upload-Metadata",
+  "Upload-Offset",
+  "X-HTTP-Method-Override",
+  "X-Requested-With",
 ];
-const EXPOSED_HEADERS = HEADERS.join(', ');
+const EXPOSED_HEADERS = HEADERS.join(", ");
 var corsOptions = {
-  origin: '*',
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   exposedHeaders: EXPOSED_HEADERS,
-}
-
+};
 
 // const express = require('express');
 const uploadApp = express();
@@ -74,9 +72,9 @@ uploadApp.all("*", function (req, res, next) {
   // } else {
   //   console.log('req method used:', req.method);
   // }
-    
+
   tusServer.handle.bind(tusServer)(req, res, next);
-})
+});
 // uploadApp.all("*", tusServer.handle.bind(tusServer));
 
 // maybe one day, George
@@ -85,11 +83,11 @@ uploadApp.all("*", function (req, res, next) {
 
 router.use("/uploads", uploadApp);
 
-router.route('/upload/cancel')
+router
+  .route("/upload/cancel")
   .all(isAuthenticated)
   .post((req, res, next) => {
-
-    res.status(200).send({})
-  })
+    res.status(200).send({});
+  });
 
 module.exports = router;

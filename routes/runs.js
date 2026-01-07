@@ -216,24 +216,6 @@ router
     let savedRun; // To hold the created run document for potential rollback
     const requestId = generateRequestId();
 
-    console.log(`=== POST /runs/new [${requestId}] ===`);
-    console.log(`[${requestId}] User: ${req.user?.username || "unknown"}`);
-    console.log(`[${requestId}] Request body keys:`, Object.keys(req.body));
-    console.log(
-      `[${requestId}] rawFilesUploadInfo:`,
-      JSON.stringify(req.body.rawFilesUploadInfo, null, 2),
-    );
-    console.log(
-      `[${requestId}] rawFiles count:`,
-      req.body.rawFiles?.length || 0,
-    );
-    if (req.body.rawFiles?.length > 0) {
-      console.log(
-        `[${requestId}] First rawFile:`,
-        JSON.stringify(req.body.rawFiles[0], null, 2),
-      );
-    }
-
     try {
       // Validate request body before proceeding
       const validation = validateNewRunRequest(req.body);
@@ -327,24 +309,9 @@ router
     } catch (error) {
       // If an error occurs after the run has been saved, we must roll back the change.
       if (savedRun && savedRun._id) {
-        console.error(
-          `An error occurred. Rolling back creation of run ${savedRun._id}.`,
-        );
         await Run.deleteOne({ _id: savedRun._id });
         // Note: This does not clean up partially moved/created files.
         // A more robust transaction or cleanup mechanism would be needed for that.
-      }
-
-      // Log the full error details for debugging
-      console.error("=== Error in POST /runs/new ===");
-      console.error("Error name:", error.name);
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-      if (error.errors) {
-        console.error(
-          "Validation errors:",
-          JSON.stringify(error.errors, null, 2),
-        );
       }
 
       if (error.name === "ValidationError") {
