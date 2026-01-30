@@ -1,0 +1,3 @@
+User thinks it is:                                          v1333 mount:                         
+/tsl/data/tempWebUploadToSequences  9.0T  989G  8.1T  11%   /mnt/tempWebUploadToSequences
+/tsl/data/reads                     160T  123T   38T  77%   /mnt/reads
