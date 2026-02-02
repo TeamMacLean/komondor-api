@@ -177,17 +177,19 @@ describe("file-utils", () => {
       // Verify Read was created with correct MD5 from lowercase field
       expect(readConstructorData).toHaveProperty("MD5", expectedMd5);
 
-      // Verify run status was set to 'complete' (no mismatch)
+      // Verify run status was set to 'complete' (files moved, MD5 deferred)
       expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
         $set: { status: "complete" },
       });
+
+      // Verify MD5 calculation was NOT called (deferred to background)
+      expect(calculateFileMd5).not.toHaveBeenCalled();
     });
 
-    it("should detect MD5 mismatch and set run status to error", async () => {
+    it("should complete successfully without MD5 verification (deferred)", async () => {
       const mockFileId = new mongoose.Types.ObjectId();
       const mockReadId = new mongoose.Types.ObjectId();
       const originalMd5 = "original-md5-hash";
-      const differentMd5 = "different-md5-hash";
 
       File.mockImplementation(() => ({
         save: jest.fn().mockResolvedValue({
@@ -200,9 +202,6 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({ _id: mockReadId }),
       }));
       Read.findByIdAndUpdate = jest.fn().mockResolvedValue({});
-
-      // MD5 calculation returns different value than original
-      calculateFileMd5.mockResolvedValue(differentMd5);
 
       const readFiles = [
         {
@@ -225,18 +224,15 @@ describe("file-utils", () => {
         uploadInfo,
       );
 
-      // Verify Read was updated with mismatch info
-      expect(Read.findByIdAndUpdate).toHaveBeenCalledWith(mockReadId, {
-        $set: {
-          destinationMd5: differentMd5,
-          md5Mismatch: true,
-          MD5LastChecked: expect.any(Date),
-        },
-      });
+      // Verify Read was NOT updated with MD5 info (deferred to background)
+      expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
 
-      // Verify run status was set to 'error'
+      // Verify MD5 calculation was NOT performed
+      expect(calculateFileMd5).not.toHaveBeenCalled();
+
+      // Verify run status was set to 'complete' (not error)
       expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "error" },
+        $set: { status: "complete" },
       });
     });
 
@@ -291,16 +287,18 @@ describe("file-utils", () => {
       expect(readConstructorData.MD5).toBe(correctMd5);
       expect(readConstructorData.MD5).not.toBe(wrongMd5);
 
-      // Run should be complete since MD5s match
+      // Run should be complete (MD5 verification deferred)
       expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
         $set: { status: "complete" },
       });
+
+      // MD5 calculation should NOT happen (deferred)
+      expect(calculateFileMd5).not.toHaveBeenCalled();
     });
 
-    it("should handle undefined md5 gracefully and report mismatch", async () => {
+    it("should handle undefined md5 gracefully (stored as undefined)", async () => {
       const mockFileId = new mongoose.Types.ObjectId();
       const mockReadId = new mongoose.Types.ObjectId();
-      const calculatedMd5 = "calculated-md5-hash";
 
       File.mockImplementation(() => ({
         save: jest.fn().mockResolvedValue({
@@ -317,8 +315,6 @@ describe("file-utils", () => {
         };
       });
       Read.findByIdAndUpdate = jest.fn().mockResolvedValue({});
-
-      calculateFileMd5.mockResolvedValue(calculatedMd5);
 
       // File with no md5 field at all
       const readFiles = [
@@ -345,18 +341,15 @@ describe("file-utils", () => {
       // MD5 in Read should be undefined
       expect(readConstructorData.MD5).toBeUndefined();
 
-      // undefined !== calculatedMd5, so mismatch should be true
-      expect(Read.findByIdAndUpdate).toHaveBeenCalledWith(mockReadId, {
-        $set: {
-          destinationMd5: calculatedMd5,
-          md5Mismatch: true,
-          MD5LastChecked: expect.any(Date),
-        },
-      });
+      // MD5 verification is deferred, so no update should happen
+      expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
 
-      // Run should have error status
+      // MD5 calculation should NOT happen (deferred)
+      expect(calculateFileMd5).not.toHaveBeenCalled();
+
+      // Run should be complete (MD5 verification will happen in background)
       expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "error" },
+        $set: { status: "complete" },
       });
     });
 

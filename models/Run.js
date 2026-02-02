@@ -34,6 +34,16 @@ const schema = new Schema(
       default: "pending",
     },
 
+    // MD5 verification tracking
+    md5VerificationStatus: {
+      type: String,
+      enum: ["pending", "in_progress", "complete", "failed"],
+      default: "pending",
+    },
+    md5VerificationAttempts: { type: Number, default: 0 },
+    md5VerificationLastAttempt: { type: Date },
+    md5VerificationCompletedAt: { type: Date },
+
     // ensure each element in array is unique?
     additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
 
@@ -55,6 +65,13 @@ const schema = new Schema(
   },
   { timestamps: true, toJSON: { virtuals: true } },
 );
+
+// Indexes for performance
+schema.index({ sample: 1, name: 1 }); // For idempotency checks
+schema.index({ status: 1 }); // For querying runs by status
+schema.index({ md5VerificationStatus: 1 }); // For background job queries
+schema.index({ createdAt: -1 }); // For sorting by creation time
+schema.index({ group: 1, createdAt: -1 }); // For group-specific queries
 
 schema.pre("validate", function () {
   if (this.forceSafeName) {

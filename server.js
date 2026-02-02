@@ -1,5 +1,6 @@
 const app = require("./app");
 const mongoose = require("mongoose");
+const { initializeBackgroundJobs } = require("./lib/background-jobs");
 const PORT = process.env.PORT || 3000;
 const mongoosePort = process.env.MONGODB_PORT || 27017;
 
@@ -20,6 +21,8 @@ try {
     })
     .then(() => {
       console.log("Connected to MongoDB");
+      // Initialize background jobs after DB connection is established
+      initializeBackgroundJobs();
     })
     .catch((err) => {
       console.error("Error connecting to MongoDB", err);

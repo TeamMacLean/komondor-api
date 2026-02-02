@@ -12,6 +12,7 @@ const {
 } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { handleError, getActualFiles, generateRequestId } = require("./_utils");
+const { verifyRunMd5 } = require("../lib/md5-verification");
 
 /**
  * Helper to check if user has access to a resource via group membership
@@ -257,6 +258,23 @@ router
         group,
       } = req.body;
 
+      // Check for existing run with same name and sample (idempotency)
+      const existingRun = await Run.findOne({ sample, name }).populate(
+        "rawFiles additionalFiles",
+      );
+
+      if (existingRun) {
+        console.log(
+          `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`,
+        );
+        // Return existing run (silent idempotency - 200 OK)
+        return res.status(200).send({
+          run: existingRun,
+          idempotent: true,
+          message: "Run with this name already exists for this sample",
+        });
+      }
+
       const newRun = new Run({
         sample,
         name,
@@ -305,6 +323,16 @@ router
       // Email is sent after all database and file operations are successful.
       await sendOverseerEmail({ type: "Run", data: savedRun });
 
+      // Trigger immediate MD5 verification in background (non-blocking)
+      setImmediate(() => {
+        verifyRunMd5(savedRun._id).catch((error) => {
+          console.error(
+            `[${requestId}] Failed to verify MD5 for run ${savedRun._id}:`,
+            error,
+          );
+        });
+      });
+
       res.status(201).send({ run: savedRun });
     } catch (error) {
       // If an error occurs after the run has been saved, we must roll back the change.
@@ -329,6 +357,162 @@ router
         error,
         500,
         `Failed to create new run: ${error.message}`,
+        requestId,
+      );
+    }
+  });
+
+/**
+ * GET /runs/:id/status
+ * Returns detailed status information about a run, including MD5 verification progress.
+ */
+router
+  .route("/runs/:id/status")
+  .all(isAuthenticated)
+  .get(async (req, res) => {
+    const requestId = generateRequestId();
+
+    try {
+      const run = await Run.findById(req.params.id)
+        .populate("rawFiles")
+        .populate("additionalFiles");
+
+      if (!run) {
+        return handleError(
+          res,
+          new Error("Run not found"),
+          404,
+          "Run not found",
+          requestId,
+        );
+      }
+
+      // Permission check
+      const canAccess = await userCanAccessGroup(req.user, run.group);
+      if (!canAccess) {
+        return handleError(
+          res,
+          new Error("Access denied"),
+          403,
+          "You do not have permission to view this run",
+          requestId,
+        );
+      }
+
+      // Get raw files with MD5 verification details
+      const Read = require("../models/Read");
+      const reads = await Read.find({ run: run._id }).populate("file");
+
+      const md5Details = reads.map((read) => ({
+        fileName: read.file?.originalName,
+        md5Original: read.MD5,
+        md5Destination: read.destinationMd5,
+        md5Mismatch: read.md5Mismatch,
+        lastChecked: read.MD5LastChecked,
+      }));
+
+      const totalFiles = reads.length;
+      const verifiedFiles = reads.filter((r) => r.destinationMd5).length;
+      const mismatchedFiles = reads.filter(
+        (r) => r.md5Mismatch === true,
+      ).length;
+
+      res.status(200).send({
+        runId: run._id,
+        runName: run.name,
+        status: run.status,
+        md5VerificationStatus: run.md5VerificationStatus,
+        md5VerificationAttempts: run.md5VerificationAttempts,
+        md5VerificationLastAttempt: run.md5VerificationLastAttempt,
+        md5VerificationCompletedAt: run.md5VerificationCompletedAt,
+        progress: {
+          totalFiles,
+          verifiedFiles,
+          mismatchedFiles,
+          percentComplete:
+            totalFiles > 0
+              ? Math.round((verifiedFiles / totalFiles) * 100)
+              : 100,
+        },
+        files: md5Details,
+      });
+    } catch (error) {
+      handleError(
+        res,
+        error,
+        500,
+        `Failed to get run status: ${error.message}`,
+        requestId,
+      );
+    }
+  });
+
+/**
+ * POST /runs/batch-status
+ * Returns status information for multiple runs at once.
+ * Body: { runIds: [...] }
+ */
+router
+  .route("/runs/batch-status")
+  .all(isAuthenticated)
+  .post(async (req, res) => {
+    const requestId = generateRequestId();
+
+    try {
+      const { runIds } = req.body;
+
+      if (!runIds || !Array.isArray(runIds)) {
+        return handleError(
+          res,
+          new Error("Invalid request"),
+          400,
+          "runIds must be an array",
+          requestId,
+        );
+      }
+
+      if (runIds.length > 100) {
+        return handleError(
+          res,
+          new Error("Too many runs requested"),
+          400,
+          "Maximum 100 runs per request",
+          requestId,
+        );
+      }
+
+      const runs = await Run.find({ _id: { $in: runIds } }).select(
+        "_id name status md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
+      );
+
+      // Filter to only runs the user has access to
+      const accessibleRuns = [];
+      for (const run of runs) {
+        const canAccess = await userCanAccessGroup(req.user, run.group);
+        if (canAccess) {
+          accessibleRuns.push({
+            runId: run._id,
+            runName: run.name,
+            status: run.status,
+            md5VerificationStatus: run.md5VerificationStatus,
+            md5VerificationAttempts: run.md5VerificationAttempts,
+            md5VerificationLastAttempt: run.md5VerificationLastAttempt,
+            md5VerificationCompletedAt: run.md5VerificationCompletedAt,
+            createdAt: run.createdAt,
+          });
+        }
+      }
+
+      res.status(200).send({
+        runs: accessibleRuns,
+        total: accessibleRuns.length,
+      });
+    } catch (error) {
+      handleError(
+        res,
+        error,
+        500,
+        `Failed to get batch status: ${error.message}`,
         requestId,
       );
     }
