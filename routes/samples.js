@@ -181,6 +181,25 @@ router
           }
         }
 
+        // Check for existing sample with same name and project (idempotency)
+        if (sampleName && req.body.project) {
+          const existingSample = await Sample.findOne({
+            project: req.body.project,
+            name: sampleName,
+          }).populate("additionalFiles");
+
+          if (existingSample) {
+            console.log(
+              `Sample already exists: ${existingSample._id} (${existingSample.name})`,
+            );
+            return res.status(200).send({
+              sample: existingSample,
+              idempotent: true,
+              message: "Sample with this name already exists for this project",
+            });
+          }
+        }
+
         // Convert JSON array to CSV text format for storage (backward compatibility)
         // Extract headers from first row
         const headers = Object.keys(tplexCsv[0]);
@@ -227,6 +246,25 @@ router
           `Created TPlex sample with ${tplexCsv.length} rows of data`,
         );
       } else {
+        // Check for existing sample with same name and project (idempotency)
+        if (sampleName && req.body.project) {
+          const existingSample = await Sample.findOne({
+            project: req.body.project,
+            name: sampleName,
+          }).populate("additionalFiles");
+
+          if (existingSample) {
+            console.log(
+              `Sample already exists: ${existingSample._id} (${existingSample.name})`,
+            );
+            return res.status(200).send({
+              sample: existingSample,
+              idempotent: true,
+              message: "Sample with this name already exists for this project",
+            });
+          }
+        }
+
         // Standard single sample creation
         const newSample = new Sample({
           name: sampleName,
@@ -253,10 +291,15 @@ router
         }
       }
 
-      // Email is sent after all database and file operations are successful
-      await sendOverseerEmail({ type: "Sample", data: savedSample });
-
       res.status(201).send({ sample: savedSample });
+
+      // Send email after response (non-blocking)
+      sendOverseerEmail({ type: "Sample", data: savedSample }).catch((err) => {
+        console.error(
+          `Failed to send overseer email for sample ${savedSample._id}:`,
+          err,
+        );
+      });
     } catch (error) {
       // If an error occurs after the sample has been saved, we must roll back the change
       if (savedSample && savedSample._id) {

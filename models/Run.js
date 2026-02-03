@@ -44,6 +44,9 @@ const schema = new Schema(
     md5VerificationLastAttempt: { type: Date },
     md5VerificationCompletedAt: { type: Date },
 
+    // Error details surfaced when status is 'error'
+    statusError: { type: String },
+
     // ensure each element in array is unique?
     additionalFilesUploadIDs: [{ type: String }], // George has changed to array and renamed
 
@@ -78,12 +81,19 @@ schema.pre("validate", function () {
     return Promise.resolve();
   }
 
-  return Run.find({})
-    .then((allOthers) => {
-      return generateSafeName(
-        this.name,
-        allOthers.filter((f) => f._id.toString() !== this._id.toString()),
-      );
+  const baseSafeName = this.name
+    .replace("&", "and")
+    .replace(/[^a-z0-9]/gi, "_")
+    .toLowerCase();
+  const escapedSafeName = baseSafeName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  return Run.find({
+    safeName: { $regex: new RegExp("^" + escapedSafeName, "i") },
+    _id: { $ne: this._id },
+  })
+    .select("safeName")
+    .then((matchingRuns) => {
+      return generateSafeName(this.name, matchingRuns);
     })
     .then((safeName) => {
       this.safeName = safeName;
@@ -136,7 +146,7 @@ schema.post("save", async function (next) {
       .then(() => {
         // create directory
         const absPath = join(process.env.DATASTORE_ROOT, this.path);
-        return fs.promises.mkdir(absPath);
+        return fs.promises.mkdir(absPath, { recursive: true });
       })
       .catch((err) => {
         console.error(err);

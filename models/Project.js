@@ -40,15 +40,20 @@ const schema = new mongoose.Schema(
     },
     nudgeable: { type: Boolean, default: true },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 schema.pre("validate", async function () {
-  const allOthers = await Project.find({});
-  const safeName = await generateSafeName(
-    this.name,
-    allOthers.filter((f) => f._id.toString() !== this._id.toString())
-  );
+  const baseSafeName = this.name
+    .replace("&", "and")
+    .replace(/[^a-z0-9]/gi, "_")
+    .toLowerCase();
+  const escapedSafeName = baseSafeName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const matchingOthers = await Project.find({
+    safeName: { $regex: new RegExp("^" + escapedSafeName, "i") },
+    _id: { $ne: this._id },
+  }).select("safeName");
+  const safeName = await generateSafeName(this.name, matchingOthers);
   this.safeName = safeName;
   const doc = this;
   const populatedDoc = await doc
@@ -77,7 +82,7 @@ schema.post("save", async function (next) {
 
   if (alreadyMade) {
     console.log(
-      "already made this project, so wont check dir or make newsitem"
+      "already made this project, so wont check dir or make newsitem",
     );
     return Promise.resolve();
   } else {

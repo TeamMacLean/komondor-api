@@ -291,49 +291,65 @@ router
 
       savedRun = await newRun.save();
 
-      const { additionalFiles, rawFiles, rawFilesUploadInfo } = req.body;
-      const fileProcessingPromises = [];
-
-      if (rawFiles && rawFiles.length > 0) {
-        fileProcessingPromises.push(
-          sortReadFiles(
-            rawFiles,
-            savedRun._id,
-            savedRun.path,
-            rawFilesUploadInfo,
-          ),
-        );
-      }
-
-      if (additionalFiles && additionalFiles.length > 0) {
-        fileProcessingPromises.push(
-          sortAdditionalFiles(
-            additionalFiles,
-            "run",
-            savedRun._id,
-            savedRun.path,
-          ),
-        );
-      }
-
-      if (fileProcessingPromises.length > 0) {
-        await Promise.all(fileProcessingPromises);
-      }
-
-      // Email is sent after all database and file operations are successful.
-      await sendOverseerEmail({ type: "Run", data: savedRun });
-
-      // Trigger immediate MD5 verification in background (non-blocking)
-      setImmediate(() => {
-        verifyRunMd5(savedRun._id).catch((error) => {
-          console.error(
-            `[${requestId}] Failed to verify MD5 for run ${savedRun._id}:`,
-            error,
-          );
-        });
-      });
-
+      // Respond immediately — file movement, email, and MD5 happen in background
       res.status(201).send({ run: savedRun });
+
+      // Background: move files, send email, then trigger MD5 verification
+      const { additionalFiles, rawFiles, rawFilesUploadInfo } = req.body;
+
+      setImmediate(async () => {
+        try {
+          const fileProcessingPromises = [];
+
+          if (rawFiles && rawFiles.length > 0) {
+            fileProcessingPromises.push(
+              sortReadFiles(
+                rawFiles,
+                savedRun._id,
+                savedRun.path,
+                rawFilesUploadInfo,
+              ),
+            );
+          }
+
+          if (additionalFiles && additionalFiles.length > 0) {
+            fileProcessingPromises.push(
+              sortAdditionalFiles(
+                additionalFiles,
+                "run",
+                savedRun._id,
+                savedRun.path,
+              ),
+            );
+          }
+
+          if (fileProcessingPromises.length > 0) {
+            await Promise.all(fileProcessingPromises);
+          }
+
+          // Send email after file processing succeeds (non-blocking)
+          sendOverseerEmail({ type: "Run", data: savedRun }).catch((err) => {
+            console.error(
+              `[${requestId}] Failed to send overseer email for run ${savedRun._id}:`,
+              err,
+            );
+          });
+
+          // Trigger MD5 verification after files are moved
+          verifyRunMd5(savedRun._id).catch((error) => {
+            console.error(
+              `[${requestId}] Failed to verify MD5 for run ${savedRun._id}:`,
+              error,
+            );
+          });
+        } catch (bgError) {
+          console.error(
+            `[${requestId}] Background processing failed for run ${savedRun._id}:`,
+            bgError,
+          );
+          // processReadFiles already marks run status as "error" on failure
+        }
+      });
     } catch (error) {
       // If an error occurs after the run has been saved, we must roll back the change.
       if (savedRun && savedRun._id) {
@@ -421,6 +437,7 @@ router
         runId: run._id,
         runName: run.name,
         status: run.status,
+        statusError: run.statusError || null,
         md5VerificationStatus: run.md5VerificationStatus,
         md5VerificationAttempts: run.md5VerificationAttempts,
         md5VerificationLastAttempt: run.md5VerificationLastAttempt,
@@ -482,7 +499,7 @@ router
       }
 
       const runs = await Run.find({ _id: { $in: runIds } }).select(
-        "_id name status md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
+        "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
       );
 
       // Filter to only runs the user has access to
@@ -494,6 +511,7 @@ router
             runId: run._id,
             runName: run.name,
             status: run.status,
+            statusError: run.statusError || null,
             md5VerificationStatus: run.md5VerificationStatus,
             md5VerificationAttempts: run.md5VerificationAttempts,
             md5VerificationLastAttempt: run.md5VerificationLastAttempt,

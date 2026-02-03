@@ -33,6 +33,11 @@ const schema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } },
 );
 
+// Indexes for performance
+schema.index({ project: 1, name: 1 }); // For idempotency checks
+schema.index({ group: 1, createdAt: -1 }); // For group-specific queries
+schema.index({ createdAt: -1 }); // For sorting by creation time
+
 schema.pre("validate", function (next) {
   const doc = this;
 
@@ -85,18 +90,24 @@ schema.pre("validate", function (next) {
       : `tplex-sample-${doc.project.toString().slice(-6)}`;
 
   // Generate safeName and set paths
-  Sample.find({})
-    .then((allSamples) => {
-      const otherSamples = allSamples.filter(
-        (sample) => sample._id.toString() !== doc._id.toString(),
-      );
+  const baseSafeName = baseNameForSafeName
+    .replace("&", "and")
+    .replace(/[^a-z0-9]/gi, "_")
+    .toLowerCase();
+  const escapedSafeName = baseSafeName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+  Sample.find({
+    safeName: { $regex: new RegExp("^" + escapedSafeName, "i") },
+    _id: { $ne: doc._id },
+  })
+    .select("safeName")
+    .then((matchingSamples) => {
       // Return existing safeName or generate new one
       if (doc.safeName) {
         return Promise.resolve(doc.safeName);
       }
 
-      return generateSafeName(baseNameForSafeName, otherSamples);
+      return generateSafeName(baseNameForSafeName, matchingSamples);
     })
     .then((safeName) => {
       doc.safeName = safeName;
@@ -244,7 +255,6 @@ schema.statics.iCanSee = function iCanSee(user) {
   }
   return Sample.find({ $or: filters });
 };
-
 
 const Sample = model("Sample", schema);
 

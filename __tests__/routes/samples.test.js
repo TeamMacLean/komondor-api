@@ -586,6 +586,13 @@ describe("GET /samples/names/:projectId", () => {
 });
 
 describe("POST /samples/new - TPlex Mode", () => {
+  beforeEach(() => {
+    // Mock findOne for idempotency check (return null = no existing sample)
+    Sample.findOne = jest.fn().mockReturnValue({
+      populate: jest.fn().mockResolvedValue(null),
+    });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -797,6 +804,13 @@ describe("POST /samples/new - TPlex Mode", () => {
 });
 
 describe("POST /samples/new - Standard Mode", () => {
+  beforeEach(() => {
+    // Mock findOne for idempotency check (return null = no existing sample)
+    Sample.findOne = jest.fn().mockReturnValue({
+      populate: jest.fn().mockResolvedValue(null),
+    });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });

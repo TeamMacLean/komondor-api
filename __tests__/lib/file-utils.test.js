@@ -123,6 +123,11 @@ describe("file-utils", () => {
       // Mock Run.findByIdAndUpdate
       Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
 
+      // Mock Run.findById (needed for cached relative path computation)
+      Run.findById = jest.fn().mockResolvedValue({
+        getRelativePath: jest.fn().mockResolvedValue("/test/run/path"),
+      });
+
       // Mock fs.access
       jest.spyOn(fs, "access").mockResolvedValue(undefined);
     });
@@ -137,6 +142,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
@@ -195,6 +201,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
@@ -246,6 +253,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
@@ -304,6 +312,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
@@ -363,6 +372,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
@@ -417,6 +427,7 @@ describe("file-utils", () => {
         save: jest.fn().mockResolvedValue({
           _id: mockFileId,
           originalName: "test_R1.fq.gz",
+          moveToFolderAndSave: jest.fn().mockResolvedValue({}),
         }),
       }));
 
