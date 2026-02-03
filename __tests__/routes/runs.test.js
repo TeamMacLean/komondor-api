@@ -16,6 +16,14 @@ jest.mock("../../routes/middleware", () => ({
 // Mock the Run model
 jest.mock("../../models/Run");
 
+// Mock the Read model (used inline in status endpoint)
+jest.mock("../../models/Read");
+
+// Mock md5 verification
+jest.mock("../../lib/md5-verification", () => ({
+  verifyRunMd5: jest.fn().mockResolvedValue({}),
+}));
+
 // Mock Group model for permission checks
 jest.mock("../../models/Group", () => ({
   GroupsIAmIn: jest
@@ -40,6 +48,7 @@ jest.mock("../../routes/_utils", () => ({
     res.status(status).json({ error: message || error.message });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
+  generateRequestId: jest.fn().mockReturnValue("test-request-id"),
 }));
 
 const app = express();
@@ -213,6 +222,12 @@ describe("Runs API Routes", () => {
     const mockGroupId = new mongoose.Types.ObjectId();
     const mockRunId = new mongoose.Types.ObjectId();
 
+    beforeEach(() => {
+      require("../../models/Group").GroupsIAmIn.mockResolvedValue([
+        { _id: mockGroupId, name: "Test Group" },
+      ]);
+    });
+
     test("should return existing run when duplicate is detected (idempotent)", async () => {
       const existingRun = {
         _id: mockRunId,
@@ -240,7 +255,7 @@ describe("Runs API Routes", () => {
         libraryStrategy: "WGS",
         owner: "testuser",
         group: mockGroupId.toString(),
-        rawFiles: [],
+        rawFiles: [{ name: "test_R1.fq.gz" }],
         rawFilesUploadInfo: { method: "local-filesystem" },
       };
 
@@ -249,7 +264,9 @@ describe("Runs API Routes", () => {
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty("idempotent", true);
       expect(response.body).toHaveProperty("message");
-      expect(response.body.run._id).toEqual(existingRun._id);
+      expect(response.body.run._id.toString()).toEqual(
+        existingRun._id.toString(),
+      );
       expect(Run.findOne).toHaveBeenCalledWith({
         sample: mockSampleId.toString(),
         name: "Duplicate Run",
@@ -285,7 +302,7 @@ describe("Runs API Routes", () => {
         libraryStrategy: "WGS",
         owner: "testuser",
         group: mockGroupId.toString(),
-        rawFiles: [],
+        rawFiles: [{ name: "test_R1.fq.gz" }],
         rawFilesUploadInfo: { method: "local-filesystem" },
       };
 
@@ -316,6 +333,7 @@ describe("Runs API Routes", () => {
         _id: mockRunId,
         name: "Test Run",
         status: "complete",
+        statusError: null,
         md5VerificationStatus: "in_progress",
         md5VerificationAttempts: 1,
         md5VerificationLastAttempt: new Date("2026-02-02T10:00:00Z"),
@@ -347,12 +365,9 @@ describe("Runs API Routes", () => {
       ];
 
       Run.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnThis(),
-        mockResolvedValue: mockRun,
-      });
-
-      Run.findById.mockReturnValue({
-        populate: jest.fn().mockResolvedValue(mockRun),
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
       });
 
       const Read = require("../../models/Read");
@@ -384,7 +399,9 @@ describe("Runs API Routes", () => {
 
     test("should return 404 when run not found", async () => {
       Run.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockResolvedValue(null),
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        }),
       });
 
       const response = await request(app).get(`/runs/${mockRunId}/status`);
@@ -401,12 +418,9 @@ describe("Runs API Routes", () => {
       };
 
       Run.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnThis(),
-        mockResolvedValue: mockRun,
-      });
-
-      Run.findById.mockReturnValue({
-        populate: jest.fn().mockResolvedValue(mockRun),
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
       });
 
       // User doesn't have access to unauthorizedGroupId
