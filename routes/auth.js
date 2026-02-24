@@ -56,7 +56,7 @@ function updateDB(user) {
       }
     })
     .catch((err) => {
-      console.error(err);
+      console.error("[AUTH] Failed to update DB on login:", err);
     });
 }
 
@@ -67,7 +67,7 @@ function signAndReturn(userTokenObject, res) {
       updateDB(userTokenObject);
     })
     .catch((err) => {
-      console.error(err);
+      console.error("[AUTH] Failed to sign JWT:", err);
       res.status(500).json({ error: err });
     });
 }
@@ -80,6 +80,9 @@ router.post("/login", (req, res, next) => {
       req.body.username === "admin" &&
       req.body.password === process.env.ADMIN_PASSWORD
     ) {
+      console.log(
+        `[LOGIN] User "admin" logged in | Groups: [all - admin] | Admin: true`,
+      );
       signAndReturn(
         {
           username: "admin",
@@ -89,18 +92,20 @@ router.post("/login", (req, res, next) => {
           isAdmin: true,
           groups: [],
         },
-        res
+        res,
       );
     } else if (process.env.NODE_ENV === "development") {
       // Check against dev users list in development mode
       const devUser = DEV_USERS.find(
         (user) =>
           user.username === req.body.username &&
-          user.password === req.body.password
+          user.password === req.body.password,
       );
 
       if (devUser) {
-        console.log(`Dev mode: Authenticated user ${devUser.username}`);
+        console.log(
+          `[LOGIN] User "${devUser.username}" logged in (dev mode) | Groups: [${(devUser.groups || []).join(", ")}] | Admin: ${!!devUser.isAdmin}`,
+        );
         signAndReturn(
           {
             username: devUser.username,
@@ -110,7 +115,7 @@ router.post("/login", (req, res, next) => {
             isAdmin: devUser.isAdmin,
             groups: devUser.groups,
           },
-          res
+          res,
         );
       } else {
         // Fall through to LDAP authentication in development mode
@@ -121,6 +126,9 @@ router.post("/login", (req, res, next) => {
             });
           })
           .catch((err) => {
+            console.error(
+              `[LOGIN_FAILED] User "${req.body.username}" failed to authenticate (dev mode, LDAP fallback): ${err.message || err}`,
+            );
             res.status(401).json({ message: "Bad credentials" });
           });
       }
@@ -132,6 +140,9 @@ router.post("/login", (req, res, next) => {
           });
         })
         .catch((err) => {
+          console.error(
+            `[LOGIN_FAILED] User "${req.body.username}" failed to authenticate: ${err.message || err}`,
+          );
           res.status(401).json({ message: "Bad credentials" });
         });
     }
