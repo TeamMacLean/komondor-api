@@ -29,7 +29,12 @@ jest.mock("../../lib/utils/sendOverseerEmail", () =>
 );
 jest.mock("../../routes/_utils", () => ({
   handleError: jest.fn((res, error, status, message) => {
-    res.status(status).json({ error: message || error.message });
+    res
+      .status(status)
+      .json({
+        error: message || error.message,
+        detail: error instanceof Error ? error.message : undefined,
+      });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
 }));

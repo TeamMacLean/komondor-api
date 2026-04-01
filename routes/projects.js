@@ -200,7 +200,15 @@ router
       }
 
       // Email is sent after all database and file operations are successful.
-      await sendOverseerEmail({ type: "Project", data: savedProject });
+      // Non-fatal: a failing email should not roll back a successfully saved project.
+      try {
+        await sendOverseerEmail({ type: "Project", data: savedProject });
+      } catch (emailError) {
+        console.error(
+          `[projects/new] Failed to send overseer email for project ${savedProject._id}:`,
+          emailError,
+        );
+      }
 
       res.status(201).send({ project: savedProject });
     } catch (error) {

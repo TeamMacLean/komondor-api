@@ -11,10 +11,15 @@ const generateRequestId = () => {
 /**
  * A utility function to handle errors in route handlers.
  * It logs the error and sends a standardized error response.
+ *
+ * The response always includes a `detail` field with the underlying error
+ * message so that API clients (e.g. komondor-power) can surface the real
+ * cause to users instead of only showing the generic catch-all message.
+ *
  * @param {object} res - The Express response object.
  * @param {Error} error - The error object.
  * @param {number} [statusCode=500] - The HTTP status code.
- * @param {string} [message] - A custom message to send.
+ * @param {string} [message] - A custom, user-facing message to send.
  * @param {string} [requestId] - Optional request ID for log correlation.
  */
 const handleError = (res, error, statusCode = 500, message, requestId) => {
@@ -34,15 +39,22 @@ const handleError = (res, error, statusCode = 500, message, requestId) => {
     message ||
     (error instanceof Error ? error.message : "An unexpected error occurred.");
 
-  // In production, hide internal details for 500 errors
+  // The underlying error message — more specific than the generic clientMessage.
+  // e.g. "E11000 duplicate key error" vs "Failed to create new project."
+  const detail = error instanceof Error ? error.message : undefined;
+
+  // In production, hide the generic message for 500 errors but still include
+  // `detail` — komondor-power is an internal client and needs it for diagnostics.
   if (process.env.NODE_ENV === "production" && statusCode === 500) {
     res.status(500).send({
       error: "An internal server error occurred.",
+      detail,
       requestId: reqId,
     });
   } else {
     res.status(statusCode).send({
       error: clientMessage,
+      detail,
       requestId: reqId,
     });
   }

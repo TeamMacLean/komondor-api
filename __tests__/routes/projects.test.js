@@ -4,7 +4,7 @@
  * - GET /project?id=:id (critical for pre-existing entity feature)
  * - GET /projects
  * - GET /projects/names
- * - POST /projects/new
+ * - POST /projects/new (including email-failure resilience)
  */
 
 const request = require("supertest");
@@ -22,12 +22,19 @@ jest.mock("../../models/Group", () => ({
 jest.mock("../../lib/sortAssociatedFiles", () => ({
   sortAdditionalFiles: jest.fn().mockResolvedValue(true),
 }));
-jest.mock("../../lib/utils/sendOverseerEmail", () =>
-  jest.fn().mockResolvedValue(true),
+// jest.mock is hoisted by Jest, so we can't reference a `const` declared in module
+// scope inside the factory. Instead we auto-mock the module and grab its default
+// export via requireMock after the fact.
+jest.mock("../../lib/utils/sendOverseerEmail");
+const mockSendOverseerEmail = jest.requireMock(
+  "../../lib/utils/sendOverseerEmail",
 );
 jest.mock("../../routes/_utils", () => ({
   handleError: jest.fn((res, error, status, message) => {
-    res.status(status).json({ error: message || error.message });
+    res.status(status).json({
+      error: message || error.message,
+      detail: error instanceof Error ? error.message : undefined,
+    });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
 }));
@@ -199,7 +206,9 @@ describe("GET /project?id=:id", () => {
       expect(response.status).toBe(200);
       expect(response.body.project.samples).toHaveLength(2);
       expect(response.body.project.samples[0].name).toBe("Sample 1");
-      expect(response.body.project.samples[0].group.name).toBe("bioinformatics");
+      expect(response.body.project.samples[0].group.name).toBe(
+        "bioinformatics",
+      );
     });
   });
 
@@ -425,8 +434,17 @@ describe("GET /projects/names", () => {
 describe("POST /projects/new", () => {
   const mockGroupId = new mongoose.Types.ObjectId().toString();
 
+  const validProjectBody = {
+    name: "New Project",
+    group: mockGroupId,
+    shortDesc: "Short description",
+    longDesc: "Long description",
+    owner: "testuser",
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
+    mockSendOverseerEmail.mockResolvedValue(true);
     mockUser = {
       username: "testuser",
       groups: ["group-123"],
@@ -448,16 +466,154 @@ describe("POST /projects/new", () => {
       { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
     ]);
 
-    const response = await request(app).post("/projects/new").send({
-      name: "New Project",
-      group: mockGroupId,
-      shortDesc: "Short description",
-      longDesc: "Long description",
-      owner: "testuser",
-    });
+    const response = await request(app)
+      .post("/projects/new")
+      .send(validProjectBody);
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("project");
+  });
+
+  test("should call sendOverseerEmail after successful project creation", async () => {
+    const mockSavedProject = {
+      _id: "new-project-id",
+      name: "New Project",
+      group: mockGroupId,
+    };
+    mockSavedProject.save = jest.fn().mockResolvedValue(mockSavedProject);
+
+    Project.mockImplementation(() => mockSavedProject);
+
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+    ]);
+
+    await request(app).post("/projects/new").send(validProjectBody);
+
+    expect(mockSendOverseerEmail).toHaveBeenCalledTimes(1);
+    expect(mockSendOverseerEmail).toHaveBeenCalledWith({
+      type: "Project",
+      data: mockSavedProject,
+    });
+  });
+
+  test("should still return 201 and keep the project when sendOverseerEmail throws", async () => {
+    const mockSavedProject = {
+      _id: "new-project-id",
+      name: "New Project",
+      group: mockGroupId,
+    };
+    mockSavedProject.save = jest.fn().mockResolvedValue(mockSavedProject);
+
+    Project.mockImplementation(() => mockSavedProject);
+    Project.deleteOne = jest.fn().mockResolvedValue({});
+
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+    ]);
+
+    mockSendOverseerEmail.mockRejectedValue(
+      new Error("SMTP connection refused"),
+    );
+
+    const response = await request(app)
+      .post("/projects/new")
+      .send(validProjectBody);
+
+    // Project creation must succeed despite the email failure
+    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("project");
+
+    // The project must NOT have been rolled back
+    expect(Project.deleteOne).not.toHaveBeenCalled();
+  });
+
+  test("should log the email error but not propagate it when sendOverseerEmail throws", async () => {
+    const mockSavedProject = {
+      _id: "email-fail-project-id",
+      name: "New Project",
+      group: mockGroupId,
+    };
+    mockSavedProject.save = jest.fn().mockResolvedValue(mockSavedProject);
+
+    Project.mockImplementation(() => mockSavedProject);
+
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+    ]);
+
+    const emailError = new Error("SMTP timeout");
+    mockSendOverseerEmail.mockRejectedValue(emailError);
+
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    await request(app).post("/projects/new").send(validProjectBody);
+
+    // The email error should be logged to the console
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining("email-fail-project-id"),
+      emailError,
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  test("should still roll back the project when save itself fails (not email)", async () => {
+    // save() throwing means savedProject is never assigned, so no rollback needed —
+    // but if save succeeds and a later non-email step fails, rollback should still occur.
+    // This test verifies a DB error during save propagates as a 500.
+    const mockBrokenProject = {
+      _id: undefined,
+      name: "New Project",
+      group: mockGroupId,
+      save: jest.fn().mockRejectedValue(new Error("DB write failed")),
+    };
+
+    Project.mockImplementation(() => mockBrokenProject);
+    Project.deleteOne = jest.fn().mockResolvedValue({});
+
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+    ]);
+
+    const response = await request(app)
+      .post("/projects/new")
+      .send(validProjectBody);
+
+    expect(response.status).toBe(500);
+    // savedProject was never set (save threw), so no rollback should be attempted
+    expect(Project.deleteOne).not.toHaveBeenCalled();
+  });
+
+  test("should include underlying error detail in 500 responses for genuine failures", async () => {
+    const dbError = new Error(
+      'E11000 duplicate key error collection: komondor.projects index: name_1 dup key: { name: "New Project" }',
+    );
+    const mockBrokenProject = {
+      _id: undefined,
+      name: "New Project",
+      group: mockGroupId,
+      save: jest.fn().mockRejectedValue(dbError),
+    };
+
+    Project.mockImplementation(() => mockBrokenProject);
+    Project.deleteOne = jest.fn().mockResolvedValue({});
+
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+    ]);
+
+    const response = await request(app)
+      .post("/projects/new")
+      .send(validProjectBody);
+
+    expect(response.status).toBe(500);
+    // The generic message is the top-level error
+    expect(response.body.error).toBe("Failed to create new project.");
+    // The real cause is surfaced in detail so API clients can display it
+    expect(response.body.detail).toBe(dbError.message);
   });
 
   test("should return 400 when group ID is not provided", async () => {
@@ -476,13 +632,9 @@ describe("POST /projects/new", () => {
       { _id: { toString: () => "different-group" }, name: "other-group" },
     ]);
 
-    const response = await request(app).post("/projects/new").send({
-      name: "New Project",
-      group: mockGroupId,
-      shortDesc: "Short description",
-      longDesc: "Long description",
-      owner: "testuser",
-    });
+    const response = await request(app)
+      .post("/projects/new")
+      .send(validProjectBody);
 
     expect(response.status).toBe(403);
   });
