@@ -82,7 +82,7 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error("You do not have permission to view this project."),
+          new Error(`User '${req.user.username}' does not have permission to view this project.`),
           403,
         );
       }
@@ -164,7 +164,7 @@ router
         return handleError(
           res,
           new Error(
-            "You do not have permission to create a project in this group.",
+            `User '${req.user.username}' does not have permission to create a project in this group.`,
           ),
           403,
         );

@@ -44,7 +44,7 @@ module.exports.belongsToGroup = function (getGroupId) {
         return res
           .status(403)
           .send({
-            error: "You do not have permission to access this resource",
+            error: `User '${req.user.username}' does not have permission to access this resource`,
           });
       }
     } catch (error) {

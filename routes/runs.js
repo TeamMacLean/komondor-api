@@ -111,7 +111,7 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error("You do not have permission to view this run."),
+          new Error(`User '${req.user.username}' does not have permission to view this run.`),
           403,
         );
       }
@@ -237,7 +237,7 @@ router
         return handleError(
           res,
           new Error(
-            "You do not have permission to create a run in this group.",
+            `User '${req.user.username}' does not have permission to create a run in this group.`,
           ),
           403,
           "Permission denied",
@@ -410,7 +410,7 @@ router
           res,
           new Error("Access denied"),
           403,
-          "You do not have permission to view this run",
+          `User '${req.user.username}' does not have permission to view this run`,
           requestId,
         );
       }

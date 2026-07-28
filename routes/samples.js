@@ -108,7 +108,7 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error("You do not have permission to view this sample."),
+          new Error(`User '${req.user.username}' does not have permission to view this sample.`),
           403,
         );
       }
@@ -147,7 +147,7 @@ router
         return handleError(
           res,
           new Error(
-            "You do not have permission to create a sample in this group.",
+            `User '${req.user.username}' does not have permission to create a sample in this group.`,
           ),
           403,
         );

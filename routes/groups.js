@@ -78,7 +78,7 @@ router
       if (!canEdit) {
         return res
           .status(403)
-          .send({ error: "You do not have permission to edit this group" });
+          .send({ error: `User '${req.user.username}' does not have permission to edit this group` });
       }
 
       const group = await Group.findById(req.body.id);
