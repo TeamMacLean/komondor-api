@@ -75,7 +75,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
   // Detect username from various possible properties
   const username =
-    user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+    user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
 
   // Parse full access users from environment variable
   let fullAccessUsers = [];

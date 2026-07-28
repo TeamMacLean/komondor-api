@@ -34,7 +34,7 @@ describe("GroupsIAmIn logic", () => {
     }
 
     const username =
-      user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+      user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
 
     let groupFindCriteria = null;
 
@@ -268,6 +268,63 @@ describe("GroupsIAmIn logic", () => {
   });
 
   describe("username detection", () => {
+    test("should detect full access user via username property", async () => {
+      // Mock environment variable just for this test
+      const originalEnv = process.env.FULL_RECORDS_ACCESS_USERS;
+      process.env.FULL_RECORDS_ACCESS_USERS = '["macleand"]';
+
+      const user = {
+        username: "macleand",
+        groups: [],
+        isAdmin: false,
+      };
+
+      // Ensure that when the condition is met, findFn is called with an empty object {}
+      // (which means "return all groups")
+      mockFind.mockResolvedValue(mockGroups);
+
+      // Recreate the logic that is in models/Group.js
+      let fullAccessUsers = [];
+      if (process.env.FULL_RECORDS_ACCESS_USERS) {
+        try {
+          fullAccessUsers = JSON.parse(process.env.FULL_RECORDS_ACCESS_USERS);
+        } catch (e) {
+          fullAccessUsers = process.env.FULL_RECORDS_ACCESS_USERS.split(",").map((u) => u.trim());
+        }
+      }
+
+      const username = user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+      
+      let groupFindCriteria = null;
+      if (user.isAdmin) {
+        groupFindCriteria = {};
+      } else if (fullAccessUsers.length && fullAccessUsers.includes(username)) {
+        groupFindCriteria = {};
+      } else if (user.groups && user.groups.length) {
+        groupFindCriteria = { _id: { $in: user.groups } };
+      }
+
+      expect(groupFindCriteria).toEqual({});
+      const result = await mockFind(groupFindCriteria);
+      expect(result).toHaveLength(3);
+
+      // Restore environment
+      process.env.FULL_RECORDS_ACCESS_USERS = originalEnv;
+    });
+
+    test("should detect username from username", async () => {
+      const user = {
+        username: "testuser",
+        groups: ["group-1"],
+        isAdmin: false,
+      };
+
+      mockFind.mockResolvedValue([mockGroups[0]]);
+
+      const result = await GroupsIAmIn(user, mockFind);
+      expect(result).toHaveLength(1);
+    });
+
     test("should detect username from sAMAccountName", async () => {
       const user = {
         sAMAccountName: "testuser",
