@@ -13,6 +13,7 @@ const Group = require("../../models/Group");
 const {
   isAuthenticated,
   isAdmin,
+  hasFullRecordsAccess,
   belongsToGroup,
 } = require("../../routes/middleware");
 
@@ -92,6 +93,85 @@ describe("isAdmin", () => {
     // A non-empty string is truthy, so this documents current behaviour:
     // the flag must be set by the token issuer, never by client input.
     expect(response.status).toBe(200);
+  });
+});
+
+describe("hasFullRecordsAccess", () => {
+  const originalList = process.env.FULL_RECORDS_ACCESS_USERS;
+
+  beforeEach(() => {
+    process.env.FULL_RECORDS_ACCESS_USERS = '["deeks", "macleand"]';
+  });
+
+  afterEach(() => {
+    if (originalList === undefined) {
+      delete process.env.FULL_RECORDS_ACCESS_USERS;
+    } else {
+      process.env.FULL_RECORDS_ACCESS_USERS = originalList;
+    }
+  });
+
+  test("passes an isAdmin token", async () => {
+    const response = await request(
+      buildApp({ username: "someadmin", isAdmin: true }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(200);
+  });
+
+  test("passes the built-in admin user", async () => {
+    const response = await request(
+      buildApp({ username: "admin" }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(200);
+  });
+
+  // The reason this middleware exists rather than reusing isAdmin: the ENA
+  // admins who use the accessions export hold LDAP tokens with no isAdmin claim.
+  test("passes a listed user who is not an admin", async () => {
+    const response = await request(
+      buildApp({ username: "macleand", isAdmin: false }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(200);
+  });
+
+  test("rejects a user who is not listed", async () => {
+    const response = await request(
+      buildApp({ username: "testuser", isAdmin: false }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(403);
+    expect(response.body.error).toBe(
+      "You do not have permission to export all records",
+    );
+  });
+
+  test("rejects a username that merely contains a listed one", async () => {
+    const response = await request(
+      buildApp({ username: "macleandx" }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(403);
+  });
+
+  test("rejects everyone when the list is unset", async () => {
+    delete process.env.FULL_RECORDS_ACCESS_USERS;
+
+    const response = await request(
+      buildApp({ username: "deeks" }, hasFullRecordsAccess),
+    ).get("/protected");
+
+    expect(response.status).toBe(403);
+  });
+
+  test("rejects a request with no user", async () => {
+    const response = await request(buildApp(null, hasFullRecordsAccess)).get(
+      "/protected",
+    );
+
+    expect(response.status).toBe(403);
   });
 });
 

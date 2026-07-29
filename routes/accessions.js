@@ -5,7 +5,7 @@ const Project = require("../models/Project");
 const Sample = require("../models/Sample");
 const Run = require("../models/Run");
 const Read = require("../models/Read");
-const { isAuthenticated } = require("./middleware");
+const { isAuthenticated, hasFullRecordsAccess } = require("./middleware");
 const _path = require("path");
 const { handleError } = require("./_utils");
 
@@ -196,9 +196,14 @@ const HEADINGS = [
   "list_of_read_files",
 ];
 
+// This export ignores group membership by design — it returns every run in the
+// database — so it is gated on the same predicate as cross-group reads. It was
+// previously reachable by any authenticated user: a member of a single group,
+// or of none, could export the lot.
 router
   .route("/accessions/csv")
   .all(isAuthenticated)
+  .all(hasFullRecordsAccess)
   .get(async (req, res) => {
     try {
       // Note: the heading row keeps its trailing comma, as consuming services

@@ -267,6 +267,48 @@ The app now boots on Node 24 and Node 25.
 
 ---
 
+## 13. `GET /accessions/csv` now requires full-records access (was: any login)
+
+**Where:** `routes/accessions.js`, `routes/middleware.js`
+
+The route was gated on `isAuthenticated` alone, and `getMatrixOfData` builds its
+rows from `Run.find({})` and `Project.find({})` — no visibility filter. So **any
+authenticated user could export every run and project in the database**,
+including a user belonging to no group at all.
+
+Measured against a `testuser` token (no `isAdmin`, no groups) before the change:
+
+```
+GET /runs           -> 0 runs      (correctly filtered by iCanSee)
+GET /accessions/csv -> 2466 rows   (every run in the database)
+```
+
+It is now gated on the new `hasFullRecordsAccess` middleware, which admits
+`isAdmin` tokens, the built-in `admin` user, and anyone named in
+`FULL_RECORDS_ACCESS_USERS`. That is the same predicate `iCanSee` uses to decide
+who may read across groups, so the export can no longer disclose more than its
+caller is otherwise allowed to see.
+
+**`isAdmin` was deliberately not used.** The people who use this export are ENA
+admins listed in komondor-web's `ENA_ADMINS` (`deeks`, `macleand`, `taz23vul`);
+their LDAP tokens carry no `isAdmin` claim, so an `isAdmin` gate would have
+locked out every real user of the feature.
+
+**Who is affected:** any caller not covered by `FULL_RECORDS_ACCESS_USERS` now
+receives `403 {error}`. komondor-web is the only consumer — komondor-power does
+not call this route — and its export page is already offered only to
+`ENA_ADMINS`.
+
+**Before deploying,** set `FULL_RECORDS_ACCESS_USERS` to the same usernames as
+komondor-web's `ENA_ADMINS`. Note that this variable also grants cross-group
+read access to projects, samples, runs and news items via `iCanSee` — it is
+broader than the export alone. If that is too broad, the narrower option is a
+separate `ENA_ADMIN_USERS` variable read only by this middleware.
+
+**Rollback:** none — reverting reintroduces the disclosure.
+
+---
+
 ## Known issues not addressed here
 
 - **Issued tokens never expire.** `jwtSign` calls `jwt.sign(user, secret)` with

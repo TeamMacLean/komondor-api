@@ -26,6 +26,9 @@ jest.mock("../../routes/middleware", () => ({
     next();
   },
   isAdmin: (req, res, next) => next(),
+  // The CSV export is gated on this; the real predicate is covered in
+  // __tests__/routes/middleware.test.js.
+  hasFullRecordsAccess: (req, res, next) => next(),
 }));
 
 const Project = require("../../models/Project");
