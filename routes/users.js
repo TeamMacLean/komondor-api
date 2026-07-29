@@ -3,6 +3,7 @@ const { isAuthenticated } = require("./middleware");
 const User = require("../models/User");
 const Project = require("../models/Project");
 const { verifyUserExists } = require("../lib/ldap");
+const { handleError } = require("./_utils");
 
 const express = require("express");
 let router = express.Router();
@@ -10,42 +11,46 @@ let router = express.Router();
 router
   .route("/users")
   .all(isAuthenticated)
-  .get((req, res) => {
-    User.find({})
-      .then((users) => {
-        res.status(200).send({ users });
-      })
-      .catch((err) => {
-        res.status(500).send({ error: err });
-      });
+  .get(async (req, res) => {
+    try {
+      const users = await User.find({});
+      res.status(200).send({ users });
+    } catch (err) {
+      handleError(res, err, 500, "Failed to retrieve users.");
+    }
   });
 
 router
   .route("/user")
   .all(isAuthenticated)
-  .get((req, res) => {
-    if (!req.query.username) {
-      res.status(500).send({ error: new Error('"username" param required') });
+  .get(async (req, res) => {
+    const { username } = req.query;
+
+    if (!username || typeof username !== "string") {
+      return handleError(res, new Error('"username" param required'), 400);
     }
 
-    const targetFunction = new Promise(async (resolve, _) => {
-      let foundProjects = await Project.find({ owner: req.query.username });
-      let foundUser = await User.findOne({ username: req.query.username });
+    try {
+      const [foundProjects, foundUser] = await Promise.all([
+        Project.find({ owner: username }),
+        User.findOne({ username }),
+      ]);
 
-      resolve({
+      // `foundUser` is a mongoose document; spreading it directly would leak
+      // internal fields ($__, _doc, …) instead of the user's data, so convert
+      // it to a plain object first.
+      const userFields = foundUser ? foundUser.toObject() : {};
+
+      res.status(200).send({
         user: {
-          ...foundUser,
-          username: req.query.username,
+          ...userFields,
+          username,
           projects: foundProjects,
         },
       });
-    });
-    async function executeExternalFunctionAndExit(promiseFunction) {
-      let result = await promiseFunction;
-      //console.log('about to send result', result)
-      res.status(200).send(result);
+    } catch (err) {
+      handleError(res, err, 500, `Failed to retrieve user ${username}.`);
     }
-    executeExternalFunctionAndExit(targetFunction);
   });
 
 /**
@@ -59,9 +64,9 @@ router
   .route("/users/verify-ldap")
   .all(isAuthenticated)
   .post(async (req, res) => {
-    const { username } = req.body;
+    const { username } = req.body || {};
 
-    if (!username) {
+    if (!username || typeof username !== "string") {
       return res.status(400).send({ error: '"username" is required' });
     }
 

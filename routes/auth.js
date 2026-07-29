@@ -36,24 +36,49 @@ router.get("/me", (req, res, next) => {
       res.status(200).json({ user: user });
     })
     .catch((err) => {
-      res.status(500).json({ error: err });
+      // A bad or expired token is a client problem, not a server fault.
+      console.error("[AUTH] /me token verification failed:", err.message);
+      res.status(401).json({ error: "Invalid or expired authentication token" });
     });
 });
 
+/**
+ * Exchanges an authenticated LDAP user for a signed token.
+ * Any failure along the way must still produce a response — an unterminated
+ * promise chain here leaves the client hanging until it times out.
+ */
+function authenticateAndRespond(username, password, res, context) {
+  return authenticate(username, password)
+    .then((user) => getUserForToken(user))
+    .then((userTokenObject) => {
+      signAndReturn(userTokenObject, res);
+    })
+    .catch((err) => {
+      console.error(
+        `[LOGIN_FAILED] User "${username}" failed to authenticate${context}: ${err.message || err}`,
+      );
+      if (!res.headersSent) {
+        res.status(401).json({ message: "Bad credentials" });
+      }
+    });
+}
+
 function updateDB(user) {
-  User.findOne({ username: user.username })
+  // Bookkeeping only — the caller has already responded, so failures here are
+  // logged rather than surfaced. Every branch must be awaited so a rejected
+  // save cannot escape as an unhandled rejection.
+  return User.findOne({ username: user.username })
     .then((foundUser) => {
       if (foundUser) {
-        foundUser.notifyLogin();
-      } else {
-        new User({
-          username: user.username,
-          name: user.name,
-          company: user.company,
-          email: user.email,
-          isAdmin: user.username === "admin",
-        }).save();
+        return foundUser.notifyLogin();
       }
+      return new User({
+        username: user.username,
+        name: user.name,
+        company: user.company,
+        email: user.email,
+        isAdmin: user.username === "admin",
+      }).save();
     })
     .catch((err) => {
       console.error("[AUTH] Failed to update DB on login:", err);
@@ -61,14 +86,17 @@ function updateDB(user) {
 }
 
 function signAndReturn(userTokenObject, res) {
-  sign(userTokenObject)
+  return sign(userTokenObject)
     .then((token) => {
       res.status(200).json({ token: token });
-      updateDB(userTokenObject);
+      return updateDB(userTokenObject);
     })
     .catch((err) => {
       console.error("[AUTH] Failed to sign JWT:", err);
-      res.status(500).json({ error: err });
+      if (!res.headersSent) {
+        // An Error instance serialises to {} through res.json, so send the message.
+        res.status(500).json({ error: err.message || "Failed to issue token" });
+      }
     });
 }
 
@@ -78,6 +106,7 @@ router.post("/login", (req, res, next) => {
     //TODO check if local admin
     if (
       req.body.username === "admin" &&
+      !!process.env.ADMIN_PASSWORD &&
       req.body.password === process.env.ADMIN_PASSWORD
     ) {
       console.log(
@@ -119,32 +148,15 @@ router.post("/login", (req, res, next) => {
         );
       } else {
         // Fall through to LDAP authentication in development mode
-        authenticate(req.body.username, req.body.password)
-          .then((user) => {
-            getUserForToken(user).then((userTokenObject) => {
-              signAndReturn(userTokenObject, res);
-            });
-          })
-          .catch((err) => {
-            console.error(
-              `[LOGIN_FAILED] User "${req.body.username}" failed to authenticate (dev mode, LDAP fallback): ${err.message || err}`,
-            );
-            res.status(401).json({ message: "Bad credentials" });
-          });
+        authenticateAndRespond(
+          req.body.username,
+          req.body.password,
+          res,
+          " (dev mode, LDAP fallback)",
+        );
       }
     } else {
-      authenticate(req.body.username, req.body.password)
-        .then((user) => {
-          getUserForToken(user).then((userTokenObject) => {
-            signAndReturn(userTokenObject, res);
-          });
-        })
-        .catch((err) => {
-          console.error(
-            `[LOGIN_FAILED] User "${req.body.username}" failed to authenticate: ${err.message || err}`,
-          );
-          res.status(401).json({ message: "Bad credentials" });
-        });
+      authenticateAndRespond(req.body.username, req.body.password, res, "");
     }
   } else {
     res.status(401).json({ message: "Bad credentials" });
