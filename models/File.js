@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const _path = require("path");
 const fs = require("fs").promises;
 const { createReadStream, createWriteStream } = require("fs");
+const { pipeline } = require("stream/promises");
 
 const schema = new mongoose.Schema(
   {
@@ -27,6 +28,14 @@ schema.index({ name: 1, path: 1, createFileDocumentId: 1 }, { unique: true });
 // i converted to async function, check this still works
 schema.methods.moveToFolderAndSave = async function (relNewPath) {
   const file = this;
+
+  if (!process.env.DATASTORE_ROOT) {
+    throw new Error("DATASTORE_ROOT is not configured");
+  }
+  if (!file.path) {
+    throw new Error(`Cannot move file ${file._id}: it has no source path`);
+  }
+
   const fullNewPath = _path.join(process.env.DATASTORE_ROOT, relNewPath);
 
   try {
@@ -39,19 +48,30 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     try {
       await fs.rename(file.path, fullNewPath);
     } catch (renameErr) {
-      // If rename fails (likely cross-device), fall back to copy+unlink
-      await new Promise((resolve, reject) => {
-        const readStream = createReadStream(file.path);
-        const writeStream = createWriteStream(fullNewPath);
+      // If rename fails (likely cross-device), fall back to copy+unlink.
+      // These are sequencing reads, often many GB, so a failure part-way
+      // through leaves a truncated file at the destination. It must be removed:
+      // left behind it looks like a complete read file to everything
+      // downstream. pipeline() also destroys both streams, which a bare
+      // pipe() does not do on error.
+      try {
+        await pipeline(
+          createReadStream(file.path),
+          createWriteStream(fullNewPath),
+        );
+      } catch (copyErr) {
+        await fs.unlink(fullNewPath).catch((cleanupErr) => {
+          if (cleanupErr.code !== "ENOENT") {
+            console.error(
+              `Failed to remove partial file at ${fullNewPath}:`,
+              cleanupErr,
+            );
+          }
+        });
+        throw copyErr;
+      }
 
-        readStream.on("error", reject);
-        writeStream.on("error", reject);
-        writeStream.on("finish", resolve);
-
-        readStream.pipe(writeStream);
-      });
-
-      // Remove source file after successful copy
+      // Remove source file only after the copy has fully succeeded
       await fs.unlink(file.path);
     }
 
