@@ -1,6 +1,5 @@
 module.exports = {
   testEnvironment: "node",
-  setupFiles: ["<rootDir>/jest.setup.js"],
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/datastore/",
@@ -27,6 +26,5 @@ module.exports = {
     "!**/docs/**",
     "!coverage/**",
     "!jest.config.js",
-    "!jest.setup.js",
   ],
 };

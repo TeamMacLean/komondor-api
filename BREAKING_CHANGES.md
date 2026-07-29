@@ -246,19 +246,41 @@ Dead code with no remaining `require` site:
 
 ---
 
+## 12. `jsonwebtoken` upgraded 8.5.1 → 9.0.3
+
+**Where:** `package.json`, `yarn.lock`
+
+`8.5.1` carries known CVEs (CVE-2022-23539/23540/23541). This codebase only
+uses `jwt.sign(payload, secret)` and `jwt.verify(token, secret)` with the
+default HS256, all of which behave identically in 9.x.
+
+**Token compatibility was verified, not assumed:** a token signed by 8.5.1 was
+captured before the upgrade and confirmed to verify correctly under 9.0.3.
+**No user needs to log in again.**
+
+Side benefit: this also fixes the Node 25+ boot failure. `jsonwebtoken@9`
+pulls `jws@4` → `jwa@2`, which only falls back to `buffer-equal-constant-time`
+(the package that reads the removed `buffer.SlowBuffer`) when
+`crypto.timingSafeEqual` is unavailable — and that has existed since Node 6.6.
+The `jest.setup.js` shim added earlier in this branch is therefore removed.
+The app now boots on Node 24 and Node 25.
+
+---
+
 ## Known issues not addressed here
 
-- **`jsonwebtoken@8.5.1` has known CVEs.** Upgrading to `9.x` is recommended and
-  is token-compatible for this codebase's HS256 usage, but it is a dependency
-  change that deserves its own PR and verification.
-- **The app cannot boot on Node 25+.** `buffer-equal-constant-time` (reached via
-  `jsonwebtoken` → `jws` → `jwa`) reads the removed `buffer.SlowBuffer` at
-  import time. `jsonwebtoken@9` does **not** fix this — it pulls the same
-  package. `.nvmrc` pins Node 24, where it works. `jest.setup.js` shims it so
-  the test suite runs on newer runtimes.
-- **`ldapjs` was an undeclared dependency** — used by `lib/ldap.js` but absent
-  from `package.json`, working only because it hoisted out of `ldapauth-fork`.
-  It is now declared explicitly.
+- **Issued tokens never expire.** `jwtSign` calls `jwt.sign(user, secret)` with
+  no `expiresIn`, so a leaked token is valid forever. Adding an expiry is a
+  genuine security improvement but a real breaking change — every consumer
+  would need to handle 401 and re-authenticate — so it is deliberately left as
+  a separate decision. The 401 handling added in item 5 is the groundwork for it.
+- **`/uploads` sets `origin: "*"`.** The main app restricts CORS to
+  `WEB_APP_URL`, but the tus sub-app in `routes/uploads.js` allows any origin.
+  Narrowing it needs checking against how komondor-web performs uploads.
 - `lib/fileUpload.js` is effectively dead: `routes/uploads.js` requires it but
   its only call site is commented out. Left in place pending a decision on the
   tus upload flow.
+- **`ldapjs` is deprecated upstream.** It is now correctly declared in
+  `package.json` (it was previously undeclared and worked only by hoisting out
+  of `ldapauth-fork`), but the package itself is decommissioned and will need
+  replacing eventually.
