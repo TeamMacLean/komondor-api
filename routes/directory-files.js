@@ -1,37 +1,45 @@
-const { isAuthenticated } = require("./middleware");
-const _path = require("path");
+const { isAuthenticated, isAdmin } = require("./middleware");
 const express = require("express");
-const fs = require("fs");
+const fs = require("fs").promises;
 const { calculateFileMd5 } = require("../lib/utils/md5");
 const { generateRequestId } = require("./_utils");
+const {
+  cleanDirectoryName,
+  resolveWithin,
+  resolveBelow,
+} = require("../lib/utils/safePath");
 let router = express.Router();
 
-const cleanTargetDirectoryName = (targetDirectoryName) => {
-  let result = targetDirectoryName;
-
-  // remove beginning and trailing slashes
-  if (result.startsWith("/")) {
-    result = result.substr(1, result.length);
-  }
-  if (result.endsWith("/")) {
-    result = result.substr(0, result.length - 1);
-  }
-
-  return result;
-};
-
+/**
+ * GET /directory-files/debug
+ * Reports how a target directory name resolves on disk.
+ * Admin-only: the response exposes server filesystem layout and configuration.
+ */
 router
   .route("/directory-files/debug")
   .all(isAuthenticated)
+  .all(isAdmin)
   .get(async (req, res) => {
     const { targetDirectoryName } = req.query;
-    const cleanedTargetDirectoryName = cleanTargetDirectoryName(
+    const cleanedTargetDirectoryName = cleanDirectoryName(
       targetDirectoryName || "cheese",
     );
-    const dirRoot = _path.join(
+    const dirRoot = resolveWithin(
       process.env.HPC_TRANSFER_DIRECTORY,
       cleanedTargetDirectoryName,
     );
+
+    let exists = false;
+    let isDirectory = false;
+    if (dirRoot) {
+      try {
+        const stat = await fs.stat(dirRoot);
+        exists = true;
+        isDirectory = stat.isDirectory();
+      } catch (e) {
+        // Leave both false when the path cannot be stat'd.
+      }
+    }
 
     res.status(200).send({
       cwd: process.cwd(),
@@ -40,10 +48,9 @@ router
       targetDirectoryName: targetDirectoryName,
       cleanedTargetDirectoryName: cleanedTargetDirectoryName,
       dirRoot: dirRoot,
-      isAbsolute: _path.isAbsolute(process.env.HPC_TRANSFER_DIRECTORY),
-      resolvedPath: _path.resolve(dirRoot),
-      exists: fs.existsSync(dirRoot),
-      isDirectory: fs.existsSync(dirRoot) && fs.statSync(dirRoot).isDirectory(),
+      withinTransferDirectory: dirRoot !== null,
+      exists,
+      isDirectory,
     });
   });
 
@@ -54,17 +61,39 @@ router
     const { targetDirectoryName } = req.query;
 
     try {
-      const cleanedTargetDirectoryName =
-        cleanTargetDirectoryName(targetDirectoryName);
+      if (!process.env.HPC_TRANSFER_DIRECTORY) {
+        throw new Error("HPC_TRANSFER_DIRECTORY is not configured");
+      }
 
-      const dirRoot = _path.resolve(
+      if (!targetDirectoryName || typeof targetDirectoryName !== "string") {
+        throw new Error("Missing targetDirectoryName");
+      }
+
+      const cleanedTargetDirectoryName = cleanDirectoryName(targetDirectoryName);
+
+      if (!cleanedTargetDirectoryName) {
+        throw new Error("Missing targetDirectoryName");
+      }
+
+      // resolveBelow, not resolveWithin: a name that normalises back to the
+      // root (".", "./", "a/..") must not list every group's inbound directory.
+      const dirRoot = resolveBelow(
         process.env.HPC_TRANSFER_DIRECTORY,
         cleanedTargetDirectoryName,
       );
 
-      var dirExists = false;
+      if (!dirRoot) {
+        console.error(
+          `[directory-files] Rejected path outside transfer directory: ${targetDirectoryName}`,
+        );
+        return res
+          .status(403)
+          .send({ error: "Access denied: Invalid directory path" });
+      }
+
+      let dirExists = false;
       try {
-        dirExists = fs.statSync(dirRoot).isDirectory();
+        dirExists = (await fs.stat(dirRoot)).isDirectory();
       } catch (e) {
         throw new Error("Issue reading target directory");
       }
@@ -72,7 +101,7 @@ router
         throw new Error("Directory does not exist");
       }
 
-      const filesResults = fs.readdirSync(dirRoot);
+      const filesResults = await fs.readdir(dirRoot);
 
       if (!filesResults.length) {
         throw new Error("No files found in target directory");
@@ -82,7 +111,9 @@ router
         filesResults,
       });
     } catch (e) {
-      console.error(e, e.message);
+      console.error("[directory-files]", e.message);
+      // Preserved from the original implementation: consuming services detect
+      // failure by the presence of `error` in the body, not by status code.
       res.status(200).send({ error: e.message });
     }
   });
@@ -97,7 +128,7 @@ router
   .all(isAuthenticated)
   .post(async (req, res) => {
     const requestId = generateRequestId();
-    const { directoryName, fileName, expectedMd5 } = req.body;
+    const { directoryName, fileName, expectedMd5 } = req.body || {};
 
     if (!directoryName || !fileName || !expectedMd5) {
       return res.status(400).send({
@@ -106,19 +137,32 @@ router
       });
     }
 
+    if (
+      typeof expectedMd5 !== "string" ||
+      typeof directoryName !== "string" ||
+      typeof fileName !== "string"
+    ) {
+      return res.status(400).send({
+        error: "directoryName, fileName and expectedMd5 must be strings",
+        requestId,
+      });
+    }
+
     try {
-      const cleanedDirectoryName = cleanTargetDirectoryName(directoryName);
-      const filePath = _path.resolve(
+      if (!process.env.HPC_TRANSFER_DIRECTORY) {
+        throw new Error("HPC_TRANSFER_DIRECTORY is not configured");
+      }
+
+      const cleanedDirectoryName = cleanDirectoryName(directoryName);
+      const filePath = resolveBelow(
         process.env.HPC_TRANSFER_DIRECTORY,
         cleanedDirectoryName,
-        fileName,
+        cleanDirectoryName(fileName),
       );
 
-      // Security check: ensure the resolved path is still within HPC_TRANSFER_DIRECTORY
-      const hpcRoot = _path.resolve(process.env.HPC_TRANSFER_DIRECTORY);
-      if (!filePath.startsWith(hpcRoot)) {
+      if (!filePath) {
         console.error(
-          `[${requestId}] Access denied: path traversal attempt - ${filePath}`,
+          `[${requestId}] Access denied: path traversal attempt - ${directoryName}/${fileName}`,
         );
         return res.status(403).send({
           error: "Access denied: Invalid file path",
@@ -126,8 +170,15 @@ router
         });
       }
 
-      // Check file exists
-      if (!fs.existsSync(filePath)) {
+      try {
+        const stat = await fs.stat(filePath);
+        if (!stat.isFile()) {
+          return res.status(404).send({
+            error: `File not found: ${fileName}`,
+            requestId,
+          });
+        }
+      } catch (e) {
         return res.status(404).send({
           error: `File not found: ${fileName}`,
           requestId,
