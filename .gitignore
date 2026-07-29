@@ -6,6 +6,7 @@ node_modules/
 wip/
 
 dist/
+coverage/
 
 .DS_Store
 
