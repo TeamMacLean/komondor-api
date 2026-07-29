@@ -3,6 +3,7 @@ const { join } = require("path");
 const generateSafeName = require("../lib/utils/generateSafeName").default;
 const fs = require("fs");
 const NewsItem = require("./NewsItem");
+const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
 
 const schema = new mongoose.Schema(
   {
@@ -44,6 +45,14 @@ const schema = new mongoose.Schema(
 );
 
 schema.pre("validate", async function () {
+  // `name` is required, but this hook runs before required-field validation.
+  // Without this guard the .replace() below throws a bare TypeError, which
+  // surfaces to the client as an opaque 500 instead of a validation message.
+  if (typeof this.name !== "string" || !this.name) {
+    this.invalidate("name", "Project name is required.", this.name);
+    return;
+  }
+
   const baseSafeName = this.name
     .replace("&", "and")
     .replace(/[^a-z0-9]/gi, "_")
@@ -169,20 +178,8 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
-  // if statement unnecessary
-  if (
-    user.username === "admin" ||
-    process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
-  ) {
-    return Project.find({});
-  }
-  const filters = [{ owner: user.username }];
-  if (user.groups) {
-    user.groups.map((g) => {
-      filters.push({ group: g });
-    });
-  }
-  return Project.find({ $or: filters });
+  const filter = buildVisibilityFilter(user);
+  return Project.find(filter === null ? {} : filter);
 };
 
 const Project = mongoose.model("Project", schema);

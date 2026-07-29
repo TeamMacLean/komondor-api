@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
 
 const schema = new mongoose.Schema(
   {
@@ -13,20 +14,8 @@ const schema = new mongoose.Schema(
 );
 
 schema.statics.iCanSee = function iCanSee(user) {
-  // if statement unnecessary
-  if (
-    user.username === "admin" ||
-    process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
-  ) {
-    return NewsItem.find({});
-  }
-  const filters = [{ owner: user.username }];
-  if (user.groups) {
-    user.groups.map((g) => {
-      filters.push({ group: g });
-    });
-  }
-  return NewsItem.find({ $or: filters });
+  const filter = buildVisibilityFilter(user);
+  return NewsItem.find(filter === null ? {} : filter);
 };
 
 const NewsItem = mongoose.model("NewsItem", schema);

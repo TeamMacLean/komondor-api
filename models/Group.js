@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const generateSafeName = require("../lib/utils/generateSafeName").default;
 const _path = require("path");
 const fs = require("fs");
-
-const FULL_RECORDS_ACCESS_USERS = process.env.FULL_RECORDS_ACCESS_USERS;
+const { getFullAccessUsers } = require("../lib/utils/fullAccessUsers");
 
 const schema = new mongoose.Schema(
   {
@@ -77,24 +76,14 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   const username =
     user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
 
-  // Parse full access users from environment variable
-  let fullAccessUsers = [];
-  if (FULL_RECORDS_ACCESS_USERS) {
-    try {
-      fullAccessUsers = JSON.parse(FULL_RECORDS_ACCESS_USERS);
-    } catch (e) {
-      fullAccessUsers = FULL_RECORDS_ACCESS_USERS.split(",").map((u) =>
-        u.trim(),
-      );
-    }
-  }
+  const fullAccessUsers = getFullAccessUsers();
 
-  let groupFindCriteria = null;
+  let groupFindCriteria;
 
   // Determine group find criteria based on user permissions
   if (user.isAdmin) {
     groupFindCriteria = {};
-  } else if (fullAccessUsers.length && fullAccessUsers.includes(username)) {
+  } else if (fullAccessUsers.includes(username)) {
     groupFindCriteria = {};
   } else if (user.groups && user.groups.length) {
     groupFindCriteria = {
@@ -107,9 +96,13 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
     groupFindCriteria = { $or: filters };
   } else {
+    // No admin flag, no group IDs and no LDAP memberOf: the user belongs to
+    // nothing. Returning early matters — `Group.find(null)` is treated by
+    // mongoose as an empty filter and would hand back *every* group.
     console.error(
       `[AUTH] No group criteria for user "${username}" | isAdmin: ${user.isAdmin}, groups: ${JSON.stringify(user.groups)}, memberOf: ${JSON.stringify(user.memberOf)}`,
     );
+    return [];
   }
 
   // Find groups matching criteria

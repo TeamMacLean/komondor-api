@@ -8,6 +8,7 @@ const { join } = require("path");
 
 //import generateSafeName from '../lib/utils/generateSafeName';
 const generateSafeName = require("../lib/utils/generateSafeName").default;
+const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
 
 const schema = new Schema(
   {
@@ -78,6 +79,14 @@ schema.index({ group: 1, createdAt: -1 }); // For group-specific queries
 
 schema.pre("validate", function () {
   if (this.forceSafeName) {
+    return Promise.resolve();
+  }
+
+  // `name` is required, but this hook runs before required-field validation.
+  // Without this guard the .replace() below throws a bare TypeError, which
+  // surfaces to the client as an opaque 500 instead of a validation message.
+  if (typeof this.name !== "string" || !this.name) {
+    this.invalidate("name", "Run name is required.", this.name);
     return Promise.resolve();
   }
 
@@ -200,20 +209,8 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
-  // if statement unnecessary
-  if (
-    user.username === "admin" ||
-    process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
-  ) {
-    return Run.find({});
-  }
-  const filters = [{ owner: user.username }];
-  if (user.groups) {
-    user.groups.map((g) => {
-      filters.push({ group: g });
-    });
-  }
-  return Run.find({ $or: filters });
+  const filter = buildVisibilityFilter(user);
+  return Run.find(filter === null ? {} : filter);
 };
 
 const Run = model("Run", schema);

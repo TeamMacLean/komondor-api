@@ -3,6 +3,7 @@ const { Schema, model } = mongoose;
 const NewsItem = require("./NewsItem");
 
 const generateSafeName = require("../lib/utils/generateSafeName").default;
+const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
 const fs = require("fs");
 const { join } = require("path");
 
@@ -240,20 +241,8 @@ schema.methods.getAbsPath = function getPath() {
 };
 
 schema.statics.iCanSee = function iCanSee(user) {
-  // if statement unnecessary
-  if (
-    user.username === "admin" ||
-    process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
-  ) {
-    return Sample.find({});
-  }
-  const filters = [{ owner: user.username }];
-  if (user.groups) {
-    user.groups.map((g) => {
-      filters.push({ group: g });
-    });
-  }
-  return Sample.find({ $or: filters });
+  const filter = buildVisibilityFilter(user);
+  return Sample.find(filter === null ? {} : filter);
 };
 
 const Sample = model("Sample", schema);
