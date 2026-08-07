@@ -185,22 +185,50 @@ router
         });
       }
 
-      const calculatedMd5 = await calculateFileMd5(filePath);
-      const normalizedExpected = expectedMd5.toLowerCase().trim();
-      const matches = calculatedMd5 === normalizedExpected;
+      // Write headers early and stream spaces to prevent reverse proxy timeout for large files
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('X-Accel-Buffering', 'no'); // Disable Nginx buffering
+      res.status(200);
+      res.flushHeaders(); // Send headers immediately
 
-      res.status(200).send({
-        fileName,
-        expectedMd5: normalizedExpected,
-        calculatedMd5,
-        matches,
-      });
+      let hasError = false;
+      let calculatedMd5;
+      try {
+        calculatedMd5 = await calculateFileMd5(filePath, () => {
+          res.write(' ');
+          if (res.flush) res.flush(); // If compression middleware is used, flush it
+        });
+      } catch (err) {
+        hasError = true;
+        console.error(`[${requestId}] Error calculating MD5 mid-stream:`, err);
+        res.write(JSON.stringify({
+          error: `Failed to calculate MD5: ${err.message}`,
+          requestId,
+        }));
+        res.end();
+      }
+
+      if (!hasError) {
+        const normalizedExpected = expectedMd5.toLowerCase().trim();
+        const matches = calculatedMd5 === normalizedExpected;
+
+        res.write(JSON.stringify({
+          fileName,
+          expectedMd5: normalizedExpected,
+          calculatedMd5,
+          matches,
+        }));
+        res.end();
+      }
     } catch (e) {
-      console.error(`[${requestId}] Error calculating MD5:`, e);
-      res.status(500).send({
-        error: `Failed to calculate MD5: ${e.message}`,
-        requestId,
-      });
+      // If we haven't sent headers yet, we can send a 500
+      if (!res.headersSent) {
+        console.error(`[${requestId}] Error calculating MD5:`, e);
+        res.status(500).send({
+          error: `Failed to calculate MD5: ${e.message}`,
+          requestId,
+        });
+      }
     }
   });
 

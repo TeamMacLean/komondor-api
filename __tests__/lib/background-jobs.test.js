@@ -60,30 +60,46 @@ describe("Background Jobs", () => {
   });
 
   describe("processMd5Verification", () => {
-    test("should process pending runs and send emails", async () => {
-      const mockRuns = [
+    test("should process pending runs and send emails for errors", async () => {
+      findRunsNeedingVerification.mockResolvedValue([
         { _id: "run1", name: "Run 1" },
         { _id: "run2", name: "Run 2" },
-      ];
+      ]);
 
-      findRunsNeedingVerification.mockResolvedValue(mockRuns);
-      verifyRunMd5.mockResolvedValue({
-        success: true,
-        filesVerified: 10,
-        mismatches: 0,
-        errors: 0,
-        duration: 45000,
-        runName: "Run 1",
-      });
+      // Mock one success, one failure
+      verifyRunMd5
+        .mockResolvedValueOnce({
+          success: true,
+          skipped: false,
+          runName: "Run 1",
+          filesVerified: 1,
+          mismatches: 0,
+          errors: 0,
+          duration: 100,
+        })
+        .mockResolvedValueOnce({
+          success: false,
+          skipped: false,
+          runName: "Run 2",
+          filesVerified: 1,
+          mismatches: 1,
+          errors: 0,
+          duration: 100,
+        });
       sendMd5VerificationEmail.mockResolvedValue(true);
 
+      const { processMd5Verification } = require("../../lib/background-jobs");
       await processMd5Verification();
 
-      expect(findRunsNeedingVerification).toHaveBeenCalledWith(10);
+      expect(findRunsNeedingVerification).toHaveBeenCalledTimes(1);
       expect(verifyRunMd5).toHaveBeenCalledTimes(2);
       expect(verifyRunMd5).toHaveBeenCalledWith("run1");
       expect(verifyRunMd5).toHaveBeenCalledWith("run2");
-      expect(sendMd5VerificationEmail).toHaveBeenCalledTimes(2);
+      // ONLY the failed run should trigger an email now
+      expect(sendMd5VerificationEmail).toHaveBeenCalledTimes(1);
+      expect(sendMd5VerificationEmail).toHaveBeenCalledWith(
+        expect.objectContaining({ runName: "Run 2", mismatches: 1 })
+      );
     });
 
     test("should handle case when no runs need verification", async () => {

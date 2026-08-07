@@ -336,7 +336,27 @@ router
           });
 
           // Trigger MD5 verification after files are moved
-          verifyRunMd5(savedRun._id).catch((error) => {
+          verifyRunMd5(savedRun._id).then(async (result) => {
+            // ONLY send emails if there is a problem (silent success)
+            if (result.mismatches > 0 || (result.errors && result.errors > 0)) {
+              const { sendMd5VerificationEmail } = require("../lib/utils/sendEmail");
+              try {
+                await sendMd5VerificationEmail({
+                  runId: savedRun._id,
+                  runName: savedRun.name,
+                  filesVerified: result.filesVerified,
+                  mismatches: result.mismatches,
+                  errors: result.errors || 0,
+                  duration: result.duration,
+                });
+              } catch (emailError) {
+                console.error(
+                  `[${requestId}] Failed to send MD5 verification failure email for run ${savedRun._id}:`,
+                  emailError
+                );
+              }
+            }
+          }).catch((error) => {
             console.error(
               `[${requestId}] Failed to verify MD5 for run ${savedRun._id}:`,
               error,
