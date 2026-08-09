@@ -14,7 +14,12 @@ function formatDateCalendar(date) {
 
   const now = new Date();
   const diffMs = now - dateObj;
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  // A date marginally in the future — clock skew between hosts, or an NTP step
+  // mid-request — makes diffMs negative, and Math.floor of a small negative is
+  // -1. That misses both the 0 and 1 branches and falls into `< 7`, so an item
+  // created seconds ago renders as "Last Wednesday". Anything not yet in the
+  // past is today.
+  const diffDays = Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
 
   const timeStr = dateObj.toLocaleTimeString("en-US", {
     hour: "numeric",

@@ -124,8 +124,27 @@ describe("GET /news", () => {
 });
 
 describe("formatDateCalendar", () => {
+  // These compare "now" against a date derived from Date.now(), and the
+  // function captures its own `new Date()` a moment later. Freezing the clock
+  // removes that gap, so a slow run or an NTP step cannot change the label.
+  // Wednesday midday, so "three days ago" still lands inside the week.
+  beforeEach(() => {
+    jest.useFakeTimers().setSystemTime(new Date("2026-06-17T12:00:00Z"));
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   test("labels today", () => {
     expect(formatDateCalendar(new Date())).toMatch(/^Today at /);
+  });
+
+  test("labels a date in the future as today", () => {
+    // Clock skew between hosts previously floored to -1 and rendered these as
+    // "Last <weekday>".
+    const skewed = new Date(Date.now() + 30 * 1000);
+    expect(formatDateCalendar(skewed)).toMatch(/^Today at /);
   });
 
   test("labels yesterday", () => {
