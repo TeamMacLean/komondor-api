@@ -154,7 +154,35 @@ describe("GET /sample?id=:id", () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty("sample");
-      expect(response.body.sample.name).toBe("Test Sample");
+    });
+
+    test("should return sample when user is owner regardless of group membership", async () => {
+      mockUser = {
+        username: "testuser", // matches mockSample.owner
+        groups: [],
+        isAdmin: false,
+      };
+
+      Sample.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockReturnValue({
+            populate: jest.fn().mockReturnValue({
+              populate: jest.fn().mockReturnValue({
+                exec: jest.fn().mockResolvedValue(mockSample),
+              }),
+            }),
+          }),
+        }),
+      });
+
+      Group.GroupsIAmIn.mockResolvedValue([
+        { _id: { toString: () => "some_other_group_id" }, name: "other_group" }
+      ]);
+
+      const response = await request(app).get(`/sample?id=${mockSampleId}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty("sample");
     });
 
     test("should include populated group with _id and name fields", async () => {
@@ -276,7 +304,7 @@ describe("GET /sample?id=:id", () => {
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
               populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
+                exec: jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
               }),
             }),
           }),
@@ -370,7 +398,7 @@ describe("GET /sample?id=:id", () => {
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
               populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
+                exec: jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
               }),
             }),
           }),

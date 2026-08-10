@@ -91,7 +91,12 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     };
   } else if (user.memberOf && user.memberOf.length) {
     const filters = user.memberOf.map((ldapString) => ({
-      ldapGroups: ldapString,
+      ldapGroups: {
+        $regex: new RegExp(
+          "^" + ldapString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$",
+          "i",
+        ),
+      },
     }));
 
     groupFindCriteria = { $or: filters };

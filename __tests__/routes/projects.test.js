@@ -248,7 +248,7 @@ describe("GET /project?id=:id", () => {
         populate: jest.fn().mockReturnValue({
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
-              exec: jest.fn().mockResolvedValue(mockProject),
+              exec: jest.fn().mockResolvedValue({ ...mockProject, owner: "someone-else" }),
             }),
           }),
         }),
@@ -334,7 +334,7 @@ describe("GET /project?id=:id", () => {
         populate: jest.fn().mockReturnValue({
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
-              exec: jest.fn().mockResolvedValue(mockProject),
+              exec: jest.fn().mockResolvedValue({ ...mockProject, owner: "someone-else" }),
             }),
           }),
         }),

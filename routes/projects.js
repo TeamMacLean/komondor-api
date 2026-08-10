@@ -79,7 +79,8 @@ router
 
       // Permission check: user must belong to the project's group or be admin
       const canAccess = await userCanAccessGroup(req.user, project.group._id);
-      if (!canAccess) {
+      const isOwner = project.owner === req.user.username;
+      if (!canAccess && !isOwner) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this project.`),

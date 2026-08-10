@@ -72,7 +72,10 @@ describe("Group.GroupsIAmIn", () => {
     });
 
     expect(findSpy).toHaveBeenCalledWith({
-      $or: [{ ldapGroups: "CN=bioinformatics" }, { ldapGroups: "CN=lab" }],
+      $or: [
+        { ldapGroups: { $regex: /^CN=bioinformatics$/i } },
+        { ldapGroups: { $regex: /^CN=lab$/i } }
+      ],
     });
   });
 

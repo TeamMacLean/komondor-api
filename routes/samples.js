@@ -105,7 +105,8 @@ router
 
       // Permission check: user must belong to the sample's group or be admin
       const canAccess = await userCanAccessGroup(req.user, sample.group._id);
-      if (!canAccess) {
+      const isOwner = sample.owner === req.user.username;
+      if (!canAccess && !isOwner) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this sample.`),

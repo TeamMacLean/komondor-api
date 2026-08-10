@@ -420,6 +420,7 @@ describe("Runs API Routes", () => {
         _id: mockRunId,
         name: "Test Run",
         group: unauthorizedGroupId,
+        owner: "some_other_user",
       };
 
       Run.findById = jest.fn().mockReturnValue({
@@ -436,6 +437,42 @@ describe("Runs API Routes", () => {
       const response = await request(app).get(`/runs/${mockRunId}/status`);
 
       expect(response.status).toBe(403);
+    });
+
+    test("should allow access when user is not in group but is the owner", async () => {
+      const unauthorizedGroupId = new mongoose.Types.ObjectId();
+      const mockRun = {
+        _id: mockRunId,
+        name: "Test Run",
+        group: unauthorizedGroupId,
+        owner: "testuser", // matches the req.user from our mocked middleware
+        status: "complete",
+        statusError: null,
+        md5VerificationStatus: "in_progress",
+        md5VerificationAttempts: 1,
+        md5VerificationLastAttempt: new Date("2026-02-02T10:00:00Z"),
+        md5VerificationCompletedAt: null,
+      };
+
+      Run.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
+      });
+
+      const Read = require("../../models/Read");
+      Read.find = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      // User doesn't have access to unauthorizedGroupId
+      require("../../models/Group").GroupsIAmIn.mockResolvedValue([
+        { _id: mockGroupId, name: "Test Group" },
+      ]);
+
+      const response = await request(app).get(`/runs/${mockRunId}/status`);
+
+      expect(response.status).toBe(200);
     });
   });
 
@@ -456,23 +493,25 @@ describe("Runs API Routes", () => {
         {
           _id: mockRun1Id,
           name: "Run 1",
+          owner: "other_user",
           status: "complete",
           md5VerificationStatus: "complete",
           md5VerificationAttempts: 1,
           md5VerificationLastAttempt: new Date("2026-02-02T10:00:00Z"),
-          md5VerificationCompletedAt: new Date("2026-02-02T10:30:00Z"),
+          md5VerificationCompletedAt: new Date("2026-02-02T10:05:00Z"),
           group: mockGroupId,
           createdAt: new Date("2026-02-02T09:00:00Z"),
         },
         {
           _id: mockRun2Id,
           name: "Run 2",
+          owner: "testuser", // not in group, but is owner
           status: "complete",
           md5VerificationStatus: "pending",
           md5VerificationAttempts: 0,
           md5VerificationLastAttempt: null,
           md5VerificationCompletedAt: null,
-          group: mockGroupId,
+          group: new mongoose.Types.ObjectId(), // unauthorized group
           createdAt: new Date("2026-02-02T09:30:00Z"),
         },
       ];

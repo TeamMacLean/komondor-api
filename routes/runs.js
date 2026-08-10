@@ -108,7 +108,8 @@ router
 
       // Permission check: user must belong to the run's group or be admin
       const canAccess = await userCanAccessGroup(req.user, run.group._id);
-      if (!canAccess) {
+      const isOwner = run.owner === req.user.username;
+      if (!canAccess && !isOwner) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this run.`),
@@ -425,7 +426,8 @@ router
 
       // Permission check
       const canAccess = await userCanAccessGroup(req.user, run.group);
-      if (!canAccess) {
+      const isOwner = run.owner === req.user.username;
+      if (!canAccess && !isOwner) {
         return handleError(
           res,
           new Error("Access denied"),
@@ -519,14 +521,15 @@ router
       }
 
       const runs = await Run.find({ _id: { $in: runIds } }).select(
-        "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
+        "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group owner createdAt",
       );
 
       // Filter to only runs the user has access to
       const accessibleRuns = [];
       for (const run of runs) {
         const canAccess = await userCanAccessGroup(req.user, run.group);
-        if (canAccess) {
+        const isOwner = run.owner === req.user.username;
+        if (canAccess || isOwner) {
           accessibleRuns.push({
             runId: run._id,
             runName: run.name,
