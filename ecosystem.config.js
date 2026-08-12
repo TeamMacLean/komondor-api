@@ -53,6 +53,17 @@ module.exports = {
       listen_timeout: 10000,
       autorestart: true,
 
+      // Timestamp every line PM2 writes to the out and error logs. The app
+      // logs no times of its own, so without this there is no way to tell
+      // when anything happened — including whether the MD5 job's hourly
+      // "idle" line is still arriving, which is the only remaining signal
+      // that the cron has not silently stopped.
+      //
+      // The offset is included so the twice-yearly clock change cannot make
+      // an hour of logs ambiguous, and milliseconds so a burst of lines from
+      // one request stays in order.
+      log_date_format: "YYYY-MM-DD HH:mm:ss.SSS Z",
+
       // No max_memory_restart: it restarts the same way PM2 stops anything —
       // SIGINT then SIGKILL — so it would interrupt transfers unprompted, at
       // the least predictable moment.
