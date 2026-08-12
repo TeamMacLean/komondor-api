@@ -185,6 +185,58 @@ describe("Background Jobs", () => {
     });
   });
 
+  describe("log volume when there is nothing to do", () => {
+    // The job fires every 5 minutes and almost always finds nothing, so an
+    // idle pass must stay quiet — but not so quiet that a job which has
+    // stopped running looks the same as one that is simply idle.
+    let logSpy;
+
+    beforeEach(() => {
+      findRunsNeedingVerification.mockResolvedValue([]);
+      logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+      jest.setSystemTime(new Date("2026-01-01T00:00:00Z"));
+    });
+
+    afterEach(() => {
+      logSpy.mockRestore();
+    });
+
+    test("stays silent on a second idle pass within the hour", async () => {
+      await processMd5Verification();
+      logSpy.mockClear();
+
+      jest.setSystemTime(new Date("2026-01-01T00:05:00Z"));
+      await processMd5Verification();
+
+      expect(logSpy).not.toHaveBeenCalled();
+    });
+
+    test("reports in once an hour so silence is not mistaken for absence", async () => {
+      await processMd5Verification();
+      logSpy.mockClear();
+
+      jest.setSystemTime(new Date("2026-01-01T01:00:01Z"));
+      await processMd5Verification();
+
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("idle"));
+    });
+
+    test("does not log merely because the cron fired", async () => {
+      // Logging the tick itself put a line in the log every 5 minutes
+      // regardless, which is what silencing the idle pass was meant to stop.
+      cron.schedule = jest.fn();
+      initializeBackgroundJobs();
+      const [, onTick] = cron.schedule.mock.calls[0];
+      await processMd5Verification(); // takes the hourly heartbeat
+      jest.setSystemTime(new Date("2026-01-01T00:05:00Z"));
+      logSpy.mockClear();
+
+      await onTick();
+
+      expect(logSpy).not.toHaveBeenCalled();
+    });
+  });
+
   describe("processCleanup", () => {
     test("should clean up stale runs", async () => {
       cleanupStalePendingRuns.mockResolvedValue({

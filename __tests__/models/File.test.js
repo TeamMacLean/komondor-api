@@ -30,6 +30,16 @@ const _path = require("path");
 const { Writable } = require("stream");
 
 const File = require("../../models/File");
+const {
+  getActiveTransfers,
+  clearActiveTransfers,
+} = require("../../lib/active-transfers");
+
+/** Any partially copied files left behind in a directory. */
+const partialsIn = (dir) =>
+  fs.existsSync(dir)
+    ? fs.readdirSync(dir).filter((name) => name.includes(".part-"))
+    : [];
 
 let tmpRoot;
 let datastoreRoot;
@@ -59,6 +69,8 @@ beforeEach(() => {
 
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
+
+  clearActiveTransfers();
 });
 
 afterEach(() => {
@@ -125,10 +137,20 @@ describe("moveToFolderAndSave — same filesystem (rename)", () => {
 });
 
 describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
-  /** Forces the rename to fail the way a cross-mount move does. */
+  /**
+   * Forces the rename to fail the way a cross-mount move does.
+   *
+   * Only the move *out of staging* fails. Promoting a finished copy to its
+   * final name happens entirely inside the datastore, on one filesystem, and
+   * still succeeds — failing that too would model a filesystem that does not
+   * exist.
+   */
   const forceCrossDevice = () => {
-    const realRename = fsp.rename;
-    jest.spyOn(fsp, "rename").mockImplementation(() => {
+    const realRename = fsp.rename.bind(fsp);
+    jest.spyOn(fsp, "rename").mockImplementation((from, to) => {
+      if (String(from).startsWith(datastoreRoot)) {
+        return realRename(from, to);
+      }
       const err = new Error("EXDEV: cross-device link not permitted");
       err.code = "EXDEV";
       return Promise.reject(err);
@@ -172,6 +194,43 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
 
     const dest = _path.join(datastoreRoot, "group", "raw", "reads.fq");
     expect(fs.readFileSync(dest).equals(payload)).toBe(true);
+  });
+
+  test("leaves no partial file behind once the copy is promoted", async () => {
+    forceCrossDevice();
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGTACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq"));
+
+    expect(partialsIn(_path.join(datastoreRoot, "group", "raw"))).toEqual([]);
+  });
+
+  test("rejects a copy that is shorter than the source", async () => {
+    // A stream that ends early still resolves cleanly, so only the byte count
+    // catches it — and a short read file would pass silently downstream.
+    forceCrossDevice();
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGTACGT");
+    mockWriteStreamFactory = (destPath) => {
+      fs.mkdirSync(_path.dirname(destPath), { recursive: true });
+      fs.writeFileSync(destPath, "AC"); // fewer bytes than the source
+      return new Writable({
+        write(chunk, encoding, callback) {
+          callback(); // silently accepts, writes nothing more
+        },
+      });
+    };
+    const doc = makeFile(source);
+
+    await expect(
+      doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq")),
+    ).rejects.toThrow(/2 bytes but the source is 8 bytes/);
+    expect(
+      fs.existsSync(_path.join(datastoreRoot, "group", "raw", "reads.fq")),
+    ).toBe(false);
+    expect(fs.existsSync(source)).toBe(true);
   });
 
   describe("when the copy fails part-way", () => {
@@ -246,6 +305,106 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
 
       expect(doc.path).toBe(source);
     });
+
+    test("cleans up the partial copy", async () => {
+      const doc = makeFile(source);
+
+      await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+      expect(partialsIn(_path.dirname(dest))).toEqual([]);
+    });
+  });
+});
+
+describe("moveToFolderAndSave — rename failures that are not cross-device", () => {
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+
+  /**
+   * The destination already holds the file and the source is gone: what an
+   * earlier attempt leaves behind when it moves the bytes and then fails
+   * before the document is saved.
+   */
+  const stageAlreadyMoved = () => {
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    fs.mkdirSync(_path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, "COMPLETE-GENOMIC-DATA");
+    return dest;
+  };
+
+  test("does not overwrite the file already at the destination", async () => {
+    const dest = stageAlreadyMoved();
+    const doc = makeFile(_path.join(stagingDir, "reads.fq")); // never created
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");
+  });
+
+  test("rejects rather than falling back to a copy", async () => {
+    stageAlreadyMoved();
+    const doc = makeFile(_path.join(stagingDir, "reads.fq"));
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(/ENOENT/);
+  });
+
+  test("names both paths so the state can be diagnosed", async () => {
+    const dest = stageAlreadyMoved();
+    const source = _path.join(stagingDir, "reads.fq");
+    const doc = makeFile(source);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      new RegExp(`${source}.*${dest}`),
+    );
+  });
+});
+
+describe("moveToFolderAndSave — transfer tracking", () => {
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+
+  test("tracks the transfer while the move is in flight", async () => {
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGT");
+    const doc = makeFile(source);
+    let seenDuringSave = [];
+    doc.save = jest.fn().mockImplementation(() => {
+      seenDuringSave = getActiveTransfers();
+      return Promise.resolve(doc);
+    });
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    expect(seenDuringSave).toHaveLength(1);
+    expect(seenDuringSave[0]).toMatchObject({ filename: "reads.fq" });
+  });
+
+  test("releases the transfer once the move completes", async () => {
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    expect(getActiveTransfers()).toEqual([]);
+  });
+
+  test("releases the transfer when the move fails", async () => {
+    // A leaked entry would block every clean shutdown from here on.
+    const doc = makeFile(_path.join(stagingDir, "missing.fq"));
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(getActiveTransfers()).toEqual([]);
+  });
+
+  test("releases the transfer when saving the document fails", async () => {
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGT");
+    const doc = makeFile(source);
+    doc.save = jest.fn().mockRejectedValue(new Error("E11000 duplicate key"));
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(getActiveTransfers()).toEqual([]);
   });
 });
 

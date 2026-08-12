@@ -7,7 +7,7 @@ const Group = require("../models/Group");
 const { isAuthenticated } = require("./middleware");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { handleError, getActualFiles, getAdditionalFilesStatus } = require("./_utils");
+const { handleError, compareFilesToDirectory } = require("./_utils");
 
 /**
  * Helper to check if user has access to a resource via group membership
@@ -119,8 +119,10 @@ router
         sample.path,
         "additional",
       );
-      const actualAdditionalFiles = await getActualFiles(additionalDir);
-      const additionalFilesStatus = getAdditionalFilesStatus(sample.additionalFiles, actualAdditionalFiles);
+      const {
+        actualFiles: actualAdditionalFiles,
+        status: additionalFilesStatus,
+      } = await compareFilesToDirectory(sample.additionalFiles, additionalDir);
 
       res.status(200).send({ sample, actualAdditionalFiles, additionalFilesStatus });
     } catch (error) {

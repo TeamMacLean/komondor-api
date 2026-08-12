@@ -6,10 +6,14 @@ const fs = require("fs");
 const os = require("os");
 const _path = require("path");
 
+const mongoose = require("mongoose");
+
 const {
   handleError,
   getActualFiles,
   generateRequestId,
+  getAdditionalFilesStatus,
+  compareFilesToDirectory,
 } = require("../../routes/_utils");
 
 /** Builds a minimal Express response double. */
@@ -161,5 +165,231 @@ describe("getActualFiles", () => {
     // A file is not a directory: readdir reports ENOTDIR.
     const filePath = _path.join(tmpDir, "reads.txt");
     await expect(getActualFiles(filePath)).rejects.toThrow();
+  });
+
+  test("ignores subdirectories", async () => {
+    // A directory reported as a file shows up as an untracked stray.
+    fs.mkdirSync(_path.join(tmpDir, "nested"), { recursive: true });
+
+    await expect(getActualFiles(tmpDir)).resolves.not.toContain("nested");
+  });
+
+  test("ignores partially copied files", async () => {
+    // An interrupted transfer is not a stray file, and reporting it as one
+    // would send someone looking for a database record that never existed.
+    fs.writeFileSync(
+      _path.join(tmpDir, "big.bam.part-651f9c0a1b2c3d4e5f6a7b8c"),
+      "partial",
+    );
+
+    const files = await getActualFiles(tmpDir);
+
+    expect(files).toEqual(["reads.txt"]);
+  });
+});
+
+describe("getAdditionalFilesStatus", () => {
+  /** An AdditionalFile with its file ref populated, as the routes fetch it. */
+  const populated = (originalName) => ({
+    _id: new mongoose.Types.ObjectId(),
+    file: { originalName },
+  });
+
+  describe("when the database and disk agree", () => {
+    test("reports OK", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("a.pdf"), populated("b.csv")],
+        ["a.pdf", "b.csv"],
+      );
+
+      expect(result).toMatchObject({ status: "OK", missing: [], extra: [] });
+    });
+
+    test("reports OK when both sides are empty", () => {
+      expect(getAdditionalFilesStatus([], [])).toMatchObject({ status: "OK" });
+    });
+
+    test("ignores the order files are listed in", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("a.pdf"), populated("b.csv")],
+        ["b.csv", "a.pdf"],
+      );
+
+      expect(result.status).toBe("OK");
+    });
+  });
+
+  describe("when files are missing or untracked", () => {
+    test("reports a file that is absent from disk", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("a.pdf"), populated("gone.csv")],
+        ["a.pdf"],
+      );
+
+      expect(result).toMatchObject({
+        status: "MISMATCH",
+        missing: ["gone.csv"],
+        extra: [],
+      });
+    });
+
+    test("reports a file on disk with no record", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("a.pdf")],
+        ["a.pdf", "stray.txt"],
+      );
+
+      expect(result).toMatchObject({
+        status: "WARNING",
+        missing: [],
+        extra: ["stray.txt"],
+      });
+    });
+
+    test("reports both sides when a file has been renamed", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("old-name.pdf")],
+        ["new-name.pdf"],
+      );
+
+      expect(result).toMatchObject({
+        status: "MISMATCH",
+        missing: ["old-name.pdf"],
+        extra: ["new-name.pdf"],
+      });
+      expect(result.message).toMatch(/renamed/);
+    });
+
+    test("counts duplicates rather than matching by presence", () => {
+      // Two records, one copy on disk: set membership called this complete.
+      const result = getAdditionalFilesStatus(
+        [populated("report.pdf"), populated("report.pdf")],
+        ["report.pdf"],
+      );
+
+      expect(result).toMatchObject({
+        status: "MISMATCH",
+        missing: ["report.pdf"],
+      });
+    });
+
+    test("treats differently normalised filenames as the same file", () => {
+      // macOS and Linux encode the accent differently; a byte comparison
+      // reports the file as both missing and untracked.
+      const result = getAdditionalFilesStatus(
+        [populated("résumé.pdf".normalize("NFC"))],
+        ["résumé.pdf".normalize("NFD")],
+      );
+
+      expect(result.status).toBe("OK");
+    });
+  });
+
+  describe("when a record's filename cannot be resolved", () => {
+    test("reports an unpopulated file reference instead of dropping it", () => {
+      // An unpopulated ref is an ObjectId — truthy, but with no originalName.
+      // Dropping it emptied the database side, so every real file on disk was
+      // reported as untracked.
+      const result = getAdditionalFilesStatus(
+        [{ _id: new mongoose.Types.ObjectId(), file: new mongoose.Types.ObjectId() }],
+        ["a.pdf"],
+      );
+
+      expect(result.unresolved).toHaveLength(1);
+      expect(result.status).toBe("MISMATCH");
+    });
+
+    test("reports a record whose file document has been deleted", () => {
+      // Otherwise a broken record looks like a stray file on disk.
+      const result = getAdditionalFilesStatus(
+        [{ _id: new mongoose.Types.ObjectId(), file: null }],
+        [],
+      );
+
+      expect(result.unresolved).toHaveLength(1);
+      expect(result.message).toMatch(/no readable filename/);
+    });
+
+    test("does not count an unresolved record as a file on disk", () => {
+      const result = getAdditionalFilesStatus(
+        [populated("a.pdf"), { _id: new mongoose.Types.ObjectId(), file: null }],
+        ["a.pdf"],
+      );
+
+      expect(result.missing).toEqual([]);
+      expect(result.extra).toEqual([]);
+    });
+  });
+
+  describe("input shapes", () => {
+    test("accepts a bare file document", () => {
+      const result = getAdditionalFilesStatus(
+        [{ originalName: "a.pdf" }],
+        ["a.pdf"],
+      );
+
+      expect(result.status).toBe("OK");
+    });
+
+    test("accepts plain filename strings", () => {
+      expect(getAdditionalFilesStatus(["a.pdf"], ["a.pdf"]).status).toBe("OK");
+    });
+
+    test("tolerates a virtual that was never populated", () => {
+      // An unpopulated virtual is undefined, and throwing here turned a
+      // working GET into a 500.
+      expect(() => getAdditionalFilesStatus(undefined, ["a.pdf"])).not.toThrow();
+      expect(getAdditionalFilesStatus(undefined, ["a.pdf"]).extra).toEqual([
+        "a.pdf",
+      ]);
+    });
+
+    test("tolerates a missing directory listing", () => {
+      expect(() => getAdditionalFilesStatus([populated("a.pdf")])).not.toThrow();
+    });
+  });
+});
+
+describe("compareFilesToDirectory", () => {
+  let tmpDir;
+
+  beforeAll(() => {
+    tmpDir = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-compare-"));
+    fs.writeFileSync(_path.join(tmpDir, "a.pdf"), "a");
+  });
+
+  afterAll(() => {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  test("returns the listing alongside the status", async () => {
+    const result = await compareFilesToDirectory(
+      [{ originalName: "a.pdf" }],
+      tmpDir,
+    );
+
+    expect(result.actualFiles).toEqual(["a.pdf"]);
+    expect(result.status.status).toBe("OK");
+  });
+
+  test("treats a missing directory as no files", async () => {
+    const result = await compareFilesToDirectory(
+      [{ originalName: "a.pdf" }],
+      _path.join(tmpDir, "does-not-exist"),
+    );
+
+    expect(result.status.status).toBe("MISMATCH");
+    expect(result.status.missing).toEqual(["a.pdf"]);
+  });
+
+  test("degrades to UNKNOWN rather than failing the request", async () => {
+    // These checks were added to endpoints that previously did no filesystem
+    // work; an unreachable datastore must not turn a working GET into a 500.
+    const notADirectory = _path.join(tmpDir, "a.pdf");
+
+    const result = await compareFilesToDirectory([], notADirectory);
+
+    expect(result.status.status).toBe("UNKNOWN");
+    expect(result.actualFiles).toEqual([]);
   });
 });

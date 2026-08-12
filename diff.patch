@@ -1,0 +1,1390 @@
+diff --git a/__tests__/lib/background-jobs.test.js b/__tests__/lib/background-jobs.test.js
+index 3618263..7406e00 100644
+--- a/__tests__/lib/background-jobs.test.js
++++ b/__tests__/lib/background-jobs.test.js
+@@ -185,6 +185,58 @@ describe("Background Jobs", () => {
+     });
+   });
+ 
++  describe("log volume when there is nothing to do", () => {
++    // The job fires every 5 minutes and almost always finds nothing, so an
++    // idle pass must stay quiet — but not so quiet that a job which has
++    // stopped running looks the same as one that is simply idle.
++    let logSpy;
++
++    beforeEach(() => {
++      findRunsNeedingVerification.mockResolvedValue([]);
++      logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
++      jest.setSystemTime(new Date("2026-01-01T00:00:00Z"));
++    });
++
++    afterEach(() => {
++      logSpy.mockRestore();
++    });
++
++    test("stays silent on a second idle pass within the hour", async () => {
++      await processMd5Verification();
++      logSpy.mockClear();
++
++      jest.setSystemTime(new Date("2026-01-01T00:05:00Z"));
++      await processMd5Verification();
++
++      expect(logSpy).not.toHaveBeenCalled();
++    });
++
++    test("reports in once an hour so silence is not mistaken for absence", async () => {
++      await processMd5Verification();
++      logSpy.mockClear();
++
++      jest.setSystemTime(new Date("2026-01-01T01:00:01Z"));
++      await processMd5Verification();
++
++      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("idle"));
++    });
++
++    test("does not log merely because the cron fired", async () => {
++      // Logging the tick itself put a line in the log every 5 minutes
++      // regardless, which is what silencing the idle pass was meant to stop.
++      cron.schedule = jest.fn();
++      initializeBackgroundJobs();
++      const [, onTick] = cron.schedule.mock.calls[0];
++      await processMd5Verification(); // takes the hourly heartbeat
++      jest.setSystemTime(new Date("2026-01-01T00:05:00Z"));
++      logSpy.mockClear();
++
++      await onTick();
++
++      expect(logSpy).not.toHaveBeenCalled();
++    });
++  });
++
+   describe("processCleanup", () => {
+     test("should clean up stale runs", async () => {
+       cleanupStalePendingRuns.mockResolvedValue({
+diff --git a/__tests__/models/File.test.js b/__tests__/models/File.test.js
+index 056191a..f3f0500 100644
+--- a/__tests__/models/File.test.js
++++ b/__tests__/models/File.test.js
+@@ -30,6 +30,16 @@ const _path = require("path");
+ const { Writable } = require("stream");
+ 
+ const File = require("../../models/File");
++const {
++  getActiveTransfers,
++  clearActiveTransfers,
++} = require("../../lib/active-transfers");
++
++/** Any partially copied files left behind in a directory. */
++const partialsIn = (dir) =>
++  fs.existsSync(dir)
++    ? fs.readdirSync(dir).filter((name) => name.includes(".part-"))
++    : [];
+ 
+ let tmpRoot;
+ let datastoreRoot;
+@@ -59,6 +69,8 @@ beforeEach(() => {
+ 
+   jest.spyOn(console, "log").mockImplementation(() => {});
+   jest.spyOn(console, "error").mockImplementation(() => {});
++
++  clearActiveTransfers();
+ });
+ 
+ afterEach(() => {
+@@ -125,10 +137,20 @@ describe("moveToFolderAndSave — same filesystem (rename)", () => {
+ });
+ 
+ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
+-  /** Forces the rename to fail the way a cross-mount move does. */
++  /**
++   * Forces the rename to fail the way a cross-mount move does.
++   *
++   * Only the move *out of staging* fails. Promoting a finished copy to its
++   * final name happens entirely inside the datastore, on one filesystem, and
++   * still succeeds — failing that too would model a filesystem that does not
++   * exist.
++   */
+   const forceCrossDevice = () => {
+-    const realRename = fsp.rename;
+-    jest.spyOn(fsp, "rename").mockImplementation(() => {
++    const realRename = fsp.rename.bind(fsp);
++    jest.spyOn(fsp, "rename").mockImplementation((from, to) => {
++      if (String(from).startsWith(datastoreRoot)) {
++        return realRename(from, to);
++      }
+       const err = new Error("EXDEV: cross-device link not permitted");
+       err.code = "EXDEV";
+       return Promise.reject(err);
+@@ -174,6 +196,43 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
+     expect(fs.readFileSync(dest).equals(payload)).toBe(true);
+   });
+ 
++  test("leaves no partial file behind once the copy is promoted", async () => {
++    forceCrossDevice();
++    const source = _path.join(stagingDir, "reads.fq");
++    fs.writeFileSync(source, "ACGTACGT");
++    const doc = makeFile(source);
++
++    await doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq"));
++
++    expect(partialsIn(_path.join(datastoreRoot, "group", "raw"))).toEqual([]);
++  });
++
++  test("rejects a copy that is shorter than the source", async () => {
++    // A stream that ends early still resolves cleanly, so only the byte count
++    // catches it — and a short read file would pass silently downstream.
++    forceCrossDevice();
++    const source = _path.join(stagingDir, "reads.fq");
++    fs.writeFileSync(source, "ACGTACGT");
++    mockWriteStreamFactory = (destPath) => {
++      fs.mkdirSync(_path.dirname(destPath), { recursive: true });
++      fs.writeFileSync(destPath, "AC"); // fewer bytes than the source
++      return new Writable({
++        write(chunk, encoding, callback) {
++          callback(); // silently accepts, writes nothing more
++        },
++      });
++    };
++    const doc = makeFile(source);
++
++    await expect(
++      doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq")),
++    ).rejects.toThrow(/2 bytes but the source is 8 bytes/);
++    expect(
++      fs.existsSync(_path.join(datastoreRoot, "group", "raw", "reads.fq")),
++    ).toBe(false);
++    expect(fs.existsSync(source)).toBe(true);
++  });
++
+   describe("when the copy fails part-way", () => {
+     const REL_PATH = _path.join("group", "raw", "reads.fq");
+     let source;
+@@ -246,6 +305,106 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
+ 
+       expect(doc.path).toBe(source);
+     });
++
++    test("cleans up the partial copy", async () => {
++      const doc = makeFile(source);
++
++      await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
++
++      expect(partialsIn(_path.dirname(dest))).toEqual([]);
++    });
++  });
++});
++
++describe("moveToFolderAndSave — rename failures that are not cross-device", () => {
++  const REL_PATH = _path.join("group", "raw", "reads.fq");
++
++  /**
++   * The destination already holds the file and the source is gone: what an
++   * earlier attempt leaves behind when it moves the bytes and then fails
++   * before the document is saved.
++   */
++  const stageAlreadyMoved = () => {
++    const dest = _path.join(datastoreRoot, REL_PATH);
++    fs.mkdirSync(_path.dirname(dest), { recursive: true });
++    fs.writeFileSync(dest, "COMPLETE-GENOMIC-DATA");
++    return dest;
++  };
++
++  test("does not overwrite the file already at the destination", async () => {
++    const dest = stageAlreadyMoved();
++    const doc = makeFile(_path.join(stagingDir, "reads.fq")); // never created
++
++    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
++
++    expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");
++  });
++
++  test("rejects rather than falling back to a copy", async () => {
++    stageAlreadyMoved();
++    const doc = makeFile(_path.join(stagingDir, "reads.fq"));
++
++    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(/ENOENT/);
++  });
++
++  test("names both paths so the state can be diagnosed", async () => {
++    const dest = stageAlreadyMoved();
++    const source = _path.join(stagingDir, "reads.fq");
++    const doc = makeFile(source);
++
++    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
++      new RegExp(`${source}.*${dest}`),
++    );
++  });
++});
++
++describe("moveToFolderAndSave — transfer tracking", () => {
++  const REL_PATH = _path.join("group", "raw", "reads.fq");
++
++  test("tracks the transfer while the move is in flight", async () => {
++    const source = _path.join(stagingDir, "reads.fq");
++    fs.writeFileSync(source, "ACGT");
++    const doc = makeFile(source);
++    let seenDuringSave = [];
++    doc.save = jest.fn().mockImplementation(() => {
++      seenDuringSave = getActiveTransfers();
++      return Promise.resolve(doc);
++    });
++
++    await doc.moveToFolderAndSave(REL_PATH);
++
++    expect(seenDuringSave).toHaveLength(1);
++    expect(seenDuringSave[0]).toMatchObject({ filename: "reads.fq" });
++  });
++
++  test("releases the transfer once the move completes", async () => {
++    const source = _path.join(stagingDir, "reads.fq");
++    fs.writeFileSync(source, "ACGT");
++    const doc = makeFile(source);
++
++    await doc.moveToFolderAndSave(REL_PATH);
++
++    expect(getActiveTransfers()).toEqual([]);
++  });
++
++  test("releases the transfer when the move fails", async () => {
++    // A leaked entry would block every clean shutdown from here on.
++    const doc = makeFile(_path.join(stagingDir, "missing.fq"));
++
++    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
++
++    expect(getActiveTransfers()).toEqual([]);
++  });
++
++  test("releases the transfer when saving the document fails", async () => {
++    const source = _path.join(stagingDir, "reads.fq");
++    fs.writeFileSync(source, "ACGT");
++    const doc = makeFile(source);
++    doc.save = jest.fn().mockRejectedValue(new Error("E11000 duplicate key"));
++
++    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
++
++    expect(getActiveTransfers()).toEqual([]);
+   });
+ });
+ 
+diff --git a/__tests__/routes/_utils.test.js b/__tests__/routes/_utils.test.js
+index 3c614fa..d218793 100644
+--- a/__tests__/routes/_utils.test.js
++++ b/__tests__/routes/_utils.test.js
+@@ -6,10 +6,14 @@ const fs = require("fs");
+ const os = require("os");
+ const _path = require("path");
+ 
++const mongoose = require("mongoose");
++
+ const {
+   handleError,
+   getActualFiles,
+   generateRequestId,
++  getAdditionalFilesStatus,
++  compareFilesToDirectory,
+ } = require("../../routes/_utils");
+ 
+ /** Builds a minimal Express response double. */
+@@ -162,4 +166,230 @@ describe("getActualFiles", () => {
+     const filePath = _path.join(tmpDir, "reads.txt");
+     await expect(getActualFiles(filePath)).rejects.toThrow();
+   });
++
++  test("ignores subdirectories", async () => {
++    // A directory reported as a file shows up as an untracked stray.
++    fs.mkdirSync(_path.join(tmpDir, "nested"), { recursive: true });
++
++    await expect(getActualFiles(tmpDir)).resolves.not.toContain("nested");
++  });
++
++  test("ignores partially copied files", async () => {
++    // An interrupted transfer is not a stray file, and reporting it as one
++    // would send someone looking for a database record that never existed.
++    fs.writeFileSync(
++      _path.join(tmpDir, "big.bam.part-651f9c0a1b2c3d4e5f6a7b8c"),
++      "partial",
++    );
++
++    const files = await getActualFiles(tmpDir);
++
++    expect(files).toEqual(["reads.txt"]);
++  });
++});
++
++describe("getAdditionalFilesStatus", () => {
++  /** An AdditionalFile with its file ref populated, as the routes fetch it. */
++  const populated = (originalName) => ({
++    _id: new mongoose.Types.ObjectId(),
++    file: { originalName },
++  });
++
++  describe("when the database and disk agree", () => {
++    test("reports OK", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("a.pdf"), populated("b.csv")],
++        ["a.pdf", "b.csv"],
++      );
++
++      expect(result).toMatchObject({ status: "OK", missing: [], extra: [] });
++    });
++
++    test("reports OK when both sides are empty", () => {
++      expect(getAdditionalFilesStatus([], [])).toMatchObject({ status: "OK" });
++    });
++
++    test("ignores the order files are listed in", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("a.pdf"), populated("b.csv")],
++        ["b.csv", "a.pdf"],
++      );
++
++      expect(result.status).toBe("OK");
++    });
++  });
++
++  describe("when files are missing or untracked", () => {
++    test("reports a file that is absent from disk", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("a.pdf"), populated("gone.csv")],
++        ["a.pdf"],
++      );
++
++      expect(result).toMatchObject({
++        status: "MISMATCH",
++        missing: ["gone.csv"],
++        extra: [],
++      });
++    });
++
++    test("reports a file on disk with no record", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("a.pdf")],
++        ["a.pdf", "stray.txt"],
++      );
++
++      expect(result).toMatchObject({
++        status: "WARNING",
++        missing: [],
++        extra: ["stray.txt"],
++      });
++    });
++
++    test("reports both sides when a file has been renamed", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("old-name.pdf")],
++        ["new-name.pdf"],
++      );
++
++      expect(result).toMatchObject({
++        status: "MISMATCH",
++        missing: ["old-name.pdf"],
++        extra: ["new-name.pdf"],
++      });
++      expect(result.message).toMatch(/renamed/);
++    });
++
++    test("counts duplicates rather than matching by presence", () => {
++      // Two records, one copy on disk: set membership called this complete.
++      const result = getAdditionalFilesStatus(
++        [populated("report.pdf"), populated("report.pdf")],
++        ["report.pdf"],
++      );
++
++      expect(result).toMatchObject({
++        status: "MISMATCH",
++        missing: ["report.pdf"],
++      });
++    });
++
++    test("treats differently normalised filenames as the same file", () => {
++      // macOS and Linux encode the accent differently; a byte comparison
++      // reports the file as both missing and untracked.
++      const result = getAdditionalFilesStatus(
++        [populated("résumé.pdf".normalize("NFC"))],
++        ["résumé.pdf".normalize("NFD")],
++      );
++
++      expect(result.status).toBe("OK");
++    });
++  });
++
++  describe("when a record's filename cannot be resolved", () => {
++    test("reports an unpopulated file reference instead of dropping it", () => {
++      // An unpopulated ref is an ObjectId — truthy, but with no originalName.
++      // Dropping it emptied the database side, so every real file on disk was
++      // reported as untracked.
++      const result = getAdditionalFilesStatus(
++        [{ _id: new mongoose.Types.ObjectId(), file: new mongoose.Types.ObjectId() }],
++        ["a.pdf"],
++      );
++
++      expect(result.unresolved).toHaveLength(1);
++      expect(result.status).toBe("MISMATCH");
++    });
++
++    test("reports a record whose file document has been deleted", () => {
++      // Otherwise a broken record looks like a stray file on disk.
++      const result = getAdditionalFilesStatus(
++        [{ _id: new mongoose.Types.ObjectId(), file: null }],
++        [],
++      );
++
++      expect(result.unresolved).toHaveLength(1);
++      expect(result.message).toMatch(/no readable filename/);
++    });
++
++    test("does not count an unresolved record as a file on disk", () => {
++      const result = getAdditionalFilesStatus(
++        [populated("a.pdf"), { _id: new mongoose.Types.ObjectId(), file: null }],
++        ["a.pdf"],
++      );
++
++      expect(result.missing).toEqual([]);
++      expect(result.extra).toEqual([]);
++    });
++  });
++
++  describe("input shapes", () => {
++    test("accepts a bare file document", () => {
++      const result = getAdditionalFilesStatus(
++        [{ originalName: "a.pdf" }],
++        ["a.pdf"],
++      );
++
++      expect(result.status).toBe("OK");
++    });
++
++    test("accepts plain filename strings", () => {
++      expect(getAdditionalFilesStatus(["a.pdf"], ["a.pdf"]).status).toBe("OK");
++    });
++
++    test("tolerates a virtual that was never populated", () => {
++      // An unpopulated virtual is undefined, and throwing here turned a
++      // working GET into a 500.
++      expect(() => getAdditionalFilesStatus(undefined, ["a.pdf"])).not.toThrow();
++      expect(getAdditionalFilesStatus(undefined, ["a.pdf"]).extra).toEqual([
++        "a.pdf",
++      ]);
++    });
++
++    test("tolerates a missing directory listing", () => {
++      expect(() => getAdditionalFilesStatus([populated("a.pdf")])).not.toThrow();
++    });
++  });
++});
++
++describe("compareFilesToDirectory", () => {
++  let tmpDir;
++
++  beforeAll(() => {
++    tmpDir = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-compare-"));
++    fs.writeFileSync(_path.join(tmpDir, "a.pdf"), "a");
++  });
++
++  afterAll(() => {
++    fs.rmSync(tmpDir, { recursive: true, force: true });
++  });
++
++  test("returns the listing alongside the status", async () => {
++    const result = await compareFilesToDirectory(
++      [{ originalName: "a.pdf" }],
++      tmpDir,
++    );
++
++    expect(result.actualFiles).toEqual(["a.pdf"]);
++    expect(result.status.status).toBe("OK");
++  });
++
++  test("treats a missing directory as no files", async () => {
++    const result = await compareFilesToDirectory(
++      [{ originalName: "a.pdf" }],
++      _path.join(tmpDir, "does-not-exist"),
++    );
++
++    expect(result.status.status).toBe("MISMATCH");
++    expect(result.status.missing).toEqual(["a.pdf"]);
++  });
++
++  test("degrades to UNKNOWN rather than failing the request", async () => {
++    // These checks were added to endpoints that previously did no filesystem
++    // work; an unreachable datastore must not turn a working GET into a 500.
++    const notADirectory = _path.join(tmpDir, "a.pdf");
++
++    const result = await compareFilesToDirectory([], notADirectory);
++
++    expect(result.status.status).toBe("UNKNOWN");
++    expect(result.actualFiles).toEqual([]);
++  });
+ });
+diff --git a/__tests__/routes/projects.test.js b/__tests__/routes/projects.test.js
+index 6b87592..b97dad6 100644
+--- a/__tests__/routes/projects.test.js
++++ b/__tests__/routes/projects.test.js
+@@ -37,6 +37,16 @@ jest.mock("../../routes/_utils", () => ({
+     });
+   }),
+   getActualFiles: jest.fn().mockResolvedValue([]),
++  compareFilesToDirectory: jest.fn().mockResolvedValue({
++    actualFiles: [],
++    status: {
++      status: "OK",
++      message: "All files present",
++      missing: [],
++      extra: [],
++      unresolved: [],
++    },
++  }),
+ }));
+ 
+ // Create test app
+diff --git a/__tests__/routes/runs.test.js b/__tests__/routes/runs.test.js
+index 928211e..00f6dd9 100644
+--- a/__tests__/routes/runs.test.js
++++ b/__tests__/routes/runs.test.js
+@@ -54,6 +54,16 @@ jest.mock("../../routes/_utils", () => ({
+   }),
+   getActualFiles: jest.fn().mockResolvedValue([]),
+   generateRequestId: jest.fn().mockReturnValue("test-request-id"),
++  compareFilesToDirectory: jest.fn().mockResolvedValue({
++    actualFiles: [],
++    status: {
++      status: "OK",
++      message: "All files present",
++      missing: [],
++      extra: [],
++      unresolved: [],
++    },
++  }),
+ }));
+ 
+ const app = express();
+diff --git a/__tests__/routes/samples.test.js b/__tests__/routes/samples.test.js
+index 038a1f9..85b69d2 100644
+--- a/__tests__/routes/samples.test.js
++++ b/__tests__/routes/samples.test.js
+@@ -37,6 +37,16 @@ jest.mock("../../routes/_utils", () => ({
+       });
+   }),
+   getActualFiles: jest.fn().mockResolvedValue([]),
++  compareFilesToDirectory: jest.fn().mockResolvedValue({
++    actualFiles: [],
++    status: {
++      status: "OK",
++      message: "All files present",
++      missing: [],
++      extra: [],
++      unresolved: [],
++    },
++  }),
+ }));
+ 
+ // Create test app
+diff --git a/lib/active-transfers.js b/lib/active-transfers.js
+index 873bcaa..22c83fb 100644
+--- a/lib/active-transfers.js
++++ b/lib/active-transfers.js
+@@ -1,19 +1,102 @@
+-const activeTransfers = new Set();
++/**
++ * Tracks in-flight file transfers so shutdown can refuse to interrupt them.
++ *
++ * Entries are keyed by an opaque token rather than by their contents. Keying by
++ * `{id, filename}` collapsed two concurrent moves of the same file into a
++ * single entry, so whichever finished first cleared the flag while the other
++ * was still copying — precisely the case this is meant to catch.
++ *
++ * The register is per-process and in memory. Under PM2 cluster mode each
++ * instance would keep its own, and one instance would happily exit while
++ * another was mid-transfer; see ecosystem.config.js, which pins a single
++ * instance for this reason.
++ */
+ 
++/** Marks a copy that has not yet been promoted to its final name. */
++const PARTIAL_TRANSFER_SUFFIX = ".part-";
++
++// Matched strictly — suffix plus the File document's id, at the end of the
++// name. A loose match would hide a genuine file called something like
++// "assembly.part-2.bam", which would then be reported as missing from disk.
++const PARTIAL_TRANSFER_PATTERN = /\.part-[0-9a-f]{24}$/i;
++
++/** @type {Map<string, {token: string, id: string, filename: string, startedAt: number}>} */
++const activeTransfers = new Map();
++
++let nextToken = 0;
++
++/**
++ * Registers a transfer as in progress.
++ * @param {string} id - The File document id, for the operator-facing warning.
++ * @param {string} filename - The file's name, for the same warning.
++ * @returns {string} A token to hand back to removeTransfer when the transfer ends.
++ */
+ const addTransfer = (id, filename) => {
+-  activeTransfers.add(JSON.stringify({ id, filename }));
++  const token = String((nextToken += 1));
++  activeTransfers.set(token, { token, id, filename, startedAt: Date.now() });
++  return token;
+ };
+ 
+-const removeTransfer = (id, filename) => {
+-  activeTransfers.delete(JSON.stringify({ id, filename }));
+-};
++/**
++ * Marks a transfer as finished. Safe to call with an unknown or undefined
++ * token so callers can put it in a `finally` without further guarding.
++ * @param {string} token - The token returned by addTransfer.
++ * @returns {boolean} Whether an entry was actually removed.
++ */
++const removeTransfer = (token) => activeTransfers.delete(token);
+ 
++/**
++ * @returns {Array<{token: string, id: string, filename: string, startedAt: number, ageMs: number}>}
++ *   Every transfer currently in flight, oldest first, with its age.
++ */
+ const getActiveTransfers = () => {
+-  return Array.from(activeTransfers).map(str => JSON.parse(str));
++  const now = Date.now();
++  return Array.from(activeTransfers.values())
++    .map((transfer) => ({ ...transfer, ageMs: now - transfer.startedAt }))
++    .sort((a, b) => b.ageMs - a.ageMs);
++};
++
++/**
++ * Splits the register into transfers worth blocking a shutdown for and ones
++ * that have been running so long they are presumed stuck.
++ *
++ * Without the second category, a single copy hung on an unresponsive mount
++ * would refuse every clean shutdown indefinitely, leaving SIGKILL as the only
++ * way to restart the API.
++ *
++ * @param {number} stalledAfterMs - Age past which a transfer stops blocking.
++ * @returns {{all: object[], inFlight: object[], stalled: object[]}}
++ */
++const getBlockingTransfers = (stalledAfterMs) => {
++  const all = getActiveTransfers();
++  return {
++    all,
++    inFlight: all.filter((t) => t.ageMs < stalledAfterMs),
++    stalled: all.filter((t) => t.ageMs >= stalledAfterMs),
++  };
++};
++
++/**
++ * Whether a directory entry is a partially copied file rather than a real one.
++ * These are invisible to the datastore's own file listings: reporting them
++ * would show every interrupted copy as an untracked stray file.
++ * @param {string} filename - A single directory entry name.
++ * @returns {boolean}
++ */
++const isPartialTransferFile = (filename) =>
++  typeof filename === "string" && PARTIAL_TRANSFER_PATTERN.test(filename);
++
++/** Test helper: forgets every tracked transfer. */
++const clearActiveTransfers = () => {
++  activeTransfers.clear();
+ };
+ 
+ module.exports = {
+   addTransfer,
+   removeTransfer,
+-  getActiveTransfers
++  getActiveTransfers,
++  getBlockingTransfers,
++  isPartialTransferFile,
++  clearActiveTransfers,
++  PARTIAL_TRANSFER_SUFFIX,
+ };
+diff --git a/lib/background-jobs.js b/lib/background-jobs.js
+index 14c07eb..9c0ec42 100644
+--- a/lib/background-jobs.js
++++ b/lib/background-jobs.js
+@@ -15,6 +15,20 @@ let cleanupJobRunning = false;
+ // a restart and returned to the queue.
+ const STALLED_VERIFICATION_MINUTES = 60;
+ 
++// The job runs every 5 minutes and usually finds nothing, so an idle run says
++// nothing worth 288 log lines a day. It is still logged occasionally: total
++// silence makes "idle" and "no longer running" look identical.
++const IDLE_HEARTBEAT_MS = 60 * 60 * 1000;
++let lastIdleLogAt = 0;
++
++// Exposed via getJobStatus() so liveness can be checked without reading logs.
++const md5JobStatus = {
++  lastStartedAt: null,
++  lastFinishedAt: null,
++  lastRunsFound: null,
++  lastError: null,
++};
++
+ // Handles for the scheduled tasks, so tests and shutdown can stop them.
+ let scheduledTasks = [];
+ let startupTimer = null;
+@@ -30,6 +44,7 @@ const processMd5Verification = async () => {
+   }
+ 
+   md5JobRunning = true;
++  md5JobStatus.lastStartedAt = new Date();
+ 
+   try {
+     // Return anything stranded by a restart to the queue before picking work up.
+@@ -49,9 +64,22 @@ const processMd5Verification = async () => {
+ 
+     // Find runs needing verification
+     const runs = await findRunsNeedingVerification(10); // Process up to 10 at a time
++    md5JobStatus.lastRunsFound = runs.length;
+ 
+     if (runs.length === 0) {
+-      // Feature request: silence empty 5-minute cron logs
++      // Nothing to do: stay quiet rather than logging every 5 minutes, but
++      // check in hourly so the job's silence is not mistaken for its absence.
++      const now = Date.now();
++      const sinceLastLog = now - lastIdleLogAt;
++      // A negative gap means the wall clock stepped backwards (an NTP
++      // correction, say). Treat that as due rather than waiting out a
++      // deadline that has moved into the future.
++      if (sinceLastLog >= IDLE_HEARTBEAT_MS || sinceLastLog < 0) {
++        lastIdleLogAt = now;
++        console.log(
++          "[Background Job] MD5 verification idle — no runs awaiting verification",
++        );
++      }
+       return;
+     }
+ 
+@@ -92,13 +120,22 @@ const processMd5Verification = async () => {
+     }
+ 
+     console.log("[Background Job] MD5 verification batch completed");
++    md5JobStatus.lastError = null;
+   } catch (error) {
+     console.error("[Background Job] Error processing MD5 verification:", error);
++    md5JobStatus.lastError = { message: error.message, at: new Date() };
+   } finally {
+     md5JobRunning = false;
++    md5JobStatus.lastFinishedAt = new Date();
+   }
+ };
+ 
++/**
++ * A snapshot of the MD5 job's health, for a status endpoint or manual check.
++ * @returns {{running: boolean, lastStartedAt: ?Date, lastFinishedAt: ?Date, lastRunsFound: ?number, lastError: ?object}}
++ */
++const getJobStatus = () => ({ running: md5JobRunning, ...md5JobStatus });
++
+ /**
+  * Cleans up stale pending runs.
+  * Runs daily.
+@@ -133,10 +170,11 @@ const initializeBackgroundJobs = () => {
+   // Guard against a second call leaving orphaned schedules behind.
+   stopBackgroundJobs();
+ 
+-  // MD5 verification job - runs every 5 minutes
++  // MD5 verification job - runs every 5 minutes.
++  // The tick itself is not logged: doing so put a line in the log every 5
++  // minutes regardless, which is what silencing the idle run was meant to stop.
+   scheduledTasks.push(
+     cron.schedule("*/5 * * * *", async () => {
+-      console.log("[Background Job] MD5 verification cron triggered");
+       await processMd5Verification();
+     }),
+   );
+@@ -170,7 +208,12 @@ const initializeBackgroundJobs = () => {
+ const stopBackgroundJobs = () => {
+   scheduledTasks.forEach((task) => {
+     try {
+-      if (task && typeof task.stop === "function") {
++      // destroy() also drops the task from node-cron's module-level registry;
++      // stop() only clears its timer, leaving the entry to accumulate across
++      // repeated initialise/stop cycles.
++      if (task && typeof task.destroy === "function") {
++        task.destroy();
++      } else if (task && typeof task.stop === "function") {
+         task.stop();
+       }
+     } catch (error) {
+@@ -190,4 +233,5 @@ module.exports = {
+   stopBackgroundJobs,
+   processMd5Verification,
+   processCleanup,
++  getJobStatus,
+ };
+diff --git a/models/AdditionalFile.js b/models/AdditionalFile.js
+index a732b6d..f8269c9 100644
+--- a/models/AdditionalFile.js
++++ b/models/AdditionalFile.js
+@@ -27,10 +27,18 @@ schema.pre('save', function (next) {
+     next()
+ });
+ 
+-schema.post('save', async function (next) {
++schema.post('save', async function () {
+ 
+     const doc = this;
+ 
++    // Only a brand new record needs its file moved into place. By any later
++    // save the file already sits in the datastore and doc.file.path is
++    // relative, so a second move would look for a source that is not there.
++    // (Read.js guards the same hook with skipPostSave.)
++    if (!doc.wasNew) {
++        return;
++    }
++
+     let prom;
+     if (doc.run) {
+         prom = Run.findById(doc.run)
+diff --git a/models/File.js b/models/File.js
+index 34696e6..6adfc1b 100644
+--- a/models/File.js
++++ b/models/File.js
+@@ -3,7 +3,27 @@ const _path = require("path");
+ const fs = require("fs").promises;
+ const { createReadStream, createWriteStream } = require("fs");
+ const { pipeline } = require("stream/promises");
+-const { addTransfer, removeTransfer } = require("../lib/active-transfers");
++const {
++  addTransfer,
++  removeTransfer,
++  PARTIAL_TRANSFER_SUFFIX,
++} = require("../lib/active-transfers");
++
++// rename() reports these when the source and destination sit on different
++// mounts, which is the only case the copy fallback is a valid recovery for.
++// EPERM is what Windows returns for the same situation.
++const CROSS_DEVICE_CODES = new Set(["EXDEV", "EPERM", "ENOTSUP"]);
++
++/**
++ * Where an in-progress copy is written before being promoted to its real name.
++ * Deterministic per file, so retrying a move overwrites its own leftovers
++ * instead of accumulating a new stray file each time.
++ * @param {string} destination - The final absolute path.
++ * @param {string|object} fileId - The File document's id.
++ * @returns {string} The absolute path to write the copy to.
++ */
++const partialPathFor = (destination, fileId) =>
++  `${destination}${PARTIAL_TRANSFER_SUFFIX}${fileId}`;
+ 
+ const schema = new mongoose.Schema(
+   {
+@@ -39,33 +59,64 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
+ 
+   const fullNewPath = _path.join(process.env.DATASTORE_ROOT, relNewPath);
+ 
++  // Held for the whole operation so a shutdown mid-transfer can be refused.
++  // Released in the finally: a copy that neither finished nor threw would
++  // otherwise block every subsequent clean shutdown forever.
++  const transferToken = addTransfer(file._id.toString(), file.name);
++
+   try {
+     console.log("Moving file from", file.path, "to", fullNewPath);
+-    addTransfer(file._id.toString(), file.name);
+ 
+     // Create directory if it doesn't exist (native mkdirp equivalent)
+     await fs.mkdir(_path.dirname(fullNewPath), { recursive: true });
+ 
+-    // Try rename first (faster if on same filesystem)
++    // Try rename first (faster if on same filesystem, and atomic)
+     try {
+       await fs.rename(file.path, fullNewPath);
+     } catch (renameErr) {
+-      // If rename fails (likely cross-device), fall back to copy+unlink.
+-      // These are sequencing reads, often many GB, so a failure part-way
+-      // through leaves a truncated file at the destination. It must be removed:
+-      // left behind it looks like a complete read file to everything
+-      // downstream. pipeline() also destroys both streams, which a bare
+-      // pipe() does not do on error.
++      if (!CROSS_DEVICE_CODES.has(renameErr.code)) {
++        // Copying is only a valid recovery for a cross-mount move. For any
++        // other failure the source is the problem, and opening the
++        // destination for writing would truncate whatever is already there.
++        // ENOENT in particular means an earlier attempt moved the bytes and
++        // then failed before the document was saved — the destination holds
++        // the only copy, and a "fallback" would destroy it.
++        renameErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${renameErr.message}`;
++        throw renameErr;
++      }
++
++      // Cross-device: copy, then promote. These are sequencing reads, often
++      // many GB, so an interruption part-way through must never leave a
++      // truncated file under the real name — it would look like a complete
++      // read to everything downstream. Writing to a sibling and renaming
++      // means the destination only ever appears complete, even if the process
++      // is killed outright. pipeline() also destroys both streams, which a
++      // bare pipe() does not do on error.
++      const partialPath = partialPathFor(fullNewPath, file._id);
++
+       try {
++        const { size: sourceSize } = await fs.stat(file.path);
++
+         await pipeline(
+           createReadStream(file.path),
+-          createWriteStream(fullNewPath),
++          createWriteStream(partialPath),
+         );
++
++        // A stream that ends early resolves cleanly, so the byte count is the
++        // only thing that actually proves the copy is whole.
++        const { size: copiedSize } = await fs.stat(partialPath);
++        if (copiedSize !== sourceSize) {
++          throw new Error(
++            `Copy of ${file.path} is ${copiedSize} bytes but the source is ${sourceSize} bytes`,
++          );
++        }
++
++        await fs.rename(partialPath, fullNewPath);
+       } catch (copyErr) {
+-        await fs.unlink(fullNewPath).catch((cleanupErr) => {
++        await fs.unlink(partialPath).catch((cleanupErr) => {
+           if (cleanupErr.code !== "ENOENT") {
+             console.error(
+-              `Failed to remove partial file at ${fullNewPath}:`,
++              `Failed to remove partial file at ${partialPath}:`,
+               cleanupErr,
+             );
+           }
+@@ -78,14 +129,24 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
+     }
+ 
+     file.path = relNewPath;
+-    const saved = await file.save();
+-    removeTransfer(file._id.toString(), file.name);
+-    return saved;
++
++    try {
++      return await file.save();
++    } catch (saveErr) {
++      // The bytes are already at the destination and the source is gone, so
++      // retrying the move cannot work. Name both paths — recovering means
++      // repointing the document, not moving the file again.
++      console.error(
++        `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`,
++      );
++      throw saveErr;
++    }
+   } catch (err) {
+-    removeTransfer(file._id.toString(), file.name);
+     console.log("...but error moving file! :(");
+     console.error(err);
+     throw err;
++  } finally {
++    removeTransfer(transferToken);
+   }
+ };
+ 
+diff --git a/routes/_utils.js b/routes/_utils.js
+index 6261891..0ceb5cf 100644
+--- a/routes/_utils.js
++++ b/routes/_utils.js
+@@ -1,4 +1,5 @@
+ const fs = require("fs").promises;
++const { isPartialTransferFile } = require("../lib/active-transfers");
+ 
+ /**
+  * Generates a unique request ID for log correlation.
+@@ -68,8 +69,16 @@ const handleError = (res, error, statusCode = 500, message, requestId) => {
+  */
+ const getActualFiles = async (directoryPath) => {
+   try {
+-    const files = await fs.readdir(directoryPath);
+-    return files.filter((file) => !file.startsWith(".")); // Filter out hidden files
++    const entries = await fs.readdir(directoryPath, { withFileTypes: true });
++    return entries
++      // A subdirectory is not a file; without this it is reported as an
++      // untracked stray. Anything else (including symlinks, which sequencing
++      // pipelines do use) is left in — isFile() is false for a symlink even
++      // when it points at a perfectly good file.
++      .filter((entry) => !entry.isDirectory())
++      .map((entry) => entry.name)
++      .filter((name) => !name.startsWith(".")) // Filter out hidden files
++      .filter((name) => !isPartialTransferFile(name)); // in-flight copies
+   } catch (error) {
+     // If the directory doesn't exist, it's a non-critical error, so return an empty array.
+     if (error.code === "ENOENT") {
+@@ -81,18 +90,160 @@ const getActualFiles = async (directoryPath) => {
+   }
+ };
+ 
+-const getAdditionalFilesStatus = (dbFiles, actualFiles) => {
+-  const dbFileNames = dbFiles.map((af) => af.file ? af.file.originalName : af.originalName).filter(Boolean);
+-  
+-  const missing = dbFileNames.filter((f) => !actualFiles.includes(f));
+-  const extra = actualFiles.filter((f) => !dbFileNames.includes(f));
++/**
++ * Resolves the on-disk filename a database record refers to.
++ *
++ * Records arrive in more than one shape: an AdditionalFile with its `file` ref
++ * populated, a bare File document, or a plain string. An *unpopulated* ref is
++ * an ObjectId — truthy, but with no `originalName` — so it must not be
++ * mistaken for a populated one.
++ *
++ * @param {object|string} dbFile - One entry from the database side.
++ * @returns {string|null} The filename, or null if it cannot be resolved.
++ */
++const resolveDbFileName = (dbFile) => {
++  if (typeof dbFile === "string") {
++    return dbFile || null;
++  }
++  if (!dbFile || typeof dbFile !== "object") {
++    return null;
++  }
++  // A populated ref exposes originalName; an ObjectId does not.
++  return dbFile.file?.originalName || dbFile.originalName || null;
++};
+ 
+-  if (missing.length === 0 && extra.length === 0) {
+-    return { status: "OK", message: "All files present", missing, extra };
+-  } else if (missing.length > 0) {
+-    return { status: "MISMATCH", message: `Missing ${missing.length} file(s) on disk`, missing, extra };
+-  } else {
+-    return { status: "WARNING", message: `Found ${extra.length} untracked file(s) on disk`, missing, extra };
++/** Upper-cases the first character, for messages built from fragments. */
++const capitalise = (text) => text.charAt(0).toUpperCase() + text.slice(1);
++
++/** Counts occurrences of each name, preserving first-seen order. */
++const countByName = (names) => {
++  const counts = new Map();
++  names.forEach((name) => counts.set(name, (counts.get(name) ?? 0) + 1));
++  return counts;
++};
++
++/**
++ * Names present in `counts` beyond what `other` accounts for, repeated by the
++ * shortfall. Comparing sets rather than counts hid duplicates: two records
++ * named report.pdf with one copy on disk reported as complete.
++ */
++const excessNames = (counts, other) => {
++  const out = [];
++  counts.forEach((count, name) => {
++    const shortfall = count - (other.get(name) ?? 0);
++    for (let i = 0; i < shortfall; i += 1) {
++      out.push(name);
++    }
++  });
++  return out;
++};
++
++/**
++ * Compares the files a record claims to have against what is on disk.
++ *
++ * Entries whose filename cannot be resolved are reported in `unresolved`
++ * rather than dropped. Dropping them made two different faults invisible: a
++ * missing populate silently emptied the database side so that every real file
++ * read as untracked, and a File document deleted out from under its
++ * AdditionalFile made a broken record look like a stray file on disk.
++ *
++ * @param {Array<object|string>} [dbFiles=[]] - The database side.
++ * @param {Array<string>} [actualFiles=[]] - Filenames from getActualFiles.
++ * @returns {{status: "OK"|"WARNING"|"MISMATCH", message: string, missing: string[], extra: string[], unresolved: string[]}}
++ */
++const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
++  const dbFileNames = [];
++  const unresolved = [];
++
++  (Array.isArray(dbFiles) ? dbFiles : []).forEach((dbFile) => {
++    const name = resolveDbFileName(dbFile);
++    if (name) {
++      dbFileNames.push(name);
++    } else {
++      unresolved.push(String(dbFile?._id ?? dbFile?.file ?? "unknown"));
++    }
++  });
++
++  // macOS and Linux disagree on how accented filenames are encoded, so compare
++  // on a single normal form rather than reporting a byte difference as a
++  // missing file. The reported names stay as they were supplied.
++  const key = (name) => name.normalize("NFC");
++  const dbCounts = countByName(dbFileNames.map(key));
++  const diskCounts = countByName(
++    (Array.isArray(actualFiles) ? actualFiles : []).map(key),
++  );
++
++  const missing = excessNames(dbCounts, diskCounts);
++  const extra = excessNames(diskCounts, dbCounts);
++
++  const problems = [];
++  if (missing.length > 0) {
++    problems.push(`missing ${missing.length} file(s) on disk`);
++  }
++  if (unresolved.length > 0) {
++    problems.push(`${unresolved.length} record(s) with no readable filename`);
++  }
++  if (extra.length > 0) {
++    problems.push(`${extra.length} untracked file(s) on disk`);
++  }
++
++  if (problems.length === 0) {
++    return {
++      status: "OK",
++      message: "All files present",
++      missing,
++      extra,
++      unresolved,
++    };
++  }
++
++  // A file both missing and untracked is usually one that was renamed, which
++  // is worth saying outright rather than reporting as two unrelated faults.
++  const summary =
++    missing.length > 0 && extra.length > 0
++      ? `${capitalise(problems.join(", "))} — this often means a file was renamed`
++      : capitalise(problems.join(", "));
++
++  return {
++    status: missing.length > 0 || unresolved.length > 0 ? "MISMATCH" : "WARNING",
++    message: summary,
++    missing,
++    extra,
++    unresolved,
++  };
++};
++
++/**
++ * Reads a directory and compares it against the database records in one step,
++ * degrading to an UNKNOWN status instead of failing the whole request.
++ *
++ * These checks were added to read endpoints that previously did no filesystem
++ * work at all. Letting a stalled or unmounted datastore turn a working GET
++ * into a 500 would be a worse regression than not reporting file status.
++ *
++ * @param {Array<object|string>} dbFiles - The database side.
++ * @param {string} directoryPath - Absolute path to the directory to list.
++ * @returns {Promise<{actualFiles: string[], status: object}>}
++ */
++const compareFilesToDirectory = async (dbFiles, directoryPath) => {
++  try {
++    const actualFiles = await getActualFiles(directoryPath);
++    return {
++      actualFiles,
++      status: getAdditionalFilesStatus(dbFiles, actualFiles),
++    };
++  } catch (error) {
++    console.error(`Could not check files in ${directoryPath}:`, error.message);
++    return {
++      actualFiles: [],
++      status: {
++        status: "UNKNOWN",
++        message: `Could not read the storage directory: ${error.message}`,
++        missing: [],
++        extra: [],
++        unresolved: [],
++      },
++    };
+   }
+ };
+ 
+@@ -101,4 +252,5 @@ module.exports = {
+   getActualFiles,
+   generateRequestId,
+   getAdditionalFilesStatus,
++  compareFilesToDirectory,
+ };
+diff --git a/routes/projects.js b/routes/projects.js
+index d7447ad..d1ca920 100644
+--- a/routes/projects.js
++++ b/routes/projects.js
+@@ -8,7 +8,7 @@ const Group = require("../models/Group");
+ const { isAuthenticated } = require("./middleware");
+ const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
+ const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
+-const { handleError, getActualFiles, getAdditionalFilesStatus } = require("./_utils");
++const { handleError, compareFilesToDirectory } = require("./_utils");
+ 
+ /**
+  * Helper to check if user has access to a resource via group membership
+@@ -93,8 +93,10 @@ router
+         project.path,
+         "additional",
+       );
+-      const actualAdditionalFiles = await getActualFiles(additionalDir);
+-      const additionalFilesStatus = getAdditionalFilesStatus(project.additionalFiles, actualAdditionalFiles);
++      const {
++        actualFiles: actualAdditionalFiles,
++        status: additionalFilesStatus,
++      } = await compareFilesToDirectory(project.additionalFiles, additionalDir);
+ 
+       res.status(200).send({ project, actualAdditionalFiles, additionalFilesStatus });
+     } catch (error) {
+diff --git a/routes/runs.js b/routes/runs.js
+index 0389765..480102e 100644
+--- a/routes/runs.js
++++ b/routes/runs.js
+@@ -11,7 +11,11 @@ const {
+   sortReadFiles,
+ } = require("../lib/sortAssociatedFiles");
+ const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
+-const { handleError, getActualFiles, generateRequestId, getAdditionalFilesStatus } = require("./_utils");
++const {
++  handleError,
++  generateRequestId,
++  compareFilesToDirectory,
++} = require("./_utils");
+ const { verifyRunMd5 } = require("../lib/md5-verification");
+ 
+ /**
+@@ -121,22 +125,15 @@ router
+       const rawDir = _path.join(runDirectory, "raw");
+       const additionalDir = _path.join(runDirectory, "additional");
+ 
+-      const [actualReads, actualAdditionalFiles] = await Promise.all([
+-        getActualFiles(rawDir),
+-        getActualFiles(additionalDir),
++      const [raw, additional] = await Promise.all([
++        compareFilesToDirectory(run.rawFiles, rawDir),
++        compareFilesToDirectory(run.additionalFiles, additionalDir),
+       ]);
+ 
+-      const additionalFilesStatus = getAdditionalFilesStatus(run.additionalFiles, actualAdditionalFiles);
+-      
+-      const dbReads = run.rawFiles.map((af) => af.file ? af.file.originalName : af.originalName).filter(Boolean);
+-      const missingReads = dbReads.filter((f) => !actualReads.includes(f));
+-      const extraReads = actualReads.filter((f) => !dbReads.includes(f));
+-      const rawFilesStatus = {
+-        status: missingReads.length === 0 ? "OK" : "MISMATCH",
+-        message: missingReads.length === 0 ? "All files present" : `Missing ${missingReads.length} file(s) on disk`,
+-        missing: missingReads,
+-        extra: extraReads
+-      };
++      const actualReads = raw.actualFiles;
++      const rawFilesStatus = raw.status;
++      const actualAdditionalFiles = additional.actualFiles;
++      const additionalFilesStatus = additional.status;
+ 
+       res.status(200).send({
+         run,
+diff --git a/routes/samples.js b/routes/samples.js
+index ceed50c..9563817 100644
+--- a/routes/samples.js
++++ b/routes/samples.js
+@@ -7,7 +7,7 @@ const Group = require("../models/Group");
+ const { isAuthenticated } = require("./middleware");
+ const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
+ const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
+-const { handleError, getActualFiles, getAdditionalFilesStatus } = require("./_utils");
++const { handleError, compareFilesToDirectory } = require("./_utils");
+ 
+ /**
+  * Helper to check if user has access to a resource via group membership
+@@ -119,8 +119,10 @@ router
+         sample.path,
+         "additional",
+       );
+-      const actualAdditionalFiles = await getActualFiles(additionalDir);
+-      const additionalFilesStatus = getAdditionalFilesStatus(sample.additionalFiles, actualAdditionalFiles);
++      const {
++        actualFiles: actualAdditionalFiles,
++        status: additionalFilesStatus,
++      } = await compareFilesToDirectory(sample.additionalFiles, additionalDir);
+ 
+       res.status(200).send({ sample, actualAdditionalFiles, additionalFilesStatus });
+     } catch (error) {
+diff --git a/server.js b/server.js
+index 1035c49..e789ba5 100644
+--- a/server.js
++++ b/server.js
+@@ -4,7 +4,7 @@ const {
+   initializeBackgroundJobs,
+   stopBackgroundJobs,
+ } = require("./lib/background-jobs");
+-const { getActiveTransfers } = require("./lib/active-transfers");
++const { getBlockingTransfers } = require("./lib/active-transfers");
+ 
+ const PORT = process.env.PORT || 3000;
+ const mongoosePort = process.env.MONGODB_PORT || 27017;
+@@ -32,25 +32,72 @@ process.on("uncaughtException", (err) => {
+ let server = null;
+ let shuttingDown = false;
+ 
++// A transfer running longer than this is treated as stalled rather than
++// active. Without it, a single copy hung on an unresponsive mount would block
++// every clean shutdown indefinitely, with SIGKILL as the only way out.
++const STALLED_TRANSFER_MS =
++  Number(process.env.STALLED_TRANSFER_MINUTES || 360) * 60 * 1000;
++
++/** Formats one transfer for the operator-facing warning. */
++const describeTransfer = (transfer) =>
++  `  - ${transfer.filename} (${transfer.id}), running for ${Math.round(
++    transfer.ageMs / 60000,
++  )} min`;
++
+ /**
+  * Closes the HTTP listener, cron jobs and DB connection, then exits.
++ *
++ * A clean shutdown is refused while files are moving. Note that this only
++ * buys time: PM2 follows SIGINT with SIGKILL after `kill_timeout`, which no
++ * process can intercept. The real protection against a truncated file is in
++ * File.moveToFolderAndSave, which copies to a `.part-` sibling and renames it
++ * into place, so an abrupt kill can never leave a partial file under the real
++ * name. See ecosystem.config.js.
++ *
+  * @param {number} code - The exit code to use.
+  */
+ function shutdown(code) {
+   if (shuttingDown) {
+     return;
+   }
+-  
+-  const transfers = getActiveTransfers();
+-  if (transfers.length > 0 && code === 0) {
+-    console.warn(`\n[WARNING] Attempted to shut down, but ${transfers.length} file transfer(s) are currently in progress!`);
+-    console.warn(`If you shut down now, these massive genomic files will be truncated and corrupted.`);
++
++  const {
++    all: transfers,
++    inFlight,
++    stalled,
++  } = getBlockingTransfers(STALLED_TRANSFER_MS);
++
++  if (inFlight.length > 0 && code === 0) {
++    console.warn(
++      `\n[WARNING] Attempted to shut down, but ${inFlight.length} file transfer(s) are currently in progress!`,
++    );
+     console.warn(`Active transfers:`);
+-    transfers.forEach(t => console.warn(`  - ${t.filename} (${t.id})`));
+-    console.warn(`\nShutdown aborted. To force shutdown and kill the transfers, run: pm2 restart komondor-api --force (or send SIGKILL).\n`);
++    inFlight.forEach((t) => console.warn(describeTransfer(t)));
++    if (stalled.length > 0) {
++      console.warn(
++        `(${stalled.length} further transfer(s) ignored: no progress for over ${Math.round(
++          STALLED_TRANSFER_MS / 60000,
++        )} min, so they are treated as stalled.)`,
++      );
++    }
++    console.warn(
++      `\nShutdown aborted. Retry once they finish, or force it with: kill -9 ${process.pid}\n`,
++    );
+     return;
+   }
+ 
++  if (transfers.length > 0) {
++    // Going anyway: either this is a crash path (code !== 0), where the
++    // process state is untrustworthy, or every transfer looks stalled.
++    console.warn(
++      `[WARNING] Exiting with ${transfers.length} file transfer(s) still tracked:`,
++    );
++    transfers.forEach((t) => console.warn(describeTransfer(t)));
++    console.warn(
++      "Interrupted copies are left as .part- files, which the API ignores; the source files are untouched.",
++    );
++  }
++
+   shuttingDown = true;
+ 
+   try {
+@@ -81,7 +128,10 @@ function shutdown(code) {
+ 
+ ["SIGTERM", "SIGINT"].forEach((signal) => {
+   process.on(signal, () => {
+-    console.log(`Received ${signal}, shutting down`);
++    // Deliberately not "shutting down" — shutdown() may refuse, and a log
++    // line claiming otherwise sends operators looking for a process that
++    // never left.
++    console.log(`Received ${signal}`);
+     shutdown(0);
+   });
+ });
+@@ -115,3 +165,7 @@ mongoose.connection.on("disconnected", () => {
+ });
+ 
+ server = app.listen(PORT, () => console.log(`API running on port ${PORT}!`));
++
++// Exported so the shutdown guard can be exercised directly; nothing else
++// should call this — the signal handlers above are the entry point.
++module.exports = { shutdown };

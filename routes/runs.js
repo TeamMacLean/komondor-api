@@ -11,7 +11,11 @@ const {
   sortReadFiles,
 } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { handleError, getActualFiles, generateRequestId, getAdditionalFilesStatus } = require("./_utils");
+const {
+  handleError,
+  generateRequestId,
+  compareFilesToDirectory,
+} = require("./_utils");
 const { verifyRunMd5 } = require("../lib/md5-verification");
 
 /**
@@ -121,22 +125,15 @@ router
       const rawDir = _path.join(runDirectory, "raw");
       const additionalDir = _path.join(runDirectory, "additional");
 
-      const [actualReads, actualAdditionalFiles] = await Promise.all([
-        getActualFiles(rawDir),
-        getActualFiles(additionalDir),
+      const [raw, additional] = await Promise.all([
+        compareFilesToDirectory(run.rawFiles, rawDir),
+        compareFilesToDirectory(run.additionalFiles, additionalDir),
       ]);
 
-      const additionalFilesStatus = getAdditionalFilesStatus(run.additionalFiles, actualAdditionalFiles);
-      
-      const dbReads = run.rawFiles.map((af) => af.file ? af.file.originalName : af.originalName).filter(Boolean);
-      const missingReads = dbReads.filter((f) => !actualReads.includes(f));
-      const extraReads = actualReads.filter((f) => !dbReads.includes(f));
-      const rawFilesStatus = {
-        status: missingReads.length === 0 ? "OK" : "MISMATCH",
-        message: missingReads.length === 0 ? "All files present" : `Missing ${missingReads.length} file(s) on disk`,
-        missing: missingReads,
-        extra: extraReads
-      };
+      const actualReads = raw.actualFiles;
+      const rawFilesStatus = raw.status;
+      const actualAdditionalFiles = additional.actualFiles;
+      const additionalFilesStatus = additional.status;
 
       res.status(200).send({
         run,

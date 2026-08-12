@@ -27,9 +27,17 @@ schema.pre('save', function (next) {
     next()
 });
 
-schema.post('save', async function (next) {
+schema.post('save', async function () {
 
     const doc = this;
+
+    // Only a brand new record needs its file moved into place. By any later
+    // save the file already sits in the datastore and doc.file.path is
+    // relative, so a second move would look for a source that is not there.
+    // (Read.js guards the same hook with skipPostSave.)
+    if (!doc.wasNew) {
+        return;
+    }
 
     let prom;
     if (doc.run) {

@@ -37,6 +37,16 @@ jest.mock("../../routes/_utils", () => ({
     });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
+  compareFilesToDirectory: jest.fn().mockResolvedValue({
+    actualFiles: [],
+    status: {
+      status: "OK",
+      message: "All files present",
+      missing: [],
+      extra: [],
+      unresolved: [],
+    },
+  }),
 }));
 
 // Create test app
