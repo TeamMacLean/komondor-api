@@ -11,7 +11,7 @@ const {
   sortReadFiles,
 } = require("../lib/sortAssociatedFiles");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { handleError, getActualFiles, generateRequestId } = require("./_utils");
+const { handleError, getActualFiles, generateRequestId, getAdditionalFilesStatus } = require("./_utils");
 const { verifyRunMd5 } = require("../lib/md5-verification");
 
 /**
@@ -126,10 +126,24 @@ router
         getActualFiles(additionalDir),
       ]);
 
+      const additionalFilesStatus = getAdditionalFilesStatus(run.additionalFiles, actualAdditionalFiles);
+      
+      const dbReads = run.rawFiles.map((af) => af.file ? af.file.originalName : af.originalName).filter(Boolean);
+      const missingReads = dbReads.filter((f) => !actualReads.includes(f));
+      const extraReads = actualReads.filter((f) => !dbReads.includes(f));
+      const rawFilesStatus = {
+        status: missingReads.length === 0 ? "OK" : "MISMATCH",
+        message: missingReads.length === 0 ? "All files present" : `Missing ${missingReads.length} file(s) on disk`,
+        missing: missingReads,
+        extra: extraReads
+      };
+
       res.status(200).send({
         run,
         actualReads,
         actualAdditionalFiles,
+        additionalFilesStatus,
+        rawFilesStatus
       });
     } catch (error) {
       handleError(res, error, 500, `Failed to retrieve run ${id}.`);

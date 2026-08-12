@@ -159,7 +159,10 @@ describe("verifyRunMd5 failure handling", () => {
 
     expect(result.shouldRetry).toBe(false);
     expect(Run.findByIdAndUpdate).toHaveBeenCalledWith("r1", {
-      $set: { md5VerificationStatus: "failed" },
+      $set: { 
+        md5VerificationStatus: "failed",
+        statusError: "MD5 Verification failed internally after maximum attempts. Please contact the webmaster (deeks@nbi.ac.uk).",
+      },
     });
   });
 

@@ -4,6 +4,7 @@ const {
   initializeBackgroundJobs,
   stopBackgroundJobs,
 } = require("./lib/background-jobs");
+const { getActiveTransfers } = require("./lib/active-transfers");
 
 const PORT = process.env.PORT || 3000;
 const mongoosePort = process.env.MONGODB_PORT || 27017;
@@ -39,6 +40,17 @@ function shutdown(code) {
   if (shuttingDown) {
     return;
   }
+  
+  const transfers = getActiveTransfers();
+  if (transfers.length > 0 && code === 0) {
+    console.warn(`\n[WARNING] Attempted to shut down, but ${transfers.length} file transfer(s) are currently in progress!`);
+    console.warn(`If you shut down now, these massive genomic files will be truncated and corrupted.`);
+    console.warn(`Active transfers:`);
+    transfers.forEach(t => console.warn(`  - ${t.filename} (${t.id})`));
+    console.warn(`\nShutdown aborted. To force shutdown and kill the transfers, run: pm2 restart komondor-api --force (or send SIGKILL).\n`);
+    return;
+  }
+
   shuttingDown = true;
 
   try {

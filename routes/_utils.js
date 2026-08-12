@@ -81,8 +81,24 @@ const getActualFiles = async (directoryPath) => {
   }
 };
 
+const getAdditionalFilesStatus = (dbFiles, actualFiles) => {
+  const dbFileNames = dbFiles.map((af) => af.file ? af.file.originalName : af.originalName).filter(Boolean);
+  
+  const missing = dbFileNames.filter((f) => !actualFiles.includes(f));
+  const extra = actualFiles.filter((f) => !dbFileNames.includes(f));
+
+  if (missing.length === 0 && extra.length === 0) {
+    return { status: "OK", message: "All files present", missing, extra };
+  } else if (missing.length > 0) {
+    return { status: "MISMATCH", message: `Missing ${missing.length} file(s) on disk`, missing, extra };
+  } else {
+    return { status: "WARNING", message: `Found ${extra.length} untracked file(s) on disk`, missing, extra };
+  }
+};
+
 module.exports = {
   handleError,
   getActualFiles,
   generateRequestId,
+  getAdditionalFilesStatus,
 };

@@ -3,6 +3,7 @@ const _path = require("path");
 const fs = require("fs").promises;
 const { createReadStream, createWriteStream } = require("fs");
 const { pipeline } = require("stream/promises");
+const { addTransfer, removeTransfer } = require("../lib/active-transfers");
 
 const schema = new mongoose.Schema(
   {
@@ -40,6 +41,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
 
   try {
     console.log("Moving file from", file.path, "to", fullNewPath);
+    addTransfer(file._id.toString(), file.name);
 
     // Create directory if it doesn't exist (native mkdirp equivalent)
     await fs.mkdir(_path.dirname(fullNewPath), { recursive: true });
@@ -76,8 +78,11 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     }
 
     file.path = relNewPath;
-    return file.save();
+    const saved = await file.save();
+    removeTransfer(file._id.toString(), file.name);
+    return saved;
   } catch (err) {
+    removeTransfer(file._id.toString(), file.name);
     console.log("...but error moving file! :(");
     console.error(err);
     throw err;
