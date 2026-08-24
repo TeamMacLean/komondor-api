@@ -17,3 +17,4 @@ files/
 GEORGE_delete_uploaded_files_from_FILES_directory
 nginx/http-verbs-root-context.conf
 fake-mnt/
+GEORGE_CHECK_USERS_LDAP_GROUPS.txt
