@@ -28,7 +28,7 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      const projects = await Project.iCanSee(req.user);
+      const projects = await Project.iCanSee(req.user).populate("group");
       // Sort projects by creation date in descending order
       const sortedProjects = projects.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),

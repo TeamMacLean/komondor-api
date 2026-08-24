@@ -32,7 +32,7 @@ router
 
     try {
       const [foundProjects, foundUser] = await Promise.all([
-        Project.find({ owner: username }),
+        Project.find({ owner: username }).populate("group"),
         User.findOne({ username }),
       ]);
 

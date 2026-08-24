@@ -62,7 +62,8 @@ describe("GET /user", () => {
     User.findOne.mockResolvedValue({
       toObject: () => ({ username: "alice", email: "alice@example.org" }),
     });
-    Project.find.mockResolvedValue([{ name: "proj" }]);
+    const populate = jest.fn().mockResolvedValue([{ name: "proj" }]);
+    Project.find.mockReturnValue({ populate });
 
     const response = await request(app).get("/user").query({ username: "alice" });
 
@@ -72,6 +73,8 @@ describe("GET /user", () => {
       email: "alice@example.org",
       projects: [{ name: "proj" }],
     });
+    // The project cards render the group name, so it must arrive populated.
+    expect(populate).toHaveBeenCalledWith("group");
   });
 
   test("does not leak mongoose internals into the response", async () => {
@@ -80,7 +83,9 @@ describe("GET /user", () => {
       _doc: { username: "alice" },
       toObject: () => ({ username: "alice" }),
     });
-    Project.find.mockResolvedValue([]);
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
 
     const response = await request(app).get("/user").query({ username: "alice" });
 
@@ -90,7 +95,9 @@ describe("GET /user", () => {
 
   test("still returns projects when the user has never logged in", async () => {
     User.findOne.mockResolvedValue(null);
-    Project.find.mockResolvedValue([{ name: "proj" }]);
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([{ name: "proj" }]),
+    });
 
     const response = await request(app).get("/user").query({ username: "ghost" });
 
@@ -117,7 +124,9 @@ describe("GET /user", () => {
 
   test("answers 500 when the lookup fails", async () => {
     User.findOne.mockRejectedValue(new Error("db down"));
-    Project.find.mockResolvedValue([]);
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
 
     const response = await request(app).get("/user").query({ username: "alice" });
 

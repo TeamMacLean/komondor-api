@@ -380,12 +380,15 @@ describe("GET /projects", () => {
       { _id: "3", name: "Project C", createdAt: new Date("2024-01-02") },
     ];
 
-    Project.iCanSee = jest.fn().mockResolvedValue(mockProjects);
+    const populate = jest.fn().mockResolvedValue(mockProjects);
+    Project.iCanSee = jest.fn().mockReturnValue({ populate });
 
     const response = await request(app).get("/projects");
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("projects");
+    // The cards render the group name, so the list must arrive populated.
+    expect(populate).toHaveBeenCalledWith("group");
     // Should be sorted by createdAt descending
     expect(response.body.projects[0].name).toBe("Project B");
     expect(response.body.projects[1].name).toBe("Project C");
@@ -393,7 +396,9 @@ describe("GET /projects", () => {
   });
 
   test("should return empty array when user has no visible projects", async () => {
-    Project.iCanSee = jest.fn().mockResolvedValue([]);
+    Project.iCanSee = jest.fn().mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
 
     const response = await request(app).get("/projects");
 
