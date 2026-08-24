@@ -60,6 +60,16 @@ describe("getUserFromRequest", () => {
     ).rejects.toMatchObject({ name: "TokenExpiredError" });
   });
 
+  test("rejects a legacy token that has no expiry claim", async () => {
+    // Pre-August-2026 tokens were signed without expiresIn; accepting them
+    // would let a stale groups snapshot live forever.
+    const token = jwt.sign({ username: "alice" }, process.env.JWT_SECRET);
+
+    await expect(
+      getUserFromRequest(makeReq(`Bearer ${token}`)),
+    ).rejects.toMatchObject({ name: "TokenExpiredError" });
+  });
+
   test("rejects with JsonWebTokenError for a malformed token", async () => {
     await expect(
       getUserFromRequest(makeReq("Bearer garbage")),

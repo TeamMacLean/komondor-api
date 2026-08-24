@@ -325,8 +325,15 @@ how stale that snapshot can get.
 
 **Who is affected:** every user, once per expiry period — the API returns 401
 and komondor-web's interceptor redirects to sign-in (the groundwork from
-item 5). **Tokens issued before this change carry no `exp` claim and remain
-valid forever**; affected users must log out and back in once.
+item 5).
+
+**Legacy tokens are refused outright.** Tokens issued before this change carry
+no `exp` claim and would otherwise remain valid forever, so
+`getUserFromRequest` now rejects any token without one (as a
+`TokenExpiredError`, i.e. a 401). Deploying this signs out **every existing
+session once** — including the stale empty-groups tokens from the August 2026
+incident — with no action needed from users beyond signing in again. Deploy at
+a quiet time: a 401 mid-upload pauses that upload.
 
 ---
 
