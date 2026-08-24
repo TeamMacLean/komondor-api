@@ -79,6 +79,30 @@ describe("Group.GroupsIAmIn", () => {
     });
   });
 
+  test("handles a plain-string memberOf (single-valued LDAP attribute)", async () => {
+    // LDAP returns single-valued attributes as strings, not one-element
+    // arrays, so a user in exactly one group arrives this way.
+    await Group.GroupsIAmIn({
+      username: "eve",
+      memberOf: "CN=bioinformatics",
+    });
+
+    expect(findSpy).toHaveBeenCalledWith({
+      $or: [{ ldapGroups: { $regex: /^CN=bioinformatics$/i } }],
+    });
+  });
+
+  test("falls back to a lowercase memberof attribute", async () => {
+    await Group.GroupsIAmIn({
+      username: "eve",
+      memberof: ["CN=lab"],
+    });
+
+    expect(findSpy).toHaveBeenCalledWith({
+      $or: [{ ldapGroups: { $regex: /^CN=lab$/i } }],
+    });
+  });
+
   test("prefers group ids over memberOf when both are present", async () => {
     await Group.GroupsIAmIn({
       username: "eve",

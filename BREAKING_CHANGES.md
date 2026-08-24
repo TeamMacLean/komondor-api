@@ -309,13 +309,47 @@ separate `ENA_ADMIN_USERS` variable read only by this middleware.
 
 ---
 
-## Known issues not addressed here
+## 14. Issued tokens now expire (was: valid forever)
 
-- **Issued tokens never expire.** `jwtSign` calls `jwt.sign(user, secret)` with
-  no `expiresIn`, so a leaked token is valid forever. Adding an expiry is a
-  genuine security improvement but a real breaking change — every consumer
-  would need to handle 401 and re-authenticate — so it is deliberately left as
-  a separate decision. The 401 handling added in item 5 is the groundwork for it.
+**Where:** `lib/utils/jwtSign.js`
+
+`jwt.sign` is now called with `expiresIn`, defaulting to `7d` and overridable
+via `JWT_EXPIRES_IN` (any `ms`-style string: `12h`, `30d`, …).
+
+This closes two problems at once. A leaked token is no longer valid forever.
+And — the trigger for doing it now — group membership is baked into the token
+at login, so a token issued while group resolution was broken (see the
+August 2026 LDAP group-string incident) carried `groups: []` indefinitely and
+kept returning 403 long after the underlying bug was fixed. An expiry bounds
+how stale that snapshot can get.
+
+**Who is affected:** every user, once per expiry period — the API returns 401
+and komondor-web's interceptor redirects to sign-in (the groundwork from
+item 5). **Tokens issued before this change carry no `exp` claim and remain
+valid forever**; affected users must log out and back in once.
+
+---
+
+## 15. LDAP user attributes are requested explicitly; single-group users can log in
+
+**Where:** `lib/ldap.js`, `models/Group.js`
+
+The login search now passes `searchAttributes` (exported as
+`USER_SEARCH_ATTRIBUTES`) instead of relying on the server's default attribute
+set, covering everything the app reads: `memberOf` for group resolution, plus
+`displayName`, `company`, `mailNickname` and friends.
+
+`GroupsIAmIn` also normalises `memberOf` before use. LDAP returns
+single-valued attributes as plain strings, so a user in **exactly one** group
+previously hit `user.memberOf.map is not a function` and could not log in at
+all. A lowercase `memberof` attribute name is accepted too.
+
+`scripts/ldap-diagnostic.js` (read-only) prints what the directory returns for
+a username and which Mongo groups those `memberOf` values resolve to.
+
+---
+
+## Known issues not addressed here
 - **`/uploads` sets `origin: "*"`.** The main app restricts CORS to
   `WEB_APP_URL`, but the tus sub-app in `routes/uploads.js` allows any origin.
   Narrowing it needs checking against how komondor-web performs uploads.

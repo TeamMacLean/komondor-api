@@ -78,6 +78,18 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
 
   const fullAccessUsers = getFullAccessUsers();
 
+  // LDAP returns multi-valued attributes as arrays but single-valued ones as
+  // plain strings, so a user in exactly one group arrives with a string
+  // memberOf. Some directories also name the attribute "memberof". Normalise
+  // to an array before deciding which criteria apply.
+  const rawMemberOf = user.memberOf != null ? user.memberOf : user.memberof;
+  let memberOf = [];
+  if (Array.isArray(rawMemberOf)) {
+    memberOf = rawMemberOf;
+  } else if (rawMemberOf) {
+    memberOf = [rawMemberOf];
+  }
+
   let groupFindCriteria;
 
   // Determine group find criteria based on user permissions
@@ -89,8 +101,8 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     groupFindCriteria = {
       _id: { $in: user.groups },
     };
-  } else if (user.memberOf && user.memberOf.length) {
-    const filters = user.memberOf.map((ldapString) => ({
+  } else if (memberOf.length) {
+    const filters = memberOf.map((ldapString) => ({
       ldapGroups: {
         $regex: new RegExp(
           "^" + ldapString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$",
@@ -105,7 +117,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     // nothing. Returning early matters — `Group.find(null)` is treated by
     // mongoose as an empty filter and would hand back *every* group.
     console.error(
-      `[AUTH] No group criteria for user "${username}" | isAdmin: ${user.isAdmin}, groups: ${JSON.stringify(user.groups)}, memberOf: ${JSON.stringify(user.memberOf)}`,
+      `[AUTH] No group criteria for user "${username}" | isAdmin: ${user.isAdmin}, groups: ${JSON.stringify(user.groups)}, memberOf: ${JSON.stringify(rawMemberOf)}`,
     );
     return [];
   }
@@ -116,8 +128,8 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     groups = await Group.find(groupFindCriteria);
 
     if (!groups || groups.length === 0) {
-      const ldapInfo = user.memberOf?.length
-        ? ` | LDAP memberOf: [${user.memberOf.join(", ")}]`
+      const ldapInfo = memberOf.length
+        ? ` | LDAP memberOf: [${memberOf.join(", ")}]`
         : "";
       console.error(
         `[AUTH] No groups found for user "${username}" | Criteria: ${JSON.stringify(groupFindCriteria)}${ldapInfo}`,
