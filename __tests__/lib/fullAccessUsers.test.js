@@ -8,10 +8,21 @@
  * exact-match behaviour that replaced it.
  */
 
+// resolveVisibilityFilter re-derives membership through groupAccess, which
+// reads models/Group. Mocked so these stay unit tests: what matters here is
+// *which* list of groups the filter is built from, not how Group.GroupsIAmIn
+// finds it (that is __tests__/models/GroupsIAmIn.test.js).
+jest.mock("../../models/Group", () => ({
+  GroupsIAmIn: jest.fn(),
+}));
+
+const Group = require("../../models/Group");
+
 const {
   getFullAccessUsers,
   hasFullRecordsAccess,
   buildVisibilityFilter,
+  resolveVisibilityFilter,
 } = require("../../lib/utils/fullAccessUsers");
 
 const ORIGINAL = process.env.FULL_RECORDS_ACCESS_USERS;
@@ -131,34 +142,131 @@ describe("buildVisibilityFilter", () => {
     expect(buildVisibilityFilter({ username: "alice" })).toBeNull();
   });
 
-  test("filters by owner and group for an ordinary user", () => {
+  test("filters by group for an ordinary user", () => {
+    // UPDATED: this used to expect `$or: [{ owner: "eve" }, …]`. `owner` is
+    // copied verbatim out of the request body when a record is created, so a
+    // standalone owner clause was a read grant no group change could withdraw
+    // — and, because the client chooses the value, a way to hand access to
+    // somebody else. Visibility is group visibility now.
     expect(
       buildVisibilityFilter({ username: "eve", groups: ["g1", "g2"] }),
-    ).toEqual({
-      $or: [{ owner: "eve" }, { group: "g1" }, { group: "g2" }],
-    });
+    ).toEqual({ group: { $in: ["g1", "g2"] } });
   });
 
-  test("filters by owner alone when the user has no groups", () => {
+  test("does not grant a user access to their own records outside their groups", () => {
+    const filter = buildVisibilityFilter({
+      username: "eve",
+      groups: ["g1"],
+    });
+
+    // Nothing anywhere in the filter may key off the owner field.
+    expect(JSON.stringify(filter)).not.toContain("owner");
+  });
+
+  test("matches nothing when the user has no groups", () => {
+    // Previously `{ $or: [{ owner: "eve" }] }`: a user removed from every
+    // group kept reading every record they had created.
     expect(buildVisibilityFilter({ username: "eve" })).toEqual({
-      $or: [{ owner: "eve" }],
+      _id: { $in: [] },
     });
   });
 
   test("ignores falsy group entries", () => {
     expect(
       buildVisibilityFilter({ username: "eve", groups: ["g1", null, ""] }),
-    ).toEqual({ $or: [{ owner: "eve" }, { group: "g1" }] });
+    ).toEqual({ group: { $in: ["g1"] } });
   });
 
   test("tolerates a non-array groups value", () => {
     expect(
       buildVisibilityFilter({ username: "eve", groups: "not-an-array" }),
-    ).toEqual({ $or: [{ owner: "eve" }] });
+    ).toEqual({ _id: { $in: [] } });
+  });
+
+  test("normalises group ids to strings", () => {
+    // The claim is whatever was signed into the token; a non-string entry
+    // would otherwise reach mongo as a query operator.
+    const objectIdish = { toString: () => "g1" };
+
+    expect(
+      buildVisibilityFilter({ username: "eve", groups: [objectIdish] }),
+    ).toEqual({ group: { $in: ["g1"] } });
   });
 
   test("matches nothing when the user carries no identifying information", () => {
     // Critically this must not be `{}`, which would match every document.
     expect(buildVisibilityFilter({})).toEqual({ _id: { $in: [] } });
+  });
+
+  test("authorises against an explicit group list when given one", () => {
+    expect(
+      buildVisibilityFilter({ username: "eve", groups: ["g1", "g2"] }, ["g1"]),
+    ).toEqual({ group: { $in: ["g1"] } });
+  });
+});
+
+describe("resolveVisibilityFilter", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    process.env.FULL_RECORDS_ACCESS_USERS = '["alice"]';
+  });
+
+  test("excludes a group that was soft-deleted after the token was issued", async () => {
+    // The whole point. `user.groups` is baked into the JWT at login, so a
+    // group deleted afterwards stays in the claim for the token's whole life.
+    // GroupsIAmIn drops it, which is why the per-record routes already 403;
+    // the list, search and news endpoints must agree.
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }]);
+
+    const filter = await resolveVisibilityFilter({
+      username: "eve",
+      groups: ["g1", "g2-since-deleted"],
+    });
+
+    expect(filter).toEqual({ group: { $in: ["g1"] } });
+  });
+
+  test("asks for the read capability", async () => {
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }]);
+
+    await resolveVisibilityFilter({ username: "eve", groups: ["g1"] });
+
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+      expect.objectContaining({ username: "eve" }),
+      { mode: "read" },
+    );
+  });
+
+  test("returns null for a full-access user without consulting the database", async () => {
+    await expect(
+      resolveVisibilityFilter({ username: "alice" }),
+    ).resolves.toBeNull();
+
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+  });
+
+  test("matches nothing when every group the token names has gone", async () => {
+    Group.GroupsIAmIn.mockResolvedValue([]);
+
+    await expect(
+      resolveVisibilityFilter({ username: "eve", groups: ["g1"] }),
+    ).resolves.toEqual({ _id: { $in: [] } });
+  });
+
+  test("matches nothing for a missing user rather than throwing", async () => {
+    // GroupsIAmIn throws on a null user; a visibility filter must fail closed.
+    await expect(resolveVisibilityFilter(null)).resolves.toEqual({
+      _id: { $in: [] },
+    });
+
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+  });
+
+  test("normalises ObjectId group ids to strings", async () => {
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: { toString: () => "g1" } }]);
+
+    await expect(
+      resolveVisibilityFilter({ username: "eve", groups: ["g1"] }),
+    ).resolves.toEqual({ group: { $in: ["g1"] } });
   });
 });

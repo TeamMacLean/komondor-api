@@ -6,13 +6,43 @@
  * - POST /groups/edit
  * - POST /groups/delete
  * - POST /groups/resurrect
+ *
+ * lib/utils/groupAccess is deliberately NOT mocked: the authorisation decision
+ * is what these tests are about, so it runs for real against a mocked
+ * Group.GroupsIAmIn. Note that canWriteGroup has no `user.isAdmin`
+ * short-circuit — an admin's authority comes from GroupsIAmIn returning every
+ * live group — so an admin test must mock GroupsIAmIn to return the group, not
+ * an empty array.
  */
 
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 const request = require("supertest");
 const express = require("express");
 const mongoose = require("mongoose");
 const Group = require("../../models/Group");
 const groupsRouter = require("../../routes/groups");
+
+// A real (empty) datastore root. Renaming a group re-derives its safeName,
+// which *is* a directory name under DATASTORE_ROOT, so /groups/edit inspects
+// the filesystem before it will accept one.
+const ORIGINAL_DATASTORE_ROOT = process.env.DATASTORE_ROOT;
+let datastoreRoot;
+
+beforeAll(() => {
+  datastoreRoot = fs.mkdtempSync(path.join(os.tmpdir(), "komondor-groups-"));
+  process.env.DATASTORE_ROOT = datastoreRoot;
+});
+
+afterAll(() => {
+  if (ORIGINAL_DATASTORE_ROOT === undefined) {
+    delete process.env.DATASTORE_ROOT;
+  } else {
+    process.env.DATASTORE_ROOT = ORIGINAL_DATASTORE_ROOT;
+  }
+  fs.rmSync(datastoreRoot, { recursive: true, force: true });
+});
 
 // Mock dependencies
 jest.mock("../../models/Group", () => ({
@@ -46,6 +76,17 @@ jest.mock("../../routes/middleware", () => ({
 }));
 
 app.use("/", groupsRouter);
+
+// The refusal paths log an [AUTHZ] line and GET /groups logs every group name.
+// Both are wanted in production and are only noise here.
+beforeEach(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+  jest.spyOn(console, "log").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 
 describe("GET /groups", () => {
   const mockGroupId1 = new mongoose.Types.ObjectId().toString();
@@ -148,6 +189,56 @@ describe("GET /groups", () => {
       expect(response.status).toBe(200);
       expect(response.body.groups[0]).toHaveProperty("_id");
       expect(response.body.groups[0]).toHaveProperty("name");
+    });
+  });
+
+  describe("soft-deleted groups", () => {
+    test("should hide soft-deleted groups by default", async () => {
+      Group.GroupsIAmIn.mockResolvedValue([]);
+
+      await request(app).get("/groups");
+
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(expect.any(Object), {
+        includeDeleted: false,
+      });
+    });
+
+    test("should let an admin ask for deleted groups", async () => {
+      // The admin screen tags deleted groups and is the only place one can be
+      // found in order to resurrect it.
+      mockUser = { username: "adminuser", groups: [], isAdmin: true };
+      Group.GroupsIAmIn.mockResolvedValue([
+        { _id: mockGroupId1, name: "retired", deleted: true },
+      ]);
+
+      const response = await request(app).get("/groups?includeDeleted=true");
+
+      expect(response.status).toBe(200);
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(expect.any(Object), {
+        includeDeleted: true,
+      });
+    });
+
+    test("should refuse a non-admin asking for deleted groups", async () => {
+      const response = await request(app).get("/groups?includeDeleted=true");
+
+      expect(response.status).toBe(403);
+      expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+    });
+
+    test("should ignore a repeated includeDeleted parameter", async () => {
+      // express parses a repeated query key into an array, which must not be
+      // mistaken for the literal "true".
+      Group.GroupsIAmIn.mockResolvedValue([]);
+
+      const response = await request(app).get(
+        "/groups?includeDeleted=true&includeDeleted=true",
+      );
+
+      expect(response.status).toBe(200);
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(expect.any(Object), {
+        includeDeleted: false,
+      });
     });
   });
 
@@ -259,10 +350,61 @@ describe("POST /groups/new", () => {
 
     expect(response.status).toBe(403);
   });
+
+  test("should return 400 for a non-string name", async () => {
+    const response = await request(app)
+      .post("/groups/new")
+      .send({ name: { $ne: null }, ldapGroups: ["CN=x"] });
+
+    expect(response.status).toBe(400);
+  });
+
+  test("should return 400 when ldapGroups is not an array of strings", async () => {
+    const response = await request(app)
+      .post("/groups/new")
+      .send({ name: "new-group", ldapGroups: "CN=x" });
+
+    expect(response.status).toBe(400);
+  });
 });
 
 describe("POST /groups/edit", () => {
   const mockGroupId = new mongoose.Types.ObjectId().toString();
+
+  /** A group document whose save() reports what it was given. */
+  const buildGroup = (overrides = {}) => {
+    const group = {
+      _id: mockGroupId,
+      name: "test-group",
+      safeName: "test_group",
+      ldapGroups: ["CN=test"],
+      sendToEna: false,
+      ...overrides,
+    };
+    group.save = jest.fn().mockResolvedValue(group);
+    return group;
+  };
+
+  /** Puts a file in the group's datastore directory, as real data would. */
+  const populateDatastore = (safeName = "test_group") => {
+    const dir = path.join(datastoreRoot, safeName);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "reads.fastq.gz"), "x");
+    return dir;
+  };
+
+  afterEach(() => {
+    fs.rmSync(path.join(datastoreRoot, "test_group"), {
+      recursive: true,
+      force: true,
+    });
+  });
+
+  /** Makes GroupsIAmIn answer as though the caller is in mockGroupId. */
+  const memberOfTheGroup = () =>
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: { toString: () => mockGroupId }, name: "test-group" },
+    ]);
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -282,26 +424,44 @@ describe("POST /groups/edit", () => {
     expect(response.body).toHaveProperty("error");
   });
 
+  test("should return 400 for a malformed group ID", async () => {
+    const response = await request(app).post("/groups/edit").send({
+      id: "not-an-id",
+      name: "updated-name",
+    });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 for an object group ID without querying", async () => {
+    // Group.findById({ $ne: null }) is not a cast failure: mongoose reads the
+    // object as a query condition and returns an arbitrary group, which would
+    // let this route edit a group the caller never named.
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: { $ne: null }, name: "updated-name" });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
+
   test("should allow admin to edit any group", async () => {
+    // UPDATED: this used to mock GroupsIAmIn as [] and still expect 200,
+    // because the route had its own `req.user.isAdmin ||` prelude. Authorisation
+    // now goes through canWriteGroup, which has no isAdmin short-circuit by
+    // design — that is what stops a soft-deleted group authorising an admin. An
+    // admin never really receives [] unless the group is deleted or absent, so
+    // the mock is corrected rather than the expectation.
     mockUser = {
       username: "adminuser",
       groups: [],
       isAdmin: true,
     };
 
-    const mockGroup = {
-      _id: mockGroupId,
-      name: "test-group",
-      ldapGroups: ["CN=test"],
-      save: jest.fn().mockResolvedValue({
-        _id: mockGroupId,
-        name: "updated-name",
-        ldapGroups: ["CN=updated"],
-      }),
-    };
-
+    const mockGroup = buildGroup();
     Group.findById.mockResolvedValue(mockGroup);
-    Group.GroupsIAmIn.mockResolvedValue([]);
+    memberOfTheGroup();
 
     const response = await request(app).post("/groups/edit").send({
       id: mockGroupId,
@@ -311,40 +471,208 @@ describe("POST /groups/edit", () => {
 
     expect(response.status).toBe(200);
     expect(mockGroup.save).toHaveBeenCalled();
+    expect(mockGroup.ldapGroups).toEqual(["CN=updated"]);
   });
 
-  test("should allow group member to edit their group", async () => {
-    const mockGroup = {
-      _id: mockGroupId,
-      name: "test-group",
-      ldapGroups: ["CN=test"],
-      save: jest.fn().mockResolvedValue({
-        _id: mockGroupId,
-        name: "updated-name",
-        ldapGroups: ["CN=updated"],
-      }),
-    };
-
+  test("should allow group member to edit the cosmetic fields", async () => {
+    // UPDATED twice. It used to send `ldapGroups` as a plain member and expect
+    // 200 — that is the privilege escalation closed by the ldapGroups test
+    // below. It then sent `name`, which is not cosmetic either: name re-derives
+    // safeName, a live directory under DATASTORE_ROOT. sendToEna is what is
+    // actually left for a member to change.
+    const mockGroup = buildGroup();
     Group.findById.mockResolvedValue(mockGroup);
-    Group.GroupsIAmIn.mockResolvedValue([
-      { _id: { toString: () => mockGroupId }, name: "test-group" },
-    ]);
+    memberOfTheGroup();
 
     const response = await request(app).post("/groups/edit").send({
       id: mockGroupId,
-      name: "updated-name",
-      ldapGroups: ["CN=updated"],
+      sendToEna: true,
     });
 
     expect(response.status).toBe(200);
+    expect(mockGroup.sendToEna).toBe(true);
+    // Untouched: they were not in the request.
+    expect(mockGroup.name).toBe("test-group");
+    expect(mockGroup.ldapGroups).toEqual(["CN=test"]);
+  });
+
+  test("should refuse a non-admin member renaming the group", async () => {
+    // name is not a label. The pre-validate hook re-derives safeName from it
+    // and the post-save hook mkdirs DATASTORE_ROOT/<safeName>, so a member
+    // renaming a group forks its datastore and orphans everything already
+    // filed under the old name. It is also the group identifier in the ENA
+    // export.
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "renamed-group" });
+
+    expect(response.status).toBe(403);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+    expect(mockGroup.name).toBe("test-group");
+  });
+
+  test("should let a member re-send the unchanged name alongside another field", async () => {
+    // Clients resend the whole group object; carrying the current name is not
+    // a rename and must not cost a member their edit.
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "test-group", sendToEna: true });
+
+    expect(response.status).toBe(200);
+    expect(mockGroup.sendToEna).toBe(true);
+  });
+
+  test("should refuse an admin rename that would strand an existing datastore", async () => {
+    // Nothing here moves the directory: File documents store paths relative to
+    // DATASTORE_ROOT that begin with the group's safeName, so moving the tree
+    // without rewriting every one of them is how the data gets lost. The
+    // rename is refused instead.
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+    populateDatastore("test_group");
+
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "renamed-group" });
+
+    expect(response.status).toBe(409);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+    expect(mockGroup.name).toBe("test-group");
+    // The tree is still where it was.
+    expect(fs.existsSync(path.join(datastoreRoot, "test_group", "reads.fastq.gz"))).toBe(true);
+  });
+
+  test("should allow an admin rename when the datastore holds nothing yet", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+    fs.mkdirSync(path.join(datastoreRoot, "test_group"), { recursive: true });
+
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "renamed-group" });
+
+    expect(response.status).toBe(200);
+    expect(mockGroup.name).toBe("renamed-group");
+  });
+
+  test("should allow an admin rename that leaves safeName alone", async () => {
+    // "test-group" and "test group" both slugify to test_group, so the
+    // directory does not move and the data cannot be stranded.
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+    populateDatastore("test_group");
+
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "test group" });
+
+    expect(response.status).toBe(200);
+    expect(mockGroup.name).toBe("test group");
+  });
+
+  test("should return 400 for a 12-character id mongoose would cast to garbage", async () => {
+    // ObjectId.isValid("project-1234") is true: mongoose reads the 12 bytes
+    // raw. The other three route files carry a 24-hex test for exactly this;
+    // without it the id silently becomes a different one.
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: "project-1234", name: "updated-name" });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
+
+  test("should refuse a non-admin member changing ldapGroups", async () => {
+    // ldapGroups decides who is in the group. A member who can rewrite it can
+    // add their own directory DN to another group's pattern, or capture a
+    // directory group outright, and take its data with it.
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, ldapGroups: ["CN=attacker-controlled"] });
+
+    expect(response.status).toBe(403);
+    expect(response.body.error).toMatch(/LDAP groups/);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+    expect(mockGroup.ldapGroups).toEqual(["CN=test"]);
+  });
+
+  test("should refuse a non-admin member clearing ldapGroups", async () => {
+    // An empty array is still a membership change: it removes everyone.
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, ldapGroups: [] });
+
+    expect(response.status).toBe(403);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+  });
+
+  test("should reject a non-string entry in ldapGroups from an admin", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, ldapGroups: [{ $ne: null }] });
+
+    expect(response.status).toBe(400);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+  });
+
+  test("should reject a non-boolean sendToEna", async () => {
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, sendToEna: "yes" });
+
+    expect(response.status).toBe(400);
+    expect(mockGroup.save).not.toHaveBeenCalled();
+  });
+
+  test("should reject a non-string name", async () => {
+    const mockGroup = buildGroup();
+    Group.findById.mockResolvedValue(mockGroup);
+    memberOfTheGroup();
+
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: { $ne: null } });
+
+    expect(response.status).toBe(400);
+    expect(mockGroup.save).not.toHaveBeenCalled();
   });
 
   test("should return 403 when user does not belong to group", async () => {
-    const mockGroup = {
-      _id: mockGroupId,
-      name: "test-group",
-      ldapGroups: ["CN=test"],
-    };
+    const mockGroup = buildGroup();
 
     Group.findById.mockResolvedValue(mockGroup);
     Group.GroupsIAmIn.mockResolvedValue([
@@ -360,9 +688,27 @@ describe("POST /groups/edit", () => {
     expect(response.status).toBe(403);
   });
 
+  test("should ask for the write capability, not read", async () => {
+    // In read mode a FULL_RECORDS_ACCESS_USERS user is handed every group,
+    // which would let them edit groups they are not in.
+    Group.findById.mockResolvedValue(buildGroup());
+    memberOfTheGroup();
+
+    await request(app)
+      .post("/groups/edit")
+      .send({ id: mockGroupId, name: "updated-name" });
+
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+      expect.objectContaining({ username: "testuser" }),
+      { mode: "write" },
+    );
+  });
+
   test("should return 404 when group does not exist", async () => {
+    // UPDATED: GroupsIAmIn now has to resolve the group for the caller to get
+    // past authorisation at all — see the note on the admin test above.
     Group.findById.mockResolvedValue(null);
-    Group.GroupsIAmIn.mockResolvedValue([]);
+    memberOfTheGroup();
 
     mockUser = {
       username: "adminuser",
@@ -452,6 +798,28 @@ describe("POST /groups/delete", () => {
 
     expect(response.status).toBe(404);
   });
+
+  test("should return 400 for an object group ID without querying", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .post("/groups/delete")
+      .send({ id: { $ne: null } });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 for a 12-character id mongoose would cast to garbage", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .post("/groups/delete")
+      .send({ id: "project-1234" });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
 });
 
 describe("POST /groups/resurrect", () => {
@@ -526,5 +894,48 @@ describe("POST /groups/resurrect", () => {
     });
 
     expect(response.status).toBe(404);
+  });
+
+  test("should look the group up directly, not through GroupsIAmIn", async () => {
+    // GroupsIAmIn is where the soft-delete filter lives, so a route whose whole
+    // job is to undo a soft-delete cannot use it to find its target.
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+
+    const mockGroup = {
+      _id: mockGroupId,
+      deleted: true,
+      save: jest.fn().mockResolvedValue({}),
+    };
+    Group.findById.mockResolvedValue(mockGroup);
+
+    const response = await request(app)
+      .post("/groups/resurrect")
+      .send({ id: mockGroupId });
+
+    expect(response.status).toBe(200);
+    expect(Group.findById).toHaveBeenCalledWith(mockGroupId);
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 for an object group ID without querying", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .post("/groups/resurrect")
+      .send({ id: { $ne: null } });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 for a 12-character id mongoose would cast to garbage", async () => {
+    mockUser = { username: "adminuser", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .post("/groups/resurrect")
+      .send({ id: "project-1234" });
+
+    expect(response.status).toBe(400);
+    expect(Group.findById).not.toHaveBeenCalled();
   });
 });

@@ -8,6 +8,14 @@
 const request = require("supertest");
 const express = require("express");
 
+// routes/*.js now resolve the caller's *live* group membership before building
+// a visibility filter, rather than trusting the `groups` claim baked into the
+// token at login. That resolution is a database round trip through
+// lib/utils/groupAccess, so it is stubbed here.
+jest.mock("../../lib/utils/groupAccess", () => ({
+  groupsICanRead: jest.fn().mockResolvedValue([{ _id: "g1" }]),
+}));
+
 jest.mock("../../models/Project", () => ({ iCanSee: jest.fn() }));
 jest.mock("../../models/Sample", () => ({ iCanSee: jest.fn() }));
 jest.mock("../../models/Run", () => ({ iCanSee: jest.fn() }));
@@ -98,8 +106,11 @@ describe("GET /search", () => {
   test("scopes the search to the requesting user", async () => {
     await request(app).get("/search").query({ query: "a" });
 
+    // Second argument: the live group ids, resolved from the database rather
+    // than read off the token's claim.
     expect(Project.iCanSee).toHaveBeenCalledWith(
       expect.objectContaining({ username: "testuser" }),
+      ["g1"],
     );
   });
 

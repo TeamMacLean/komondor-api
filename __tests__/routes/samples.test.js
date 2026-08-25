@@ -5,6 +5,12 @@
  * - GET /sample?id=:id (critical for pre-existing entity feature)
  * - GET /samples/names/:projectId
  * - POST /samples/new (standard and TPlex)
+ *
+ * Several tests here previously asserted behaviour that has since been fixed:
+ * a malformed id reaching the database as a cast error, an admin authorised by
+ * a `user.isAdmin` short-circuit rather than by their group list, and a sample
+ * whose group came from the request body. Those assertions are updated in place
+ * rather than removed, and each says what changed.
  */
 
 const request = require("supertest");
@@ -69,6 +75,46 @@ jest.mock("../../routes/middleware", () => ({
 
 app.use("/", samplesRouter);
 
+/** Shapes a group id the way Group.find would hand it back. */
+const asGroup = (id) => ({ _id: { toString: () => id }, name: `group-${id}` });
+
+/**
+ * Group.GroupsIAmIn is where both capabilities come from, so the mock has to
+ * honour `mode`. A mock that returns the same list for "read" and "write"
+ * cannot tell a cross-group reader from someone who may actually create
+ * records, which is the distinction these routes now depend on.
+ */
+const grantGroups = ({ read = [], write = [] }) => {
+  Group.GroupsIAmIn.mockImplementation(async (user, options) => {
+    const mode = (options && options.mode) || "read";
+    return (mode === "write" ? write : read).map(asGroup);
+  });
+};
+
+/** Builds the populate/exec chain Sample.findById is used through. */
+const findByIdChain = (exec) => {
+  const chain = { exec };
+  chain.populate = jest.fn(() => chain);
+  return chain;
+};
+
+/** Makes Sample.findById resolve (or reject) at the end of its populate chain. */
+const mockSampleFindById = (exec) => {
+  Sample.findById = jest.fn(() => findByIdChain(exec));
+};
+
+/** Makes Sample.find resolve at the end of its select/exec chain. */
+const mockSampleFind = (exec) => {
+  Sample.find = jest.fn(() => ({ select: jest.fn(() => ({ exec })) }));
+};
+
+/** Makes Sample.findOne resolve at the end of its populate chain. */
+const mockSampleFindOne = (result) => {
+  Sample.findOne = jest.fn(() => ({
+    populate: jest.fn().mockResolvedValue(result),
+  }));
+};
+
 describe("GET /sample?id=:id", () => {
   const mockSampleId = new mongoose.Types.ObjectId().toString();
   const mockGroupId = new mongoose.Types.ObjectId().toString();
@@ -107,26 +153,13 @@ describe("GET /sample?id=:id", () => {
     };
     // Set environment variable
     process.env.DATASTORE_ROOT = "/mnt/reads";
-    // Default Group mock
-    Group.GroupsIAmIn.mockResolvedValue([
-      { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
-    ]);
+    // Default: the user may both read and write the sample's group.
+    grantGroups({ read: [mockGroupId], write: [mockGroupId] });
   });
 
   describe("successful retrieval", () => {
     test("should return sample with group info when ID is valid and user has permission", async () => {
-      // Mock Sample.findById chain
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -139,26 +172,19 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should return sample when user is admin regardless of group membership", async () => {
+      // UPDATED: this used to mock GroupsIAmIn as [] and rely on the route's
+      // own `if (user.isAdmin) return true` short-circuit. That short-circuit is
+      // gone — an admin's authority is expressed by GroupsIAmIn handing them
+      // every group, so a soft-deleted group stops authorising them too. An
+      // admin therefore never sees [] for a live group.
       mockUser = {
         username: "adminuser",
         groups: [],
         isAdmin: true,
       };
 
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
-
-      // Admin doesn't need GroupsIAmIn check - userCanAccessGroup returns true immediately
-      Group.GroupsIAmIn.mockResolvedValue([]);
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
+      grantGroups({ read: [mockGroupId], write: [mockGroupId] });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -173,21 +199,8 @@ describe("GET /sample?id=:id", () => {
         isAdmin: false,
       };
 
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
-
-      Group.GroupsIAmIn.mockResolvedValue([
-        { _id: { toString: () => "some_other_group_id" }, name: "other_group" }
-      ]);
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
+      grantGroups({ read: ["some_other_group_id"], write: [] });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -196,17 +209,7 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should include populated group with _id and name fields", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -217,17 +220,7 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should include populated project info", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -254,17 +247,7 @@ describe("GET /sample?id=:id", () => {
         ],
       };
 
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(sampleWithRuns),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(sampleWithRuns));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -290,17 +273,7 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should return 404 when sample does not exist", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(null),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(null));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -309,25 +282,14 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should return 403 when user does not belong to sample group", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(
+        jest
+          .fn()
+          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+      );
 
       // User belongs to different group
-      Group.GroupsIAmIn.mockResolvedValue([
-        {
-          _id: { toString: () => "different-group-id" },
-          name: "other-group",
-        },
-      ]);
+      grantGroups({ read: ["different-group-id"], write: ["different-group-id"] });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -337,64 +299,48 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should return 500 when database error occurs", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockRejectedValue(new Error("Database error")),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockRejectedValue(new Error("Database error")));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
       expect(response.status).toBe(500);
     });
 
-    test("should handle invalid ObjectId format gracefully", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest
-                  .fn()
-                  .mockRejectedValue(new Error("Cast to ObjectId failed")),
-              }),
-            }),
-          }),
-        }),
-      });
+    test("should reject an invalid ObjectId format before it reaches the database", async () => {
+      // UPDATED: this used to expect 500, i.e. the malformed value was handed
+      // to mongoose and the cast error surfaced as a server fault. A malformed
+      // id is a bad request, and refusing it at the boundary is what keeps a
+      // non-string value out of the query in the first place.
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       const response = await request(app).get("/sample?id=invalid-id-format");
 
-      expect(response.status).toBe(500);
+      expect(response.status).toBe(400);
+      expect(Sample.findById).not.toHaveBeenCalled();
+    });
+
+    test("should reject a query operator supplied as the sample ID", async () => {
+      // REGRESSION: `?id[$ne]=` is parsed by express into { id: { $ne: "" } },
+      // and mongoose 5 casting preserves the operator — findById would have
+      // matched an arbitrary sample from any group and returned it populated.
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
+
+      const response = await request(app).get("/sample?id[$ne]=");
+
+      expect(response.status).toBe(400);
+      expect(Sample.findById).not.toHaveBeenCalled();
     });
   });
 
   describe("multi-group user access", () => {
     test("should allow access when user belongs to multiple groups including sample group", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       // User belongs to multiple groups, one of which matches
-      Group.GroupsIAmIn.mockResolvedValue([
-        { _id: { toString: () => "other-group" }, name: "other-group" },
-        { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
-        { _id: { toString: () => "third-group" }, name: "third-group" },
-      ]);
+      grantGroups({
+        read: ["other-group", mockGroupId, "third-group"],
+        write: ["other-group", mockGroupId, "third-group"],
+      });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -403,23 +349,14 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should deny access when user belongs to multiple groups but none match sample group", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(
+        jest
+          .fn()
+          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+      );
 
       // User belongs to multiple groups, none of which match
-      Group.GroupsIAmIn.mockResolvedValue([
-        { _id: { toString: () => "group-a" }, name: "group-a" },
-        { _id: { toString: () => "group-b" }, name: "group-b" },
-      ]);
+      grantGroups({ read: ["group-a", "group-b"], write: ["group-a", "group-b"] });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -429,17 +366,7 @@ describe("GET /sample?id=:id", () => {
 
   describe("pre-existing entity feature support", () => {
     test("should return sample with all fields needed for CSV validation", async () => {
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(mockSample),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(mockSample));
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -459,6 +386,7 @@ describe("GET /sample?id=:id", () => {
       // Sample has different group than project (edge case)
       const sampleWithDifferentGroup = {
         ...mockSample,
+        owner: "someone-else",
         group: {
           _id: "sample-specific-group",
           name: "sample-group",
@@ -473,25 +401,13 @@ describe("GET /sample?id=:id", () => {
         },
       };
 
-      Sample.findById = jest.fn().mockReturnValue({
-        populate: jest.fn().mockReturnValue({
-          populate: jest.fn().mockReturnValue({
-            populate: jest.fn().mockReturnValue({
-              populate: jest.fn().mockReturnValue({
-                exec: jest.fn().mockResolvedValue(sampleWithDifferentGroup),
-              }),
-            }),
-          }),
-        }),
-      });
+      mockSampleFindById(jest.fn().mockResolvedValue(sampleWithDifferentGroup));
 
-      // User belongs to sample's group
-      Group.GroupsIAmIn.mockResolvedValue([
-        {
-          _id: { toString: () => "sample-specific-group" },
-          name: "sample-group",
-        },
-      ]);
+      // User belongs to sample's group only
+      grantGroups({
+        read: ["sample-specific-group"],
+        write: ["sample-specific-group"],
+      });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -500,10 +416,33 @@ describe("GET /sample?id=:id", () => {
       expect(response.body.sample.group.name).toBe("sample-group");
     });
   });
+
+  describe("read and write capabilities are not the same thing", () => {
+    test("a cross-group reader may view a sample they could not create", async () => {
+      // FULL_RECORDS_ACCESS_USERS read every group but write only their own.
+      mockUser = { username: "enaadmin", groups: [], isAdmin: false };
+
+      mockSampleFindById(
+        jest
+          .fn()
+          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+      );
+      grantGroups({ read: [mockGroupId], write: [] });
+
+      const response = await request(app).get(`/sample?id=${mockSampleId}`);
+
+      expect(response.status).toBe(200);
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+        expect.objectContaining({ username: "enaadmin" }),
+        { mode: "read" },
+      );
+    });
+  });
 });
 
 describe("GET /samples/names/:projectId", () => {
   const mockProjectId = new mongoose.Types.ObjectId().toString();
+  const mockGroupId = new mongoose.Types.ObjectId().toString();
 
   beforeEach(() => {
     // Reset mock user and Group mock for these tests
@@ -512,9 +451,10 @@ describe("GET /samples/names/:projectId", () => {
       groups: ["group-123"],
       isAdmin: false,
     };
-    Group.GroupsIAmIn.mockResolvedValue([
-      { _id: { toString: () => "group-123" }, name: "Test Group" },
-    ]);
+    grantGroups({ read: [mockGroupId], write: [mockGroupId] });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: mockProjectId, group: mockGroupId });
   });
 
   afterEach(() => {
@@ -529,11 +469,7 @@ describe("GET /samples/names/:projectId", () => {
       { _id: "4", name: "Sample C" },
     ];
 
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockSamples),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue(mockSamples));
 
     const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
@@ -558,11 +494,7 @@ describe("GET /samples/names/:projectId", () => {
       { _id: "5", name: "Sample B" },
     ];
 
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockSamples),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue(mockSamples));
 
     const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
@@ -572,11 +504,7 @@ describe("GET /samples/names/:projectId", () => {
   });
 
   test("should return empty array when no samples exist for project", async () => {
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue([]),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue([]));
 
     const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
@@ -591,11 +519,7 @@ describe("GET /samples/names/:projectId", () => {
       { _id: "3", name: undefined },
     ];
 
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockSamples),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue(mockSamples));
 
     const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
@@ -604,36 +528,63 @@ describe("GET /samples/names/:projectId", () => {
   });
 
   test("should handle database errors gracefully", async () => {
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockRejectedValue(new Error("Database error")),
-      }),
-    });
+    mockSampleFind(jest.fn().mockRejectedValue(new Error("Database error")));
 
     const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
     expect(response.status).toBe(500);
   });
 
-  test("should handle invalid project ID format", async () => {
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockRejectedValue(new Error("Invalid ObjectId format")),
-      }),
-    });
+  test("should reject an invalid project ID format", async () => {
+    // UPDATED: this used to expect 500 — the malformed id was passed to
+    // mongoose and the cast error became a server fault. It is a bad request.
+    mockSampleFind(jest.fn().mockResolvedValue([]));
 
     const response = await request(app).get("/samples/names/invalid-id");
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(400);
+    expect(Sample.find).not.toHaveBeenCalled();
+  });
+
+  test("should return 404 when the project does not exist", async () => {
+    Project.findById = jest.fn().mockResolvedValue(null);
+    mockSampleFind(jest.fn().mockResolvedValue([]));
+
+    const response = await request(app).get(`/samples/names/${mockProjectId}`);
+
+    expect(response.status).toBe(404);
+    expect(Sample.find).not.toHaveBeenCalled();
+  });
+
+  test("should refuse to list names from a project the caller cannot read", async () => {
+    // This endpoint returns every sample name in the project, not only the
+    // caller's own, so it leaked names across groups to any authenticated user.
+    grantGroups({ read: ["another-group"], write: ["another-group"] });
+    mockSampleFind(jest.fn().mockResolvedValue([{ _id: "1", name: "Secret" }]));
+
+    const response = await request(app).get(`/samples/names/${mockProjectId}`);
+
+    expect(response.status).toBe(403);
+    expect(Sample.find).not.toHaveBeenCalled();
   });
 });
 
 describe("POST /samples/new - TPlex Mode", () => {
+  const projectId = new mongoose.Types.ObjectId().toString();
+  const groupId = new mongoose.Types.ObjectId().toString();
+
   beforeEach(() => {
+    mockUser = {
+      username: "testuser",
+      groups: [groupId],
+      isAdmin: false,
+    };
+    grantGroups({ read: [groupId], write: [groupId] });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: projectId, group: groupId });
     // Mock findOne for idempotency check (return null = no existing sample)
-    Sample.findOne = jest.fn().mockReturnValue({
-      populate: jest.fn().mockResolvedValue(null),
-    });
+    mockSampleFindOne(null);
   });
 
   afterEach(() => {
@@ -667,8 +618,8 @@ describe("POST /samples/new - TPlex Mode", () => {
     Sample.mockImplementation(() => mockSavedSample);
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       tplexCsv: tplexCsvData,
     });
@@ -716,8 +667,8 @@ describe("POST /samples/new - TPlex Mode", () => {
     });
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       tplexCsv: tplexCsvData,
     });
@@ -754,14 +705,40 @@ describe("POST /samples/new - TPlex Mode", () => {
     });
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       tplexCsv: tplexCsvData,
     });
 
     expect(response.status).toBe(201);
     expect(Sample).toHaveBeenCalledTimes(1); // Only one sample created
+  });
+
+  test("should fall back to the row's own name column", async () => {
+    const tplexCsvData = [
+      {
+        name: "Row Name",
+        scientificName: "",
+        commonName: "",
+        ncbi: "1234",
+        conditions: "Test conditions",
+      },
+    ];
+
+    Sample.mockImplementation((data) => {
+      expect(data.name).toBe("TPlex_Row_Name");
+      return { _id: "sample-1", save: jest.fn().mockResolvedValue(this) };
+    });
+
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: tplexCsvData,
+    });
+
+    expect(response.status).toBe(201);
   });
 
   test("should generate fallback name with timestamp if no names available in TPlex", async () => {
@@ -787,14 +764,35 @@ describe("POST /samples/new - TPlex Mode", () => {
     });
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       tplexCsv: tplexCsvData,
     });
 
     expect(response.status).toBe(201);
     expect(Sample).toHaveBeenCalledTimes(1); // Only one sample created
+  });
+
+  test("should not throw when a name column arrives as a number", async () => {
+    // `.trim()` on a number used to throw a TypeError and surface as a 500.
+    const tplexCsvData = [
+      { name: 42, scientificName: 7, commonName: null, ncbi: "1", conditions: "x" },
+    ];
+
+    Sample.mockImplementation((data) => {
+      expect(data.name).toMatch(/TPlex_Sample_\d+/);
+      return { _id: "sample-1", save: jest.fn().mockResolvedValue(this) };
+    });
+
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: tplexCsvData,
+    });
+
+    expect(response.status).toBe(201);
   });
 
   test("should store entire CSV array as CSV text format", async () => {
@@ -824,8 +822,8 @@ describe("POST /samples/new - TPlex Mode", () => {
     Sample.mockImplementation(() => mockSavedSample);
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       tplexCsv: tplexCsvData,
     });
@@ -844,14 +842,132 @@ describe("POST /samples/new - TPlex Mode", () => {
       }),
     );
   });
+
+  test("should quote and escape values containing commas and quotes", async () => {
+    const tplexCsvData = [
+      {
+        scientificName: "Species 1",
+        conditions: 'Grown at 25C, then "chilled"',
+      },
+    ];
+
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: tplexCsvData,
+    });
+
+    expect(response.status).toBe(201);
+    expect(Sample).toHaveBeenCalledWith(
+      expect.objectContaining({
+        tplexCsv: expect.stringContaining(
+          'Species 1,"Grown at 25C, then ""chilled"""',
+        ),
+      }),
+    );
+  });
+
+  test("should neutralise values a spreadsheet would execute as a formula", async () => {
+    const tplexCsvData = [
+      {
+        scientificName: "Species 1",
+        "=evilHeader": "harmless",
+        conditions: "=cmd|'/C calc'!A0",
+        commonName: "@SUM(1+1)",
+      },
+    ];
+
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: tplexCsvData,
+    });
+
+    expect(response.status).toBe(201);
+
+    const stored = Sample.mock.calls[0][0].tplexCsv;
+    // The payload survives as text, prefixed so the cell is not evaluated...
+    expect(stored).toContain(`"'=cmd|'/C calc'!A0"`);
+    expect(stored).toContain(`"'@SUM(1+1)"`);
+    // ...and a header is just as executable as a value.
+    expect(stored).toContain(`"'=evilHeader"`);
+    // Nothing is left starting with a bare formula character.
+    stored.split("\r\n").forEach((line) => {
+      line.split(",").forEach((field) => {
+        expect(field.startsWith("=")).toBe(false);
+        expect(field.startsWith("@")).toBe(false);
+      });
+    });
+  });
+
+  test("should leave plain negative numbers alone", async () => {
+    // "-80" is a storage temperature, not a formula. Escaping it as text would
+    // break every consumer that reads the column as numeric.
+    const tplexCsvData = [
+      { scientificName: "Species 1", conditions: "-80", ncbi: "+4" },
+    ];
+
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: tplexCsvData,
+    });
+
+    expect(response.status).toBe(201);
+    expect(Sample).toHaveBeenCalledWith(
+      expect.objectContaining({
+        tplexCsv: expect.stringContaining("Species 1,-80,+4"),
+      }),
+    );
+  });
+
+  test("should reject TPlex rows that are not objects", async () => {
+    const response = await request(app).post("/samples/new").send({
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+      tplexCsv: ["not-an-object"],
+    });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
 });
 
 describe("POST /samples/new - Standard Mode", () => {
+  const projectId = new mongoose.Types.ObjectId().toString();
+  const groupId = new mongoose.Types.ObjectId().toString();
+
   beforeEach(() => {
+    mockUser = {
+      username: "testuser",
+      groups: [groupId],
+      isAdmin: false,
+    };
+    grantGroups({ read: [groupId], write: [groupId] });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: projectId, group: groupId });
     // Mock findOne for idempotency check (return null = no existing sample)
-    Sample.findOne = jest.fn().mockReturnValue({
-      populate: jest.fn().mockResolvedValue(null),
-    });
+    mockSampleFindOne(null);
   });
 
   afterEach(() => {
@@ -861,13 +977,13 @@ describe("POST /samples/new - Standard Mode", () => {
   test("should create a single sample with all required fields", async () => {
     const sampleData = {
       name: "Test Sample",
-      project: "project-123",
+      project: projectId,
       scientificName: "Arabidopsis thaliana",
       commonName: "Thale cress",
       ncbi: "3702",
       conditions: "Standard lab conditions at 25C for 2 weeks",
       owner: "testuser",
-      group: "group-123",
+      group: groupId,
     };
 
     const mockSavedSample = {
@@ -902,17 +1018,364 @@ describe("POST /samples/new - Standard Mode", () => {
     Sample.mockImplementation(() => mockSavedSample);
 
     const response = await request(app).post("/samples/new").send({
-      project: "project-123",
-      group: "group-123",
+      project: projectId,
+      group: groupId,
       owner: "testuser",
       // Missing required fields
     });
 
     expect(response.status).toBe(400);
   });
+
+  test("should store the group taken from the parent project", async () => {
+    // The submitted group is only ever checked; the stored one is derived.
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      scientificName: "Arabidopsis thaliana",
+      commonName: "Thale cress",
+      ncbi: "3702",
+      conditions: "Standard",
+      owner: "testuser",
+      group: groupId,
+    });
+
+    expect(response.status).toBe(201);
+    expect(Sample).toHaveBeenCalledWith(
+      expect.objectContaining({ group: groupId, project: projectId }),
+    );
+  });
+
+  test("should stamp the owner from the session, ignoring the body's claim", async () => {
+    // `owner` used to be copied straight out of req.body, and GET /sample
+    // grants read access on `sample.owner === req.user.username` — so naming
+    // somebody else there handed them a sample in a group they may never have
+    // been in.
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "somebody-else",
+    });
+
+    expect(response.status).toBe(201);
+    expect(Sample).toHaveBeenCalledWith(
+      expect.objectContaining({ owner: "testuser" }),
+    );
+  });
+
+  test("should stamp the owner from the session even for an operator body", async () => {
+    // The type guard on body.owner is gone because the value is no longer
+    // used; this proves an operator object cannot reach the document.
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    const response = await request(app)
+      .post("/samples/new")
+      .send({
+        name: "Test Sample",
+        project: projectId,
+        group: groupId,
+        owner: { $ne: null },
+      });
+
+    expect(response.status).toBe(201);
+    expect(Sample).toHaveBeenCalledWith(
+      expect.objectContaining({ owner: "testuser" }),
+    );
+  });
+
+  test("passes the acting username through to the file claim", async () => {
+    // Claiming a staged upload is checked against the tus sidecar's recorded
+    // owner. Without this argument every local-filesystem claim is refused as
+    // belonging to 'undefined'.
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      path: "/group/project/sample",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+
+    await request(app)
+      .post("/samples/new")
+      .send({
+        name: "Test Sample",
+        project: projectId,
+        group: groupId,
+        additionalFiles: [{ id: "upload-1" }],
+      });
+
+    const { sortAdditionalFiles } = require("../../lib/sortAssociatedFiles");
+    const [files, parentType, , , username] =
+      sortAdditionalFiles.mock.calls[0];
+    expect(files).toEqual([{ id: "upload-1" }]);
+    expect(parentType).toBe("sample");
+    expect(username).toBe("testuser");
+  });
+
+  test("should return 404 when the parent project does not exist", async () => {
+    Project.findById = jest.fn().mockResolvedValue(null);
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(404);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 when the group is missing", async () => {
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should return 400 when the project is missing", async () => {
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+});
+
+describe("POST /samples/new - injection and authorisation", () => {
+  const projectId = new mongoose.Types.ObjectId().toString();
+  const groupId = new mongoose.Types.ObjectId().toString();
+  const otherGroupId = new mongoose.Types.ObjectId().toString();
+
+  beforeEach(() => {
+    mockUser = {
+      username: "testuser",
+      groups: [groupId],
+      isAdmin: false,
+    };
+    grantGroups({ read: [groupId], write: [groupId] });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: projectId, group: groupId });
+    mockSampleFindOne(null);
+    Sample.mockImplementation(() => ({
+      _id: "sample-1",
+      save: jest.fn().mockResolvedValue(this),
+    }));
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('should refuse a project of {"$ne": null} instead of running the query', async () => {
+    // REGRESSION (Gate 1 item 3): mongoose 5 casting preserves operators, so
+    // `Sample.findOne({ project: { $ne: null }, name })` matched the first
+    // sample with that name in ANY group and the handler returned it populated,
+    // before any ownership check ran.
+    const response = await request(app)
+      .post("/samples/new")
+      .send({
+        name: "Known Sample Name",
+        project: { $ne: null },
+        group: groupId,
+        owner: "testuser",
+      });
+
+    expect(response.status).toBe(400);
+    expect(Sample.findOne).not.toHaveBeenCalled();
+    expect(Project.findById).not.toHaveBeenCalled();
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test('should refuse a name of {"$ne": null}', async () => {
+    const response = await request(app)
+      .post("/samples/new")
+      .send({
+        name: { $ne: null },
+        project: projectId,
+        group: groupId,
+        owner: "testuser",
+      });
+
+    expect(response.status).toBe(400);
+    expect(Sample.findOne).not.toHaveBeenCalled();
+  });
+
+  test('should refuse a group of {"$ne": null}', async () => {
+    const response = await request(app)
+      .post("/samples/new")
+      .send({
+        name: "Test Sample",
+        project: projectId,
+        group: { $ne: null },
+        owner: "testuser",
+      });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should refuse a 12-character non-hex id that ObjectId.isValid accepts", async () => {
+    // ObjectId.isValid("project-1234") is true — it casts the 12 bytes into an
+    // id — so the hex test is what actually rejects a malformed value.
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: "project-1234",
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(400);
+    expect(Project.findById).not.toHaveBeenCalled();
+  });
+
+  test("should refuse to attach a sample to another group's project", async () => {
+    // The caller may write in their own group, and names it in the body, but
+    // the parent project belongs to a group they are not in. The group is taken
+    // from the project, so this is refused rather than silently accepted.
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: projectId, group: otherGroupId });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(403);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should refuse a group that does not own the submitted project even when the caller can write both", async () => {
+    // Same shape, but the caller is a member of both groups: the request is
+    // still inconsistent, and answering it would store a group the project does
+    // not belong to.
+    grantGroups({
+      read: [groupId, otherGroupId],
+      write: [groupId, otherGroupId],
+    });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: projectId, group: otherGroupId });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should refuse creation to a cross-group reader who cannot write", async () => {
+    // FULL_RECORDS_ACCESS_USERS read every group; that must not let them create
+    // records in a group they do not belong to.
+    mockUser = { username: "enaadmin", groups: [], isAdmin: false };
+    grantGroups({ read: [groupId], write: [] });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "enaadmin",
+    });
+
+    expect(response.status).toBe(403);
+    expect(Sample).not.toHaveBeenCalled();
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+      expect.objectContaining({ username: "enaadmin" }),
+      { mode: "write" },
+    );
+  });
+
+  test("should return an existing sample the caller may read", async () => {
+    mockSampleFindOne({
+      _id: "existing-1",
+      name: "Test Sample",
+      group: groupId,
+    });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body.idempotent).toBe(true);
+    expect(response.body.sample._id).toBe("existing-1");
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("should not return an existing sample from a group the caller cannot read", async () => {
+    // The idempotency lookup used to return whatever it found, unconditionally.
+    // A sample whose own group differs from its project's group must still be
+    // authorised on its own group before it is handed back.
+    mockSampleFindOne({
+      _id: "existing-1",
+      name: "Test Sample",
+      group: otherGroupId,
+      conditions: "secret",
+    });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Test Sample",
+      project: projectId,
+      group: groupId,
+      owner: "testuser",
+    });
+
+    expect(response.status).toBe(403);
+    expect(response.body.error).toMatch(/permission/i);
+    expect(JSON.stringify(response.body)).not.toContain("secret");
+  });
 });
 
 describe("Integration: Sample Names Endpoint", () => {
+  const mockProjectId = new mongoose.Types.ObjectId().toString();
+  const mockGroupId = new mongoose.Types.ObjectId().toString();
+
+  beforeEach(() => {
+    mockUser = {
+      username: "testuser",
+      groups: [mockGroupId],
+      isAdmin: false,
+    };
+    grantGroups({ read: [mockGroupId], write: [mockGroupId] });
+    Project.findById = jest
+      .fn()
+      .mockResolvedValue({ _id: mockProjectId, group: mockGroupId });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("should return only names from samples, not from other fields", async () => {
     const mockSamples = [
       {
@@ -929,15 +1392,9 @@ describe("Integration: Sample Names Endpoint", () => {
       },
     ];
 
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockSamples),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue(mockSamples));
 
-    const response = await request(app).get(
-      `/samples/names/${new mongoose.Types.ObjectId()}`,
-    );
+    const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
     expect(response.status).toBe(200);
     expect(response.body.sampleNames).toEqual(["Sample A", "Sample B"]);
@@ -951,15 +1408,9 @@ describe("Integration: Sample Names Endpoint", () => {
       name: `Sample ${i}`,
     }));
 
-    Sample.find = jest.fn().mockReturnValue({
-      select: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(mockSamples),
-      }),
-    });
+    mockSampleFind(jest.fn().mockResolvedValue(mockSamples));
 
-    const response = await request(app).get(
-      `/samples/names/${new mongoose.Types.ObjectId()}`,
-    );
+    const response = await request(app).get(`/samples/names/${mockProjectId}`);
 
     expect(response.status).toBe(200);
     expect(response.body.sampleNames).toHaveLength(1000);

@@ -190,8 +190,25 @@ describe("belongsToGroup", () => {
     expect(response.status).toBe(200);
   });
 
-  test("passes an admin who is not a member", async () => {
-    Group.GroupsIAmIn.mockResolvedValue([]);
+  // Membership here gates a mutation, so it must ask for the write capability:
+  // in read mode a user in FULL_RECORDS_ACCESS_USERS is handed every group.
+  test("asks for the write capability, not the read one", async () => {
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: groupId }]);
+
+    await request(buildApp({ username: "testuser" }, middleware))
+      .get("/protected")
+      .query({ groupId });
+
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+      expect.objectContaining({ username: "testuser" }),
+      { mode: "write" },
+    );
+  });
+
+  test("passes an admin, who is a member of every group", async () => {
+    // An admin's authority arrives as GroupsIAmIn returning every live group;
+    // this middleware no longer short-circuits on the isAdmin flag itself.
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: groupId }, { _id: otherGroupId }]);
 
     const response = await request(
       buildApp({ username: "admin", isAdmin: true }, middleware),
@@ -200,6 +217,20 @@ describe("belongsToGroup", () => {
       .query({ groupId });
 
     expect(response.status).toBe(200);
+  });
+
+  test("rejects an admin when the group is gone", async () => {
+    // GroupsIAmIn filters soft-deleted groups out for everyone, so a deleted
+    // group must stop authorising admins too.
+    Group.GroupsIAmIn.mockResolvedValue([]);
+
+    const response = await request(
+      buildApp({ username: "admin", isAdmin: true }, middleware),
+    )
+      .get("/protected")
+      .query({ groupId });
+
+    expect(response.status).toBe(403);
   });
 
   test("rejects a non-member", async () => {
@@ -212,7 +243,18 @@ describe("belongsToGroup", () => {
       .query({ groupId });
 
     expect(response.status).toBe(403);
-    expect(response.body.error).toMatch(/testuser/);
+    expect(response.body.error).toBe(
+      "User 'testuser' does not have permission to modify this resource",
+    );
+  });
+
+  test("rejects an unauthenticated request", async () => {
+    const response = await request(buildApp(null, middleware))
+      .get("/protected")
+      .query({ groupId });
+
+    expect(response.status).toBe(401);
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
   });
 
   test("rejects a request with no group id", async () => {

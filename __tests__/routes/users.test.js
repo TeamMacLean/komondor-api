@@ -9,9 +9,21 @@ jest.mock("../../models/User", () => ({ find: jest.fn(), findOne: jest.fn() }));
 jest.mock("../../models/Project", () => ({ find: jest.fn() }));
 jest.mock("../../lib/ldap", () => ({ verifyUserExists: jest.fn() }));
 
+// GET /user composes the caller's visibility filter, which now resolves live
+// group membership from the database instead of trusting the token's `groups`
+// claim. Stubbed to echo the claim back, so these tests keep describing the
+// filter shape rather than the lookup (models/GroupsIAmIn.test.js covers that).
+jest.mock("../../lib/utils/groupAccess", () => ({
+  groupsICanRead: jest.fn(async (user) =>
+    ((user && user.groups) || []).map((_id) => ({ _id })),
+  ),
+}));
+
+let mockUser = { username: "testuser", groups: [] };
+
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
-    req.user = { username: "testuser", groups: [] };
+    req.user = mockUser;
     next();
   },
   isAdmin: (req, res, next) => next(),
@@ -26,23 +38,63 @@ const app = express();
 app.use(express.json());
 app.use("/", usersRouter);
 
+const ORIGINAL_FULL_ACCESS = process.env.FULL_RECORDS_ACCESS_USERS;
+
 beforeEach(() => {
   jest.clearAllMocks();
   jest.spyOn(console, "error").mockImplementation(() => {});
+  mockUser = { username: "testuser", groups: [] };
+  delete process.env.FULL_RECORDS_ACCESS_USERS;
 });
 
 afterEach(() => {
   jest.restoreAllMocks();
 });
 
+afterAll(() => {
+  if (ORIGINAL_FULL_ACCESS === undefined) {
+    delete process.env.FULL_RECORDS_ACCESS_USERS;
+  } else {
+    process.env.FULL_RECORDS_ACCESS_USERS = ORIGINAL_FULL_ACCESS;
+  }
+});
+
 describe("GET /users", () => {
-  test("returns all users", async () => {
+  test("returns the users", async () => {
     User.find.mockResolvedValue([{ username: "a" }]);
 
     const response = await request(app).get("/users");
 
     expect(response.status).toBe(200);
     expect(response.body.users).toEqual([{ username: "a" }]);
+  });
+
+  test("does not return the whole user record", async () => {
+    // The route answered User.find({}) to any authenticated caller, which
+    // published every account's email address and — more useful to an attacker
+    // — its isAdmin flag and group ids. It cannot simply be made admin-only:
+    // komondor-power calls it as an ordinary user to validate project owners.
+    User.find.mockResolvedValue([]);
+
+    await request(app).get("/users");
+
+    expect(User.find).toHaveBeenCalledWith({}, "_id username name");
+  });
+
+  test("projects to the fields both clients actually read", async () => {
+    // komondor-power reads username; komondor-web's admin list reads _id,
+    // username and name. Anything else is a leak with no consumer.
+    User.find.mockResolvedValue([]);
+
+    await request(app).get("/users");
+
+    const projection = User.find.mock.calls[0][1];
+    ["_id", "username", "name"].forEach((field) => {
+      expect(projection).toContain(field);
+    });
+    ["isAdmin", "groups", "email", "lastLogin"].forEach((field) => {
+      expect(projection).not.toContain(field);
+    });
   });
 
   test("answers 500 when the lookup fails", async () => {
@@ -120,6 +172,57 @@ describe("GET /user", () => {
     const response = await request(app).get("/user?username=a&username=b");
 
     expect(response.status).toBe(400);
+  });
+
+  test("withholds the account fields nothing renders", async () => {
+    User.findOne.mockResolvedValue({ toObject: () => ({ username: "alice" }) });
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
+
+    await request(app).get("/user").query({ username: "alice" });
+
+    const projection = User.findOne.mock.calls[0][1];
+    // The profile card renders these.
+    ["_id", "username", "name", "email", "company"].forEach((field) => {
+      expect(projection).toContain(field);
+    });
+    // These describe the account rather than the person, and nothing shows them.
+    ["isAdmin", "groups", "lastLogin"].forEach((field) => {
+      expect(projection).not.toContain(field);
+    });
+  });
+
+  test("shows only the projects the caller is allowed to see", async () => {
+    // GET /projects goes through Project.iCanSee, but this route did a bare
+    // Project.find({ owner }) — so naming any owner listed their projects
+    // whatever group they were in, straight past the visibility filter.
+    mockUser = { username: "testuser", groups: ["group-1"] };
+    User.findOne.mockResolvedValue(null);
+    const populate = jest.fn().mockResolvedValue([]);
+    Project.find.mockReturnValue({ populate });
+
+    await request(app).get("/user").query({ username: "alice" });
+
+    // Group membership alone. The visibility filter used to carry its own
+    // `$or: [{ owner }, { group }]`; the owner clause was a read grant that
+    // removing somebody from a group could not withdraw.
+    expect(Project.find).toHaveBeenCalledWith({
+      $and: [{ owner: "alice" }, { group: { $in: ["group-1"] } }],
+    });
+  });
+
+  test("does not filter for a caller who may read every record", async () => {
+    process.env.FULL_RECORDS_ACCESS_USERS = '["enaadmin"]';
+    mockUser = { username: "enaadmin", groups: [] };
+    User.findOne.mockResolvedValue(null);
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
+
+    await request(app).get("/user").query({ username: "alice" });
+
+    expect(Project.find).toHaveBeenCalledWith({ owner: "alice" });
   });
 
   test("answers 500 when the lookup fails", async () => {

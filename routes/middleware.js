@@ -45,36 +45,17 @@ module.exports.hasFullRecordsAccess = function (req, res, next) {
 /**
  * Middleware to check if user belongs to at least one of the specified groups.
  * Must be used after isAuthenticated.
+ *
+ * Membership gates a mutation, so this asks for the *write* capability: users
+ * named in FULL_RECORDS_ACCESS_USERS read across every group but write only in
+ * the groups they actually belong to. The check itself lives in
+ * lib/utils/groupAccess so this middleware and the route handlers share one
+ * implementation and cannot drift apart.
+ *
  * @param {Function} getGroupId - Function that takes req and returns the group ID to check
  */
 module.exports.belongsToGroup = function (getGroupId) {
-  return async function (req, res, next) {
-    try {
-      const groupId = await getGroupId(req);
-      if (!groupId) {
-        return res.status(400).send({ error: "Group ID not provided" });
-      }
+  const { requireGroupWrite } = require("../lib/utils/groupAccess");
 
-      const Group = require("../models/Group");
-      const userGroups = await Group.GroupsIAmIn(req.user);
-      const userGroupIds = userGroups.map((g) => g._id.toString());
-
-      if (userGroupIds.includes(groupId.toString())) {
-        next();
-      } else if (req.user.isAdmin) {
-        // Admins can access any group
-        next();
-      } else {
-        return res
-          .status(403)
-          .send({
-            error: `User '${req.user.username}' does not have permission to access this resource`,
-          });
-      }
-    } catch (error) {
-      return res
-        .status(500)
-        .send({ error: "Failed to verify group membership" });
-    }
-  };
+  return requireGroupWrite(getGroupId);
 };

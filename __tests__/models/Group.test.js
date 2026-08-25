@@ -3,8 +3,15 @@
  * Tests the GroupsIAmIn logic for handling users with multiple groups
  */
 
+const { getFullAccessUsers } = require("../../lib/utils/fullAccessUsers");
+
 describe("GroupsIAmIn logic", () => {
   let mockFind;
+
+  // Every query excludes soft-deleted groups unless asked not to.
+  const LIVE_ONLY = { deleted: { $ne: true } };
+
+  const originalFullAccess = process.env.FULL_RECORDS_ACCESS_USERS;
 
   const mockGroups = [
     {
@@ -28,10 +35,12 @@ describe("GroupsIAmIn logic", () => {
    * This mirrors the logic from Group.GroupsIAmIn in models/Group.js
    * We test the logic in isolation to avoid mongoose connection issues
    */
-  async function GroupsIAmIn(user, findFn) {
+  async function GroupsIAmIn(user, findFn, options) {
     if (!user) {
       throw new Error("User object is required");
     }
+
+    const { mode = "read", includeDeleted = false } = options || {};
 
     const username =
       user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
@@ -39,6 +48,10 @@ describe("GroupsIAmIn logic", () => {
     let groupFindCriteria = null;
 
     if (user.isAdmin) {
+      groupFindCriteria = {};
+    } else if (mode === "read" && getFullAccessUsers().includes(username)) {
+      // Cross-group access is a read capability only; in write mode these users
+      // fall through to their real membership like anybody else.
       groupFindCriteria = {};
     } else if (user.groups && user.groups.length) {
       groupFindCriteria = {
@@ -57,12 +70,25 @@ describe("GroupsIAmIn logic", () => {
       return [];
     }
 
+    if (!includeDeleted) {
+      groupFindCriteria = { ...groupFindCriteria, ...LIVE_ONLY };
+    }
+
     return await findFn(groupFindCriteria);
   }
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockFind = jest.fn();
+    process.env.FULL_RECORDS_ACCESS_USERS = '["macleand"]';
+  });
+
+  afterAll(() => {
+    if (originalFullAccess === undefined) {
+      delete process.env.FULL_RECORDS_ACCESS_USERS;
+    } else {
+      process.env.FULL_RECORDS_ACCESS_USERS = originalFullAccess;
+    }
   });
 
   describe("user with multiple groups array", () => {
@@ -79,6 +105,7 @@ describe("GroupsIAmIn logic", () => {
 
       expect(mockFind).toHaveBeenCalledWith({
         _id: { $in: ["group-1", "group-2"] },
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(2);
       expect(result[0].name).toBe("bioinformatics");
@@ -98,6 +125,7 @@ describe("GroupsIAmIn logic", () => {
 
       expect(mockFind).toHaveBeenCalledWith({
         _id: { $in: ["group-1"] },
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(1);
       expect(result[0].name).toBe("bioinformatics");
@@ -116,6 +144,7 @@ describe("GroupsIAmIn logic", () => {
 
       expect(mockFind).toHaveBeenCalledWith({
         _id: { $in: ["group-1", "group-2", "group-3"] },
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(3);
     });
@@ -141,6 +170,7 @@ describe("GroupsIAmIn logic", () => {
           { ldapGroups: "CN=bioinformatics,OU=Groups,DC=example,DC=com" },
           { ldapGroups: "CN=jjones-lab,OU=Groups,DC=example,DC=com" },
         ],
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(2);
     });
@@ -158,6 +188,7 @@ describe("GroupsIAmIn logic", () => {
 
       expect(mockFind).toHaveBeenCalledWith({
         $or: [{ ldapGroups: "CN=research,OU=Groups,DC=example,DC=com" }],
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(1);
       expect(result[0].name).toBe("research");
@@ -175,7 +206,7 @@ describe("GroupsIAmIn logic", () => {
 
       const result = await GroupsIAmIn(user, mockFind);
 
-      expect(mockFind).toHaveBeenCalledWith({});
+      expect(mockFind).toHaveBeenCalledWith({ ...LIVE_ONLY });
       expect(result).toHaveLength(3);
     });
 
@@ -190,7 +221,7 @@ describe("GroupsIAmIn logic", () => {
 
       const result = await GroupsIAmIn(user, mockFind);
 
-      expect(mockFind).toHaveBeenCalledWith({});
+      expect(mockFind).toHaveBeenCalledWith({ ...LIVE_ONLY });
       expect(result).toHaveLength(3);
     });
   });
@@ -261,6 +292,7 @@ describe("GroupsIAmIn logic", () => {
       // Should use groups, not memberOf
       expect(mockFind).toHaveBeenCalledWith({
         _id: { $in: ["group-1"] },
+        ...LIVE_ONLY,
       });
       expect(result).toHaveLength(1);
       expect(result[0].name).toBe("bioinformatics");
@@ -268,48 +300,55 @@ describe("GroupsIAmIn logic", () => {
   });
 
   describe("username detection", () => {
-    test("should detect full access user via username property", async () => {
-      // Mock environment variable just for this test
-      const originalEnv = process.env.FULL_RECORDS_ACCESS_USERS;
-      process.env.FULL_RECORDS_ACCESS_USERS = '["macleand"]';
+    test("should let a full access user read every group", async () => {
+      const user = {
+        username: "macleand",
+        groups: ["group-1"],
+        isAdmin: false,
+      };
 
+      mockFind.mockResolvedValue(mockGroups);
+
+      const result = await GroupsIAmIn(user, mockFind);
+
+      // An empty criteria object means "every group".
+      expect(mockFind).toHaveBeenCalledWith({ ...LIVE_ONLY });
+      expect(result).toHaveLength(3);
+    });
+
+    test("should confine a full access user's writes to their own groups", async () => {
+      // FULL_RECORDS_ACCESS_USERS is a cross-group *read* capability. This test
+      // used to assert the criteria were `{}` regardless, which is how a
+      // read-everything grant became a write-everywhere grant once routes
+      // authorised writes with the same lookup.
+      const user = {
+        username: "macleand",
+        groups: ["group-1"],
+        isAdmin: false,
+      };
+
+      mockFind.mockResolvedValue([mockGroups[0]]);
+
+      const result = await GroupsIAmIn(user, mockFind, { mode: "write" });
+
+      expect(mockFind).toHaveBeenCalledWith({
+        _id: { $in: ["group-1"] },
+        ...LIVE_ONLY,
+      });
+      expect(result).toHaveLength(1);
+    });
+
+    test("should give a full access user with no groups nothing to write to", async () => {
       const user = {
         username: "macleand",
         groups: [],
         isAdmin: false,
       };
 
-      // Ensure that when the condition is met, findFn is called with an empty object {}
-      // (which means "return all groups")
-      mockFind.mockResolvedValue(mockGroups);
+      const result = await GroupsIAmIn(user, mockFind, { mode: "write" });
 
-      // Recreate the logic that is in models/Group.js
-      let fullAccessUsers = [];
-      if (process.env.FULL_RECORDS_ACCESS_USERS) {
-        try {
-          fullAccessUsers = JSON.parse(process.env.FULL_RECORDS_ACCESS_USERS);
-        } catch (e) {
-          fullAccessUsers = process.env.FULL_RECORDS_ACCESS_USERS.split(",").map((u) => u.trim());
-        }
-      }
-
-      const username = user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
-      
-      let groupFindCriteria = null;
-      if (user.isAdmin) {
-        groupFindCriteria = {};
-      } else if (fullAccessUsers.length && fullAccessUsers.includes(username)) {
-        groupFindCriteria = {};
-      } else if (user.groups && user.groups.length) {
-        groupFindCriteria = { _id: { $in: user.groups } };
-      }
-
-      expect(groupFindCriteria).toEqual({});
-      const result = await mockFind(groupFindCriteria);
-      expect(result).toHaveLength(3);
-
-      // Restore environment
-      process.env.FULL_RECORDS_ACCESS_USERS = originalEnv;
+      expect(mockFind).not.toHaveBeenCalled();
+      expect(result).toEqual([]);
     });
 
     test("should detect username from username", async () => {

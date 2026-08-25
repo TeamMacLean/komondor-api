@@ -238,4 +238,11 @@ describe("logout", () => {
   test("GET /logout answers 200", async () => {
     await request(app).get("/logout").expect(200);
   });
+
+  test("POST /logout answers 200 rather than 404", async () => {
+    // Regression: the handler was declared (err, req, res, next). Express
+    // treats a 4-arity handler as an error handler and skips it during normal
+    // dispatch, so this route 404'd for every caller.
+    await request(app).post("/logout").expect(200);
+  });
 });

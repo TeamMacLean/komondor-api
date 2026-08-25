@@ -28,6 +28,18 @@ describe("getUserForToken", () => {
     expect(payload.groups).toEqual(["g1", "g2"]);
   });
 
+  test("asks for the write capability when stamping the groups claim", async () => {
+    // Not a detail: the claim this call produces is read back as real
+    // membership by Group.GroupsIAmIn's write mode. Asking in read mode would
+    // stamp a FULL_RECORDS_ACCESS_USERS token with every group id and hand
+    // that user write access everywhere, defeating the read/write split.
+    const user = { username: "alice" };
+
+    await getUserForToken(user);
+
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(user, { mode: "write" });
+  });
+
   test("prefers the username over the LDAP uid", async () => {
     const payload = await getUserForToken({ username: "alice", uid: "a123" });
 

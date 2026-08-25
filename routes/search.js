@@ -6,6 +6,9 @@ let router = express.Router();
 const Project = require("../models/Project");
 const Sample = require("../models/Sample");
 const Run = require("../models/Run");
+const {
+  visibleGroupIds,
+} = require("../lib/utils/fullAccessUsers");
 
 // Upper bound on a search term. Long terms produce pathological regexes and
 // have no legitimate use against entity names.
@@ -54,8 +57,11 @@ const normaliseQuery = (raw) => {
  * @param {string} query - The normalised search term.
  * @returns {Promise<Array>} The matching documents.
  */
-const searchByName = (Model, user, query) => {
-  return Model.iCanSee(user)
+const searchByName = async (Model, user, query) => {
+  // Live group ids, not the token's claim — see routes/projects.js.
+  const groupIds = await visibleGroupIds(user);
+
+  return Model.iCanSee(user, groupIds)
     .where("name")
     .regex(new RegExp(escapeRegex(query), "i"))
     .populate("group")

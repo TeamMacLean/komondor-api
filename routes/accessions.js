@@ -6,8 +6,63 @@ const Sample = require("../models/Sample");
 const Run = require("../models/Run");
 const Read = require("../models/Read");
 const { isAuthenticated, hasFullRecordsAccess } = require("./middleware");
+const {
+  hasFullRecordsAccess: userHasFullRecordsAccess,
+} = require("../lib/utils/fullAccessUsers");
+const { canReadGroup } = require("../lib/utils/groupAccess");
 const _path = require("path");
 const { handleError } = require("./_utils");
+
+const ENTITY_TYPES = ["project", "sample", "run"];
+
+const ENTITY_MODELS = {
+  project: Project,
+  sample: Sample,
+  run: Run,
+};
+
+/**
+ * True when `value` is an array and every element of it is a string.
+ *
+ * @param {*} value - The candidate value from a request body.
+ * @returns {boolean} True if `value` is a string array.
+ */
+const isStringArray = (value) =>
+  Array.isArray(value) && value.every((entry) => typeof entry === "string");
+
+/**
+ * Who may write ENA accessions.
+ *
+ * Deliberately the same population as the /accessions/csv export rather than
+ * plain group membership. An accession is not the researcher's own metadata: it
+ * is the identifier ENA issues, and the only thing that ever writes one back is
+ * the submission round-trip run by the people named in FULL_RECORDS_ACCESS_USERS
+ * — this route is the return leg of the export the same predicate already gates.
+ * komondor-web agrees: components/AddAccessionModal.vue renders only for
+ * `isEnaAdmin` (the web-side twin of that list), and its own comment says the
+ * real check belongs here. Letting an ordinary group member set an accession
+ * would let them point a public ENA record at the wrong data, through a field no
+ * UI offers them.
+ *
+ * This wraps the shared predicate rather than reusing the `hasFullRecordsAccess`
+ * middleware only because that middleware's 403 talks about exporting records,
+ * which would be a confusing thing to read after a failed write.
+ *
+ * @param {object} req - The Express request.
+ * @param {object} res - The Express response.
+ * @param {Function} next - The next middleware.
+ */
+const requireAccessionWrite = (req, res, next) => {
+  if (userHasFullRecordsAccess(req.user)) {
+    return next();
+  }
+
+  const username = req.user && req.user.username;
+  console.error(`[AUTHZ] Refused accession write to "${username}"`);
+  return res.status(403).send({
+    error: `User '${username}' does not have permission to modify accessions`,
+  });
+};
 
 /**
  * Updates accessions for a given entity type.
@@ -23,13 +78,7 @@ const updateEntityAccessions = async (
   typeId,
   releaseDate = null,
 ) => {
-  const models = {
-    project: Project,
-    sample: Sample,
-    run: Run,
-  };
-
-  const Model = models[type];
+  const Model = ENTITY_MODELS[type];
   if (!Model) {
     throw new Error(`Invalid entity type: ${type}`);
   }
@@ -51,10 +100,13 @@ const updateEntityAccessions = async (
 router
   .route("/accessions/new")
   .all(isAuthenticated)
+  .all(requireAccessionWrite)
   .post(async (req, res) => {
     const { accessions, releaseDate, type, typeId } = req.body || {};
 
-    if (!type || !["project", "sample", "run"].includes(type)) {
+    // `.includes` on a fixed list rather than a lookup in ENTITY_MODELS: a body
+    // sending type "constructor" would find a truthy value on Object.prototype.
+    if (typeof type !== "string" || !ENTITY_TYPES.includes(type)) {
       return res.status(400).send({
         error: "Invalid or missing type. Must be project, sample, or run.",
       });
@@ -64,15 +116,54 @@ router
       return res.status(400).send({ error: "Missing typeId" });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(typeId)) {
+    // The string check is not redundant. `findById({ $ne: null })` is not a
+    // cast failure — mongoose reads the object as a query condition and matches
+    // the first document whose _id is not null, i.e. an arbitrary record.
+    if (
+      typeof typeId !== "string" ||
+      !mongoose.Types.ObjectId.isValid(typeId)
+    ) {
       return res.status(400).send({ error: "typeId is not a valid ID" });
     }
 
-    if (accessions !== undefined && !Array.isArray(accessions)) {
-      return res.status(400).send({ error: "accessions must be an array" });
+    if (!isStringArray(accessions)) {
+      return res
+        .status(400)
+        .send({ error: "accessions must be an array of strings" });
+    }
+
+    if (
+      releaseDate !== undefined &&
+      releaseDate !== null &&
+      typeof releaseDate !== "string"
+    ) {
+      return res.status(400).send({ error: "releaseDate must be a string" });
     }
 
     try {
+      // Load before writing. findByIdAndUpdate applied the change to whatever
+      // the id named, in any group, with nothing in between to check first.
+      const entity = await ENTITY_MODELS[type].findById(typeId);
+
+      if (!entity) {
+        return res
+          .status(404)
+          .send({ error: `${type} with ID ${typeId} not found` });
+      }
+
+      // The record's group must still be live. GroupsIAmIn excludes
+      // soft-deleted groups for everybody, admins included, so a retired group
+      // stops authorising writes into records nobody can see any more. For this
+      // route's callers — who read across every group — that is what this asks.
+      if (!(await canReadGroup(req.user, entity.group))) {
+        console.error(
+          `[AUTHZ] Refused accession write on ${type} ${typeId} (group ${entity.group}) to "${req.user.username}"`,
+        );
+        return res.status(403).send({
+          error: `User '${req.user.username}' does not have permission to modify accessions for this ${type}`,
+        });
+      }
+
       await updateEntityAccessions(type, accessions, typeId, releaseDate);
       res.status(200).send();
     } catch (error) {
@@ -155,8 +246,21 @@ const getMatrixOfData = async () => {
   return result;
 };
 
+// Spreadsheet software evaluates a cell whose first character is one of these.
+// This endpoint is the one that actually produces a downloadable CSV, and it is
+// built from project/sample/run names and accession strings that users control,
+// so a name like `=cmd|'/C calc'!A0` would execute on the machine of whoever
+// opens the export. Kept identical to routes/samples.js so the two agree.
+const FORMULA_START = /^[=+\-@\t\r]/;
+
+// ...but a leading sign in front of a plain number is data, not a formula.
+// Forcing those to text would break any consumer reading a column as numeric.
+const PLAIN_NUMBER = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/;
+
 /**
- * Renders one value as a CSV field, quoting it when it contains a delimiter.
+ * Renders one value as a CSV field: quoted when it contains a delimiter, and
+ * neutralised when a spreadsheet would otherwise execute it.
+ *
  * Names are free text, so an unescaped comma silently shifts every later column
  * of that row into the wrong heading.
  *
@@ -171,6 +275,13 @@ const toCsvField = (value) => {
   // String(value) rather than a nicer date format on purpose: this is the
   // representation Array#join already produced, and consumers parse it.
   const stringValue = String(value);
+
+  if (FORMULA_START.test(stringValue) && !PLAIN_NUMBER.test(stringValue)) {
+    // Prefixed *and* quoted: the apostrophe is what stops the cell being
+    // evaluated, the quotes keep a leading tab or CR inside the field instead
+    // of letting it split the row.
+    return `"'${stringValue.replace(/"/g, '""')}"`;
+  }
 
   if (/[",\n\r]/.test(stringValue)) {
     return `"${stringValue.replace(/"/g, '""')}"`;

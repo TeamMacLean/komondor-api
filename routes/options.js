@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 
-const { isAuthenticated } = require("./middleware");
+const { isAuthenticated, isAdmin } = require("./middleware");
 const { handleError } = require("./_utils");
 
 let router = express.Router();
@@ -13,24 +13,46 @@ const LibraryType = require("../models/options/LibraryType");
 const SequencingTechnology = require("../models/options/SequencingTechnology");
 
 /**
- * Whether POST/DELETE on the option collections require a valid token.
+ * Whether the gate on POST/DELETE for the option collections is active.
  *
- * BREAKING CHANGE (defaults to enabled): these routes were previously
- * unauthenticated, so any caller could add or remove controlled-vocabulary
- * entries. Set OPTIONS_WRITE_REQUIRE_AUTH="false" to restore the old behaviour
- * if a consuming service turns out to write to them without a token.
+ * These are *global* controlled vocabularies: one list of library types, of
+ * sequencing technologies and so on, shared by every group. A bad entry — or a
+ * deletion — is visible to everybody and changes what every future run may be
+ * described as, so adding and removing them is an administrative act rather
+ * than an ordinary user's. komondor-web agrees: the controls live only on the
+ * admin screen, behind its `admin` middleware. The gate is therefore isAdmin,
+ * not merely "presented a valid token".
+ *
+ * OPTIONS_WRITE_REQUIRE_AUTH="false" still lifts the gate for local
+ * development, but it is ignored when NODE_ENV is production. A setting whose
+ * only effect is to open a shared vocabulary to anonymous writes should not be
+ * one line in a deployment .env away from being switched on by accident.
  *
  * GET remains public, as before.
+ *
+ * @returns {boolean} True when writes must be authenticated and admin.
  */
-const writeRequiresAuth = () =>
+const writesAreGated = () =>
+  process.env.NODE_ENV === "production" ||
   process.env.OPTIONS_WRITE_REQUIRE_AUTH !== "false";
 
-const requireAuthForWrites = (req, res, next) => {
-  if (!writeRequiresAuth()) {
+const requireAdminForWrites = (req, res, next) => {
+  if (!writesAreGated()) {
     return next();
   }
-  return isAuthenticated(req, res, next);
+  // isAuthenticated first so an anonymous caller gets 401 rather than the 403
+  // isAdmin would give them, which reads as "log in as someone else".
+  return isAuthenticated(req, res, () => isAdmin(req, res, next));
 };
+
+/**
+ * True when `value` is an array and every element of it is a string.
+ *
+ * @param {*} value - The candidate value from a request body.
+ * @returns {boolean} True if `value` is a string array.
+ */
+const isStringArray = (value) =>
+  Array.isArray(value) && value.every((entry) => typeof entry === "string");
 
 /**
  * Registers the GET/POST/DELETE trio for one option collection.
@@ -52,7 +74,7 @@ const registerOptionRoutes = (path, Model, buildDoc) => {
         handleError(res, err, 500, `Failed to retrieve options for ${path}.`);
       }
     })
-    .post(requireAuthForWrites, async (req, res) => {
+    .post(requireAdminForWrites, async (req, res) => {
       const body = req.body || {};
 
       if (!body.value || typeof body.value !== "string" || !body.value.trim()) {
@@ -71,7 +93,7 @@ const registerOptionRoutes = (path, Model, buildDoc) => {
         handleError(res, err, status, `Failed to create option for ${path}.`);
       }
     })
-    .delete(requireAuthForWrites, async (req, res) => {
+    .delete(requireAdminForWrites, async (req, res) => {
       const { id } = req.body || {};
 
       // Guard hard against a missing id. Mongoose strips undefined values from
@@ -81,7 +103,10 @@ const registerOptionRoutes = (path, Model, buildDoc) => {
         return handleError(res, new Error('"id" is required'), 400);
       }
 
-      if (!mongoose.Types.ObjectId.isValid(id)) {
+      // The string check is not redundant with isValid: an id of
+      // `{ $ne: null }` is read by mongoose as a query condition rather than a
+      // cast failure, and deletes the first document whose _id is not null.
+      if (typeof id !== "string" || !mongoose.Types.ObjectId.isValid(id)) {
         return handleError(res, new Error('"id" is not a valid ID'), 400);
       }
 
@@ -102,10 +127,14 @@ const registerOptionRoutes = (path, Model, buildDoc) => {
 registerOptionRoutes("/options/libraryselection", LibrarySelection);
 registerOptionRoutes("/options/librarysource", LibrarySource);
 registerOptionRoutes("/options/librarystrategy", LibraryStrategy);
+// `paired` and `extensions` go straight from the request body into a mongoose
+// document, so they are narrowed rather than passed through: mongoose's Boolean
+// cast accepts "yes"/"no"/0/1, and a bare string lands in a [String] field as a
+// one-element array. komondor-web sends a real checkbox and a real tag list.
 registerOptionRoutes("/options/librarytype", LibraryType, (body) => ({
   value: body.value,
-  paired: body.paired || false,
-  extensions: body.extensions || [],
+  paired: body.paired === true,
+  extensions: isStringArray(body.extensions) ? body.extensions : [],
 }));
 registerOptionRoutes("/options/sequencingtechnology", SequencingTechnology);
 

@@ -62,14 +62,43 @@ schema.post("save", async function () {
 });
 
 /**
- * Static method to find all groups a user belongs to
+ * Static method to find all groups a user belongs to.
+ *
+ * `mode` separates two capabilities that used to be conflated. The people named
+ * in FULL_RECORDS_ACCESS_USERS hold a cross-group *read* capability (the
+ * accessions export — see routes/middleware.js hasFullRecordsAccess), but every
+ * route built its write check on this same static, so handing them every group
+ * silently let them create and edit records in groups they are not in. Only
+ * `isAdmin` is broad enough to write everywhere; in "write" mode a full-access
+ * user falls through to their real membership like anybody else.
+ *
+ * That fall-through is only as honest as `user.groups`, which is baked into the
+ * token at login by lib/utils/getUserForToken. That call must ask for the write
+ * capability, otherwise a full-access user's token carries every group id and
+ * write mode reads the inflated claim back as "real" membership. Read breadth
+ * does not depend on the claim — it is re-derived here from the username on
+ * every request.
+ *
  * @param {Object} user - User object with authentication details
+ * @param {Object} [options] - Lookup options
+ * @param {"read"|"write"} [options.mode="read"] - The capability being authorised
+ * @param {boolean} [options.includeDeleted=false] - Include soft-deleted groups
  * @returns {Promise<Array>} Array of groups the user belongs to
  */
-schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
+schema.statics.GroupsIAmIn = async function GroupsIAmIn(user, options) {
   if (!user) {
     console.error("[AUTH] GroupsIAmIn called with no user");
     throw new Error("User object is required");
+  }
+
+  const { mode = "read", includeDeleted = false } = options || {};
+
+  // Fail closed on a typo: "read" is the permissive mode, so silently falling
+  // back to it is exactly the conflation this parameter exists to remove.
+  if (mode !== "read" && mode !== "write") {
+    throw new Error(
+      `GroupsIAmIn: unknown mode "${mode}" (expected "read" or "write")`,
+    );
   }
 
   // Detect username from various possible properties
@@ -95,7 +124,7 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
   // Determine group find criteria based on user permissions
   if (user.isAdmin) {
     groupFindCriteria = {};
-  } else if (fullAccessUsers.includes(username)) {
+  } else if (mode === "read" && fullAccessUsers.includes(username)) {
     groupFindCriteria = {};
   } else if (user.groups && user.groups.length) {
     groupFindCriteria = {
@@ -117,9 +146,17 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user) {
     // nothing. Returning early matters — `Group.find(null)` is treated by
     // mongoose as an empty filter and would hand back *every* group.
     console.error(
-      `[AUTH] No group criteria for user "${username}" | isAdmin: ${user.isAdmin}, groups: ${JSON.stringify(user.groups)}, memberOf: ${JSON.stringify(rawMemberOf)}`,
+      `[AUTH] No group criteria for user "${username}" | mode: ${mode}, isAdmin: ${user.isAdmin}, groups: ${JSON.stringify(user.groups)}, memberOf: ${JSON.stringify(rawMemberOf)}`,
     );
     return [];
+  }
+
+  // A soft-deleted group (routes/groups.js sets `deleted = true`) must stop
+  // authorising anyone, admins included — the group is gone as far as callers
+  // are concerned. `$ne: true` rather than `false` so documents written before
+  // the field existed still match.
+  if (!includeDeleted) {
+    groupFindCriteria = { ...groupFindCriteria, deleted: { $ne: true } };
   }
 
   // Find groups matching criteria

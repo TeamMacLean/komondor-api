@@ -180,6 +180,13 @@ async function compareWithMongo(record) {
     }
   }
 
+  // Soft-deleted groups are excluded, matching Group.GroupsIAmIn.
+  //
+  // This memberOf-based prediction is now accurate for FULL_RECORDS_ACCESS_USERS
+  // too. getUserForToken stamps the token in WRITE mode, in which a full-access
+  // user falls through to their real membership; in the old read-mode call they
+  // were stamped with every group in the collection and this line under-reported
+  // for them.
   const usable = [...new Set(resolved.filter((g) => !g.deleted).map((g) => g.safeName || g.name))];
   console.log(
     `\nA fresh login would resolve ${usable.length} group(s): [${usable.join(", ")}]`,

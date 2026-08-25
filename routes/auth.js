@@ -100,7 +100,10 @@ function signAndReturn(userTokenObject, res) {
     });
 }
 
-// Add POST - /api/login
+// POST /login. (The path is exactly that: this router is mounted at the app
+// root, so there is no /api or /auth prefix. A stale comment here claiming
+// "/api/login" is the documented origin of the wrong login URL in
+// komondor-power — hence the correction rather than a deletion.)
 router.post("/login", (req, res, next) => {
   if (req.body && req.body.username && req.body.password) {
     //TODO check if local admin
@@ -166,7 +169,10 @@ router.post("/login", (req, res, next) => {
 router.get("/logout", (req, res, next) => {
   res.sendStatus(200);
 });
-router.post("/logout", (err, req, res, next) => {
+// Three parameters, not four. Express treats any 4-arity handler as an error
+// handler and skips it during normal dispatch, so this route used to 404
+// ("Cannot POST /logout") for every caller. The unused `err` was the whole bug.
+router.post("/logout", (req, res, next) => {
   res.sendStatus(200);
 });
 

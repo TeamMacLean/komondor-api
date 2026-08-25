@@ -2,8 +2,8 @@
  * Tests for routes/options.js
  *
  * Covers the shared GET/POST/DELETE behaviour of the option collections, the
- * authentication gate on writes, and the guard against deleting an arbitrary
- * document when no id is supplied.
+ * admin gate on writes, and the guard against deleting an arbitrary document
+ * when no id is supplied.
  */
 
 const request = require("supertest");
@@ -49,8 +49,16 @@ jest.mock(
   () => mockModels.SequencingTechnology,
 );
 
-let mockAuthenticatedUser = { username: "testuser", groups: [] };
+let mockAuthenticatedUser = {
+  username: "adminuser",
+  isAdmin: true,
+  groups: [],
+};
 
+// UPDATED: isAdmin used to be a pass-through here, which made every write test
+// pass regardless of who the caller was. Writes to these global vocabularies are
+// now admin-only, so the mock has to be the real predicate for the tests below
+// to mean anything.
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
     if (!mockAuthenticatedUser) {
@@ -59,7 +67,12 @@ jest.mock("../../routes/middleware", () => ({
     req.user = mockAuthenticatedUser;
     next();
   },
-  isAdmin: (req, res, next) => next(),
+  isAdmin: (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+      return next();
+    }
+    return res.status(403).send({ error: "Admin access required" });
+  },
 }));
 
 const optionsRouter = require("../../routes/options");
@@ -77,11 +90,13 @@ const OPTION_PATHS = [
 ];
 
 const ORIGINAL_FLAG = process.env.OPTIONS_WRITE_REQUIRE_AUTH;
+const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
 
 beforeEach(() => {
   jest.clearAllMocks();
-  mockAuthenticatedUser = { username: "testuser", groups: [] };
+  mockAuthenticatedUser = { username: "adminuser", isAdmin: true, groups: [] };
   delete process.env.OPTIONS_WRITE_REQUIRE_AUTH;
+  process.env.NODE_ENV = ORIGINAL_NODE_ENV;
   Object.values(mockModels).forEach((model) => {
     model.find.mockReturnValue({ sort: jest.fn().mockResolvedValue([]) });
     model.deleteOne.mockResolvedValue({ deletedCount: 1 });
@@ -100,6 +115,7 @@ afterAll(() => {
   } else {
     process.env.OPTIONS_WRITE_REQUIRE_AUTH = ORIGINAL_FLAG;
   }
+  process.env.NODE_ENV = ORIGINAL_NODE_ENV;
 });
 
 describe.each(OPTION_PATHS)("%s", (path, modelName) => {
@@ -173,6 +189,18 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
       expect(model().saveMock).not.toHaveBeenCalled();
     });
 
+    test("refuses an ordinary authenticated user", async () => {
+      // These vocabularies are global: one list shared by every group, so an
+      // addition is visible to everybody and changes what every future run may
+      // be described as. A valid token is not enough.
+      mockAuthenticatedUser = { username: "alice", groups: ["g1"] };
+
+      const response = await request(app).post(path).send({ value: "new" });
+
+      expect(response.status).toBe(403);
+      expect(model().saveMock).not.toHaveBeenCalled();
+    });
+
     test("allows unauthenticated writes when the opt-out flag is set", async () => {
       process.env.OPTIONS_WRITE_REQUIRE_AUTH = "false";
       mockAuthenticatedUser = null;
@@ -180,6 +208,28 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
       const response = await request(app).post(path).send({ value: "new" });
 
       expect(response.status).toBe(200);
+    });
+
+    test("ignores the opt-out flag in production", async () => {
+      process.env.NODE_ENV = "production";
+      process.env.OPTIONS_WRITE_REQUIRE_AUTH = "false";
+      mockAuthenticatedUser = null;
+
+      const response = await request(app).post(path).send({ value: "new" });
+
+      expect(response.status).toBe(401);
+      expect(model().saveMock).not.toHaveBeenCalled();
+    });
+
+    test("still requires admin in production when authenticated", async () => {
+      process.env.NODE_ENV = "production";
+      process.env.OPTIONS_WRITE_REQUIRE_AUTH = "false";
+      mockAuthenticatedUser = { username: "alice", groups: ["g1"] };
+
+      const response = await request(app).post(path).send({ value: "new" });
+
+      expect(response.status).toBe(403);
+      expect(model().saveMock).not.toHaveBeenCalled();
     });
 
     test("maps a validation error to 400", async () => {
@@ -251,6 +301,26 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
       expect(model().deleteOne).not.toHaveBeenCalled();
     });
 
+    test("refuses an ordinary authenticated user", async () => {
+      mockAuthenticatedUser = { username: "alice", groups: ["g1"] };
+
+      const response = await request(app).delete(path).send({ id: validId });
+
+      expect(response.status).toBe(403);
+      expect(model().deleteOne).not.toHaveBeenCalled();
+    });
+
+    test("rejects an object id without touching the collection", async () => {
+      // deleteOne({ _id: { $ne: null } }) removes the first document whose _id
+      // is not null, i.e. an arbitrary entry.
+      const response = await request(app)
+        .delete(path)
+        .send({ id: { $ne: null } });
+
+      expect(response.status).toBe(400);
+      expect(model().deleteOne).not.toHaveBeenCalled();
+    });
+
     test("answers 500 when the delete fails", async () => {
       model().deleteOne.mockRejectedValue(new Error("db down"));
 
@@ -282,5 +352,31 @@ describe("/options/librarytype specifics", () => {
       paired: false,
       extensions: [],
     });
+  });
+
+  test("narrows a non-boolean paired to false", async () => {
+    // Mongoose's Boolean cast accepts "yes", so passing the raw body through
+    // let a string decide a flag the upload validator reads.
+    await request(app)
+      .post("/options/librarytype")
+      .send({ value: "single", paired: "yes" });
+
+    expect(mockModels.LibraryType.lastDoc.paired).toBe(false);
+  });
+
+  test("drops extensions that are not an array of strings", async () => {
+    await request(app)
+      .post("/options/librarytype")
+      .send({ value: "single", extensions: ".fq" });
+
+    expect(mockModels.LibraryType.lastDoc.extensions).toEqual([]);
+  });
+
+  test("drops an extensions array holding a non-string", async () => {
+    await request(app)
+      .post("/options/librarytype")
+      .send({ value: "single", extensions: [".fq", { $ne: null }] });
+
+    expect(mockModels.LibraryType.lastDoc.extensions).toEqual([]);
   });
 });
