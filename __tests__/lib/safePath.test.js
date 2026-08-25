@@ -6,12 +6,17 @@
  * directory.
  */
 
+const fs = require("fs");
+const os = require("os");
 const _path = require("path");
 const {
   cleanDirectoryName,
   isWithin,
   resolveWithin,
   resolveBelow,
+  safeBasename,
+  resolveWithinReal,
+  assertWithinReal,
 } = require("../../lib/utils/safePath");
 
 const ROOT = _path.resolve("/hpc/transfer");
@@ -162,5 +167,218 @@ describe("resolveBelow", () => {
   test("still refuses paths outside the root", () => {
     expect(resolveBelow(ROOT, "../../etc/passwd")).toBeNull();
     expect(resolveBelow(ROOT, "/etc/passwd")).toBeNull();
+  });
+});
+
+describe("safeBasename", () => {
+  test("returns an ordinary filename unchanged", () => {
+    expect(safeBasename("reads_R1.fq.gz")).toBe("reads_R1.fq.gz");
+  });
+
+  test("trims surrounding whitespace", () => {
+    expect(safeBasename("  reads.fq  ")).toBe("reads.fq");
+  });
+
+  test("keeps dots inside the name", () => {
+    expect(safeBasename("sample.2.fq.gz")).toBe("sample.2.fq.gz");
+  });
+
+  test("keeps a leading dot", () => {
+    expect(safeBasename(".hidden.fq")).toBe(".hidden.fq");
+  });
+
+  describe("refuses anything carrying a directory component", () => {
+    test.each([
+      ["../../etc/passwd"],
+      ["../reads.fq"],
+      ["a/b.fq"],
+      ["/etc/passwd"],
+      ["reads.fq/"],
+      ["./reads.fq"],
+    ])("returns null for %p", (name) => {
+      expect(safeBasename(name)).toBeNull();
+    });
+
+    test("refuses Windows separators on a POSIX host", () => {
+      // path.basename() on POSIX treats this as one long filename, so the
+      // backslashes would otherwise survive into the datastore.
+      expect(safeBasename("..\\..\\etc\\passwd")).toBeNull();
+      expect(safeBasename("dir\\reads.fq")).toBeNull();
+    });
+  });
+
+  describe("refuses unusable values", () => {
+    test.each([[undefined], [null], [42], [{}], [[]], [""], ["   "]])(
+      "returns null for %p",
+      (name) => {
+        expect(safeBasename(name)).toBeNull();
+      },
+    );
+
+    test.each([["."], [".."]])("returns null for %p", (name) => {
+      expect(safeBasename(name)).toBeNull();
+    });
+
+    test("returns null for a name containing a NUL byte", () => {
+      expect(safeBasename("reads\0.fq")).toBeNull();
+    });
+  });
+});
+
+describe("resolveWithinReal / assertWithinReal", () => {
+  // These need a real filesystem: the whole point is what the symlinks on disk
+  // say, not what the strings do.
+  let tmpRoot;
+  let realRoot;
+  let outsideDir;
+
+  beforeEach(() => {
+    tmpRoot = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-safepath-"));
+    realRoot = _path.join(tmpRoot, "root");
+    outsideDir = _path.join(tmpRoot, "outside");
+    fs.mkdirSync(_path.join(realRoot, "batch1"), { recursive: true });
+    fs.mkdirSync(outsideDir, { recursive: true });
+    fs.writeFileSync(_path.join(outsideDir, "secret.txt"), "SECRET");
+  });
+
+  afterEach(() => {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  describe("resolveWithinReal", () => {
+    test("resolves an ordinary nested path", async () => {
+      await expect(
+        resolveWithinReal(realRoot, "batch1", "reads.fq"),
+      ).resolves.toBe(_path.join(realRoot, "batch1", "reads.fq"));
+    });
+
+    test("returns the lexical path, not the realpath", async () => {
+      // On macOS the tmpdir is itself behind a symlink (/var -> /private/var).
+      // Callers must get back the path they asked about, or they write
+      // somewhere the document does not name.
+      const resolved = await resolveWithinReal(realRoot, "reads.fq");
+
+      expect(resolved).toBe(_path.join(realRoot, "reads.fq"));
+    });
+
+    test("still refuses lexical traversal", async () => {
+      await expect(
+        resolveWithinReal(realRoot, "../outside/secret.txt"),
+      ).resolves.toBeNull();
+    });
+
+    test("still refuses an absolute segment", async () => {
+      await expect(
+        resolveWithinReal(realRoot, "/etc/passwd"),
+      ).resolves.toBeNull();
+    });
+
+    test("still refuses a NUL byte", async () => {
+      await expect(
+        resolveWithinReal(realRoot, "reads\0.fq"),
+      ).resolves.toBeNull();
+    });
+
+    test("refuses a symlinked directory inside the root that points outside", async () => {
+      // The lexical check is perfectly happy with "<root>/escape/secret.txt".
+      fs.symlinkSync(outsideDir, _path.join(realRoot, "escape"));
+
+      await expect(
+        resolveWithinReal(realRoot, "escape", "secret.txt"),
+      ).resolves.toBeNull();
+    });
+
+    test("refuses a symlinked file inside the root that points outside", async () => {
+      fs.symlinkSync(
+        _path.join(outsideDir, "secret.txt"),
+        _path.join(realRoot, "secret.txt"),
+      );
+
+      await expect(
+        resolveWithinReal(realRoot, "secret.txt"),
+      ).resolves.toBeNull();
+    });
+
+    test("refuses a dangling symlink, which a later create would follow", async () => {
+      fs.symlinkSync(
+        _path.join(outsideDir, "not-there-yet.fq"),
+        _path.join(realRoot, "pending.fq"),
+      );
+
+      await expect(
+        resolveWithinReal(realRoot, "pending.fq"),
+      ).resolves.toBeNull();
+    });
+
+    test("accepts a symlink that stays inside the root", async () => {
+      fs.symlinkSync(
+        _path.join(realRoot, "batch1"),
+        _path.join(realRoot, "current"),
+      );
+
+      await expect(
+        resolveWithinReal(realRoot, "current", "reads.fq"),
+      ).resolves.toBe(_path.join(realRoot, "current", "reads.fq"));
+    });
+
+    test("accepts a destination whose directories do not exist yet", async () => {
+      await expect(
+        resolveWithinReal(realRoot, "new", "nested", "reads.fq"),
+      ).resolves.toBe(_path.join(realRoot, "new", "nested", "reads.fq"));
+    });
+
+    test("returns null when the root does not exist", async () => {
+      await expect(
+        resolveWithinReal(_path.join(tmpRoot, "no-such-root"), "reads.fq"),
+      ).resolves.toBeNull();
+    });
+
+    test("returns null when the root is not configured", async () => {
+      await expect(resolveWithinReal(undefined, "reads.fq")).resolves.toBeNull();
+    });
+  });
+
+  describe("assertWithinReal", () => {
+    test("accepts a path inside the root", async () => {
+      await expect(
+        assertWithinReal(realRoot, _path.join(realRoot, "batch1", "reads.fq")),
+      ).resolves.toBe(true);
+    });
+
+    test("accepts the root itself", async () => {
+      await expect(assertWithinReal(realRoot, realRoot)).resolves.toBe(true);
+    });
+
+    test("rejects a path outside the root", async () => {
+      await expect(
+        assertWithinReal(realRoot, _path.join(outsideDir, "secret.txt")),
+      ).resolves.toBe(false);
+    });
+
+    test("rejects a sibling whose name starts with the root", async () => {
+      const sibling = `${realRoot}-evil`;
+      fs.mkdirSync(sibling);
+
+      await expect(
+        assertWithinReal(realRoot, _path.join(sibling, "secret.txt")),
+      ).resolves.toBe(false);
+    });
+
+    test("rejects a path that only reaches inside via a symlink out", async () => {
+      fs.symlinkSync(outsideDir, _path.join(realRoot, "escape"));
+
+      await expect(
+        assertWithinReal(realRoot, _path.join(realRoot, "escape", "secret.txt")),
+      ).resolves.toBe(false);
+    });
+
+    test("rejects unusable inputs", async () => {
+      await expect(assertWithinReal(realRoot, undefined)).resolves.toBe(false);
+      await expect(assertWithinReal(realRoot, "")).resolves.toBe(false);
+      await expect(assertWithinReal(undefined, realRoot)).resolves.toBe(false);
+      await expect(
+        assertWithinReal(realRoot, `${realRoot}/reads\0.fq`),
+      ).resolves.toBe(false);
+    });
   });
 });

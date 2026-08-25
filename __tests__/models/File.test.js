@@ -3,7 +3,7 @@
  * into the datastore.
  *
  * These run against real files in a temporary directory. The cross-device
- * branch is reached by forcing fs.rename to fail, which is what happens in
+ * branch is reached by forcing fs.link to fail, which is what happens in
  * production when the upload staging area and the datastore are separate
  * mounts.
  */
@@ -44,7 +44,9 @@ const partialsIn = (dir) =>
 let tmpRoot;
 let datastoreRoot;
 let stagingDir;
+let outsideDir;
 const ORIGINAL_DATASTORE = process.env.DATASTORE_ROOT;
+const ORIGINAL_HPC = process.env.HPC_TRANSFER_DIRECTORY;
 
 /** Builds an unsaved File document with a stubbed save(). */
 const makeFile = (sourcePath) => {
@@ -63,9 +65,15 @@ beforeEach(() => {
   tmpRoot = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-file-"));
   datastoreRoot = _path.join(tmpRoot, "datastore");
   stagingDir = _path.join(tmpRoot, "staging");
+  outsideDir = _path.join(tmpRoot, "outside");
   fs.mkdirSync(datastoreRoot, { recursive: true });
   fs.mkdirSync(stagingDir, { recursive: true });
+  fs.mkdirSync(outsideDir, { recursive: true });
   process.env.DATASTORE_ROOT = datastoreRoot;
+  // The move refuses a source outside every configured root, so the staging
+  // directory has to be one of them — in production it is the HPC transfer
+  // mount or <cwd>/files.
+  process.env.HPC_TRANSFER_DIRECTORY = stagingDir;
 
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -82,6 +90,11 @@ afterEach(() => {
   } else {
     process.env.DATASTORE_ROOT = ORIGINAL_DATASTORE;
   }
+  if (ORIGINAL_HPC === undefined) {
+    delete process.env.HPC_TRANSFER_DIRECTORY;
+  } else {
+    process.env.HPC_TRANSFER_DIRECTORY = ORIGINAL_HPC;
+  }
 });
 
 afterAll(async () => {
@@ -89,7 +102,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("moveToFolderAndSave — same filesystem (rename)", () => {
+describe("moveToFolderAndSave — same filesystem (link)", () => {
   test("moves the file to the destination", async () => {
     const source = _path.join(stagingDir, "reads.fq");
     fs.writeFileSync(source, "ACGT");
@@ -118,9 +131,9 @@ describe("moveToFolderAndSave — same filesystem (rename)", () => {
 
     await doc.moveToFolderAndSave(_path.join("a", "b", "c", "reads.fq"));
 
-    expect(fs.existsSync(_path.join(datastoreRoot, "a", "b", "c", "reads.fq"))).toBe(
-      true,
-    );
+    expect(
+      fs.existsSync(_path.join(datastoreRoot, "a", "b", "c", "reads.fq")),
+    ).toBe(true);
   });
 
   test("records the relative path and saves", async () => {
@@ -138,27 +151,28 @@ describe("moveToFolderAndSave — same filesystem (rename)", () => {
 
 describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
   /**
-   * Forces the rename to fail the way a cross-mount move does.
+   * Forces the move out of staging to fail the way a cross-mount one does.
    *
-   * Only the move *out of staging* fails. Promoting a finished copy to its
-   * final name happens entirely inside the datastore, on one filesystem, and
-   * still succeeds — failing that too would model a filesystem that does not
-   * exist.
+   * The move is a hard link now rather than a rename, so this is what has to
+   * be intercepted. Only the link *out of staging* fails: promoting a finished
+   * copy to its final name happens entirely inside the datastore, on one
+   * filesystem, and still succeeds — failing that too would model a filesystem
+   * that does not exist.
    */
   const forceCrossDevice = () => {
-    const realRename = fsp.rename.bind(fsp);
-    jest.spyOn(fsp, "rename").mockImplementation((from, to) => {
+    const realLink = fsp.link.bind(fsp);
+    jest.spyOn(fsp, "link").mockImplementation((from, to) => {
       if (String(from).startsWith(datastoreRoot)) {
-        return realRename(from, to);
+        return realLink(from, to);
       }
       const err = new Error("EXDEV: cross-device link not permitted");
       err.code = "EXDEV";
       return Promise.reject(err);
     });
-    return realRename;
+    return realLink;
   };
 
-  test("copies the file when rename fails", async () => {
+  test("copies the file when the link fails", async () => {
     forceCrossDevice();
     const source = _path.join(stagingDir, "reads.fq");
     fs.writeFileSync(source, "ACGTACGT");
@@ -316,7 +330,7 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
   });
 });
 
-describe("moveToFolderAndSave — rename failures that are not cross-device", () => {
+describe("moveToFolderAndSave — move failures that are not cross-device", () => {
   const REL_PATH = _path.join("group", "raw", "reads.fq");
 
   /**
@@ -355,6 +369,160 @@ describe("moveToFolderAndSave — rename failures that are not cross-device", ()
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
       new RegExp(`${source}.*${dest}`),
     );
+  });
+});
+
+describe("moveToFolderAndSave — the source is pinned, not re-resolved", () => {
+  // The containment check resolves the source through its symlinks, but that
+  // answer is stale the moment it is given: for an hpc-mv the source root is a
+  // directory unprivileged users write into by design. These model the swap
+  // that the check alone could not see.
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+  let source;
+  let dest;
+  let victim;
+
+  beforeEach(() => {
+    source = _path.join(stagingDir, "reads.fq");
+    dest = _path.join(datastoreRoot, REL_PATH);
+    victim = _path.join(outsideDir, "victim.txt");
+    fs.writeFileSync(source, "ACGT");
+    fs.writeFileSync(victim, "SOMEONE-ELSES-DATA");
+  });
+
+  /** Re-points the source name at `victim` the moment link() is reached. */
+  const swapSourceOnLink = () => {
+    const realLink = fsp.link.bind(fsp);
+    jest.spyOn(fsp, "link").mockImplementation(async (from, to) => {
+      if (String(from) === source && fs.existsSync(source)) {
+        fs.unlinkSync(source);
+        fs.linkSync(victim, source);
+      }
+      return realLink(from, to);
+    });
+  };
+
+  test("refuses a source swapped between the check and the link", async () => {
+    swapSourceOnLink();
+    const doc = makeFile(source);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /replaced while it was being moved/,
+    );
+  });
+
+  test("does not file the swapped-in file in the datastore", async () => {
+    swapSourceOnLink();
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(fs.existsSync(dest)).toBe(false);
+    expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+  });
+
+  test("does not save a document pointing at a file it never moved", async () => {
+    swapSourceOnLink();
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(doc.save).not.toHaveBeenCalled();
+  });
+
+  test("refuses a source that is a symlink, wherever it points", async () => {
+    // Accepted before: the containment check resolved it and was satisfied.
+    // A symlink is the one source whose meaning can be changed underneath the
+    // move, so it is now refused at the open rather than followed.
+    const target = _path.join(stagingDir, "real-reads.fq");
+    fs.writeFileSync(target, "ACGT");
+    const link = _path.join(stagingDir, "linked.fq");
+    fs.symlinkSync(target, link);
+    const doc = makeFile(link);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow();
+
+    expect(fs.existsSync(target)).toBe(true);
+    expect(fs.existsSync(dest)).toBe(false);
+  });
+
+  test("copies from the pinned handle, not from the name, when cross-device", async () => {
+    // The copy fallback reads for however long a multi-GB read takes, which is
+    // an enormous window to re-point the name in.
+    const realLink = fsp.link.bind(fsp);
+    jest.spyOn(fsp, "link").mockImplementation((from, to) => {
+      if (String(from).startsWith(datastoreRoot)) {
+        return realLink(from, to);
+      }
+      fs.unlinkSync(source);
+      fs.linkSync(victim, source);
+      const err = new Error("EXDEV: cross-device link not permitted");
+      err.code = "EXDEV";
+      return Promise.reject(err);
+    });
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    // Either the move copied the original bytes or it refused; what it must
+    // never do is put the swapped-in file in the datastore.
+    if (fs.existsSync(dest)) {
+      expect(fs.readFileSync(dest, "utf8")).toBe("ACGT");
+    }
+    expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+  });
+});
+
+describe("moveToFolderAndSave — a failed source unlink is not a cross-mount move", () => {
+  // fs.link and fs.unlink(source) shared one try block, so an EPERM from the
+  // *unlink* — what a sticky-bit shared directory returns for a file the
+  // process does not own — was matched by the cross-device test and silently
+  // sent down the copy branch.
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+  let source;
+  let copyAttempts;
+
+  beforeEach(() => {
+    source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGTACGT");
+
+    copyAttempts = 0;
+    mockWriteStreamFactory = (...args) => {
+      copyAttempts += 1;
+      return jest.requireActual("fs").createWriteStream(...args);
+    };
+
+    const realUnlink = fsp.unlink.bind(fsp);
+    jest.spyOn(fsp, "unlink").mockImplementation((target) => {
+      if (String(target) === source) {
+        const err = new Error("EPERM: operation not permitted, unlink");
+        err.code = "EPERM";
+        return Promise.reject(err);
+      }
+      return realUnlink(target);
+    });
+  });
+
+  test("reports the permission failure rather than a copy failure", async () => {
+    const doc = makeFile(source);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(/EPERM/);
+  });
+
+  test("does not fall back to copying the file", async () => {
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(copyAttempts).toBe(0);
+  });
+
+  test("does not save the document", async () => {
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+    expect(doc.save).not.toHaveBeenCalled();
   });
 });
 
@@ -433,5 +601,303 @@ describe("moveToFolderAndSave — configuration and input guards", () => {
       doc.moveToFolderAndSave("group/raw/reads.fq"),
     ).rejects.toThrow();
     expect(doc.save).not.toHaveBeenCalled();
+  });
+});
+
+describe("moveToFolderAndSave — destination containment", () => {
+  /** The destination is assembled from originalName, straight off a request. */
+  const move = (doc, relPath) => doc.moveToFolderAndSave(relPath);
+
+  const stagedFile = () => {
+    const source = _path.join(stagingDir, "reads.fq");
+    fs.writeFileSync(source, "ACGT");
+    return source;
+  };
+
+  test("refuses a destination that traverses out of the datastore", async () => {
+    const source = stagedFile();
+    const doc = makeFile(source);
+
+    await expect(
+      move(
+        doc,
+        _path.join("group", "raw", "..", "..", "..", "outside", "planted.fq"),
+      ),
+    ).rejects.toThrow(/destination is not inside the datastore/);
+
+    expect(fs.existsSync(_path.join(outsideDir, "planted.fq"))).toBe(false);
+    expect(fs.existsSync(source)).toBe(true);
+  });
+
+  test("refuses a destination that traverses out via originalName alone", async () => {
+    // What ../../../etc/cron.d/payload as a filename produces once the parent's
+    // relative path is prepended.
+    const source = stagedFile();
+    const doc = makeFile(source);
+
+    await expect(
+      move(doc, _path.join("group", "raw", "../../../outside/payload")),
+    ).rejects.toThrow(/destination is not inside the datastore/);
+
+    expect(fs.existsSync(_path.join(outsideDir, "payload"))).toBe(false);
+  });
+
+  test("does not echo the rejected path back to the caller", async () => {
+    // The message ends up on the Run as statusError, which the client reads.
+    const doc = makeFile(stagedFile());
+
+    await expect(move(doc, "../../outside/planted.fq")).rejects.toThrow(
+      expect.objectContaining({
+        message: expect.not.stringContaining(".."),
+      }),
+    );
+  });
+
+  test("treats an absolute destination as datastore-relative rather than an override", async () => {
+    // getRelativePath() has always returned a leading slash, so this must keep
+    // working — but it must land inside the datastore, never at /outside.
+    const source = stagedFile();
+    const doc = makeFile(source);
+
+    await move(doc, "/group/raw/reads.fq");
+
+    const dest = _path.join(datastoreRoot, "group", "raw", "reads.fq");
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGT");
+  });
+
+  test("refuses a destination containing a NUL byte", async () => {
+    const source = stagedFile();
+    const doc = makeFile(source);
+
+    await expect(move(doc, "group/raw/reads\0.fq")).rejects.toThrow(
+      /destination is not inside the datastore/,
+    );
+    expect(fs.existsSync(source)).toBe(true);
+  });
+
+  test("refuses a destination reached through a symlinked directory pointing outside", async () => {
+    // Lexically "<datastore>/escape/reads.fq" never leaves the root; only the
+    // symlink on disk gives it away.
+    fs.symlinkSync(outsideDir, _path.join(datastoreRoot, "escape"));
+    const source = stagedFile();
+    const doc = makeFile(source);
+
+    await expect(move(doc, _path.join("escape", "reads.fq"))).rejects.toThrow(
+      /destination is not inside the datastore/,
+    );
+
+    expect(fs.existsSync(_path.join(outsideDir, "reads.fq"))).toBe(false);
+    expect(fs.existsSync(source)).toBe(true);
+  });
+
+  test("refuses a destination that is a symlink out of the datastore", async () => {
+    const victim = _path.join(outsideDir, "victim.txt");
+    fs.writeFileSync(victim, "DO-NOT-TOUCH");
+    const rawDir = _path.join(datastoreRoot, "group", "raw");
+    fs.mkdirSync(rawDir, { recursive: true });
+    fs.symlinkSync(victim, _path.join(rawDir, "reads.fq"));
+    const doc = makeFile(stagedFile());
+
+    await expect(
+      move(doc, _path.join("group", "raw", "reads.fq")),
+    ).rejects.toThrow(/destination/);
+
+    expect(fs.readFileSync(victim, "utf8")).toBe("DO-NOT-TOUCH");
+  });
+
+  test("refuses a dangling symlink at the destination", async () => {
+    // A plain create would follow it and write the file wherever it points.
+    const target = _path.join(outsideDir, "not-there-yet.fq");
+    const rawDir = _path.join(datastoreRoot, "group", "raw");
+    fs.mkdirSync(rawDir, { recursive: true });
+    fs.symlinkSync(target, _path.join(rawDir, "reads.fq"));
+    const doc = makeFile(stagedFile());
+
+    await expect(
+      move(doc, _path.join("group", "raw", "reads.fq")),
+    ).rejects.toThrow(/destination/);
+
+    expect(fs.existsSync(target)).toBe(false);
+  });
+});
+
+describe("moveToFolderAndSave — source containment", () => {
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+
+  test("refuses a source outside every configured root", async () => {
+    // File.path is a plain string on a document an uploader controls; without
+    // this check the move reads — and then unlinks — any file the API can see.
+    const victim = _path.join(outsideDir, "victim.txt");
+    fs.writeFileSync(victim, "SOMEONE-ELSES-DATA");
+    const doc = makeFile(victim);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source is not inside a permitted directory/,
+    );
+
+    expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+    expect(fs.existsSync(_path.join(datastoreRoot, REL_PATH))).toBe(false);
+    expect(doc.save).not.toHaveBeenCalled();
+  });
+
+  test("refuses a source that traverses out of the staging directory", async () => {
+    const victim = _path.join(outsideDir, "victim.txt");
+    fs.writeFileSync(victim, "SOMEONE-ELSES-DATA");
+    const doc = makeFile(_path.join(stagingDir, "..", "outside", "victim.txt"));
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source is not inside a permitted directory/,
+    );
+    expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+  });
+
+  test("refuses a source that is a symlink pointing outside", async () => {
+    const victim = _path.join(outsideDir, "victim.txt");
+    fs.writeFileSync(victim, "SOMEONE-ELSES-DATA");
+    const link = _path.join(stagingDir, "reads.fq");
+    fs.symlinkSync(victim, link);
+    const doc = makeFile(link);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source is not inside a permitted directory/,
+    );
+
+    expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+    expect(fs.existsSync(link)).toBe(true);
+  });
+
+  test("does not echo the rejected source back to the caller", async () => {
+    const doc = makeFile(_path.join(outsideDir, "victim.txt"));
+    fs.writeFileSync(_path.join(outsideDir, "victim.txt"), "x");
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      expect.objectContaining({
+        message: expect.not.stringContaining(outsideDir),
+      }),
+    );
+  });
+
+  test("accepts a source inside the datastore itself", async () => {
+    // Re-filing a file already in the datastore is legitimate.
+    const source = _path.join(datastoreRoot, "inbox", "reads.fq");
+    fs.mkdirSync(_path.dirname(source), { recursive: true });
+    fs.writeFileSync(source, "ACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    expect(fs.readFileSync(_path.join(datastoreRoot, REL_PATH), "utf8")).toBe(
+      "ACGT",
+    );
+  });
+});
+
+describe("moveToFolderAndSave — no-clobber at the destination", () => {
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+
+  /** An existing destination file, as an earlier completed move leaves it. */
+  const existingDestination = () => {
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    fs.mkdirSync(_path.dirname(dest), { recursive: true });
+    fs.writeFileSync(dest, "COMPLETE-GENOMIC-DATA");
+    return dest;
+  };
+
+  const forceCrossDevice = () => {
+    const realLink = fsp.link.bind(fsp);
+    jest.spyOn(fsp, "link").mockImplementation((from, to) => {
+      if (String(from).startsWith(datastoreRoot)) {
+        return realLink(from, to);
+      }
+      const err = new Error("EXDEV: cross-device link not permitted");
+      err.code = "EXDEV";
+      return Promise.reject(err);
+    });
+  };
+
+  describe("same filesystem", () => {
+    test("refuses to replace a file already at the destination", async () => {
+      const dest = existingDestination();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "NEWER-BUT-DIFFERENT");
+      const doc = makeFile(source);
+
+      await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+        /destination already exists/,
+      );
+
+      expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");
+    });
+
+    test("keeps the source when the destination is taken", async () => {
+      existingDestination();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "NEWER-BUT-DIFFERENT");
+      const doc = makeFile(source);
+
+      await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+      expect(fs.readFileSync(source, "utf8")).toBe("NEWER-BUT-DIFFERENT");
+    });
+
+    test("does not silently file the upload under a different name", async () => {
+      existingDestination();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "NEWER-BUT-DIFFERENT");
+      const doc = makeFile(source);
+
+      await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+      expect(fs.readdirSync(_path.join(datastoreRoot, "group", "raw"))).toEqual(
+        ["reads.fq"],
+      );
+      expect(doc.save).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("cross-device", () => {
+    test("refuses to replace a file already at the destination", async () => {
+      forceCrossDevice();
+      const dest = existingDestination();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "NEWER-BUT-DIFFERENT");
+      const doc = makeFile(source);
+
+      await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+        /destination already exists/,
+      );
+
+      expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");
+      expect(fs.readFileSync(source, "utf8")).toBe("NEWER-BUT-DIFFERENT");
+    });
+
+    test("cleans up the copy it could not promote", async () => {
+      forceCrossDevice();
+      existingDestination();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "NEWER-BUT-DIFFERENT");
+      const doc = makeFile(source);
+
+      await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
+
+      expect(partialsIn(_path.join(datastoreRoot, "group", "raw"))).toEqual([]);
+    });
+
+    test("still overwrites its own leftover partial from an earlier attempt", async () => {
+      // The partial name is deterministic per file, so a retry has to be able
+      // to reuse it — 'wx' must not lock the file out of ever moving again.
+      forceCrossDevice();
+      const source = _path.join(stagingDir, "reads.fq");
+      fs.writeFileSync(source, "ACGTACGT");
+      const doc = makeFile(source);
+      const dest = _path.join(datastoreRoot, REL_PATH);
+      fs.mkdirSync(_path.dirname(dest), { recursive: true });
+      fs.writeFileSync(`${dest}.part-${doc._id}`, "STALE");
+
+      await doc.moveToFolderAndSave(REL_PATH);
+
+      expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
+      expect(partialsIn(_path.dirname(dest))).toEqual([]);
+    });
   });
 });
