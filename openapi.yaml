@@ -1,0 +1,3519 @@
+openapi: 3.1.0
+
+info:
+  title: komondor-api
+  version: "1.0.0"
+  summary: TSL Sequence Data API — projects, samples, sequencing runs and their files.
+  description: |
+    A description of what komondor-api **does today**, derived by reading
+    `routes/` and `models/`. It is a record of current behaviour, not a
+    proposal. Where the current behaviour is a known defect it is documented as
+    it is, and the operation carries a `DRIFT` or `DEFECT` note saying so.
+    Fixing one of those is a change to the API and must update this file in the
+    same commit.
+
+    `__tests__/contract/openapi.test.js` fails if a route exists in `routes/`
+    with no entry here, so the two cannot silently diverge.
+
+    ## Known drift from the sibling clients
+
+    Three repositories consume this API: `komondor-web` (Nuxt 2 UI),
+    `komondor-power` (bulk CSV ingest) and `komondor-nudge` (a scheduled
+    worker that reads the same MongoDB directly rather than over HTTP). The
+    following are the places where their assumptions and this server's
+    behaviour have come apart. See `docs/CONTRACTS.md` for the policy.
+
+    1. **Routes are mounted at the ROOT, not under `/api`.** `app.js` calls
+       `app.use(authRoutes)` with no path prefix, so login is `POST /login`,
+       not `POST /api/login` or `POST /auth/login`. The comment above the login
+       handler in `routes/auth.js` still reads "Add POST - /api/login", which
+       is where the belief came from. `komondor-power`'s client tries
+       `${baseUrl}/auth/login` first and only falls back to `${baseUrl}/login`
+       when that fails, so every one of its logins costs a wasted 404.
+
+    2. **Bearer tokens must carry an `exp` claim.** A token without one is
+       refused as expired, not accepted. See the `bearerAuth` scheme.
+
+    3. **`Group.deleted` is a soft-delete flag**, not a removal. `GET /groups`
+       has historically returned soft-deleted groups; `komondor-nudge` models
+       `deleted` explicitly and skips those projects itself
+       (`GROUP_DELETED`), which is the client compensating for the server.
+
+    4. **`Project.nudgeable` falls back to a group-derived default** on create
+       when the client does not send a real JSON boolean. See
+       `POST /projects/new`.
+
+    5. **Two endpoints report failure with HTTP 200 and an `error` body**
+       (`GET /read-file`, `GET /directory-files`) while answering 403 with the
+       same shape for a rejected path. Clients need both branches;
+       `komondor-web`'s `utils/apiError.js` documents this at length.
+
+    6. **`POST /login` is the only route that reports failure as `message`**
+       rather than `error`.
+
+  contact:
+    name: George Deeks
+
+servers:
+  - url: "{scheme}://{host}"
+    description: |
+      DRIFT: there is NO `/api` base path. Routers are mounted at the root in
+      `app.js`. Set the server URL to the origin alone — e.g.
+      `http://localhost:3030` — and never append `/api` or `/auth`.
+    variables:
+      scheme:
+        default: http
+        enum: [http, https]
+      host:
+        default: "localhost:3030"
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Auth
+    description: Login, token introspection and logout.
+  - name: Projects
+  - name: Samples
+  - name: Runs
+  - name: Groups
+  - name: Users
+  - name: Search
+  - name: News
+  - name: Accessions
+  - name: Files
+    description: Reading the HPC transfer directory and verifying checksums.
+  - name: Options
+    description: Controlled vocabularies for run metadata.
+  - name: Uploads
+  - name: Ops
+
+paths:
+  /health:
+    get:
+      tags: [Ops]
+      summary: Liveness probe — "this process is up and answering".
+      description: |
+        Registered directly on the app in `app.js`, before the routers, and
+        unauthenticated.
+
+        Deliberately checks nothing else. It answers 200 even when MongoDB is
+        unreachable and the mounts are gone, because a liveness probe that
+        fails on a dependency blip has the supervisor restart a process whose
+        restart cannot help. Use `/ready` to decide whether to send traffic.
+      security: []
+      responses:
+        "200":
+          description: The process is up.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    const: ok
+
+  /ready:
+    get:
+      tags: [Ops]
+      summary: Readiness probe — "this process can serve a request end to end".
+      description: |
+        Registered directly on the app in `app.js`, and unauthenticated.
+
+        Checks the MongoDB connection state, that `DATASTORE_ROOT` and
+        `HPC_TRANSFER_DIRECTORY` are configured and readable/writable, and any
+        probe `server.js` has registered (the ingest worker, when present).
+        Reports 503 while the process is draining.
+
+        Answers **503**, never 500, when the probe itself fails: a 500 reads as
+        "the probe is broken" where the intended meaning is "do not send
+        traffic here".
+      security: []
+      responses:
+        "200":
+          description: Every check passed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReadinessReport"
+        "503":
+          description: |
+            At least one check failed, or the process is shutting down.
+            `failed` names the checks so whoever is paged does not have to read
+            the logs of a process that may not be logging.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReadinessReport"
+
+  /test:
+    get:
+      tags: [Ops]
+      summary: Static smoke-test string.
+      description: |
+        Unauthenticated. Excluded from the jest run by `testPathIgnorePatterns`
+        (the filename collides with the test glob), but it is a live route in
+        production.
+      security: []
+      responses:
+        "200":
+          description: A fixed greeting.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /login:
+    post:
+      tags: [Auth]
+      summary: Exchange credentials for a signed JWT.
+      description: |
+        DRIFT: the path is `/login`. Not `/api/login` (as the stale comment in
+        `routes/auth.js` says), and not `/auth/login` (as `komondor-power`
+        tries first).
+
+        Three credential sources, checked in order: the local `admin` account
+        when `ADMIN_PASSWORD` is set; a hard-coded development user list, but
+        only when `NODE_ENV === "development"`; then LDAP.
+
+        DRIFT: this is the ONLY route that reports failure as `message`
+        instead of `error`. `komondor-web` special-cases it in
+        `utils/apiError.js`.
+
+        Group membership is resolved at login and baked into the token as
+        `groups` (see `lib/utils/getUserForToken.js`). It is NOT re-read per
+        request, so a membership change does not take effect until the user's
+        token expires and they sign in again.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+      responses:
+        "200":
+          description: Authenticated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Signed JWT. See the `bearerAuth` scheme for its claims.
+        "401":
+          description: |
+            Bad credentials, or a missing username/password. Note the `message`
+            key — every other route uses `error`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    const: Bad credentials
+        "500":
+          description: The credentials were accepted but the token could not be signed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /logout:
+    get:
+      tags: [Auth]
+      summary: No-op logout.
+      description: |
+        Returns 200 with an empty body. Tokens are stateless and are not
+        revoked — logging out is entirely a client-side act of discarding the
+        token. It stays valid until `exp`.
+      security: []
+      responses:
+        "200":
+          description: Empty body.
+    post:
+      tags: [Auth]
+      summary: Registered, but unreachable.
+      description: |
+        DEFECT: `routes/auth.js` registers this handler with the four-argument
+        signature `(err, req, res, next)`. Express treats a four-arity handler
+        as an *error* handler and skips it during normal dispatch, so the
+        request falls through to the 404 handler in `app.js`.
+
+        Verified against the running app: `POST /logout` answers
+        `404 {"error":"Not found","detail":"Cannot POST /logout"}`.
+
+        Documented because it is registered and because a client that switches
+        from `GET /logout` to `POST /logout` will break. Dropping the argument
+        would make it behave like the GET.
+      security: []
+      responses:
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /me:
+    get:
+      tags: [Auth]
+      summary: Decode the caller's own token.
+      description: |
+        Returns the decoded JWT payload, not a database record — `groups` here
+        is whatever was baked in at login.
+
+        Note the response shape: `{ user }`, where `user` is `undefined` when
+        no `Authorization` header was sent at all (the request still answers
+        200). A malformed or expired token answers 401.
+      responses:
+        "200":
+          description: |
+            The decoded token payload, or `{}` when the request carried no
+            bearer token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/TokenPayload"
+        "401":
+          description: |
+            Invalid or expired token. This route answers with `error` only —
+            no `detail`, no `requestId` — unlike the app-level 401 in `app.js`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: Invalid or expired authentication token
+
+  /users:
+    get:
+      tags: [Users]
+      summary: Every user, projected to identity fields only.
+      description: |
+        Every account is still listed to any authenticated caller — this is not
+        admin-only, because `komondor-power` calls it as an ordinary user
+        during CSV upload to check that named project owners exist.
+
+        The RECORDS are now projected down to `_id`, `username` and `name`.
+        They previously carried every field, including `email`, `isAdmin` and
+        `groups` — a ready-made list of who to target and which groups they can
+        reach. `isAdmin`, `groups`, `email`, `company` and `lastLogin` are NOT
+        returned by this operation.
+      responses:
+        "200":
+          description: All users, identity fields only.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      description: |
+                        A projection of `User`, not the whole schema.
+                      properties:
+                        _id:
+                          $ref: "#/components/schemas/ObjectId"
+                        username:
+                          type: string
+                        name:
+                          type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /user:
+    get:
+      tags: [Users]
+      summary: One user plus the projects they own.
+      description: |
+        The user record is merged into the response object rather than nested,
+        and `username` is echoed from the query even when no `User` document
+        exists — so a 200 here does NOT prove the user is known. See
+        BREAKING_CHANGES §7.
+
+        The user record is projected to `_id`, `username`, `name`, `email` and
+        `company`. `isAdmin`, `groups` and `lastLogin` are NOT returned.
+
+        **`projects` is now filtered by the CALLER's visibility**, not by
+        ownership alone. It previously ran an unfiltered
+        `Project.find({ owner })`, which made this endpoint a way around the
+        filter `GET /projects` applies — pick any owner and read their
+        projects, whatever group they were in. Viewing another user's profile
+        therefore shows fewer projects than before.
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The user, their owned projects, and the echoed username.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    description: |
+                      A projection of `User` merged with the caller-visible
+                      projects. Not the whole `User` schema — see the operation
+                      description for what is withheld.
+                    properties:
+                      _id:
+                        $ref: "#/components/schemas/ObjectId"
+                      username:
+                        type: string
+                        description: Echoed from the query, present even for an unknown user.
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      company:
+                        type: string
+                      projects:
+                        type: array
+                        description: Owned by this user AND visible to the caller.
+                        items:
+                          $ref: "#/components/schemas/Project"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /users/verify-ldap:
+    post:
+      tags: [Users]
+      summary: Ask LDAP whether a username exists.
+      description: |
+        Used to validate a project owner who has never logged in, so has no
+        `User` document yet.
+
+        Note the 500 shape: this handler builds its own body with `message`
+        alongside `error`, rather than going through `handleError`. It is the
+        only route that does.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username]
+              properties:
+                username:
+                  type: string
+      responses:
+        "200":
+          description: "The lookup result. `exists: false` is a 200, not a 404."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exists:
+                    type: boolean
+                  user:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      cn:
+                        type: string
+                      mail:
+                        type: string
+        "400":
+          description: '`username` missing or not a string.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          description: LDAP could not be reached or queried.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+
+  /groups:
+    get:
+      tags: [Groups]
+      summary: The groups the caller belongs to.
+      description: |
+        Resolved by `Group.GroupsIAmIn` in READ mode. Admins and users named in
+        `FULL_RECORDS_ACCESS_USERS` get every group; everyone else gets the
+        groups named by their token's `groups` claim, falling back to matching
+        their LDAP `memberOf` strings against `Group.ldapGroups`.
+
+        **Soft-deleted groups are excluded by default**, for everybody
+        including admins: a deleted group must stop authorising anyone.
+        Consumers no longer need to filter `deleted` themselves, though
+        `komondor-nudge` still does and reports the skip as `GROUP_DELETED`.
+
+        Because nothing else can list them, an ADMIN may pass
+        `?includeDeleted=true` to see soft-deleted groups — otherwise
+        `POST /groups/resurrect` exists with no way to discover what to
+        resurrect. A non-admin sending that parameter is REFUSED with 403
+        rather than quietly given the filtered list.
+      parameters:
+        - name: includeDeleted
+          in: query
+          required: false
+          description: |
+            Admin only. Send the literal string `true` to include soft-deleted
+            groups. Compared against the string, so the array express builds
+            for a repeated parameter does not match. A non-admin sending it
+            gets 403.
+          schema:
+            type: string
+            enum: ["true"]
+      responses:
+        "200":
+          description: The caller's groups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  groups:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Group"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+        "500":
+          description: Group resolution failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /groups/new:
+    post:
+      tags: [Groups]
+      summary: Create a group. Admin only.
+      description: |
+        One of only two routes in the API that answer **201** on create; the
+        `/options/*` collections answer 200 for the same act.
+
+        A successful save creates the group's directory under
+        `DATASTORE_ROOT` as a post-save side effect.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, ldapGroups]
+              properties:
+                name:
+                  type: string
+                ldapGroups:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+        "500":
+          description: Validation or save failure — both arrive as 500 here, not 400.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /groups/edit:
+    post:
+      tags: [Groups]
+      summary: Rename a group or change its LDAP mapping.
+      description: |
+        Permitted for admins and for any member of the group. Note that
+        `ldapGroups` and `name` are assigned unconditionally, so omitting
+        either clears it — this is a full replace, not a patch, despite the
+        POST.
+
+        `sendToEna` is the one field treated as optional: it is only written
+        when present in the body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  $ref: "#/components/schemas/ObjectId"
+                name:
+                  type: string
+                ldapGroups:
+                  type: array
+                  items:
+                    type: string
+                sendToEna:
+                  type: boolean
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  group:
+                    $ref: "#/components/schemas/Group"
+        "400":
+          description: '`id` not provided.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          description: No group with that id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: Group not found
+        "500":
+          description: Save failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /groups/delete:
+    post:
+      tags: [Groups]
+      summary: Soft-delete a group. Admin only.
+      description: |
+        DRIFT: sets `deleted: true` and saves. The document is NOT removed, its
+        directory under `DATASTORE_ROOT` is untouched, and the projects,
+        samples and runs pointing at it keep working.
+
+        Whether a soft-deleted group is filtered out of reads is the
+        responsibility of `Group.GroupsIAmIn` and each consumer, and has been
+        inconsistent — this is the field behind the `GROUP_DELETED` decision in
+        `komondor-nudge`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Soft-deleted. Note this route answers `message`, not `error`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    const: Group deleted successfully
+        "400":
+          description: '`id` not provided.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+        "404":
+          description: No group with that id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: Group not found
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /groups/resurrect:
+    post:
+      tags: [Groups]
+      summary: Undo a soft-delete. Admin only.
+      description: 'Sets `deleted: false`. The exact inverse of `/groups/delete`.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Restored.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    const: Group restored successfully
+        "400":
+          description: '`id` not provided.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+        "404":
+          description: No group with that id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: Group not found
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /projects:
+    get:
+      tags: [Projects]
+      summary: Projects visible to the caller.
+      description: |
+        Visibility comes from `buildVisibilityFilter`: full-access users and
+        admins see everything, everyone else sees projects they own or that
+        belong to one of their token's groups. A caller with neither a username
+        nor groups matches nothing (BREAKING_CHANGES §1).
+
+        Sorted by `createdAt` descending, in JavaScript rather than in Mongo.
+        `group` is populated.
+      responses:
+        "200":
+          description: Visible projects, newest first.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projects:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Project"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /projects/names:
+    get:
+      tags: [Projects]
+      summary: Every project name. Authenticated.
+      description: |
+        Requires a bearer token. This route previously had no
+        `isAuthenticated` guard and handed every project name in the database
+        to anonymous callers.
+
+        The list is still UNFILTERED across groups, deliberately:
+        `Project.name` carries a unique index, so a client needs the full list
+        to tell a user that the name they have chosen is already taken. It
+        returns names only — no ids, owners or group membership.
+      responses:
+        "200":
+          description: All project names, across every group.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projectNames:
+                    type: array
+                    items:
+                      type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /project:
+    get:
+      tags: [Projects]
+      summary: One project, with samples, additional files and on-disk status.
+      description: |
+        The id is a **query parameter**, not a path segment.
+
+        Alongside the project this returns a reconciliation of the database
+        records against the `additional/` directory on disk. A datastore that
+        cannot be read degrades to `additionalFilesStatus.status = "UNKNOWN"`
+        rather than failing the request.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: The project and its file reconciliation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+                  actualAdditionalFiles:
+                    type: array
+                    items:
+                      type: string
+                    description: Filenames actually present in the project's `additional/` directory.
+                  additionalFilesStatus:
+                    $ref: "#/components/schemas/FileReconciliation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /project/toggle-nudgeable:
+    put:
+      tags: [Projects]
+      summary: Set a project's nudgeable flag.
+      description: |
+        Requires WRITE access to the group that owns the project: the project
+        is loaded first and the caller is authorised against its group, so a
+        project outside the caller's writable groups answers 403.
+
+        `nudgeable` must be a real JSON boolean — a non-boolean is a 400, not a
+        truthy coercion, because `"false"` would otherwise set the opposite
+        flag. This is stricter than `POST /projects/new`, which falls back to
+        the group default rather than refusing.
+
+        Answers `message` on success and does not return the updated document.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [_id, nudgeable]
+              properties:
+                _id:
+                  $ref: "#/components/schemas/ObjectId"
+                nudgeable:
+                  type: boolean
+      responses:
+        "200":
+          description: Updated. The project itself is not returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    const: Nudgeable status updated successfully.
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /projects/new:
+    post:
+      tags: [Projects]
+      summary: Create a project.
+      description: |
+        Requires WRITE access to the target group. A cross-group *reader*
+        (`FULL_RECORDS_ACCESS_USERS`) cannot create a project in a group they
+        are not a member of.
+
+        `nudgeable` is HONOURED when the body carries a real JSON boolean, and
+        otherwise DERIVED from the target group:
+
+            nudgeable = (targetGroup.sendToEna === true)
+
+        This replaced a hard-coded '2Blades' group ObjectId that was a stand-in
+        for exactly this flag but only covered one of the two groups carrying
+        it. A non-boolean `nudgeable` (for example the string `"true"`) is NOT
+        a 400 here: it is discarded in favour of the group default, and the
+        server logs `[projects/new] Ignoring non-boolean 'nudgeable'`.
+        `komondor-power` carries a `project_nudgeable` column through its whole
+        CSV pipeline — that column now reaches the database, but only if it is
+        serialised as a boolean rather than a string.
+
+        Note that a group whose `sendToEna` is absent or `false` produces
+        `nudgeable: false`. `PUT /project/toggle-nudgeable` sets the flag
+        afterwards.
+
+        NOT idempotent, unlike `/samples/new` and `/runs/new`: a repeated name
+        hits the unique index on `Project.name` and fails. There is no 200
+        branch here.
+
+        On failure after the document is saved, the handler deletes it again —
+        but files already moved are not cleaned up.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, group, shortDesc, longDesc, owner]
+              properties:
+                name:
+                  type: string
+                group:
+                  $ref: "#/components/schemas/ObjectId"
+                shortDesc:
+                  type: string
+                longDesc:
+                  type: string
+                owner:
+                  type: string
+                  description: A username, which need not correspond to an existing `User`.
+                doNotSendToEna:
+                  type: boolean
+                doNotSendToEnaReason:
+                  type: string
+                nudgeable:
+                  type: boolean
+                  description: |
+                    Honoured when sent as a real JSON boolean. Anything else
+                    (including the strings `"true"` / `"false"`) is discarded
+                    with a server-side warning and the group-derived default is
+                    used instead. See the operation description.
+                additionalFiles:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  project:
+                    $ref: "#/components/schemas/Project"
+        "400":
+          description: Missing group, or mongoose validation failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /samples:
+    get:
+      tags: [Samples]
+      summary: Samples visible to the caller, newest first.
+      description: Same visibility rules as `GET /projects`. Sorted in Mongo here.
+      responses:
+        "200":
+          description: Visible samples.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  samples:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Sample"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /samples/names/{projectId}:
+    get:
+      tags: [Samples]
+      summary: Distinct sample names within a project.
+      description: |
+        Used by clients to pre-empt the idempotent-create branch of
+        `POST /samples/new`.
+
+        Requires READ access to the group that owns the project. The project is
+        loaded first, so an unknown `projectId` answers 404 and a project in a
+        group the caller cannot read answers 403. This endpoint returns every
+        sample name in the project, not just the caller's own, so it was
+        previously a cross-group read open to any authenticated caller for any
+        project id.
+
+        A malformed `projectId` is a 400 and the database is never queried.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Unique, non-empty names.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sampleNames:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /sample:
+    get:
+      tags: [Samples]
+      summary: One sample, with its runs and on-disk file status.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: The sample and its file reconciliation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sample:
+                    $ref: "#/components/schemas/Sample"
+                  actualAdditionalFiles:
+                    type: array
+                    items:
+                      type: string
+                  additionalFilesStatus:
+                    $ref: "#/components/schemas/FileReconciliation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /samples/new:
+    post:
+      tags: [Samples]
+      summary: Create a sample, or return the existing one.
+      description: |
+        **IDEMPOTENT CREATE — 200 vs 201.** Before inserting, the handler looks
+        for a sample with the same `project` and `name`. If one exists it
+        answers **200** with `{ sample, idempotent: true, message }` and the
+        PRE-EXISTING document. A genuine insert answers **201** with
+        `{ sample }` and no `idempotent` key.
+
+        A client that treats 200 as "created" will double-count, and one that
+        treats anything but 201 as failure will break on retry. Branch on the
+        status code, or on the presence of `idempotent`.
+
+        `project` is mandatory, so the lookup depends on `name` alone: a
+        nameless non-TPlex sample is never deduplicated.
+
+        **The stored `group` is DERIVED from the parent project**, not taken
+        from the body. `group` is still required and is cross-checked: a
+        `group` that does not own the submitted `project` is a 400 ("The
+        submitted group does not own the submitted project."), never a silently
+        mis-filed sample. Write access is authorised against the PROJECT's
+        group, and that check runs BEFORE the mismatch check so the status code
+        cannot be used to probe which group owns a project the caller cannot
+        see.
+
+        An unknown `project` answers 404. Malformed ids answer 400 and the
+        database is never queried.
+
+        TPlex CSV text is stored with spreadsheet formula characters
+        neutralised — a value beginning `=`, `+`, `-`, `@`, tab or CR is
+        prefixed with an apostrophe and force-quoted, except plain numbers
+        such as `-80`. A consumer round-tripping `tplexCsv` should strip a
+        leading `"'` when the field starts with one of those characters.
+
+        TPlex mode: when `tplexCsv` is a non-empty array, ONE sample is created
+        with the array flattened to CSV text in `tplexCsv`, the per-organism
+        fields forced to null, and a name derived from the first row when none
+        was supplied. `additionalFiles` is ignored in this mode.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [group, project, owner]
+              properties:
+                name:
+                  type: string
+                project:
+                  $ref: "#/components/schemas/ObjectId"
+                group:
+                  $ref: "#/components/schemas/ObjectId"
+                owner:
+                  type: string
+                scientificName:
+                  type: string
+                  description: Required unless this is a TPlex sample.
+                commonName:
+                  type: string
+                  description: Required unless this is a TPlex sample.
+                ncbi:
+                  type: string
+                  description: Numeric taxonomy id. Required unless this is a TPlex sample.
+                conditions:
+                  type: string
+                  description: Required unless this is a TPlex sample.
+                tplexCsv:
+                  type: array
+                  description: Rows of a TPlex CSV. Presence of a non-empty array selects TPlex mode.
+                  items:
+                    type: object
+                additionalFiles:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        "200":
+          description: |
+            A sample with this name already existed for this project. The body
+            is the existing document — nothing was created.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [sample, idempotent]
+                properties:
+                  sample:
+                    $ref: "#/components/schemas/Sample"
+                  idempotent:
+                    const: true
+                  message:
+                    const: Sample with this name already exists for this project
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sample:
+                    $ref: "#/components/schemas/Sample"
+        "400":
+          description: |
+            Missing or malformed `group` / `project`, a `group` that does not
+            own the submitted `project`, a TPlex payload whose rows are not
+            objects, or mongoose validation failed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          description: |
+            The parent `project` does not exist. New: the handler must load the
+            project to derive the sample's group.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs:
+    get:
+      tags: [Runs]
+      summary: Runs visible to the caller, newest first.
+      responses:
+        "200":
+          description: Visible runs.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Run"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs/names/{sampleId}:
+    get:
+      tags: [Runs]
+      summary: Distinct run names within a sample.
+      description: |
+        Requires READ access to the group that owns the SAMPLE. The sample is
+        loaded first, so an unknown `sampleId` answers 404 and a sample in a
+        group the caller cannot read answers 403. This previously answered for
+        any id with no group check at all.
+
+        A malformed `sampleId` is a 400 and the database is never queried.
+      parameters:
+        - name: sampleId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Unique, non-empty names.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runNames:
+                    type: array
+                    items:
+                      type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /run:
+    get:
+      tags: [Runs]
+      summary: One run, with raw and additional file reconciliation.
+      description: |
+        Reconciles two directories, `raw/` and `additional/`, and returns a
+        separate status object for each. Note the asymmetric key names:
+        `actualReads` for raw files but `actualAdditionalFiles` for the others.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: The run and both reconciliations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  run:
+                    $ref: "#/components/schemas/Run"
+                  actualReads:
+                    type: array
+                    items:
+                      type: string
+                    description: Filenames present in the run's `raw/` directory.
+                  actualAdditionalFiles:
+                    type: array
+                    items:
+                      type: string
+                  rawFilesStatus:
+                    $ref: "#/components/schemas/FileReconciliation"
+                  additionalFilesStatus:
+                    $ref: "#/components/schemas/FileReconciliation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs/new:
+    post:
+      tags: [Runs]
+      summary: Create a run, or return the existing one.
+      description: |
+        **IDEMPOTENT CREATE — 200 vs 201**, the same split as `/samples/new`.
+        A run already existing with this `sample` + `name` answers **200** with
+        `{ run, idempotent: true, message }` and the pre-existing document; a
+        genuine insert answers **201** with `{ run }`.
+
+        Unlike `/samples/new`, the lookup is unconditional — `Run.findOne({
+        sample, name })` runs on every request.
+
+        **The 201 is returned BEFORE the work is done.** The handler saves the
+        run, ENQUEUES an ingest job, and only then responds. File movement, the
+        overseer email and MD5 verification happen later in a background
+        worker, so a 201 means "the run record exists and the ingest is
+        queued", not "your files have arrived" — expect them seconds to minutes
+        afterwards. Both the 201 and the idempotent 200 carry `jobId`; poll
+        `GET /runs/{id}/status` and read `ingest.status` to find out what
+        actually happened. A failed job surfaces there as `failed` with
+        `lastError`, where a run previously just sat at `pending` forever.
+
+        The enqueue happens BEFORE the response, so a queue that cannot record
+        the work fails the request (and the existing rollback deletes the run)
+        rather than returning a 201 for an ingest nobody will ever run. The
+        idempotent branch enqueues too — the job is keyed on the run id, so it
+        cannot double-queue, and a client retrying after a lost 201 can still
+        trigger an ingest that never happened.
+
+        **A re-POST does NOT retry a job already sitting at `failed`.** The
+        enqueue is `$setOnInsert`, so it finds the dead job and changes
+        nothing. `POST /runs/{id}/reingest` is the only way to retry one.
+
+        **The idempotent branch requires WRITE access to the EXISTING RUN's
+        group**, not read access — see the paragraph below on the write access
+        a *new* run needs, which is about the sample's group. The two can
+        disagree: a run predating the group remediation can carry a group that
+        differs from its sample's, because the old code stored `req.body.group`
+        unchecked. That branch is not a lookup — it enqueues an ingest carrying
+        the caller's own `rawFiles` against the run that came back — so a
+        cross-group *reader* (`FULL_RECORDS_ACCESS_USERS`) who re-POSTs a run
+        living in a group they cannot write to now gets a **403** where they
+        previously got a 200 with the run.
+
+        Because `{ sample, name }` is now unique on `Run`, two concurrent
+        retries of a lost 201 can both miss the lookup; whichever loses the
+        save race re-reads the winner and returns the same idempotent 200
+        rather than surfacing the duplicate-key error as a 500.
+
+        **`group` must own `sample`.** The stored group is taken from the
+        sample either way; a mismatched `group` in the body is a 400. Creating
+        a run requires WRITE access to the sample's group, so a cross-group
+        *reader* (`FULL_RECORDS_ACCESS_USERS`) can no longer create runs in
+        groups they are not a member of.
+
+        A `sample` that does not exist is a **400** ("The submitted sample does
+        not exist."), not a 404 — this endpoint already reports body-field
+        problems as 400, and a 404 on a POST invites clients to read it as
+        "endpoint missing". Because the sample must be looked up before its
+        group can authorise anything, the 400-vs-403 split is a weak existence
+        oracle for sample ids.
+
+        Request validation is bespoke (`validateNewRunRequest`) and runs before
+        the permission check, so an invalid body gets 400 even from a caller
+        who would have been refused with 403. A malformed `sample` id is a 400
+        and the database is never queried.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sample
+                - name
+                - sequencingProvider
+                - sequencingTechnology
+                - librarySource
+                - libraryType
+                - librarySelection
+                - libraryStrategy
+                - owner
+                - group
+                - rawFiles
+                - rawFilesUploadInfo
+              properties:
+                sample:
+                  $ref: "#/components/schemas/ObjectId"
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 80
+                sequencingProvider:
+                  type: string
+                sequencingTechnology:
+                  type: string
+                librarySource:
+                  type: string
+                libraryType:
+                  type: string
+                  description: |
+                    A free-text string, NOT a reference to the `LibraryType`
+                    option document. Nothing validates it against
+                    `/options/librarytype`.
+                librarySelection:
+                  type: string
+                libraryStrategy:
+                  type: string
+                insertSize:
+                  type: string
+                owner:
+                  type: string
+                group:
+                  $ref: "#/components/schemas/ObjectId"
+                rawFiles:
+                  type: array
+                  minItems: 1
+                  description: Each entry must carry a `name` or a `data.name`.
+                  items:
+                    type: object
+                rawFilesUploadInfo:
+                  type: object
+                  required: [method]
+                  properties:
+                    method:
+                      type: string
+                      enum: [hpc-mv, local-filesystem]
+                    relativePath:
+                      type: string
+                      description: Required when `method` is `hpc-mv`, unless the first raw file carries one.
+                additionalFiles:
+                  type: array
+                  items:
+                    type: object
+      responses:
+        "200":
+          description: A run with this name already existed for this sample.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [run, idempotent]
+                properties:
+                  run:
+                    $ref: "#/components/schemas/Run"
+                  idempotent:
+                    const: true
+                  jobId:
+                    description: |
+                      The ingest job for this run. Keyed on the run id, so this
+                      is the existing job rather than a new one. Null only if
+                      the queue returned nothing.
+                    oneOf:
+                      - $ref: "#/components/schemas/ObjectId"
+                      - type: "null"
+                  message:
+                    const: Run with this name already exists for this sample
+        "201":
+          description: |
+            The run document was created and the ingest job was queued. File
+            movement and MD5 verification have not happened yet.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  run:
+                    $ref: "#/components/schemas/Run"
+                  jobId:
+                    $ref: "#/components/schemas/ObjectId"
+        "400":
+          description: |
+            Bespoke validation failed, a malformed id, a `sample` that does not
+            exist, a `group` that does not own the `sample`, or mongoose
+            rejected the document.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs/{id}/status:
+    get:
+      tags: [Runs]
+      summary: Processing and MD5 verification progress for one run.
+      description: |
+        The endpoint to poll after a 201 from `/runs/new`. Returns the run's
+        `status` and `md5VerificationStatus` enums, the queue's view of the
+        ingest in `ingest`, plus a per-file breakdown built from the `Read`
+        documents.
+
+        `ingest` is where a background failure becomes visible: a job that has
+        exhausted its attempts reports `status: "failed"` with `lastError`,
+        instead of the run silently sitting at `pending`.
+
+        `progress.percentComplete` is 100 when the run has no read files at
+        all, which reads as "finished" rather than "nothing to do".
+
+        A malformed `id` is a 400 and the database is never queried.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Status and progress.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    $ref: "#/components/schemas/ObjectId"
+                  runName:
+                    type: string
+                  status:
+                    $ref: "#/components/schemas/RunStatus"
+                  statusError:
+                    type: [string, "null"]
+                    description: Populated when `status` is `error`.
+                  ingest:
+                    $ref: "#/components/schemas/IngestJobSummary"
+                  md5VerificationStatus:
+                    $ref: "#/components/schemas/Md5VerificationStatus"
+                  md5VerificationAttempts:
+                    type: integer
+                  md5VerificationLastAttempt:
+                    type: [string, "null"]
+                    format: date-time
+                  md5VerificationCompletedAt:
+                    type: [string, "null"]
+                    format: date-time
+                  progress:
+                    type: object
+                    properties:
+                      totalFiles:
+                        type: integer
+                      verifiedFiles:
+                        type: integer
+                      mismatchedFiles:
+                        type: integer
+                      percentComplete:
+                        type: integer
+                  files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fileName:
+                          type: [string, "null"]
+                        md5Original:
+                          type: [string, "null"]
+                        md5Destination:
+                          type: [string, "null"]
+                        md5Mismatch:
+                          type: [boolean, "null"]
+                          description: '`null` means not yet checked.'
+                        lastChecked:
+                          type: [string, "null"]
+                          format: date-time
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs/{id}/reingest:
+    post:
+      tags: [Runs]
+      summary: Return a permanently failed ingest to the queue.
+      description: |
+        The only way to retry an ingest that has exhausted its attempts. A
+        re-POST to `/runs/new` does NOT do this: `enqueueRunIngest` is keyed on
+        the run id and uses `$setOnInsert`, so it finds the dead job and
+        changes nothing. Before this endpoint existed, a failed ingest had no
+        retry at all short of editing the database.
+
+        It is a separate endpoint rather than a side effect of `/runs/new` on
+        purpose: making a duplicate submission re-run the ingest would replay
+        file moves over a run that is already healthy. A retry has to be asked
+        for.
+
+        **Requires WRITE access to the run's group.** There is deliberately no
+        owner fallback of the kind `GET /runs/{id}/status` has — those answer a
+        question, this does work: it moves files into the run's datastore
+        directory and writes `Read` documents against it.
+
+        The job is reset to `pending` with `attempts` back to 0 and no lease,
+        so the next worker poll picks it up immediately — `claimNextJob`
+        increments attempts as it claims and fails anything already past
+        `maxAttempts`, so a job left at its exhausted count would simply be
+        re-failed without the ingest ever being re-attempted. There is no
+        backoff and no throttle: an operator retrying into a full disk or a
+        dead mount will hit the same wall again, bounded only by `maxAttempts`
+        per attempt.
+
+        The run itself is moved back to `status: "pending"` with `statusError`
+        cleared, so it does not read as broken while its retry is queued. A
+        second failure puts it back to `error`.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: The ingest has been returned to the queue.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runId:
+                    $ref: "#/components/schemas/ObjectId"
+                  jobId:
+                    $ref: "#/components/schemas/ObjectId"
+                  ingest:
+                    $ref: "#/components/schemas/IngestJobSummary"
+                  message:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          description: |
+            No such run, or the run has no ingest job to retry. The two are not
+            distinguished in the body beyond the message, for the same reason
+            `/runs/batch-status` does not split "missing" from "not yours".
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "409":
+          description: |
+            The ingest job exists but is not `failed`. Only a failed ingest can
+            be retried, so a retry can never clobber a healthy or in-flight
+            run.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /runs/batch-status:
+    post:
+      tags: [Runs]
+      summary: Status for up to 100 runs at once.
+      description: |
+        A POST because the id list goes in the body, not because anything is
+        created.
+
+        **Every requested id is accounted for.** Runs the caller may not see
+        are omitted from `runs`, so `total` can be lower than `requested` — but
+        an omitted id now appears in `missing`, and an id that was not a
+        well-formed ObjectId appears in `invalid`. Clients must stop treating a
+        short `runs` array as a complete answer.
+
+        `missing` deliberately does NOT distinguish "no such run" from "exists
+        but not yours": splitting them would turn this endpoint into an
+        existence oracle for other groups' run ids.
+
+        Each entry also carries `ingest`, the same summary as
+        `GET /runs/{id}/status`, so the two endpoints agree about what a run's
+        status is. The caller's groups are read once for the whole batch.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [runIds]
+              properties:
+                runIds:
+                  type: array
+                  maxItems: 100
+                  items:
+                    $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Status for the accessible subset.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  runs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        runId:
+                          $ref: "#/components/schemas/ObjectId"
+                        runName:
+                          type: string
+                        status:
+                          $ref: "#/components/schemas/RunStatus"
+                        statusError:
+                          type: [string, "null"]
+                        ingest:
+                          $ref: "#/components/schemas/IngestJobSummary"
+                        md5VerificationStatus:
+                          $ref: "#/components/schemas/Md5VerificationStatus"
+                        md5VerificationAttempts:
+                          type: integer
+                        md5VerificationLastAttempt:
+                          type: [string, "null"]
+                          format: date-time
+                        md5VerificationCompletedAt:
+                          type: [string, "null"]
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+                  total:
+                    type: integer
+                    description: Length of `runs`, not the number of ids requested.
+                  requested:
+                    type: integer
+                    description: |
+                      How many well-formed, de-duplicated ids were looked up.
+                  missing:
+                    type: array
+                    description: |
+                      Requested ids that produced no entry in `runs` — either no
+                      such run, or one the caller may not see. The two are
+                      deliberately not distinguished.
+                    items:
+                      $ref: "#/components/schemas/ObjectId"
+                  invalid:
+                    type: array
+                    description: |
+                      Submitted values that were not well-formed ObjectIds,
+                      truncated to 64 characters each.
+                    items:
+                      type: string
+        "400":
+          description: '`runIds` is not an array, or has more than 100 entries.'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /search:
+    get:
+      tags: [Search]
+      summary: Case-insensitive name search across projects, samples and runs.
+      description: |
+        Matched in MongoDB with an escaped, case-insensitive regex over `name`,
+        scoped by the same visibility filter as the list endpoints.
+
+        An absent, non-string, empty or over-200-character query answers 200
+        with `results: []` — an ARRAY, where a successful search returns an
+        OBJECT of three arrays. Callers must handle both shapes.
+      parameters:
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+            maxLength: 200
+          description: Repeated values are tolerated; the first is used.
+      responses:
+        "200":
+          description: Results, or an empty array for an unusable query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    oneOf:
+                      - type: object
+                        properties:
+                          projects:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/Project"
+                          samples:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/Sample"
+                          runs:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/Run"
+                      - type: array
+                        maxItems: 0
+                        description: Returned when the query was unusable.
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          description: |
+            The combined search failed. Note that the three single-entity
+            routes below swallow the same failure as a 200.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /search/project:
+    get:
+      tags: [Search]
+      summary: Name search over projects only.
+      description: |
+        DRIFT: a search FAILURE answers **200** with
+        `{ results: [], error }`, not 5xx. This is the contract existing
+        consumers rely on, so an empty `results` does not mean "no matches" —
+        check for `error`.
+      parameters:
+        - $ref: "#/components/parameters/SearchQuery"
+      responses:
+        "200":
+          $ref: "#/components/responses/EntitySearchResults"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+
+  /search/sample:
+    get:
+      tags: [Search]
+      summary: Name search over samples only.
+      description: Same 200-on-failure contract as `/search/project`.
+      parameters:
+        - $ref: "#/components/parameters/SearchQuery"
+      responses:
+        "200":
+          $ref: "#/components/responses/EntitySearchResults"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+
+  /search/run:
+    get:
+      tags: [Search]
+      summary: Name search over runs only.
+      description: Same 200-on-failure contract as `/search/project`.
+      parameters:
+        - $ref: "#/components/parameters/SearchQuery"
+      responses:
+        "200":
+          $ref: "#/components/responses/EntitySearchResults"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+
+  /news:
+    get:
+      tags: [News]
+      summary: The 20 most recent news items the caller may see.
+      description: |
+        News items are created as a side effect of saving a project, sample or
+        run. The response is a projection, not the stored document: `owner`
+        is renamed to `user`, and `dateHuman` is a server-rendered
+        en-US string ("Today at 3:04 PM").
+      responses:
+        "200":
+          description: Up to 20 items, newest first.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  news:
+                    type: array
+                    maxItems: 20
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          examples: [project, sample, run]
+                        user:
+                          type: string
+                        name:
+                          type: string
+                        body:
+                          type: string
+                        date:
+                          type: string
+                          format: date-time
+                        dateHuman:
+                          type: string
+                        link:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            query:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /accessions/new:
+    post:
+      tags: [Accessions]
+      summary: Attach ENA accessions to a project, sample or run.
+      description: |
+        Requires the `hasFullRecordsAccess` population — admins, the literal
+        `admin` account, and usernames listed in `FULL_RECORDS_ACCESS_USERS` —
+        NOT mere group membership. This is the return leg of the
+        `/accessions/csv` export that the same predicate already gates: an
+        accession is the identifier ENA issues, not the group's own metadata,
+        and its consequences are external and public. Group write access would
+        also have been the wrong gate, since an ENA admin is typically not a
+        member of the groups they submit for.
+
+        The record's group is still checked, as a READ: the group must be live.
+        Because `Group.GroupsIAmIn` excludes soft-deleted groups for everybody,
+        a retired group stops authorising accession writes into records nobody
+        can see any more, and a record with a dangling group reference is
+        refused rather than written.
+
+        `accessions` is REQUIRED and REPLACES the stored array; it does not
+        append. Omitting it used to write `undefined`, which mongoose strips —
+        the request answered 200 having changed nothing. That silent no-op is
+        now a 400. "Clear the accessions" is an explicit `[]`.
+
+        `releaseDate` is only honoured when `type` is `project`.
+
+        On success the body is EMPTY — `res.status(200).send()` with no
+        argument. Do not parse it as JSON.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type, typeId, accessions]
+              properties:
+                type:
+                  type: string
+                  enum: [project, sample, run]
+                typeId:
+                  $ref: "#/components/schemas/ObjectId"
+                accessions:
+                  type: array
+                  description: |
+                    Required. Replaces the stored array wholesale. Send `[]` to
+                    clear.
+                  items:
+                    type: string
+                releaseDate:
+                  type: string
+                  description: 'DD-MM-YYYY. Stored as a string; ignored unless `type` is `project`.'
+      responses:
+        "200":
+          description: Updated. Empty body.
+        "400":
+          description: |
+            Bad `type`, missing or malformed `typeId`, or `accessions` absent
+            or not an array of strings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/GroupPermissionDenied"
+        "404":
+          description: No record of that type with that id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Update failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /accessions/csv:
+    get:
+      tags: [Accessions]
+      summary: Cross-group CSV export of every run. Restricted.
+      description: |
+        Ignores group membership by design — it returns every run in the
+        database — so it is gated on `hasFullRecordsAccess`: admins, the
+        literal `admin` account, and usernames listed in
+        `FULL_RECORDS_ACCESS_USERS`. NOT `isAdmin` alone; the ENA admins who
+        use this do not carry that claim. See BREAKING_CHANGES §13.
+
+        The CSV is returned as a STRING inside a JSON object, not as a
+        `text/csv` body. The heading row keeps a trailing comma, which
+        consuming services parse. Fields containing a delimiter are quoted
+        (BREAKING_CHANGES §10).
+
+        Rows whose sample, project or group cannot be resolved are skipped and
+        logged, so the export can be shorter than the run count.
+
+        DRIFT: `FULL_RECORDS_ACCESS_USERS` on this server must be kept in step
+        with `ENA_ADMINS` in komondor-web, which decides who is offered the
+        export page. Two hand-maintained allowlists in two repos — this is
+        precisely the pattern `docs/CONTRACTS.md` argues against.
+      responses:
+        "200":
+          description: The export.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  csv:
+                    type: string
+                    description: |
+                      Columns: group, owner, ena_project_submission_date,
+                      project_name, project_id, project_accession, sample_name,
+                      sample_id, sample_accession, run_name, run_id,
+                      run_accession, run_creation_date, list_of_read_files.
+                      Multi-valued cells are `;`-joined.
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: The caller lacks full-records access.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: You do not have permission to export all records
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /directory-files:
+    get:
+      tags: [Files]
+      summary: List a directory inside the HPC transfer area.
+      description: |
+        DRIFT — FAILURE IS REPORTED AS **200** with an `error` body. Missing
+        parameter, unconfigured `HPC_TRANSFER_DIRECTORY`, non-existent
+        directory, and *empty directory* all answer 200 with
+        `{ "error": "..." }`. This is deliberately preserved
+        (BREAKING_CHANGES §9) because consumers detect failure by the presence
+        of `error`, not by status code.
+
+        The one exception is a rejected path, which answers a real **403**.
+        Clients therefore need both branches — see `utils/apiError.js` in
+        komondor-web.
+
+        Note that an empty directory is an error here, not an empty list.
+
+        Path containment uses `resolveBelow`, so a name normalising back to the
+        root (`.`, `./`, `a/..`) is refused rather than listing every group's
+        inbound directory.
+      parameters:
+        - name: targetDirectoryName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: |
+            Either the listing OR a failure. Exactly one of `filesResults` and
+            `error` is present.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    required: [filesResults]
+                    properties:
+                      filesResults:
+                        type: array
+                        items:
+                          type: string
+                  - type: object
+                    required: [error]
+                    properties:
+                      error:
+                        type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: The path escaped the transfer directory, or resolved to its root.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: "Access denied: Invalid directory path"
+
+  /directory-files/debug:
+    get:
+      tags: [Files]
+      summary: Report how a directory name resolves on disk. Admin only.
+      description: |
+        Admin-gated because the response exposes server filesystem layout and
+        configuration — `process.cwd()`, `__dirname` and the value of
+        `HPC_TRANSFER_DIRECTORY` (BREAKING_CHANGES §8).
+
+        `targetDirectoryName` defaults to the string `"cheese"` when omitted.
+      parameters:
+        - name: targetDirectoryName
+          in: query
+          required: false
+          schema:
+            type: string
+            default: cheese
+      responses:
+        "200":
+          description: Resolution report.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cwd:
+                    type: string
+                  __dirname:
+                    type: string
+                  HPC_TRANSFER_DIRECTORY:
+                    type: [string, "null"]
+                  targetDirectoryName:
+                    type: [string, "null"]
+                  cleanedTargetDirectoryName:
+                    type: [string, "null"]
+                  dirRoot:
+                    type: [string, "null"]
+                    description: '`null` when the path would escape the transfer directory.'
+                  withinTransferDirectory:
+                    type: boolean
+                  exists:
+                    type: boolean
+                  isDirectory:
+                    type: boolean
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+
+  /directory-files/verify-md5:
+    post:
+      tags: [Files]
+      summary: Checksum a file in the transfer directory against an expected MD5.
+      description: |
+        UNUSUAL RESPONSE FRAMING. Headers are flushed with status 200 before
+        the checksum starts, and a space character is written periodically to
+        stop a reverse proxy timing out on a large file. The JSON body is
+        appended at the end.
+
+        Consequences for clients: the status code is 200 before the outcome is
+        known, so a mid-stream failure arrives as 200 with an `error` body; and
+        the body has leading whitespace, so it must be trimmed before parsing.
+
+        `expectedMd5` is lower-cased and trimmed before comparison.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [directoryName, fileName, expectedMd5]
+              properties:
+                directoryName:
+                  type: string
+                fileName:
+                  type: string
+                expectedMd5:
+                  type: string
+      responses:
+        "200":
+          description: |
+            The comparison, or a mid-stream failure. Preceded by padding
+            whitespace in both cases.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - type: object
+                    required: [fileName, expectedMd5, calculatedMd5, matches]
+                    properties:
+                      fileName:
+                        type: string
+                      expectedMd5:
+                        type: string
+                      calculatedMd5:
+                        type: string
+                      matches:
+                        type: boolean
+                  - type: object
+                    required: [error]
+                    properties:
+                      error:
+                        type: string
+                      requestId:
+                        type: string
+        "400":
+          description: A required field is missing or not a string.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  requestId:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: Path traversal attempt.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: "Access denied: Invalid file path"
+                  requestId:
+                    type: string
+        "404":
+          description: No such file, or the path is not a regular file.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  requestId:
+                    type: string
+        "500":
+          description: Failed before headers were sent.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  requestId:
+                    type: string
+
+  /read-file:
+    get:
+      tags: [Files]
+      summary: Read a small text file from the HPC transfer directory.
+      description: |
+        DRIFT — the same 200-with-`error` failure contract as
+        `/directory-files`, and the same real 403 for a rejected path.
+
+        A SUCCESS returns the file's raw text, not JSON. A FAILURE returns a
+        JSON object. The response body type therefore depends on the outcome,
+        which no `Content-Type` negotiation will tell you in advance.
+
+        Capped at 5 MiB; anything larger is refused (as a 200 with `error`).
+      parameters:
+        - name: targetDirectoryName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: filename
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The file's contents, OR a failure object.
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+                required: [error]
+                properties:
+                  error:
+                    type: string
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: The path escaped the transfer directory.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    const: "Access denied: Invalid file path"
+
+  /options/libraryselection:
+    get:
+      tags: [Options]
+      summary: List library selection values. Public.
+      security: []
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionList"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags: [Options]
+      summary: Add a value.
+      description: $ref-free note — see `/options/librarytype` for the shared write semantics.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionValue"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags: [Options]
+      summary: Remove a value by id.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionId"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionDeleted"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /options/librarysource:
+    get:
+      tags: [Options]
+      summary: List library source values. Public.
+      security: []
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionList"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags: [Options]
+      summary: Add a value.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionValue"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags: [Options]
+      summary: Remove a value by id.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionId"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionDeleted"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /options/librarystrategy:
+    get:
+      tags: [Options]
+      summary: List library strategy values. Public.
+      security: []
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionList"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags: [Options]
+      summary: Add a value.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionValue"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags: [Options]
+      summary: Remove a value by id.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionId"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionDeleted"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /options/librarytype:
+    get:
+      tags: [Options]
+      summary: List library types. Public.
+      description: |
+        The only option collection with more than a `value`. Each document
+        carries `paired`, `extensions` and `indexed`.
+
+        `indexed` marks a library type whose reads carry an index file. It has
+        a schema default of `false`, so documents written before the field
+        existed report `false` rather than being absent — a client cannot
+        distinguish "not indexed" from "predates the field".
+
+        DRIFT: `Run.libraryType` stores a free-text STRING, not a reference to
+        one of these documents, and nothing validates one against the other. A
+        run can name a library type that does not exist here, and renaming a
+        `LibraryType.value` silently orphans every run that used the old
+        spelling.
+      security: []
+      responses:
+        "200":
+          description: All library types, sorted by `value`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  options:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/LibraryType"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags: [Options]
+      summary: Add a library type.
+      description: |
+        Shared write semantics for every `/options/*` collection:
+
+        - Requires a bearer token by default. `OPTIONS_WRITE_REQUIRE_AUTH=false`
+          restores the old unauthenticated behaviour as an emergency rollback
+          (BREAKING_CHANGES §3). GET is always public.
+        - Answers **200** on create, not 201, and returns the document under
+          `doc` rather than `options`.
+        - `indexed` cannot be set here: the document builder in `routes/options.js`
+          maps only `value`, `paired` and `extensions`, so `indexed` always
+          takes its schema default of `false` on create.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [value]
+              properties:
+                value:
+                  type: string
+                  minLength: 1
+                paired:
+                  type: boolean
+                  default: false
+                extensions:
+                  type: array
+                  default: []
+                  items:
+                    type: string
+                indexed:
+                  type: boolean
+                  deprecated: true
+                  description: ACCEPTED AND IGNORED on create. See the operation description.
+      responses:
+        "200":
+          description: Created. Note 200, not 201.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  doc:
+                    $ref: "#/components/schemas/LibraryType"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags: [Options]
+      summary: Remove a library type by id.
+      description: |
+        A missing or malformed `id` is a 400. This guard matters: mongoose
+        strips `undefined` from a filter, so `deleteOne({ _id: undefined })`
+        would become `deleteOne({})` and remove an arbitrary document.
+
+        Deleting nothing is a 404 (BREAKING_CHANGES §4).
+      requestBody:
+        $ref: "#/components/requestBodies/OptionId"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionDeleted"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /options/sequencingtechnology:
+    get:
+      tags: [Options]
+      summary: List sequencing technology values. Public.
+      security: []
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionList"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      tags: [Options]
+      summary: Add a value.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionValue"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    delete:
+      tags: [Options]
+      summary: Remove a value by id.
+      requestBody:
+        $ref: "#/components/requestBodies/OptionId"
+      responses:
+        "200":
+          $ref: "#/components/responses/OptionDeleted"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "404":
+          $ref: "#/components/responses/NotFoundEnvelope"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /uploads:
+    description: |
+      A tus 1.0.0 resumable-upload server, mounted with
+      `router.use("/uploads", uploadApp)` in `routes/uploads.js`. It handles
+      `/uploads` and everything beneath it, and speaks the tus protocol rather
+      than this API's JSON conventions — POST to create an upload, PATCH to
+      send bytes, HEAD to resume.
+
+      Two things worth knowing:
+
+      - It is NOT behind `isAuthenticated`. The tus sub-app is mounted before
+        any auth middleware runs.
+      - It applies its own CORS policy with `origin: "*"`, unlike the rest of
+        the API, which is restricted to `WEB_APP_URL`.
+
+      Uploaded bytes land in a temporary store and are moved into the datastore
+      later, when the owning project/sample/run is created.
+    post:
+      tags: [Uploads]
+      summary: Create an upload (tus).
+      description: |
+        Standard tus creation. Returns `201` with a `Location` header naming
+        the upload resource; subsequent `PATCH`/`HEAD` go to that URL.
+      security: []
+      parameters:
+        - name: Tus-Resumable
+          in: header
+          required: true
+          schema:
+            const: 1.0.0
+        - name: Upload-Length
+          in: header
+          required: false
+          schema:
+            type: integer
+        - name: Upload-Metadata
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Upload created.
+          headers:
+            Location:
+              schema:
+                type: string
+            Tus-Resumable:
+              schema:
+                const: 1.0.0
+
+  /upload/cancel:
+    post:
+      tags: [Uploads]
+      summary: No-op upload cancellation.
+      description: |
+        DEFECT: does nothing. The handler is `res.status(200).send({})` with no
+        body inspection and no cleanup — it does not delete the tus upload, the
+        temporary file, or any database record. Kept because clients call it.
+
+        Note the singular `/upload/`, against the tus mount's plural
+        `/uploads`.
+      responses:
+        "200":
+          description: Empty object. Nothing was cancelled.
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        `Authorization: Bearer <token>`, signed with `JWT_SECRET` (HS256) by
+        `lib/utils/jwtSign.js`.
+
+        **The `exp` claim is mandatory.** `lib/utils/getUserFromRequest.js`
+        rejects a structurally valid, correctly signed token that carries no
+        `exp` by raising `TokenExpiredError`, which surfaces as 401. This was
+        added deliberately (commit "refuse legacy tokens without an expiry
+        claim"): tokens issued before August 2026 had no expiry and stayed
+        valid forever, including tokens minted during the LDAP incident with an
+        empty `groups` claim. Such tokens can only be fixed by re-logging in.
+
+        Tokens expire after `JWT_EXPIRES_IN`, default `7d`.
+
+        **Group membership is a snapshot.** `groups` is resolved once, at
+        login, and never re-read. A user added to a group sees nothing new
+        until their token expires and they sign in again — that expiry is the
+        upper bound on the staleness.
+
+        Requests with NO `Authorization` header are not rejected by the
+        app-level middleware; they simply arrive with no `req.user`, and each
+        route's `isAuthenticated` guard turns that into a 401. Routes without
+        that guard (`/projects/names`, `GET /options/*`, `/health`, `/test`,
+        `/login`, `/logout`, `/uploads`) serve anonymous callers.
+
+  parameters:
+    SearchQuery:
+      name: query
+      in: query
+      required: false
+      schema:
+        type: string
+        maxLength: 200
+      description: |
+        Absent, blank, non-string or over 200 characters yields
+        `{ results: [] }` rather than an error.
+
+  requestBodies:
+    OptionValue:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [value]
+            properties:
+              value:
+                type: string
+                minLength: 1
+
+    OptionId:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [id]
+            properties:
+              id:
+                $ref: "#/components/schemas/ObjectId"
+
+  responses:
+    Unauthenticated:
+      description: |
+        No usable token. Two distinct bodies reach clients as 401:
+        `{ error: "Authentication required" }` from a route's
+        `isAuthenticated` guard, and
+        `{ error: "Invalid or expired authentication token", detail }` from the
+        app-level middleware in `app.js` when a token was present but bad or
+        expired.
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: object
+                properties:
+                  error:
+                    const: Authentication required
+              - type: object
+                properties:
+                  error:
+                    const: Invalid or expired authentication token
+                  detail:
+                    type: string
+                    description: The underlying jsonwebtoken message.
+                  requestId:
+                    type: string
+                    description: Present only when raised by the terminal error handler.
+
+    AdminRequired:
+      description: The caller's token lacks `isAdmin`.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                const: Admin access required
+
+    GroupPermissionDenied:
+      description: |
+        The caller is neither the record's owner, nor a member of its group,
+        nor an admin. The message embeds the username:
+        `User '<username>' does not have permission to ...`.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+    BadRequest:
+      description: A required parameter is missing or malformed.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+    NotFound:
+      description: |
+        No route matched. Emitted by the catch-all in `app.js`, which exists so
+        JSON-only clients never receive Express's default HTML body.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                const: Not found
+              detail:
+                type: string
+                examples: ["Cannot POST /logout"]
+
+    NotFoundEnvelope:
+      description: The referenced record does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+    ServerError:
+      description: |
+        An unhandled failure. In production a 500 replaces `error` with a
+        generic string but STILL includes `detail` — komondor-power is an
+        internal client and relies on it for diagnostics.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+    OptionList:
+      description: All values in this collection, sorted by `value`.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              options:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Option"
+
+    OptionCreated:
+      description: Created. Note 200, not 201, and the `doc` key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              doc:
+                $ref: "#/components/schemas/Option"
+
+    OptionDeleted:
+      description: Deleted. The body is an empty object.
+      content:
+        application/json:
+          schema:
+            type: object
+
+    EntitySearchResults:
+      description: |
+        Matches, OR an empty array. A search FAILURE also lands here with
+        `results: []` and an `error` string — check for `error` before treating
+        an empty array as "no matches".
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              results:
+                type: array
+                items:
+                  type: object
+              error:
+                type: string
+                description: Present only when the search failed.
+
+  schemas:
+    ObjectId:
+      type: string
+      pattern: "^[0-9a-fA-F]{24}$"
+      # Deliberately not the old hard-coded '2Blades' group id: that literal
+      # used to carry meaning in routes/projects.js and reusing it as a generic
+      # example invited the reader to think it still does.
+      examples: ["507f1f77bcf86cd799439011"]
+
+    ErrorEnvelope:
+      type: object
+      description: |
+        The standard failure body, produced by `handleError` in
+        `routes/_utils.js` and by the terminal handler in `app.js`.
+
+        `detail` carries the underlying error message — more specific than
+        `error` (e.g. "E11000 duplicate key error" against "Failed to create
+        new project.") — and is present even for production 500s.
+
+        Not universal: `/login` uses `message`; `/groups/*` and `/me` send a
+        bare `error`; `/read-file` and `/directory-files` send `{ error }` with
+        a 200.
+      properties:
+        error:
+          type: string
+          description: A user-facing message.
+        detail:
+          type: string
+          description: The underlying error message, for diagnostics.
+        requestId:
+          type: string
+          description: Correlates with the server log line for this failure.
+          examples: ["1735689600000-k3j9x2p1a"]
+
+    ReadinessReport:
+      type: object
+      description: The body of `GET /ready`, identical in shape for 200 and 503.
+      properties:
+        status:
+          type: string
+          enum: [ready, "not ready"]
+        failed:
+          type: array
+          description: Names of the failing checks. Empty on 200.
+          items:
+            type: string
+          examples: [["mongodb", "DATASTORE_ROOT"]]
+        checks:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: '`mongodb`, a mount variable name, `ingest-worker`, or `draining`.'
+              ok:
+                type: boolean
+              detail:
+                type: string
+                description: Why, in words — e.g. "connecting", "not configured", "last tick 4s ago".
+
+    TokenPayload:
+      type: object
+      description: The decoded JWT, as returned by `GET /me`.
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        isAdmin:
+          type: boolean
+        groups:
+          type: array
+          description: Group ids, resolved AT LOGIN and never refreshed.
+          items:
+            $ref: "#/components/schemas/ObjectId"
+        iat:
+          type: integer
+        exp:
+          type: integer
+          description: Mandatory. A token without this is refused as expired.
+
+    User:
+      type: object
+      description: |
+        Created lazily on first successful login, so a project `owner` may name
+        a person with no `User` document.
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        username:
+          type: string
+        name:
+          type: string
+        company:
+          type: string
+        email:
+          type: string
+        isAdmin:
+          type: boolean
+        lastLogin:
+          type: string
+          format: date-time
+        groups:
+          type: array
+          description: |
+            Stored on the document but NOT used for authorisation — group
+            resolution goes through `Group.GroupsIAmIn` and the token claim.
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Group:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        name:
+          type: string
+        safeName:
+          type: string
+          description: Filesystem-safe name; also the group's directory under `DATASTORE_ROOT`.
+        ldapGroups:
+          type: array
+          description: LDAP `memberOf` strings mapping onto this group. Matched case-insensitively.
+          items:
+            type: string
+        deleted:
+          type: boolean
+          default: false
+          description: |
+            SOFT-DELETE FLAG. `POST /groups/delete` sets it; `POST
+            /groups/resurrect` clears it. The document, its directory and every
+            record referencing it survive.
+
+            Consumers have had to filter on this themselves — `komondor-nudge`
+            declares the field on its read-only model and records
+            `GROUP_DELETED` when it skips a project for this reason.
+        sendToEna:
+          type: boolean
+          default: false
+        oldId:
+          type: string
+          description: Migration artefact.
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Project:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        name:
+          type: string
+          description: Unique across the collection.
+        safeName:
+          type: string
+        owner:
+          type: string
+        shortDesc:
+          type: string
+        longDesc:
+          type: string
+        group:
+          description: An ObjectId, or the populated `Group` on endpoints that populate it.
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/Group"
+        path:
+          type: string
+          description: Datastore-relative path, `/<group.safeName>/<project.safeName>`.
+        isPublic:
+          type: boolean
+          default: false
+        accessions:
+          type: array
+          items:
+            type: string
+        releaseDate:
+          type: string
+          description: 'ENA submission date, stored as a `DD-MM-YYYY` STRING, not a date.'
+        doNotSendToEna:
+          type: boolean
+          default: false
+        doNotSendToEnaReason:
+          type: string
+        nudgeable:
+          type: boolean
+          default: true
+          description: |
+            GROUP-DERIVED DEFAULT ON CREATE. `POST /projects/new` honours a
+            real JSON boolean from the client and otherwise computes
+            `nudgeable = (targetGroup.sendToEna === true)`. A group with
+            `sendToEna` absent or `false` therefore produces `nudgeable:
+            false`. `PUT /project/toggle-nudgeable` sets the flag afterwards,
+            and requires write access to the project's group.
+
+            `komondor-nudge` reads this field directly from MongoDB to decide
+            whether to email a project owner. A project where the field is
+            ABSENT (predating the field) is skipped and recorded as
+            `NUDGEABLE_UNDEFINED` unless
+            `NUDGE_INCLUDE_UNDEFINED_NUDGEABLE=true` — so absent and `false`
+            are not the same thing to that consumer, even though the API can no
+            longer produce an absent value.
+        nudges:
+          type: array
+          description: |
+            Timestamps of nudge emails sent. Written by komondor-nudge directly
+            against MongoDB (`$push`), never through this API.
+          items:
+            type: string
+            format: date-time
+        samples:
+          type: array
+          description: Virtual. Populated by `GET /project` only.
+          items:
+            $ref: "#/components/schemas/Sample"
+        additionalFiles:
+          type: array
+          description: Virtual. Populated by `GET /project` only.
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Sample:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        name:
+          type: string
+          description: |
+            Optional at the schema level because TPlex samples arrive nameless;
+            a pre-validate hook fills it from `safeName` when it is missing, so
+            a stored sample always has one.
+        safeName:
+          type: string
+        project:
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/Project"
+        group:
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/Group"
+        owner:
+          type: string
+        scientificName:
+          type: [string, "null"]
+          description: Required for non-TPlex samples; forced to null for TPlex ones.
+        commonName:
+          type: [string, "null"]
+          description: Required for non-TPlex samples; forced to null for TPlex ones.
+        ncbi:
+          type: [string, "null"]
+          description: |
+            NCBI taxonomy id. A STRING that must parse as a number — validated
+            with `isNaN`, so "1.5" and "0x10" pass.
+        conditions:
+          type: [string, "null"]
+        tplexCsv:
+          type: [string, "null"]
+          description: |
+            The whole TPlex CSV as CRLF-joined text, stored on ONE sample.
+            Sent to `POST /samples/new` as an ARRAY of row objects and
+            flattened server-side. Its presence is what marks a sample as
+            TPlex.
+        sampleGroup:
+          type: string
+        accessions:
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+        runs:
+          type: array
+          description: Virtual. Populated by `GET /sample` only.
+          items:
+            $ref: "#/components/schemas/Run"
+        additionalFiles:
+          type: array
+          description: Virtual. Populated by `GET /sample` only.
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    IngestJobSummary:
+      type: [object, "null"]
+      description: |
+        The ingest queue's view of a run's file processing, as reported by
+        `GET /runs/{id}/status` and `POST /runs/batch-status`.
+
+        **`null` means nothing was ever queued** — which is what every run
+        created before the queue existed looks like. That is not an error, and
+        it is deliberately distinct from a job sitting at `pending`.
+
+        Note this is a different axis from `Run.status`: `ingest.status` is the
+        queue's record of the work, `Run.status` is the run's own lifecycle.
+        A job that exhausts `maxAttempts` is marked `failed` here and sets the
+        run to `error` with the cause in `Run.statusError`.
+      properties:
+        jobId:
+          $ref: "#/components/schemas/ObjectId"
+        status:
+          type: string
+          description: |
+            `pending` is queued and not yet claimed (or returned for a retry
+            after a backoff). `claimed` is held by a worker under a lease —
+            a lease exists so a job held by a SIGKILLed process can be taken
+            over rather than stranded. `done` and `failed` are terminal.
+          enum:
+            - pending
+            - claimed
+            - done
+            - failed
+        attempts:
+          type: integer
+        maxAttempts:
+          type: integer
+        lastError:
+          type: [string, "null"]
+          description: Cause of the most recent failure. Null until one occurs.
+        queuedAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    RunStatus:
+      type: string
+      description: |
+        Lifecycle of the file-processing work that follows a run's creation.
+        Enforced by the mongoose schema, so a value outside this set cannot be
+        stored.
+
+        `pending` is the default and is what a fresh 201 from `/runs/new`
+        reports. `error` means background processing failed; the cause is in
+        `statusError`. Note there is no terminal "cancelled" state.
+      enum:
+        - pending
+        - processing
+        - complete
+        - error
+      default: pending
+
+    Md5VerificationStatus:
+      type: string
+      description: |
+        Checksum verification of the run's read files, tracked separately from
+        `status`.
+
+        Note the naming inconsistency with `RunStatus`: this enum uses
+        `in_progress` and `failed` where that one uses `processing` and
+        `error`. The two are not interchangeable and a client must not map one
+        onto the other.
+      enum:
+        - pending
+        - in_progress
+        - complete
+        - failed
+      default: pending
+
+    Run:
+      type: object
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        name:
+          type: string
+          minLength: 3
+          maxLength: 80
+          description: Unique per sample by convention, not by index — the idempotent create enforces it.
+        safeName:
+          type: string
+        sample:
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/Sample"
+        group:
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/Group"
+        owner:
+          type: string
+        sequencingProvider:
+          type: string
+        sequencingTechnology:
+          type: string
+        librarySource:
+          type: string
+        libraryType:
+          type: string
+          description: |
+            Free text. NOT a reference to a `LibraryType` document, and not
+            validated against `/options/librarytype`.
+        librarySelection:
+          type: string
+        libraryStrategy:
+          type: string
+        insertSize:
+          type: [string, "null"]
+          description: A string, not a number. Required for some library types; the client decides.
+        status:
+          $ref: "#/components/schemas/RunStatus"
+        statusError:
+          type: string
+          description: Populated when `status` is `error`.
+        md5VerificationStatus:
+          $ref: "#/components/schemas/Md5VerificationStatus"
+        md5VerificationAttempts:
+          type: integer
+          default: 0
+        md5VerificationLastAttempt:
+          type: string
+          format: date-time
+        md5VerificationCompletedAt:
+          type: string
+          format: date-time
+        accessions:
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+        rawFiles:
+          type: array
+          description: Virtual over `Read`. Populated by `GET /run` only.
+          items:
+            $ref: "#/components/schemas/Read"
+        additionalFiles:
+          type: array
+          description: Virtual over `AdditionalFile`. Populated by `GET /run` only.
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Read:
+      type: object
+      description: One raw sequencing file belonging to a run.
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        run:
+          $ref: "#/components/schemas/ObjectId"
+        file:
+          description: The `File` document, populated on `GET /run`.
+          oneOf:
+            - $ref: "#/components/schemas/ObjectId"
+            - $ref: "#/components/schemas/File"
+        MD5:
+          type: string
+          description: The checksum supplied by the uploader.
+        destinationMd5:
+          type: string
+          description: Recomputed after the file reached the datastore.
+        md5Mismatch:
+          type: [boolean, "null"]
+          default: null
+          description: '`null` = not yet checked, `true` = mismatch, `false` = verified equal.'
+        MD5LastChecked:
+          type: string
+          format: date-time
+        paired:
+          type: boolean
+        sibling:
+          $ref: "#/components/schemas/ObjectId"
+        indexed:
+          type: boolean
+          default: false
+          description: |
+            Marks this read as an index file. Distinct from
+            `LibraryType.indexed`, which describes the library type rather than
+            an individual file; nothing keeps the two in step.
+
+    File:
+      type: object
+      description: |
+        A file on disk. An in-progress copy is written to a `.part-` sibling
+        and renamed into place, so an abrupt kill never leaves a partial file
+        under its real name; the API ignores `.part-` files when reconciling a
+        directory.
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        name:
+          type: string
+        type:
+          type: string
+        uploadName:
+          type: string
+        originalName:
+          type: string
+          description: The filename expected on disk; what directory reconciliation compares against.
+        description:
+          type: string
+        path:
+          type: string
+          description: Datastore-relative once the file has been moved into place.
+        uploadMethod:
+          type: string
+        tempUploadPath:
+          type: string
+          description: Set only for local-filesystem uploads.
+
+    Option:
+      type: object
+      description: A controlled-vocabulary entry. `LibrarySelection`, `LibrarySource`, `LibraryStrategy` and `SequencingTechnology` share this shape.
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        value:
+          type: string
+
+    LibraryType:
+      type: object
+      description: A library type. The only option collection with fields beyond `value`.
+      properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        value:
+          type: string
+        paired:
+          type: boolean
+        extensions:
+          type: array
+          items:
+            type: string
+        indexed:
+          type: boolean
+          default: false
+          description: |
+            Whether reads of this library type carry an index file.
+
+            Two caveats for consumers. It cannot be set through
+            `POST /options/librarytype` — the handler maps only `value`,
+            `paired` and `extensions`, so a new document always starts
+            `false`, and the flag can currently only be set directly in
+            MongoDB. And because the schema defaults it to `false`, documents
+            written before the field existed report `false` rather than
+            absent, so "not indexed" and "unknown" are indistinguishable.
+
+    FileReconciliation:
+      type: object
+      description: |
+        The result of comparing a record's file documents against the files
+        actually on disk, returned by `GET /project`, `GET /sample` and
+        `GET /run`.
+
+        Comparison is by COUNT per filename, not by set membership, so two
+        records named `report.pdf` with one copy on disk is reported as
+        missing one. Names are compared after NFC normalisation, because macOS
+        and Linux disagree on how accented filenames are encoded.
+      properties:
+        status:
+          type: string
+          enum: [OK, WARNING, MISMATCH, UNKNOWN]
+          description: |
+            `MISMATCH` — files are missing from disk, or a record's filename
+            could not be resolved. `WARNING` — only untracked extra files on
+            disk. `UNKNOWN` — the directory could not be read at all; the
+            request still succeeds rather than 500-ing on an unmounted
+            datastore.
+        message:
+          type: string
+          description: A human-readable summary. A file both missing and extra is reported as a probable rename.
+        missing:
+          type: array
+          description: Named by a record but absent from disk. Repeated by the shortfall.
+          items:
+            type: string
+        extra:
+          type: array
+          description: Present on disk but not in any record. Hidden files and in-flight `.part-` copies are excluded.
+          items:
+            type: string
+        unresolved:
+          type: array
+          description: |
+            Ids of records whose filename could not be determined — usually an
+            unpopulated ref, or a `File` deleted out from under its
+            `AdditionalFile`.
+          items:
+            type: string

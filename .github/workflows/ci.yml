@@ -1,0 +1,224 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# A force-push while CI is still running leaves the old run burning a runner on
+# a commit nobody will merge.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Syntax, tests, audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      # node-version-file reads .nvmrc, which pins 24. If .nvmrc is ever
+      # removed, replace this with `node-version: '20.x'` rather than letting
+      # the runner's default float — the mongoose 5 / tus-node-server stack in
+      # this repo is not tested against arbitrary Node majors.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Catches a file that parses on the author's machine but not on the CI
+      # Node. Cheap, and it runs before the test suite so a syntax error is
+      # reported as a syntax error rather than as 37 failing suites.
+      - name: Syntax check every .js file
+        run: |
+          find . \
+            \( -path ./node_modules -o -path ./coverage -o -path ./files \
+               -o -path ./datastore -o -path ./docs -o -path ./.git \) -prune \
+            -o -name '*.js' -print0 \
+          | xargs -0 -r -n1 node --check
+
+      # Thresholds live in jest.config.js (coverageThreshold). A drop below
+      # them fails this step.
+      - name: Unit tests with coverage
+        run: yarn test --coverage
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
+          if-no-files-found: ignore
+
+      # THRESHOLD: fail on any CRITICAL advisory that has not been triaged.
+      #
+      # A plain "fail on critical" gate would red this build on its first run,
+      # which is worth spelling out because it is easy to assume otherwise. As
+      # of this workflow landing the tree reports 4 critical / 41 high / 67
+      # moderate / 9 low across 310 audited packages — but those 4 criticals
+      # are all the SAME advisory (1117404, mongoose search injection) counted
+      # once per dependency path, and mongoose is a DIRECT dependency pinned at
+      # ^5.13.23 whose fix is >=6.13.6: a major upgrade, not a patch bump. The
+      # models in this repo use mongoose-5 APIs throughout (`execPopulate()`,
+      # `useCreateIndex`), so it is a project, not a lockfile edit.
+      #
+      # So the gate is keyed on advisory ID rather than on severity alone: a
+      # NEW critical fails the build immediately, while the one known, tracked,
+      # cannot-be-patched finding is listed in TRIAGED below with its reason.
+      # That keeps the signal real. A gate everybody has learned to ignore
+      # protects nothing.
+      #
+      # NEXT RATCHET: high (currently 4 distinct advisories — mongoose 1118999,
+      # nodemailer 1121191 and 1123478, path-to-regexp 1115527). path-to-regexp
+      # is the cheap one: 0.1.12 -> 0.1.13 via a resolution or an express bump.
+      # Once those are cleared, extend this step to fail on high as well.
+      # nightly.yml already reports what that stricter gate would say, so the
+      # remaining backlog is visible without blocking anyone.
+      - name: Dependency audit
+        run: |
+          # yarn exits with a bitmask of the severities present
+          # (1 info | 2 low | 4 moderate | 8 high | 16 critical) and has no
+          # --audit-level, so the JSON stream is what gets inspected.
+          set +e
+          yarn audit --json --groups dependencies > audit.json
+          audit_code=$?
+          set -e
+
+          echo "yarn audit exit code: ${audit_code}"
+
+          node - <<'NODE'
+          const fs = require("fs");
+
+          // Advisories reviewed and accepted, by npm advisory id. An entry here
+          // means "known, tracked, and not fixable by a version bump we can
+          // take today" — never "noisy, make it go away". Remove an entry the
+          // moment its fix is shipped.
+          const TRIAGED = new Map([
+            [
+              1117404,
+              "mongoose search injection. Installed 5.13.23; patched >=6.13.6, " +
+                "a major upgrade — models/ depends on mongoose-5 APIs. Tracked as its own piece of work.",
+            ],
+          ]);
+
+          const advisories = new Map();
+
+          fs.readFileSync("audit.json", "utf8")
+            .split("\n")
+            .filter(Boolean)
+            .forEach((line) => {
+              let parsed;
+              try {
+                parsed = JSON.parse(line);
+              } catch (err) {
+                return; // Progress/summary lines are not advisories.
+              }
+              if (parsed.type !== "auditAdvisory") {
+                return;
+              }
+              // yarn emits one line per dependency PATH, so the same advisory
+              // arrives several times. Key by id to count findings, not paths.
+              const advisory = parsed.data.advisory;
+              advisories.set(advisory.id, advisory);
+            });
+
+          const bySeverity = (severity) =>
+            [...advisories.values()].filter((a) => a.severity === severity);
+
+          const criticals = bySeverity("critical");
+          const highs = bySeverity("high");
+          const untriaged = criticals.filter((a) => !TRIAGED.has(a.id));
+
+          console.log(
+            `Distinct advisories: ${criticals.length} critical, ${highs.length} high.`,
+          );
+
+          criticals
+            .filter((a) => TRIAGED.has(a.id))
+            .forEach((a) => {
+              console.log(
+                `::warning::Triaged critical ${a.id} (${a.module_name}): ${TRIAGED.get(a.id)}`,
+              );
+            });
+
+          highs.forEach((a) => {
+            console.log(
+              `::warning::High ${a.id} (${a.module_name}, patched ${a.patched_versions}): ${a.title}`,
+            );
+          });
+
+          if (untriaged.length > 0) {
+            untriaged.forEach((a) => {
+              console.log(
+                `::error::Untriaged CRITICAL ${a.id} in ${a.module_name} ` +
+                  `(installed ${a.findings?.[0]?.version || "?"}, patched ${a.patched_versions}): ${a.title}`,
+              );
+            });
+            console.log(
+              "Fix it, or add the advisory id to TRIAGED in .github/workflows/ci.yml with a reason.",
+            );
+            process.exit(1);
+          }
+
+          console.log("No untriaged critical advisories.");
+          NODE
+
+      - name: Remove audit artefact
+        if: always()
+        run: rm -f audit.json
+
+      # Separate from the coverage run on purpose: --detectOpenHandles forces
+      # --runInBand, which is markedly slower, and its output is only readable
+      # when it is the only thing in the step log. A leaked mongoose connection
+      # or timer shows up here as a handle report.
+      - name: Open handle detection
+        run: yarn test --detectOpenHandles --runInBand
+
+  integration:
+    name: Integration tests (MongoDB)
+    # PR-only: these need a real mongod, and running them on every push to a
+    # feature branch buys nothing the PR run does not already cover.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      NODE_ENV: test
+      MONGODB_PORT: 27017
+      MONGO_URI: mongodb://localhost:27017/komondor-ci
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # __tests__/integration/ does not exist yet. --passWithNoTests makes an
+      # empty (or absent) directory a pass rather than a failure, so this job
+      # is wired up and green before the first integration test is written.
+      - name: Run integration tests
+        run: yarn test --testPathPattern "__tests__/integration/" --passWithNoTests --runInBand

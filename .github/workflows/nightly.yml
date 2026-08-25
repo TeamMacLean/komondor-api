@@ -1,0 +1,189 @@
+name: Nightly
+
+# The slow and the advisory: things worth knowing every morning but not worth
+# blocking a pull request on.
+#
+# Anything here that becomes both fast and trustworthy should graduate into
+# ci.yml. Anything that stays permanently red here is either a real backlog
+# item or a check that is not earning its place — decide which, do not let it
+# rot as a permanently failing badge.
+on:
+  schedule:
+    # 02:30 UTC daily.
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  audit-ratchet:
+    name: Audit (next ratchet preview)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # ci.yml fails only on untriaged CRITICAL advisories. This step reports
+      # what a fail-on-HIGH gate would say, so the decision to tighten ci.yml
+      # is made from a number rather than a guess.
+      #
+      # It never fails the workflow: `continue-on-error` keeps a red audit from
+      # masking a genuine failure in the jobs below.
+      #
+      # Counts are per distinct advisory, not per dependency path. yarn's own
+      # summary counts paths, which is why it reports "4 critical" for what is
+      # a single mongoose finding reached four ways — a number that makes the
+      # backlog look four times worse than it is.
+      - name: Audit at the high threshold (advisory)
+        continue-on-error: true
+        run: |
+          set +e
+          yarn audit --json --groups dependencies > audit.json
+          audit_code=$?
+          set -e
+
+          echo "yarn audit exit code: ${audit_code}"
+
+          node - <<'NODE'
+          const fs = require("fs");
+
+          const advisories = new Map();
+
+          fs.readFileSync("audit.json", "utf8")
+            .split("\n")
+            .filter(Boolean)
+            .forEach((line) => {
+              let parsed;
+              try {
+                parsed = JSON.parse(line);
+              } catch (err) {
+                return;
+              }
+              if (parsed.type === "auditAdvisory") {
+                advisories.set(parsed.data.advisory.id, parsed.data.advisory);
+              }
+            });
+
+          const blocking = [...advisories.values()].filter((a) =>
+            ["critical", "high"].includes(a.severity),
+          );
+
+          if (blocking.length === 0) {
+            console.log(
+              "No high or critical advisories. ci.yml is ready to ratchet to high.",
+            );
+            process.exit(0);
+          }
+
+          console.log(
+            `${blocking.length} distinct advisor${blocking.length === 1 ? "y" : "ies"} would block a fail-on-high gate:`,
+          );
+
+          blocking
+            .sort((a, b) => a.module_name.localeCompare(b.module_name))
+            .forEach((a) => {
+              console.log(
+                `  ${a.severity.padEnd(8)} ${a.id} ${a.module_name} ` +
+                  `(installed ${a.findings?.[0]?.version || "?"}, patched ${a.patched_versions})`,
+              );
+            });
+
+          process.exit(1);
+          NODE
+
+      - name: Remove audit artefact
+        if: always()
+        run: rm -f audit.json
+
+      - name: Report outdated direct dependencies (advisory)
+        continue-on-error: true
+        run: yarn outdated
+
+  full-suite:
+    name: Full suite, coverage and open handles
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Unit tests with coverage
+        run: yarn test --coverage
+
+      # The number to read when deciding whether to raise coverageThreshold in
+      # jest.config.js. Printed rather than enforced: the enforcement lives in
+      # ci.yml, and raising the floor is a deliberate act, not a nightly one.
+      - name: Print coverage summary
+        if: always()
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            cat coverage/coverage-summary.json
+          else
+            echo "No coverage-summary.json — add 'json-summary' to coverageReporters to get one."
+          fi
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-coverage
+          path: coverage/
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Open handle detection
+        run: yarn test --detectOpenHandles --runInBand
+
+  integration:
+    name: Integration tests (MongoDB)
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ ping: 1 }).ok'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      NODE_ENV: test
+      MONGODB_PORT: 27017
+      MONGO_URI: mongodb://localhost:27017/komondor-ci
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Same tolerance as ci.yml: __tests__/integration/ may not exist yet.
+      - name: Run integration tests
+        run: yarn test --testPathPattern "__tests__/integration/" --passWithNoTests --runInBand
