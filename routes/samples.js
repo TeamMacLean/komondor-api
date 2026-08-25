@@ -16,18 +16,8 @@ const { handleError, compareFilesToDirectory } = require("./_utils");
 
 /**
  * Whether a request value is safe to use as an id in a query.
- *
- * Mongoose 5 casting preserves query operators, so a body of
- * `{"project": {"$ne": null}}` or a query string of `?id[$ne]=null` survives
- * casting intact and turns an equality lookup into "any document at all" —
- * which is how the idempotency lookup below used to hand a caller a populated
- * sample from a group they have never been in. Every value from req.body,
- * req.query or req.params that reaches a query is narrowed here first.
- *
- * `ObjectId.isValid` on its own is not that guard: it accepts *any* 12-character
- * string ("project-1234" passes) and casts it from its bytes, so the hex test is
- * what makes this a real check.
- *
+ * Every request value reaching a query goes through this: mongoose preserves
+ * operators, so `{"$ne": null}` would survive casting as a query condition.
  * @param {*} value - The raw request value.
  * @returns {boolean} True if the value is a 24-character hex ObjectId string.
  */
@@ -38,7 +28,6 @@ const isObjectIdString = (value) =>
 
 /**
  * The group id of a document whose `group` ref may or may not be populated.
- *
  * @param {object} doc - A document with a `group` field.
  * @returns {*} The group id, or null when there is no group.
  */
@@ -52,34 +41,27 @@ const groupIdOf = (doc) => {
   return group._id || group;
 };
 
-// Spreadsheet software evaluates a cell whose first character is one of these,
-// so a TPlex row carrying `=cmd|'/C calc'!A0` executes on the machine of
-// whoever opens the exported CSV. The rows arrive in a request body, so they
-// are neutralised as they are written into the stored CSV text.
+// Spreadsheet software evaluates a cell starting with one of these, so
+// submitted rows are neutralised on their way into the stored CSV.
 const FORMULA_START = /^[=+\-@\t\r]/;
 
-// ...but a leading sign in front of a plain number is data, not a formula:
-// TPlex conditions carry values like "-80" and "+4". Those cannot execute
-// anything, and forcing them to text would break any consumer reading the
-// column as numeric, so they are left exactly as submitted.
+// ...but a signed number is data, not a formula: TPlex conditions carry "-80"
+// and "+4", and quoting those would break consumers reading the column numeric.
 const PLAIN_NUMBER = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/;
 
 /**
- * Renders one TPlex value as a CSV field: quoted where the content requires it,
- * and neutralised where a spreadsheet would otherwise execute it.
- *
+ * Renders one TPlex value as a CSV field, quoting and neutralising as needed.
  * @param {*} value - The raw value from the submitted row.
  * @returns {string} A CSV-safe field.
  */
 const toCsvField = (value) => {
-  // `|| ""` rather than `?? ""` to keep the original handler's behaviour for
-  // falsy values, which consumers of the stored CSV already parse.
+  // `||`, not `??`: consumers already parse the CSV this handler produced for
+  // falsy values.
   const text = (value || "").toString();
 
   if (FORMULA_START.test(text) && !PLAIN_NUMBER.test(text)) {
-    // Prefixed *and* quoted: the apostrophe is what stops the cell being
-    // evaluated, the quotes keep a leading tab or CR inside the field instead
-    // of letting it split the row.
+    // Prefixed *and* quoted: the apostrophe stops evaluation, the quotes keep a
+    // leading tab or CR from splitting the row.
     return `"'${text.replace(/"/g, '""')}"`;
   }
 
@@ -91,12 +73,9 @@ const toCsvField = (value) => {
 };
 
 /**
- * The name a TPlex sample gets when the client does not supply one.
- *
- * The fallback order — scientific name, then common name, then name, then a
- * timestamp — is unchanged, but each candidate is now type-checked: `.trim()`
- * on a number arriving in the CSV threw a TypeError that surfaced as a 500.
- *
+ * The name a TPlex sample gets when the client does not supply one: scientific
+ * name, then common name, then name, then a timestamp. Candidates are type-
+ * checked because .trim() on a number from the CSV throws.
  * @param {object} firstRow - The first row of the submitted TPlex CSV.
  * @returns {string} The generated sample name.
  */
@@ -121,8 +100,6 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      // Note: iCanSee is a custom static on the Sample model. The live group
-      // ids are resolved first — see routes/projects.js.
       const groupIds = await visibleGroupIds(req.user);
       const samples = await Sample.iCanSee(req.user, groupIds)
         .populate("group")
@@ -154,9 +131,8 @@ router
     }
 
     try {
-      // This lists every sample name in the project, not only the caller's own,
-      // so it is a cross-group read and has to be authorised like one. It was
-      // previously open to any authenticated user for any project id.
+      // Lists every sample name in the project, so it needs the same
+      // authorisation as any other read of that project's records.
       const project = await Project.findById(projectId);
 
       if (!project) {
@@ -174,17 +150,14 @@ router
         );
       }
 
-      // Find all samples for this project and get their names
       const samples = await Sample.find({ project: projectId })
         .select("name")
         .exec();
 
-      // Extract names and filter out null/undefined/empty values
       const sampleNames = samples
         .map((sample) => sample.name)
         .filter((name) => name && name.trim() !== "");
 
-      // Return unique names only
       const uniqueSampleNames = [...new Set(sampleNames)];
 
       res.status(200).send({ sampleNames: uniqueSampleNames });
@@ -227,14 +200,8 @@ router
         return handleError(res, new Error("Sample not found."), 404);
       }
 
-      // Permission check: reading needs the *read* capability on the sample's
-      // group, which is broader than the write capability used to create one.
-      //
-      // Group membership is the whole test — there is no owner fallback. It
-      // was one until this branch, and it made ownership a read grant that
-      // leaving the group could not withdraw; on samples created before `owner`
-      // was stamped from the session it is a client-supplied string that can
-      // name anybody. See routes/projects.js GET /project for the full account.
+      // Group membership is the whole test; no owner fallback (see
+      // lib/utils/groupAccess).
       const canAccess = await canReadGroup(req.user, groupIdOf(sample));
       if (!canAccess) {
         return handleError(
@@ -284,13 +251,8 @@ router
         return handleError(res, new Error("Project ID is required."), 400);
       }
 
-      // Only the values that reach a query (project, name) or an authorisation
-      // decision (group) are narrowed here. `owner` is no longer among them:
-      // it is taken from the session rather than the body, so there is nothing
-      // client-supplied left to narrow. The descriptive fields are left to
-      // mongoose casting,
-      // which already refuses an object — and clients legitimately send `ncbi`
-      // as a JSON number.
+      // Only values reaching a query or an authorisation decision are narrowed;
+      // the descriptive fields are left to mongoose casting.
       if (!isObjectIdString(projectId)) {
         return handleError(res, new Error('"project" is not a valid ID'), 400);
       }
@@ -303,7 +265,6 @@ router
         return handleError(res, new Error('"name" must be a string'), 400);
       }
 
-      // Determine if this is a TPlex sample
       const isTplexSample = Array.isArray(tplexCsv) && tplexCsv.length > 0;
 
       if (
@@ -325,11 +286,8 @@ router
         return handleError(res, new Error("Project not found."), 404);
       }
 
-      // The sample's group is the parent project's group, not the submitted
-      // one. The handler used to authorise req.body.group and then store it
-      // without ever checking that the submitted project belonged to that
-      // group, so a member of group A could hang a sample off group B's
-      // project simply by naming their own group.
+      // The parent project's group, not the submitted one: otherwise a member
+      // of group A can hang a sample off group B's project.
       const groupId = groupIdOf(project);
 
       if (!groupId) {
@@ -340,9 +298,7 @@ router
         );
       }
 
-      // Permission check: creating is a write, so a cross-group *reader*
-      // (FULL_RECORDS_ACCESS_USERS) is refused here even though the same person
-      // may read the project's samples.
+      // Write capability, not read: a cross-group reader must not create here.
       const canCreate = await canWriteGroup(req.user, groupId);
       if (!canCreate) {
         return handleError(
@@ -354,9 +310,8 @@ router
         );
       }
 
-      // Deliberately after the permission check: a caller with no access to the
-      // project's group always gets the same 403 and so learns nothing about
-      // which group owns a project they cannot see.
+      // After the permission check, so an unauthorised caller always gets the
+      // same 403 and learns nothing about which group owns the project.
       if (body.group.toString() !== groupId.toString()) {
         return handleError(
           res,
@@ -365,16 +320,13 @@ router
         );
       }
 
-      // Generate a name for the sample
       let sampleName = body.name;
 
       if (isTplexSample && (!sampleName || sampleName.trim() === "")) {
-        // TPlex mode: Create ONE sample with CSV stored as metadata.
-        // Generate name from first CSV row if no name provided.
         sampleName = generateTplexName(tplexCsv[0]);
       }
 
-      // Check for existing sample with same name and project (idempotency)
+      // Idempotency: an existing sample of the same name is returned as-is.
       if (sampleName) {
         const existingSample = await Sample.findOne({
           project: projectId,
@@ -382,10 +334,7 @@ router
         }).populate("additionalFiles");
 
         if (existingSample) {
-          // The existing sample is returned populated, so returning it is a
-          // read and has to be authorised like one. It used to be handed back
-          // on the strength of the lookup alone, which is what made the
-          // operator injection above worth exploiting.
+          // Returning the populated existing sample is a read, so authorise it.
           const canSeeExisting = await canReadGroup(
             req.user,
             groupIdOf(existingSample),
@@ -413,22 +362,17 @@ router
       }
 
       if (isTplexSample) {
-        // Convert JSON array to CSV text format for storage (backward compatibility)
-        // Extract headers from first row
+        // Stored as CSV text for compatibility with the old format.
         const headers = Object.keys(tplexCsv[0]);
 
-        // Create CSV header row
         const headerRow = headers.map(toCsvField).join(",");
 
-        // Create CSV data rows
         const dataRows = tplexCsv.map((row) =>
           headers.map((header) => toCsvField(row[header])).join(","),
         );
 
-        // Combine header and data rows
         const tplexCsvText = [headerRow, ...dataRows].join("\r\n");
 
-        // Create single sample with entire CSV as metadata
         const newSample = new Sample({
           name: sampleName,
           project: projectId,
@@ -436,8 +380,7 @@ router
           commonName: null,
           ncbi: null,
           conditions: null,
-          // The session, never the body: `owner` was an unvalidated client
-          // string naming whoever the caller liked.
+          // From the session, never the body.
           owner: req.user.username,
           group: groupId,
           tplexCsv: tplexCsvText, // Store as CSV text (compatible with old format)
@@ -448,7 +391,6 @@ router
           `Created TPlex sample with ${tplexCsv.length} rows of data`,
         );
       } else {
-        // Standard single sample creation
         const newSample = new Sample({
           name: sampleName,
           project: projectId,
@@ -456,8 +398,7 @@ router
           commonName: body.commonName,
           ncbi: body.ncbi,
           conditions: body.conditions,
-          // The session, never the body: `owner` was an unvalidated client
-          // string naming whoever the caller liked.
+          // From the session, never the body.
           owner: req.user.username,
           group: groupId,
           tplexCsv: null, // Not a TPlex sample
@@ -465,7 +406,6 @@ router
 
         savedSample = await newSample.save();
 
-        // Handle additional file uploads (only for non-TPlex samples)
         if (Array.isArray(additionalFiles) && additionalFiles.length > 0) {
           await sortAdditionalFiles(
             additionalFiles,
@@ -479,7 +419,7 @@ router
 
       res.status(201).send({ sample: savedSample });
 
-      // Send email after response (non-blocking)
+      // After the response, non-blocking: a failed email must not fail the save.
       sendOverseerEmail({ type: "Sample", data: savedSample }).catch((err) => {
         console.error(
           `Failed to send overseer email for sample ${savedSample._id}:`,
@@ -487,16 +427,15 @@ router
         );
       });
     } catch (error) {
-      // If an error occurs after the sample has been saved, we must roll back the change
+      // Roll back a sample already saved when a later step failed.
       if (savedSample && savedSample._id) {
         console.error(
           `An error occurred. Rolling back creation of sample ${savedSample._id}.`,
         );
         await Sample.deleteOne({ _id: savedSample._id });
-        // Note: This doesn't clean up partially moved files.
+        // Does not clean up partially moved files.
       }
 
-      // Check for Mongoose validation error
       if (error.name === "ValidationError") {
         return handleError(
           res,

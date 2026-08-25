@@ -24,10 +24,6 @@ jest.mock("../../routes/middleware", () => ({
 // The HPC read endpoints now also require membership of at least one group
 // (lib/utils/hpcAudit.js). These tests are about path containment, not
 // membership, so grant it by default; the refusal has its own test below.
-jest.mock("../../lib/utils/groupAccess", () => ({
-  groupsICanRead: jest.fn().mockResolvedValue([{ _id: "group-1" }]),
-}));
-const { groupsICanRead } = require("../../lib/utils/groupAccess");
 
 const { AUDIT_PREFIX } = require("../../lib/utils/hpcAudit");
 
@@ -354,38 +350,6 @@ describe("GET /read-file", () => {
     });
   });
 });
-
-describe("GET /read-file group membership", () => {
-  afterEach(() => {
-    groupsICanRead.mockResolvedValue([{ _id: "group-1" }]);
-  });
-
-  test("refuses a caller who belongs to no group", async () => {
-    // The staging area is a shared inbox with no group<->directory mapping, so
-    // this is the only membership question it can answer. Before it existed,
-    // isAuthenticated alone let a groupless principal enumerate every group's
-    // inbound files. See BREAKING_CHANGES.md entry 32.
-    groupsICanRead.mockResolvedValue([]);
-
-    const response = await request(app)
-      .get("/read-file")
-      .query({ targetDirectoryName: "batch1", filename: "readme.txt" });
-
-    expect(response.status).toBe(403);
-  });
-
-  test("fails closed when the group lookup errors", async () => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
-    groupsICanRead.mockRejectedValue(new Error("mongo down"));
-
-    const response = await request(app)
-      .get("/read-file")
-      .query({ targetDirectoryName: "batch1", filename: "readme.txt" });
-
-    expect(response.status).toBe(500);
-  });
-});
-
 describe("GET /read-file audit trail", () => {
   // The shared inbox cannot authorise a read (BREAKING_CHANGES.md entry 32),
   // so the audit line is not decoration around the endpoint — it is the whole

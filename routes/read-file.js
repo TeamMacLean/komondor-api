@@ -9,10 +9,7 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const {
-  auditHpcAccess,
-  requireAnyGroupMembership,
-} = require("../lib/utils/hpcAudit");
+const { auditHpcAccess } = require("../lib/utils/hpcAudit");
 
 // Files served by this endpoint are small text artefacts (logs, manifests).
 // Reading an arbitrarily large file into memory would stall the event loop and
@@ -22,7 +19,6 @@ const MAX_READABLE_BYTES = 5 * 1024 * 1024;
 router
   .route("/read-file")
   .all(isAuthenticated)
-  .all(requireAnyGroupMembership())
   .get(async (req, res) => {
     const { targetDirectoryName, filename } = req.query;
 

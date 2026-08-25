@@ -10,9 +10,8 @@ const {
   canWriteGroup,
   groupsICanRead,
 } = require("../lib/utils/groupAccess");
-// Taken as a namespace as well as by name: requeueFailedIngest below prefers
-// the queue's own reset when lib/ingest-queue.js exports one, and a
-// destructured import would freeze that decision at require time.
+// Namespace as well as named: requeueFailedIngest below prefers the queue's own
+// reset if it exports one, and destructuring would freeze that at require time.
 const ingestQueue = require("../lib/ingest-queue");
 const {
   visibleGroupIds,
@@ -24,34 +23,16 @@ const {
   compareFilesToDirectory,
 } = require("./_utils");
 
-// A well-formed object id and nothing else.
-//
-// Deliberately stricter than mongoose's own ObjectId.isValid(), which accepts
-// any 12-character string as raw bytes (so "sample_names" passes) and accepts
-// any object whose toString() is 24 characters long.
+// Stricter than ObjectId.isValid(), which accepts any 12-character string.
 const OBJECT_ID_PATTERN = /^[0-9a-fA-F]{24}$/;
 
 /**
  * Narrows a client-supplied value to an object id string.
- *
- * Anything that is not a plain string is refused before it can reach a query.
- * A JSON body can carry `{"$ne": null}` where an id belongs, and a bracketed
- * query string (`?id[$ne]=null`) is parsed into the same shape by express;
- * mongoose 5 preserves that object through casting, so it arrives at MongoDB
- * as an operator and matches an arbitrary document instead of none. That is
- * how `Run.findOne({ sample, name })` could hand back a run from any group,
- * populated with its whole file list, before anything was authorised.
- *
- * Returned exactly as it was submitted, which is how routes/projects.js and
- * routes/samples.js narrow the same values. Nothing needs it rewritten:
- * MongoDB casts hex without regard to case, and the string comparisons this
- * file makes with an id (does the submitted group match the sample's, was a
- * requested id among those returned) go through sameObjectId below. What does
- * need it unrewritten is the caller: batch-status names the ids it could not
- * answer for, and a caller matching that list against what it sent finds
- * nothing if the case has been changed underneath it.
- *
- * @param {*} value - A value taken from req.body, req.query or req.params.
+ * Non-strings are refused before reaching a query: mongoose preserves a body's
+ * `{"$ne": null}` through casting, where it matches an arbitrary document.
+ * Returned exactly as submitted, because batch-status echoes ids back to the
+ * caller, which then matches them against what it sent.
+ * @param {*} value - Value from req.body, req.query or req.params.
  * @returns {string|null} The id, or null if it is not one.
  */
 const asObjectIdString = (value) =>
@@ -59,11 +40,8 @@ const asObjectIdString = (value) =>
 
 /**
  * Whether two object ids name the same document.
- *
- * Case-insensitive, because hex is: an id submitted as "6A8C..." is the same
- * id as the "6a8c..." MongoDB stores, and a plain === reads that as a
- * mismatch — which here would mean a 400 or a 403 for a legitimate member.
- *
+ * Case-insensitive, because hex is: a plain === reads "6A8C…" and the stored
+ * "6a8c…" as a mismatch, which here means a 403 for a legitimate member.
  * @param {*} a - An id, in any of the forms this file holds one.
  * @param {*} b - The id to compare it with.
  * @returns {boolean} True if both are present and name the same document.
@@ -75,7 +53,6 @@ const sameObjectId = (a, b) =>
 
 /**
  * The group id of a document whose `group` ref may or may not be populated.
- *
  * @param {object} doc - A document with a `group` field.
  * @returns {*} The group id, or null when there is no group.
  */
@@ -89,17 +66,14 @@ const groupIdOf = (doc) => {
   return group._id || group;
 };
 
-// Only the fields the status endpoints report, so a job's payload — which is
-// the whole submitted file list — is never pulled into a status response.
+// Only what the status endpoints report: a job's payload is the whole submitted
+// file list and must not be pulled into a status response.
 const INGEST_JOB_FIELDS =
   "runId status attempts maxAttempts lastError createdAt updatedAt";
 
 /**
- * The ingest jobs for a set of runs, keyed by run id.
- *
- * Looked up by idempotency key rather than by runId so the queue keeps a
- * single definition of how a run maps to its job (lib/ingest-queue.js).
- *
+ * The ingest jobs for a set of runs, keyed by run id. Looked up by idempotency
+ * key, so lib/ingest-queue.js keeps the only definition of run-to-job.
  * @param {Array<mongoose.Types.ObjectId|string>} runIds - The runs to look up.
  * @returns {Promise<Map<string, mongoose.Document>>} Jobs keyed by run id.
  */
@@ -121,11 +95,8 @@ const findIngestJobs = async (runIds) => {
 
 /**
  * The queue's view of a run's ingest, in the shape the status endpoints report.
- *
- * Null means nothing was ever queued, which is what every run created before
- * the queue existed looks like — not an error, and deliberately distinct from
- * a job sitting at "pending".
- *
+ * Null means nothing was ever queued (as for runs predating the queue), which
+ * is distinct from a job sitting at "pending".
  * @param {mongoose.Document} [job] - The run's IngestJob, if it has one.
  * @returns {object|null} A summary safe to send to a client.
  */
@@ -143,30 +114,11 @@ const summariseIngestJob = (job) =>
     : null;
 
 /**
- * Returns a permanently failed ingest job to the queue.
- *
- * Prefers lib/ingest-queue.js's own reset, which is where this belongs: the
- * queue owns what "queued again" means. That export now exists
- * (`requeueRunIngest`), so the branch below is the taken one in production;
- * the local write is kept as a fallback so this route still works against a
- * queue module that does not export it. Both resolve to the requeued job, or
- * to null when there was no failed job to requeue.
- *
- * The two must stay in step. If the export ever gains different semantics —
- * notably one that does NOT reset attempts to 0, or that resets a job which
- * has not failed — this route adopts them silently, and its own tests mock the
- * queue so they would not catch it. __tests__/lib/ingest-queue.test.js pins the
- * contract on the other side.
- *
- * `attempts` goes back to zero deliberately. claimNextJob increments attempts
- * as it claims and fails outright anything past maxAttempts, so a job left at
- * its exhausted count would be marked failed again on the very next poll
- * without the ingest ever being re-attempted.
- *
- * The status is matched inside the update rather than checked first: a job a
- * worker has claimed in the meantime must not be dragged back to pending
- * underneath it, and only an atomic match can promise that.
- *
+ * Returns a permanently failed ingest job to the queue, preferring the queue's
+ * own reset; the local write below must stay in step with it.
+ * `attempts` resets to 0: claimNextJob fails anything past maxAttempts outright,
+ * so an exhausted job would be failed again on the next poll. The status is
+ * matched inside the update so a job a worker just claimed is not dragged back.
  * @param {object} params
  * @param {mongoose.Types.ObjectId|string} params.runId - The run to re-ingest.
  * @param {string} [params.requestId] - The asking request, for log correlation.
@@ -185,8 +137,7 @@ const requeueFailedIngest = async ({ runId, requestId }) => {
         attempts: 0,
         lastError: null,
         workerId: null,
-        // Claimable immediately. Backoff exists to keep a worker off a full
-        // disk; an operator asking for this retry has already been the wait.
+        // Claimable immediately: an operator asking for a retry has waited.
         leaseExpiresAt: null,
         requestId,
       },
@@ -204,8 +155,6 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      // iCanSee is a custom static on the Run model. The live group ids are
-      // resolved first — see routes/projects.js.
       const groupIds = await visibleGroupIds(req.user);
       const runs = await Run.iCanSee(req.user, groupIds)
         .populate("group")
@@ -233,9 +182,8 @@ router
     }
 
     try {
-      // A run name belongs to whoever may see the sample it hangs off. This
-      // endpoint used to answer for any sample id at all, so run names — which
-      // carry project and experiment detail — leaked across every group.
+      // Run names carry project and experiment detail, so this is authorised
+      // against the sample the runs hang off.
       const sample = await Sample.findById(sampleId).select("group");
 
       if (!sample) {
@@ -252,15 +200,12 @@ router
         );
       }
 
-      // Find all runs for this sample and get their names
       const runs = await Run.find({ sample: sampleId }).select("name").exec();
 
-      // Extract names and filter out null/undefined/empty values
       const runNames = runs
         .map((run) => run.name)
         .filter((name) => name && name.trim() !== "");
 
-      // Return unique names only
       const uniqueRunNames = [...new Set(runNames)];
 
       res.status(200).send({ runNames: uniqueRunNames });
@@ -299,16 +244,8 @@ router
         return handleError(res, new Error("Run not found."), 404);
       }
 
-      // Permission check: the user must be able to read the run's group. A run
-      // whose group has been soft-deleted resolves to no group at all, which
-      // canReadGroup refuses — so it becomes visible to nobody, which is the
-      // point of retiring a group.
-      //
-      // There is no owner fallback. Stamping `owner` from the session at
-      // creation (see POST /runs/new) made it honest for new runs, but it stays
-      // client-supplied on every run created before this branch, and even when
-      // honest it was a read grant that removing the user from the group could
-      // not withdraw. See routes/projects.js GET /project.
+      // Group membership is the whole test; no owner fallback (see
+      // lib/utils/groupAccess).
       const canAccess = await canReadGroup(
         req.user,
         run.group && run.group._id,
@@ -367,16 +304,14 @@ const validateNewRunRequest = (body) => {
     "group",
   ];
 
-  // Check required fields
   for (const field of required) {
     if (!body[field]) {
       errors.push(`Missing required field: ${field}`);
     }
   }
 
-  // Type-guard the boundary. `{"$ne": null}` is truthy, so it satisfies the
-  // required check above and then reaches Run.findOne as a query operator; the
-  // rest are checked here so a non-string can never be stored as one either.
+  // Type-guarded here: `{"$ne": null}` is truthy, so it passes the required
+  // check above and then reaches Run.findOne as a query operator.
   ["sample", "group"].forEach((field) => {
     if (body[field] && !asObjectIdString(body[field])) {
       errors.push(`${field} must be a valid ID`);
@@ -391,9 +326,8 @@ const validateNewRunRequest = (body) => {
     "libraryType",
     "librarySelection",
     "libraryStrategy",
-    // Still required and still type-checked so the request shape is unchanged
-    // for existing clients, but the stored owner is req.user.username — the
-    // body's claim about it is validated and then ignored.
+    // Still validated so the request shape is unchanged for existing clients,
+    // but the stored owner is req.user.username; the body's claim is ignored.
     "owner",
   ].forEach((field) => {
     if (body[field] && typeof body[field] !== "string") {
@@ -401,7 +335,6 @@ const validateNewRunRequest = (body) => {
     }
   });
 
-  // Validate name length
   if (
     typeof body.name === "string" &&
     (body.name.length < 3 || body.name.length > 80)
@@ -409,12 +342,10 @@ const validateNewRunRequest = (body) => {
     errors.push("Run name must be between 3 and 80 characters");
   }
 
-  // Validate rawFiles
   if (!body.rawFiles || body.rawFiles.length === 0) {
     errors.push("At least one raw file is required");
   }
 
-  // Validate rawFilesUploadInfo
   if (!body.rawFilesUploadInfo || !body.rawFilesUploadInfo.method) {
     errors.push("Upload method is required (rawFilesUploadInfo.method)");
   } else if (
@@ -425,7 +356,6 @@ const validateNewRunRequest = (body) => {
     );
   }
 
-  // For HPC uploads, validate relativePath
   if (body.rawFilesUploadInfo?.method === "hpc-mv") {
     if (
       !body.rawFilesUploadInfo.relativePath &&
@@ -435,7 +365,6 @@ const validateNewRunRequest = (body) => {
     }
   }
 
-  // Validate each raw file has required properties
   if (body.rawFiles && Array.isArray(body.rawFiles)) {
     body.rawFiles.forEach((file, index) => {
       const fileName = file.name || file.data?.name;
@@ -460,7 +389,6 @@ router
     const requestId = generateRequestId();
 
     try {
-      // Validate request body before proceeding
       const validation = validateNewRunRequest(req.body);
       if (!validation.valid) {
         console.error(`[${requestId}] Validation failed:`, validation.errors);
@@ -487,15 +415,12 @@ router
         rawFilesUploadInfo,
       } = req.body;
 
-      // Guarded above; re-narrowed here so the value that reaches a query is
-      // provably the checked one rather than a second read of req.body.
+      // Re-narrowed, not re-read from req.body, so the value reaching the query
+      // is provably the checked one.
       const sampleId = asObjectIdString(req.body.sample);
 
-      // The run's group is the sample's group, never the body's claim about it.
-      // The old code authorised req.body.group and then attached the run to
-      // req.body.sample without ever checking the two belonged together, so a
-      // member of any group could hang a run — and its files — off another
-      // group's sample.
+      // The sample's group, never the body's claim about it: otherwise a member
+      // of any group can hang a run, and its files, off another group's sample.
       const parentSample = await Sample.findById(sampleId).select("group");
       if (!parentSample) {
         return handleError(
@@ -509,9 +434,7 @@ router
 
       const group = parentSample.group;
 
-      // Creating a run is a write, so it takes write access. Read access
-      // across all groups (FULL_RECORDS_ACCESS_USERS) is deliberately not
-      // enough — that conflation is what lib/utils/groupAccess.js exists to end.
+      // Write capability, not read: a cross-group reader must not create here.
       const canCreate = await canWriteGroup(req.user, group);
       if (!canCreate) {
         return handleError(
@@ -525,8 +448,8 @@ router
         );
       }
 
-      // Checked after the permission decision, so a caller who may not write
-      // to the sample's group learns nothing about which group owns it.
+      // After the permission decision, so an unauthorised caller learns nothing
+      // about which group owns the sample.
       if (!sameObjectId(asObjectIdString(req.body.group), group)) {
         return handleError(
           res,
@@ -537,27 +460,11 @@ router
         );
       }
 
-      // The idempotent answer: authorise the run that came back, queue its
-      // ingest, and report it as a 200 rather than a fresh 201.
-      //
-      // Hoisted out of the findOne branch below because the unique index on
-      // { sample, name } gives a second way to arrive here: two concurrent
-      // retries of a lost 201 both miss the findOne, and whichever loses the
-      // save race gets an E11000 for a run that demonstrably exists. That is
-      // the same situation, and it must produce the same answer.
+      // The idempotent answer, shared by the findOne hit below and the E11000
+      // save race, which are the same situation and must answer the same way.
       const respondWithExistingRun = async (existingRun) => {
-        // Authorise what came back, not only what was asked for. A run carries
-        // its own group field, which need not still agree with its sample's —
-        // every run predating this remediation can disagree, because the old
-        // code stored req.body.group unchecked.
-        //
-        // Write access, not read. This branch is not a lookup: it enqueues an
-        // ingest carrying the caller's own rawFiles payload against the run
-        // that came back, which moves those files into that run's datastore
-        // directory and writes Reads against it. FULL_RECORDS_ACCESS_USERS
-        // read every group and write none, so gating this on canReadGroup
-        // handed exactly those users a write into any group holding a run
-        // whose group no longer matches its sample's.
+        // Authorises the run that came back, whose group need not still match
+        // its sample's — and for write, since this enqueues an ingest.
         if (!(await canWriteGroup(req.user, groupIdOf(existingRun)))) {
           return handleError(
             res,
@@ -574,10 +481,8 @@ router
           `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`,
         );
 
-        // Queue here too. The key is the run id, so this returns the job that
-        // already exists rather than doubling the work — and without it a
-        // client retrying after a lost 201 has no way to re-trigger an ingest
-        // that never happened.
+        // Queued here too, keyed by run id so it returns any existing job: a
+        // client retrying a lost 201 has no other way to trigger the ingest.
         const existingJob = await enqueueRunIngest({
           runId: existingRun._id,
           requestId,
@@ -585,13 +490,12 @@ router
             rawFiles,
             additionalFiles,
             rawFilesUploadInfo,
-            // Recorded at enqueue time and used at claim time: the person who
-            // submitted the run is the person whose staged uploads it claims.
+            // Recorded at enqueue time, used at claim time: the submitter is
+            // whose staged uploads the job claims.
             username: req.user.username,
           },
         });
 
-        // Return existing run (silent idempotency - 200 OK)
         return res.status(200).send({
           run: existingRun,
           idempotent: true,
@@ -600,8 +504,8 @@ router
         });
       };
 
-      // Check for existing run with same name and sample (idempotency).
-      // Both values are narrowed above, so neither can arrive as an operator.
+      // Idempotency. Both values are narrowed above, so neither can arrive as
+      // a query operator.
       const existingRun = await Run.findOne({
         sample: sampleId,
         name,
@@ -621,10 +525,8 @@ router
         librarySelection,
         libraryStrategy,
         insertSize: insertSize || null,
-        // The session, never the body. `owner` arriving from req.body was an
-        // unvalidated client string, and the per-record read checks used to
-        // read it as an access grant. They no longer do, but this field is
-        // still shown and exported as "who submitted this run".
+        // From the session, never the body: `owner` is shown and exported as
+        // "who submitted this run".
         owner: req.user.username,
         group,
       });
@@ -633,9 +535,7 @@ router
         savedRun = await newRun.save();
       } catch (saveError) {
         // The unique index on { sample, name } turns the idempotency race into
-        // an error instead of a duplicate. Losing that race means the run this
-        // request wanted now exists, so re-read it and answer exactly as the
-        // findOne hit above would have. Anything else is a real failure.
+        // an E11000: the wanted run now exists, so answer as the findOne would.
         if (saveError && saveError.code === 11000) {
           const raced = await Run.findOne({ sample: sampleId, name }).populate(
             "rawFiles additionalFiles",
@@ -652,13 +552,8 @@ router
         throw saveError;
       }
 
-      // The file work is recorded in the database BEFORE the client is told
-      // yes. It used to run in a setImmediate() closure fired after
-      // res.status(201), which existed only in this process's memory: PM2
-      // SIGKILLs 30s into a deploy, and anything still in that closure was
-      // gone with nothing anywhere to say it had been accepted. Awaited, so a
-      // queue that cannot record the work fails the request instead of
-      // returning a 201 for an ingest nobody will ever run.
+      // Awaited before the 201: the file work must be recorded durably, or a
+      // restart loses an ingest the client was already told had been accepted.
       const job = await enqueueRunIngest({
         runId: savedRun._id,
         requestId,
@@ -666,8 +561,8 @@ router
             rawFiles,
             additionalFiles,
             rawFilesUploadInfo,
-            // Recorded at enqueue time and used at claim time: the person who
-            // submitted the run is the person whose staged uploads it claims.
+            // Recorded at enqueue time, used at claim time: the submitter is
+            // whose staged uploads the job claims.
             username: req.user.username,
           },
       });
@@ -676,17 +571,14 @@ router
         throw new Error("The ingest job could not be queued");
       }
 
-      // The 201 shape is preserved — komondor-power parses `run` — with jobId
-      // added so a client can poll the ingest it just caused.
+      // Shape preserved for komondor-power, plus jobId so the client can poll.
       res.status(201).send({ run: savedRun, jobId: job._id });
     } catch (error) {
-      // If an error occurs after the run has been saved, we must roll back the
-      // change. A failed enqueue lands here: a run with no queued ingest would
-      // sit at "pending" forever, so it must not survive the request.
+      // Roll back a saved run: one with no queued ingest sits at "pending"
+      // forever, so it must not survive a failed enqueue.
       if (savedRun && savedRun._id) {
         await Run.deleteOne({ _id: savedRun._id });
-        // Note: This does not clean up partially moved/created files.
-        // A more robust transaction or cleanup mechanism would be needed for that.
+        // Does not clean up partially moved files.
       }
 
       if (error.name === "ValidationError") {
@@ -746,9 +638,7 @@ router
         );
       }
 
-      // Permission check: reading a status is a read, and group membership is
-      // the whole of it — the owner fallback that used to sit here is gone for
-      // the reasons given on GET /run.
+      // Group membership is the whole test; no owner fallback (see GET /run).
       const canAccess = await canReadGroup(req.user, run.group);
       if (!canAccess) {
         return handleError(
@@ -760,7 +650,6 @@ router
         );
       }
 
-      // Get raw files with MD5 verification details
       const Read = require("../models/Read");
       const reads = await Read.find({ run: run._id }).populate("file");
 
@@ -778,9 +667,8 @@ router
         (r) => r.md5Mismatch === true,
       ).length;
 
-      // The ingest job answers the question md5VerificationStatus cannot: a run
-      // stuck at "pending" with no files is either queued, being worked on, or
-      // permanently failed, and only the queue knows which.
+      // Only the queue can say whether a run stuck at "pending" with no files
+      // is queued, being worked on, or permanently failed.
       const ingestJobs = await findIngestJobs([run._id]);
 
       res.status(200).send({
@@ -817,14 +705,9 @@ router
 
 /**
  * POST /runs/:id/reingest
- * Returns a permanently failed ingest to the queue.
- *
- * Its own endpoint on purpose, rather than something a repeated POST
- * /runs/new does by itself. enqueueRunIngest is $setOnInsert, so a re-POST
- * finds the dead job and changes nothing — which is why a failed ingest had
- * no retry at all short of editing the database — but making that call re-run
- * the ingest instead would mean any duplicate submission replays file moves
- * over a run that is already healthy. A retry has to be asked for.
+ * Returns a permanently failed ingest to the queue. Its own endpoint on
+ * purpose: making POST /runs/new retry would let a duplicate submission replay
+ * file moves over a run that is already healthy.
  */
 router
   .route("/runs/:id/reingest")
@@ -856,10 +739,8 @@ router
         );
       }
 
-      // An ingest moves files into this run's datastore directory and writes
-      // Reads against it, so retrying one takes write access to the run's
-      // group. Reading a run's status takes the read capability instead, but
-      // neither path has an owner fallback any more: see GET /run.
+      // Write access: an ingest moves files and writes Reads, unlike the read
+      // that GET /runs/:id/status performs.
       if (!(await canWriteGroup(req.user, groupIdOf(run)))) {
         return handleError(
           res,
@@ -873,9 +754,8 @@ router
       const job = await requeueFailedIngest({ runId: run._id, requestId });
 
       if (!job) {
-        // Nothing was reset, which is either "there is no job" or "there is
-        // one and it has not failed". Those need different answers, and the
-        // caller cannot act on the difference unless it is told.
+        // Nothing reset: either there is no job, or there is one that has not
+        // failed. Those need different answers.
         const existing = await IngestJob.findOne({
           idempotencyKey: idempotencyKeyFor(run._id),
         }).select(INGEST_JOB_FIELDS);
@@ -899,14 +779,8 @@ router
         );
       }
 
-      // failJob pushes a permanent failure onto the run as status "error" so a
-      // dead ingest surfaces where every other broken one does. That is no
-      // longer true once the work is queued again, and leaving it would show
-      // the run as broken while its retry is pending.
-      //
-      // Logged rather than thrown: the requeue is the durable part and it has
-      // already happened, so failing the request over the run's display status
-      // would tell the operator the retry did not happen when it did.
+      // The run's "error" status is stale once the work is queued again.
+      // Logged, not thrown: the requeue has already happened durably.
       try {
         await Run.updateOne(
           { _id: run._id },
@@ -942,13 +816,9 @@ router
 
 /**
  * POST /runs/batch-status
- * Returns status information for multiple runs at once.
- * Body: { runIds: [...] }
- *
- * Every requested id is accounted for in the response: an id that produced no
- * entry in `runs` appears in `missing`, and one that was not a well-formed id
- * appears in `invalid`. komondor-power reads a short `runs` array as a complete
- * answer, so a silently dropped id reads as a run that finished.
+ * Returns status information for multiple runs at once. Body: { runIds: [...] }
+ * Every requested id is accounted for, in `runs`, `missing` or `invalid`:
+ * komondor-power reads a short `runs` array as a complete answer.
  */
 router
   .route("/runs/batch-status")
@@ -979,12 +849,8 @@ router
         );
       }
 
-      // Partition before querying: a malformed id must not reach the query, and
-      // the caller has to be told which of its ids were dropped.
-      //
-      // Keyed by the lower-cased id but holding the id as it was submitted:
-      // two spellings of the same hex are one requested run, and the caller
-      // gets its own spelling back in `missing`.
+      // Keyed by the lower-cased id but holding the id as submitted: two
+      // spellings of the same hex are one run, and `missing` echoes the caller's.
       const invalid = [];
       const wanted = new Map();
       runIds.forEach((value) => {
@@ -994,9 +860,7 @@ router
             wanted.set(id.toLowerCase(), id);
           }
         } else {
-          // Truncated: this is echoed straight back, and an id is 24
-          // characters, so anything longer is not one and need not be quoted
-          // in full to be recognised.
+          // Truncated because this is echoed straight back to the caller.
           invalid.push(String(value).slice(0, 64));
         }
       });
@@ -1009,18 +873,14 @@ router
           )
         : [];
 
-      // One read of the user's groups for the whole batch. Asking per run cost
-      // a round-trip each, up to a hundred of them for a single request.
+      // One read of the user's groups for the whole batch, not one per run.
       const readableGroups = new Set(
         (await groupsICanRead(req.user))
           .map((group) => group && group._id && String(group._id))
           .filter(Boolean),
       );
 
-      // Group membership decides visibility, exactly as it does on GET /run:
-      // an `owner === req.user.username` clause used to widen this, which let
-      // one un-revocable string on a historical run pull it into a batch the
-      // caller could otherwise not see. `owner` is no longer even selected.
+      // Group membership decides visibility, exactly as on GET /run.
       const visibleRuns = (runs || []).filter((run) =>
         readableGroups.has(String(run.group)),
       );
@@ -1040,18 +900,14 @@ router
         createdAt: run.createdAt,
       }));
 
-      // Lower-cased on both sides of the comparison below: `requested` holds
-      // whatever spelling the caller sent, and a run's own id is always lower
-      // case, so an id sent in upper case would otherwise be reported missing
-      // in the same response that answers for it.
+      // Lower-cased on both sides: an id sent in upper case would otherwise be
+      // reported missing in the same response that answers for it.
       const returned = new Set(
         accessibleRuns.map((run) => String(run.runId).toLowerCase()),
       );
 
-      // Deliberately does not distinguish "no such run" from "not yours". The
-      // caller needs to know the id is absent so it stops reading a short array
-      // as a complete answer; saying which of the two it was would turn this
-      // endpoint into an existence oracle for other groups' runs.
+      // Does not distinguish "no such run" from "not yours": that would make
+      // this an existence oracle for other groups' runs.
       const missing = requested.filter((id) => !returned.has(id.toLowerCase()));
 
       res.status(200).send({

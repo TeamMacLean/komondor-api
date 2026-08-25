@@ -70,19 +70,12 @@ const schema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } },
 );
 
-// Indexes for performance
+// Indexes for performance.
 //
-// { sample, name } is unique because POST /runs/new treats a hit on
-// Run.findOne({ sample, name }) as an idempotent repeat and returns the
-// existing run. Without the constraint that check is advisory: two concurrent
-// identical POSTs both miss the findOne, both insert, and the second run
-// queues a second ingest for the same source files — which can only fail, the
-// first ingest having already moved them (File.moveToFolderAndSave refuses to
-// clobber a destination).
-//
-// NB adding this to an existing collection needs a duplicate check first:
-// createIndex fails outright if any { sample, name } pair is already doubled
-// up, and mongoose logs that failure rather than throwing.
+// { sample, name } must be unique: POST /runs/new's findOne idempotency check
+// is only advisory without it, so two concurrent identical POSTs both insert.
+// NB on an existing collection, check for duplicates first — createIndex fails
+// on them and mongoose logs that failure rather than throwing.
 schema.index({ sample: 1, name: 1 }, { unique: true }); // For idempotency checks
 schema.index({ status: 1 }); // For querying runs by status
 schema.index({ md5VerificationStatus: 1 }); // For background job queries
@@ -94,9 +87,9 @@ schema.pre("validate", function () {
     return Promise.resolve();
   }
 
-  // `name` is required, but this hook runs before required-field validation.
-  // Without this guard the .replace() below throws a bare TypeError, which
-  // surfaces to the client as an opaque 500 instead of a validation message.
+  // This hook runs before required-field validation, so without the guard the
+  // .replace() below throws a TypeError and the client gets a 500, not a
+  // validation message.
   if (typeof this.name !== "string" || !this.name) {
     this.invalidate("name", "Run name is required.", this.name);
     return Promise.resolve();
@@ -223,28 +216,15 @@ schema.methods.getAbsPath = function getPath() {
 /**
  * The records this user may see, as a chainable mongoose Query.
  *
- * DELIBERATELY SYNCHRONOUS, and it must stay that way. A mongoose Query is a
- * thenable, so an `async` static returning `Model.find(...)` has the Query
- * executed by the caller's own await: the caller gets an array of documents
- * and every `.populate()`/`.sort()`/`.where()` chain throws. The database
- * round-trip that resolves live group membership therefore happens *before*
- * this call, and its result is passed in.
+ * Must stay synchronous: an `async` static would have the caller's await
+ * execute the Query, so callers would get an array and every chained
+ * .populate()/.sort() would throw.
  *
- * `groupIds` is required precisely because it is the security-relevant half.
- * Omitting it used to mean "fall back to user.groups", the claim baked into
- * the JWT at login — which kept serving a group's records for the rest of a
- * token's life after that group was soft-deleted, while the per-record routes
- * refused the very same group. A missing argument now fails loudly instead of
- * quietly restoring that behaviour.
- *
- * @param {object} user - The authenticated user object.
- * @param {Array} groupIds - The live group ids from
- *   {@link module:lib/utils/fullAccessUsers.visibleGroupIds}. Always an array,
- *   for every principal including a full-access one: `null` used to mean "no
- *   filter applies at all", which is what let those principals read records in
- *   soft-deleted groups. `null` is still *accepted* here, and maps to a filter
- *   matching nothing, so anything that reintroduces the old sentinel fails
- *   closed rather than reopening the collection.
+ * @param {object} user - The authenticated user.
+ * @param {Array} groupIds - Live group ids from visibleGroupIds(user). Required
+ *   rather than defaulted, because falling back to the token's `groups` claim
+ *   serves soft-deleted groups until the token expires. `null` is accepted and
+ *   maps to a filter matching nothing, so the old sentinel fails closed.
  * @returns {mongoose.Query} A query scoped to what the user may read.
  */
 schema.statics.iCanSee = function iCanSee(user, groupIds) {
@@ -257,10 +237,8 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
   }
 
   const filter = buildVisibilityFilter(user, groupIds);
-  // No `filter === null ? {} : filter` fallback. buildVisibilityFilter can
-  // no longer return null, so that branch was dead — and it was the branch
-  // that produced an *unfiltered* query. Passing the filter straight through
-  // means this static has no path at all to `Run.find({})`.
+  // Passed straight through, with no null-to-{} fallback: that fallback is a
+  // path to an unfiltered Run.find({}).
   return Run.find(filter);
 };
 

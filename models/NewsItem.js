@@ -15,29 +15,11 @@ const schema = new mongoose.Schema(
 
 /**
  * The records this user may see, as a chainable mongoose Query.
- *
- * DELIBERATELY SYNCHRONOUS, and it must stay that way. A mongoose Query is a
- * thenable, so an `async` static returning `Model.find(...)` has the Query
- * executed by the caller's own await: the caller gets an array of documents
- * and every `.populate()`/`.sort()`/`.where()` chain throws. The database
- * round-trip that resolves live group membership therefore happens *before*
- * this call, and its result is passed in.
- *
- * `groupIds` is required precisely because it is the security-relevant half.
- * Omitting it used to mean "fall back to user.groups", the claim baked into
- * the JWT at login — which kept serving a group's records for the rest of a
- * token's life after that group was soft-deleted, while the per-record routes
- * refused the very same group. A missing argument now fails loudly instead of
- * quietly restoring that behaviour.
- *
- * @param {object} user - The authenticated user object.
- * @param {Array} groupIds - The live group ids from
- *   {@link module:lib/utils/fullAccessUsers.visibleGroupIds}. Always an array,
- *   for every principal including a full-access one: `null` used to mean "no
- *   filter applies at all", which is what let those principals read records in
- *   soft-deleted groups. `null` is still *accepted* here, and maps to a filter
- *   matching nothing, so anything that reintroduces the old sentinel fails
- *   closed rather than reopening the collection.
+ * Synchronous on purpose: a mongoose Query is a thenable, so an async static
+ * returning one has it executed by the caller's await and every chain throws.
+ * @param {object} user - Authenticated user.
+ * @param {Array} groupIds - Live group ids from visibleGroupIds(user); the
+ *   token's `groups` claim is stale for groups deleted since login.
  * @returns {mongoose.Query} A query scoped to what the user may read.
  */
 schema.statics.iCanSee = function iCanSee(user, groupIds) {
@@ -50,10 +32,7 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
   }
 
   const filter = buildVisibilityFilter(user, groupIds);
-  // No `filter === null ? {} : filter` fallback. buildVisibilityFilter can
-  // no longer return null, so that branch was dead — and it was the branch
-  // that produced an *unfiltered* query. Passing the filter straight through
-  // means this static has no path at all to `NewsItem.find({})`.
+  // Passed straight through: a `filter || {}` fallback here would be find({}).
   return NewsItem.find(filter);
 };
 

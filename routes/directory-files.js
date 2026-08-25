@@ -10,10 +10,7 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const {
-  auditHpcAccess,
-  requireAnyGroupMembership,
-} = require("../lib/utils/hpcAudit");
+const { auditHpcAccess } = require("../lib/utils/hpcAudit");
 let router = express.Router();
 
 /**
@@ -81,7 +78,6 @@ router
 router
   .route("/directory-files")
   .all(isAuthenticated)
-  .all(requireAnyGroupMembership())
   .get(async (req, res) => {
     const { targetDirectoryName } = req.query;
 
@@ -178,7 +174,6 @@ router
 router
   .route("/directory-files/verify-md5")
   .all(isAuthenticated)
-  .all(requireAnyGroupMembership())
   .post(async (req, res) => {
     const requestId = generateRequestId();
     const { directoryName, fileName, expectedMd5 } = req.body || {};

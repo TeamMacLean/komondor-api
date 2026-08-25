@@ -21,19 +21,8 @@ module.exports.isAdmin = function (req, res, next) {
 /**
  * Middleware for routes that expose records across every group.
  * Must be used after isAuthenticated.
- *
- * `isAdmin` is too narrow for these: the people who use the accessions export
- * are ENA admins named in FULL_RECORDS_ACCESS_USERS, and their tokens do not
- * carry the isAdmin claim. `hasFullRecordsAccess` covers both.
- *
- * It gates the accessions export and nothing else. It used to be described as
- * "the same predicate iCanSee uses to decide who may read across groups", and
- * that is no longer true in either direction: neither `iCanSee` nor
- * `buildVisibilityFilter` consults it at all. Cross-group *reading* is now
- * expressed as a group list — GroupsIAmIn hands these principals every live
- * group — so that a soft-deleted group stops authorising them too. This
- * predicate answers the narrower question of who may pull the whole export in
- * one request, which is a capability rather than a visibility filter.
+ * Not `isAdmin`: the ENA admins who use the accessions export are named in
+ * FULL_RECORDS_ACCESS_USERS and their tokens carry no isAdmin claim.
  */
 module.exports.hasFullRecordsAccess = function (req, res, next) {
   const { hasFullRecordsAccess } = require("../lib/utils/fullAccessUsers");
@@ -52,15 +41,9 @@ module.exports.hasFullRecordsAccess = function (req, res, next) {
 
 /**
  * Middleware to check if user belongs to at least one of the specified groups.
- * Must be used after isAuthenticated.
- *
- * Membership gates a mutation, so this asks for the *write* capability: users
- * named in FULL_RECORDS_ACCESS_USERS read across every group but write only in
- * the groups they actually belong to. The check itself lives in
- * lib/utils/groupAccess so this middleware and the route handlers share one
- * implementation and cannot drift apart.
- *
- * @param {Function} getGroupId - Function that takes req and returns the group ID to check
+ * Must be used after isAuthenticated. Gates mutations, so it asks for the
+ * *write* capability (see lib/utils/groupAccess).
+ * @param {Function} getGroupId - (req) => the group id to check.
  */
 module.exports.belongsToGroup = function (getGroupId) {
   const { requireGroupWrite } = require("../lib/utils/groupAccess");

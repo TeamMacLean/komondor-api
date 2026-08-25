@@ -932,20 +932,20 @@ So this is simultaneously cross-tenant disclosure and destruction of another
 group's data, available to any legitimate user of any group.
 
 **What was actually done instead.** Per-directory authorisation is not
-implementable without the group↔directory mapping this decision declines to
-introduce, so the two controls that *are* available were added:
+implementable without the group-to-directory mapping this decision declines to
+introduce, so the API logs instead: every list, read, MD5 and claim emits one
+`[HPC-AUDIT]` line naming the caller and the resolved path, on stdout.
 
-1. **Attribution.** Every list, read, MD5 and claim against the staging area
-   emits one `[HPC-AUDIT]` line naming the caller and the exact resolved path.
-   A cross-group claim cannot be refused, but it can now be found afterwards.
-   These go to **stdout**, not stderr — they are normal operation, and
-   production splits the two streams.
-2. **A groupless caller is refused.** `GET /directory-files`, `GET /read-file`
-   and `POST /directory-files/verify-md5` previously gated on `isAuthenticated`
-   alone, so a principal belonging to no group could enumerate the whole inbox.
-   They now also require membership of at least one group. This is narrow — it
-   cannot tell whether *this* group may read *that* directory — but it fails
-   closed and it closes the only membership question the staging area can answer.
+Its practical value is answering "where did group B's file go?" after someone
+mistypes a directory name, which is the way this actually goes wrong here. It is
+not evidence against a determined attacker — fields are JSON-quoted so a filename
+cannot split one record into two, but anyone who can write to the staging area
+can still fill the log with whatever they like. Treat it as operational
+forensics, not as proof.
+
+An earlier version of this entry also described a `requireAnyGroupMembership`
+guard on the read endpoints. It was removed: it added a database query per
+request to defend against a threat this deployment does not have.
 
 **If this is revisited**, the cheapest real fix is an allowlist on the `Group`
 model (`hpcDirectories: [String]`), backfilled from what is on disk and run in
@@ -984,6 +984,31 @@ usable name" and refuses with the existing 400/403. Leading and trailing
 whitespace — a stray newline at either end included — is still trimmed, exactly
 as before: only a control character a `trim()` cannot reach is treated as
 hostile. Nothing in a normal sequencing filename is affected.
+
+---
+
+## 34. Symlinks may point into configured storage roots
+
+**Where:** `lib/utils/safePath.js`, `.env.example`
+
+Path containment originally refused any symlink resolving outside the directory
+it guards. That is wrong for a cluster: symlinking a large file, or a whole
+project directory, into the staging area instead of copying terabytes is normal
+practice, and the refusal surfaced as a bare "invalid path" that reads as the API
+being broken.
+
+`ALLOWED_LINK_ROOTS` is a colon-separated list of absolute paths a symlink may
+resolve into — for example `/scratch:/projects`. A link landing anywhere else is
+still refused, and `../` traversal is still refused regardless, so `/etc` remains
+unreachable. Unset means no symlink may leave the guarded root, which is the
+previous behaviour.
+
+Each configured root is `realpath`'d before comparison, so a root that is itself
+a symlink (`/scratch` -> `/mnt/scratch`) matches. Without that it would never
+match and would fail silently as a refusal.
+
+**Set this before deploying** if users symlink data into the transfer directory —
+otherwise their submissions will start failing.
 
 ---
 

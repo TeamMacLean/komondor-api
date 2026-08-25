@@ -10,23 +10,16 @@ const generateRequestId = () => {
 };
 
 /**
- * A utility function to handle errors in route handlers.
- * It logs the error and sends a standardized error response.
- *
- * The response always includes a `detail` field with the underlying error
- * message so that API clients (e.g. komondor-power) can surface the real
- * cause to users instead of only showing the generic catch-all message.
- *
- * @param {object} res - The Express response object.
- * @param {Error} error - The error object.
- * @param {number} [statusCode=500] - The HTTP status code.
- * @param {string} [message] - A custom, user-facing message to send.
- * @param {string} [requestId] - Optional request ID for log correlation.
+ * Logs an error and sends a standardised error response.
+ * @param {object} res - Express response.
+ * @param {Error} error - The error.
+ * @param {number} [statusCode=500] - HTTP status code.
+ * @param {string} [message] - Custom user-facing message.
+ * @param {string} [requestId] - Request ID for log correlation.
  */
 const handleError = (res, error, statusCode = 500, message, requestId) => {
   const reqId = requestId || generateRequestId();
 
-  // Log the full error for debugging purposes
   console.error(`[${reqId}] Error (${statusCode}):`, message || error.message);
   console.error(`[${reqId}] Stack:`, error.stack);
   if (error.errors) {
@@ -40,12 +33,11 @@ const handleError = (res, error, statusCode = 500, message, requestId) => {
     message ||
     (error instanceof Error ? error.message : "An unexpected error occurred.");
 
-  // The underlying error message — more specific than the generic clientMessage.
-  // e.g. "E11000 duplicate key error" vs "Failed to create new project."
+  // e.g. "E11000 duplicate key error" vs the generic "Failed to create project".
   const detail = error instanceof Error ? error.message : undefined;
 
-  // In production, hide the generic message for 500 errors but still include
-  // `detail` — komondor-power is an internal client and needs it for diagnostics.
+  // Production hides the message on 500s but keeps `detail`: komondor-power is
+  // an internal client and needs it for diagnostics.
   if (process.env.NODE_ENV === "production" && statusCode === 500) {
     res.status(500).send({
       error: "An internal server error occurred.",
@@ -71,20 +63,16 @@ const getActualFiles = async (directoryPath) => {
   try {
     const entries = await fs.readdir(directoryPath, { withFileTypes: true });
     return entries
-      // A subdirectory is not a file; without this it is reported as an
-      // untracked stray. Anything else (including symlinks, which sequencing
-      // pipelines do use) is left in — isFile() is false for a symlink even
-      // when it points at a perfectly good file.
+      // !isDirectory(), not isFile(): isFile() is false for a symlink, and
+      // sequencing pipelines do produce those.
       .filter((entry) => !entry.isDirectory())
       .map((entry) => entry.name)
       .filter((name) => !name.startsWith(".")) // Filter out hidden files
       .filter((name) => !isPartialTransferFile(name)); // in-flight copies
   } catch (error) {
-    // If the directory doesn't exist, it's a non-critical error, so return an empty array.
     if (error.code === "ENOENT") {
       return [];
     }
-    // For other fs errors, re-throw to be caught by the main error handler.
     console.error(`Failed to read directory at ${directoryPath}:`, error);
     throw error;
   }
@@ -92,12 +80,6 @@ const getActualFiles = async (directoryPath) => {
 
 /**
  * Resolves the on-disk filename a database record refers to.
- *
- * Records arrive in more than one shape: an AdditionalFile with its `file` ref
- * populated, a bare File document, or a plain string. An *unpopulated* ref is
- * an ObjectId — truthy, but with no `originalName` — so it must not be
- * mistaken for a populated one.
- *
  * @param {object|string} dbFile - One entry from the database side.
  * @returns {string|null} The filename, or null if it cannot be resolved.
  */
@@ -123,9 +105,8 @@ const countByName = (names) => {
 };
 
 /**
- * Names present in `counts` beyond what `other` accounts for, repeated by the
- * shortfall. Comparing sets rather than counts hid duplicates: two records
- * named report.pdf with one copy on disk reported as complete.
+ * Names in `counts` beyond what `other` accounts for, repeated by the shortfall.
+ * Counts, not sets: two records named report.pdf with one file on disk is a fault.
  */
 const excessNames = (counts, other) => {
   const out = [];
@@ -140,13 +121,8 @@ const excessNames = (counts, other) => {
 
 /**
  * Compares the files a record claims to have against what is on disk.
- *
- * Entries whose filename cannot be resolved are reported in `unresolved`
- * rather than dropped. Dropping them made two different faults invisible: a
- * missing populate silently emptied the database side so that every real file
- * read as untracked, and a File document deleted out from under its
- * AdditionalFile made a broken record look like a stray file on disk.
- *
+ * Unnameable entries go in `unresolved`, not dropped: dropping them makes a
+ * missing populate look like a directory full of untracked files.
  * @param {Array<object|string>} [dbFiles=[]] - The database side.
  * @param {Array<string>} [actualFiles=[]] - Filenames from getActualFiles.
  * @returns {{status: "OK"|"WARNING"|"MISMATCH", message: string, missing: string[], extra: string[], unresolved: string[]}}
@@ -164,9 +140,8 @@ const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
     }
   });
 
-  // macOS and Linux disagree on how accented filenames are encoded, so compare
-  // on a single normal form rather than reporting a byte difference as a
-  // missing file. The reported names stay as they were supplied.
+  // macOS and Linux encode accented filenames differently; compare on one
+  // normal form so a byte difference is not reported as a missing file.
   const key = (name) => name.normalize("NFC");
   const dbCounts = countByName(dbFileNames.map(key));
   const diskCounts = countByName(
@@ -197,8 +172,6 @@ const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
     };
   }
 
-  // A file both missing and untracked is usually one that was renamed, which
-  // is worth saying outright rather than reporting as two unrelated faults.
   const summary =
     missing.length > 0 && extra.length > 0
       ? `${capitalise(problems.join(", "))} — this often means a file was renamed`
@@ -214,13 +187,9 @@ const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
 };
 
 /**
- * Reads a directory and compares it against the database records in one step,
- * degrading to an UNKNOWN status instead of failing the whole request.
- *
- * These checks were added to read endpoints that previously did no filesystem
- * work at all. Letting a stalled or unmounted datastore turn a working GET
- * into a 500 would be a worse regression than not reporting file status.
- *
+ * Reads a directory and compares it against the database records in one step.
+ * Degrades to UNKNOWN rather than throwing: an unmounted datastore must not
+ * turn a working GET into a 500.
  * @param {Array<object|string>} dbFiles - The database side.
  * @param {string} directoryPath - Absolute path to the directory to list.
  * @returns {Promise<{actualFiles: string[], status: object}>}

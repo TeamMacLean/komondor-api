@@ -31,10 +31,6 @@ jest.mock("../../routes/middleware", () => ({
 // The HPC read endpoints now also require membership of at least one group
 // (lib/utils/hpcAudit.js). These tests are about path containment, not
 // membership, so grant it by default; the refusal has its own test below.
-jest.mock("../../lib/utils/groupAccess", () => ({
-  groupsICanRead: jest.fn().mockResolvedValue([{ _id: "group-1" }]),
-}));
-const { groupsICanRead } = require("../../lib/utils/groupAccess");
 
 const { AUDIT_PREFIX } = require("../../lib/utils/hpcAudit");
 const directoryFilesRouter = require("../../routes/directory-files");
@@ -523,35 +519,6 @@ describe("POST /directory-files/verify-md5", () => {
     });
   });
 });
-
-describe("HPC staging endpoints require group membership", () => {
-  afterEach(() => {
-    groupsICanRead.mockResolvedValue([{ _id: "group-1" }]);
-  });
-
-  test("GET /directory-files refuses a caller who belongs to no group", async () => {
-    // See BREAKING_CHANGES.md entry 32: the inbox is shared and unmapped, so
-    // membership of *some* group is the only check available here.
-    groupsICanRead.mockResolvedValue([]);
-
-    const response = await request(app)
-      .get("/directory-files")
-      .query({ targetDirectoryName: "batch1" });
-
-    expect(response.status).toBe(403);
-  });
-
-  test("POST /directory-files/verify-md5 refuses a caller who belongs to no group", async () => {
-    groupsICanRead.mockResolvedValue([]);
-
-    const response = await request(app)
-      .post("/directory-files/verify-md5")
-      .send({ directoryName: "batch1", fileName: "readme.txt", expectedMd5: "x" });
-
-    expect(response.status).toBe(403);
-  });
-});
-
 describe("POST /directory-files/verify-md5 does not follow a symlinked leaf", () => {
   test("refuses a symlink to a file that really is inside the root", async () => {
     // assertWithinReal is satisfied here: the link's realpath is

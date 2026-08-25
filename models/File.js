@@ -15,22 +15,12 @@ const {
 } = require("../lib/utils/safePath");
 const { uploadPath } = require("../lib/utils/uploadPath");
 
-// link() reports these when the source and destination sit on different mounts,
-// which is the only case the copy fallback is a valid recovery for. EPERM is
-// what Windows returns for the same situation, and what a filesystem that
-// cannot hard-link at all returns everywhere.
-//
-// Only ever applied to an error from link() itself. It once also saw errors
-// from the unlink of the source, which shares EPERM with the cross-mount case
-// for an entirely unrelated reason — unlink returns it when the process does
-// not own the file in a sticky-bit shared directory — so a plain source-side
-// permission failure was diagnosed as a cross-mount move and fell into the
-// copy branch.
+// Cross-mount link() failures, the only case the copy fallback recovers from.
+// Apply only to errors from link(): unlink() returns EPERM for unrelated reasons.
 const CROSS_DEVICE_CODES = new Set(["EXDEV", "EPERM", "ENOTSUP"]);
 
-// Refuses to open a symlink at the final path component instead of silently
-// opening whatever it points at. POSIX-only; Windows has no equivalent and
-// leaves the constant undefined, which degrades to the old following open.
+// Refuses a symlink at the final path component. POSIX-only; undefined on
+// Windows, where this degrades to a following open.
 const O_NOFOLLOW = fsConstants.O_NOFOLLOW || 0;
 
 /**
@@ -42,9 +32,9 @@ const O_NOFOLLOW = fsConstants.O_NOFOLLOW || 0;
 const isSameFile = (a, b) => a.dev === b.dev && a.ino === b.ino;
 
 /**
- * Where an in-progress copy is written before being promoted to its real name.
- * Deterministic per file, so retrying a move overwrites its own leftovers
- * instead of accumulating a new stray file each time.
+ * Where an in-progress copy is written before promotion to its real name.
+ * Keep the `<destination>.part-<fileId>` shape: lib/active-transfers.js
+ * pattern-matches it, and determinism lets a retry reuse its own leftover.
  * @param {string} destination - The final absolute path.
  * @param {string|object} fileId - The File document's id.
  * @returns {string} The absolute path to write the copy to.
@@ -53,23 +43,16 @@ const partialPathFor = (destination, fileId) =>
   `${destination}${PARTIAL_TRANSFER_SUFFIX}${fileId}`;
 
 /**
- * The only directories a File may legitimately be moved *out of*.
- *
- * `path` is a plain string on a document anyone with upload rights can create,
- * and this method reads then unlinks whatever it names. Without this list a
- * poisoned path turns "move my upload into the datastore" into "move — or
- * delete — any file the API user can reach".
- *
+ * The only directories a File may legitimately be moved *out of*. `path` is
+ * caller-supplied, and the move reads then unlinks whatever it names.
  * @returns {string[]} The configured roots, skipping any that are unset.
  */
 const permittedSourceRoots = () =>
   [
     process.env.DATASTORE_ROOT,
     process.env.HPC_TRANSFER_DIRECTORY,
-    // Where local-filesystem uploads are staged. Read from the shared helper
-    // rather than rebuilt here: routes/uploads.js honours an UPLOAD_DIRECTORY
-    // override, and a hardcoded <cwd>/files here would refuse every finished
-    // upload as an unpermitted source the moment that variable was set.
+    // Staging dir via the shared helper, not a hardcoded <cwd>/files:
+    // routes/uploads.js honours an UPLOAD_DIRECTORY override.
     uploadPath(),
   ].filter((root) => typeof root === "string" && root.trim() !== "");
 
@@ -90,16 +73,6 @@ const isPermittedSource = async (sourcePath) => {
 /**
  * Removes the source of a completed move, refusing to unlink a different file
  * than the one that was moved.
- *
- * The residual race, stated honestly: POSIX has no unlink-by-descriptor, so
- * the name has to be resolved once more here and something could be swapped in
- * between this lstat and the unlink. The window is two syscalls wide rather
- * than the whole multi-gigabyte transfer, and the worst outcome is one
- * unlinked file inside a directory the attacker can already write to — not a
- * file of ours copied out of, or somebody else's copied into, the datastore,
- * which is what the pinned handle rules out. Closing it completely needs
- * openat/unlinkat on a directory handle, which Node does not expose.
- *
  * @param {string} sourcePath - The absolute path the move read from.
  * @param {object} pinnedSource - fstat of the handle the move actually used.
  * @param {mongoose.Document} file - The File being moved, for the message.
@@ -156,18 +129,15 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     throw new Error(`Cannot move file ${file._id}: it has no source path`);
   }
 
-  // relNewPath is built from the File's originalName, which came in on a
-  // request body, and the parent's stored path — so it is resolved against the
-  // datastore rather than joined onto it. Leading slashes are stripped, not
-  // rejected: getRelativePath() has always returned "/group/project/..." and
-  // path.join() quietly treated that as relative.
+  // Resolved against the datastore, not joined onto it: relNewPath is partly
+  // request-supplied. Leading slashes are stripped, not rejected.
   const fullNewPath = await resolveWithinReal(
     process.env.DATASTORE_ROOT,
     cleanDirectoryName(relNewPath),
   );
   if (!fullNewPath) {
-    // The rejected path is logged, not thrown: this message reaches the client
-    // as the Run's statusError.
+    // Rejected path is logged, not thrown: the message reaches the client as
+    // the Run's statusError.
     console.error(
       `File ${file._id}: refusing to move to a destination outside DATASTORE_ROOT:`,
       relNewPath,
@@ -188,9 +158,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     );
   }
 
-  // Held for the whole operation so a shutdown mid-transfer can be refused.
-  // Released in the finally: a copy that neither finished nor threw would
-  // otherwise block every subsequent clean shutdown forever.
+  // Blocks shutdown mid-transfer. Must be released in the finally below, or a
+  // stuck copy blocks every later clean shutdown.
   const transferToken = addTransfer(file._id.toString(), file.name);
 
   try {
@@ -199,18 +168,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     // Create directory if it doesn't exist (native mkdirp equivalent)
     await fs.mkdir(_path.dirname(fullNewPath), { recursive: true });
 
-    // isPermittedSource() above resolved this path through its symlinks, but
-    // that answer went stale the instant it was given, and nothing pinned what
-    // it vouched for. For an hpc-mv the source root is a directory
-    // unprivileged users write into by design, so the name can be re-pointed
-    // between the check and the open. Opening the source once, here, and
-    // comparing every later step against this handle is what ties the check to
-    // the file it actually approved.
-    //
-    // O_NOFOLLOW makes the open refuse a symlink at the last component rather
-    // than opening its target. That costs the ability to move a source that is
-    // legitimately a symlink — a deliberate trade: a symlink is precisely the
-    // thing whose meaning can be changed underneath us.
+    // Opened once and pinned: isPermittedSource() checked a name, and the name
+    // can be re-pointed afterwards. Later steps compare against this handle.
     let sourceHandle;
     try {
       sourceHandle = await fs.open(
@@ -218,67 +177,44 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
         fsConstants.O_RDONLY | O_NOFOLLOW,
       );
     } catch (openErr) {
-      // The link used to be the first thing to touch the source, so this is
-      // now where a missing or unreadable one is reported. Same message shape,
-      // because the operator still needs both paths to work out what happened.
       openErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${openErr.message}`;
       throw openErr;
     }
 
     try {
       const pinnedSource = await sourceHandle.stat();
-      // Whether the destination is a second name for the pinned inode (link)
-      // or a fresh copy of its bytes (cross-device fallback).
+      // Cleared by the cross-device fallback, which writes a fresh copy.
       let destinationIsSourceInode = true;
 
-      // Link then unlink, not rename: rename() silently replaces whatever is
-      // already at the destination, while link() fails with EEXIST — atomically,
-      // and without following a symlink someone left sitting at that name. Same
-      // speed and same atomicity on one filesystem, no clobber.
+      // link() + unlink(), not rename(): rename silently overwrites an existing
+      // destination, link fails with EEXIST.
       try {
         await fs.link(sourcePath, fullNewPath);
       } catch (linkErr) {
         if (linkErr.code === "EEXIST") {
-          // Almost always an earlier attempt that moved the bytes and then
-          // failed before the document was saved. Picking a new name here would
-          // hide a second copy of a multi-GB read under a name nothing points
-          // at, so the operator gets told instead.
           throw new Error(
             `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
           );
         }
 
         if (!CROSS_DEVICE_CODES.has(linkErr.code)) {
-          // Copying is only a valid recovery for a cross-mount move. For any
-          // other failure the source is the problem, and opening the
-          // destination for writing would truncate whatever is already there.
-          // ENOENT in particular means an earlier attempt moved the bytes and
-          // then failed before the document was saved — the destination holds
-          // the only copy, and a "fallback" would destroy it.
+          // Must not fall through to the copy branch: on ENOENT the destination
+          // may hold the only copy, which a write would truncate.
           linkErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${linkErr.message}`;
           throw linkErr;
         }
 
-        // Cross-device: copy, then promote. These are sequencing reads, often
-        // many GB, so an interruption part-way through must never leave a
-        // truncated file under the real name — it would look like a complete
-        // read to everything downstream. Writing to a sibling and linking it
-        // into place means the destination only ever appears complete, even if
-        // the process is killed outright. pipeline() also destroys both streams,
-        // which a bare pipe() does not do on error.
+        // Cross-device: copy to a sibling, then link it into place, so an
+        // interrupted copy never appears complete under the real name.
         const partialPath = partialPathFor(fullNewPath, file._id);
 
         try {
-          // Both the size and the bytes come from the pinned handle rather
-          // than from the path, so a swap after the containment check cannot
-          // get a different file copied into the datastore, and cannot make a
-          // short copy look complete by shrinking the source behind us.
+          // Size from the pinned handle, not the path: a source swapped behind
+          // us cannot make a short copy look complete.
           const sourceSize = pinnedSource.size;
 
-          // The partial name is deterministic, so anything already using it is
-          // this file's own leftover from an interrupted attempt: drop it, then
-          // create the copy exclusively. Opening with a plain 'w' instead would
-          // follow — and write straight through — a symlink planted at that name.
+          // The partial name is deterministic, so anything there is this file's
+          // own leftover. 'wx' not 'w': 'w' writes through a symlink.
           await fs.unlink(partialPath).catch((err) => {
             if (err.code !== "ENOENT") {
               throw err;
@@ -290,8 +226,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
             createWriteStream(partialPath, { flags: "wx" }),
           );
 
-          // A stream that ends early resolves cleanly, so the byte count is the
-          // only thing that actually proves the copy is whole.
+          // A stream that ends early still resolves cleanly, so the byte count
+          // is the only proof the copy is whole.
           const { size: copiedSize } = await fs.stat(partialPath);
           if (copiedSize !== sourceSize) {
             throw new Error(
@@ -299,9 +235,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
             );
           }
 
-          // Promoted with link + unlink for the same reason as the same-device
-          // branch above: rename() would overwrite a destination that is already
-          // there, or write through a symlink standing in for it.
+          // link + unlink again, for the same no-clobber reason as above.
           try {
             await fs.link(partialPath, fullNewPath);
           } catch (promoteErr) {
@@ -329,11 +263,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       }
 
       if (destinationIsSourceInode) {
-        // link() resolves the source path a second time, so a swap between the
-        // open above and the link would have filed somebody else's file in the
-        // datastore under this document's name. The inode at the destination
-        // is the proof of which file actually got linked; only the name we
-        // just created is removed if it is the wrong one.
+        // link() resolved the source name a second time, so check the linked
+        // inode is the pinned one before the source is unlinked below.
         const destination = await fs.lstat(fullNewPath);
 
         if (!isSameFile(destination, pinnedSource)) {
@@ -349,16 +280,11 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
         }
       }
 
-      // Removing the source is its own step, outside the try above: an error
-      // here is not a link error and must not be run through the cross-device
-      // classification. It shares EPERM with the cross-mount case for an
-      // unrelated reason — a sticky-bit shared directory refuses an unlink by
-      // a process that does not own the file — and that used to be diagnosed
-      // as a cross-mount move and quietly copied instead.
+      // Deliberately outside the try above: an unlink error must not reach the
+      // CROSS_DEVICE_CODES check, since unlink shares EPERM with it.
       await unlinkPinnedSource(sourcePath, pinnedSource, file, fullNewPath);
     } finally {
-      // Best-effort: the move has either succeeded or thrown by now, and a
-      // failure to close a descriptor must not mask either outcome.
+      // Best-effort: a failed close must not mask the move's outcome.
       await sourceHandle.close().catch(() => {});
     }
 
@@ -367,9 +293,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     try {
       return await file.save();
     } catch (saveErr) {
-      // The bytes are already at the destination and the source is gone, so
-      // retrying the move cannot work. Name both paths — recovering means
-      // repointing the document, not moving the file again.
+      // Bytes are at the destination and the source is gone: recovery means
+      // repointing the document, not retrying the move.
       console.error(
         `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`,
       );

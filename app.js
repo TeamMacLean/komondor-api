@@ -63,11 +63,7 @@ app.use(express.urlencoded({ extended: false }));
 
 /**
  * Attaches req.user when the request carries a valid bearer token.
- *
- * A malformed or expired token is *not* a server error: it is reported as 401
- * so clients know to re-authenticate. Previously the rejection was passed to
- * next(err) and surfaced as a 500, which made every request from a client with
- * a stale token look like an API outage.
+ * A malformed or expired token is answered 401, not passed to next() as a 500.
  */
 app.use((req, res, next) => {
   getUserFromRequest(req)
@@ -89,7 +85,6 @@ app.use((req, res, next) => {
 });
 
 // Mongoose's numeric connection states, spelled out for the readiness body.
-// 99 ("uninitialized") exists too and falls through to the generic branch.
 const MONGO_READY_STATES = {
   0: "disconnected",
   1: "connected",
@@ -97,18 +92,15 @@ const MONGO_READY_STATES = {
   3: "disconnecting",
 };
 
-// Mounts every write path depends on. Read at request time rather than at
-// import: they are what readiness is reporting on, so a probe must see the
-// current value and the current state of the disk, not a snapshot from boot.
+// Mounts every write path depends on, read at request time so a probe sees the
+// current state of the disk rather than a snapshot from boot.
 const REQUIRED_MOUNTS = ["DATASTORE_ROOT", "HPC_TRANSFER_DIRECTORY"];
 
-// Set by server.js at the start of a shutdown. A load balancer polling /ready
-// then stops sending work while the process drains, instead of watching
-// requests die mid-flight when the listener closes underneath them.
+// Set by server.js at the start of a shutdown, so a load balancer polling
+// /ready stops sending work before the listener closes underneath it.
 let draining = false;
 
-// Dependencies that only server.js knows about (the ingest worker, today).
-// Registering them keeps app.js free of requires for modules it does not use.
+// Dependencies only server.js knows about (the ingest worker, today).
 const extraReadinessChecks = new Map();
 
 /**
@@ -140,13 +132,8 @@ const checkMongo = () => {
 };
 
 /**
- * Reports whether a mount is present and writable.
- *
- * The path is deliberately not echoed back: this endpoint is unauthenticated,
- * and the layout of the datastore is not something to hand out to anyone who
- * can reach it. The name says which mount it is, and the errno says what is
- * wrong with it.
- *
+ * Reports whether a mount is present and writable. The path is deliberately not
+ * echoed back into the response: /ready is unauthenticated.
  * @param {string} name - Reported as the check's name.
  * @param {string} path - The directory to test.
  */
@@ -169,17 +156,9 @@ const checkMount = (name, path) => {
 const checkEnvMount = (name) => checkMount(name, process.env[name]);
 
 /**
- * Reports whether the tus upload staging directory is usable.
- *
- * Separate from REQUIRED_MOUNTS because it is not simply an env var: it has a
- * default (<cwd>/files), so it is resolved through lib/utils/uploadPath.js —
- * the single source of truth that routes/uploads.js, lib/file-utils.js and
- * models/File.js all read. Called per request for the same reason as the
- * others, which is also why uploadPath resolves lazily.
- *
- * It was missing from this probe, so a broken upload root reported ready while
- * every local-filesystem ingest failed — after the client had already been
- * told its upload was accepted.
+ * Reports whether the tus upload staging directory is usable. Separate from
+ * REQUIRED_MOUNTS because it has a default, so it is resolved through
+ * lib/utils/uploadPath.js — the path every other module actually uses.
  */
 const checkUploadDirectory = () => checkMount("UPLOAD_DIRECTORY", uploadPath());
 
@@ -205,28 +184,17 @@ const runReadinessChecks = () =>
   ]);
 
 /**
- * Liveness probe: "this process is up and answering".
- *
- * Deliberately checks nothing else. A liveness probe that fails when Mongo
- * blips has the supervisor restart a process whose restart cannot help, and
- * takes down the one component that was still working. Dependencies belong to
- * /ready, which is answered by a different question: should traffic come here?
+ * Liveness probe: "this process is up and answering", and deliberately nothing
+ * else — a liveness check that fails when Mongo blips gets the process
+ * restarted, which cannot help. Dependencies belong to /ready.
  */
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
 /**
- * Readiness probe: "this process can serve a request end to end".
- *
- * This endpoint used to be conflated with /health, which returned 200
- * unconditionally — including during the window where the listener was open
- * but mongoose.connect() had not resolved (or had failed and was about to exit
- * the process). Every deploy check therefore passed a few milliseconds before
- * the API started answering every route with a 500.
- *
- * The body names each failing check: a 503 that does not say what is wrong
- * sends whoever is paged to read the logs of a process that may not be logging.
+ * Readiness probe: "this process can serve a request end to end". The body
+ * names each failing check, so a 503 says which dependency is at fault.
  */
 app.get("/ready", (req, res) => {
   if (draining) {
@@ -248,8 +216,7 @@ app.get("/ready", (req, res) => {
       });
     })
     .catch((err) => {
-      // Answering 500 here would be read as "the probe is broken" rather than
-      // "do not send traffic", which is what an unexpected failure means.
+      // 503, not 500: an unexpected failure still means "do not send traffic".
       res.status(503).json({
         status: "not ready",
         failed: ["readiness-check"],
@@ -274,8 +241,7 @@ app.use(uploadRoutes);
 app.use(testRoutes);
 
 /**
- * 404 handler. Without this, unknown paths fall through to Express's default
- * handler and return an HTML body, which JSON-only clients cannot parse.
+ * 404 handler: Express's default returns HTML, which JSON-only clients cannot parse.
  */
 app.use((req, res) => {
   res.status(404).send({
@@ -285,11 +251,8 @@ app.use((req, res) => {
 });
 
 /**
- * Terminal error handler.
- *
- * Every response from this API is JSON; Express's built-in handler emits HTML
- * (including a stack trace outside production). This keeps the shape consistent
- * with `handleError` in routes/_utils.js so clients only parse one error format.
+ * Terminal error handler. Express's built-in one emits HTML; this keeps the JSON
+ * shape consistent with `handleError` in routes/_utils.js.
  */
 // eslint-disable-next-line no-unused-vars -- Express identifies error handlers by arity.
 app.use((err, req, res, next) => {

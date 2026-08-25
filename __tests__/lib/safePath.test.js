@@ -475,3 +475,109 @@ describe("resolveWithinReal / assertWithinReal", () => {
     });
   });
 });
+
+describe("symlinks into a configured storage root", () => {
+  // Symlinking a big file, or a whole project directory, into the staging area
+  // instead of copying terabytes is ordinary practice on a cluster. Refusing
+  // every link that leaves the root broke that workflow.
+  let root;
+  let scratch;
+  let elsewhere;
+  const ORIGINAL = process.env.ALLOWED_LINK_ROOTS;
+
+  beforeAll(() => {
+    root = fs.realpathSync(
+      fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-links-root-")),
+    );
+    scratch = fs.realpathSync(
+      fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-links-scratch-")),
+    );
+    elsewhere = fs.realpathSync(
+      fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-links-other-")),
+    );
+
+    fs.mkdirSync(_path.join(root, "realdata"));
+    fs.writeFileSync(_path.join(root, "realdata", "in.fq"), "a");
+    fs.writeFileSync(_path.join(scratch, "big.fq"), "b");
+    fs.writeFileSync(_path.join(elsewhere, "secrets.txt"), "c");
+
+    fs.symlinkSync(
+      _path.join(root, "realdata", "in.fq"),
+      _path.join(root, "link_inside.fq"),
+    );
+    fs.symlinkSync(_path.join(scratch, "big.fq"), _path.join(root, "link_scratch.fq"));
+    fs.symlinkSync(scratch, _path.join(root, "projectdir"));
+    fs.symlinkSync(
+      _path.join(elsewhere, "secrets.txt"),
+      _path.join(root, "link_elsewhere.txt"),
+    );
+  });
+
+  afterAll(() => {
+    [root, scratch, elsewhere].forEach((d) =>
+      fs.rmSync(d, { recursive: true, force: true }),
+    );
+    if (ORIGINAL === undefined) {
+      delete process.env.ALLOWED_LINK_ROOTS;
+    } else {
+      process.env.ALLOWED_LINK_ROOTS = ORIGINAL;
+    }
+  });
+
+  describe("with no configured roots", () => {
+    beforeEach(() => {
+      delete process.env.ALLOWED_LINK_ROOTS;
+    });
+
+    test("accepts a link that stays inside the root", async () => {
+      await expect(resolveWithinReal(root, "link_inside.fq")).resolves.not.toBeNull();
+    });
+
+    test("refuses a link that leaves the root", async () => {
+      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.toBeNull();
+    });
+  });
+
+  describe("with a configured root", () => {
+    beforeEach(() => {
+      process.env.ALLOWED_LINK_ROOTS = scratch;
+    });
+
+    test("accepts a link to a file in that root", async () => {
+      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.not.toBeNull();
+    });
+
+    test("accepts a file reached through a symlinked directory in that root", async () => {
+      await expect(
+        resolveWithinReal(root, "projectdir/big.fq"),
+      ).resolves.not.toBeNull();
+    });
+
+    test("still refuses a link to anywhere else", async () => {
+      await expect(
+        resolveWithinReal(root, "link_elsewhere.txt"),
+      ).resolves.toBeNull();
+    });
+
+    test("still refuses lexical traversal out of the root", async () => {
+      await expect(resolveWithinReal(root, "../../etc/passwd")).resolves.toBeNull();
+    });
+
+    test("matches a configured root that is itself reached through a symlink", async () => {
+      // The root is realpath'd before comparing. Without that, "/scratch" ->
+      // "/mnt/scratch" would never match and would fail silently as a refusal.
+      const alias = _path.join(elsewhere, "scratch-alias");
+      fs.symlinkSync(scratch, alias);
+      process.env.ALLOWED_LINK_ROOTS = alias;
+
+      await expect(
+        resolveWithinReal(root, "link_scratch.fq"),
+      ).resolves.not.toBeNull();
+    });
+
+    test("ignores a relative entry in the configured list", async () => {
+      process.env.ALLOWED_LINK_ROOTS = "relative/path";
+      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.toBeNull();
+    });
+  });
+});

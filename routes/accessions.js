@@ -23,31 +23,16 @@ const ENTITY_MODELS = {
 
 /**
  * True when `value` is an array and every element of it is a string.
- *
- * @param {*} value - The candidate value from a request body.
+ * @param {*} value - Candidate value from a request body.
  * @returns {boolean} True if `value` is a string array.
  */
 const isStringArray = (value) =>
   Array.isArray(value) && value.every((entry) => typeof entry === "string");
 
 /**
- * Who may write ENA accessions.
- *
- * Deliberately the same population as the /accessions/csv export rather than
- * plain group membership. An accession is not the researcher's own metadata: it
- * is the identifier ENA issues, and the only thing that ever writes one back is
- * the submission round-trip run by the people named in FULL_RECORDS_ACCESS_USERS
- * — this route is the return leg of the export the same predicate already gates.
- * komondor-web agrees: components/AddAccessionModal.vue renders only for
- * `isEnaAdmin` (the web-side twin of that list), and its own comment says the
- * real check belongs here. Letting an ordinary group member set an accession
- * would let them point a public ENA record at the wrong data, through a field no
- * UI offers them.
- *
- * This wraps the shared predicate rather than reusing the `hasFullRecordsAccess`
- * middleware only because that middleware's 403 talks about exporting records,
- * which would be a confusing thing to read after a failed write.
- *
+ * Who may write ENA accessions: the same ENA population as the /accessions/csv
+ * export, not plain group membership — an accession is the identifier ENA
+ * issues, written back only by the submission round-trip.
  * @param {object} req - The Express request.
  * @param {object} res - The Express response.
  * @param {Function} next - The next middleware.
@@ -65,29 +50,10 @@ const requireAccessionWrite = (req, res, next) => {
 };
 
 /**
- * Whether the group a record belongs to is still live.
- *
- * This is not a capability check and must not be read as one. Authorisation for
- * an accession write is `requireAccessionWrite` above, which is deliberately
- * cross-group; what is left to decide per record is whether the group it sits in
- * still exists and has not been retired. routes/groups.js soft-deletes a group
- * by setting `deleted`, and a retired group must stop authorising writes into
- * records nobody can see any longer.
- *
- * It asks the Group collection directly rather than going through
- * `canReadGroup`, which is what used to stand here. For this route's callers —
- * who read across every group — canReadGroup answers exactly this question and
- * nothing else, so the two behave identically today; the difference is that a
- * *read* capability was being used to authorise a write, the one place in the
- * codebase where the split asserted throughout lib/utils/groupAccess.js did not
- * hold. Had `requireAccessionWrite` ever been widened, that stand-in would have
- * silently handed whoever it let through a cross-group write of `releaseDate`,
- * which drives ENA release. Asking the group cannot drift that way.
- *
- * `$ne: true` rather than `false` so groups written before the field existed
- * still count as live.
- *
- * @param {*} groupId - The group id taken from the record being written.
+ * Whether the group a record belongs to is still live. Not a capability check:
+ * the capability is requireAccessionWrite above, and using a *read* check here
+ * would authorise a write. `$ne: true`, not `false`, for pre-field documents.
+ * @param {*} groupId - Group id taken from the record being written.
  * @returns {Promise<boolean>} True if the group exists and is not soft-deleted.
  */
 const groupIsLive = async (groupId) => {
@@ -143,8 +109,8 @@ router
   .post(async (req, res) => {
     const { accessions, releaseDate, type, typeId } = req.body || {};
 
-    // `.includes` on a fixed list rather than a lookup in ENTITY_MODELS: a body
-    // sending type "constructor" would find a truthy value on Object.prototype.
+    // `.includes` on a fixed list, not a lookup: type "constructor" would find
+    // a truthy value on Object.prototype.
     if (typeof type !== "string" || !ENTITY_TYPES.includes(type)) {
       return res.status(400).send({
         error: "Invalid or missing type. Must be project, sample, or run.",
@@ -155,9 +121,8 @@ router
       return res.status(400).send({ error: "Missing typeId" });
     }
 
-    // The string check is not redundant. `findById({ $ne: null })` is not a
-    // cast failure — mongoose reads the object as a query condition and matches
-    // the first document whose _id is not null, i.e. an arbitrary record.
+    // The string check is not redundant: `findById({ $ne: null })` is read as a
+    // query condition, not a cast failure, and matches an arbitrary record.
     if (
       typeof typeId !== "string" ||
       !mongoose.Types.ObjectId.isValid(typeId)
@@ -180,8 +145,7 @@ router
     }
 
     try {
-      // Load before writing. findByIdAndUpdate applied the change to whatever
-      // the id named, in any group, with nothing in between to check first.
+      // Loaded before writing so the record's group can be checked first.
       const entity = await ENTITY_MODELS[type].findById(typeId);
 
       if (!entity) {
@@ -190,11 +154,8 @@ router
           .send({ error: `${type} with ID ${typeId} not found` });
       }
 
-      // Who may write an accession was settled by requireAccessionWrite, the
-      // named ENA capability this route is gated on. All that is left is
-      // whether the record's group is still live — see groupIsLive, which
-      // explains why that is asked of the Group collection and not of a read
-      // capability.
+      // The capability was settled by requireAccessionWrite; all that is left
+      // is whether the record's group is still live.
       if (!(await groupIsLive(entity.group))) {
         console.error(
           `[AUTHZ] Refused accession write on ${type} ${typeId} (group ${entity.group}) to "${req.user.username}"`,
@@ -220,7 +181,6 @@ const getMatrixOfData = async () => {
   const projects = await Project.find({});
   const reads = await Read.find({}).populate("file");
 
-  // Build a map of project IDs to projects for efficient lookup
   const projectsById = projects.reduce((acc, p) => {
     acc[p._id.toString()] = p;
     return acc;
@@ -228,9 +188,7 @@ const getMatrixOfData = async () => {
 
   const result = runsWithSamplesAndGroups
     .map((runPlus) => {
-      // A run whose sample or group has been removed cannot produce a row.
-      // Skipping it keeps the export working instead of failing the whole
-      // request with a TypeError on the first orphan.
+      // An orphaned run cannot produce a row; skipping keeps the export working.
       if (!runPlus.sample || !runPlus.sample.project) {
         console.error(
           `Run ${runPlus._id} has no populated sample/project; skipping`,
@@ -257,7 +215,6 @@ const getMatrixOfData = async () => {
         return read.run && read.run.toString() === runPlus._id.toString();
       });
 
-      // Use READS_ROOT_PATH from environment, defaulting to production path
       const readsRootPath = process.env.READS_ROOT_PATH || "/tsl/data/reads";
       const relatedReadsPaths = relatedReads
         .filter((read) => read.file && read.file.path)
@@ -286,24 +243,17 @@ const getMatrixOfData = async () => {
   return result;
 };
 
-// Spreadsheet software evaluates a cell whose first character is one of these.
-// This endpoint is the one that actually produces a downloadable CSV, and it is
-// built from project/sample/run names and accession strings that users control,
-// so a name like `=cmd|'/C calc'!A0` would execute on the machine of whoever
-// opens the export. Kept identical to routes/samples.js so the two agree.
+// Spreadsheet software evaluates a cell starting with one of these, and this
+// CSV is built from user-controlled names. Kept identical to routes/samples.js.
 const FORMULA_START = /^[=+\-@\t\r]/;
 
-// ...but a leading sign in front of a plain number is data, not a formula.
-// Forcing those to text would break any consumer reading a column as numeric.
+// ...but a signed number is data, not a formula, and quoting it would break
+// consumers reading the column as numeric.
 const PLAIN_NUMBER = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/;
 
 /**
  * Renders one value as a CSV field: quoted when it contains a delimiter, and
  * neutralised when a spreadsheet would otherwise execute it.
- *
- * Names are free text, so an unescaped comma silently shifts every later column
- * of that row into the wrong heading.
- *
  * @param {*} value - The raw field value.
  * @returns {string} A CSV-safe field.
  */
@@ -312,14 +262,13 @@ const toCsvField = (value) => {
     return "";
   }
 
-  // String(value) rather than a nicer date format on purpose: this is the
-  // representation Array#join already produced, and consumers parse it.
+  // String(value), not a nicer date format: consumers parse what Array#join
+  // already produced.
   const stringValue = String(value);
 
   if (FORMULA_START.test(stringValue) && !PLAIN_NUMBER.test(stringValue)) {
-    // Prefixed *and* quoted: the apostrophe is what stops the cell being
-    // evaluated, the quotes keep a leading tab or CR inside the field instead
-    // of letting it split the row.
+    // Prefixed *and* quoted: the apostrophe stops evaluation, the quotes keep a
+    // leading tab or CR from splitting the row.
     return `"'${stringValue.replace(/"/g, '""')}"`;
   }
 
@@ -347,18 +296,15 @@ const HEADINGS = [
   "list_of_read_files",
 ];
 
-// This export ignores group membership by design — it returns every run in the
-// database — so it is gated on the same predicate as cross-group reads. It was
-// previously reachable by any authenticated user: a member of a single group,
-// or of none, could export the lot.
+// Returns every run in the database by design, so it is gated on the same
+// predicate as cross-group reads.
 router
   .route("/accessions/csv")
   .all(isAuthenticated)
   .all(hasFullRecordsAccess)
   .get(async (req, res) => {
     try {
-      // Note: the heading row keeps its trailing comma, as consuming services
-      // parse the existing format.
+      // The heading row keeps its trailing comma: consumers parse that format.
       let csv = HEADINGS.join(",") + ",\n";
 
       const matrixOfData = await getMatrixOfData();

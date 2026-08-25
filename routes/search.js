@@ -10,8 +10,7 @@ const {
   visibleGroupIds,
 } = require("../lib/utils/fullAccessUsers");
 
-// Upper bound on a search term. Long terms produce pathological regexes and
-// have no legitimate use against entity names.
+// Upper bound on a search term: long terms produce pathological regexes.
 const MAX_QUERY_LENGTH = 200;
 
 /**
@@ -23,9 +22,8 @@ const MAX_QUERY_LENGTH = 200;
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /**
- * Normalises the `query` parameter, which may arrive repeated (`?query=a&query=b`)
- * and therefore as an array.
- * @param {*} raw - The raw req.query.query value.
+ * Normalises the `query` parameter, which arrives as an array when repeated.
+ * @param {*} raw - Raw req.query.query value.
  * @returns {string|null} A usable search term, or null when unusable.
  */
 const normaliseQuery = (raw) => {
@@ -44,17 +42,10 @@ const normaliseQuery = (raw) => {
 };
 
 /**
- * Runs a case-insensitive substring search over the names of the records a user
- * may see.
- *
- * The match is performed in MongoDB rather than in JavaScript. The previous
- * implementation loaded every visible record into memory and then compared
- * `name.toLowerCase().includes(query)` against the *raw* query, so any search
- * term containing an uppercase letter could never match.
- *
+ * Case-insensitive substring search over the names of records a user may see.
  * @param {object} Model - A mongoose model exposing the `iCanSee` static.
- * @param {object} user - The authenticated user.
- * @param {string} query - The normalised search term.
+ * @param {object} user - Authenticated user.
+ * @param {string} query - Normalised search term.
  * @returns {Promise<Array>} The matching documents.
  */
 const searchByName = async (Model, user, query) => {
@@ -98,13 +89,10 @@ router
 
 /**
  * Builds a single-entity search route.
- *
- * These endpoints answer 200 with an empty result set when the search fails,
- * which is the contract existing consumers rely on. An `error` field is added
- * alongside so a failure is still diagnosable rather than silently empty.
- *
+ * Answers 200 with an empty result set on failure — the contract existing
+ * consumers rely on — plus an `error` field so the failure stays diagnosable.
  * @param {string} path - The route path.
- * @param {Function} searchFn - The search function for this entity type.
+ * @param {Function} searchFn - Search function for this entity type.
  */
 const registerEntitySearch = (path, searchFn) => {
   router
