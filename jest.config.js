@@ -18,12 +18,24 @@ module.exports = {
   testMatch: [
     "**/__tests__/**/*.js",
     "!**/__tests__/setup/**",
+    // Shared fixtures for __tests__/integration/, not tests themselves. Kept
+    // out via testMatch (not testPathIgnorePatterns): the CI integration job
+    // overrides testPathIgnorePatterns on its own invocation to reach
+    // __tests__/integration/ past the default-run exclusion below, and that
+    // override must not accidentally let this directory get collected as
+    // suites with no tests in them.
+    "!**/__tests__/integration/support/**",
     "**/?(*.)+(spec|test).js",
     "!**/routes/test.js",
   ],
+  // __tests__/integration/ needs a real mongod and is excluded from the
+  // default run (this list, unlike testMatch, cannot be re-opened by a CLI
+  // --testPathPattern — the CI integration job overrides this array on its
+  // own invocation instead of relying on a narrower positive match).
   testPathIgnorePatterns: [
     "/node_modules/",
     "/__tests__/setup/",
+    "/__tests__/integration/",
     "/datastore/",
     "/files/",
     "/docs/",
@@ -37,6 +49,13 @@ module.exports = {
     "!**/docs/**",
     "!coverage/**",
     "!jest.config.js",
+    // Test-support helpers, not application code: unlike a *.test.js file,
+    // these are not automatically excluded by jest's own "don't pad coverage
+    // with test files" rule, so without this they would count as 0%-covered
+    // additions to the default run's coverage denominator despite never
+    // being reachable from it (they exist only for __tests__/integration/,
+    // which that run does not execute).
+    "!**/__tests__/integration/support/**",
   ],
   // A ratchet, not a target. Set from a real `npx jest --coverage` measurement
   // and then rounded down by 3-4 points, so the build is green on arrival but a

@@ -12,7 +12,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:contract": "jest __tests__/contract/",
-    "test:integration": "jest --testPathPattern \"__tests__/integration/\" --passWithNoTests --runInBand",
+    "test:integration": "jest --testPathIgnorePatterns \"/node_modules/\" --testPathPattern \"__tests__/integration/\" --passWithNoTests --runInBand",
     "test:handles": "jest --detectOpenHandles --runInBand"
   },
   "dependencies": {

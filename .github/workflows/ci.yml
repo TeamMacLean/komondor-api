@@ -102,6 +102,9 @@ jobs:
             /\bECONNRESET\b/,
             /\bEPIPE\b/,
             /Client network socket disconnected/,
+            // The other shape of the same dropped-connection flake: see
+            // __tests__/setup/httpAgent.js for the full history.
+            /Parse Error: Missing expected CR after response line/,
           ];
 
           let results;
@@ -229,7 +232,7 @@ jobs:
 
           echo "yarn audit exit code: ${audit_code}"
 
-          node - <<'NODE'
+          AUDIT_EXIT_CODE="${audit_code}" node - <<'NODE'
           const fs = require("fs");
 
           // Advisories reviewed and accepted, by npm advisory id. An entry here
@@ -244,9 +247,24 @@ jobs:
             ],
           ]);
 
-          const advisories = new Map();
+          const raw = fs.readFileSync("audit.json", "utf8");
 
-          fs.readFileSync("audit.json", "utf8")
+          // A run that never reached the advisory registry (offline, DNS
+          // failure) or was killed mid-write leaves this empty or short. That
+          // must not read as "found nothing" — checked before anything below
+          // parses a single line.
+          if (raw.trim() === "") {
+            console.log(
+              `::error::audit.json is empty (yarn audit exited ${process.env.AUDIT_EXIT_CODE}). ` +
+                "yarn audit produced nothing to triage — this is a failed run, not a clean one.",
+            );
+            process.exit(1);
+          }
+
+          const advisories = new Map();
+          let sawSummary = false;
+
+          raw
             .split("\n")
             .filter(Boolean)
             .forEach((line) => {
@@ -256,6 +274,13 @@ jobs:
               } catch (err) {
                 return; // Progress/summary lines are not advisories.
               }
+              if (parsed.type === "auditSummary") {
+                // yarn's terminal record for a run that actually finished.
+                // Its absence below is what catches a truncated stream that
+                // still has well-formed advisory lines in it.
+                sawSummary = true;
+                return;
+              }
               if (parsed.type !== "auditAdvisory") {
                 return;
               }
@@ -264,6 +289,25 @@ jobs:
               const advisory = parsed.data.advisory;
               advisories.set(advisory.id, advisory);
             });
+
+          // The exit code is a bitmask of the five severities (1|2|4|8|16,
+          // max sum 31) ONLY for a run that completed and is reporting what it
+          // found. A value outside that range is not a severity combination —
+          // it is the tool failing in some other way. (Measured: an offline
+          // run here still exits 0 with an empty audit.json, which is why the
+          // check above cannot be skipped in favour of this one alone.)
+          const exitCode = Number(process.env.AUDIT_EXIT_CODE);
+          const exitCodeIsCrash =
+            !Number.isInteger(exitCode) || exitCode < 0 || exitCode > 31;
+
+          if (!sawSummary || exitCodeIsCrash) {
+            console.log(
+              `::error::audit.json does not look like a completed yarn audit run ` +
+                `(auditSummary line present: ${sawSummary}, exit code: ${process.env.AUDIT_EXIT_CODE}). ` +
+                "Treating this as an untrustworthy result rather than triaging it as clean.",
+            );
+            process.exit(1);
+          }
 
           const bySeverity = (severity) =>
             [...advisories.values()].filter((a) => a.severity === severity);
@@ -363,13 +407,10 @@ jobs:
           echo "No suite left a handle open."
 
   integration:
-    # The name says PLACEHOLDER because that is what it is: __tests__/integration/
-    # does not exist, so this job spins up mongo:6 and executes ZERO tests. It
-    # was previously called "Integration tests (MongoDB)", which made a green
-    # tick look like integration coverage — and it is the only job that could
-    # ever catch the mongoose-5 migration gap, so mistaking it for coverage is
-    # expensive. Rename it back the moment there is something here to run.
-    name: Integration tests — PLACEHOLDER, runs zero tests
+    # Renamed back from "PLACEHOLDER, runs zero tests": __tests__/integration/
+    # now holds real tests, run against the real mongo:6 service below rather
+    # than a mock — see __tests__/integration/ for what each one proves.
+    name: Integration tests (MongoDB)
     # PR-only: these need a real mongod, and running them on every push to a
     # feature branch buys nothing the PR run does not already cover.
     if: github.event_name == 'pull_request'
@@ -389,7 +430,12 @@ jobs:
     env:
       NODE_ENV: test
       MONGODB_PORT: 27017
-      MONGO_URI: mongodb://localhost:27017/komondor-ci
+      # Must be MONGODB_URI: lib/utils/validateEnv.js and server.js only ever
+      # read that name. MONGO_URI (no "DB") is never consulted by the app, so
+      # a job using it would silently fall back to the MONGODB_PORT-assembled
+      # localhost URI below — which happens to be correct here anyway, so the
+      # typo was invisible until something asserted the URI actually used.
+      MONGODB_URI: mongodb://localhost:27017/komondor-ci
 
     steps:
       - name: Check out
@@ -404,23 +450,30 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # Two modes, so this job cannot quietly go on being green while claiming
-      # to be a gate:
+      # The directory missing here would mean this job started a mongod and
+      # ran zero tests while still reporting green — the exact failure this
+      # job used to be a placeholder for. Fails loudly instead of the old
+      # warn-and-exit-0: a populated __tests__/integration/ is now the
+      # expected state, not a milestone still being waited for.
       #
-      #   no __tests__/integration/  -> warn, loudly, that zero tests ran.
-      #   __tests__/integration/     -> a real gate. --passWithNoTests is gone,
-      #                                 so a directory that exists but matches
-      #                                 nothing (wrong filename, wrong pattern)
-      #                                 fails instead of passing — which is the
-      #                                 exact failure that would otherwise let
-      #                                 somebody believe in this job's tick.
+      # --passWithNoTests is deliberately never passed below: a directory that
+      # exists but matches nothing (wrong filename, wrong pattern) must fail
+      # jest's own "no tests found" the same way, not read as success.
+      #
+      # --testPathIgnorePatterns overrides jest.config.js's copy (CLI array
+      # options replace the config value, they do not merge with it) —
+      # without this, the default run's exclusion of __tests__/integration/
+      # would apply here too and this step would match nothing.
       - name: Run integration tests
         run: |
           set -eu
 
           if [ ! -d __tests__/integration ]; then
-            echo "::warning::__tests__/integration/ does not exist. This job started a MongoDB service and ran ZERO tests. Its green tick is NOT integration coverage — nothing here exercises the real mongoose driver."
-            exit 0
+            echo "::error::__tests__/integration/ does not exist. This job started a MongoDB service to run it against."
+            exit 1
           fi
 
-          yarn test --testPathPattern "__tests__/integration/" --runInBand
+          yarn test \
+            --testPathIgnorePatterns "/node_modules/" \
+            --testPathPattern "__tests__/integration/" \
+            --runInBand
