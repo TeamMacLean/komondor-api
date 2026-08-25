@@ -1,9 +1,11 @@
-const dotenv = require("dotenv");
+const { loadDotenv } = require("./lib/utils/loadDotenv");
 
 // Loaded here, before anything is validated, so that validateEnv sees .env.
-// app.js calls dotenv.config() too; the second call leaves already-set
-// variables alone, so this changes nothing beyond when validation can run.
-dotenv.config();
+// app.js loads it too; the second call leaves already-set variables alone, so
+// this changes nothing beyond when validation can run. Skipped entirely under
+// NODE_ENV=test — see loadDotenv for why that has to happen at the call rather
+// than by clearing process.env in a jest setup file.
+loadDotenv();
 
 const {
   validateEnv,
@@ -54,7 +56,13 @@ const MONGO_URI = resolveMongoUri(process.env);
 // by a completed database round-trip (a claim query that returned, or a lease
 // heartbeat that landed), and a slow round-trip is not a stalled queue. The
 // 15-minute default still holds for a long ingest, which heartbeats every poll
-// interval for its whole duration and so keeps reporting fresh.
+// interval and so keeps reporting fresh — but only up to the worker's own
+// overrun bound (DEFAULT_MAX_JOB_MS, 6h). Past that the worker deliberately
+// stops reporting, and a stale tick is precisely the signal this window exists
+// to surface. Worth exposing INGEST_MAX_JOB_MINUTES ->
+// startIngestWorker({ maxJobMs }) (with a validateEnv bound alongside the other
+// two) so the overrun is tunable per deployment; lib/ingest-queue.js already
+// exports the default.
 const INGEST_TICK_STALE_MS =
   Number(process.env.INGEST_TICK_STALE_MINUTES || 15) * 60 * 1000;
 

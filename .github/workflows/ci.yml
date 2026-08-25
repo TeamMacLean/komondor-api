@@ -45,8 +45,144 @@ jobs:
 
       # Thresholds live in jest.config.js (coverageThreshold). A drop below
       # them fails this step.
+      #
+      # ONE retry, and only for a known supertest transport flake. Roughly one
+      # run in fifteen has a single test whose entire failure message is
+      # "socket hang up": supertest binds an ephemeral server per request and
+      # the connection to it is occasionally dropped before the response is
+      # read. That is not this repository's code — it reproduces on master, and
+      # a reviewer reproduced it again in a 25-line file containing none of
+      # this repo at all. Measured here: 1 flaky run in 30 consecutive local
+      # runs of the full suite.
+      #
+      # A blanket "retry twice" would also paper over a real intermittent bug,
+      # so the retry is gated on the SHAPE of the failure, not on the fact that
+      # something failed. The run is retried only when every failing test
+      # failed with a transport error and there were at most MAX_FLAKY of them.
+      # An assertion failure among them, a suite that failed to load, a
+      # coverage-threshold failure, or a sudden pile of transport errors all
+      # fail the build on the first attempt with no retry at all.
+      #
+      # WHAT THIS CAN STILL HIDE: a genuine intermittent fault in application
+      # code whose symptom is also a dropped connection — a route that kills
+      # the socket under a rare race would be indistinguishable from the flake
+      # here. The retry is bounded at one and every retried run prints a
+      # ::warning:: naming the tests it tolerated, so such a fault surfaces as
+      # "this build needed a retry" rather than as silence. Read those warnings
+      # before treating a green build as a clean one; a test that shows up in
+      # them repeatedly is not the flake, it is a bug.
       - name: Unit tests with coverage
-        run: yarn test --coverage
+        run: |
+          set -u
+
+          run_suite() {
+            set +e
+            yarn test --coverage --ci --json --outputFile=jest-results.json
+            suite_status=$?
+            set -e
+          }
+
+          classify() {
+            node - <<'NODE'
+          const fs = require("fs");
+
+          // At most this many transport failures may be tolerated in one run.
+          // The observed flake is a single dropped connection; a run where a
+          // dozen requests died is a symptom, not noise.
+          const MAX_FLAKY = 2;
+
+          // Bare transport errors from supertest's client/server pair. These
+          // carry no assertion text — a real failed expectation never looks
+          // like this.
+          const TRANSPORT = [
+            // Anchored to a whole line: jest renders this error either bare
+            // or as "Error: socket hang up", and both are the entire first
+            // line. An assertion message never is.
+            /^(Error: )?socket hang up$/m,
+            /\bECONNRESET\b/,
+            /\bEPIPE\b/,
+            /Client network socket disconnected/,
+          ];
+
+          let results;
+          try {
+            results = JSON.parse(fs.readFileSync("jest-results.json", "utf8"));
+          } catch (err) {
+            console.log(`No parseable jest results (${err.message}); not retrying.`);
+            process.exit(1);
+          }
+
+          // A suite that could not even be loaded is a broken build, not a
+          // dropped socket.
+          if (results.numRuntimeErrorTestSuites > 0) {
+            console.log("A suite failed to run; not retrying.");
+            process.exit(1);
+          }
+
+          const failed = [];
+          (results.testResults || []).forEach((suite) => {
+            if (suite.testExecError) {
+              failed.push({ name: suite.name, messages: ["<suite execution error>"] });
+            }
+            (suite.assertionResults || [])
+              .filter((t) => t.status === "failed")
+              .forEach((t) => {
+                failed.push({ name: t.fullName, messages: t.failureMessages || [] });
+              });
+          });
+
+          // Non-zero exit with nothing failing is the coverage ratchet (or a
+          // jest error). Re-running does not change a coverage number.
+          if (failed.length === 0) {
+            console.log("The run failed with no failing test; not retrying.");
+            process.exit(1);
+          }
+
+          if (failed.length > MAX_FLAKY) {
+            console.log(
+              `${failed.length} failing tests exceeds MAX_FLAKY=${MAX_FLAKY}; not retrying.`,
+            );
+            process.exit(1);
+          }
+
+          const isTransport = (f) =>
+            f.messages.length > 0 &&
+            f.messages.every((m) => TRANSPORT.some((re) => re.test(m)));
+
+          const real = failed.filter((f) => !isTransport(f));
+          if (real.length > 0) {
+            real.forEach((f) => console.log(`Real failure: ${f.name}`));
+            process.exit(1);
+          }
+
+          failed.forEach((f) => {
+            console.log(
+              `::warning::Tolerating a known supertest transport failure in "${f.name}" and retrying once.`,
+            );
+          });
+          process.exit(0);
+          NODE
+          }
+
+          run_suite
+
+          if [ "$suite_status" -ne 0 ]; then
+            set +e
+            classify
+            retryable=$?
+            set -e
+
+            if [ "$retryable" -ne 0 ]; then
+              echo "::error::Test failures are not the known transport flake — not retrying."
+              rm -f jest-results.json
+              exit "$suite_status"
+            fi
+
+            run_suite
+          fi
+
+          rm -f jest-results.json
+          exit "$suite_status"
 
       - name: Upload coverage report
         if: always()
@@ -174,15 +310,66 @@ jobs:
         if: always()
         run: rm -f audit.json
 
-      # Separate from the coverage run on purpose: --detectOpenHandles forces
-      # --runInBand, which is markedly slower, and its output is only readable
-      # when it is the only thing in the step log. A leaked mongoose connection
-      # or timer shows up here as a handle report.
-      - name: Open handle detection
-        run: yarn test --detectOpenHandles --runInBand
+      # This job used to be `yarn test --detectOpenHandles --runInBand`, which
+      # is precisely the configuration in which the leak it exists to find is
+      # invisible, and it was green for the entire life of one:
+      #
+      #   * --detectOpenHandles forces --runInBand (jest's own
+      #     shouldRunInBand() returns true for it unconditionally), and
+      #   * a leak announces itself as "A worker process has failed to exit
+      #     gracefully" — which needs a worker. In band there is none.
+      #
+      # jest also runs in band whenever maxWorkers <= 1, which is what a
+      # 2-vCPU GitHub runner computes, so simply dropping the flag would not
+      # have been enough either. `--workerIdleMemoryLimit` is the one switch
+      # that forces a forked worker regardless of worker count.
+      #
+      # One suite per invocation, so the leaking suite is always the last thing
+      # its worker did and the timer is guaranteed to still be alive at
+      # shutdown. Run together, whether a leak is noticed depends on which
+      # suite happens to land last — measured at 8 detections in 10 runs with a
+      # known 1s timer present, and 0 in 10 once other suites kept the worker
+      # busy past it. Per suite it is 6 out of 6, and 0 out of 6 with the leak
+      # fixed.
+      #
+      # Test FAILURES are deliberately not fatal here: correctness is the
+      # `Unit tests with coverage` step's job, and letting the transport flake
+      # redden this one would teach everybody to ignore it. Only a force-exit
+      # fails this step.
+      - name: Leaked handle detection
+        run: |
+          set -u
+          leaked=""
+
+          for suite in $(yarn --silent jest --listTests | sort); do
+            log=$(mktemp)
+            yarn test --ci --maxWorkers=2 --workerIdleMemoryLimit=512MB \
+              --runTestsByPath "$suite" > "$log" 2>&1 || true
+
+            if grep -q "failed to exit gracefully" "$log"; then
+              leaked="${leaked}${suite}"$'\n'
+              echo "::error::${suite} leaves a handle open: jest had to force-kill its worker."
+            fi
+            rm -f "$log"
+          done
+
+          if [ -n "$leaked" ]; then
+            echo "Suites holding the event loop open after their last test:"
+            printf '%s' "$leaked"
+            echo "Re-run that suite with --detectOpenHandles --runInBand to see the handle."
+            exit 1
+          fi
+
+          echo "No suite left a handle open."
 
   integration:
-    name: Integration tests (MongoDB)
+    # The name says PLACEHOLDER because that is what it is: __tests__/integration/
+    # does not exist, so this job spins up mongo:6 and executes ZERO tests. It
+    # was previously called "Integration tests (MongoDB)", which made a green
+    # tick look like integration coverage — and it is the only job that could
+    # ever catch the mongoose-5 migration gap, so mistaking it for coverage is
+    # expensive. Rename it back the moment there is something here to run.
+    name: Integration tests — PLACEHOLDER, runs zero tests
     # PR-only: these need a real mongod, and running them on every push to a
     # feature branch buys nothing the PR run does not already cover.
     if: github.event_name == 'pull_request'
@@ -217,8 +404,23 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # __tests__/integration/ does not exist yet. --passWithNoTests makes an
-      # empty (or absent) directory a pass rather than a failure, so this job
-      # is wired up and green before the first integration test is written.
+      # Two modes, so this job cannot quietly go on being green while claiming
+      # to be a gate:
+      #
+      #   no __tests__/integration/  -> warn, loudly, that zero tests ran.
+      #   __tests__/integration/     -> a real gate. --passWithNoTests is gone,
+      #                                 so a directory that exists but matches
+      #                                 nothing (wrong filename, wrong pattern)
+      #                                 fails instead of passing — which is the
+      #                                 exact failure that would otherwise let
+      #                                 somebody believe in this job's tick.
       - name: Run integration tests
-        run: yarn test --testPathPattern "__tests__/integration/" --passWithNoTests --runInBand
+        run: |
+          set -eu
+
+          if [ ! -d __tests__/integration ]; then
+            echo "::warning::__tests__/integration/ does not exist. This job started a MongoDB service and ran ZERO tests. Its green tick is NOT integration coverage — nothing here exercises the real mongoose driver."
+            exit 0
+          fi
+
+          yarn test --testPathPattern "__tests__/integration/" --runInBand

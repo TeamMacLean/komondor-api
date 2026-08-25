@@ -192,7 +192,12 @@ describe("GET /sample?id=:id", () => {
       expect(response.body).toHaveProperty("sample");
     });
 
-    test("should return sample when user is owner regardless of group membership", async () => {
+    test("should refuse the sample's owner when they cannot read its group", async () => {
+      // UPDATED: this used to assert a 200. The check read
+      // `if (!canAccess && !isOwner)`, so a caller in none of the sample's
+      // groups still got the record whenever the `owner` string matched their
+      // username — a read grant that removing them from the group could not
+      // withdraw, on a field copied verbatim out of req.body until this branch.
       mockUser = {
         username: "testuser", // matches mockSample.owner
         groups: [],
@@ -204,8 +209,36 @@ describe("GET /sample?id=:id", () => {
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty("sample");
+      expect(response.status).toBe(403);
+      expect(response.body.error).toMatch(/permission/i);
+    });
+
+    test("the authorisation decision never reads the sample's owner field", async () => {
+      // A second angle on the removal above, shaped differently on purpose:
+      // that test asserts the answer, this one asserts the *inputs* to the
+      // answer. `owner` is not one of them, so any re-introduced clause is
+      // caught by the read itself rather than by the status code — and the two
+      // tests therefore fail independently.
+      let ownerReads = 0;
+      const sample = { ...mockSample };
+      delete sample.owner;
+      Object.defineProperty(sample, "owner", {
+        enumerable: true,
+        configurable: true,
+        get() {
+          ownerReads += 1;
+          return "testuser"; // the caller, so a restored clause would match
+        },
+      });
+
+      mockUser = { username: "testuser", groups: [], isAdmin: false };
+      mockSampleFindById(jest.fn().mockResolvedValue(sample));
+      grantGroups({ read: ["some_other_group_id"], write: [] });
+
+      const response = await request(app).get(`/sample?id=${mockSampleId}`);
+
+      expect(ownerReads).toBe(0);
+      expect(response.status).toBe(403);
     });
 
     test("should include populated group with _id and name fields", async () => {
@@ -437,6 +470,84 @@ describe("GET /sample?id=:id", () => {
         { mode: "read" },
       );
     });
+  });
+});
+
+describe("GET /samples", () => {
+  // The list endpoint had no test at all, so the one line that scopes it —
+  // `const groupIds = await visibleGroupIds(req.user)` — was unwatched:
+  // replacing it with `null`, which means "no filter, every sample in every
+  // group", kept the whole suite green.
+  const ORIGINAL_FULL_ACCESS = process.env.FULL_RECORDS_ACCESS_USERS;
+
+  /** Stubs Sample.iCanSee(...).populate().sort().exec(). */
+  const mockICanSee = (samples) => {
+    const chain = {
+      populate: jest.fn(() => chain),
+      sort: jest.fn(() => chain),
+      exec: jest.fn().mockResolvedValue(samples),
+    };
+    Sample.iCanSee = jest.fn(() => chain);
+    return chain;
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUser = { username: "testuser", groups: ["group-123"], isAdmin: false };
+    // visibleGroupIds short-circuits to null for a full-access user, so the
+    // list has to be empty for this to exercise the ordinary path.
+    process.env.FULL_RECORDS_ACCESS_USERS = "[]";
+  });
+
+  afterEach(() => {
+    if (ORIGINAL_FULL_ACCESS === undefined) {
+      delete process.env.FULL_RECORDS_ACCESS_USERS;
+    } else {
+      process.env.FULL_RECORDS_ACCESS_USERS = ORIGINAL_FULL_ACCESS;
+    }
+  });
+
+  test("should return the samples the caller may see, newest first", async () => {
+    const samples = [{ _id: "1", name: "Sample A" }];
+    const chain = mockICanSee(samples);
+    grantGroups({ read: ["group-123"], write: [] });
+
+    const response = await request(app).get("/samples");
+
+    expect(response.status).toBe(200);
+    expect(response.body.samples).toEqual(samples);
+    // The cards render the group name, and the list is presented newest first.
+    expect(chain.populate).toHaveBeenCalledWith("group");
+    expect(chain.sort).toHaveBeenCalledWith("-createdAt");
+  });
+
+  test("should scope the query to the group ids resolved from the database", async () => {
+    // Not the `groups` claim on the token: that is only as fresh as the token,
+    // and a group soft-deleted since login must stop being visible here too.
+    const liveGroupId = new mongoose.Types.ObjectId().toString();
+    mockICanSee([]);
+    grantGroups({ read: [liveGroupId], write: [] });
+
+    const response = await request(app).get("/samples");
+
+    expect(response.status).toBe(200);
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(mockUser, { mode: "read" });
+    const [user, groupIds] = Sample.iCanSee.mock.calls[0];
+    expect(user).toBe(mockUser);
+    expect(groupIds.map(String)).toEqual([liveGroupId]);
+  });
+
+  test("should pass an empty list, not null, for a caller in no live group", async () => {
+    // [] means "belongs to nothing, match nothing"; null means "no filter at
+    // all". They are opposites, and conflating them makes a groupless caller a
+    // reader of every group.
+    mockICanSee([]);
+    grantGroups({ read: [], write: [] });
+
+    const response = await request(app).get("/samples");
+
+    expect(response.status).toBe(200);
+    expect(Sample.iCanSee).toHaveBeenCalledWith(mockUser, []);
   });
 });
 

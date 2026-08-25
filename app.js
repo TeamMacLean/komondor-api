@@ -3,8 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const fs = require("fs").promises;
 const { constants: fsConstants } = require("fs");
-const dotenv = require("dotenv");
-dotenv.config();
+const { loadDotenv } = require("./lib/utils/loadDotenv");
+loadDotenv();
 
 const authRoutes = require("./routes/auth");
 const projectsRoutes = require("./routes/projects");

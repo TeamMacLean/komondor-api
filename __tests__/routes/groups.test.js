@@ -44,11 +44,18 @@ afterAll(() => {
   fs.rmSync(datastoreRoot, { recursive: true, force: true });
 });
 
-// Mock dependencies
-jest.mock("../../models/Group", () => ({
-  GroupsIAmIn: jest.fn(),
-  findById: jest.fn(),
-}));
+// Mock dependencies.
+//
+// The mock is a jest.fn(), not a plain object, because POST /groups/new does
+// `new Group({...}).save()` — `new` on an object literal is a TypeError, so a
+// non-constructible mock cannot be used to exercise that route at all. That is
+// why the admin creation case below used to assert nothing.
+jest.mock("../../models/Group", () => {
+  const GroupMock = jest.fn();
+  GroupMock.GroupsIAmIn = jest.fn();
+  GroupMock.findById = jest.fn();
+  return GroupMock;
+});
 
 // Create test app
 const app = express();
@@ -319,21 +326,62 @@ describe("POST /groups/new", () => {
     };
   });
 
+  // Group.mockImplementation is set per test, and clearAllMocks (above) does
+  // not undo an implementation. Reset it so a constructor stub cannot leak
+  // into a later describe block.
+  afterEach(() => {
+    Group.mockReset();
+  });
+
   test("should create new group when user is admin", async () => {
-    const mockSavedGroup = {
+    const savedGroup = {
       _id: "new-group-id",
       name: "new-group",
+      safeName: "new_group",
       ldapGroups: ["CN=new-group"],
-      save: jest.fn().mockResolvedValue(this),
     };
+    const save = jest.fn().mockResolvedValue(savedGroup);
+    Group.mockImplementation(() => ({ save }));
 
-    // Need to mock the Group constructor
-    const GroupMock = require("../../models/Group");
-    GroupMock.mockImplementation = jest.fn(() => mockSavedGroup);
+    // safeName and sendToEna are sent deliberately. safeName is derived by the
+    // model's pre-validate hook and *is* a directory name under
+    // DATASTORE_ROOT, so a caller who could set it directly would choose where
+    // the group's files land. The assertion below is that neither reaches the
+    // constructor.
+    const response = await request(app)
+      .post("/groups/new")
+      .send({
+        name: "new-group",
+        ldapGroups: ["CN=new-group"],
+        safeName: "../escaped",
+        sendToEna: true,
+      });
 
-    // Since we can't easily mock the constructor with our current setup,
-    // this test documents the expected behavior
-    // In a real implementation, the group would be created
+    expect(response.status).toBe(201);
+    expect(response.body).toEqual({ group: savedGroup });
+
+    expect(Group).toHaveBeenCalledTimes(1);
+    expect(Group).toHaveBeenCalledWith({
+      name: "new-group",
+      ldapGroups: ["CN=new-group"],
+    });
+    expect(save).toHaveBeenCalledTimes(1);
+  });
+
+  test("reports a failed save as a 500 rather than hanging", async () => {
+    const save = jest.fn().mockRejectedValue(new Error("duplicate key"));
+    Group.mockImplementation(() => ({ save }));
+
+    const errorSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const response = await request(app)
+      .post("/groups/new")
+      .send({ name: "new-group", ldapGroups: ["CN=new-group"] });
+    errorSpy.mockRestore();
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: "duplicate key" });
   });
 
   test("should return 403 when non-admin tries to create group", async () => {

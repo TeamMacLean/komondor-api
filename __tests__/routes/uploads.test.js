@@ -158,6 +158,37 @@ describe("authentication on the upload mount", () => {
     expect(fs.existsSync(_path.join(uploadDir, id))).toBe(true);
   });
 
+  test("refuses an upload admitted with no authenticated user", async () => {
+    // admitUpload has its own `if (!username)` guard, documented as existing
+    // so a future refactor that loses the mount's authentication fails closed.
+    // Nothing watched it: delete it and the request is still refused, because
+    // checkUploadAllowed happens to answer 401 for a missing username too —
+    // same status, same message, so no response-level assertion can tell the
+    // two apart.
+    //
+    // What distinguishes them is whether the quota layer is consulted at all.
+    // The guard's whole point is that an unauthenticated admission is refused
+    // *before* it reaches code that would otherwise reserve a slot and
+    // register an upload under an undefined owner.
+    const checkUploadAllowed = jest.spyOn(quota, "checkUploadAllowed");
+
+    // A principal that passes isAuthenticated — req.user is set — but carries
+    // no username. That is exactly the shape a refactor leaves behind, and the
+    // only way to reach admitUpload without a username at all.
+    currentUser = {};
+
+    const response = await request(app)
+      .post("/uploads")
+      .set("Tus-Resumable", "1.0.0")
+      .set("Upload-Length", "4");
+
+    expect(response.status).toBe(401);
+    // The refusal came from the guard, not from the quota check downstream.
+    expect(checkUploadAllowed).not.toHaveBeenCalled();
+    // And nothing was staged under a nameless owner.
+    expect(uploadDirEntries()).toEqual([]);
+  });
+
   test("lets an authenticated user create an upload", async () => {
     const response = await createUpload("alice");
 

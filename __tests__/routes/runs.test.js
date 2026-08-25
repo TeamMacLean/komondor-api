@@ -264,6 +264,69 @@ describe("Runs API Routes", () => {
   });
 
   describe("GET /runs", () => {
+    const ORIGINAL_FULL_ACCESS = process.env.FULL_RECORDS_ACCESS_USERS;
+
+    afterEach(() => {
+      if (ORIGINAL_FULL_ACCESS === undefined) {
+        delete process.env.FULL_RECORDS_ACCESS_USERS;
+      } else {
+        process.env.FULL_RECORDS_ACCESS_USERS = ORIGINAL_FULL_ACCESS;
+      }
+    });
+
+    /** Stubs Run.iCanSee(...).populate().sort().exec(). */
+    const mockICanSee = (runs) => {
+      const chain = {
+        populate: jest.fn(() => chain),
+        sort: jest.fn(() => chain),
+        exec: jest.fn().mockResolvedValue(runs),
+      };
+      Run.iCanSee = jest.fn(() => chain);
+      return chain;
+    };
+
+    describe("the list is scoped to the caller's live groups", () => {
+      // The scoping argument was unwatched: every test mocked iCanSee and
+      // ignored what it was called with, so replacing
+      // `await visibleGroupIds(req.user)` with `null` — null meaning "no filter
+      // at all", i.e. every run in every group — kept the suite green.
+      beforeEach(() => {
+        // visibleGroupIds short-circuits to null for a full-access user, so the
+        // list has to be empty for this to exercise the ordinary path.
+        process.env.FULL_RECORDS_ACCESS_USERS = "[]";
+      });
+
+      test("should hand iCanSee the group ids resolved from the database", async () => {
+        // Not the `groups` claim on the token: that is only as fresh as the
+        // token, and a group soft-deleted since login must stop being visible.
+        const liveGroupId = new mongoose.Types.ObjectId();
+        setGroups({ read: [{ _id: liveGroupId }], write: [] });
+        mockICanSee([]);
+
+        const response = await request(app).get("/runs");
+
+        expect(response.status).toBe(200);
+        expect(Group.GroupsIAmIn).toHaveBeenCalledWith(expect.anything(), {
+          mode: "read",
+        });
+        const [, groupIds] = Run.iCanSee.mock.calls[0];
+        expect(groupIds.map(String)).toEqual([String(liveGroupId)]);
+      });
+
+      test("should hand iCanSee an empty list, not null, for a groupless caller", async () => {
+        // [] means "belongs to nothing, match nothing"; null means "no filter".
+        // The two are opposites, and conflating them turns a caller in no live
+        // group into a reader of every group.
+        setGroups({ read: [], write: [] });
+        mockICanSee([]);
+
+        const response = await request(app).get("/runs");
+
+        expect(response.status).toBe(200);
+        expect(Run.iCanSee.mock.calls[0][1]).toEqual([]);
+      });
+    });
+
     test("should return all runs visible to user", async () => {
       const mockRuns = [
         { _id: "1", name: "Run 1" },
@@ -287,6 +350,81 @@ describe("Runs API Routes", () => {
   });
 
   describe("GET /run", () => {
+    const singleRunId = new mongoose.Types.ObjectId();
+    const runGroupId = new mongoose.Types.ObjectId();
+
+    /** A Run.findById(...).populate() x4 .exec() that resolves to `run`. */
+    const mockRunLookup = (run) => {
+      const chain = { exec: jest.fn().mockResolvedValue(run) };
+      chain.populate = jest.fn(() => chain);
+      Run.findById = jest.fn(() => chain);
+      return chain;
+    };
+
+    const buildRun = (overrides = {}) => ({
+      _id: singleRunId,
+      name: "Test Run",
+      path: "group/project/sample/run",
+      group: { _id: runGroupId, name: "Test Group" },
+      owner: "other_user",
+      rawFiles: [],
+      additionalFiles: [],
+      ...overrides,
+    });
+
+    beforeEach(() => {
+      // The handler compares the run's files to its datastore directory, and
+      // path.join throws on an undefined root.
+      process.env.DATASTORE_ROOT = "/mnt/reads";
+    });
+
+    test("should return the run when the caller may read its group", async () => {
+      setGroups({ read: [{ _id: runGroupId }], write: [] });
+      mockRunLookup(buildRun());
+
+      const response = await request(app).get(`/run?id=${singleRunId}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.run.name).toBe("Test Run");
+    });
+
+    test("should refuse a caller who cannot read the run's group", async () => {
+      // Nothing in this suite exercised the 403: replacing the whole condition
+      // with `if (false)` — deleting the refusal outright — changed no test.
+      setGroups({ read: [{ _id: new mongoose.Types.ObjectId() }], write: [] });
+      mockRunLookup(buildRun());
+
+      const response = await request(app).get(`/run?id=${singleRunId}`);
+
+      expect(response.status).toBe(403);
+      expect(response.body.error).toMatch(/permission/i);
+    });
+
+    test("should refuse the run's owner when they cannot read its group", async () => {
+      // The check used to read `if (!canAccess && !isOwner)`. `owner` is a
+      // permanent grant no group change can withdraw, and on runs created
+      // before it was stamped from the session it is a verbatim copy of
+      // req.body — so an old record could name anybody and hand them a
+      // cross-group read for good.
+      setGroups({ read: [], write: [] });
+      mockRunLookup(buildRun({ owner: "testuser" }));
+
+      const response = await request(app).get(`/run?id=${singleRunId}`);
+
+      expect(response.status).toBe(403);
+    });
+
+    test("should refuse a run whose group has been soft-deleted", async () => {
+      // GroupsIAmIn omits soft-deleted groups for everybody, so a retired
+      // group's runs become visible to nobody — including, now, their owner.
+      setGroups({ read: [], write: [] });
+      mockRunLookup(buildRun({ group: null, owner: "testuser" }));
+
+      const response = await request(app).get(`/run?id=${singleRunId}`);
+
+      expect(response.status).toBe(403);
+    });
+
     test("should refuse an operator supplied in place of the run ID", async () => {
       Run.findById = jest.fn();
 
@@ -990,6 +1128,118 @@ describe("Runs API Routes", () => {
       );
     });
 
+    test("a status response never carries the job payload", async () => {
+      // An IngestJob's payload is the whole submitted file list. Two separate
+      // things keep it out of a status response — the projection in
+      // INGEST_JOB_FIELDS and the allowlist in summariseIngestJob — and this
+      // pins the observable half: whatever the query returns, the client is
+      // not shown it.
+      //
+      // Deliberately handed a job that DOES carry a payload, which is what the
+      // query would return if the projection were ever dropped.
+      const jobId = new mongoose.Types.ObjectId();
+      const mockRun = {
+        _id: mockRunId,
+        name: "Test Run",
+        group: mockGroupId,
+        status: "queued",
+        md5VerificationStatus: "pending",
+      };
+
+      Run.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
+      });
+
+      const Read = require("../../models/Read");
+      Read.find = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      IngestJob.find.mockReturnValue({
+        select: jest.fn().mockResolvedValue([
+          {
+            _id: jobId,
+            runId: mockRunId,
+            status: "pending",
+            attempts: 0,
+            maxAttempts: 3,
+            payload: {
+              rawFiles: [{ name: "secret.fq", uploadName: "abc123" }],
+              username: "someone-else",
+            },
+            createdAt: new Date("2026-02-02T09:00:00Z"),
+            updatedAt: new Date("2026-02-02T09:00:00Z"),
+          },
+        ]),
+      });
+
+      const response = await request(app).get(`/runs/${mockRunId}/status`);
+
+      expect(response.status).toBe(200);
+      expect(response.body.ingest).not.toHaveProperty("payload");
+      expect(Object.keys(response.body.ingest).sort()).toEqual([
+        "attempts",
+        "jobId",
+        "lastError",
+        "maxAttempts",
+        "queuedAt",
+        "status",
+        "updatedAt",
+      ]);
+    });
+
+    test("the ingest lookup asks the database for no more than it reports", async () => {
+      // The other half, and the reason the test above is not enough on its
+      // own: summariseIngestJob's allowlist means the payload stays out of the
+      // response even if the projection is deleted, so the response cannot
+      // witness the projection. This asserts the query shape directly —
+      // nothing that is not reported is fetched, so a payload never reaches
+      // process memory to be leaked by some later change to the summariser.
+      const mockRun = {
+        _id: mockRunId,
+        name: "Test Run",
+        group: mockGroupId,
+        status: "queued",
+        md5VerificationStatus: "pending",
+      };
+
+      Run.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
+      });
+
+      const Read = require("../../models/Read");
+      Read.find = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      const select = jest.fn().mockResolvedValue([]);
+      IngestJob.find.mockReturnValue({ select });
+
+      await request(app).get(`/runs/${mockRunId}/status`);
+
+      expect(select).toHaveBeenCalledTimes(1);
+      const projection = select.mock.calls[0][0];
+      // An inclusion projection, so the fields are named rather than excluded
+      // — a mongoose projection of undefined or "" would fetch the whole
+      // document, payload included.
+      expect(typeof projection).toBe("string");
+      expect(projection.trim()).not.toBe("");
+      expect(projection).not.toMatch(/payload/);
+      expect(projection.split(/\s+/).filter(Boolean).sort()).toEqual([
+        "attempts",
+        "createdAt",
+        "lastError",
+        "maxAttempts",
+        "runId",
+        "status",
+        "updatedAt",
+      ]);
+    });
+
     test("should report a null ingest for a run that was never queued", async () => {
       const mockRun = {
         _id: mockRunId,
@@ -1056,7 +1306,12 @@ describe("Runs API Routes", () => {
       expect(response.status).toBe(403);
     });
 
-    test("should allow access when user is not in group but is the owner", async () => {
+    test("should refuse the run's owner when they cannot read its group", async () => {
+      // UPDATED: this used to assert a 200. The status check read
+      // `if (!canAccess && !isOwner)`, which let anybody named in a run's
+      // `owner` field read its status from outside every group it belongs to —
+      // and `owner` was client-supplied on every run created before this
+      // branch. Ownership is no longer a grant anywhere; see GET /run.
       const unauthorizedGroupId = new mongoose.Types.ObjectId();
       const mockRun = {
         _id: mockRunId,
@@ -1084,7 +1339,48 @@ describe("Runs API Routes", () => {
 
       const response = await request(app).get(`/runs/${mockRunId}/status`);
 
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(403);
+    });
+
+    test("the authorisation decision never reads the run's owner field", async () => {
+      // A second angle on the removal asserted just above, deliberately not
+      // shaped like it. That test says the answer is 403; this one says
+      // `owner` is not an input to the answer at all — so a re-introduced
+      // clause is caught by the read itself, and the two tests fail
+      // independently rather than as one assertion in two places.
+      let ownerReads = 0;
+      const mockRun = {
+        _id: mockRunId,
+        name: "Test Run",
+        group: new mongoose.Types.ObjectId(), // a group the caller cannot read
+        status: "complete",
+        statusError: null,
+        md5VerificationStatus: "in_progress",
+      };
+      Object.defineProperty(mockRun, "owner", {
+        enumerable: true,
+        configurable: true,
+        get() {
+          ownerReads += 1;
+          return "testuser"; // the caller, so a restored clause would match
+        },
+      });
+
+      Run.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
+      });
+
+      const Read = require("../../models/Read");
+      Read.find = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      const response = await request(app).get(`/runs/${mockRunId}/status`);
+
+      expect(ownerReads).toBe(0);
+      expect(response.status).toBe(403);
     });
 
     test("should allow a read-only user to see a run they cannot modify", async () => {
@@ -1323,13 +1619,17 @@ describe("Runs API Routes", () => {
         {
           _id: mockRun2Id,
           name: "Run 2",
-          owner: "testuser", // not in group, but is owner
+          owner: "testuser",
           status: "complete",
           md5VerificationStatus: "pending",
           md5VerificationAttempts: 0,
           md5VerificationLastAttempt: null,
           md5VerificationCompletedAt: null,
-          group: new mongoose.Types.ObjectId(), // unauthorized group
+          // UPDATED: this used to be a group the caller is not in, and the run
+          // was returned anyway because it named them as `owner`. Ownership is
+          // no longer a grant, so a run in the caller's own group is what makes
+          // this a test of the batch shape rather than of the filter.
+          group: mockGroupId,
           createdAt: new Date("2026-02-02T09:30:00Z"),
         },
       ];
@@ -1421,6 +1721,102 @@ describe("Runs API Routes", () => {
       // dropped id has to be named rather than silently omitted.
       expect(response.body.requested).toBe(2);
       expect(response.body.missing).toEqual([mockRun2Id.toString()]);
+    });
+
+    test("the batch filter never reads a run's owner field", async () => {
+      // A second angle on the removal asserted below, shaped differently on
+      // purpose: that test says the run is absent from the response, this one
+      // says `owner` was never an input to deciding so. A re-introduced
+      // `|| run.owner === req.user.username` has to read the field to compare
+      // it, so it trips here regardless of what the response then contains.
+      let ownerReads = 0;
+      const run = {
+        _id: mockRun1Id,
+        name: "Someone Else's Run",
+        group: new mongoose.Types.ObjectId(), // not a group the caller reads
+        status: "complete",
+        md5VerificationStatus: "complete",
+        createdAt: new Date(),
+      };
+      Object.defineProperty(run, "owner", {
+        enumerable: true,
+        configurable: true,
+        get() {
+          ownerReads += 1;
+          return "testuser";
+        },
+      });
+
+      Run.find = jest.fn().mockReturnValue({
+        select: jest.fn().mockResolvedValue([run]),
+      });
+
+      const response = await request(app)
+        .post("/runs/batch-status")
+        .send({ runIds: [mockRun1Id.toString()] });
+
+      expect(ownerReads).toBe(0);
+      expect(response.body.runs).toHaveLength(0);
+    });
+
+    test("the batch query does not even fetch owner from the database", async () => {
+      // The third angle, and the only one that is about the query rather than
+      // about the handler: `owner` is not in the projection, so a clause that
+      // tried to consult it would be reading undefined rather than a stale
+      // grant. Asserting the projection makes that explicit instead of
+      // incidental, and it fails for a reason neither behavioural test can.
+      const select = jest.fn().mockResolvedValue([]);
+      Run.find = jest.fn().mockReturnValue({ select });
+
+      await request(app)
+        .post("/runs/batch-status")
+        .send({ runIds: [mockRun1Id.toString()] });
+
+      expect(select).toHaveBeenCalledTimes(1);
+      const projection = select.mock.calls[0][0];
+      // A named inclusion list: undefined or "" would fetch whole documents,
+      // owner included.
+      expect(typeof projection).toBe("string");
+      expect(projection.trim()).not.toBe("");
+      const fields = projection.split(/\s+/).filter(Boolean);
+      expect(fields).not.toContain("owner");
+      // `group` is what the filter actually decides on, so it has to be here —
+      // otherwise every run would be invisible for the wrong reason and this
+      // test would pass on a broken endpoint.
+      expect(fields).toContain("group");
+    });
+
+    test("should not return a run in another group because it names the caller as owner", async () => {
+      // The filter used to read `readableGroups.has(...) || run.owner ===
+      // req.user.username`, so one un-revocable string on a historical run —
+      // `owner` was copied out of req.body until this branch — pulled it into a
+      // batch the caller could otherwise not see. `owner` is not even selected
+      // any more.
+      const unauthorizedGroupId = new mongoose.Types.ObjectId();
+
+      Run.find = jest.fn().mockReturnValue({
+        select: jest.fn().mockResolvedValue([
+          {
+            _id: mockRun1Id,
+            name: "Someone Else's Run",
+            group: unauthorizedGroupId,
+            owner: "testuser",
+            status: "complete",
+            md5VerificationStatus: "complete",
+            createdAt: new Date(),
+          },
+        ]),
+      });
+
+      const response = await request(app)
+        .post("/runs/batch-status")
+        .send({ runIds: [mockRun1Id.toString()] });
+
+      expect(response.status).toBe(200);
+      expect(response.body.runs).toHaveLength(0);
+      // Reported absent rather than refused: saying which of "no such run" and
+      // "not yours" it was would make this an existence oracle.
+      expect(response.body.missing).toEqual([mockRun1Id.toString()]);
     });
 
     test("should report ids that matched no run at all", async () => {

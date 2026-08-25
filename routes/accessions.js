@@ -5,11 +5,11 @@ const Project = require("../models/Project");
 const Sample = require("../models/Sample");
 const Run = require("../models/Run");
 const Read = require("../models/Read");
+const Group = require("../models/Group");
 const { isAuthenticated, hasFullRecordsAccess } = require("./middleware");
 const {
   hasFullRecordsAccess: userHasFullRecordsAccess,
 } = require("../lib/utils/fullAccessUsers");
-const { canReadGroup } = require("../lib/utils/groupAccess");
 const _path = require("path");
 const { handleError } = require("./_utils");
 
@@ -62,6 +62,45 @@ const requireAccessionWrite = (req, res, next) => {
   return res.status(403).send({
     error: `User '${username}' does not have permission to modify accessions`,
   });
+};
+
+/**
+ * Whether the group a record belongs to is still live.
+ *
+ * This is not a capability check and must not be read as one. Authorisation for
+ * an accession write is `requireAccessionWrite` above, which is deliberately
+ * cross-group; what is left to decide per record is whether the group it sits in
+ * still exists and has not been retired. routes/groups.js soft-deletes a group
+ * by setting `deleted`, and a retired group must stop authorising writes into
+ * records nobody can see any longer.
+ *
+ * It asks the Group collection directly rather than going through
+ * `canReadGroup`, which is what used to stand here. For this route's callers —
+ * who read across every group — canReadGroup answers exactly this question and
+ * nothing else, so the two behave identically today; the difference is that a
+ * *read* capability was being used to authorise a write, the one place in the
+ * codebase where the split asserted throughout lib/utils/groupAccess.js did not
+ * hold. Had `requireAccessionWrite` ever been widened, that stand-in would have
+ * silently handed whoever it let through a cross-group write of `releaseDate`,
+ * which drives ENA release. Asking the group cannot drift that way.
+ *
+ * `$ne: true` rather than `false` so groups written before the field existed
+ * still count as live.
+ *
+ * @param {*} groupId - The group id taken from the record being written.
+ * @returns {Promise<boolean>} True if the group exists and is not soft-deleted.
+ */
+const groupIsLive = async (groupId) => {
+  if (!groupId) {
+    return false;
+  }
+
+  const group = await Group.findOne({
+    _id: groupId,
+    deleted: { $ne: true },
+  }).select("_id");
+
+  return Boolean(group);
 };
 
 /**
@@ -151,11 +190,12 @@ router
           .send({ error: `${type} with ID ${typeId} not found` });
       }
 
-      // The record's group must still be live. GroupsIAmIn excludes
-      // soft-deleted groups for everybody, admins included, so a retired group
-      // stops authorising writes into records nobody can see any more. For this
-      // route's callers — who read across every group — that is what this asks.
-      if (!(await canReadGroup(req.user, entity.group))) {
+      // Who may write an accession was settled by requireAccessionWrite, the
+      // named ENA capability this route is gated on. All that is left is
+      // whether the record's group is still live — see groupIsLive, which
+      // explains why that is asked of the Group collection and not of a read
+      // capability.
+      if (!(await groupIsLive(entity.group))) {
         console.error(
           `[AUTHZ] Refused accession write on ${type} ${typeId} (group ${entity.group}) to "${req.user.username}"`,
         );

@@ -198,6 +198,24 @@ const tusServer = new Server({
   // Must match the mount path below: it is what the Location header is built
   // from, and it is the URL the client sends every subsequent PATCH to.
   path: TUS_ROUTE,
+  // @tus/server's BaseHandler.write() builds a lodash.throttle(..., { leading:
+  // false }) per PATCH to pace its POST_RECEIVE_V2 event. Trailing-edge only,
+  // so the first chunk schedules a timer for the whole interval; nothing
+  // cancels or unref()s it when the request ends. At the default of 1000ms
+  // every successful chunk therefore pins the event loop open for a further
+  // second after the response has gone out.
+  //
+  // In production that is invisible. Under jest it is not: a worker whose last
+  // act was a successful PATCH sits on a live timer past the point jest
+  // expects it to exit, and jest prints "A worker process has failed to exit
+  // gracefully" and force-kills it. That warning appeared with this branch.
+  //
+  // Zero is not an option — server.js does `if (!options.postReceiveInterval)`
+  // and substitutes 1000 for any falsy value — so this is the smallest value
+  // that survives that check. Nothing in this repo listens for
+  // POST_RECEIVE_V2, so firing it more often costs an emit with no listeners
+  // per millisecond of transfer, and bounds the leftover timer at 1ms.
+  postReceiveInterval: 1,
   datastore: new FileStore({ directory: uploadPath() }),
   allowedOrigins: ALLOWED_ORIGINS,
   getFileIdFromRequest,

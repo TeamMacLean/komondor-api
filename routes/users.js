@@ -70,11 +70,17 @@ router
     // resolveVisibilityFilter, not buildVisibilityFilter: membership is
     // re-derived from the database, so a group soft-deleted since the caller's
     // token was issued stops being visible here too.
+    //
+    // Unconditional. There used to be a `visibility === null ? { owner } : …`
+    // branch here, from when the filter builder returned null — "no filter at
+    // all" — for admins and FULL_RECORDS_ACCESS_USERS. That branch was the
+    // *unfiltered* one, and it is exactly the wrong thing to leave lying
+    // around: resolveVisibilityFilter can no longer return null (an
+    // unresolvable membership is now `{ _id: { $in: [] } }`, matching nothing),
+    // so the branch was dead, and anything that reintroduced a null would have
+    // silently served another user's projects rather than failing closed.
     const visibility = await resolveVisibilityFilter(req.user);
-    const projectFilter =
-      visibility === null
-        ? { owner: username }
-        : { $and: [{ owner: username }, visibility] };
+    const projectFilter = { $and: [{ owner: username }, visibility] };
 
     try {
       const [foundProjects, foundUser] = await Promise.all([

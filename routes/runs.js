@@ -299,21 +299,21 @@ router
         return handleError(res, new Error("Run not found."), 404);
       }
 
-      // Permission check: user must be able to read the run's group, or own it.
-      // A run whose group has been soft-deleted resolves to no group at all,
-      // which canReadGroup refuses — so it stays visible only to its owner.
+      // Permission check: the user must be able to read the run's group. A run
+      // whose group has been soft-deleted resolves to no group at all, which
+      // canReadGroup refuses — so it becomes visible to nobody, which is the
+      // point of retiring a group.
       //
-      // The owner fallback survives only because `owner` is now stamped from
-      // the session at creation (see POST /runs/new) rather than copied out of
-      // req.body. While it was client-supplied this branch was a read grant
-      // any caller could hand to any username; it is now a statement about who
-      // actually submitted the run.
+      // There is no owner fallback. Stamping `owner` from the session at
+      // creation (see POST /runs/new) made it honest for new runs, but it stays
+      // client-supplied on every run created before this branch, and even when
+      // honest it was a read grant that removing the user from the group could
+      // not withdraw. See routes/projects.js GET /project.
       const canAccess = await canReadGroup(
         req.user,
         run.group && run.group._id,
       );
-      const isOwner = run.owner === req.user.username;
-      if (!canAccess && !isOwner) {
+      if (!canAccess) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this run.`),
@@ -622,8 +622,9 @@ router
         libraryStrategy,
         insertSize: insertSize || null,
         // The session, never the body. `owner` arriving from req.body was an
-        // unvalidated client string, and the per-record owner fallbacks below
-        // read it as an access grant.
+        // unvalidated client string, and the per-record read checks used to
+        // read it as an access grant. They no longer do, but this field is
+        // still shown and exported as "who submitted this run".
         owner: req.user.username,
         group,
       });
@@ -745,10 +746,11 @@ router
         );
       }
 
-      // Permission check: reading a status is a read.
+      // Permission check: reading a status is a read, and group membership is
+      // the whole of it — the owner fallback that used to sit here is gone for
+      // the reasons given on GET /run.
       const canAccess = await canReadGroup(req.user, run.group);
-      const isOwner = run.owner === req.user.username;
-      if (!canAccess && !isOwner) {
+      if (!canAccess) {
         return handleError(
           res,
           new Error("Access denied"),
@@ -856,8 +858,8 @@ router
 
       // An ingest moves files into this run's datastore directory and writes
       // Reads against it, so retrying one takes write access to the run's
-      // group. There is deliberately no owner fallback here of the kind the
-      // status endpoints have: those answer a question, this does work.
+      // group. Reading a run's status takes the read capability instead, but
+      // neither path has an owner fallback any more: see GET /run.
       if (!(await canWriteGroup(req.user, groupIdOf(run)))) {
         return handleError(
           res,
@@ -1003,7 +1005,7 @@ router
 
       const runs = requested.length
         ? await Run.find({ _id: { $in: requested } }).select(
-            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group owner createdAt",
+            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
           )
         : [];
 
@@ -1015,10 +1017,12 @@ router
           .filter(Boolean),
       );
 
-      const visibleRuns = (runs || []).filter(
-        (run) =>
-          readableGroups.has(String(run.group)) ||
-          run.owner === req.user.username,
+      // Group membership decides visibility, exactly as it does on GET /run:
+      // an `owner === req.user.username` clause used to widen this, which let
+      // one un-revocable string on a historical run pull it into a batch the
+      // caller could otherwise not see. `owner` is no longer even selected.
+      const visibleRuns = (runs || []).filter((run) =>
+        readableGroups.has(String(run.group)),
       );
 
       const ingestJobs = await findIngestJobs(visibleRuns.map((run) => run._id));

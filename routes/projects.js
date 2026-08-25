@@ -151,9 +151,18 @@ router
       // Reading a record needs the *read* capability, which is broader than
       // write: FULL_RECORDS_ACCESS_USERS may see every group's projects here
       // but cannot create or edit one (see lib/utils/groupAccess).
+      //
+      // Group membership is the whole test. An `owner === req.user.username`
+      // fallback used to sit beside it, and it was a permanent read grant that
+      // removing somebody from the group could not withdraw. Worse, `owner` was
+      // copied verbatim out of req.body until this branch and no migration has
+      // rewritten the records created that way, so a historical project can
+      // name an arbitrary username and hand that person a cross-group read for
+      // good. The list filter dropped the same clause
+      // (lib/utils/fullAccessUsers buildVisibilityFilter); dropping it here too
+      // is what makes the two agree about one record.
       const canAccess = await canReadGroup(req.user, groupIdOf(project));
-      const isOwner = project.owner === req.user.username;
-      if (!canAccess && !isOwner) {
+      if (!canAccess) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this project.`),
@@ -332,9 +341,9 @@ router
         shortDesc: asString(shortDesc),
         longDesc: asString(longDesc),
         // The session, never the body. `owner` arriving from req.body was an
-        // unvalidated client string that named whoever the caller liked; the
-        // visibility filter no longer grants on it, but per-record fallbacks
-        // elsewhere still read it, so it must be the authenticated caller.
+        // unvalidated client string that named whoever the caller liked. No
+        // read path grants on it any more, but it is displayed and exported as
+        // "who submitted this", so it still has to be the authenticated caller.
         owner: req.user.username,
         doNotSendToEna: asBoolean(doNotSendToEna),
         doNotSendToEnaReason: asString(doNotSendToEnaReason),

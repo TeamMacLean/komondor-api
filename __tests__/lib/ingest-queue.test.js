@@ -8,6 +8,16 @@
  * exercised against a fake store that matches, mutates and returns in a single
  * uninterruptible step, the way MongoDB's findOneAndUpdate does — a fake that
  * awaited in between would let a broken claim pass.
+ *
+ * One limit, stated plainly rather than left to be discovered: that store is a
+ * hand-rolled fake, and every atomicity claim below is only as good as it. It
+ * does discriminate the real fixes — each test here was checked by reverting
+ * the change it covers and watching it go red — but it is a model of MongoDB,
+ * not MongoDB. Nothing in this file is evidence about the server's own
+ * atomicity guarantees, about write concern, or about what two processes on
+ * two machines actually do to one collection. Those rest on the driver
+ * behaving as documented, and only an integration test against a real mongod
+ * can say otherwise.
  */
 
 const mongoose = require("mongoose");
@@ -204,14 +214,23 @@ afterAll(async () => {
 
 /**
  * A populated document whose file really did land in the datastore.
+ *
+ * Carries an _id because the steps that follow the move work on the documents
+ * themselves — linking a read to its sibling — and not just on their names.
+ *
  * @param {string} originalName - The file's name in the request.
  * @param {string} subdir - "raw" for reads, "additional" for the rest.
+ * @param {object} [overrides] - Extra document fields, e.g. an existing sibling.
  * @returns {Promise<object>} A stand-in for a Read/AdditionalFile document.
  */
-const movedDoc = async (originalName, subdir) => {
+const movedDoc = async (originalName, subdir, overrides = {}) => {
   const relPath = _path.join(RUN_REL_PATH, subdir, originalName);
   await fsp.writeFile(_path.join(datastoreRoot, relPath), "ACGT\n");
-  return { file: { originalName, path: relPath } };
+  return {
+    _id: new mongoose.Types.ObjectId(),
+    file: { originalName, path: relPath },
+    ...overrides,
+  };
 };
 
 /**
@@ -283,6 +302,7 @@ beforeEach(() => {
   Read.find = jest.fn().mockReturnValue({
     populate: jest.fn().mockResolvedValue([]),
   });
+  Read.updateOne = jest.fn().mockResolvedValue({ nModified: 1 });
   AdditionalFile.find = jest.fn().mockReturnValue({
     populate: jest.fn().mockResolvedValue([]),
   });
@@ -587,14 +607,14 @@ describe("claimNextJob", () => {
 });
 
 describe("recoverStaleJobs", () => {
-  test("returns work orphaned by a killed worker to the queue", async () => {
-    // What a SIGKILL 30 seconds into an ingest actually leaves behind: the
-    // lease was stamped an hour ahead at claim time, so it is still 59 minutes
-    // from expiring. A recovery that only matches expired leases matches
-    // nothing here and the job sits untouched for the rest of the hour — at
-    // which point claimNextJob's own expiry branch would have taken it anyway,
-    // making the recovery pass pointless in the one case it exists for.
-    const otherHost = new mongoose.Types.ObjectId();
+  test("returns a claim whose holder stopped renewing its lease", async () => {
+    // What a SIGKILL mid-ingest leaves behind. The lease is a liveness record
+    // written by the process being asked about: its holder renews it on every
+    // poll (see the heartbeat tests below), so a lapsed one says that holder
+    // stopped. That answer is scoped the way the question is — it holds across
+    // processes and across machines, neither of which this process can see
+    // into.
+    const stillRenewing = new mongoose.Types.ObjectId();
     const jobs = useAtomicStore([
       {
         _id: jobId,
@@ -602,13 +622,13 @@ describe("recoverStaleJobs", () => {
         workerId: `${os.hostname()}:412:0123456789abcdef`,
         workerHost: os.hostname(),
         attempts: 1,
-        leaseExpiresAt: new Date(Date.now() + 59 * 60 * 1000),
+        leaseExpiresAt: new Date(Date.now() - 1000),
         updatedAt: new Date(),
       },
       {
-        // Another host's worker, still holding a live lease. Nothing this
-        // process knows says that one is dead.
-        _id: otherHost,
+        // Another host's worker, still renewing. Nothing this process knows
+        // says that one is dead — and nothing it can find out would.
+        _id: stillRenewing,
         status: "claimed",
         workerId: "komondor-02:99:fedcba9876543210",
         workerHost: "komondor-02",
@@ -631,10 +651,60 @@ describe("recoverStaleJobs", () => {
     expect(jobs[1].status).toBe("claimed");
   });
 
+  test("leaves a claim another process on this host is still renewing", async () => {
+    // The attack this lost to before, run for real by a reviewer: a second
+    // module instance's startup recovery yanked the first's in-flight claim,
+    // because "on my host and not in my in-memory set of workers" was read as
+    // "dead". It is not — the set is process-scoped and knows nothing about
+    // any other process. Both instances then ran the same ingest; the claim
+    // fence keeps the job row consistent and does exactly nothing for the
+    // files or for the duplicate File/Read documents.
+    const jobs = useAtomicStore([
+      {
+        _id: jobId,
+        status: "claimed",
+        // This host, a pid and boot id this process has never heard of: what
+        // a perfectly healthy sibling worker looks like from here.
+        workerId: `${os.hostname()}:9184:aaaabbbbccccdddd`,
+        workerHost: os.hostname(),
+        attempts: 1,
+        leaseExpiresAt: new Date(Date.now() + 4 * 60 * 1000),
+        updatedAt: new Date(),
+      },
+    ]);
+
+    expect(await recoverStaleJobs({ leaseMs: 5 * 60 * 1000 })).toBe(0);
+    expect(jobs[0].status).toBe("claimed");
+  });
+
+  test("recovers a claim stamped by a hostname that no longer exists", async () => {
+    // A container or pod comes back under a new name after every restart, so
+    // the dead worker's host never matches the new one's. When recovery
+    // depended on that match, this deployment had no recovery at all and the
+    // job sat until the lease ran out — the original bug, fully intact, for
+    // anything without a stable hostname.
+    const jobs = useAtomicStore([
+      {
+        _id: jobId,
+        status: "claimed",
+        workerId: "komondor-api-7d9f-2xk:1:0011223344556677",
+        workerHost: "komondor-api-7d9f-2xk",
+        attempts: 1,
+        leaseExpiresAt: new Date(Date.now() - 1),
+        updatedAt: new Date(),
+      },
+    ]);
+
+    expect(await recoverStaleJobs({ leaseMs: 60000 })).toBe(1);
+    expect(jobs[0].status).toBe("pending");
+  });
+
   test("leaves a job held by a worker still live in this process", async () => {
-    // Recovery runs at startup, but the identity check has to hold whenever it
-    // runs: reclaiming a job from a worker that is still moving files would
-    // put two workers on the same set of multi-GB reads.
+    // The one direction an in-memory set can answer honestly: this process
+    // knows which workers it started. The lease here has already lapsed — the
+    // worker is overrunning, or the database was briefly unreachable — and the
+    // job is still not ours to reclaim while we are the ones inside it. Some
+    // other process may take it over; we would only be racing ourselves.
     const worker = startIngestWorker({
       intervalMs: 60000,
       leaseMs: 60000,
@@ -648,7 +718,7 @@ describe("recoverStaleJobs", () => {
         workerId: "live-worker",
         workerHost: os.hostname(),
         attempts: 1,
-        leaseExpiresAt: new Date(Date.now() + 60000),
+        leaseExpiresAt: new Date(Date.now() - 1000),
         updatedAt: new Date(),
       },
     ]);
@@ -658,7 +728,7 @@ describe("recoverStaleJobs", () => {
 
     await worker.stop();
 
-    // Once that worker is gone its claims are nobody's, whatever the lease says.
+    // Once that worker is gone its claims are nobody's.
     expect(await recoverStaleJobs({ leaseMs: 60000 })).toBe(1);
     expect(jobs[0].status).toBe("pending");
   });
@@ -1070,9 +1140,157 @@ describe("runIngestJob", () => {
       );
 
       expect(sortReadFiles).not.toHaveBeenCalled();
+
+      // But the steps that come *after* the move are not skipped along with
+      // it. sortReadFiles is processReadFiles, which moves the files and then
+      // links paired siblings and writes the run's "complete" status; a kill
+      // between the last move and the completeJob write is precisely what
+      // produces this fixture. Skipping the whole call left a run whose files
+      // were all delivered sitting at "pending" for good — indistinguishable
+      // from one whose ingest never started, and beyond the reach of
+      // POST /runs/:id/reingest, which requeues a "failed" job and answers 409
+      // for the "done" one this path records.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+
       // The rest of the job still runs: the earlier attempt died before it.
       expect(sendOverseerEmail).toHaveBeenCalled();
       expect(verifyRunMd5).toHaveBeenCalled();
+    });
+
+    test("links paired siblings the interrupted attempt never reached", async () => {
+      // Step 5 of processReadFiles, owed for the same reason step 6 is: the
+      // files are all in place, so nothing will call processReadFiles again,
+      // so nothing else in the system will ever pair these two reads.
+      const r1 = await movedDoc("paired_R1.fq", "raw");
+      const r2 = await movedDoc("paired_R2.fq", "raw");
+      existingReads([r1, r2]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "paired_R1.fq", sibling: "paired_R2.fq" },
+              { name: "paired_R2.fq", sibling: "paired_R1.fq" },
+            ],
+            rawFilesUploadInfo: { method: "hpc-mv" },
+          },
+        }),
+      );
+
+      expect(sortReadFiles).not.toHaveBeenCalled();
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r1._id },
+        { $set: { sibling: r2._id } },
+      );
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r2._id },
+        { $set: { sibling: r1._id } },
+      );
+    });
+
+    test("pairs a local-filesystem upload by its rowID, as file-utils does", async () => {
+      // The other pairing rule: a local-filesystem upload names no sibling,
+      // it puts both halves on one row of the submission form.
+      const r1 = await movedDoc("row_R1.fq", "raw");
+      const r2 = await movedDoc("row_R2.fq", "raw");
+      existingReads([r1, r2]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "row_R1.fq", paired: true, rowID: "row-7" },
+              { name: "row_R2.fq", paired: true, rowID: "row-7" },
+            ],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        }),
+      );
+
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r1._id },
+        { $set: { sibling: r2._id } },
+      );
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r2._id },
+        { $set: { sibling: r1._id } },
+      );
+    });
+
+    test("leaves an already-linked pair alone", async () => {
+      // The ordinary case for a retry: the previous attempt got as far as the
+      // pairing and died before the status write. Rewriting the same value
+      // would be harmless, but a write that is not needed is a write that can
+      // fail, and this path exists to finish a job, not to churn it.
+      const r1 = await movedDoc("linked_R1.fq", "raw");
+      const r2 = await movedDoc("linked_R2.fq", "raw");
+      r1.sibling = r2._id;
+      r2.sibling = r1._id;
+      existingReads([r1, r2]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "linked_R1.fq", sibling: "linked_R2.fq" },
+              { name: "linked_R2.fq", sibling: "linked_R1.fq" },
+            ],
+            rawFilesUploadInfo: { method: "hpc-mv" },
+          },
+        }),
+      );
+
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      // Still finished, which is the whole point of coming back here.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+    });
+
+    test("leaves the post-move steps to sortReadFiles when it does run", async () => {
+      // Doing them here as well would mean pairing twice and marking the run
+      // complete before processReadFiles has finished moving anything.
+      existingReads([await unmovedDoc("stranded.fq")]);
+
+      await runIngestJob(
+        makeJob({ payload: { rawFiles: [{ name: "stranded.fq" }] } }),
+      );
+
+      expect(sortReadFiles).toHaveBeenCalled();
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
+    });
+
+    test("does not mark a run complete when it never had raw files", async () => {
+      // processReadFiles returns before its status write for an empty list,
+      // and a run with no reads has never been marked complete by this path.
+      // Finalising here would invent a state the ingest never produced.
+      existingAdditionalFiles([]);
+
+      await runIngestJob(
+        makeJob({ payload: { additionalFiles: [{ name: "notes.txt" }] } }),
+      );
+
+      expect(sortAdditionalFiles).toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
+    });
+
+    test("re-throws when the post-move steps fail, rather than reporting done", async () => {
+      // Where the failure goes now that this code exists: out to the worker,
+      // which retries the job and, once the attempts are gone, marks the run
+      // errored with the message on it. Swallowing it would put the run back
+      // in the state this whole change is about — files delivered, run stuck
+      // at "pending", nothing left that will ever fix it.
+      existingReads([await movedDoc("done.fq", "raw")]);
+      Run.findByIdAndUpdate.mockRejectedValue(new Error("mongo is unreachable"));
+
+      await expect(
+        runIngestJob(makeJob({ payload: { rawFiles: [{ name: "done.fq" }] } })),
+      ).rejects.toThrow("mongo is unreachable");
+
+      expect(sendOverseerEmail).not.toHaveBeenCalled();
     });
 
     test("re-attempts raw files whose Read exists but whose bytes never moved", async () => {
@@ -1390,12 +1608,15 @@ describe("startIngestWorker", () => {
 
   test("extends the lease while a job runs, and counts that as progress", async () => {
     // A long ingest must not be reported as a stall — but the evidence has to
-    // be a write the worker actually completed, not the timer firing.
+    // be a write the worker actually completed, not the timer firing, and it
+    // only counts while the job is inside its runtime bound. maxJobMs is
+    // passed explicitly here so that bound is visible: "still renewing" is a
+    // claim about a job that has not overrun, never about one that has.
     queueOneJob();
     sortReadFiles.mockImplementation(() => new Promise(() => {}));
     IngestJob.updateOne.mockResolvedValue({ matchedCount: 1 });
 
-    startIngestWorker({ intervalMs: 10, leaseMs: 60000 });
+    startIngestWorker({ intervalMs: 10, leaseMs: 60000, maxJobMs: 60000 });
     jest.advanceTimersByTime(10);
     await flush();
     const afterClaim = getLastTickAt();
@@ -1410,6 +1631,97 @@ describe("startIngestWorker", () => {
 
     // Left mid-job on purpose; stop() would wait for a move that never ends.
     jest.clearAllTimers();
+  });
+
+  test("stops renewing and stops reporting once a job overruns its bound", async () => {
+    // The wedged worker, which a reviewer reproduced: the worker hung inside
+    // one job, a second job sat queued behind it and was never claimed, and
+    // /ready stayed green the whole time. The heartbeat was the reason —
+    // fired by the same timer it replaced, it renewed the lease forever (so no
+    // other worker could ever take the job) and refreshed the tick forever (so
+    // the staleness check server.js documents could never fire).
+    //
+    // Nothing here can kill a hung worker. What it can do is stop vouching for
+    // it, in the two ways that make the stall visible to something that can
+    // act: the lease is left to lapse, which is what hands the job to another
+    // worker through claimNextJob's expiry branch, and the tick goes stale,
+    // which is what turns /ready red.
+    queueOneJob();
+    sortReadFiles.mockImplementation(() => new Promise(() => {}));
+    IngestJob.updateOne.mockResolvedValue({ matchedCount: 1 });
+
+    startIngestWorker({ intervalMs: 10, leaseMs: 60000, maxJobMs: 50 });
+    jest.advanceTimersByTime(10);
+    await flush();
+    const afterClaim = getLastTickAt();
+
+    // Inside the bound: a long job is not a stalled one.
+    jest.advanceTimersByTime(30);
+    await flush();
+    expect(IngestJob.updateOne).toHaveBeenCalled();
+    expect(getLastTickAt().getTime()).toBeGreaterThan(afterClaim.getTime());
+
+    // Past it.
+    jest.advanceTimersByTime(60);
+    await flush();
+    const renewals = IngestJob.updateOne.mock.calls.length;
+    const frozenTick = getLastTickAt();
+
+    jest.advanceTimersByTime(1000);
+    await flush();
+
+    // A hundred more ticks, and not one of them says anything on the worker's
+    // behalf.
+    expect(IngestJob.updateOne.mock.calls.length).toBe(renewals);
+    expect(getLastTickAt().getTime()).toBe(frozenTick.getTime());
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining(`Job ${jobId} has held worker`),
+    );
+
+    jest.clearAllTimers();
+  });
+
+  test("keeps renewing the lease of the job it is draining on stop()", async () => {
+    // The lease is minutes now, not an hour, so a drain that outlasts it would
+    // invite a second worker onto the files this one is still moving. The
+    // timer therefore outlives the decision to stop: it claims nothing more,
+    // but it keeps renewing what it still holds.
+    queueOneJob();
+    let releaseTheMove;
+    sortReadFiles.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          releaseTheMove = resolve;
+        }),
+    );
+    IngestJob.updateOne.mockResolvedValue({ matchedCount: 1 });
+
+    const worker = startIngestWorker({ intervalMs: 10, leaseMs: 60000 });
+    jest.advanceTimersByTime(10);
+    await flush();
+
+    const stopping = worker.stop();
+    await flush();
+
+    const claimsAtStop = IngestJob.findOneAndUpdate.mock.calls.length;
+    jest.advanceTimersByTime(30);
+    await flush();
+
+    const renewals = IngestJob.updateOne.mock.calls.filter(
+      ([, update]) => update.$set && update.$set.leaseExpiresAt,
+    );
+    expect(renewals.length).toBeGreaterThan(0);
+    // Draining, not working: nothing new is claimed on the way out.
+    expect(IngestJob.findOneAndUpdate.mock.calls.length).toBe(claimsAtStop);
+
+    releaseTheMove();
+    await stopping;
+
+    // And once the drain is done the timer really is gone.
+    const renewalsAfterStop = IngestJob.updateOne.mock.calls.length;
+    jest.advanceTimersByTime(100);
+    await flush();
+    expect(IngestJob.updateOne.mock.calls.length).toBe(renewalsAfterStop);
   });
 
   test("stops reporting fresh ticks when the queue is unreachable mid-job", async () => {

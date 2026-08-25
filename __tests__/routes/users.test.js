@@ -31,6 +31,7 @@ jest.mock("../../routes/middleware", () => ({
 
 const User = require("../../models/User");
 const Project = require("../../models/Project");
+const { groupsICanRead } = require("../../lib/utils/groupAccess");
 const { verifyUserExists } = require("../../lib/ldap");
 const usersRouter = require("../../routes/users");
 
@@ -212,9 +213,23 @@ describe("GET /user", () => {
     });
   });
 
-  test("does not filter for a caller who may read every record", async () => {
+  test("still scopes a caller who may read every record to a group list", async () => {
+    // This asserted `Project.find({ owner: "alice" })` — no visibility conjunct
+    // at all — because visibleGroupIds used to return null for a full-access
+    // principal and null meant "no filter". That is the behaviour that let
+    // those principals read records belonging to *soft-deleted* groups, which
+    // the per-record routes refuse: `Model.find({})` does not exclude them and
+    // GroupsIAmIn does. Their reach is now expressed the same way everyone
+    // else's is — GroupsIAmIn hands them every live group — so the filter is
+    // group-scoped rather than absent, and a retired group stays retired.
     process.env.FULL_RECORDS_ACCESS_USERS = '["enaadmin"]';
     mockUser = { username: "enaadmin", groups: [] };
+    // What GroupsIAmIn really answers for this principal in read mode: every
+    // live group, regardless of the (empty) `groups` claim on the token.
+    groupsICanRead.mockResolvedValueOnce([
+      { _id: "group-1" },
+      { _id: "group-2" },
+    ]);
     User.findOne.mockResolvedValue(null);
     Project.find.mockReturnValue({
       populate: jest.fn().mockResolvedValue([]),
@@ -222,7 +237,29 @@ describe("GET /user", () => {
 
     await request(app).get("/user").query({ username: "alice" });
 
-    expect(Project.find).toHaveBeenCalledWith({ owner: "alice" });
+    expect(Project.find).toHaveBeenCalledWith({
+      $and: [{ owner: "alice" }, { group: { $in: ["group-1", "group-2"] } }],
+    });
+  });
+
+  test("fails closed for a caller whose live membership is empty", async () => {
+    // The conjunct is unconditional: there is no branch that drops it. The
+    // route used to have one, guarding on `visibility === null`, and it was the
+    // *unfiltered* branch — reintroducing a null anywhere upstream would have
+    // served alice's projects to a caller with no membership at all rather than
+    // serving nothing.
+    mockUser = { username: "nobody", groups: [] };
+    groupsICanRead.mockResolvedValueOnce([]);
+    User.findOne.mockResolvedValue(null);
+    Project.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
+
+    await request(app).get("/user").query({ username: "alice" });
+
+    expect(Project.find).toHaveBeenCalledWith({
+      $and: [{ owner: "alice" }, { _id: { $in: [] } }],
+    });
   });
 
   test("answers 500 when the lookup fails", async () => {

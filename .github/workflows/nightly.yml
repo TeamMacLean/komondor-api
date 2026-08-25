@@ -148,11 +148,50 @@ jobs:
           retention-days: 14
           if-no-files-found: ignore
 
-      - name: Open handle detection
+      # `yarn test --detectOpenHandles --runInBand` cannot fail on the leak it
+      # is named after: --detectOpenHandles forces in-band execution and the
+      # "A worker process has failed to exit gracefully" message that announces
+      # a leak needs a worker. See the long note on the same step in ci.yml.
+      #
+      # Here the diagnostic run is kept as well as the gate, because nightly
+      # can afford it and a handle report names the timer that ci.yml only
+      # tells you the suite of. It is advisory: --detectOpenHandles reports
+      # without failing, so the exit code says nothing.
+      - name: Leaked handle detection
+        run: |
+          set -u
+          leaked=""
+
+          for suite in $(yarn --silent jest --listTests | sort); do
+            log=$(mktemp)
+            yarn test --ci --maxWorkers=2 --workerIdleMemoryLimit=512MB \
+              --runTestsByPath "$suite" > "$log" 2>&1 || true
+
+            if grep -q "failed to exit gracefully" "$log"; then
+              leaked="${leaked}${suite}"$'\n'
+              echo "::error::${suite} leaves a handle open: jest had to force-kill its worker."
+            fi
+            rm -f "$log"
+          done
+
+          if [ -n "$leaked" ]; then
+            echo "Suites holding the event loop open after their last test:"
+            printf '%s' "$leaked"
+            exit 1
+          fi
+
+          echo "No suite left a handle open."
+
+      - name: Open handle report (advisory)
+        if: always()
+        continue-on-error: true
         run: yarn test --detectOpenHandles --runInBand
 
   integration:
-    name: Integration tests (MongoDB)
+    # See ci.yml: __tests__/integration/ does not exist, so this job runs zero
+    # tests. The name says so rather than letting a green tick read as
+    # integration coverage.
+    name: Integration tests — PLACEHOLDER, runs zero tests
     runs-on: ubuntu-latest
 
     services:
@@ -184,6 +223,16 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      # Same tolerance as ci.yml: __tests__/integration/ may not exist yet.
+      # Same two modes as ci.yml: warn loudly while the directory is absent,
+      # and become a real gate — no --passWithNoTests — the moment it exists,
+      # so a directory that matches no test files fails instead of passing.
       - name: Run integration tests
-        run: yarn test --testPathPattern "__tests__/integration/" --passWithNoTests --runInBand
+        run: |
+          set -eu
+
+          if [ ! -d __tests__/integration ]; then
+            echo "::warning::__tests__/integration/ does not exist. This job started a MongoDB service and ran ZERO tests. Its green tick is NOT integration coverage."
+            exit 0
+          fi
+
+          yarn test --testPathPattern "__tests__/integration/" --runInBand

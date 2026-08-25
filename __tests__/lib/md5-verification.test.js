@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 
 // Mock dependencies before requiring the module
 jest.mock("../../models/Run");
@@ -8,6 +12,12 @@ jest.mock("../../lib/utils/md5");
 const Run = require("../../models/Run");
 const Read = require("../../models/Read");
 const { calculateFileMd5 } = require("../../lib/utils/md5");
+// The unmocked hasher, for the one test whose subject is what the *open* does
+// rather than what this module does with the digest. See the symlink-inside-
+// the-datastore case below.
+const { calculateFileMd5: realCalculateFileMd5 } = jest.requireActual(
+  "../../lib/utils/md5",
+);
 const {
   verifyRunMd5,
   verifyReadMd5,
@@ -20,9 +30,25 @@ describe("MD5 Verification", () => {
   const mockRunId = new mongoose.Types.ObjectId();
   const mockReadId = new mongoose.Types.ObjectId();
 
+  // A *real* directory, because the destination path is now resolved with
+  // resolveWithinReal: it realpath()s the root to defeat symlink escapes, and
+  // a root that does not exist cannot be vouched for, so "/mnt/reads" would
+  // (correctly) refuse every read.
+  let datastoreRoot;
+
+  beforeAll(() => {
+    datastoreRoot = fs.realpathSync(
+      fs.mkdtempSync(path.join(os.tmpdir(), "md5-verification-")),
+    );
+  });
+
+  afterAll(() => {
+    fs.rmSync(datastoreRoot, { recursive: true, force: true });
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.DATASTORE_ROOT = "/mnt/reads";
+    process.env.DATASTORE_ROOT = datastoreRoot;
     process.env.SKIP_MD5_VERIFICATION = "false";
   });
 
@@ -155,6 +181,178 @@ describe("MD5 Verification", () => {
 
       expect(result.success).toBe(false);
       expect(result.shouldRetry).toBe(true);
+    });
+  });
+
+  // The destination path is built from `read.file.originalName`, which is
+  // client-supplied Upload-Metadata. New documents go through safeBasename in
+  // lib/file-utils.js, but documents written before that guard existed were
+  // never sanitised and this job reads them back — so the stored value is
+  // still untrusted at this point, and this was the last path construction in
+  // the file perimeter with no containment check.
+  describe("verifyReadMd5 destination containment", () => {
+    const runWithPath = (relativePath) => ({
+      _id: mockRunId,
+      name: "Test Run",
+      getRelativePath: jest.fn().mockResolvedValue(relativePath),
+    });
+
+    const readNamed = (originalName) => ({
+      _id: mockReadId,
+      MD5: "abc123",
+      file: { originalName },
+    });
+
+    beforeEach(() => {
+      Read.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+      calculateFileMd5.mockResolvedValue("abc123");
+    });
+
+    test("hashes the file at the datastore location", async () => {
+      const result = await verifyReadMd5(
+        readNamed("file1.fastq"),
+        runWithPath("group/project/sample/run"),
+      );
+
+      expect(calculateFileMd5).toHaveBeenCalledWith(
+        path.join(datastoreRoot, "group/project/sample/run/raw/file1.fastq"),
+      );
+      expect(result.error).toBeUndefined();
+    });
+
+    test("tolerates a leading slash on the run's relative path", async () => {
+      await verifyReadMd5(
+        readNamed("file1.fastq"),
+        runWithPath("/group/project/sample/run"),
+      );
+
+      expect(calculateFileMd5).toHaveBeenCalledWith(
+        path.join(datastoreRoot, "group/project/sample/run/raw/file1.fastq"),
+      );
+    });
+
+    test.each([
+      ["a traversing originalName", "../../../../../../etc/passwd"],
+      ["a traversal that stays inside the datastore", "../../other-group/x.fq"],
+      ["an absolute originalName", "/etc/passwd"],
+      ["a NUL-truncated originalName", "reads.fq\u0000.png"],
+    ])("refuses to hash anything outside the datastore: %s", async (_l, name) => {
+      const result = await verifyReadMd5(
+        readNamed(name),
+        runWithPath("group/project/sample/run"),
+      );
+
+      // Never opened. Hashing it would turn md5Mismatch into an oracle for
+      // files the API user was never entitled to read.
+      expect(calculateFileMd5).not.toHaveBeenCalled();
+      expect(result.error).toMatch(/does not resolve inside DATASTORE_ROOT/);
+      // And nothing is recorded as verified.
+      expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
+    });
+
+    test("refuses a destination reached through a symlink out of the datastore", async () => {
+      // The lexical check alone is satisfied by <root>/link/raw/x: the string
+      // never leaves the root, but the read does.
+      const outside = fs.mkdtempSync(path.join(os.tmpdir(), "md5-outside-"));
+      const linkPath = path.join(datastoreRoot, "linked-group");
+      fs.symlinkSync(outside, linkPath);
+
+      try {
+        const result = await verifyReadMd5(
+          readNamed("file1.fastq"),
+          runWithPath("linked-group/project/sample/run"),
+        );
+
+        expect(calculateFileMd5).not.toHaveBeenCalled();
+        expect(result.error).toMatch(/does not resolve inside DATASTORE_ROOT/);
+      } finally {
+        fs.unlinkSync(linkPath);
+        fs.rmSync(outside, { recursive: true, force: true });
+      }
+    });
+
+    test("refuses a destination that is a symlink to another file INSIDE the datastore", async () => {
+      // Distinct from the test above, and not covered by it. There the link
+      // pointed *out* of the datastore, so containment refused it and the
+      // hasher was never reached. Here the link's target is another group's
+      // file inside the same root: realpath lands on a path still under
+      // DATASTORE_ROOT, so resolveWithinReal returns the destination happily
+      // and every containment check in the codebase is satisfied.
+      //
+      // The only thing left is O_NOFOLLOW in lib/utils/md5.js. Without it this
+      // read is reported as a checksum MATCH against bytes it does not own —
+      // a verified-OK stamp on somebody else's file. So this test runs the
+      // real hasher; the mock cannot express the property.
+      const victimDir = path.join(datastoreRoot, "other-group");
+      const victim = path.join(victimDir, "their-reads.fq");
+      fs.mkdirSync(victimDir, { recursive: true });
+      fs.writeFileSync(victim, "SOMEBODY ELSE'S SEQUENCE DATA");
+      const victimMd5 = crypto
+        .createHash("md5")
+        .update("SOMEBODY ELSE'S SEQUENCE DATA")
+        .digest("hex");
+
+      const rawDir = path.join(
+        datastoreRoot,
+        "group/project/sample/run/raw",
+      );
+      const planted = path.join(rawDir, "file1.fastq");
+      fs.mkdirSync(rawDir, { recursive: true });
+      fs.symlinkSync(victim, planted);
+
+      calculateFileMd5.mockImplementation(realCalculateFileMd5);
+
+      try {
+        const result = await verifyReadMd5(
+          { _id: mockReadId, MD5: victimMd5, file: { originalName: "file1.fastq" } },
+          runWithPath("group/project/sample/run"),
+        );
+
+        // Containment passed — that is the whole point of this test, and if
+        // this assertion ever fails the test has stopped covering what it was
+        // written for and is passing for the wrong reason.
+        expect(calculateFileMd5).toHaveBeenCalledWith(planted);
+
+        // ...and the read is still not verified, because the open refused.
+        expect(result.error).toBeDefined();
+        expect(result.mismatch).toBeUndefined();
+        // Nothing is stamped onto the Read: no destinationMd5, and above all
+        // no `md5Mismatch: false` recorded against another group's bytes.
+        expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
+      } finally {
+        fs.rmSync(path.join(datastoreRoot, "group"), {
+          recursive: true,
+          force: true,
+        });
+        fs.rmSync(victimDir, { recursive: true, force: true });
+      }
+    });
+
+    test("a refused read fails the run rather than passing it", async () => {
+      const mockRun = runWithPath("group/project/sample/run");
+
+      Run.findById.mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(mockRun),
+        }),
+      });
+      Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+      Read.find = jest.fn().mockReturnValue({
+        populate: jest
+          .fn()
+          .mockResolvedValue([readNamed("../../../../etc/passwd")]),
+      });
+
+      const result = await verifyRunMd5(mockRunId);
+
+      expect(result.success).toBe(false);
+      expect(result.errors).toBe(1);
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(
+        mockRunId,
+        expect.objectContaining({
+          $set: expect.objectContaining({ md5VerificationStatus: "failed" }),
+        }),
+      );
     });
   });
 

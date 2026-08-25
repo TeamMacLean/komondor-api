@@ -36,6 +36,7 @@ jest.mock("../../lib/utils/groupAccess", () => ({
 }));
 const { groupsICanRead } = require("../../lib/utils/groupAccess");
 
+const { AUDIT_PREFIX } = require("../../lib/utils/hpcAudit");
 const directoryFilesRouter = require("../../routes/directory-files");
 
 let tmpRoot;
@@ -88,6 +89,14 @@ beforeAll(() => {
   fs.symlinkSync(
     _path.join(transferDir, "batch1"),
     _path.join(linkFarm, "inside"),
+  );
+  // A link to a *file* that really is inside the root. Every containment check
+  // passes on it — realpath lands under the root — so O_NOFOLLOW on the open is
+  // the only thing that refuses it, and that is what this fixture exists to
+  // pin. See the verify-md5 leaf-symlink test.
+  fs.symlinkSync(
+    _path.join(transferDir, "batch1", "reads.txt"),
+    _path.join(linkFarm, "insidefile.txt"),
   );
 });
 
@@ -540,5 +549,136 @@ describe("HPC staging endpoints require group membership", () => {
       .send({ directoryName: "batch1", fileName: "readme.txt", expectedMd5: "x" });
 
     expect(response.status).toBe(403);
+  });
+});
+
+describe("POST /directory-files/verify-md5 does not follow a symlinked leaf", () => {
+  test("refuses a symlink to a file that really is inside the root", async () => {
+    // assertWithinReal is satisfied here: the link's realpath is
+    // <root>/batch1/reads.txt, comfortably under the root. Only O_NOFOLLOW on
+    // the open refuses it. Without that flag the handler hashes the target and
+    // answers matches:true, which is why FILE_MD5 is the expected value below —
+    // a match is proof the link was followed.
+    const response = await request(app)
+      .post("/directory-files/verify-md5")
+      .send({
+        directoryName: "linkfarm",
+        fileName: "insidefile.txt",
+        expectedMd5: FILE_MD5,
+      });
+
+    expect(response.status).toBe(404);
+    expect(response.body.calculatedMd5).toBeUndefined();
+    expect(response.body.matches).toBeUndefined();
+  });
+});
+
+describe("HPC staging endpoints leave an audit trail", () => {
+  // The shared inbox cannot authorise any of these reads
+  // (BREAKING_CHANGES.md entry 32), so the audit line is the compensating
+  // control rather than a nicety. Nothing bound it to these call sites before:
+  // every auditHpcAccess call could be deleted with the suite still green.
+  let logSpy;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+  });
+
+  const auditLines = () =>
+    logSpy.mock.calls
+      .map((call) => call[0])
+      .filter((line) => typeof line === "string" && line.includes(AUDIT_PREFIX));
+
+  describe("GET /directory-files", () => {
+    test("emits exactly one line naming the caller and the resolved directory", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "batch1" });
+
+      expect(response.status).toBe(200);
+
+      const lines = auditLines();
+      expect(lines).toHaveLength(1);
+      expect(lines[0]).toBe(
+        `${AUDIT_PREFIX} action="list" user="testuser" ` +
+          `path=${JSON.stringify(_path.join(transferDir, "batch1"))} ` +
+          `outcome="ok" detail="files=1"`,
+      );
+    });
+
+    test("does not claim a listing that was refused", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/outsidedir" });
+
+      expect(response.body.filesResults).toBeUndefined();
+      expect(auditLines()).toHaveLength(0);
+    });
+  });
+
+  describe("POST /directory-files/verify-md5", () => {
+    test("emits exactly one line naming the caller and the resolved file", async () => {
+      // This endpoint reads every byte of any file in any group's staging
+      // directory and emitted nothing at all, though this module's own header
+      // promises a line for "md5".
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "reads.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.status).toBe(200);
+
+      const lines = auditLines();
+      expect(lines).toHaveLength(1);
+      expect(lines[0]).toContain('action="md5"');
+      expect(lines[0]).toContain('user="testuser"');
+      expect(lines[0]).toContain(
+        `path=${JSON.stringify(_path.join(transferDir, "batch1", "reads.txt"))}`,
+      );
+      expect(lines[0]).toMatch(/detail="requestId=[^"]+"/);
+    });
+
+    test("records the read even when the checksum does not match", async () => {
+      // The record is of the *read*, not of the verdict: a caller hashing
+      // another group's file learns its checksum whatever answer comes back.
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "reads.txt",
+          expectedMd5: "0".repeat(32),
+        });
+
+      expect(response.body.matches).toBe(false);
+      expect(auditLines()).toHaveLength(1);
+    });
+
+    test("does not claim a read that was refused for path containment", async () => {
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "linkfarm",
+          fileName: "leak.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.body.calculatedMd5).toBeUndefined();
+      expect(auditLines()).toHaveLength(0);
+    });
+
+    test("does not claim a read of a file that does not exist", async () => {
+      await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "nope.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(auditLines()).toHaveLength(0);
+    });
   });
 });

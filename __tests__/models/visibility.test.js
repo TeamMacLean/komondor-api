@@ -36,8 +36,12 @@ const ORIGINAL = process.env.FULL_RECORDS_ACCESS_USERS;
 const filterOf = (query) =>
   typeof query.getFilter === "function" ? query.getFilter() : query._conditions;
 
-// What visibleGroupIds() hands over for a full-access user: no filter at all.
-const FULL_ACCESS = null;
+// Every principal now arrives here with a *list*. visibleGroupIds() used to
+// hand a full-access user `null` — "no filter at all" — and Model.find({})
+// returns records in soft-deleted groups, the very groups canReadGroup 403s on
+// the per-record route. Admins are given every live group instead, so their
+// query is scoped like everyone else's.
+const LIVE_GROUPS = ["g1", "g2"];
 
 beforeEach(() => {
   process.env.FULL_RECORDS_ACCESS_USERS = '["alice"]';
@@ -61,25 +65,37 @@ describe.each(MODELS)("%s.iCanSee", (name, getModel) => {
     expect(typeof query.exec).toBe("function");
   });
 
-  test("applies no filter for the built-in admin", () => {
-    const query = getModel().iCanSee({ username: "admin" }, FULL_ACCESS);
+  // These three used to assert `{}` — an unrestricted query — for exactly the
+  // principals who use the admin screen. That is how the list, search and news
+  // endpoints kept serving records whose group had been soft-deleted while the
+  // per-record endpoint refused the same group.
+  describe.each([
+    ["the built-in admin", { username: "admin" }],
+    ["a user flagged isAdmin", { username: "carol", isAdmin: true }],
+    ["a configured full-access user", { username: "alice" }],
+  ])("for %s", (_label, user) => {
+    test("scopes the query to the live groups, never to everything", () => {
+      const query = getModel().iCanSee(user, LIVE_GROUPS);
 
-    expect(filterOf(query)).toEqual({});
-  });
+      expect(filterOf(query)).toEqual({ group: { $in: LIVE_GROUPS } });
+      expect(filterOf(query)).not.toEqual({});
+    });
 
-  test("applies no filter for a user flagged isAdmin", () => {
-    const query = getModel().iCanSee(
-      { username: "carol", isAdmin: true },
-      FULL_ACCESS,
-    );
+    test("matches nothing when every group has been deleted", () => {
+      const query = getModel().iCanSee(user, []);
 
-    expect(filterOf(query)).toEqual({});
-  });
+      expect(filterOf(query)).toEqual({ _id: { $in: [] } });
+    });
 
-  test("applies no filter for a configured full-access user", () => {
-    const query = getModel().iCanSee({ username: "alice" }, FULL_ACCESS);
+    test("fails closed on the legacy null group list", () => {
+      // `null` was the "sees everything" sentinel. visibleGroupIds no longer
+      // produces it, and if something reintroduces it the query must match
+      // nothing rather than reopen the whole collection.
+      const query = getModel().iCanSee(user, null);
 
-    expect(filterOf(query)).toEqual({});
+      expect(filterOf(query)).not.toEqual({});
+      expect(filterOf(query)).toEqual({ _id: { $in: [] } });
+    });
   });
 
   test("restricts an ordinary user to their groups' records", () => {

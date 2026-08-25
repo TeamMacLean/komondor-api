@@ -23,6 +23,7 @@ const {
   hasFullRecordsAccess,
   buildVisibilityFilter,
   resolveVisibilityFilter,
+  visibleGroupIds,
 } = require("../../lib/utils/fullAccessUsers");
 
 const ORIGINAL = process.env.FULL_RECORDS_ACCESS_USERS;
@@ -138,8 +139,31 @@ describe("buildVisibilityFilter", () => {
     process.env.FULL_RECORDS_ACCESS_USERS = '["alice"]';
   });
 
-  test("returns null (unrestricted) for a full-access user", () => {
-    expect(buildVisibilityFilter({ username: "alice" })).toBeNull();
+  // The filter is now a pure function of the group ids handed in — there is no
+  // "sees everything" exemption for anyone. An exemption returned null, null
+  // means no filter, and no filter includes records in *soft-deleted* groups,
+  // which canReadGroup refuses on the per-record route. The two layers only
+  // agree if the admin screen's query is scoped to a group list too.
+  describe.each([
+    ["an admin", { username: "carol", isAdmin: true }],
+    ["the built-in admin username", { username: "admin" }],
+    ["a FULL_RECORDS_ACCESS_USERS member", { username: "alice" }],
+  ])("gives %s no exemption from the filter", (_label, user) => {
+    test("never returns null", () => {
+      expect(buildVisibilityFilter(user, ["g1"])).not.toBeNull();
+    });
+
+    test("scopes to the group ids it was given", () => {
+      expect(buildVisibilityFilter(user, ["g1", "g2"])).toEqual({
+        group: { $in: ["g1", "g2"] },
+      });
+    });
+
+    test("matches nothing when no group is readable", () => {
+      // Critically not `{}`: every live group being gone must not become
+      // "every record, including those in deleted groups".
+      expect(buildVisibilityFilter(user, [])).toEqual({ _id: { $in: [] } });
+    });
   });
 
   test("filters by group for an ordinary user", () => {
@@ -149,56 +173,63 @@ describe("buildVisibilityFilter", () => {
     // — and, because the client chooses the value, a way to hand access to
     // somebody else. Visibility is group visibility now.
     expect(
-      buildVisibilityFilter({ username: "eve", groups: ["g1", "g2"] }),
+      buildVisibilityFilter({ username: "eve" }, ["g1", "g2"]),
     ).toEqual({ group: { $in: ["g1", "g2"] } });
   });
 
   test("does not grant a user access to their own records outside their groups", () => {
-    const filter = buildVisibilityFilter({
-      username: "eve",
-      groups: ["g1"],
-    });
+    const filter = buildVisibilityFilter({ username: "eve" }, ["g1"]);
 
     // Nothing anywhere in the filter may key off the owner field.
     expect(JSON.stringify(filter)).not.toContain("owner");
   });
 
-  test("matches nothing when the user has no groups", () => {
+  test("matches nothing when the user has no readable group", () => {
     // Previously `{ $or: [{ owner: "eve" }] }`: a user removed from every
     // group kept reading every record they had created.
-    expect(buildVisibilityFilter({ username: "eve" })).toEqual({
+    expect(buildVisibilityFilter({ username: "eve" }, [])).toEqual({
       _id: { $in: [] },
     });
   });
 
   test("ignores falsy group entries", () => {
     expect(
-      buildVisibilityFilter({ username: "eve", groups: ["g1", null, ""] }),
+      buildVisibilityFilter({ username: "eve" }, ["g1", null, ""]),
     ).toEqual({ group: { $in: ["g1"] } });
   });
 
-  test("tolerates a non-array groups value", () => {
+  test("matches nothing for a non-array group list", () => {
     expect(
-      buildVisibilityFilter({ username: "eve", groups: "not-an-array" }),
+      buildVisibilityFilter({ username: "eve" }, "not-an-array"),
     ).toEqual({ _id: { $in: [] } });
   });
 
   test("normalises group ids to strings", () => {
-    // The claim is whatever was signed into the token; a non-string entry
-    // would otherwise reach mongo as a query operator.
+    // Ids arrive as ObjectIds from the database; a non-string entry would
+    // otherwise reach mongo as a query operator.
     const objectIdish = { toString: () => "g1" };
 
-    expect(
-      buildVisibilityFilter({ username: "eve", groups: [objectIdish] }),
-    ).toEqual({ group: { $in: ["g1"] } });
+    expect(buildVisibilityFilter({ username: "eve" }, [objectIdish])).toEqual({
+      group: { $in: ["g1"] } });
   });
 
   test("matches nothing when the user carries no identifying information", () => {
     // Critically this must not be `{}`, which would match every document.
-    expect(buildVisibilityFilter({})).toEqual({ _id: { $in: [] } });
+    expect(buildVisibilityFilter({}, [])).toEqual({ _id: { $in: [] } });
   });
 
-  test("authorises against an explicit group list when given one", () => {
+  test("matches nothing for a missing user whatever ids are passed", () => {
+    expect(buildVisibilityFilter(null, ["g1"])).toEqual({ _id: { $in: [] } });
+  });
+
+  test("ignores the token's groups claim entirely", () => {
+    // The claim is baked in at login and outlives a group's deletion. Only the
+    // ids resolved from the database decide anything; a caller that forgets to
+    // pass them gets nothing, not the claim.
+    expect(
+      buildVisibilityFilter({ username: "eve", groups: ["g1", "g2"] }),
+    ).toEqual({ _id: { $in: [] } });
+
     expect(
       buildVisibilityFilter({ username: "eve", groups: ["g1", "g2"] }, ["g1"]),
     ).toEqual({ group: { $in: ["g1"] } });
@@ -237,12 +268,55 @@ describe("resolveVisibilityFilter", () => {
     );
   });
 
-  test("returns null for a full-access user without consulting the database", async () => {
-    await expect(
-      resolveVisibilityFilter({ username: "alice" }),
-    ).resolves.toBeNull();
+  // The finding this pins: a full-access user used to short-circuit to null
+  // here, and null means "no filter", so the list/search/news query became
+  // Model.find({}) — which returns records whose group has been soft-deleted,
+  // the very group canReadGroup 403s on the per-record route. Admins are the
+  // principals who use the admin screen, so they were the only ones who could
+  // see the two layers disagree.
+  describe.each([
+    ["an admin", { username: "carol", isAdmin: true }],
+    ["the built-in admin username", { username: "admin" }],
+    ["a FULL_RECORDS_ACCESS_USERS member", { username: "alice" }],
+  ])("for %s", (_label, user) => {
+    test("resolves the live groups instead of returning null", async () => {
+      Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }, { _id: "g2" }]);
 
-    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+      await expect(resolveVisibilityFilter(user)).resolves.toEqual({
+        group: { $in: ["g1", "g2"] },
+      });
+    });
+
+    test("consults the database rather than assuming everything", async () => {
+      Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }]);
+
+      await resolveVisibilityFilter(user);
+
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+        expect.objectContaining({ username: user.username }),
+        { mode: "read" },
+      );
+    });
+
+    test("excludes a soft-deleted group", async () => {
+      // GroupsIAmIn filters `deleted`, so the deleted group simply is not in
+      // the list it returns. The filter must be scoped to what came back and
+      // to nothing else.
+      Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }]);
+
+      const filter = await resolveVisibilityFilter(user);
+
+      expect(filter).toEqual({ group: { $in: ["g1"] } });
+      expect(filter).not.toEqual({});
+    });
+
+    test("matches nothing when every group has been deleted", async () => {
+      Group.GroupsIAmIn.mockResolvedValue([]);
+
+      await expect(resolveVisibilityFilter(user)).resolves.toEqual({
+        _id: { $in: [] },
+      });
+    });
   });
 
   test("matches nothing when every group the token names has gone", async () => {
@@ -268,5 +342,47 @@ describe("resolveVisibilityFilter", () => {
     await expect(
       resolveVisibilityFilter({ username: "eve", groups: ["g1"] }),
     ).resolves.toEqual({ group: { $in: ["g1"] } });
+  });
+});
+
+describe("visibleGroupIds", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    process.env.FULL_RECORDS_ACCESS_USERS = '["alice"]';
+  });
+
+  // This is the function the four record models' iCanSee is fed from, so a
+  // null here is what turned the admin screen's query into Model.find({}).
+  // It must be a list for every principal, resolved live.
+  test.each([
+    ["an admin", { username: "carol", isAdmin: true }],
+    ["the built-in admin username", { username: "admin" }],
+    ["a FULL_RECORDS_ACCESS_USERS member", { username: "alice" }],
+    ["an ordinary user", { username: "eve", groups: ["g1"] }],
+  ])("returns the live group ids for %s, never null", async (_label, user) => {
+    Group.GroupsIAmIn.mockResolvedValue([{ _id: "g1" }, { _id: "g2" }]);
+
+    const ids = await visibleGroupIds(user);
+
+    expect(ids).not.toBeNull();
+    expect(ids.map(String)).toEqual(["g1", "g2"]);
+    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(user, { mode: "read" });
+  });
+
+  test("returns an empty list, not null, when nothing is readable", async () => {
+    Group.GroupsIAmIn.mockResolvedValue([]);
+
+    await expect(visibleGroupIds({ username: "admin" })).resolves.toEqual([]);
+  });
+
+  test("fails closed for a missing user without calling GroupsIAmIn", async () => {
+    await expect(visibleGroupIds(null)).resolves.toEqual([]);
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+  });
+
+  test("tolerates GroupsIAmIn returning a non-array", async () => {
+    Group.GroupsIAmIn.mockResolvedValue(undefined);
+
+    await expect(visibleGroupIds({ username: "eve" })).resolves.toEqual([]);
   });
 });

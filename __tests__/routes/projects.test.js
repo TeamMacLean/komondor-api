@@ -386,6 +386,80 @@ describe("GET /project?id=:id", () => {
     });
   });
 
+  describe("ownership is not a read grant", () => {
+    test("should refuse the project's owner when they are in none of its groups", async () => {
+      // This branch used to read `if (!canAccess && !isOwner)`, so a caller
+      // with no group membership at all still got a 200 on any project whose
+      // `owner` string matched their username. That made ownership a permanent
+      // read grant that removing somebody from the group could not withdraw —
+      // and on projects created before `owner` was stamped from the session it
+      // is a verbatim copy of req.body, so it can name anybody at all.
+      mockUser = { username: "testuser", groups: [], isAdmin: false };
+
+      Project.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockReturnValue({
+            populate: jest.fn().mockReturnValue({
+              // mockProject.owner is "testuser" — the caller.
+              exec: jest.fn().mockResolvedValue(mockProject),
+            }),
+          }),
+        }),
+      });
+
+      Group.GroupsIAmIn.mockResolvedValue([]);
+
+      const response = await request(app).get(`/project?id=${mockProjectId}`);
+
+      expect(response.status).toBe(403);
+      expect(response.body.error).toMatch(/permission/i);
+    });
+
+    test("the authorisation decision never reads the project's owner field", async () => {
+      // A second angle on the same removal, deliberately not shaped like the
+      // 403 above. That test says "the answer is no"; this one says "`owner`
+      // is not an input to the answer at all" — so the two fail for different
+      // reasons and one bad merge cannot take both.
+      //
+      // The tripwire is a getter on `owner`. Any re-introduced clause has to
+      // read the field to compare it, so touching it at all is the violation,
+      // whatever the route then decides.
+      let ownerReads = 0;
+      const project = { ...mockProject };
+      delete project.owner;
+      Object.defineProperty(project, "owner", {
+        enumerable: true,
+        configurable: true,
+        get() {
+          ownerReads += 1;
+          return "testuser"; // the caller, so a restored clause would match
+        },
+      });
+
+      mockUser = { username: "testuser", groups: [], isAdmin: false };
+
+      Project.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockReturnValue({
+            populate: jest.fn().mockReturnValue({
+              exec: jest.fn().mockResolvedValue(project),
+            }),
+          }),
+        }),
+      });
+
+      Group.GroupsIAmIn.mockResolvedValue([]);
+
+      const response = await request(app).get(`/project?id=${mockProjectId}`);
+
+      // Group membership is the whole input to the decision.
+      expect(ownerReads).toBe(0);
+      // And the record is never serialised back either, which is the only
+      // other way `owner` could legitimately have been touched here.
+      expect(response.status).toBe(403);
+    });
+  });
+
   describe("multi-group user access", () => {
     test("should allow access when user belongs to multiple groups including project group", async () => {
       Project.findById = jest.fn().mockReturnValue({
@@ -476,6 +550,61 @@ describe("GET /projects", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.projects).toEqual([]);
+  });
+
+  describe("the list is scoped to the caller's live groups", () => {
+    // Every other test here mocks iCanSee and ignores what it was called with,
+    // so the scoping argument was invisible to the suite: replacing
+    // `await visibleGroupIds(req.user)` with `null` — null being "no filter at
+    // all", i.e. every project in every group — left it green.
+    const ORIGINAL_FULL_ACCESS = process.env.FULL_RECORDS_ACCESS_USERS;
+
+    beforeEach(() => {
+      // visibleGroupIds short-circuits to null for a full-access user, so the
+      // list has to be empty for this to be a test of the ordinary path.
+      process.env.FULL_RECORDS_ACCESS_USERS = "[]";
+    });
+
+    afterEach(() => {
+      if (ORIGINAL_FULL_ACCESS === undefined) {
+        delete process.env.FULL_RECORDS_ACCESS_USERS;
+      } else {
+        process.env.FULL_RECORDS_ACCESS_USERS = ORIGINAL_FULL_ACCESS;
+      }
+    });
+
+    test("should hand iCanSee the group ids resolved from the database", async () => {
+      // Not the `groups` claim on the token: that is only as fresh as the
+      // token, and a group soft-deleted since login must stop being visible.
+      const liveGroupId = new mongoose.Types.ObjectId();
+      Group.GroupsIAmIn.mockResolvedValue([{ _id: liveGroupId }]);
+      Project.iCanSee = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      const response = await request(app).get("/projects");
+
+      expect(response.status).toBe(200);
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(mockUser, {
+        mode: "read",
+      });
+      expect(Project.iCanSee).toHaveBeenCalledWith(mockUser, [liveGroupId]);
+    });
+
+    test("should hand iCanSee an empty list, not null, for a groupless caller", async () => {
+      // [] means "belongs to nothing, match nothing"; null means "no filter".
+      // The two are opposites, and conflating them turns a caller who belongs
+      // to no live group into a reader of every group.
+      Group.GroupsIAmIn.mockResolvedValue([]);
+      Project.iCanSee = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue([]),
+      });
+
+      const response = await request(app).get("/projects");
+
+      expect(response.status).toBe(200);
+      expect(Project.iCanSee).toHaveBeenCalledWith(mockUser, []);
+    });
   });
 });
 

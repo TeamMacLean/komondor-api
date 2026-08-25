@@ -48,6 +48,54 @@ describe("cleanDirectoryName", () => {
       expect(cleanDirectoryName(input)).toBe("");
     },
   );
+
+  describe("refuses interior control characters", () => {
+    // null, not "". Both are falsy, so the callers that test for a usable name
+    // are unaffected — but "" is a legitimate value meaning "the root itself"
+    // (that is what "/" strips to), and resolveWithin(root, "") resolves to the
+    // root and succeeds. Returning "" for a hostile name would therefore turn a
+    // refusal into a silent normalisation. null is not a string, so
+    // resolveWithin refuses it outright and every consumer fails closed.
+    test.each([
+      ["a\nb"],
+      ["a\rb"],
+      ['batch1\n[HPC-AUDIT] action="claim"'],
+      ["a\u0000b"],
+      ["a\u0001b"],
+      ["a\u001bb"],
+      ["a\u001fb"],
+      ["a\u007fb"],
+    ])("returns null for %j", (input) => {
+      expect(cleanDirectoryName(input)).toBeNull();
+    });
+
+    test("a refused name is refused as a path segment, not read as the root", () => {
+      // The distinction "" vs null exists for exactly this: with "" the
+      // hostile input would resolve to the root and the request would succeed.
+      expect(resolveWithin(ROOT, cleanDirectoryName("a\0b"))).toBeNull();
+      expect(resolveWithin(ROOT, cleanDirectoryName("a\nb"))).toBeNull();
+      // Contrast: "/" really does mean the root, and still does.
+      expect(resolveWithin(ROOT, cleanDirectoryName("/"))).toBe(ROOT);
+    });
+
+    test("a newline at either end is still just whitespace to trim", () => {
+      // trim() already reaches these, and always has. Only a control character
+      // a trim cannot remove is treated as hostile, so the existing tolerance
+      // for sloppy input is unchanged.
+      expect(cleanDirectoryName("\nuploads\n")).toBe("uploads");
+      expect(cleanDirectoryName("\r\n/uploads/\r\n")).toBe("uploads");
+    });
+
+    test("a forged audit record cannot survive the cleaner", () => {
+      // The concrete attack: HPC_TRANSFER_DIRECTORY is writable by
+      // unprivileged users, so one of them can create a directory whose name
+      // embeds a whole second log line. hpcAudit quotes its fields, but the
+      // refusal diagnostics in routes/read-file.js and routes/directory-files.js
+      // interpolate the raw name into console.error and do not.
+      const forged = 'batch1\n[HPC-AUDIT] action="claim" user="alice"';
+      expect(cleanDirectoryName(forged)).toBeNull();
+    });
+  });
 });
 
 describe("isWithin", () => {
@@ -111,6 +159,27 @@ describe("resolveWithin", () => {
 
     test("an absolute segment in a later position", () => {
       expect(resolveWithin(ROOT, "batch1", "/etc/passwd")).toBeNull();
+    });
+
+    test("an absolute segment that lands back inside the root", () => {
+      // The two tests above look like they cover the isAbsolute guard, and
+      // neither does: "/etc/passwd" is outside ROOT, so isWithin refuses it
+      // whether or not the absolute check ran. Deleting the guard left both
+      // green.
+      //
+      // This is the case that separates them. path.resolve discards every
+      // earlier segment when it meets an absolute one, so without the guard
+      // the answer is "<ROOT>/other" — inside the root, so isWithin is
+      // satisfied — and "batch1" has silently vanished. A caller confined to
+      // one batch directory reaches its siblings by prefixing the root it was
+      // never supposed to know it was under.
+      expect(resolveWithin(ROOT, "batch1", `${ROOT}/other`)).toBeNull();
+    });
+
+    test("an absolute segment naming the root itself", () => {
+      // Same escape, degenerate target: without the guard this resolves to
+      // ROOT, which is the whole transfer directory rather than one batch.
+      expect(resolveWithin(ROOT, "batch1", ROOT)).toBeNull();
     });
 
     test("a segment containing a NUL byte", () => {
@@ -221,6 +290,30 @@ describe("safeBasename", () => {
 
     test("returns null for a name containing a NUL byte", () => {
       expect(safeBasename("reads\0.fq")).toBeNull();
+    });
+
+    describe("refuses interior control characters", () => {
+      // A NUL truncates the path at the syscall boundary; a newline splits any
+      // single-line record the name is interpolated into — including
+      // `File.name` as it is rendered downstream, and the unescaped
+      // console.error refusals in routes/read-file.js and
+      // routes/directory-files.js. Neither is ever a legitimate filename, so
+      // both are refused here rather than escaped at each sink.
+      test.each([
+        ["reads\n.fq"],
+        ["reads\r.fq"],
+        ['reads\n[HPC-AUDIT] action="claim".fq'],
+        ["reads\u0001.fq"],
+        ["reads\u001b[31m.fq"],
+        ["reads\u001f.fq"],
+        ["reads\u007f.fq"],
+      ])("returns null for %j", (name) => {
+        expect(safeBasename(name)).toBeNull();
+      });
+
+      test("a newline at either end is still just whitespace to trim", () => {
+        expect(safeBasename("\nreads.fq\n")).toBe("reads.fq");
+      });
     });
   });
 });

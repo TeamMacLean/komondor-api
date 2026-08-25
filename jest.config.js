@@ -1,5 +1,14 @@
 module.exports = {
   testEnvironment: "node",
+
+  // Runs before the framework is installed in each worker. See the file: it
+  // turns off HTTP connection pooling, which is the cause of the intermittent
+  // "socket hang up" / "Parse Error: Missing expected CR after response line"
+  // failures that landed on an arbitrary route test in ~8% of full runs.
+  // Turns off HTTP connection pooling. Hygiene, not a cure: read the file — it
+  // records the measurements that show it does NOT fix the intermittent
+  // "socket hang up" transport failures, and what else was ruled out.
+  setupFiles: ["<rootDir>/__tests__/setup/httpAgent.js"],
   coveragePathIgnorePatterns: [
     "/node_modules/",
     "/datastore/",
@@ -8,11 +17,13 @@ module.exports = {
   ],
   testMatch: [
     "**/__tests__/**/*.js",
+    "!**/__tests__/setup/**",
     "**/?(*.)+(spec|test).js",
     "!**/routes/test.js",
   ],
   testPathIgnorePatterns: [
     "/node_modules/",
+    "/__tests__/setup/",
     "/datastore/",
     "/files/",
     "/docs/",

@@ -25,10 +25,26 @@ jest.mock("../../models/Read", () => ({ find: jest.fn() }));
 
 // Not mocked: lib/utils/groupAccess and lib/utils/fullAccessUsers. Those are the
 // authorisation decisions under test here, so they run for real against a mocked
-// Group.GroupsIAmIn.
-jest.mock("../../models/Group", () => ({ GroupsIAmIn: jest.fn() }));
+// Group model. `findOne` is the group-liveness lookup POST /accessions/new does
+// per record; `GroupsIAmIn` is left in place so a test can assert that route no
+// longer reaches for a read capability to authorise its write.
+jest.mock("../../models/Group", () => ({
+  GroupsIAmIn: jest.fn(),
+  findOne: jest.fn(),
+}));
 
 let mockUser = null;
+
+/**
+ * Stubs the Group.findOne(...).select("_id") POST /accessions/new uses to ask
+ * whether a record's group is still live. `null` is a group that has been
+ * soft-deleted, or never existed.
+ */
+const mockGroupLookup = (group) => {
+  require("../../models/Group").findOne = jest.fn(() => ({
+    select: jest.fn().mockResolvedValue(group),
+  }));
+};
 
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
@@ -39,9 +55,13 @@ jest.mock("../../routes/middleware", () => ({
     next();
   },
   isAdmin: (req, res, next) => next(),
-  // The CSV export is gated on this; the real predicate is covered in
-  // __tests__/routes/middleware.test.js.
-  hasFullRecordsAccess: (req, res, next) => next(),
+  // Deliberately the real implementation rather than a pass-through. This is
+  // the gate on the cross-group export, and stubbing it to `next()` made the
+  // gate invisible to this suite: deleting `.all(hasFullRecordsAccess)` from
+  // the route changed nothing here. It reads its predicate from
+  // FULL_RECORDS_ACCESS_USERS, which every test below sets.
+  hasFullRecordsAccess: jest.requireActual("../../routes/middleware")
+    .hasFullRecordsAccess,
 }));
 
 const Project = require("../../models/Project");
@@ -90,6 +110,7 @@ beforeEach(() => {
   process.env.FULL_RECORDS_ACCESS_USERS = '["enaadmin"]';
   mockUser = { username: "enaadmin", groups: [] };
   Group.GroupsIAmIn.mockResolvedValue([{ _id: groupId }]);
+  mockGroupLookup({ _id: groupId });
   [Project, Sample, Run].forEach((Model) => {
     Model.findById.mockResolvedValue({ _id: validId, group: groupId });
   });
@@ -326,10 +347,10 @@ describe("POST /accessions/new authorisation", () => {
   });
 
   test("refuses a write into a soft-deleted group", async () => {
-    // GroupsIAmIn omits soft-deleted groups for everybody, so the group the
-    // record belongs to stops resolving and the write is refused even for an
-    // ENA admin who can otherwise read across every group.
-    Group.GroupsIAmIn.mockResolvedValue([]);
+    // routes/groups.js retires a group by setting `deleted`, and the liveness
+    // query excludes those — so a retired group stops authorising writes into
+    // records nobody can see any more, even for an ENA admin.
+    mockGroupLookup(null);
 
     const response = await request(app)
       .post("/accessions/new")
@@ -337,9 +358,15 @@ describe("POST /accessions/new authorisation", () => {
 
     expect(response.status).toBe(403);
     expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
+    expect(Group.findOne).toHaveBeenCalledWith({
+      _id: groupId,
+      deleted: { $ne: true },
+    });
   });
 
   test("refuses a record whose group is missing", async () => {
+    // Nothing to authorise against, so nothing is written — and no query is
+    // sent for an undefined id.
     Run.findById.mockResolvedValue({ _id: validId, group: undefined });
 
     const response = await request(app)
@@ -350,17 +377,26 @@ describe("POST /accessions/new authorisation", () => {
     expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
   });
 
-  test("asks for the read capability, which is what full access grants", async () => {
+  test("does not authorise the write with a read capability", async () => {
+    // UPDATED: this used to assert the opposite — that the route asked
+    // GroupsIAmIn in "read" mode. That was the one place the read/write split
+    // in lib/utils/groupAccess.js did not hold: a read capability guarding
+    // findByIdAndUpdate, on a route that also sets `releaseDate` and so drives
+    // ENA release. Who may write is settled by requireAccessionWrite; what is
+    // left per record is whether the group is live, and that is asked of the
+    // Group collection directly.
     Run.findByIdAndUpdate.mockResolvedValue({ _id: validId });
 
-    await request(app)
+    const response = await request(app)
       .post("/accessions/new")
       .send({ type: "run", typeId: validId, accessions: ["ERR1"] });
 
-    expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
-      expect.objectContaining({ username: "enaadmin" }),
-      { mode: "read" },
-    );
+    expect(response.status).toBe(200);
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+    expect(Group.findOne).toHaveBeenCalledWith({
+      _id: groupId,
+      deleted: { $ne: true },
+    });
   });
 });
 
@@ -402,6 +438,38 @@ describe("GET /accessions/csv", () => {
     expect(lines).toHaveLength(2);
     expect(lines[1]).toContain("group_a");
     expect(lines[1]).toContain("project_1");
+  });
+
+  test("refuses a caller without cross-group read access", async () => {
+    // The export ignores group membership by design — it returns every run in
+    // the database — so it is gated on the same predicate as cross-group reads.
+    // It was once reachable by any authenticated user: a member of a single
+    // group, or of none, could export the lot. Nothing watched that gate until
+    // this test, because the middleware was stubbed to a pass-through here.
+    mockUser = { username: "alice", groups: [groupId.toString()] };
+    mockRunFind([buildRun()]);
+    Project.find.mockResolvedValue([buildProject()]);
+    mockReadFind([]);
+
+    const response = await request(app).get("/accessions/csv");
+
+    expect(response.status).toBe(403);
+    expect(response.body.error).toMatch(/permission/i);
+    // Refused before the whole-database query, not after it.
+    expect(Run.find).not.toHaveBeenCalled();
+  });
+
+  test("allows an ENA admin named in FULL_RECORDS_ACCESS_USERS", async () => {
+    // isAdmin is too narrow for this route: the people who use the export are
+    // ENA admins whose tokens carry no isAdmin claim.
+    mockUser = { username: "enaadmin", groups: [] };
+    mockRunFind([buildRun()]);
+    Project.find.mockResolvedValue([buildProject()]);
+    mockReadFind([]);
+
+    const response = await request(app).get("/accessions/csv");
+
+    expect(response.status).toBe(200);
   });
 
   test("quotes a field containing a comma so columns stay aligned", async () => {

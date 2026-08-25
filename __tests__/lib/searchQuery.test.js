@@ -19,7 +19,11 @@ const ORIGINAL = process.env.FULL_RECORDS_ACCESS_USERS;
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // searchByName resolves the caller's live group ids first and hands them to
-// iCanSee; `null` is what visibleGroupIds() returns for a full-access user.
+// iCanSee. Always an array, for every principal: visibleGroupIds used to answer
+// `null` — "no filter at all" — for a full-access user, which made the search
+// `Model.find({})` and so returned records belonging to soft-deleted groups.
+// GroupsIAmIn hands those principals every *live* group instead, so their reach
+// arrives here as a group list like anyone else's.
 const buildSearch = (Model, user, query, groupIds = []) =>
   Model.iCanSee(user, groupIds)
     .where("name")
@@ -88,15 +92,37 @@ describe.each([
     expect("ab").not.toMatch(filter.name.$regex);
   });
 
-  test("a full-access user gets the name match with no ownership filter", () => {
+  test("a full-access user is scoped to every live group, not left unfiltered", () => {
+    // This used to pass `null` and assert only that `$or` was absent, under the
+    // name "gets the name match with no ownership filter". Both were stale: the
+    // filter it produced was `{ _id: { $in: [] } }` — match *nothing* — so the
+    // test asserted the opposite of its own name and still passed, because
+    // neither assertion looked at the group scoping. A full-access user's live
+    // ids are what GroupsIAmIn returns for them: every group that is not
+    // soft-deleted.
+    const filter = buildSearch(getModel(), { username: "alice" }, "abc", [
+      "g1",
+      "g2",
+    ]).getFilter();
+
+    expect(filter.group).toEqual({ $in: ["g1", "g2"] });
+    expect(filter.$or).toBeUndefined();
+    expect(filter.name).toEqual({ $regex: /abc/i });
+  });
+
+  test("a full-access user in a system with no live groups sees nothing", () => {
+    // The consequence of expressing their reach as a group list rather than as
+    // an absent filter, and the point of the change: when every group has been
+    // soft-deleted there is nothing left to authorise against, and the search
+    // matches nothing instead of matching every record in the database.
     const filter = buildSearch(
       getModel(),
       { username: "alice" },
       "abc",
-      null,
+      [],
     ).getFilter();
 
-    expect(filter.$or).toBeUndefined();
+    expect(filter._id).toEqual({ $in: [] });
     expect(filter.name).toEqual({ $regex: /abc/i });
   });
 

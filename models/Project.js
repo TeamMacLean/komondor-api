@@ -195,9 +195,13 @@ schema.methods.getAbsPath = function getPath() {
  * quietly restoring that behaviour.
  *
  * @param {object} user - The authenticated user object.
- * @param {Array|null} groupIds - The live group ids from
- *   {@link module:lib/utils/fullAccessUsers.visibleGroupIds}; null for a
- *   full-access user, for whom no filter applies at all.
+ * @param {Array} groupIds - The live group ids from
+ *   {@link module:lib/utils/fullAccessUsers.visibleGroupIds}. Always an array,
+ *   for every principal including a full-access one: `null` used to mean "no
+ *   filter applies at all", which is what let those principals read records in
+ *   soft-deleted groups. `null` is still *accepted* here, and maps to a filter
+ *   matching nothing, so anything that reintroduces the old sentinel fails
+ *   closed rather than reopening the collection.
  * @returns {mongoose.Query} A query scoped to what the user may read.
  */
 schema.statics.iCanSee = function iCanSee(user, groupIds) {
@@ -210,7 +214,11 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
   }
 
   const filter = buildVisibilityFilter(user, groupIds);
-  return Project.find(filter === null ? {} : filter);
+  // No `filter === null ? {} : filter` fallback. buildVisibilityFilter can
+  // no longer return null, so that branch was dead — and it was the branch
+  // that produced an *unfiltered* query. Passing the filter straight through
+  // means this static has no path at all to `Project.find({})`.
+  return Project.find(filter);
 };
 
 const Project = mongoose.model("Project", schema);

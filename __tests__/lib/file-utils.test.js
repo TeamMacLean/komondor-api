@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 const os = require("os");
 const path = require("path");
 const fs = require("fs").promises;
@@ -10,12 +11,23 @@ jest.mock("../../models/AdditionalFile");
 jest.mock("../../models/Read");
 jest.mock("../../models/Run");
 jest.mock("../../lib/utils/md5");
+// Mocked so the claim trail can be asserted as records rather than as a log
+// line whose formatting belongs to lib/utils/hpcAudit.js.
+jest.mock("../../lib/utils/hpcAudit");
 
 const File = require("../../models/File");
 const AdditionalFile = require("../../models/AdditionalFile");
 const Read = require("../../models/Read");
 const Run = require("../../models/Run");
 const { calculateFileMd5 } = require("../../lib/utils/md5");
+// The unmocked hasher, for the one test whose subject is what the *open*
+// does rather than what file-utils does with the digest: adoption hashes the
+// destination by path, and O_NOFOLLOW is what stops a symlink there being
+// adopted as the real bytes.
+const { calculateFileMd5: realCalculateFileMd5 } = jest.requireActual(
+  "../../lib/utils/md5",
+);
+const { auditHpcAccess } = require("../../lib/utils/hpcAudit");
 
 const {
   ensureDirectoryExists,
@@ -705,18 +717,94 @@ describe("file-utils", () => {
         expect(save).not.toHaveBeenCalled();
       });
 
-      it("skips the AdditionalFile model's own post-save move", async () => {
-        stageUpload();
-        let additionalData;
-        AdditionalFile.mockImplementation((data) => {
-          additionalData = data;
-          return { save: jest.fn().mockResolvedValue({}) };
+      describe("skipping the AdditionalFile model's own post-save move", () => {
+        // The flag was a no-op. models/AdditionalFile.js had no such schema
+        // path and no such guard — only `if (!doc.wasNew) return`, and the row
+        // is brand new — so Mongoose dropped the property and the legacy hook
+        // moved every additional file a second time, from a staging source
+        // that was no longer there, then swallowed the failure.
+        //
+        // The test that stood here mocked the model away entirely and asserted
+        // only that the flag had been passed to the constructor, which is
+        // precisely why a flag that did nothing looked like it worked. These
+        // go through the real model.
+        const RealAdditionalFile = jest.requireActual(
+          "../../models/AdditionalFile",
+        );
+
+        /**
+         * A saved row as the post-save hook sees it, with the parts of the
+         * Mongoose document the hook actually touches.
+         */
+        const savedRow = ({ skipPostSave, move: fileMove }) => {
+          const doc = {
+            wasNew: true,
+            skipPostSave,
+            run: mockObjectId,
+            file: {
+              originalName: "notes.txt",
+              moveToFolderAndSave: fileMove,
+            },
+          };
+          doc.populate = jest.fn(() => doc);
+          doc.execPopulate = jest.fn(() => Promise.resolve(doc));
+          return doc;
+        };
+
+        beforeEach(() => {
+          Run.findById = jest.fn().mockResolvedValue({
+            getRelativePath: jest.fn().mockResolvedValue("/test/path"),
+          });
         });
 
-        await runAdditional();
+        it("is a real path on the schema, not a property Mongoose drops", () => {
+          const row = new RealAdditionalFile({
+            file: new mongoose.Types.ObjectId(),
+            sample: mockObjectId,
+            skipPostSave: true,
+          });
 
-        expect(additionalData.skipPostSave).toBe(true);
-        expect(move).toHaveBeenCalledTimes(1);
+          expect(RealAdditionalFile.schema.path("skipPostSave")).toBeDefined();
+          expect(row.skipPostSave).toBe(true);
+        });
+
+        it("stops the model moving the file a second time", async () => {
+          const fileMove = jest.fn().mockResolvedValue(undefined);
+
+          await RealAdditionalFile.movePostSave(
+            savedRow({ skipPostSave: true, move: fileMove }),
+          );
+
+          expect(fileMove).not.toHaveBeenCalled();
+        });
+
+        it("still lets a row written without it move its own file", async () => {
+          // Guards the guard: a hook that returned unconditionally would pass
+          // the test above and break every legacy caller.
+          const fileMove = jest.fn().mockResolvedValue(undefined);
+
+          await RealAdditionalFile.movePostSave(
+            savedRow({ skipPostSave: false, move: fileMove }),
+          );
+
+          expect(fileMove).toHaveBeenCalledWith(
+            path.join("/test/path", "additional", "notes.txt"),
+          );
+        });
+
+        it("is set on every row processAdditionalFiles writes", async () => {
+          stageUpload();
+          let additionalData;
+          AdditionalFile.mockImplementation((data) => {
+            additionalData = data;
+            return { save: jest.fn().mockResolvedValue({}) };
+          });
+
+          await runAdditional();
+
+          expect(additionalData.skipPostSave).toBe(true);
+          expect(move).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });
@@ -923,6 +1011,29 @@ describe("file-utils", () => {
         ).rejects.toThrow(/'originalName' is not a valid file path/);
       });
 
+      test("refuses an uploadName that only escapes the upload directory via a symlink", async () => {
+        // The hpc-mv branch has this test; this branch had none, so the
+        // symlink half of its own resolveWithinReal was unwatched and the call
+        // could be downgraded to the lexical resolveWithin with a green build.
+        //
+        // Lexically "<uploadDir>/<id>" never leaves the root — every string
+        // check passes. Only realpath sees that the name is a link to a file
+        // outside the staging area, which is what stops that file being
+        // adopted into the datastore as though it had been uploaded.
+        const escapeId = "b2c3d4e5f60718293a4b5c6d7e8f9012";
+        const target = path.join(outsideDir, "secret.fq");
+        fsSync.writeFileSync(target, "TOP SECRET");
+        fsSync.symlinkSync(target, path.join(uploadDir, escapeId));
+
+        await expect(
+          process1(localFile({ uploadName: escapeId })),
+        ).rejects.toThrow(/'uploadName' is not a valid file path/);
+
+        // Refused as a path, before ownership is even consulted — so the
+        // message cannot be turned into an oracle for who owns what.
+        expect(File).not.toHaveBeenCalled();
+      });
+
       test("keeps the sanitised originalName on the document", async () => {
         await process1(localFile({ name: "  reads.fq  " }));
 
@@ -1001,6 +1112,497 @@ describe("file-utils", () => {
           process1(localFile({ uploadName: undefined })),
         ).rejects.toThrow(/missing properties: name/);
       });
+    });
+  });
+
+  describe("the HPC claim trail", () => {
+    // The trail is the only control the shared staging area has: nothing
+    // records which group a subdirectory belongs to, so a claim can be
+    // attributed but not authorised. It used to be written BEFORE the file was
+    // taken, always with the default outcome=ok, and never at all when a claim
+    // was refused — so it recorded takes that never happened and was silent
+    // about exactly the attempts an operator needs to see.
+    let move;
+
+    const hpcFile = (overrides) => ({
+      name: "reads.fq",
+      relativePath: "WGS_Test/01.RawData",
+      uploadMethod: "hpc-mv",
+      ...overrides,
+    });
+
+    /** Every claim record emitted so far, oldest first. */
+    const claims = () =>
+      auditHpcAccess.mock.calls
+        .map(([record]) => record)
+        .filter((record) => record.action === "claim");
+
+    const claim = (file = hpcFile(), username = OWNER) =>
+      processAdditionalFiles(
+        [file],
+        "sample",
+        mockObjectId,
+        "/test/path",
+        username,
+      );
+
+    beforeEach(() => {
+      move = jest.fn().mockResolvedValue(undefined);
+      File.mockImplementation((data) => ({
+        save: jest.fn().mockResolvedValue({
+          _id: new mongoose.Types.ObjectId(),
+          originalName: data.originalName,
+          path: data.path,
+          moveToFolderAndSave: move,
+          save: jest.fn().mockResolvedValue({}),
+        }),
+      }));
+      AdditionalFile.mockImplementation(() => ({
+        save: jest.fn().mockResolvedValue({}),
+      }));
+      jest.spyOn(fs, "access").mockResolvedValue(undefined);
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      jest.spyOn(console, "log").mockImplementation(() => {});
+    });
+
+    it("records nothing until the bytes have actually moved", async () => {
+      let claimsAtMoveTime = null;
+      move.mockImplementation(async () => {
+        claimsAtMoveTime = claims().length;
+      });
+
+      await claim();
+
+      expect(claimsAtMoveTime).toBe(0);
+      expect(claims()).toEqual([
+        expect.objectContaining({
+          outcome: "ok",
+          user: { username: OWNER },
+          detail: "type=additional",
+        }),
+      ]);
+    });
+
+    it("records the failure, not a take, when the claim cannot be completed", async () => {
+      move.mockRejectedValue(new Error("EROFS: read-only file system"));
+
+      await expect(claim()).rejects.toThrow(/read-only file system/);
+
+      expect(claims()).toEqual([
+        expect.objectContaining({ outcome: "failed", user: { username: OWNER } }),
+      ]);
+    });
+
+    it("records a claim refused for reaching outside the staging area", async () => {
+      await expect(claim(hpcFile({ relativePath: "../../etc" }))).rejects.toThrow(
+        /'relativePath' is not a valid file path/,
+      );
+
+      expect(claims()).toEqual([
+        expect.objectContaining({
+          outcome: "refused-outside-transfer-directory",
+          user: { username: OWNER },
+        }),
+      ]);
+    });
+
+    it("names the caller on a refusal, so an attempt can be attributed", async () => {
+      await claim(hpcFile({ relativePath: "../../etc" }), "mallory").catch(
+        () => {},
+      );
+
+      expect(claims()[0].user).toEqual({ username: "mallory" });
+    });
+
+    it("says nothing about a local-filesystem upload, which is not shared", async () => {
+      // assertUploadClaimable already proved that upload belongs to the
+      // caller, and its staging area is per-user rather than per-group.
+      stageUpload();
+
+      await claim({ name: "notes.txt", uploadName: UPLOAD_ID });
+
+      expect(claims()).toEqual([]);
+    });
+  });
+
+  describe("recovering a file an earlier attempt already moved", () => {
+    // The incident: a transient DB failure between a successful move and the
+    // save that follows it. The source is unlinked from staging and the
+    // destination is occupied, so every later attempt failed — ENOENT on the
+    // vanished source, or "destination already exists" — and the API had no
+    // recovery path at all. The bytes sat in the datastore with no row
+    // pointing at them.
+    let dataRoot;
+    let stagedSource;
+    let destination;
+    let move;
+    let ourFile;
+    let readSave;
+    let readData;
+
+    const REL_DESTINATION = path.join("/test/run/path", "raw", "reads.fq");
+
+    const hpcRead = (overrides) => ({
+      name: "reads.fq",
+      relativePath: "WGS_Test/01.RawData",
+      ...overrides,
+    });
+
+    const ingest = (file = hpcRead()) =>
+      processReadFiles(
+        [file],
+        mockObjectId,
+        "/test/path",
+        { method: "hpc-mv" },
+        OWNER,
+      );
+
+    beforeEach(() => {
+      dataRoot = path.join(tmpRoot, "datastore");
+      destination = path.join(dataRoot, "test/run/path/raw/reads.fq");
+      fsSync.mkdirSync(path.dirname(destination), { recursive: true });
+      process.env.DATASTORE_ROOT = dataRoot;
+
+      stagedSource = path.join(hpcRoot, "WGS_Test/01.RawData/reads.fq");
+      fsSync.mkdirSync(path.dirname(stagedSource), { recursive: true });
+      fsSync.writeFileSync(stagedSource, "ACGT");
+
+      // What production did: the bytes moved, and the save that followed did
+      // not. moveToFolderAndSave rejects with the source already gone.
+      move = jest.fn().mockImplementation(async () => {
+        fsSync.renameSync(stagedSource, destination);
+        throw new Error("MongoNetworkError: connection timed out");
+      });
+
+      File.mockImplementation((data) => {
+        ourFile = {
+          _id: new mongoose.Types.ObjectId(),
+          originalName: data.originalName,
+          path: data.path,
+          moveToFolderAndSave: move,
+          save: jest.fn().mockImplementation(() => Promise.resolve(ourFile)),
+        };
+        return { save: jest.fn().mockResolvedValue(ourFile) };
+      });
+      File.findOne = jest.fn().mockResolvedValue(null);
+      File.deleteOne = jest.fn().mockResolvedValue({});
+      Read.exists = jest.fn().mockResolvedValue(false);
+      AdditionalFile.exists = jest.fn().mockResolvedValue(false);
+
+      readData = null;
+      readSave = jest
+        .fn()
+        .mockResolvedValue({ _id: new mongoose.Types.ObjectId() });
+      Read.mockImplementation((data) => {
+        readData = data;
+        return { save: readSave };
+      });
+
+      Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+      Run.findById = jest.fn().mockResolvedValue({
+        getRelativePath: jest.fn().mockResolvedValue("/test/run/path"),
+      });
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      jest.spyOn(console, "log").mockImplementation(() => {});
+    });
+
+    it("reconciles the document onto bytes its own failed save left behind", async () => {
+      await ingest();
+
+      expect(ourFile.path).toBe(REL_DESTINATION);
+      expect(ourFile.save).toHaveBeenCalled();
+      expect(readData.file).toBe(ourFile._id);
+      expect(fsSync.existsSync(destination)).toBe(true);
+    });
+
+    it("completes the run instead of stalling it permanently", async () => {
+      await ingest();
+
+      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(
+        mockObjectId,
+        { $set: { status: "complete" } },
+      );
+    });
+
+    it("adopts the unclaimed document an earlier attempt left at the destination", async () => {
+      // The retry's view of the same incident: attempt one's File row already
+      // points at the destination, and no Read or AdditionalFile references it.
+      const orphan = {
+        _id: new mongoose.Types.ObjectId(),
+        originalName: "reads.fq",
+        path: REL_DESTINATION,
+      };
+      File.findOne = jest.fn().mockResolvedValue(orphan);
+
+      await ingest();
+
+      expect(readData.file).toBe(orphan._id);
+      // This attempt's duplicate points at a source that is gone, and File's
+      // unique {name, path, createFileDocumentId} index would refuse the next
+      // attempt's identical document if it were left behind.
+      expect(File.deleteOne).toHaveBeenCalledWith({ _id: ourFile._id });
+    });
+
+    it("refuses to adopt a file a Read already claims", async () => {
+      File.findOne = jest.fn().mockResolvedValue({
+        _id: new mongoose.Types.ObjectId(),
+        originalName: "reads.fq",
+      });
+      Read.exists = jest.fn().mockResolvedValue(true);
+
+      await expect(ingest()).rejects.toThrow(/connection timed out/);
+
+      expect(readSave).not.toHaveBeenCalled();
+      expect(File.deleteOne).not.toHaveBeenCalled();
+    });
+
+    it("refuses to adopt a file an AdditionalFile already claims", async () => {
+      File.findOne = jest.fn().mockResolvedValue({
+        _id: new mongoose.Types.ObjectId(),
+        originalName: "reads.fq",
+      });
+      AdditionalFile.exists = jest.fn().mockResolvedValue(true);
+
+      await expect(ingest()).rejects.toThrow(/connection timed out/);
+
+      expect(readSave).not.toHaveBeenCalled();
+    });
+
+    it("refuses to adopt while the staged source is still sitting there", async () => {
+      // Nothing was moved by anybody: the destination belongs to something
+      // else, and the upload can simply be retried.
+      move = jest.fn().mockRejectedValue(
+        new Error(
+          `Failed to move ${stagedSource} to ${destination}: destination already exists`,
+        ),
+      );
+      fsSync.writeFileSync(destination, "SOMEBODY ELSE");
+
+      await expect(ingest()).rejects.toThrow(/destination already exists/);
+
+      expect(readSave).not.toHaveBeenCalled();
+      expect(fsSync.readFileSync(destination, "utf8")).toBe("SOMEBODY ELSE");
+    });
+
+    it("refuses to adopt a file whose MD5 is not the one the request declared", async () => {
+      calculateFileMd5.mockResolvedValue("f".repeat(32));
+
+      await expect(
+        ingest(hpcRead({ md5: "a".repeat(32) })),
+      ).rejects.toThrow(/connection timed out/);
+
+      expect(readSave).not.toHaveBeenCalled();
+    });
+
+    it("adopts a file whose MD5 is the one the request declared", async () => {
+      calculateFileMd5.mockResolvedValue("A".repeat(32));
+
+      await ingest(hpcRead({ md5: "a".repeat(32) }));
+
+      expect(readData.file).toBe(ourFile._id);
+    });
+
+    it("does not adopt a destination that is a symlink rather than the real bytes", async () => {
+      // Condition 4 hashes `destination` by *path*, so a symlink planted at
+      // that name satisfies the MD5 comparison with somebody else's bytes and
+      // the document is adopted against a file it does not own.
+      //
+      // Containment does not stop this. The link's target is another group's
+      // file inside the same DATASTORE_ROOT, so resolveWithinReal realpaths it
+      // to a location still under the root and returns the destination — and
+      // fs.stat() follows the link, so the isFile() check passes too. The only
+      // refusal left is O_NOFOLLOW in lib/utils/md5.js, which is why this test
+      // runs the real hasher instead of the mocked one.
+      const theirs = path.join(dataRoot, "other-group", "their-reads.fq");
+      fsSync.mkdirSync(path.dirname(theirs), { recursive: true });
+      fsSync.writeFileSync(theirs, "SOMEBODY ELSE'S SEQUENCE DATA");
+      const theirMd5 = crypto
+        .createHash("md5")
+        .update("SOMEBODY ELSE'S SEQUENCE DATA")
+        .digest("hex");
+
+      // The move fails and takes the staged source with it, which is exactly
+      // the incident adoption exists to recover from — except that what is
+      // waiting at the destination is a link, not the moved bytes.
+      fsSync.symlinkSync(theirs, destination);
+      move = jest.fn().mockImplementation(async () => {
+        fsSync.rmSync(stagedSource);
+        throw new Error("MongoNetworkError: connection timed out");
+      });
+
+      calculateFileMd5.mockImplementation(realCalculateFileMd5);
+
+      // The declared MD5 is genuinely the digest of the bytes behind the link,
+      // so a hasher that follows it reports a match and the adoption goes
+      // through.
+      await expect(ingest(hpcRead({ md5: theirMd5 }))).rejects.toThrow(
+        /connection timed out/,
+      );
+
+      expect(readSave).not.toHaveBeenCalled();
+      // The link was reached and hashing it was attempted — if this fails, an
+      // earlier condition refused first and the test has stopped covering
+      // O_NOFOLLOW.
+      expect(calculateFileMd5).toHaveBeenCalledWith(destination);
+      // Nothing was repointed at the link.
+      expect(File.deleteOne).not.toHaveBeenCalled();
+    });
+
+    it("does not adopt when the destination holds nothing at all", async () => {
+      // The ordinary "your file is not in staging" mistake must still fail.
+      move = jest.fn().mockRejectedValue(
+        new Error(`Failed to move ${stagedSource} to ${destination}: ENOENT`),
+      );
+      fsSync.rmSync(stagedSource);
+
+      await expect(ingest()).rejects.toThrow(/ENOENT/);
+
+      expect(readSave).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("a failing batch does not abandon its siblings", () => {
+    // Promise.all rejects on the first failure and leaves the other moves
+    // running unsupervised: a multi-gigabyte read could land in the datastore
+    // long after the job row said the attempt had failed, which is itself what
+    // creates the permanent "destination already exists" stall next time.
+    const SECOND_UPLOAD_ID = "0f1e2d3c4b5a69788796a5b4c3d2e1f0";
+
+    let moves;
+    let readSave;
+
+    const runTwo = () =>
+      processReadFiles(
+        [
+          { name: "a.fq", uploadName: UPLOAD_ID, paired: false },
+          { name: "b.fq", uploadName: SECOND_UPLOAD_ID, paired: false },
+        ],
+        mockObjectId,
+        "/test/path",
+        { method: "local-filesystem" },
+        OWNER,
+      );
+
+    beforeEach(() => {
+      stageUpload();
+      stageUpload(SECOND_UPLOAD_ID);
+
+      moves = {};
+      File.mockImplementation((data) => ({
+        save: jest.fn().mockResolvedValue({
+          _id: new mongoose.Types.ObjectId(),
+          originalName: data.originalName,
+          path: data.path,
+          moveToFolderAndSave: moves[data.originalName],
+          save: jest.fn().mockResolvedValue({}),
+        }),
+      }));
+      readSave = jest
+        .fn()
+        .mockResolvedValue({ _id: new mongoose.Types.ObjectId() });
+      Read.mockImplementation(() => ({ save: readSave }));
+      Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+      Run.findById = jest.fn().mockResolvedValue({
+        getRelativePath: jest.fn().mockResolvedValue("/test/run/path"),
+      });
+      jest.spyOn(fs, "access").mockResolvedValue(undefined);
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      jest.spyOn(console, "log").mockImplementation(() => {});
+    });
+
+    it("waits for the slow sibling of a failed move to finish first", async () => {
+      let slowFinished = false;
+      moves["a.fq"] = jest
+        .fn()
+        .mockRejectedValue(new Error("ENOSPC: no space left on device"));
+      moves["b.fq"] = jest.fn().mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              slowFinished = true;
+              resolve();
+            }, 20);
+          }),
+      );
+
+      await expect(runTwo()).rejects.toThrow(/ENOSPC/);
+
+      expect(slowFinished).toBe(true);
+      // And its row was written before the job was marked failed, rather than
+      // arriving after the run already said 'error'.
+      expect(readSave.mock.invocationCallOrder[0]).toBeLessThan(
+        Run.findByIdAndUpdate.mock.invocationCallOrder[1],
+      );
+    });
+
+    it("waits for the slow sibling of a failed additional file too", async () => {
+      let slowFinished = false;
+      moves["a.txt"] = jest
+        .fn()
+        .mockRejectedValue(new Error("ENOSPC: no space left on device"));
+      moves["b.txt"] = jest.fn().mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(() => {
+              slowFinished = true;
+              resolve();
+            }, 20);
+          }),
+      );
+      AdditionalFile.mockImplementation(() => ({
+        save: jest.fn().mockResolvedValue({}),
+      }));
+
+      await expect(
+        processAdditionalFiles(
+          [
+            { name: "a.txt", uploadName: UPLOAD_ID },
+            { name: "b.txt", uploadName: SECOND_UPLOAD_ID },
+          ],
+          "sample",
+          mockObjectId,
+          "/test/path",
+          OWNER,
+        ),
+      ).rejects.toThrow(/ENOSPC/);
+
+      expect(slowFinished).toBe(true);
+    });
+
+    it("reports every file that failed, not just the first", async () => {
+      moves["a.fq"] = jest
+        .fn()
+        .mockRejectedValue(new Error("ENOSPC: no space left on device"));
+      moves["b.fq"] = jest
+        .fn()
+        .mockRejectedValue(new Error("EROFS: read-only file system"));
+
+      const error = await runTwo().catch((thrown) => thrown);
+
+      expect(error.message).toContain("2 of 2");
+      expect(error.message).toContain("ENOSPC");
+      expect(error.message).toContain("EROFS");
+    });
+
+    it("stores the aggregate on the run, not one arbitrary failure", async () => {
+      moves["a.fq"] = jest
+        .fn()
+        .mockRejectedValue(new Error("ENOSPC: no space left on device"));
+      moves["b.fq"] = jest
+        .fn()
+        .mockRejectedValue(new Error("EROFS: read-only file system"));
+
+      await runTwo().catch(() => {});
+
+      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(
+        mockObjectId,
+        expect.objectContaining({
+          $set: expect.objectContaining({
+            status: "error",
+            statusError: expect.stringContaining("EROFS"),
+          }),
+        }),
+      );
     });
   });
 

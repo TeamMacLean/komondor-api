@@ -273,6 +273,20 @@ router
         });
       }
 
+      // Emitted here, once, after the handle is open and confirmed to be a
+      // regular file but before a single byte is hashed. This endpoint reads
+      // every byte of any file in any group's staging directory and the inbox
+      // cannot authorise that (BREAKING_CHANGES.md entry 32), so attribution is
+      // the only control there is — and it has to be written before the read,
+      // not after, or a hash that dies mid-stream leaves no record that the
+      // bytes were touched at all.
+      auditHpcAccess({
+        action: "md5",
+        user: req.user,
+        path: filePath,
+        detail: `requestId=${requestId}`,
+      });
+
       // Write headers early and stream spaces to prevent reverse proxy timeout for large files
       res.setHeader('Content-Type', 'application/json');
       res.setHeader('X-Accel-Buffering', 'no'); // Disable Nginx buffering

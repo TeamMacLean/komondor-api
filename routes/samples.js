@@ -229,9 +229,14 @@ router
 
       // Permission check: reading needs the *read* capability on the sample's
       // group, which is broader than the write capability used to create one.
+      //
+      // Group membership is the whole test — there is no owner fallback. It
+      // was one until this branch, and it made ownership a read grant that
+      // leaving the group could not withdraw; on samples created before `owner`
+      // was stamped from the session it is a client-supplied string that can
+      // name anybody. See routes/projects.js GET /project for the full account.
       const canAccess = await canReadGroup(req.user, groupIdOf(sample));
-      const isOwner = sample.owner === req.user.username;
-      if (!canAccess && !isOwner) {
+      if (!canAccess) {
         return handleError(
           res,
           new Error(`User '${req.user.username}' does not have permission to view this sample.`),

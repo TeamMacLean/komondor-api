@@ -1,4 +1,35 @@
+const os = require("os");
+const path = require("path");
 const cron = require("node-cron");
+
+// lib/utils/uploadPath.js returns UPLOAD_DIRECTORY when it is set and
+// <cwd>/files when it is not, so the sweep's directory assertion below is
+// really an assertion about this worker's environment. Leaving it unset made
+// the test pass only on a machine where nothing had set it — and app.js calls
+// dotenv.config() at require time, which loads the developer's own .env (not
+// in the repository) into whichever jest worker ends up requiring app.js. The
+// same class of dependency-on-the-host once made the upload suite pass or fail
+// on how much free disk the machine had.
+//
+// So pin it. The directory is never created or written to: uploadPath() is
+// pure string work and cleanupAbandonedUploads is mocked.
+const PINNED_UPLOAD_DIRECTORY = path.join(
+  os.tmpdir(),
+  "komondor-background-jobs-upload-dir",
+);
+const ORIGINAL_UPLOAD_DIRECTORY = process.env.UPLOAD_DIRECTORY;
+
+beforeAll(() => {
+  process.env.UPLOAD_DIRECTORY = PINNED_UPLOAD_DIRECTORY;
+});
+
+afterAll(() => {
+  if (ORIGINAL_UPLOAD_DIRECTORY === undefined) {
+    delete process.env.UPLOAD_DIRECTORY;
+  } else {
+    process.env.UPLOAD_DIRECTORY = ORIGINAL_UPLOAD_DIRECTORY;
+  }
+});
 
 // Mock dependencies
 jest.mock("node-cron");
@@ -309,7 +340,7 @@ describe("Background Jobs", () => {
       await processUploadSweep();
 
       expect(cleanupAbandonedUploads).toHaveBeenCalledWith({
-        directory: require("path").join(process.cwd(), "files"),
+        directory: PINNED_UPLOAD_DIRECTORY,
       });
     });
 

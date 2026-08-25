@@ -58,11 +58,19 @@ const schema = new Schema(
     // defaultWorkerId in lib/ingest-queue.js), not just the host and pid: a
     // restarted worker can be handed its predecessor's pid, and recovery has
     // to be able to tell "the process that claimed this is still running" from
-    // "something with the same name is". workerHost is stored separately so
-    // that question can be asked with a query rather than by parsing ids.
+    // "something with the same name is".
     //
-    // Both are absent on jobs claimed before this existed, which is why
-    // recoverStaleJobs still falls back to the lease for anything unattributed.
+    // `workerHost` is diagnostic only — nothing queries it. It used to be
+    // described as the field that let "is the claiming process still running?"
+    // be asked with a query, and recoverStaleJobs as falling back to the lease
+    // for anything unattributed. Neither is how recovery works now: it matches
+    // `workerId: { $nin: liveWorkerIds }` — the ids of workers alive *in this
+    // process*, which is the only liveness this process can actually know — and
+    // then decides on the lease. A claim whose lease has expired is stale; a
+    // claim with no lease at all (a crash between the two writes, or a document
+    // predating leases) falls back to how long `updatedAt` has sat untouched.
+    // Attribution is for the operator reading the collection, not for the
+    // recovery decision.
     workerId: { type: String },
     workerHost: { type: String },
 
@@ -71,7 +79,11 @@ const schema = new Schema(
     //   claimed: when this worker's exclusive hold lapses and the job may be
     //            taken over. A lease is the only thing that can release a job
     //            held by a process that was SIGKILLed — such a process never
-    //            gets to unlock anything on its way out.
+    //            gets to unlock anything on its way out. It is not merely
+    //            stamped at claim time: the worker renews it from its heartbeat
+    //            on every poll for as long as it is still working the job, and
+    //            that is what makes a lapsed lease mean "the holder stopped"
+    //            rather than "the job is taking a while".
     //
     //   pending: the earliest time the job may be claimed, which is how retry
     //            backoff is expressed (see failJob). Unset means claimable now,

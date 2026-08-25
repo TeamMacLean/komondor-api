@@ -243,6 +243,16 @@ Dead code with no remaining `require` site:
   and would have thrown `ReferenceError` if ever called
 - `lib/utils/moveAdditionalFilesToFolder.js`
 - `lib/utils/toSafeName.js` — duplicated logic already inside `generateSafeName.js`
+- `lib/fileUpload.js` — listed for several revisions of this document as a known
+  issue ("unreferenced, kept in working order pending a decision"). The decision
+  was taken: deleted. Nothing required it, and wiring it into `onUploadFinish`
+  was never viable — it would have created a second `File` document for every
+  upload alongside `lib/file-utils.js`'s `createFileDocument`. It was also the
+  second constructor of a `File` that bypassed `safeBasename` and stored the
+  client-supplied tus `Upload-Metadata` verbatim, with no ownership check and no
+  test coverage. `lib/utils/uploadPath.js`, its test, and `.env.example` still
+  name it where they describe the upload-path disagreement it was half of; those
+  are history, not live references.
 
 ---
 
@@ -454,7 +464,15 @@ Per endpoint:
 - `POST /accessions/new` now requires `FULL_RECORDS_ACCESS_USERS`/`isAdmin`
   rather than merely a token — an ordinary group member gets 403 — and
   **requires `accessions`**, where an omitted value used to be accepted as a
-  silent no-op that changed nothing and returned 200.
+  silent no-op that changed nothing and returned 200. It also no longer asks
+  `canReadGroup` per record. Authorisation for an accession write is
+  `requireAccessionWrite` (`FULL_RECORDS_ACCESS_USERS` plus admins) and nothing
+  else; the per-record check is now an explicit group-liveness query rather than
+  a read capability standing in for a write decision. Effective access is
+  unchanged — for these callers `canReadGroup` answered the liveness question
+  and nothing more — but `FULL_RECORDS_ACCESS_USERS` is now visibly the whole of
+  the decision, and widening that list can no longer quietly confer a
+  cross-group write of `releaseDate`.
 - `POST /groups/edit` refuses `ldapGroups` from a non-admin with 403, and its
   non-member 403 wording changed to "…does not have permission to modify this
   resource". It also now applies only the fields the request actually carried:
@@ -666,6 +684,17 @@ any username as the owner and hand that person access to a group they had never
 been in. Owning a record now only ever narrows what group membership already
 allows; every record model requires `group`, so nothing becomes unreachable.
 
+The same clause is gone from the five per-record endpoints that each carried
+their own copy of it. `GET /project`, `GET /sample`, `GET /run`,
+`GET /runs/:id/status` and `POST /runs/batch-status` all read
+`if (!canAccess && !isOwner)`, so a caller with no group membership at all
+still received a 200 on any record whose `owner` string matched their
+username — the list filter and the per-record checks disagreed about the same
+record. They now turn on group membership alone. No migration rewrites `owner`
+on records created before this branch, so on historical records it is still
+whatever the client sent, which is exactly why no read path may grant on it.
+`POST /runs/batch-status` no longer even selects the field.
+
 `owner` is now stamped from the authenticated session on
 `POST /projects/new`, `POST /samples/new` and `POST /runs/new`. The body field
 is still accepted (and, on `/runs/new`, still required and type-checked) but its
@@ -682,10 +711,27 @@ use.
 **Who is affected:**
 
 - A user removed from a group immediately stops seeing records they created
-  there — where they previously kept seeing them until their token expired,
-  and then indefinitely via the owner clause.
+  there — in the lists **and** on the per-record endpoints — where they
+  previously kept seeing them until their token expired, and then indefinitely
+  via the owner clause.
+- A record whose group has been soft-deleted is now visible to nobody, its
+  creator included. `GET /run` and `GET /runs/:id/status` in particular used to
+  keep serving such a run to its owner; recovering it means un-deleting the
+  group.
 - A token carrying no groups now lists **nothing** from those endpoints, where
   it previously listed that user's own records.
+- **Admins and `FULL_RECORDS_ACCESS_USERS` are affected too.** Their reach used
+  to be expressed as the *absence* of a filter (`visibleGroupIds` returned
+  `null`, and `Model.find({})` follows), which is why they alone could still
+  read records in soft-deleted groups from the list, search and news endpoints
+  while the per-record routes refused the same group. It is now expressed the
+  same way everyone else's is: `GroupsIAmIn` hands them every **live** group and
+  those ids become an ordinary `$in`. Two consequences are user-visible — an
+  admin whose groups have *all* been soft-deleted now sees an empty
+  list/search/news result rather than every record, and a record whose `group`
+  points at a hard-deleted `Group` document is no longer returned to anyone.
+  Both are the intended reading of "the group is gone"; both were previously
+  invisible because the unfiltered query did not ask.
 - Anything inspecting or merging `.$or` on a visibility filter breaks. The only
   in-repo consumer is `routes/users.js`, which composes with `$and`.
 
@@ -700,6 +746,11 @@ has the Query executed by the caller's `await` — the caller gets an array and
 every `.populate()`/`.sort()` chain throws. Resolve the ids first with
 `visibleGroupIds(user)`. Calling `iCanSee` with the user alone now throws a
 `TypeError` rather than silently falling back to the stale claim.
+
+**komondor-web:** anything that relied on a user seeing their own records after
+leaving a group now gets a 403 rather than a record — a "my runs" / "my
+submissions" view, or a bookmarked `/project?id=…` link. There is no
+server-side remedy: the fix is to put the user back in the group.
 
 **Rollback:** none for the owner clause — reverting reintroduces a
 client-grantable read across groups.
@@ -903,25 +954,44 @@ log-only mode until the backfill is verified. That preserves the existing
 
 ---
 
+## 33. Control characters in a filename or directory name are refused
+
+**Where:** `lib/utils/safePath.js` — `safeBasename`, `cleanDirectoryName`
+
+Both refused a NUL byte, "because it truncates the path at the syscall
+boundary". Every other C0 control and DEL got through, and a newline is the same
+class of problem one layer up: the name is interpolated into single-line records
+that a newline splits in two.
+
+`lib/utils/hpcAudit.js` now quotes every field it emits, so the `[HPC-AUDIT]`
+trail is no longer forgeable regardless (entry 32). But the trail was not the
+only sink. The refusal diagnostics in `routes/read-file.js` and
+`routes/directory-files.js` are plain `console.error` lines with the raw name
+interpolated and are *not* escaped — they are stderr diagnostics rather than the
+trail, but a newline still splits them — and the same string reaches `File.name`
+and anything downstream that renders it, where the rest of the C0 range arrives
+as terminal escape sequences. `HPC_TRANSFER_DIRECTORY` is writable by
+unprivileged users by design, so all of these are reachable by anyone with an
+account on the cluster.
+
+Rejecting upstream stops it in every consumer at once, which is why it is not
+fixed at each sink. A control character in a filename is never legitimate.
+
+**Who is affected:** a request naming a file or directory whose name contains a
+C0 control character or DEL. `safeBasename` returns `null` and
+`cleanDirectoryName` returns `""`; every caller already treats those as "no
+usable name" and refuses with the existing 400/403. Leading and trailing
+whitespace — a stray newline at either end included — is still trimmed, exactly
+as before: only a control character a `trim()` cannot reach is treated as
+hostile. Nothing in a normal sequencing filename is affected.
+
+---
+
 ## Known issues not addressed here
-- `lib/fileUpload.js` is now **entirely unreferenced** — nothing in the repo
-  requires it. It has been kept in working order (ported to the `@tus/server`
-  v1 `Upload` shape, upload path corrected) rather than deleted, pending a
-  decision on the tus flow. It cannot simply be wired into `onUploadFinish`:
-  that would create a second `File` document for every upload alongside
-  `lib/file-utils.js`'s `createFileDocument`. Deleting it is the cleaner
-  outcome if the team agrees.
 - **`routes/auth.js` `DEV_USERS` is gated only on `NODE_ENV === "development"`.**
   The containment added in §24 is network-level — development may only bind
   loopback. A second belt would be an explicit opt-in (e.g. `ALLOW_DEV_USERS=true`)
   before the list is consulted at all.
-- **`Run.owner` is still taken from the request body**, not from
-  `req.user.username`, and the read endpoints keep an `owner === req.user.username`
-  bypass alongside the group check. Not an escalation today — creating a run
-  still needs write access to the sample's group — but a client can name any
-  owner it likes, which grants that user read on the run. Forcing `owner` to the
-  authenticated user is a one-line change, deliberately not made because it
-  changes what komondor-power submits.
 - **`Sample.group` is assumed to equal `project.group`**, but nothing enforces
   that for existing documents. A one-off report of samples where the two differ
   would show whether the old handler was ever exploited. Not run.

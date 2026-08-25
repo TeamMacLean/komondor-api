@@ -24,8 +24,16 @@ module.exports.isAdmin = function (req, res, next) {
  *
  * `isAdmin` is too narrow for these: the people who use the accessions export
  * are ENA admins named in FULL_RECORDS_ACCESS_USERS, and their tokens do not
- * carry the isAdmin claim. `hasFullRecordsAccess` covers both, and is the same
- * predicate `iCanSee` uses to decide who may read across groups.
+ * carry the isAdmin claim. `hasFullRecordsAccess` covers both.
+ *
+ * It gates the accessions export and nothing else. It used to be described as
+ * "the same predicate iCanSee uses to decide who may read across groups", and
+ * that is no longer true in either direction: neither `iCanSee` nor
+ * `buildVisibilityFilter` consults it at all. Cross-group *reading* is now
+ * expressed as a group list — GroupsIAmIn hands these principals every live
+ * group — so that a soft-deleted group stops authorising them too. This
+ * predicate answers the narrower question of who may pull the whole export in
+ * one request, which is a capability rather than a visibility filter.
  */
 module.exports.hasFullRecordsAccess = function (req, res, next) {
   const { hasFullRecordsAccess } = require("../lib/utils/fullAccessUsers");

@@ -2,16 +2,17 @@
  * Tests for lib/utils/uploadPath.js and the coupling it exists to hold
  * together.
  *
- * Four modules have to agree on where tus stages an upload: routes/uploads.js
- * writes the bytes there, lib/file-utils.js moves them out, lib/fileUpload.js
- * builds a File path from it, and models/File.js has to list the directory as
- * a permitted move source or that move is refused.
+ * Three modules have to agree on where tus stages an upload: routes/uploads.js
+ * writes the bytes there, lib/file-utils.js moves them out, and models/File.js
+ * has to list the directory as a permitted move source or that move is refused.
  *
  * They previously did not agree. routes/uploads.js and lib/fileUpload.js
  * honoured an UPLOAD_DIRECTORY override while lib/file-utils.js and
  * models/File.js hardcoded <cwd>/files — so setting that variable stranded
  * every finished upload, and the symptom was a "refusing upload" from the path
- * guard rather than anything pointing at the misconfiguration.
+ * guard rather than anything pointing at the misconfiguration. lib/fileUpload.js
+ * has since been deleted, so it appears here as one of the two sides of that
+ * historical disagreement and not as a module still under test.
  */
 
 const os = require("os");
