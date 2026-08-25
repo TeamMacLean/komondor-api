@@ -150,6 +150,10 @@ const admitUpload = async (req, res, upload) => {
     throw uploadError(401, "Authentication required");
   }
 
+  // A request landing before the disk scan finishes must still see whatever
+  // it recovers, or it is admitted against a register that reads as empty.
+  await uploadRecovery;
+
   // checkUploadAllowed registers the upload as part of admitting it; do not
   // add a registerUpload call here.
   const decision = await quota.checkUploadAllowed({
@@ -195,6 +199,26 @@ const tusServer = new Server({
 tusServer.on(EVENTS.POST_TERMINATE, (req, res, id) => {
   quota.releaseUpload(id);
 });
+
+// Rebuilds the reservation register from disk, mirroring ingest-queue.js's
+// recoverStaleJobs: a restart drops the in-memory map, but the tus sidecars
+// on disk still record every upload nobody finished. admitUpload awaits this
+// so a request arriving right after a restart is charged against the old
+// process's reservations, not zero.
+const uploadRecovery = quota
+  .recoverUploadReservations(uploadPath())
+  .then((count) => {
+    if (count > 0) {
+      console.log(
+        `[UPLOAD] Reserved ${count} in-flight upload(s) found on disk after a restart`,
+      );
+    }
+    return count;
+  })
+  .catch((err) => {
+    console.error("[UPLOAD] Startup reservation recovery failed:", err);
+    return 0;
+  });
 
 /**
  * Authentication for the tus mount. OPTIONS is exempt because browsers send

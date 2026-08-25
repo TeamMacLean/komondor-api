@@ -26,6 +26,8 @@ const {
   pruneIdleUploads,
   cleanupAbandonedUploads,
   clearUploads,
+  assertUploadComplete,
+  recoverUploadReservations,
 } = require("../../lib/upload-quota");
 
 const GIB = 1024 * 1024 * 1024;
@@ -707,5 +709,149 @@ describe("getRecordedOwner", () => {
 
   test("reports no owner for an upload it has never heard of", async () => {
     expect(await getRecordedOwner(ownerDir, ID)).toBeNull();
+  });
+});
+
+describe("assertUploadComplete", () => {
+  let dir;
+  const ID = "e".repeat(32);
+
+  beforeEach(() => {
+    dir = fs.mkdtempSync(_path.join(tmpRoot, "complete-"));
+  });
+
+  const writeSidecar = (id, info) =>
+    fs.writeFileSync(_path.join(dir, `${id}.json`), JSON.stringify({ id, ...info }));
+
+  test("refuses an upload whose offset is behind its declared size", async () => {
+    // The auditor reproduced acceptance of exactly this: size 100, offset 1.
+    fs.writeFileSync(_path.join(dir, ID), Buffer.alloc(1));
+    writeSidecar(ID, { size: 100, offset: 1 });
+
+    await expect(assertUploadComplete(dir, ID)).rejects.toThrow();
+  });
+
+  test("refuses when the sidecar claims done but the blob's real size disagrees", async () => {
+    // Simulates a disk write that never actually finished landing.
+    fs.writeFileSync(_path.join(dir, ID), Buffer.alloc(50));
+    writeSidecar(ID, { size: 100, offset: 100 });
+
+    await expect(assertUploadComplete(dir, ID)).rejects.toThrow();
+  });
+
+  test("refuses a deferred-length upload that never got a final size", async () => {
+    fs.writeFileSync(_path.join(dir, ID), Buffer.alloc(10));
+    writeSidecar(ID, { offset: 10, sizeIsDeferred: true });
+
+    await expect(assertUploadComplete(dir, ID)).rejects.toThrow();
+  });
+
+  test("refuses an upload with no sidecar at all", async () => {
+    await expect(assertUploadComplete(dir, ID)).rejects.toThrow();
+  });
+
+  test("resolves silently for a genuinely complete upload", async () => {
+    fs.writeFileSync(_path.join(dir, ID), Buffer.alloc(100));
+    writeSidecar(ID, { size: 100, offset: 100 });
+
+    await expect(assertUploadComplete(dir, ID)).resolves.toBeUndefined();
+  });
+});
+
+describe("checkUploadAllowed — the free-space floor is global", () => {
+  test("admits a request alone but refuses a second once the first is reserved", async () => {
+    // The auditor reproduced this with 1,100 bytes free and a 100-byte floor:
+    // two 700-byte uploads from different users each independently saw
+    // ~1,100 free and were both admitted, together overrunning the floor.
+    const free = await getFreeBytes(tmpRoot);
+    process.env.UPLOAD_MIN_FREE_BYTES = String(free - 1000);
+
+    const first = await checkUploadAllowed({
+      id: "a".repeat(32),
+      username: "alice",
+      size: 700,
+      directory: tmpRoot,
+    });
+
+    expect(first).toEqual({ allowed: true });
+
+    const second = await checkUploadAllowed({
+      id: "b".repeat(32),
+      username: "bob",
+      size: 700,
+      directory: tmpRoot,
+    });
+
+    expect(second.allowed).toBe(false);
+    expect(second.status).toBe(507);
+    // Refused, not consumed: bob's own reservation must not linger.
+    expect(getUserUsage("bob")).toEqual({ count: 0, bytes: 0 });
+  });
+
+  test("does not count itself twice: a lone request is still charged once", async () => {
+    const free = await getFreeBytes(tmpRoot);
+    process.env.UPLOAD_MIN_FREE_BYTES = String(free - 1000);
+
+    const decision = await checkUploadAllowed({
+      id: "c".repeat(32),
+      username: "alice",
+      size: 700,
+      directory: tmpRoot,
+    });
+
+    expect(decision).toEqual({ allowed: true });
+  });
+});
+
+describe("recoverUploadReservations", () => {
+  let dir;
+  const DONE_ID = "1".repeat(32);
+  const OPEN_ID = "2".repeat(32);
+
+  beforeEach(() => {
+    dir = fs.mkdtempSync(_path.join(tmpRoot, "recover-"));
+  });
+
+  const writeUpload = (id, info, bytes) => {
+    fs.writeFileSync(_path.join(dir, id), Buffer.alloc(bytes));
+    fs.writeFileSync(
+      _path.join(dir, `${id}.json`),
+      JSON.stringify({ id, ...info }),
+    );
+  };
+
+  test("re-registers only the incomplete upload, with its owner and bytes", async () => {
+    writeUpload(
+      DONE_ID,
+      { size: 4, offset: 4, metadata: { owner: "alice" } },
+      4,
+    );
+    writeUpload(
+      OPEN_ID,
+      { size: 100, offset: 30, metadata: { owner: "bob" } },
+      30,
+    );
+
+    const recovered = await recoverUploadReservations(dir);
+
+    expect(recovered).toBe(1);
+    expect(getUploadRecord(DONE_ID)).toBeUndefined();
+    expect(getUploadRecord(OPEN_ID)).toMatchObject({
+      username: "bob",
+      size: 100,
+    });
+  });
+
+  test("skips an incomplete upload with no recorded owner", async () => {
+    writeUpload(OPEN_ID, { size: 100, offset: 30 }, 30);
+
+    const recovered = await recoverUploadReservations(dir);
+
+    expect(recovered).toBe(0);
+    expect(getUploadRecord(OPEN_ID)).toBeUndefined();
+  });
+
+  test("reports zero rather than throwing on a missing directory", async () => {
+    expect(await recoverUploadReservations(_path.join(dir, "gone"))).toBe(0);
   });
 });
