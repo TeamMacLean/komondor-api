@@ -901,6 +901,16 @@ re-reads `Run.findOne({ sample, name })` and returns the winner with the same
 idempotent 200 body it already returns for a lookup hit — so clients see no
 change. A duplicate key on any *other* index is still a 500.
 
+**Two robustness additions on top of the above.** `scripts/check-run-duplicates.js`
+now also flags an index that already exists under the name `sample_1_name_1`
+with different options (most likely non-unique, left by an older deploy) — data
+alone can be duplicate-free and the build still silently never happens, because
+Mongo refuses to redefine an existing index name rather than replacing it.
+Separately, `server.js` now `await`s `Run.init()`/`IngestJob.init()` at startup
+and exits non-zero if either fails, instead of mongoose's default of logging an
+index-build failure and continuing to serve — so a broken index is a refused
+boot, not a silent gap discovered later.
+
 ---
 
 ## 32. The HPC staging area is a shared inbox — accepted risk, now audited
@@ -943,9 +953,21 @@ cannot split one record into two, but anyone who can write to the staging area
 can still fill the log with whatever they like. Treat it as operational
 forensics, not as proof.
 
-An earlier version of this entry also described a `requireAnyGroupMembership`
-guard on the read endpoints. It was removed: it added a database query per
-request to defend against a threat this deployment does not have.
+**Correction to an earlier version of this entry.** It previously described a
+`requireAnyGroupMembership` guard as removed for good, on the grounds that it
+added a database query per request against a threat this deployment does not
+have. That removal is reversed. The guard is back on all three endpoints
+(`GET /read-file`, `GET /directory-files`, `POST /directory-files/verify-md5`),
+refusing a caller who belongs to no group at all — but it now reads the
+`groups` claim already embedded in the caller's JWT instead of querying
+`Group` per request, so the cost objection that got it pulled no longer
+applies. It still only asks "does this caller belong to *any* group", not
+"does this caller belong to *the* group that owns this directory" — the
+per-directory question §32 declines to answer — so it does not narrow the
+attack above. Like every group check in this app, it is only as fresh as the
+caller's token: a user removed from their last group keeps passing this check
+until that token expires (see `docs/CONTRACTS.md` §2), which is an existing
+property of token-embedded groups, not something this check introduces.
 
 **If this is revisited**, the cheapest real fix is an allowlist on the `Group`
 model (`hpcDirectories: [String]`), backfilled from what is on disk and run in
@@ -989,7 +1011,8 @@ hostile. Nothing in a normal sequencing filename is affected.
 
 ## 34. Symlinks may point into configured storage roots
 
-**Where:** `lib/utils/safePath.js`, `.env.example`
+**Where:** `lib/utils/safePath.js`, `.env.example`, plus the leaf-open fallback
+below in `models/File.js`, `routes/read-file.js`, `routes/directory-files.js`
 
 Path containment originally refused any symlink resolving outside the directory
 it guards. That is wrong for a cluster: symlinking a large file, or a whole
@@ -1009,6 +1032,89 @@ match and would fail silently as a refusal.
 
 **Set this before deploying** if users symlink data into the transfer directory —
 otherwise their submissions will start failing.
+
+**Correction: the leaf case did not actually work until this round.**
+`resolveWithinReal`/`assertWithinReal` (above) will follow a symlinked
+directory anywhere in the path and permit it under `ALLOWED_LINK_ROOTS`, which
+is what makes a symlinked project directory listable via `GET
+/directory-files`. But `GET /read-file`, `POST /directory-files/verify-md5`,
+and `models/File.js`'s `moveToFolderAndSave` (the ingest move path) all then
+opened the final component with an unconditional `O_NOFOLLOW`, refusing
+outright if the *file itself* was a symlink — regardless of
+`ALLOWED_LINK_ROOTS`. That is exactly the "symlink -> large file on scratch
+storage" case this entry opens with, and it was still refused after the rest
+of this fix landed. All three now check, when `O_NOFOLLOW` reports a
+symlinked leaf, whether that leaf resolves into a permitted link root before
+refusing — the same allowance the path-resolution step already gets, applied
+consistently to the open as well. `models/File.js` was the first to get this
+(its `openPinnedSource` helper); the two read endpoints get the identical
+open-ELOOP-realpath-reopen fallback in this round. A symlink resolving
+anywhere else at the leaf is still refused exactly as before.
+
+---
+
+## 35. `hpc-mv` claims no longer delete the staging copy
+
+**Where:** `models/File.js`
+
+`moveToFolderAndSave` hard-links a file into the datastore and then unlinks the
+source, for every upload method, without distinction. For an `hpc-mv` claim
+that source is a file sitting in the shared `HPC_TRANSFER_DIRECTORY` inbox
+(entry 32) — so a run submitted with the wrong `relativePath`, typo or
+otherwise, did not just link the wrong group's file into the wrong group's
+datastore, it also erased the only copy from the inbox in the same step,
+before the file's actual owner had a chance to submit their own run against
+it. That is the destructive half of the accepted risk in entry 32; this fixes
+it independently of whether the disclosure half is ever addressed.
+
+An `hpc-mv` claim is now still hard-linked into the datastore as before, but
+the source is left in place in `HPC_TRANSFER_DIRECTORY` rather than unlinked.
+`local-filesystem` uploads (the tus staging directory) are unaffected and are
+still unlinked after a successful move — that staging area belongs to the API
+alone, and reclaiming it is the point.
+
+**The trade-off, plainly:** this trades disk growth in the HPC staging
+directory for not silently destroying a scientist's data on a directory typo.
+Nothing in this deploy currently cleans up a staging directory's contents once
+its files have been claimed, so `HPC_TRANSFER_DIRECTORY` usage will only grow
+over time. **Revisit this if staging disk usage becomes a real operational
+problem** — the fix is some form of retention sweep on already-claimed files,
+not reverting to unlink-on-claim.
+
+---
+
+## 36. A wedged ingest job stops being "ready", not "unclaimed"
+
+**Where:** `lib/ingest-queue.js`
+
+The ingest worker's lease (`leaseExpiresAt`) and the `/ready` readiness signal
+(`lastTickAt`) were both driven off the same 6-hour `DEFAULT_MAX_JOB_MS` bound:
+past it, the heartbeat stopped renewing the lease *and* stopped recording
+progress in the same branch. A job that is still genuinely running past 6
+hours — a large enough HPC transfer can take that long — lost its lease at the
+same moment it started making `/ready` report a problem, even though nothing
+was actually wrong with it yet.
+
+These are now two separate questions. The lease keeps renewing for as long as
+the worker process is alive and ticking, with no upper bound. `/ready` still
+goes stale past `DEFAULT_MAX_JOB_MS`, exactly as before — that signal is still
+correct at 6 hours: a healthy worker should be making progress, and an
+operator should be told when one has not.
+
+**Why an unbounded lease is correct here, and would not be in general.**
+`ecosystem.config.js` pins this deployment to a single fork-mode process
+(`instances: 1`, `exec_mode: "fork"`) specifically because both in-memory
+safety mechanisms in this app — the active-transfer register and this same
+ingest lease — are per-process. `recoverStaleJobs` only ever runs once, at a
+worker's own startup, against jobs a *previous* process left behind; there is
+never a second, concurrently-running worker for a live process to lose a job
+to. So letting the lease lapse under a still-alive worker never protected
+anything in this deployment — it only made a slow-but-healthy job
+indistinguishable, at the lease level, from an actually-abandoned one. This is
+**not** a general distributed-locking solution: if this were ever run with
+more than one instance, or in cluster mode, an unbounded lease would let one
+wedged worker hold a job forever with nothing able to reclaim it. Do not
+change `instances`/`exec_mode` without revisiting this.
 
 ---
 

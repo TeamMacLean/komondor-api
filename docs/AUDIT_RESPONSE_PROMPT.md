@@ -409,3 +409,55 @@ offending pairs with their ids, plus the `getIndexes()` command to confirm after
 
 Please be direct. If the honest answer is that this still should not ship unattended, say so
 and say why.
+
+---
+
+## Round 2 — response to the second opinion
+
+A second model audited this branch after the exchange above and returned a NO-GO, respecting
+the robustness framing in section 2 throughout: every item it raised was an ordinary partial
+failure — a directory typo, a long-running transfer, a restart — not an exotic attack. Each
+finding was verified against the code before acting on it. What changed, mapped to the
+sections above:
+
+**§6.3, symlink containment.** `ALLOWED_LINK_ROOTS` resolved a symlinked directory correctly,
+but `GET /read-file` and `POST /directory-files/verify-md5` still opened a symlinked *leaf
+file* with an unconditional `O_NOFOLLOW`, refusing it regardless of `ALLOWED_LINK_ROOTS` —
+exactly the "symlink -> large file on scratch storage" case §6.3 opens with. Both endpoints
+now permit a symlinked leaf that resolves into a configured link root, the same allowance the
+path-resolution step already had. See `BREAKING_CHANGES.md` §34.
+
+**§6.2, the shared HPC inbox.** The disclosure risk in §6.2 is still accepted, for the same
+reason. The destructive half is not: `hpc-mv` claims no longer unlink the source from
+`HPC_TRANSFER_DIRECTORY` after linking it into a datastore, so a misdirected claim can no
+longer erase the original owner's only copy. This trades staging-directory disk growth for
+not destroying data on a typo. See `BREAKING_CHANGES.md` §35.
+
+**§6.4, the membership check.** Restored on the same three endpoints, but reimplemented to
+read the caller's `groups` claim already embedded in their JWT instead of querying `Group`
+per request — so the cost objection that got it removed no longer applies. It is still only
+"does this caller belong to any group", not the per-directory check §32 declines to add. See
+`BREAKING_CHANGES.md` §32 (corrected) and `docs/CONTRACTS.md` §2 for the token-staleness
+caveat this inherits.
+
+**Ingest lease vs. readiness (section 4, readiness).** The worker's 6-hour job bound stopped
+renewing a job's lease and stopped reporting progress in the same branch, so a genuinely
+long-running transfer lost its lease at the same moment `/ready` correctly started reporting
+a problem. These are now separate: the lease renews for as long as the worker is alive and
+ticking — safe specifically because `ecosystem.config.js` pins a single fork-mode process, so
+there is never a second worker for a "stale" lease to be handed to — and `/ready` still goes
+stale past the same 6-hour bound. Not a general distributed-locking fix; revisit if
+`instances`/`exec_mode` ever changes. See `BREAKING_CHANGES.md` §36.
+
+**§6.7, the Run index.** `scripts/check-run-duplicates.js` now also detects an existing index
+under the same name with different options, which duplicate-free data would not surface on
+its own. `Run.init()`/`IngestJob.init()` failing at startup now exits the process rather than
+relying on mongoose's log-and-continue default. See `BREAKING_CHANGES.md` §31.
+
+**New, cross-repo, not fixed here.** The client-supplied `nudgeable` fix from an earlier round
+(§4, sibling contract drift) is inert in practice: `komondor-power`'s `insertMetadata.ts`
+sends `nudgeable: !doNotSendToEna` and never forwards its own `project_nudgeable` input, so
+every project it creates still falls back to this API's group-derived default. This is a
+`komondor-power`-side change; it is flagged, with the exact field names, in
+`docs/CONTRACTS.md` under "Needs coordinated action in komondor-power", and nothing in
+`../komondor-power` was modified from this repo.

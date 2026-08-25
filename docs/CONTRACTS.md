@@ -100,9 +100,9 @@ exactly this flag but only ever covered one of the two groups carrying it. So:
 - Anything else — notably the strings `"true"` / `"false"` — is discarded in
   favour of the group default, with a `[projects/new] Ignoring non-boolean
   'nudgeable'` warning naming the type and the user. komondor-power carries a
-  `project_nudgeable` column through its entire CSV validation pipeline; that
-  column now reaches the database, **but only if it serialises as a boolean**.
-  Check that before relying on it.
+  `project_nudgeable` column through its entire CSV validation pipeline, but as
+  of this writing it is not sent on this call at all — see "Needs coordinated
+  action in komondor-power" below.
 - The two write paths are deliberately asymmetric: a non-boolean is a **400**
   on `PUT /project/toggle-nudgeable` (where `"false"` would otherwise set the
   opposite flag) but a **fallback** on create (where a 400 risks breaking
@@ -227,6 +227,32 @@ komondor-web's `utils/apiError.js` already documents all of this from the
 client side. That file existing at all is the symptom this policy addresses:
 a consumer reverse-engineered the contract and wrote it down in its own repo,
 where this repo cannot see it go stale.
+
+## Needs coordinated action in komondor-power
+
+**`POST /projects/new` honours a client-supplied `nudgeable`, but
+komondor-power does not currently send its own value — this API-side fix is
+inert until Power is changed to match.**
+
+Drift item 4 above describes this repo's side: a real JSON boolean in the
+`nudgeable` field of the `POST /projects/new` body is stored as sent, instead
+of always being derived from the target group. That was fixed so
+komondor-power's `project_nudgeable` CSV column could reach the database.
+
+It cannot, today. `server/utils/insertMetadata.ts` in `komondor-power` builds
+the create request as `nudgeable: !doNotSendToEna` — it does not forward its
+own `project_nudgeable` input under that field at all. So regardless of how
+`project_nudgeable` serialises, the value this API actually receives is the
+negation of `doNotSendToEna`, not the column Power's CSV pipeline collected.
+Every project komondor-power creates falls back to this API's group-derived
+default in practice, exactly as it did before the fix — nothing observable
+changed for that consumer.
+
+This is a `komondor-power`-side change: `insertMetadata.ts` needs to send
+`nudgeable: project_nudgeable` (or whatever that repo's parsed value is
+called) instead of `!doNotSendToEna`. Not investigated further here — this
+repo does not modify `../komondor-power` — but the field names above should be
+enough for that repo's owner to locate and fix the call site.
 
 ## The policy
 

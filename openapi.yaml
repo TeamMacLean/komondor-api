@@ -923,9 +923,15 @@ paths:
         it. A non-boolean `nudgeable` (for example the string `"true"`) is NOT
         a 400 here: it is discarded in favour of the group default, and the
         server logs `[projects/new] Ignoring non-boolean 'nudgeable'`.
-        `komondor-power` carries a `project_nudgeable` column through its whole
-        CSV pipeline — that column now reaches the database, but only if it is
-        serialised as a boolean rather than a string.
+        This API honours whatever real boolean the client sends. It does NOT
+        currently mean `komondor-power`'s `project_nudgeable` CSV column
+        reaches the database: `insertMetadata.ts` there builds the request as
+        `nudgeable: !doNotSendToEna` and does not forward `project_nudgeable`
+        under this field at all, so every project it creates still gets this
+        API's group-derived default in practice, regardless of how that column
+        serialises. Tracked as a Power-side gap in `docs/CONTRACTS.md` — this
+        endpoint's own behaviour is not the drift, that consumer's request body
+        is.
 
         Note that a group whose `sendToEna` is absent or `false` produces
         `nudgeable: false`. `PUT /project/toggle-nudgeable` sets the flag
