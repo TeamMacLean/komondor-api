@@ -10,7 +10,7 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const { auditHpcAccess } = require("../lib/utils/hpcAudit");
+const { auditHpcAccess, requireHpcGroupAccess } = require("../lib/utils/hpcAudit");
 let router = express.Router();
 
 /**
@@ -78,6 +78,7 @@ router
 router
   .route("/directory-files")
   .all(isAuthenticated)
+  .all(requireHpcGroupAccess)
   .get(async (req, res) => {
     const { targetDirectoryName } = req.query;
 
@@ -130,11 +131,12 @@ router
 
       let dirExists = false;
       try {
-        // lstat, not stat: the check above vouches for where the ancestors
-        // lead, not for the last component. A symlink at the leaf is not a
-        // directory here even when it points back inside the root, so it is
-        // never followed.
-        dirExists = (await fs.lstat(dirRoot)).isDirectory();
+        // stat, not lstat: assertWithinReal above already followed the leaf
+        // and proved its real target is either inside the root or inside a
+        // configured ALLOWED_LINK_ROOTS entry, so there is no containment
+        // reason left to refuse it here. A symlinked project directory (see
+        // BREAKING_CHANGES.md entry 34) must list, not read as "not a directory".
+        dirExists = (await fs.stat(dirRoot)).isDirectory();
       } catch (e) {
         throw new Error("Issue reading target directory");
       }
@@ -174,6 +176,7 @@ router
 router
   .route("/directory-files/verify-md5")
   .all(isAuthenticated)
+  .all(requireHpcGroupAccess)
   .post(async (req, res) => {
     const requestId = generateRequestId();
     const { directoryName, fileName, expectedMd5 } = req.body || {};
@@ -237,19 +240,39 @@ router
       // Opened once, with O_NOFOLLOW, and the same descriptor is both stat'd
       // and hashed.
       //
-      // The check above vouches for the ancestors, not for the last component.
       // An lstat here followed by calculateFileMd5(filePath) would have gone
       // back to the *name* to hash it, and HPC_TRANSFER_DIRECTORY is writable
       // by unprivileged users by design — so the name could be replaced with a
       // symlink in between and the checksum computed over whatever it pointed
-      // at. O_NOFOLLOW refuses a symlinked leaf outright (ELOOP), and handing
-      // the handle to calculateFileMd5 ties this decision to the bytes hashed.
+      // at. O_NOFOLLOW still refuses a symlinked leaf outright (ELOOP) so that
+      // race can never smuggle an unvouched-for target past this open, and
+      // handing the handle to calculateFileMd5 ties this decision to the bytes
+      // hashed.
+      //
+      // assertWithinReal above already resolved the leaf fully — fs.realpath
+      // follows every path component, the last one included — and proved its
+      // target sits inside the transfer directory or a configured
+      // ALLOWED_LINK_ROOTS entry (see BREAKING_CHANGES.md entry 34), the same
+      // allowance a symlinked ancestor already gets. Only an ELOOP on the leaf
+      // itself reopens the realpath'd target, itself with O_NOFOLLOW, so a
+      // second layer of symlink introduced since that check is still refused.
       let handle;
       try {
-        handle = await fs.open(
-          filePath,
-          fsConstants.O_RDONLY | (fsConstants.O_NOFOLLOW || 0),
-        );
+        try {
+          handle = await fs.open(
+            filePath,
+            fsConstants.O_RDONLY | (fsConstants.O_NOFOLLOW || 0),
+          );
+        } catch (openErr) {
+          if (openErr.code !== "ELOOP") {
+            throw openErr;
+          }
+          const realTarget = await fs.realpath(filePath);
+          handle = await fs.open(
+            realTarget,
+            fsConstants.O_RDONLY | (fsConstants.O_NOFOLLOW || 0),
+          );
+        }
         const stat = await handle.stat();
         if (!stat.isFile()) {
           await handle.close().catch(() => {});

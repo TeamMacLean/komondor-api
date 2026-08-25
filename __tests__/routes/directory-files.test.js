@@ -12,7 +12,7 @@ const fs = require("fs");
 const os = require("os");
 const _path = require("path");
 
-let mockUser = { username: "testuser", groups: [], isAdmin: false };
+let mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
 
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
@@ -38,6 +38,7 @@ const directoryFilesRouter = require("../../routes/directory-files");
 let tmpRoot;
 let transferDir;
 let outsideDir;
+let linkRootStorage;
 const FILE_CONTENT = "ACGTACGT";
 const FILE_MD5 = crypto.createHash("md5").update(FILE_CONTENT).digest("hex");
 const ORIGINAL_HPC = process.env.HPC_TRANSFER_DIRECTORY;
@@ -80,8 +81,10 @@ beforeAll(() => {
     _path.join(tmpRoot, "no-such-target"),
     _path.join(linkFarm, "dangling"),
   );
-  // A link to a directory that really is inside the root: still a symlink at
-  // the leaf, so the listing must not follow it either.
+  // A link to a directory that really is inside the root. assertWithinReal
+  // vouches for it, so the listing now follows it (see the "symlinked
+  // directories are followed" tests below) rather than refusing it as a
+  // symlinked leaf.
   fs.symlinkSync(
     _path.join(transferDir, "batch1"),
     _path.join(linkFarm, "inside"),
@@ -93,6 +96,28 @@ beforeAll(() => {
   fs.symlinkSync(
     _path.join(transferDir, "batch1", "reads.txt"),
     _path.join(linkFarm, "insidefile.txt"),
+  );
+
+  // An operator-configured storage root (ALLOWED_LINK_ROOTS), entirely outside
+  // the transfer directory, holding a whole project directory symlinked in —
+  // the "projectdir/big2.fastq" case BREAKING_CHANGES.md entry 34 documents.
+  linkRootStorage = _path.join(tmpRoot, "storage-root");
+  fs.mkdirSync(_path.join(linkRootStorage, "project1"), { recursive: true });
+  fs.writeFileSync(
+    _path.join(linkRootStorage, "project1", "big2.fastq"),
+    FILE_CONTENT,
+  );
+  fs.symlinkSync(
+    _path.join(linkRootStorage, "project1"),
+    _path.join(linkFarm, "projectdir"),
+  );
+  // A link to a *file* landing directly inside the ALLOWED_LINK_ROOTS entry —
+  // the literal "symlink -> large file on scratch storage" case the audit
+  // named, as opposed to insidefile.txt above (a leaf symlink landing inside
+  // the transfer directory itself). See the verify-md5 leaf-symlink tests.
+  fs.symlinkSync(
+    _path.join(linkRootStorage, "project1", "big2.fastq"),
+    _path.join(linkFarm, "big2link.fastq"),
   );
 });
 
@@ -107,7 +132,7 @@ afterAll(() => {
 
 beforeEach(() => {
   process.env.HPC_TRANSFER_DIRECTORY = transferDir;
-  mockUser = { username: "testuser", groups: [], isAdmin: false };
+  mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
   jest.spyOn(console, "error").mockImplementation(() => {});
 });
 
@@ -246,14 +271,56 @@ describe("GET /directory-files", () => {
 
       expect(response.body.filesResults).toBeUndefined();
     });
+  });
 
-    test("does not follow a symlink at the leaf even when it stays inside the root", async () => {
+  describe("symlinked directories are followed once assertWithinReal has vouched for them", () => {
+    // fs.lstat used to refuse a symlinked leaf outright, even when its real
+    // target was already proven safe. By the time dirExists is checked,
+    // assertWithinReal has already validated that the target is either inside
+    // the guarded root or inside a configured ALLOWED_LINK_ROOTS entry — there
+    // is no containment reason left to refuse the final stat, only to follow
+    // it. See BREAKING_CHANGES.md entry 34.
+    const ORIGINAL_ALLOWED_LINK_ROOTS = process.env.ALLOWED_LINK_ROOTS;
+
+    afterEach(() => {
+      if (ORIGINAL_ALLOWED_LINK_ROOTS === undefined) {
+        delete process.env.ALLOWED_LINK_ROOTS;
+      } else {
+        process.env.ALLOWED_LINK_ROOTS = ORIGINAL_ALLOWED_LINK_ROOTS;
+      }
+    });
+
+    test("lists a symlinked directory whose real target is inside the guarded root", async () => {
       const response = await request(app)
         .get("/directory-files")
         .query({ targetDirectoryName: "linkfarm/inside" });
 
+      expect(response.status).toBe(200);
+      expect(response.body.filesResults).toEqual(["reads.txt"]);
+    });
+
+    test("lists a symlinked project directory landing inside a configured ALLOWED_LINK_ROOTS entry", async () => {
+      process.env.ALLOWED_LINK_ROOTS = linkRootStorage;
+
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/projectdir" });
+
+      expect(response.status).toBe(200);
+      expect(response.body.filesResults).toEqual(["big2.fastq"]);
+    });
+
+    test("still refuses a symlinked directory outside every permitted root, even with ALLOWED_LINK_ROOTS configured", async () => {
+      // Must not regress: a permitted root elsewhere does not widen containment
+      // for a link that lands outside every configured root.
+      process.env.ALLOWED_LINK_ROOTS = linkRootStorage;
+
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/outsidedir" });
+
       expect(response.body.filesResults).toBeUndefined();
-      expect(response.text).not.toContain("reads.txt");
+      expect(response.text).not.toContain("outside-marker.txt");
     });
   });
 
@@ -519,13 +586,28 @@ describe("POST /directory-files/verify-md5", () => {
     });
   });
 });
-describe("POST /directory-files/verify-md5 does not follow a symlinked leaf", () => {
-  test("refuses a symlink to a file that really is inside the root", async () => {
+describe("POST /directory-files/verify-md5 follows a symlinked leaf once assertWithinReal has vouched for it", () => {
+  // O_NOFOLLOW used to make ELOOP on a symlinked leaf indistinguishable from
+  // "file not found", even when assertWithinReal (above, in "path traversal is
+  // refused") had already resolved the same leaf fully and proved its target
+  // sits inside the transfer directory or a configured ALLOWED_LINK_ROOTS
+  // entry. See BREAKING_CHANGES.md entry 34: the handler now reopens the
+  // realpath'd target, itself with O_NOFOLLOW, instead of refusing outright —
+  // a match:true answer here is proof the link was followed, since FILE_MD5
+  // is the hash of the target's real content, not of the link itself.
+  const ORIGINAL_ALLOWED_LINK_ROOTS = process.env.ALLOWED_LINK_ROOTS;
+
+  afterEach(() => {
+    if (ORIGINAL_ALLOWED_LINK_ROOTS === undefined) {
+      delete process.env.ALLOWED_LINK_ROOTS;
+    } else {
+      process.env.ALLOWED_LINK_ROOTS = ORIGINAL_ALLOWED_LINK_ROOTS;
+    }
+  });
+
+  test("follows a symlink to a file that really is inside the root", async () => {
     // assertWithinReal is satisfied here: the link's realpath is
-    // <root>/batch1/reads.txt, comfortably under the root. Only O_NOFOLLOW on
-    // the open refuses it. Without that flag the handler hashes the target and
-    // answers matches:true, which is why FILE_MD5 is the expected value below —
-    // a match is proof the link was followed.
+    // <root>/batch1/reads.txt, comfortably under the root.
     const response = await request(app)
       .post("/directory-files/verify-md5")
       .send({
@@ -534,9 +616,133 @@ describe("POST /directory-files/verify-md5 does not follow a symlinked leaf", ()
         expectedMd5: FILE_MD5,
       });
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(200);
+    expect(response.body.calculatedMd5).toBe(FILE_MD5);
+    expect(response.body.matches).toBe(true);
+  });
+
+  test("follows a symlink to a file landing inside a configured ALLOWED_LINK_ROOTS entry", async () => {
+    process.env.ALLOWED_LINK_ROOTS = linkRootStorage;
+
+    const response = await request(app)
+      .post("/directory-files/verify-md5")
+      .send({
+        directoryName: "linkfarm",
+        fileName: "big2link.fastq",
+        expectedMd5: FILE_MD5,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.calculatedMd5).toBe(FILE_MD5);
+    expect(response.body.matches).toBe(true);
+  });
+
+  test("still refuses a symlinked leaf outside every permitted root, even with ALLOWED_LINK_ROOTS configured", async () => {
+    // Must not regress: a permitted root elsewhere does not widen containment
+    // for a link that lands outside every configured root.
+    process.env.ALLOWED_LINK_ROOTS = linkRootStorage;
+
+    const response = await request(app)
+      .post("/directory-files/verify-md5")
+      .send({
+        directoryName: "linkfarm",
+        fileName: "leak.txt",
+        expectedMd5: FILE_MD5,
+      });
+
     expect(response.body.calculatedMd5).toBeUndefined();
     expect(response.body.matches).toBeUndefined();
+    expect([403, 404]).toContain(response.status);
+  });
+});
+
+describe("group membership is required", () => {
+  // requireHpcGroupAccess reads req.user.groups from the JWT claim rather than
+  // querying live membership (removed in 366f656 as disproportionate). A
+  // caller LDAP handed back with groups: [] — misconfigured, or never assigned
+  // to one — is otherwise indistinguishable from a properly-provisioned one.
+  describe("GET /directory-files", () => {
+    test("refuses a caller with no group membership and no elevated access", async () => {
+      mockUser = { username: "testuser", groups: [], isAdmin: false };
+
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "batch1" });
+
+      expect(response.status).toBe(403);
+      expect(response.body.error).toBe("You do not belong to any group");
+      expect(response.body.filesResults).toBeUndefined();
+    });
+
+    test("passes an admin with an empty groups array", async () => {
+      mockUser = { username: "admin", groups: [], isAdmin: true };
+
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "batch1" });
+
+      expect(response.status).toBe(200);
+      expect(response.body.filesResults).toEqual(["reads.txt"]);
+    });
+
+    test("passes a normal user with real group membership", async () => {
+      mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
+
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "batch1" });
+
+      expect(response.status).toBe(200);
+      expect(response.body.filesResults).toEqual(["reads.txt"]);
+    });
+  });
+
+  describe("POST /directory-files/verify-md5", () => {
+    test("refuses a caller with no group membership and no elevated access", async () => {
+      mockUser = { username: "testuser", groups: [], isAdmin: false };
+
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "reads.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.status).toBe(403);
+      expect(response.body.error).toBe("You do not belong to any group");
+      expect(response.body.calculatedMd5).toBeUndefined();
+    });
+
+    test("passes an admin with an empty groups array", async () => {
+      mockUser = { username: "admin", groups: [], isAdmin: true };
+
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "reads.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.status).toBe(200);
+      expect(response.body.matches).toBe(true);
+    });
+
+    test("passes a normal user with real group membership", async () => {
+      mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
+
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "batch1",
+          fileName: "reads.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.status).toBe(200);
+      expect(response.body.matches).toBe(true);
+    });
   });
 });
 

@@ -9,7 +9,7 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const { auditHpcAccess } = require("../lib/utils/hpcAudit");
+const { auditHpcAccess, requireHpcGroupAccess } = require("../lib/utils/hpcAudit");
 
 // Files served by this endpoint are small text artefacts (logs, manifests).
 // Reading an arbitrarily large file into memory would stall the event loop and
@@ -19,6 +19,7 @@ const MAX_READABLE_BYTES = 5 * 1024 * 1024;
 router
   .route("/read-file")
   .all(isAuthenticated)
+  .all(requireHpcGroupAccess)
   .get(async (req, res) => {
     const { targetDirectoryName, filename } = req.query;
 
@@ -79,16 +80,34 @@ router
         return res.status(403).send({ error: "Access denied: Invalid file path" });
       }
 
-      // O_NOFOLLOW refuses a symlink at the leaf itself, which the containment
-      // check above deliberately does not cover, and holding one descriptor
-      // across the stat and the read leaves no window in which the name could
-      // be swapped for a link between the two calls.
+      // O_NOFOLLOW refuses a symlink at the leaf itself, and holding one
+      // descriptor across the stat and the read leaves no window in which the
+      // name could be swapped for a link between the two calls.
+      //
+      // assertWithinReal above already resolved the leaf fully — fs.realpath
+      // follows every path component, the last one included — and proved its
+      // target sits inside the transfer directory or a configured
+      // ALLOWED_LINK_ROOTS entry (see BREAKING_CHANGES.md entry 34), the same
+      // allowance a symlinked ancestor already gets. Only an ELOOP on the leaf
+      // itself reopens the realpath'd target, itself with O_NOFOLLOW, so a
+      // second layer of symlink introduced since that check is still refused.
       let handle;
       try {
-        handle = await fs.open(
-          filePath,
-          fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW,
-        );
+        try {
+          handle = await fs.open(
+            filePath,
+            fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW,
+          );
+        } catch (openErr) {
+          if (openErr.code !== "ELOOP") {
+            throw openErr;
+          }
+          const realTarget = await fs.realpath(filePath);
+          handle = await fs.open(
+            realTarget,
+            fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW,
+          );
+        }
       } catch (e) {
         throw new Error("File does not exist");
       }

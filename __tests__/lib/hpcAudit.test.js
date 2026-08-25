@@ -1,5 +1,6 @@
 const {
   auditHpcAccess,
+  requireHpcGroupAccess,
   AUDIT_PREFIX,
 } = require("../../lib/utils/hpcAudit");
 
@@ -154,5 +155,106 @@ describe("auditHpcAccess", () => {
 
       expect(logSpy.mock.calls[0][0]).toContain('path="/x"');
     });
+  });
+});
+
+describe("requireHpcGroupAccess", () => {
+  // A live groupsICanRead() lookup was removed in 366f656 as disproportionate
+  // for this threat model; these pin the cheaper replacement, which trusts
+  // the JWT claims already on req.user instead.
+  let logSpy;
+  let req;
+  let res;
+  let next;
+  const ORIGINAL_FULL_ACCESS = process.env.FULL_RECORDS_ACCESS_USERS;
+
+  beforeEach(() => {
+    logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+    req = { originalUrl: "/directory-files?targetDirectoryName=batch1" };
+    res = {
+      status: jest.fn().mockReturnThis(),
+      send: jest.fn().mockReturnThis(),
+    };
+    next = jest.fn();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    if (ORIGINAL_FULL_ACCESS === undefined) {
+      delete process.env.FULL_RECORDS_ACCESS_USERS;
+    } else {
+      process.env.FULL_RECORDS_ACCESS_USERS = ORIGINAL_FULL_ACCESS;
+    }
+  });
+
+  test("passes a user with real group membership", () => {
+    req.user = { username: "alice", groups: ["group1"], isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(next).toHaveBeenCalledTimes(1);
+    expect(res.status).not.toHaveBeenCalled();
+  });
+
+  test("refuses a user with an empty groups array and no elevated access", () => {
+    req.user = { username: "alice", groups: [], isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(next).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(res.send).toHaveBeenCalledWith({
+      error: "You do not belong to any group",
+    });
+  });
+
+  test("refuses a user with no groups claim at all", () => {
+    // A misconfigured token, or one from before the groups claim existed.
+    req.user = { username: "alice", isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(next).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(403);
+  });
+
+  test("passes an admin with an empty groups array", () => {
+    req.user = { username: "alice", groups: [], isAdmin: true };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(next).toHaveBeenCalledTimes(1);
+    expect(res.status).not.toHaveBeenCalled();
+  });
+
+  test("passes a FULL_RECORDS_ACCESS_USERS principal with an empty groups array", () => {
+    process.env.FULL_RECORDS_ACCESS_USERS = "alice";
+    req.user = { username: "alice", groups: [], isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(next).toHaveBeenCalledTimes(1);
+    expect(res.status).not.toHaveBeenCalled();
+  });
+
+  test("audits the refusal on the shared trail, naming the caller and the request URL", () => {
+    req.user = { username: "alice", groups: [], isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(logSpy).toHaveBeenCalledTimes(1);
+    expect(logSpy.mock.calls[0][0]).toBe(
+      `${AUDIT_PREFIX} action="denied" user="alice" ` +
+        `path="/directory-files?targetDirectoryName=batch1" ` +
+        `outcome="no-group-membership"`,
+    );
+  });
+
+  test("does not audit a caller who was let through", () => {
+    req.user = { username: "alice", groups: ["group1"], isAdmin: false };
+
+    requireHpcGroupAccess(req, res, next);
+
+    expect(logSpy).not.toHaveBeenCalled();
   });
 });

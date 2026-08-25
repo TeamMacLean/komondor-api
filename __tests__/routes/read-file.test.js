@@ -12,9 +12,11 @@ const fs = require("fs");
 const os = require("os");
 const _path = require("path");
 
+let mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
+
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: (req, res, next) => {
-    req.user = { username: "testuser", groups: [] };
+    req.user = mockUser;
     next();
   },
   isAdmin: (req, res, next) => next(),
@@ -127,6 +129,7 @@ afterAll(() => {
 
 beforeEach(() => {
   process.env.HPC_TRANSFER_DIRECTORY = transferDir;
+  mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
   jest.spyOn(console, "error").mockImplementation(() => {});
 });
 
@@ -262,13 +265,23 @@ describe("GET /read-file", () => {
       expect(response.status).toBe(403);
     });
 
-    test("does not follow a symlink at the leaf even when it stays inside the root", async () => {
+  });
+
+  describe("a symlinked leaf is followed once assertWithinReal has vouched for it", () => {
+    // O_NOFOLLOW used to make ELOOP on a symlinked leaf indistinguishable from
+    // "does not exist", even when assertWithinReal (above, in "symlink escapes
+    // are refused") had already resolved the same leaf fully and proved its
+    // target sits inside the transfer directory. See BREAKING_CHANGES.md
+    // entry 34: both read endpoints now reopen the realpath'd target, itself
+    // with O_NOFOLLOW, instead of refusing outright.
+    test("follows a symlink to a file that really is inside the root", async () => {
       const response = await request(app)
         .get("/read-file")
         .query({ targetDirectoryName: "linkfarm", filename: "inside.txt" });
 
-      expect(response.text).not.toContain("ACGT contents");
-      expect(response.body.error).toBeDefined();
+      expect(response.status).toBe(200);
+      expect(response.text).toBe("ACGT contents");
+      expect(response.body.error).toBeUndefined();
     });
   });
 
@@ -535,5 +548,45 @@ describe("GET /read-file cannot be used to forge the audit trail", () => {
         `path=${JSON.stringify(_path.join(transferDir, "inject", QUOTE_INJECTED_NAME))} ` +
         `outcome="ok"`,
     );
+  });
+});
+
+describe("group membership is required", () => {
+  // requireHpcGroupAccess reads req.user.groups from the JWT claim rather than
+  // querying live membership (removed in 366f656 as disproportionate). A
+  // caller LDAP handed back with groups: [] — misconfigured, or never assigned
+  // to one — is otherwise indistinguishable from a properly-provisioned one.
+  test("refuses a caller with no group membership and no elevated access", async () => {
+    mockUser = { username: "testuser", groups: [], isAdmin: false };
+
+    const response = await request(app)
+      .get("/read-file")
+      .query({ targetDirectoryName: "batch1", filename: "reads.txt" });
+
+    expect(response.status).toBe(403);
+    expect(response.body.error).toBe("You do not belong to any group");
+    expect(response.text).not.toContain("ACGT contents");
+  });
+
+  test("passes an admin with an empty groups array", async () => {
+    mockUser = { username: "admin", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .get("/read-file")
+      .query({ targetDirectoryName: "batch1", filename: "reads.txt" });
+
+    expect(response.status).toBe(200);
+    expect(response.text).toBe("ACGT contents");
+  });
+
+  test("passes a normal user with real group membership", async () => {
+    mockUser = { username: "testuser", groups: ["group1"], isAdmin: false };
+
+    const response = await request(app)
+      .get("/read-file")
+      .query({ targetDirectoryName: "batch1", filename: "reads.txt" });
+
+    expect(response.status).toBe(200);
+    expect(response.text).toBe("ACGT contents");
   });
 });
