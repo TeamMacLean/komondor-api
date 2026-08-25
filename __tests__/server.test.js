@@ -42,6 +42,16 @@ jest.mock("../lib/utils/validateEnv", () => ({
   resolveMongoUri: jest.fn(() => "mongodb://localhost:27017/komondor"),
 }));
 
+// init() resolves by default; individual tests override to simulate a
+// background index build mongoose could only log, never throw, on its own.
+const mockRunInit = jest.fn(() => Promise.resolve());
+const mockIngestJobInit = jest.fn(() => Promise.resolve());
+
+jest.mock("../models/Run", () => ({ init: (...args) => mockRunInit(...args) }));
+jest.mock("../models/IngestJob", () => ({
+  init: (...args) => mockIngestJobInit(...args),
+}));
+
 // Thrown by the queue mock instead of loading, for the tests that need a
 // checkout without the module or with a broken one.
 let mockIngestQueueLoadError = null;
@@ -282,6 +292,67 @@ describe("startup configuration check", () => {
       expect.stringContaining("SMTP TLS verification is disabled"),
     );
     expect(require("../app").listen).toHaveBeenCalled();
+  });
+});
+
+describe("index builds", () => {
+  // mongoose only *logs* a failed background index build (e.g. a unique index
+  // colliding with an old non-unique index under the same auto-generated
+  // name) — it never rejects connect() or throws. Model.init() is the only
+  // way to observe that failure, so startup must await it.
+  test("awaits Run.init() and IngestJob.init() before listening", async () => {
+    let resolveRunInit;
+    mockRunInit.mockImplementationOnce(
+      () => new Promise((resolve) => (resolveRunInit = resolve)),
+    );
+
+    const { started } = await loadServer({ wait: false });
+    const app = require("../app");
+    await flush();
+
+    expect(app.listen).not.toHaveBeenCalled();
+
+    resolveRunInit();
+    await started;
+
+    expect(app.listen).toHaveBeenCalled();
+  });
+
+  test("starts the ingest worker only after both indexes build", async () => {
+    await loadServer();
+    const { startIngestWorker } = require("../lib/ingest-queue");
+
+    expect(mockRunInit.mock.invocationCallOrder[0]).toBeLessThan(
+      startIngestWorker.mock.invocationCallOrder[0],
+    );
+    expect(mockIngestJobInit.mock.invocationCallOrder[0]).toBeLessThan(
+      startIngestWorker.mock.invocationCallOrder[0],
+    );
+  });
+
+  test("exits non-zero and never listens when an index build fails", async () => {
+    mockRunInit.mockRejectedValueOnce(new Error("IndexOptionsConflict"));
+
+    await loadServer();
+    const app = require("../app");
+
+    expect(app.listen).not.toHaveBeenCalled();
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("index build failed"),
+      expect.any(Error),
+    );
+  });
+
+  test("does not start the ingest worker or background jobs when an index build fails", async () => {
+    mockIngestJobInit.mockRejectedValueOnce(new Error("IndexOptionsConflict"));
+
+    await loadServer();
+    const { startIngestWorker } = require("../lib/ingest-queue");
+    const { initializeBackgroundJobs } = require("../lib/background-jobs");
+
+    expect(startIngestWorker).not.toHaveBeenCalled();
+    expect(initializeBackgroundJobs).not.toHaveBeenCalled();
   });
 });
 

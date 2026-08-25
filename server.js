@@ -20,6 +20,13 @@ const { getBlockingTransfers } = require("./lib/active-transfers");
 // already requires this unconditionally, so a guard here could never run.
 const ingestQueue = require("./lib/ingest-queue");
 
+// Held directly so startup can await Model.init() — mongoose only logs a
+// failed background index build, it never throws, so without this a
+// conflicting index (e.g. a unique index reusing an old non-unique index's
+// auto-generated name) silently never gets created and the app starts anyway.
+const Run = require("./models/Run");
+const IngestJob = require("./models/IngestJob");
+
 const PORT = process.env.PORT || 3000;
 
 // Defaults to loopback in development; validateEnv refuses any other combination.
@@ -344,9 +351,23 @@ const start = () =>
       .then(
         () => {
           console.log("Connected to MongoDB");
-          initializeBackgroundJobs();
-          startIngestWorker();
-          listen();
+
+          // Same treatment as a bad validateEnv result: log what failed and
+          // exit non-zero rather than serve traffic against a broken index.
+          return Promise.all([Run.init(), IngestJob.init()]).then(
+            () => {
+              initializeBackgroundJobs();
+              startIngestWorker();
+              listen();
+            },
+            (err) => {
+              console.error(
+                "[FATAL] Refusing to start: index build failed:",
+                err,
+              );
+              process.exit(1);
+            },
+          );
         },
         (err) => {
           // Every endpoint needs the database, so exit and let the supervisor retry.

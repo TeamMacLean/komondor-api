@@ -29,6 +29,13 @@ jest.mock("../../models/IngestJob");
 jest.mock("../../models/Run");
 jest.mock("../../models/Read");
 jest.mock("../../models/AdditionalFile");
+// NOT mocked at this boundary for the "re-run after a partial failure: the
+// real move-and-pair pipeline" tests below, which need the real
+// lib/sortAssociatedFiles.js (and so the real lib/file-utils.js underneath
+// it) — see the comment on that describe block for why. models/File is
+// mocked instead, one layer further down, so those tests still run against
+// no real database.
+jest.mock("../../models/File");
 jest.mock("../../lib/sortAssociatedFiles");
 jest.mock("../../lib/md5-verification");
 jest.mock("../../lib/utils/sendOverseerEmail");
@@ -38,6 +45,7 @@ const IngestJob = require("../../models/IngestJob");
 const Run = require("../../models/Run");
 const Read = require("../../models/Read");
 const AdditionalFile = require("../../models/AdditionalFile");
+const File = require("../../models/File");
 const {
   sortReadFiles,
   sortAdditionalFiles,
@@ -1249,9 +1257,14 @@ describe("runIngestJob", () => {
       });
     });
 
-    test("leaves the post-move steps to sortReadFiles when it does run", async () => {
-      // Doing them here as well would mean pairing twice and marking the run
-      // complete before processReadFiles has finished moving anything.
+    test("finalises after sortReadFiles's move completes, on a fresh run too", async () => {
+      // processReadFiles no longer pairs or completes the run itself (see its
+      // module doc comment) — finaliseReadStage always does, strictly after
+      // the move, whether anything was pre-ingested or not. sortReadFiles is
+      // mocked here (as everywhere in this describe block above the "real
+      // move-and-pair pipeline" tests below), so it reports no newly-created
+      // reads of its own; the single unpaired file needs no sibling link, but
+      // the run still has to reach "complete".
       existingReads([await unmovedDoc("stranded.fq")]);
 
       await runIngestJob(
@@ -1260,7 +1273,9 @@ describe("runIngestJob", () => {
 
       expect(sortReadFiles).toHaveBeenCalled();
       expect(Read.updateOne).not.toHaveBeenCalled();
-      expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
     });
 
     test("does not mark a run complete when it never had raw files", async () => {
@@ -1284,7 +1299,9 @@ describe("runIngestJob", () => {
       // in the state this whole change is about — files delivered, run stuck
       // at "pending", nothing left that will ever fix it.
       existingReads([await movedDoc("done.fq", "raw")]);
-      Run.findByIdAndUpdate.mockRejectedValue(new Error("mongo is unreachable"));
+      Run.findByIdAndUpdate.mockRejectedValue(
+        new Error("mongo is unreachable"),
+      );
 
       await expect(
         runIngestJob(makeJob({ payload: { rawFiles: [{ name: "done.fq" }] } })),
@@ -1341,9 +1358,18 @@ describe("runIngestJob", () => {
       );
     });
 
-    test("retries a partly ingested set whole, so pairing still works", async () => {
-      // Reads are paired within a single processReadFiles pass, so handing it
-      // only the missing half would fail the sibling lookup.
+    test("retries only the file a previous attempt did not finish, not the paired one that already succeeded", async () => {
+      // The bug this fix closes: handing sortReadFiles the whole set,
+      // including paired_R1.fq, re-runs processSingleReadFile on a file that
+      // is already at its destination and already claimed by a Read — its
+      // move collides, moveIntoDatastore's adoptAlreadyMovedFile correctly
+      // refuses to hand the collision to anyone, and the job fails again on
+      // exactly the file that already succeeded, forever. Pairing across the
+      // retry boundary (with only paired_R2.fq handed to a REAL
+      // sortReadFiles) is proved by the "real move-and-pair pipeline" tests
+      // below, which is the only way to catch that collision at all — this
+      // test proves planRawFileStage's decision, at the mocked boundary this
+      // whole describe block otherwise uses.
       existingReads([await movedDoc("paired_R1.fq", "raw")]);
       const rawFiles = [
         { name: "paired_R1.fq", sibling: "paired_R2.fq" },
@@ -1353,12 +1379,18 @@ describe("runIngestJob", () => {
       await runIngestJob(makeJob({ payload: { rawFiles } }));
 
       expect(sortReadFiles).toHaveBeenCalledWith(
-        rawFiles,
+        [rawFiles[1]],
         runId,
         expect.any(String),
         undefined,
         undefined,
       );
+
+      // The job still reaches "complete" — the whole point of the fix is
+      // that a retry does not get stuck once every file is delivered.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
     });
 
     test("skips additional files one by one, having no pairing to preserve", async () => {
@@ -1408,6 +1440,202 @@ describe("runIngestJob", () => {
       );
 
       expect(sortAdditionalFiles).not.toHaveBeenCalled();
+    });
+  });
+});
+
+describe("re-run after a partial failure: the real move-and-pair pipeline", () => {
+  // Every "re-run after a partial failure" test above mocks
+  // lib/sortAssociatedFiles wholesale, which proves planRawFileStage's
+  // DECISION to skip an already-ingested file — but it cannot catch the
+  // collision that decision exists to avoid, because the mock never runs the
+  // real moveIntoDatastore or adoptAlreadyMovedFile. This describe block does
+  // not mock that boundary: sortReadFiles here delegates to the real
+  // lib/sortAssociatedFiles.js and lib/file-utils.js, with only the Mongoose
+  // models faked (as every file-utils test in this repo already does) and the
+  // filesystem real.
+  //
+  // The scenario reproduces the bug directly: a 2-file paired batch where
+  // file 1 already succeeded on an earlier attempt (its bytes sit at their
+  // destination, and a Read row already claims its File document — that
+  // claim is exactly what stops adoptAlreadyMovedFile from reconciling a
+  // collision) and file 2 was never attempted. Before the fix,
+  // planRawFileStage handed BOTH files back to sortReadFiles; re-creating and
+  // re-moving file 1 collided with its own already-delivered bytes, and
+  // because its File document is claimed, adoptAlreadyMovedFile correctly
+  // refused to reconcile it — so the whole batch rejected, forever, on the
+  // file that had already succeeded.
+  let hpcRoot;
+  const ORIGINAL_HPC_TRANSFER_DIRECTORY = process.env.HPC_TRANSFER_DIRECTORY;
+
+  beforeEach(async () => {
+    // lib/ingest-queue.js's own `require("./sortAssociatedFiles")` resolved
+    // to the automock at module-load time; delegating THIS mock's
+    // implementation to the real module is what makes runIngestJob's call
+    // reach the real processReadFiles / moveIntoDatastore /
+    // adoptAlreadyMovedFile chain instead of the automock.
+    const { sortReadFiles: realSortReadFiles } = jest.requireActual(
+      "../../lib/sortAssociatedFiles",
+    );
+    sortReadFiles.mockImplementation(realSortReadFiles);
+
+    hpcRoot = await fsp.mkdtemp(_path.join(os.tmpdir(), "ingest-queue-hpc-"));
+    process.env.HPC_TRANSFER_DIRECTORY = hpcRoot;
+
+    // runIngestJob re-fetches the Run itself (see processReadFiles step 2),
+    // so the module-level makeRun() stand-in needs getRelativePath added.
+    Run.findById = jest.fn().mockResolvedValue({
+      ...makeRun(),
+      getRelativePath: jest.fn().mockResolvedValue(RUN_REL_PATH),
+    });
+
+    // A File whose move is real fs work relative to the shared datastoreRoot,
+    // not a call into models/File.js: this is the same "fake the model,
+    // exercise the real orchestration" boundary __tests__/lib/file-utils.test.js
+    // already uses, applied here so runIngestJob's own retry planning is what
+    // gets proven, not a second copy of moveToFolderAndSave's own logic.
+    File.mockImplementation((data) => ({
+      save: jest.fn().mockResolvedValue({
+        _id: new mongoose.Types.ObjectId(),
+        originalName: data.originalName,
+        path: data.path,
+        moveToFolderAndSave: jest
+          .fn()
+          .mockImplementation(async function (relNewPath) {
+            const destAbs = _path.join(datastoreRoot, relNewPath);
+            const sourceAbs = this.path;
+
+            const sourceStat = await fsp.stat(sourceAbs).catch(() => null);
+            if (!sourceStat) {
+              // What a re-attempted, already-delivered file actually hits:
+              // its earlier move already unlinked the staging copy.
+              throw new Error(
+                `Cannot move ${sourceAbs} to ${destAbs}: no such source file`,
+              );
+            }
+
+            const destExists = await fsp
+              .stat(destAbs)
+              .then(() => true)
+              .catch(() => false);
+            if (destExists) {
+              throw new Error(
+                `Cannot move ${sourceAbs} to ${destAbs}: destination already exists`,
+              );
+            }
+
+            await fsp.mkdir(_path.dirname(destAbs), { recursive: true });
+            await fsp.rename(sourceAbs, destAbs);
+            this.path = relNewPath;
+          }),
+      }),
+    }));
+  });
+
+  afterEach(async () => {
+    if (ORIGINAL_HPC_TRANSFER_DIRECTORY === undefined) {
+      delete process.env.HPC_TRANSFER_DIRECTORY;
+    } else {
+      process.env.HPC_TRANSFER_DIRECTORY = ORIGINAL_HPC_TRANSFER_DIRECTORY;
+    }
+    if (hpcRoot) {
+      await fsp.rm(hpcRoot, { recursive: true, force: true });
+    }
+  });
+
+  test("moves only the remaining file, links the pair, and completes the run", async () => {
+    const r1 = await movedDoc("retry_R1.fq", "raw");
+    existingReads([r1]);
+
+    // adoptAlreadyMovedFile's collision recovery, wired for file 1's
+    // destination only: an occupant File document that a Read already
+    // claims, which is exactly the "correctly refuses" case this fix must
+    // stop reaching for an already-delivered file — and exactly what the
+    // pre-fix planRawFileStage (which handed the whole set back on every
+    // retry) makes this test hit instead, if reverted.
+    const file1DestRelPath = _path.join(RUN_REL_PATH, "raw", "retry_R1.fq");
+    const file1OccupantId = new mongoose.Types.ObjectId();
+    File.findOne = jest
+      .fn()
+      .mockImplementation((filter) =>
+        Promise.resolve(
+          filter && filter.path === file1DestRelPath
+            ? { _id: file1OccupantId }
+            : null,
+        ),
+      );
+    File.deleteOne = jest.fn().mockResolvedValue({});
+    Read.exists = jest
+      .fn()
+      .mockImplementation(({ file }) =>
+        Promise.resolve(String(file) === String(file1OccupantId)),
+      );
+    AdditionalFile.exists = jest.fn().mockResolvedValue(false);
+
+    // file 2's source is staged; file 1's is deliberately NOT — an
+    // already-delivered file's earlier move already unlinked its staging
+    // copy, and the fix must never look for it again.
+    await fsp.mkdir(_path.join(hpcRoot, "batch"), { recursive: true });
+    await fsp.writeFile(_path.join(hpcRoot, "batch", "retry_R2.fq"), "ACGT\n");
+
+    let newReadId = null;
+    Read.mockImplementation(() => ({
+      save: jest.fn().mockImplementation(async () => {
+        newReadId = new mongoose.Types.ObjectId();
+        return { _id: newReadId };
+      }),
+    }));
+
+    const rawFiles = [
+      { name: "retry_R1.fq", sibling: "retry_R2.fq", relativePath: "batch" },
+      { name: "retry_R2.fq", sibling: "retry_R1.fq", relativePath: "batch" },
+    ];
+
+    await runIngestJob(
+      makeJob({
+        payload: { rawFiles, rawFilesUploadInfo: { method: "hpc-mv" } },
+      }),
+    );
+
+    // file 1 was never re-created or re-moved: exactly one File document
+    // this attempt, and it is file 2's.
+    expect(File).toHaveBeenCalledTimes(1);
+    expect(File).toHaveBeenCalledWith(
+      expect.objectContaining({ originalName: "retry_R2.fq" }),
+    );
+    expect(sortReadFiles).toHaveBeenCalledWith(
+      [rawFiles[1]],
+      runId,
+      expect.any(String),
+      { method: "hpc-mv" },
+      undefined,
+    );
+
+    // file 2's bytes really landed at their destination.
+    const movedBytes = await fsp
+      .readFile(
+        _path.join(datastoreRoot, RUN_REL_PATH, "raw", "retry_R2.fq"),
+        "utf8",
+      )
+      .catch(() => null);
+    expect(movedBytes).toBe("ACGT\n");
+
+    // Both reads end up linked as siblings — one already existing, one
+    // freshly created — which is the union finaliseReadStage now builds.
+    expect(newReadId).not.toBeNull();
+    expect(Read.updateOne).toHaveBeenCalledWith(
+      { _id: r1._id },
+      { $set: { sibling: newReadId } },
+    );
+    expect(Read.updateOne).toHaveBeenCalledWith(
+      { _id: newReadId },
+      { $set: { sibling: r1._id } },
+    );
+
+    // And the run reaches "complete": the retry is not stuck forever on the
+    // file that had already succeeded.
+    expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+      $set: { status: "complete" },
     });
   });
 });
@@ -1633,19 +1861,24 @@ describe("startIngestWorker", () => {
     jest.clearAllTimers();
   });
 
-  test("stops renewing and stops reporting once a job overruns its bound", async () => {
+  test("keeps renewing the lease but stops reporting fresh progress once a job overruns its bound", async () => {
     // The wedged worker, which a reviewer reproduced: the worker hung inside
-    // one job, a second job sat queued behind it and was never claimed, and
-    // /ready stayed green the whole time. The heartbeat was the reason —
-    // fired by the same timer it replaced, it renewed the lease forever (so no
-    // other worker could ever take the job) and refreshed the tick forever (so
-    // the staleness check server.js documents could never fire).
+    // one job, and /ready stayed green the whole time because the heartbeat
+    // — fired by the same timer it replaced — refreshed the tick forever, so
+    // the staleness check server.js documents could never fire.
     //
-    // Nothing here can kill a hung worker. What it can do is stop vouching for
-    // it, in the two ways that make the stall visible to something that can
-    // act: the lease is left to lapse, which is what hands the job to another
-    // worker through claimNextJob's expiry branch, and the tick goes stale,
-    // which is what turns /ready red.
+    // The old fix for that let the lease lapse too, past maxJobMs, "so
+    // another worker can take it over" — but this deployment is pinned to a
+    // single fork-mode process (see ecosystem.config.js): there is no second
+    // worker for that to mean anything other than an unsafe takeover of a job
+    // that is still genuinely running, mid-transfer, with none of its
+    // filesystem or database writes protected by anything but the lease.
+    // Nothing here can kill a hung worker, and letting the lease lapse cannot
+    // either — it only invites a takeover that is never safe in this
+    // deployment. What it can still do is stop vouching for the job on the
+    // one signal that is safe to give up: the tick goes stale, which is what
+    // turns /ready red, while the lease keeps renewing so the claim never
+    // lapses.
     queueOneJob();
     sortReadFiles.mockImplementation(() => new Promise(() => {}));
     IngestJob.updateOne.mockResolvedValue({ matchedCount: 1 });
@@ -1670,12 +1903,22 @@ describe("startIngestWorker", () => {
     jest.advanceTimersByTime(1000);
     await flush();
 
-    // A hundred more ticks, and not one of them says anything on the worker's
-    // behalf.
-    expect(IngestJob.updateOne.mock.calls.length).toBe(renewals);
+    // A hundred more ticks: the lease keeps renewing on every one of them —
+    // the claim must never lapse — but not one of them counts as progress
+    // any more, so the tick stays exactly where it froze.
+    expect(IngestJob.updateOne.mock.calls.length).toBeGreaterThan(renewals);
+    const [, lastUpdate] = IngestJob.updateOne.mock.calls.at(-1);
+    expect(lastUpdate.$set.leaseExpiresAt.getTime()).toBeGreaterThan(
+      Date.now(),
+    );
     expect(getLastTickAt().getTime()).toBe(frozenTick.getTime());
     expect(console.error).toHaveBeenCalledWith(
       expect.stringContaining(`Job ${jobId} has held worker`),
+    );
+    // The wording a reviewer would have to trust is correct: no false claim
+    // that the lease is lapsing or that another worker can take the job.
+    expect(console.error).not.toHaveBeenCalledWith(
+      expect.stringMatching(/no longer renewing|another worker can take/),
     );
 
     jest.clearAllTimers();
