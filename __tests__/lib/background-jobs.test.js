@@ -4,6 +4,7 @@ const cron = require("node-cron");
 jest.mock("node-cron");
 jest.mock("../../lib/md5-verification");
 jest.mock("../../lib/utils/sendEmail");
+jest.mock("../../lib/upload-quota");
 
 const {
   findRunsNeedingVerification,
@@ -11,12 +12,14 @@ const {
   cleanupStalePendingRuns,
 } = require("../../lib/md5-verification");
 const { sendMd5VerificationEmail } = require("../../lib/utils/sendEmail");
+const { cleanupAbandonedUploads } = require("../../lib/upload-quota");
 
 // Import after mocks
 const {
   initializeBackgroundJobs,
   processMd5Verification,
   processCleanup,
+  processUploadSweep,
 } = require("../../lib/background-jobs");
 
 describe("Background Jobs", () => {
@@ -47,7 +50,17 @@ describe("Background Jobs", () => {
         expect.any(Function),
       );
 
-      expect(cron.schedule).toHaveBeenCalledTimes(2);
+      // Should schedule the abandoned upload sweep (daily at 3:00 AM). It is
+      // deliberately an hour after the run cleanup so the two are not
+      // competing for the same disk at the same moment.
+      expect(cron.schedule).toHaveBeenCalledWith(
+        "0 3 * * *",
+        expect.any(Function),
+      );
+
+      // Exact count, so a job added without a test here fails loudly rather
+      // than being scheduled silently.
+      expect(cron.schedule).toHaveBeenCalledTimes(3);
     });
 
     test("should run initial MD5 verification after 10 seconds", () => {
@@ -278,6 +291,74 @@ describe("Background Jobs", () => {
       await processCleanup();
 
       expect(cleanupStalePendingRuns).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("processUploadSweep", () => {
+    const emptyResult = {
+      removed: [],
+      sidecars: [],
+      completed: [],
+      orphans: [],
+      errors: [],
+    };
+
+    test("sweeps the configured upload directory", async () => {
+      cleanupAbandonedUploads.mockResolvedValue(emptyResult);
+
+      await processUploadSweep();
+
+      expect(cleanupAbandonedUploads).toHaveBeenCalledWith({
+        directory: require("path").join(process.cwd(), "files"),
+      });
+    });
+
+    test("does not delete finished or orphaned uploads", async () => {
+      // The two destructive options must stay off. A finished upload is a file
+      // the user has not yet attached to a project, and an orphan is every
+      // upload the old unauthenticated server accepted — deleting either on a
+      // timer destroys data somebody still expects to find.
+      cleanupAbandonedUploads.mockResolvedValue(emptyResult);
+
+      await processUploadSweep();
+
+      const [options] = cleanupAbandonedUploads.mock.calls[0];
+      expect(options.includeCompleted).toBeUndefined();
+      expect(options.includeOrphans).toBeUndefined();
+    });
+
+    test("handles a sweep failure without throwing", async () => {
+      cleanupAbandonedUploads.mockRejectedValue(new Error("disk gone"));
+
+      await expect(processUploadSweep()).resolves.not.toThrow();
+    });
+
+    test("reports what it left behind", async () => {
+      const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+      const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+      cleanupAbandonedUploads.mockResolvedValue({
+        removed: ["a"],
+        sidecars: ["a.json"],
+        completed: ["b"],
+        orphans: ["c"],
+        errors: [{ id: "d", error: "EACCES" }],
+      });
+
+      await processUploadSweep();
+
+      expect(errorSpy).toHaveBeenCalledWith(
+        expect.stringContaining("could not process"),
+        [{ id: "d", error: "EACCES" }],
+      );
+
+      // Sidecar deletions are real removals and have to be visible to an
+      // operator reading the summary, not only in the returned object.
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining("1 orphaned sidecars removed"),
+      );
+
+      logSpy.mockRestore();
+      errorSpy.mockRestore();
     });
   });
 });
