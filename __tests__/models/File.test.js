@@ -44,9 +44,12 @@ const partialsIn = (dir) =>
 let tmpRoot;
 let datastoreRoot;
 let stagingDir;
+let hpcInboxDir;
 let outsideDir;
 const ORIGINAL_DATASTORE = process.env.DATASTORE_ROOT;
 const ORIGINAL_HPC = process.env.HPC_TRANSFER_DIRECTORY;
+const ORIGINAL_UPLOAD = process.env.UPLOAD_DIRECTORY;
+const ORIGINAL_LINK_ROOTS = process.env.ALLOWED_LINK_ROOTS;
 
 /** Builds an unsaved File document with a stubbed save(). */
 const makeFile = (sourcePath) => {
@@ -65,15 +68,19 @@ beforeEach(() => {
   tmpRoot = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-file-"));
   datastoreRoot = _path.join(tmpRoot, "datastore");
   stagingDir = _path.join(tmpRoot, "staging");
+  hpcInboxDir = _path.join(tmpRoot, "hpc-inbox");
   outsideDir = _path.join(tmpRoot, "outside");
   fs.mkdirSync(datastoreRoot, { recursive: true });
   fs.mkdirSync(stagingDir, { recursive: true });
+  fs.mkdirSync(hpcInboxDir, { recursive: true });
   fs.mkdirSync(outsideDir, { recursive: true });
   process.env.DATASTORE_ROOT = datastoreRoot;
-  // The move refuses a source outside every configured root, so the staging
-  // directory has to be one of them — in production it is the HPC transfer
-  // mount or <cwd>/files.
-  process.env.HPC_TRANSFER_DIRECTORY = stagingDir;
+  // stagingDir models the ordinary (tus / local-filesystem) upload staging
+  // area. hpcInboxDir is kept separate and only used by the tests that
+  // specifically exercise HPC-inbox retention, below.
+  process.env.UPLOAD_DIRECTORY = stagingDir;
+  process.env.HPC_TRANSFER_DIRECTORY = hpcInboxDir;
+  delete process.env.ALLOWED_LINK_ROOTS;
 
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -94,6 +101,16 @@ afterEach(() => {
     delete process.env.HPC_TRANSFER_DIRECTORY;
   } else {
     process.env.HPC_TRANSFER_DIRECTORY = ORIGINAL_HPC;
+  }
+  if (ORIGINAL_UPLOAD === undefined) {
+    delete process.env.UPLOAD_DIRECTORY;
+  } else {
+    process.env.UPLOAD_DIRECTORY = ORIGINAL_UPLOAD;
+  }
+  if (ORIGINAL_LINK_ROOTS === undefined) {
+    delete process.env.ALLOWED_LINK_ROOTS;
+  } else {
+    process.env.ALLOWED_LINK_ROOTS = ORIGINAL_LINK_ROOTS;
   }
 });
 
@@ -430,20 +447,25 @@ describe("moveToFolderAndSave — the source is pinned, not re-resolved", () => 
     expect(doc.save).not.toHaveBeenCalled();
   });
 
-  test("refuses a source that is a symlink, wherever it points", async () => {
-    // Accepted before: the containment check resolved it and was satisfied.
-    // A symlink is the one source whose meaning can be changed underneath the
-    // move, so it is now refused at the open rather than followed.
+  test("moves via a symlink whose real target is inside a permitted root", async () => {
+    // Was refused outright before the ELOOP fallback was added: O_NOFOLLOW
+    // rejected any leaf symlink, even one isPermittedSource() had already
+    // vouched for by resolving straight to an in-root target. Rewritten
+    // because that blanket refusal is exactly what commit 366f656's
+    // ALLOWED_LINK_ROOTS feature needed lifted (see FIX 2).
     const target = _path.join(stagingDir, "real-reads.fq");
     fs.writeFileSync(target, "ACGT");
     const link = _path.join(stagingDir, "linked.fq");
     fs.symlinkSync(target, link);
     const doc = makeFile(link);
 
-    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow();
+    await doc.moveToFolderAndSave(REL_PATH);
 
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGT");
+    // The symlink itself is a staging-area upload artefact and is cleaned up;
+    // the file it pointed at is untouched.
+    expect(fs.existsSync(link)).toBe(false);
     expect(fs.existsSync(target)).toBe(true);
-    expect(fs.existsSync(dest)).toBe(false);
   });
 
   test("copies from the pinned handle, not from the name, when cross-device", async () => {
@@ -470,6 +492,100 @@ describe("moveToFolderAndSave — the source is pinned, not re-resolved", () => 
       expect(fs.readFileSync(dest, "utf8")).toBe("ACGT");
     }
     expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
+  });
+});
+
+describe("moveToFolderAndSave — ALLOWED_LINK_ROOTS symlink sources", () => {
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+  let scratchDir;
+  let target;
+  let link;
+
+  beforeEach(() => {
+    // Outside every permitted root on its own — only reachable via a
+    // configured ALLOWED_LINK_ROOTS entry, modelling a symlink into /scratch.
+    scratchDir = _path.join(outsideDir, "scratch");
+    fs.mkdirSync(scratchDir, { recursive: true });
+    target = _path.join(scratchDir, "big-run.fq");
+    fs.writeFileSync(target, "ACGTACGT");
+    link = _path.join(stagingDir, "linked.fq");
+    fs.symlinkSync(target, link);
+  });
+
+  test("moves a symlink into the permitted root when it is configured", async () => {
+    process.env.ALLOWED_LINK_ROOTS = scratchDir;
+    const doc = makeFile(link);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
+    expect(fs.existsSync(target)).toBe(true);
+  });
+
+  test("still refuses the same symlink when ALLOWED_LINK_ROOTS is not configured", async () => {
+    // ALLOWED_LINK_ROOTS deliberately left unset by beforeEach: the previous
+    // test's grant must not regress into a standing permission.
+    const doc = makeFile(link);
+
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source is not inside a permitted directory/,
+    );
+
+    expect(fs.existsSync(_path.join(datastoreRoot, REL_PATH))).toBe(false);
+    expect(fs.readFileSync(target, "utf8")).toBe("ACGTACGT");
+  });
+});
+
+describe("moveToFolderAndSave — HPC inbox source retention", () => {
+  // Sources in the shared HPC transfer inbox are written by unprivileged
+  // uploads the API does not own: a directory typo in the destination is one
+  // keystroke away, so unlike every other permitted root the source is left
+  // in place rather than destroyed. See BREAKING_CHANGES.md entry 32.
+  const REL_PATH = _path.join("group", "raw", "reads.fq");
+
+  test("leaves the source in place after a same-filesystem link", async () => {
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    fs.writeFileSync(source, "ACGTACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
+    expect(fs.readFileSync(source, "utf8")).toBe("ACGTACGT");
+  });
+
+  test("leaves the source in place after a cross-device copy", async () => {
+    const realLink = fsp.link.bind(fsp);
+    jest.spyOn(fsp, "link").mockImplementation((from, to) => {
+      if (String(from).startsWith(datastoreRoot)) {
+        return realLink(from, to);
+      }
+      const err = new Error("EXDEV: cross-device link not permitted");
+      err.code = "EXDEV";
+      return Promise.reject(err);
+    });
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    fs.writeFileSync(source, "ACGTACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
+    expect(fs.readFileSync(source, "utf8")).toBe("ACGTACGT");
+  });
+
+  test("still updates the document's path even though the source is kept", async () => {
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    fs.writeFileSync(source, "ACGT");
+    const doc = makeFile(source);
+
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    expect(doc.path).toBe(REL_PATH);
+    expect(doc.save).toHaveBeenCalled();
   });
 });
 

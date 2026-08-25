@@ -73,6 +73,10 @@ const isPermittedSource = async (sourcePath) => {
 /**
  * Removes the source of a completed move, refusing to unlink a different file
  * than the one that was moved.
+ *
+ * Uses stat, not lstat: a permitted source may itself be a symlink (see
+ * openPinnedSource), and the pinned stat is of the *target* the move actually
+ * read. lstat-ing a still-legitimate symlink source would never match it.
  * @param {string} sourcePath - The absolute path the move read from.
  * @param {object} pinnedSource - fstat of the handle the move actually used.
  * @param {mongoose.Document} file - The File being moved, for the message.
@@ -86,7 +90,7 @@ const unlinkPinnedSource = async (
   file,
   fullNewPath,
 ) => {
-  const current = await fs.lstat(sourcePath);
+  const current = await fs.stat(sourcePath);
 
   if (!isSameFile(current, pinnedSource)) {
     throw new Error(
@@ -95,6 +99,46 @@ const unlinkPinnedSource = async (
   }
 
   await fs.unlink(sourcePath);
+};
+
+/**
+ * Opens `sourcePath` for reading, refusing to follow a symlink at the leaf —
+ * except when the leaf IS a symlink, in which case isPermittedSource() has
+ * already proven its real target sits inside a permitted root (directly, or
+ * via a configured ALLOWED_LINK_ROOTS entry) a moment ago. ELOOP is exactly
+ * what O_NOFOLLOW raises for a leaf symlink, so only that error triggers the
+ * fallback; opening the realpath'd target with O_NOFOLLOW again refuses a
+ * second layer of symlink a swap could have introduced since that check.
+ * @param {string} sourcePath - The absolute source path, already validated by
+ *   isPermittedSource().
+ * @returns {Promise<object>} The opened file handle.
+ */
+const openPinnedSource = async (sourcePath) => {
+  try {
+    return await fs.open(sourcePath, fsConstants.O_RDONLY | O_NOFOLLOW);
+  } catch (err) {
+    if (err.code !== "ELOOP") {
+      throw err;
+    }
+    const realTarget = await fs.realpath(sourcePath);
+    return fs.open(realTarget, fsConstants.O_RDONLY | O_NOFOLLOW);
+  }
+};
+
+/**
+ * Whether `sourcePath` sits in the shared HPC transfer inbox, where the file
+ * is written by an unprivileged upload the API does not own. A directory typo
+ * in the destination is one keystroke away, so the source is left in place
+ * for that case rather than destroyed — see BREAKING_CHANGES.md entry 32.
+ * @param {string} sourcePath - The absolute, resolved source path.
+ * @returns {Promise<boolean>} True if the source is the HPC inbox.
+ */
+const isHpcInboxSource = async (sourcePath) => {
+  const hpcRoot = process.env.HPC_TRANSFER_DIRECTORY;
+  if (typeof hpcRoot !== "string" || hpcRoot.trim() === "") {
+    return false;
+  }
+  return assertWithinReal(hpcRoot, sourcePath);
 };
 
 const schema = new mongoose.Schema(
@@ -158,6 +202,10 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     );
   }
 
+  // Decided once, from the validated sourcePath, not re-checked later: whether
+  // to skip the final unlink below.
+  const keepSource = await isHpcInboxSource(sourcePath);
+
   // Blocks shutdown mid-transfer. Must be released in the finally below, or a
   // stuck copy blocks every later clean shutdown.
   const transferToken = addTransfer(file._id.toString(), file.name);
@@ -172,10 +220,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     // can be re-pointed afterwards. Later steps compare against this handle.
     let sourceHandle;
     try {
-      sourceHandle = await fs.open(
-        sourcePath,
-        fsConstants.O_RDONLY | O_NOFOLLOW,
-      );
+      sourceHandle = await openPinnedSource(sourcePath);
     } catch (openErr) {
       openErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${openErr.message}`;
       throw openErr;
@@ -281,8 +326,12 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       }
 
       // Deliberately outside the try above: an unlink error must not reach the
-      // CROSS_DEVICE_CODES check, since unlink shares EPERM with it.
-      await unlinkPinnedSource(sourcePath, pinnedSource, file, fullNewPath);
+      // CROSS_DEVICE_CODES check, since unlink shares EPERM with it. Skipped
+      // for the HPC inbox: same-filesystem links cost no extra disk, so
+      // retaining the staging copy is close to free against a directory typo.
+      if (!keepSource) {
+        await unlinkPinnedSource(sourcePath, pinnedSource, file, fullNewPath);
+      }
     } finally {
       // Best-effort: a failed close must not mask the move's outcome.
       await sourceHandle.close().catch(() => {});

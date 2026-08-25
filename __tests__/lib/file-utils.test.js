@@ -266,7 +266,7 @@ describe("file-utils", () => {
         relativePath: "WGS_Test/01.RawData",
       };
 
-      await processReadFiles(
+      const pairingInfo = await processReadFiles(
         readFiles,
         mockObjectId,
         "/test/run/path",
@@ -276,10 +276,19 @@ describe("file-utils", () => {
       // Verify Read was created with correct MD5 from lowercase field
       expect(readConstructorData).toHaveProperty("MD5", expectedMd5);
 
-      // Verify run status was set to 'complete' (files moved, MD5 deferred)
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "complete" },
+      // Verify run status was set to 'processing' while the move ran.
+      // "complete" is no longer written here — lib/ingest-queue.js's
+      // finaliseReadStage writes it, once pairing across a retry's old and
+      // new reads is resolved, from the pairingInfo this call returns.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockObjectId, {
+        $set: { status: "processing", md5VerificationStatus: "pending" },
       });
+      expect(pairingInfo).toEqual([
+        expect.objectContaining({
+          readId: mockReadId,
+          fileName: "test_R1.fq.gz",
+        }),
+      ]);
 
       // Verify MD5 calculation was NOT called (deferred to background)
       expect(calculateFileMd5).not.toHaveBeenCalled();
@@ -330,9 +339,10 @@ describe("file-utils", () => {
       // Verify MD5 calculation was NOT performed
       expect(calculateFileMd5).not.toHaveBeenCalled();
 
-      // Verify run status was set to 'complete' (not error)
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "complete" },
+      // Run status was set to 'processing' (not error); "complete" is now
+      // written by the caller — see the first test in this block.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockObjectId, {
+        $set: { status: "processing", md5VerificationStatus: "pending" },
       });
     });
 
@@ -388,9 +398,9 @@ describe("file-utils", () => {
       expect(readConstructorData.MD5).toBe(correctMd5);
       expect(readConstructorData.MD5).not.toBe(wrongMd5);
 
-      // Run should be complete (MD5 verification deferred)
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "complete" },
+      // Run set to 'processing'; "complete" is written by the caller.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockObjectId, {
+        $set: { status: "processing", md5VerificationStatus: "pending" },
       });
 
       // MD5 calculation should NOT happen (deferred)
@@ -449,9 +459,9 @@ describe("file-utils", () => {
       // MD5 calculation should NOT happen (deferred)
       expect(calculateFileMd5).not.toHaveBeenCalled();
 
-      // Run should be complete (MD5 verification will happen in background)
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "complete" },
+      // Run set to 'processing'; "complete" is written by the caller.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockObjectId, {
+        $set: { status: "processing", md5VerificationStatus: "pending" },
       });
     });
 
@@ -505,9 +515,9 @@ describe("file-utils", () => {
       // Should be normalized to lowercase
       expect(readConstructorData.MD5).toBe(lowercaseMd5);
 
-      // Should match (both lowercase now) - run status complete
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(mockObjectId, {
-        $set: { status: "complete" },
+      // Run set to 'processing'; "complete" is written by the caller.
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockObjectId, {
+        $set: { status: "processing", md5VerificationStatus: "pending" },
       });
     });
 
@@ -1189,14 +1199,17 @@ describe("file-utils", () => {
       await expect(claim()).rejects.toThrow(/read-only file system/);
 
       expect(claims()).toEqual([
-        expect.objectContaining({ outcome: "failed", user: { username: OWNER } }),
+        expect.objectContaining({
+          outcome: "failed",
+          user: { username: OWNER },
+        }),
       ]);
     });
 
     it("records a claim refused for reaching outside the staging area", async () => {
-      await expect(claim(hpcFile({ relativePath: "../../etc" }))).rejects.toThrow(
-        /'relativePath' is not a valid file path/,
-      );
+      await expect(
+        claim(hpcFile({ relativePath: "../../etc" })),
+      ).rejects.toThrow(/'relativePath' is not a valid file path/);
 
       expect(claims()).toEqual([
         expect.objectContaining({
@@ -1227,11 +1240,17 @@ describe("file-utils", () => {
 
   describe("recovering a file an earlier attempt already moved", () => {
     // The incident: a transient DB failure between a successful move and the
-    // save that follows it. The source is unlinked from staging and the
-    // destination is occupied, so every later attempt failed — ENOENT on the
-    // vanished source, or "destination already exists" — and the API had no
+    // save that follows it. The destination is occupied and every later
+    // attempt failed with "destination already exists", and the API had no
     // recovery path at all. The bytes sat in the datastore with no row
     // pointing at them.
+    //
+    // This describe block's uploads are all hpc-mv, whose source
+    // moveToFolderAndSave now deliberately KEEPS on a successful move rather
+    // than unlinking it (see models/File.js's `keepSource`,
+    // BREAKING_CHANGES.md entry 35) — the fixture below hard-links the
+    // staged source to the destination, exactly as the real move does on the
+    // same filesystem, rather than renaming it away.
     let dataRoot;
     let stagedSource;
     let destination;
@@ -1268,9 +1287,11 @@ describe("file-utils", () => {
       fsSync.writeFileSync(stagedSource, "ACGT");
 
       // What production did: the bytes moved, and the save that followed did
-      // not. moveToFolderAndSave rejects with the source already gone.
+      // not. moveToFolderAndSave rejects with the source still in place — a
+      // hard link, exactly what an hpc-mv move does on the same filesystem —
+      // rather than gone.
       move = jest.fn().mockImplementation(async () => {
-        fsSync.renameSync(stagedSource, destination);
+        fsSync.linkSync(stagedSource, destination);
         throw new Error("MongoNetworkError: connection timed out");
       });
 
@@ -1315,12 +1336,21 @@ describe("file-utils", () => {
       expect(fsSync.existsSync(destination)).toBe(true);
     });
 
-    it("completes the run instead of stalling it permanently", async () => {
-      await ingest();
+    it("resolves instead of stalling the run permanently", async () => {
+      // processReadFiles itself no longer marks "complete" — see its module
+      // doc comment — but the fixture's point still holds at this layer: the
+      // recovery lets the call resolve, rather than reject over a save
+      // failure that already happened, which is what used to leave the run
+      // stuck at 'processing' forever with nothing left that would retry it.
+      await expect(ingest()).resolves.toEqual([
+        expect.objectContaining({ fileName: "reads.fq" }),
+      ]);
 
-      expect(Run.findByIdAndUpdate).toHaveBeenLastCalledWith(
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(
         mockObjectId,
-        { $set: { status: "complete" } },
+        expect.objectContaining({
+          $set: expect.objectContaining({ status: "error" }),
+        }),
       );
     });
 
@@ -1371,11 +1401,13 @@ describe("file-utils", () => {
     it("refuses to adopt while the staged source is still sitting there", async () => {
       // Nothing was moved by anybody: the destination belongs to something
       // else, and the upload can simply be retried.
-      move = jest.fn().mockRejectedValue(
-        new Error(
-          `Failed to move ${stagedSource} to ${destination}: destination already exists`,
-        ),
-      );
+      move = jest
+        .fn()
+        .mockRejectedValue(
+          new Error(
+            `Failed to move ${stagedSource} to ${destination}: destination already exists`,
+          ),
+        );
       fsSync.writeFileSync(destination, "SOMEBODY ELSE");
 
       await expect(ingest()).rejects.toThrow(/destination already exists/);
@@ -1387,9 +1419,9 @@ describe("file-utils", () => {
     it("refuses to adopt a file whose MD5 is not the one the request declared", async () => {
       calculateFileMd5.mockResolvedValue("f".repeat(32));
 
-      await expect(
-        ingest(hpcRead({ md5: "a".repeat(32) })),
-      ).rejects.toThrow(/connection timed out/);
+      await expect(ingest(hpcRead({ md5: "a".repeat(32) }))).rejects.toThrow(
+        /connection timed out/,
+      );
 
       expect(readSave).not.toHaveBeenCalled();
     });
@@ -1403,16 +1435,26 @@ describe("file-utils", () => {
     });
 
     it("does not adopt a destination that is a symlink rather than the real bytes", async () => {
-      // Condition 4 hashes `destination` by *path*, so a symlink planted at
-      // that name satisfies the MD5 comparison with somebody else's bytes and
-      // the document is adopted against a file it does not own.
+      // A symlink planted at the destination name, pointing at somebody
+      // else's file elsewhere in DATASTORE_ROOT, must never be adopted as
+      // this claim's own bytes — even though a declared MD5 matching what
+      // the link resolves to would otherwise look like proof.
       //
-      // Containment does not stop this. The link's target is another group's
-      // file inside the same DATASTORE_ROOT, so resolveWithinReal realpaths it
-      // to a location still under the root and returns the destination — and
-      // fs.stat() follows the link, so the isFile() check passes too. The only
-      // refusal left is O_NOFOLLOW in lib/utils/md5.js, which is why this test
-      // runs the real hasher instead of the mocked one.
+      // Nothing moved anybody's bytes here: the destination was never this
+      // attempt's own hard link, so condition 2's same-inode check refuses
+      // it before the MD5 comparison is ever reached — an earlier and
+      // stronger refusal than before (an inode match is a filesystem-level
+      // guarantee of identical bytes; an MD5 match is not). The staged
+      // source is left untouched, exactly as a real hpc-mv failure at the
+      // link step leaves it (see "refuses to adopt while the staged source
+      // is still sitting there", above) — moveToFolderAndSave never got far
+      // enough to touch it.
+      //
+      // Containment does not stop this on its own. The link's target is
+      // another group's file inside the same DATASTORE_ROOT, so
+      // resolveWithinReal realpaths it to a location still under the root
+      // and returns the destination — and fs.stat() follows the link, so
+      // the isFile() check passes too.
       const theirs = path.join(dataRoot, "other-group", "their-reads.fq");
       fsSync.mkdirSync(path.dirname(theirs), { recursive: true });
       fsSync.writeFileSync(theirs, "SOMEBODY ELSE'S SEQUENCE DATA");
@@ -1421,43 +1463,139 @@ describe("file-utils", () => {
         .update("SOMEBODY ELSE'S SEQUENCE DATA")
         .digest("hex");
 
-      // The move fails and takes the staged source with it, which is exactly
-      // the incident adoption exists to recover from — except that what is
-      // waiting at the destination is a link, not the moved bytes.
+      // The move fails at the link step (the destination name is already
+      // occupied — by the symlink below, not by this attempt's own output).
       fsSync.symlinkSync(theirs, destination);
       move = jest.fn().mockImplementation(async () => {
-        fsSync.rmSync(stagedSource);
-        throw new Error("MongoNetworkError: connection timed out");
+        throw new Error(
+          `Failed to move ${stagedSource} to ${destination}: destination already exists`,
+        );
       });
 
       calculateFileMd5.mockImplementation(realCalculateFileMd5);
 
-      // The declared MD5 is genuinely the digest of the bytes behind the link,
-      // so a hasher that follows it reports a match and the adoption goes
-      // through.
+      // The declared MD5 is genuinely the digest of the bytes behind the
+      // link — if condition 2 did not refuse first, a hasher that follows
+      // the link would report a match and adopt it.
       await expect(ingest(hpcRead({ md5: theirMd5 }))).rejects.toThrow(
-        /connection timed out/,
+        /destination already exists/,
       );
 
       expect(readSave).not.toHaveBeenCalled();
-      // The link was reached and hashing it was attempted — if this fails, an
-      // earlier condition refused first and the test has stopped covering
-      // O_NOFOLLOW.
-      expect(calculateFileMd5).toHaveBeenCalledWith(destination);
+      // Refused on the inode mismatch, before MD5 (or O_NOFOLLOW in
+      // lib/utils/md5.js) ever entered into it.
+      expect(calculateFileMd5).not.toHaveBeenCalled();
       // Nothing was repointed at the link.
       expect(File.deleteOne).not.toHaveBeenCalled();
     });
 
     it("does not adopt when the destination holds nothing at all", async () => {
       // The ordinary "your file is not in staging" mistake must still fail.
-      move = jest.fn().mockRejectedValue(
-        new Error(`Failed to move ${stagedSource} to ${destination}: ENOENT`),
-      );
+      move = jest
+        .fn()
+        .mockRejectedValue(
+          new Error(`Failed to move ${stagedSource} to ${destination}: ENOENT`),
+        );
       fsSync.rmSync(stagedSource);
 
       await expect(ingest()).rejects.toThrow(/ENOENT/);
 
       expect(readSave).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("recovering a local-filesystem file an earlier attempt already moved", () => {
+    // The same incident as the hpc-mv block above, but for a local-filesystem
+    // claim, whose source moveToFolderAndSave DOES unlink on a successful
+    // move (only hpc-mv keeps its source — see BREAKING_CHANGES.md entry 35).
+    // adoptAlreadyMovedFile's condition 2 takes a different branch for this
+    // case (source-gone, not same-inode) — this is the only test exercising
+    // that branch since the hpc-mv block above moved off it.
+    let dataRoot;
+    let destination;
+    let move;
+    let ourFile;
+    let readSave;
+    let readData;
+
+    const REL_DESTINATION = path.join("/test/run/path", "raw", "reads.fq");
+
+    beforeEach(() => {
+      dataRoot = path.join(tmpRoot, "datastore-lf");
+      destination = path.join(dataRoot, "test/run/path/raw/reads.fq");
+      fsSync.mkdirSync(path.dirname(destination), { recursive: true });
+      process.env.DATASTORE_ROOT = dataRoot;
+
+      stageUpload();
+
+      // What production did: the bytes moved (and the source, staged in
+      // UPLOAD_DIRECTORY, was unlinked — unlike hpc-mv, a local-filesystem
+      // move really does consume it), and the save that followed did not.
+      move = jest.fn().mockImplementation(async function () {
+        fsSync.renameSync(this.path, destination);
+        throw new Error("MongoNetworkError: connection timed out");
+      });
+
+      File.mockImplementation((data) => {
+        ourFile = {
+          _id: new mongoose.Types.ObjectId(),
+          originalName: data.originalName,
+          path: data.path,
+          moveToFolderAndSave: move,
+          save: jest.fn().mockImplementation(() => Promise.resolve(ourFile)),
+        };
+        return { save: jest.fn().mockResolvedValue(ourFile) };
+      });
+      File.findOne = jest.fn().mockResolvedValue(null);
+      File.deleteOne = jest.fn().mockResolvedValue({});
+      Read.exists = jest.fn().mockResolvedValue(false);
+      AdditionalFile.exists = jest.fn().mockResolvedValue(false);
+
+      readData = null;
+      readSave = jest
+        .fn()
+        .mockResolvedValue({ _id: new mongoose.Types.ObjectId() });
+      Read.mockImplementation((data) => {
+        readData = data;
+        return { save: readSave };
+      });
+
+      Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+      Run.findById = jest.fn().mockResolvedValue({
+        getRelativePath: jest.fn().mockResolvedValue("/test/run/path"),
+      });
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      jest.spyOn(console, "log").mockImplementation(() => {});
+    });
+
+    const ingest = () =>
+      processReadFiles(
+        [{ name: "reads.fq", uploadName: UPLOAD_ID, paired: false }],
+        mockObjectId,
+        "/test/path",
+        { method: "local-filesystem" },
+        OWNER,
+      );
+
+    it("reconciles the document onto bytes its own failed save left behind", async () => {
+      await ingest();
+
+      expect(ourFile.path).toBe(REL_DESTINATION);
+      expect(readData.file).toBe(ourFile._id);
+    });
+
+    it("refuses to adopt while the staged source is still sitting there", async () => {
+      // Nothing was moved by anybody: the destination belongs to something
+      // else, and the upload can simply be retried.
+      move = jest
+        .fn()
+        .mockRejectedValue(new Error("destination already exists"));
+      fsSync.writeFileSync(destination, "SOMEBODY ELSE");
+
+      await expect(ingest()).rejects.toThrow(/destination already exists/);
+
+      expect(readSave).not.toHaveBeenCalled();
+      expect(fsSync.readFileSync(destination, "utf8")).toBe("SOMEBODY ELSE");
     });
   });
 

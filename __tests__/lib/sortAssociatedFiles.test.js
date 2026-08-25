@@ -170,7 +170,12 @@ describe("sortAssociatedFiles", () => {
       );
 
     it("lets the user who staged an upload claim it", async () => {
-      await expect(sort(OWNER)).resolves.toBeUndefined();
+      // An array of pairingInfo now, not undefined: lib/ingest-queue.js's
+      // finaliseReadStage needs to know what this call created to pair it
+      // with any reads a previous attempt already delivered.
+      await expect(sort(OWNER)).resolves.toEqual([
+        expect.objectContaining({ fileName: "reads_R1.fq" }),
+      ]);
 
       expect(readSave).toHaveBeenCalled();
     });
