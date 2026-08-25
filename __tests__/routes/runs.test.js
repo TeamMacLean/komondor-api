@@ -995,6 +995,134 @@ describe("Runs API Routes", () => {
         expect(Run.deleteOne).toHaveBeenCalledWith({ _id: mockRunId });
       });
     });
+
+    describe("rawFiles / additionalFiles shape validation", () => {
+      // `!x || x.length === 0` used to be the whole check: a plain object
+      // with a numeric .length is truthy and has a length, so it passed and
+      // reached the ingest job as-is instead of being refused at the door.
+      test("should refuse a rawFiles that is truthy-with-a-length but not an array", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: { length: 2, 0: { name: "a" }, 1: { name: "b" } },
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+        expect(Run.findOne).not.toHaveBeenCalled();
+        expect(enqueueRunIngest).not.toHaveBeenCalled();
+      });
+
+      test("should refuse a rawFiles entry missing a name", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: "good_R1.fq.gz" }, { uploadName: "no-name-here" }],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.error).toMatch(/index 1/);
+        expect(Sample.findById).not.toHaveBeenCalled();
+        expect(enqueueRunIngest).not.toHaveBeenCalled();
+      });
+
+      test("should refuse a well-formed array with an entry that is not an object", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] }));
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("should refuse an hpc-mv rawFiles entry with no relativePath anywhere", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: "hpc_R1.fq.gz" }],
+              rawFilesUploadInfo: { method: "hpc-mv" },
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("should accept an hpc-mv rawFiles entry covered by rawFilesUploadInfo.relativePath", async () => {
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: "hpc_R1.fq.gz" }],
+              rawFilesUploadInfo: { method: "hpc-mv", relativePath: "/WGS_Test" },
+            }),
+          );
+
+        expect(response.status).toBe(201);
+      });
+
+      test("should refuse additionalFiles that is truthy-with-a-length but not an array", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } }));
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("should refuse an additionalFiles entry missing a name", async () => {
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ additionalFiles: [{ notes: "oops" }] }));
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("should still succeed with a well-formed rawFiles and additionalFiles array", async () => {
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: "test_R1.fq.gz" }],
+              additionalFiles: [{ name: "notes.txt" }],
+            }),
+          );
+
+        expect(response.status).toBe(201);
+      });
+    });
   });
 
   describe("GET /runs/:id/status", () => {
@@ -1587,6 +1715,103 @@ describe("Runs API Routes", () => {
       } finally {
         delete ingestQueue.requeueRunIngest;
       }
+    });
+
+    describe("replacement payload", () => {
+      const correctedPayload = {
+        rawFiles: [{ name: "corrected_R1.fq.gz", uploadName: "abc123" }],
+        rawFilesUploadInfo: { method: "local-filesystem" },
+      };
+
+      test("with no body, behaves exactly as today: it replays the existing payload", async () => {
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({});
+
+        expect(response.status).toBe(200);
+        const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+        expect(update.$set).not.toHaveProperty("payload");
+      });
+
+      test("replaces the job's stored payload when a corrected one is supplied", async () => {
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+          payload: { ...correctedPayload, username: "testuser" },
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send(correctedPayload);
+
+        expect(response.status).toBe(200);
+        const [filter, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+        expect(filter).toEqual(expect.objectContaining({ status: "failed" }));
+        expect(update.$set.payload).toEqual(
+          expect.objectContaining({
+            rawFiles: correctedPayload.rawFiles,
+            rawFilesUploadInfo: correctedPayload.rawFilesUploadInfo,
+            // Whoever supplied the fix is whose staged uploads the retry
+            // claims, same rule as a fresh POST /runs/new.
+            username: "testuser",
+          }),
+        );
+      });
+
+      test("does not delegate to the queue's own reset when replacing a payload", async () => {
+        // Today's requeueRunIngest export takes no payload; delegating to it
+        // anyway would silently serve the old payload back instead of the fix.
+        const requeueRunIngest = jest.fn().mockResolvedValue({ _id: mockJobId });
+        ingestQueue.requeueRunIngest = requeueRunIngest;
+
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
+
+        try {
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send(correctedPayload);
+
+          expect(response.status).toBe(200);
+          expect(requeueRunIngest).not.toHaveBeenCalled();
+          expect(IngestJob.findOneAndUpdate).toHaveBeenCalled();
+        } finally {
+          delete ingestQueue.requeueRunIngest;
+        }
+      });
+
+      test("refuses a malformed replacement payload and does not touch the job", async () => {
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [{ uploadName: "no-name-here" }],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          });
+
+        expect(response.status).toBe(400);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
+      test("is still refused to a caller without write access to the run's group", async () => {
+        setGroups({ read: [{ _id: mockGroupId }], write: [] });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send(correctedPayload);
+
+        expect(response.status).toBe(403);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
     });
   });
 

@@ -122,26 +122,33 @@ const summariseIngestJob = (job) =>
  * @param {object} params
  * @param {mongoose.Types.ObjectId|string} params.runId - The run to re-ingest.
  * @param {string} [params.requestId] - The asking request, for log correlation.
+ * @param {object} [params.payload] - If given, replaces the job's stored
+ *   payload instead of replaying it. lib/ingest-queue.js has no export for
+ *   this yet (see crossFileNeeds), so it is applied here directly rather than
+ *   through ingestQueue.requeueRunIngest, which would silently ignore it.
  * @returns {Promise<mongoose.Document|null>} The requeued job, or null.
  */
-const requeueFailedIngest = async ({ runId, requestId }) => {
-  if (typeof ingestQueue.requeueRunIngest === "function") {
+const requeueFailedIngest = async ({ runId, requestId, payload }) => {
+  if (payload === undefined && typeof ingestQueue.requeueRunIngest === "function") {
     return ingestQueue.requeueRunIngest({ runId, requestId });
+  }
+
+  const set = {
+    status: "pending",
+    attempts: 0,
+    lastError: null,
+    workerId: null,
+    // Claimable immediately: an operator asking for a retry has waited.
+    leaseExpiresAt: null,
+    requestId,
+  };
+  if (payload !== undefined) {
+    set.payload = payload;
   }
 
   return IngestJob.findOneAndUpdate(
     { idempotencyKey: idempotencyKeyFor(runId), status: "failed" },
-    {
-      $set: {
-        status: "pending",
-        attempts: 0,
-        lastError: null,
-        workerId: null,
-        // Claimable immediately: an operator asking for a retry has waited.
-        leaseExpiresAt: null,
-        requestId,
-      },
-    },
+    { $set: set },
     { new: true },
   );
 };
@@ -285,6 +292,150 @@ router
   });
 
 /**
+ * A rawFiles/additionalFiles entry's declared name, however the client spelled
+ * it — lib/file-utils.js createFileDocument reads `.name` for every method,
+ * with `.data.name` as the shape an older upload widget used.
+ * @param {*} file - A candidate file entry.
+ * @returns {*} The name, or a falsy value if there is none.
+ */
+const fileEntryName = (file) => file && (file.name || file.data?.name);
+
+/**
+ * The reason lib/file-utils.js createFileDocument would reject one rawFiles or
+ * additionalFiles entry, or null if the entry is well-formed. Checked before
+ * the entry ever reaches a durable job — a shape createFileDocument refuses
+ * used to surface only when a worker processed the job, deep inside file
+ * processing rather than at the door.
+ * @param {*} file - The candidate entry.
+ * @param {string} [method] - 'hpc-mv' or 'local-filesystem' for this entry.
+ * @param {boolean} [relativePathCovered] - True when a relativePath elsewhere
+ *   in the request (rawFilesUploadInfo) already applies to this entry —
+ *   createFileDocument falls back to it for rawFiles. Always false for
+ *   additionalFiles, which only ever carry their own relativePath.
+ * @returns {string|null} A message fragment, e.g. "is missing a name".
+ */
+const fileEntryShapeError = (file, method, relativePathCovered) => {
+  if (!file || typeof file !== "object" || Array.isArray(file)) {
+    return "must be an object";
+  }
+
+  const name = fileEntryName(file);
+  if (!name || typeof name !== "string") {
+    return "is missing a name";
+  }
+
+  if (
+    method === "hpc-mv" &&
+    !relativePathCovered &&
+    (!file.relativePath || typeof file.relativePath !== "string")
+  ) {
+    return "is missing relativePath";
+  }
+
+  // siblingLinks (lib/ingest-queue.js, run via finaliseReadStage) matches
+  // sibling by exact string equality, so a non-string value can never resolve
+  // and fails the whole ingest at the pairing step.
+  if (file.sibling !== undefined && typeof file.sibling !== "string") {
+    return "has a non-string sibling";
+  }
+
+  if (file.paired !== undefined && typeof file.paired !== "boolean") {
+    return "has a non-boolean paired flag";
+  }
+
+  return null;
+};
+
+/**
+ * Validates a rawFiles or additionalFiles list: must actually be an array,
+ * not merely truthy with a `.length` (an object like `{ length: 3 }` used to
+ * pass here and reach the ingest job unexamined), and every entry must be
+ * shaped the way createFileDocument requires.
+ * @param {*} files - The candidate list.
+ * @param {string} label - "Raw file" or "Additional file", for messages.
+ * @param {(file: object) => string} methodFor - The upload method that will
+ *   apply to one entry.
+ * @param {(file: object) => boolean} relativePathCoveredFor - Whether the
+ *   entry's relativePath requirement is already satisfied elsewhere.
+ * @returns {string[]} Error messages; empty when the list is well-formed.
+ */
+const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
+  if (!Array.isArray(files)) {
+    return [`${label === "Raw file" ? "rawFiles" : "additionalFiles"} must be an array`];
+  }
+
+  const errors = [];
+  files.forEach((file, index) => {
+    const error = fileEntryShapeError(
+      file,
+      methodFor(file),
+      relativePathCoveredFor(file),
+    );
+    if (error) {
+      errors.push(`${label} at index ${index} ${error}`);
+    }
+  });
+  return errors;
+};
+
+/**
+ * Validates the rawFiles/additionalFiles/rawFilesUploadInfo portion of a
+ * request body. Shared between the required fields on POST /runs/new and the
+ * optional replacement payload POST /runs/:id/reingest accepts, so a
+ * corrected reingest payload is held to exactly the same shape as a fresh
+ * submission.
+ * @param {object} body - An object with rawFiles, additionalFiles, rawFilesUploadInfo.
+ * @returns {string[]} Error messages; empty when the payload is well-formed.
+ */
+const validateIngestFilesPayload = (body) => {
+  const errors = [];
+
+  if (!body.rawFilesUploadInfo || !body.rawFilesUploadInfo.method) {
+    errors.push("Upload method is required (rawFilesUploadInfo.method)");
+  } else if (
+    !["hpc-mv", "local-filesystem"].includes(body.rawFilesUploadInfo.method)
+  ) {
+    errors.push(
+      "Invalid upload method. Must be 'hpc-mv' or 'local-filesystem'",
+    );
+  }
+
+  if (!Array.isArray(body.rawFiles) || body.rawFiles.length === 0) {
+    errors.push("At least one raw file is required");
+  } else {
+    const rawMethod = body.rawFilesUploadInfo?.method;
+    // Every rawFiles entry, not just index 0: a relativePath here covers all
+    // of them, so this is checked once rather than per entry.
+    const relativePathCovered = Boolean(body.rawFilesUploadInfo?.relativePath);
+    errors.push(
+      ...validateFileList(
+        body.rawFiles,
+        "Raw file",
+        () => rawMethod,
+        () => relativePathCovered,
+      ),
+    );
+  }
+
+  // Optional: absent or empty is fine (processAdditionalFiles no-ops), but
+  // anything present must be shaped correctly, same as rawFiles.
+  if (body.additionalFiles !== undefined) {
+    errors.push(
+      ...validateFileList(
+        body.additionalFiles,
+        "Additional file",
+        // Per-entry: unlike rawFiles, each additional file carries its own
+        // uploadMethod (see lib/file-utils.js processAdditionalFiles).
+        (file) => (file && file.uploadMethod) || "local-filesystem",
+        () => false,
+      ),
+    );
+  }
+
+  return errors;
+};
+
+/**
  * Validates the request body for creating a new run.
  * @param {object} body - The request body
  * @returns {{ valid: boolean, errors: string[] }} Validation result
@@ -342,37 +493,7 @@ const validateNewRunRequest = (body) => {
     errors.push("Run name must be between 3 and 80 characters");
   }
 
-  if (!body.rawFiles || body.rawFiles.length === 0) {
-    errors.push("At least one raw file is required");
-  }
-
-  if (!body.rawFilesUploadInfo || !body.rawFilesUploadInfo.method) {
-    errors.push("Upload method is required (rawFilesUploadInfo.method)");
-  } else if (
-    !["hpc-mv", "local-filesystem"].includes(body.rawFilesUploadInfo.method)
-  ) {
-    errors.push(
-      "Invalid upload method. Must be 'hpc-mv' or 'local-filesystem'",
-    );
-  }
-
-  if (body.rawFilesUploadInfo?.method === "hpc-mv") {
-    if (
-      !body.rawFilesUploadInfo.relativePath &&
-      !body.rawFiles?.[0]?.relativePath
-    ) {
-      errors.push("HPC uploads require a relativePath");
-    }
-  }
-
-  if (body.rawFiles && Array.isArray(body.rawFiles)) {
-    body.rawFiles.forEach((file, index) => {
-      const fileName = file.name || file.data?.name;
-      if (!fileName) {
-        errors.push(`Raw file at index ${index} is missing a name`);
-      }
-    });
-  }
+  errors.push(...validateIngestFilesPayload(body));
 
   return { valid: errors.length === 0, errors };
 };
@@ -751,7 +872,43 @@ router
         );
       }
 
-      const job = await requeueFailedIngest({ runId: run._id, requestId });
+      // A replacement payload is optional: any of its fields being present
+      // signals the caller means to correct the mistake that failed the
+      // ingest, not merely replay it. Validated with the same shape check as
+      // a fresh POST /runs/new, so a corrected payload can't itself be poison.
+      const hasReplacementPayload =
+        req.body &&
+        (req.body.rawFiles !== undefined ||
+          req.body.additionalFiles !== undefined ||
+          req.body.rawFilesUploadInfo !== undefined);
+
+      let replacementPayload;
+      if (hasReplacementPayload) {
+        const payloadErrors = validateIngestFilesPayload(req.body);
+        if (payloadErrors.length > 0) {
+          return handleError(
+            res,
+            new Error(payloadErrors.join("; ")),
+            400,
+            `Replacement payload invalid: ${payloadErrors.join("; ")}`,
+            requestId,
+          );
+        }
+
+        replacementPayload = {
+          rawFiles: req.body.rawFiles,
+          additionalFiles: req.body.additionalFiles,
+          rawFilesUploadInfo: req.body.rawFilesUploadInfo,
+          // Whoever supplies the fix is whose staged uploads the retry claims.
+          username: req.user.username,
+        };
+      }
+
+      const job = await requeueFailedIngest({
+        runId: run._id,
+        requestId,
+        payload: replacementPayload,
+      });
 
       if (!job) {
         // Nothing reset: either there is no job, or there is one that has not
@@ -796,6 +953,14 @@ router
       console.log(
         `[${requestId}] Requeued ingest job ${job._id} for run ${run._id} at the request of '${req.user.username}'`,
       );
+
+      // Audit trail for the overwrite: the original payload is gone once this
+      // line runs, and this is the only record that it was replaced at all.
+      if (replacementPayload) {
+        console.log(
+          `[${requestId}] Reingest for run ${run._id}: the stored ingest payload was replaced at the request of '${req.user.username}'`,
+        );
+      }
 
       res.status(200).send({
         runId: run._id,
