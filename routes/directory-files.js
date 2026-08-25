@@ -1,13 +1,19 @@
 const { isAuthenticated, isAdmin } = require("./middleware");
 const express = require("express");
 const fs = require("fs").promises;
+const fsConstants = require("fs").constants;
 const { calculateFileMd5 } = require("../lib/utils/md5");
 const { generateRequestId } = require("./_utils");
 const {
   cleanDirectoryName,
   resolveWithin,
   resolveBelow,
+  assertWithinReal,
 } = require("../lib/utils/safePath");
+const {
+  auditHpcAccess,
+  requireAnyGroupMembership,
+} = require("../lib/utils/hpcAudit");
 let router = express.Router();
 
 /**
@@ -31,6 +37,7 @@ router
 
     let exists = false;
     let isDirectory = false;
+    let isSymbolicLink = false;
     if (dirRoot) {
       try {
         const stat = await fs.stat(dirRoot);
@@ -39,7 +46,23 @@ router
       } catch (e) {
         // Leave both false when the path cannot be stat'd.
       }
+      try {
+        isSymbolicLink = (await fs.lstat(dirRoot)).isSymbolicLink();
+      } catch (e) {
+        // Leave false when the path cannot be lstat'd.
+      }
     }
+
+    // resolveWithin, not resolveBelow: this endpoint exists to answer "where
+    // does this name land?", and the root itself is a legitimate answer to
+    // report. But `withinTransferDirectory` is a containment verdict, and a
+    // lexical-only verdict says "true" for a symlink pointing at /etc — a
+    // diagnostic that lies about containment is exactly how the read paths
+    // came to be trusted. So the verdict resolves symlinks even though
+    // `dirRoot` stays the lexical path the other handlers would build.
+    const withinTransferDirectory =
+      dirRoot !== null &&
+      (await assertWithinReal(process.env.HPC_TRANSFER_DIRECTORY, dirRoot));
 
     res.status(200).send({
       cwd: process.cwd(),
@@ -48,15 +71,17 @@ router
       targetDirectoryName: targetDirectoryName,
       cleanedTargetDirectoryName: cleanedTargetDirectoryName,
       dirRoot: dirRoot,
-      withinTransferDirectory: dirRoot !== null,
+      withinTransferDirectory,
       exists,
       isDirectory,
+      isSymbolicLink,
     });
   });
 
 router
   .route("/directory-files")
   .all(isAuthenticated)
+  .all(requireAnyGroupMembership())
   .get(async (req, res) => {
     const { targetDirectoryName } = req.query;
 
@@ -91,9 +116,29 @@ router
           .send({ error: "Access denied: Invalid directory path" });
       }
 
+      // resolveBelow is lexical only. Unprivileged HPC users write into the
+      // transfer directory by design (the "hpc-mv" upload method), so one of
+      // them can plant "<root>/theirgroup/rootdir -> /" and have readdir list
+      // the filesystem root. lib/file-utils.js already resolves symlinks
+      // against this same root on the write path.
+      if (
+        !(await assertWithinReal(process.env.HPC_TRANSFER_DIRECTORY, dirRoot))
+      ) {
+        console.error(
+          `[directory-files] Rejected path escaping transfer directory via symlink: ${targetDirectoryName}`,
+        );
+        return res
+          .status(403)
+          .send({ error: "Access denied: Invalid directory path" });
+      }
+
       let dirExists = false;
       try {
-        dirExists = (await fs.stat(dirRoot)).isDirectory();
+        // lstat, not stat: the check above vouches for where the ancestors
+        // lead, not for the last component. A symlink at the leaf is not a
+        // directory here even when it points back inside the root, so it is
+        // never followed.
+        dirExists = (await fs.lstat(dirRoot)).isDirectory();
       } catch (e) {
         throw new Error("Issue reading target directory");
       }
@@ -106,6 +151,13 @@ router
       if (!filesResults.length) {
         throw new Error("No files found in target directory");
       }
+
+      auditHpcAccess({
+        action: "list",
+        user: req.user,
+        path: dirRoot,
+        detail: `files=${filesResults.length}`,
+      });
 
       res.status(200).send({
         filesResults,
@@ -126,6 +178,7 @@ router
 router
   .route("/directory-files/verify-md5")
   .all(isAuthenticated)
+  .all(requireAnyGroupMembership())
   .post(async (req, res) => {
     const requestId = generateRequestId();
     const { directoryName, fileName, expectedMd5 } = req.body || {};
@@ -170,15 +223,50 @@ router
         });
       }
 
+      // resolveBelow is lexical only, and the transfer directory is writable
+      // by unprivileged HPC users (the "hpc-mv" upload method), so a symlink
+      // planted there would otherwise have the checksum computed over whatever
+      // it points at — an oracle over any file on the box.
+      if (
+        !(await assertWithinReal(process.env.HPC_TRANSFER_DIRECTORY, filePath))
+      ) {
+        console.error(
+          `[${requestId}] Access denied: symlink escape attempt - ${directoryName}/${fileName}`,
+        );
+        return res.status(403).send({
+          error: "Access denied: Invalid file path",
+          requestId,
+        });
+      }
+
+      // Opened once, with O_NOFOLLOW, and the same descriptor is both stat'd
+      // and hashed.
+      //
+      // The check above vouches for the ancestors, not for the last component.
+      // An lstat here followed by calculateFileMd5(filePath) would have gone
+      // back to the *name* to hash it, and HPC_TRANSFER_DIRECTORY is writable
+      // by unprivileged users by design — so the name could be replaced with a
+      // symlink in between and the checksum computed over whatever it pointed
+      // at. O_NOFOLLOW refuses a symlinked leaf outright (ELOOP), and handing
+      // the handle to calculateFileMd5 ties this decision to the bytes hashed.
+      let handle;
       try {
-        const stat = await fs.stat(filePath);
+        handle = await fs.open(
+          filePath,
+          fsConstants.O_RDONLY | (fsConstants.O_NOFOLLOW || 0),
+        );
+        const stat = await handle.stat();
         if (!stat.isFile()) {
+          await handle.close().catch(() => {});
           return res.status(404).send({
             error: `File not found: ${fileName}`,
             requestId,
           });
         }
       } catch (e) {
+        if (handle) {
+          await handle.close().catch(() => {});
+        }
         return res.status(404).send({
           error: `File not found: ${fileName}`,
           requestId,
@@ -194,7 +282,7 @@ router
       let hasError = false;
       let calculatedMd5;
       try {
-        calculatedMd5 = await calculateFileMd5(filePath, () => {
+        calculatedMd5 = await calculateFileMd5(handle, () => {
           res.write(' ');
           if (res.flush) res.flush(); // If compression middleware is used, flush it
         });
@@ -206,6 +294,10 @@ router
           requestId,
         }));
         res.end();
+      } finally {
+        // calculateFileMd5 never closes a handle it was handed; this one is
+        // ours, and it must be released whether the hash finished or threw.
+        await handle.close().catch(() => {});
       }
 
       if (!hasError) {

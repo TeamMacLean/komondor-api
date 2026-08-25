@@ -1,9 +1,18 @@
 const { isAuthenticated } = require("./middleware");
 const express = require("express");
 const fs = require("fs").promises;
+const { constants: fsConstants } = require("fs");
 let router = express.Router();
 
-const { cleanDirectoryName, resolveBelow } = require("../lib/utils/safePath");
+const {
+  cleanDirectoryName,
+  resolveBelow,
+  assertWithinReal,
+} = require("../lib/utils/safePath");
+const {
+  auditHpcAccess,
+  requireAnyGroupMembership,
+} = require("../lib/utils/hpcAudit");
 
 // Files served by this endpoint are small text artefacts (logs, manifests).
 // Reading an arbitrarily large file into memory would stall the event loop and
@@ -13,6 +22,7 @@ const MAX_READABLE_BYTES = 5 * 1024 * 1024;
 router
   .route("/read-file")
   .all(isAuthenticated)
+  .all(requireAnyGroupMembership())
   .get(async (req, res) => {
     const { targetDirectoryName, filename } = req.query;
 
@@ -56,26 +66,61 @@ router
         return res.status(403).send({ error: "Access denied: Invalid file path" });
       }
 
-      let fileStat;
+      // resolveBelow above is purely lexical, and that is not enough here.
+      // Unprivileged HPC users write into the transfer directory by design —
+      // that is the whole "hpc-mv" upload method — so any of them can plant
+      // "<root>/theirgroup/leak.txt -> /etc/shadow". The string never leaves
+      // the root, but the read does. lib/file-utils.js already resolves
+      // symlinks against this same root on the write path; the read path has
+      // to as well. Kept in this order because resolveBelow also supplies the
+      // root-identity refusal and a cheap reject before touching the disk.
+      if (
+        !(await assertWithinReal(process.env.HPC_TRANSFER_DIRECTORY, filePath))
+      ) {
+        console.error(
+          `[read-file] Rejected path escaping transfer directory via symlink: ${targetDirectoryName}/${filename}`,
+        );
+        return res.status(403).send({ error: "Access denied: Invalid file path" });
+      }
+
+      // O_NOFOLLOW refuses a symlink at the leaf itself, which the containment
+      // check above deliberately does not cover, and holding one descriptor
+      // across the stat and the read leaves no window in which the name could
+      // be swapped for a link between the two calls.
+      let handle;
       try {
-        fileStat = await fs.stat(filePath);
+        handle = await fs.open(
+          filePath,
+          fsConstants.O_RDONLY | fsConstants.O_NOFOLLOW,
+        );
       } catch (e) {
         throw new Error("File does not exist");
       }
 
-      if (!fileStat.isFile()) {
-        throw new Error("Requested path is not a file");
+      try {
+        const fileStat = await handle.stat();
+
+        if (!fileStat.isFile()) {
+          throw new Error("Requested path is not a file");
+        }
+
+        if (fileStat.size > MAX_READABLE_BYTES) {
+          throw new Error(
+            `File is too large to read (${fileStat.size} bytes, limit ${MAX_READABLE_BYTES})`,
+          );
+        }
+
+        const fileContent = await handle.readFile("utf8");
+
+        auditHpcAccess({
+          action: "read",
+          user: req.user,
+          path: filePath,
+        });
+        res.status(200).send(fileContent);
+      } finally {
+        await handle.close().catch(() => {});
       }
-
-      if (fileStat.size > MAX_READABLE_BYTES) {
-        throw new Error(
-          `File is too large to read (${fileStat.size} bytes, limit ${MAX_READABLE_BYTES})`,
-        );
-      }
-
-      const fileContent = await fs.readFile(filePath, "utf8");
-
-      res.status(200).send(fileContent);
     } catch (e) {
       console.error("[read-file]", e.message);
       // Preserved from the original implementation: consuming services detect

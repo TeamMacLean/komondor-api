@@ -20,11 +20,22 @@ jest.mock("../../routes/middleware", () => ({
   isAdmin: (req, res, next) => next(),
 }));
 
+
+// The HPC read endpoints now also require membership of at least one group
+// (lib/utils/hpcAudit.js). These tests are about path containment, not
+// membership, so grant it by default; the refusal has its own test below.
+jest.mock("../../lib/utils/groupAccess", () => ({
+  groupsICanRead: jest.fn().mockResolvedValue([{ _id: "group-1" }]),
+}));
+const { groupsICanRead } = require("../../lib/utils/groupAccess");
+
 const readFileRouter = require("../../routes/read-file");
 
 let tmpRoot;
 let transferDir;
 let secretPath;
+let outsideDir;
+let linkFarm;
 const ORIGINAL_HPC = process.env.HPC_TRANSFER_DIRECTORY;
 
 const app = express();
@@ -51,6 +62,33 @@ beforeAll(() => {
   // A sibling whose name shares the transfer directory's prefix.
   fs.mkdirSync(_path.join(tmpRoot, "transfer-evil"), { recursive: true });
   fs.writeFileSync(_path.join(tmpRoot, "transfer-evil", "evil.txt"), "EVIL");
+
+  // Symlinks planted inside the transfer directory. This is the real threat
+  // model: the transfer directory is the drop box unprivileged lab users write
+  // into for the "hpc-mv" upload method, so anyone with a shell on the HPC box
+  // can create these. Every lexical containment check passes on them.
+  outsideDir = _path.join(tmpRoot, "outside");
+  fs.mkdirSync(_path.join(outsideDir, "inner"), { recursive: true });
+  fs.writeFileSync(_path.join(outsideDir, "outside.txt"), "OUTSIDE PAYLOAD");
+  fs.writeFileSync(_path.join(outsideDir, "inner", "deep.txt"), "DEEP PAYLOAD");
+
+  linkFarm = _path.join(transferDir, "linkfarm");
+  fs.mkdirSync(linkFarm, { recursive: true });
+  // A link to a file outside the root.
+  fs.symlinkSync(secretPath, _path.join(linkFarm, "leak.txt"));
+  // A link to a directory outside the root.
+  fs.symlinkSync(outsideDir, _path.join(linkFarm, "outsidedir"));
+  // A link whose target does not exist.
+  fs.symlinkSync(
+    _path.join(tmpRoot, "no-such-target.txt"),
+    _path.join(linkFarm, "dangling.txt"),
+  );
+  // A link to a file that really is inside the root: still a symlink at the
+  // leaf, so the read must not follow it either.
+  fs.symlinkSync(
+    _path.join(transferDir, "batch1", "reads.txt"),
+    _path.join(linkFarm, "inside.txt"),
+  );
 });
 
 afterAll(() => {
@@ -145,6 +183,70 @@ describe("GET /read-file", () => {
     });
   });
 
+  describe("symlink escapes are refused", () => {
+    // The containment check used to be purely lexical, so fs.stat and
+    // fs.readFile happily followed any link planted in the drop directory and
+    // the endpoint returned whatever it pointed at.
+    test("refuses a symlink to a file outside the root", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({ targetDirectoryName: "linkfarm", filename: "leak.txt" });
+
+      expect(response.status).toBe(403);
+      expect(response.text).not.toContain("TOP SECRET");
+    });
+
+    test("refuses a symlink to a directory outside the root", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({ targetDirectoryName: "linkfarm", filename: "outsidedir" });
+
+      expect(response.status).toBe(403);
+      expect(response.text).not.toContain("OUTSIDE PAYLOAD");
+    });
+
+    test("refuses a real file beneath a symlinked ancestor", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({
+          targetDirectoryName: "linkfarm",
+          filename: "outsidedir/inner/deep.txt",
+        });
+
+      expect(response.status).toBe(403);
+      expect(response.text).not.toContain("DEEP PAYLOAD");
+    });
+
+    test("refuses a symlinked ancestor supplied as the directory name", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({
+          targetDirectoryName: "linkfarm/outsidedir",
+          filename: "outside.txt",
+        });
+
+      expect(response.status).toBe(403);
+      expect(response.text).not.toContain("OUTSIDE PAYLOAD");
+    });
+
+    test("refuses a dangling symlink", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({ targetDirectoryName: "linkfarm", filename: "dangling.txt" });
+
+      expect(response.status).toBe(403);
+    });
+
+    test("does not follow a symlink at the leaf even when it stays inside the root", async () => {
+      const response = await request(app)
+        .get("/read-file")
+        .query({ targetDirectoryName: "linkfarm", filename: "inside.txt" });
+
+      expect(response.text).not.toContain("ACGT contents");
+      expect(response.body.error).toBeDefined();
+    });
+  });
+
   describe("input validation", () => {
     test("reports a missing filename", async () => {
       const response = await request(app)
@@ -221,5 +323,36 @@ describe("GET /read-file", () => {
         fs.unlinkSync(bigPath);
       }
     });
+  });
+});
+
+describe("GET /read-file group membership", () => {
+  afterEach(() => {
+    groupsICanRead.mockResolvedValue([{ _id: "group-1" }]);
+  });
+
+  test("refuses a caller who belongs to no group", async () => {
+    // The staging area is a shared inbox with no group<->directory mapping, so
+    // this is the only membership question it can answer. Before it existed,
+    // isAuthenticated alone let a groupless principal enumerate every group's
+    // inbound files. See BREAKING_CHANGES.md entry 32.
+    groupsICanRead.mockResolvedValue([]);
+
+    const response = await request(app)
+      .get("/read-file")
+      .query({ targetDirectoryName: "batch1", filename: "readme.txt" });
+
+    expect(response.status).toBe(403);
+  });
+
+  test("fails closed when the group lookup errors", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    groupsICanRead.mockRejectedValue(new Error("mongo down"));
+
+    const response = await request(app)
+      .get("/read-file")
+      .query({ targetDirectoryName: "batch1", filename: "readme.txt" });
+
+    expect(response.status).toBe(500);
   });
 });

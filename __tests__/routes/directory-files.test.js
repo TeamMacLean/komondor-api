@@ -27,10 +27,20 @@ jest.mock("../../routes/middleware", () => ({
   },
 }));
 
+
+// The HPC read endpoints now also require membership of at least one group
+// (lib/utils/hpcAudit.js). These tests are about path containment, not
+// membership, so grant it by default; the refusal has its own test below.
+jest.mock("../../lib/utils/groupAccess", () => ({
+  groupsICanRead: jest.fn().mockResolvedValue([{ _id: "group-1" }]),
+}));
+const { groupsICanRead } = require("../../lib/utils/groupAccess");
+
 const directoryFilesRouter = require("../../routes/directory-files");
 
 let tmpRoot;
 let transferDir;
+let outsideDir;
 const FILE_CONTENT = "ACGTACGT";
 const FILE_MD5 = crypto.createHash("md5").update(FILE_CONTENT).digest("hex");
 const ORIGINAL_HPC = process.env.HPC_TRANSFER_DIRECTORY;
@@ -47,6 +57,38 @@ beforeAll(() => {
   fs.mkdirSync(_path.join(transferDir, "empty"), { recursive: true });
 
   fs.writeFileSync(_path.join(tmpRoot, "secret.txt"), "TOP SECRET");
+
+  // Symlinks planted inside the transfer directory. Unprivileged HPC users
+  // write into this directory by design (the "hpc-mv" upload method), so they
+  // can create these; every lexical containment check passes on them.
+  outsideDir = _path.join(tmpRoot, "outside");
+  fs.mkdirSync(_path.join(outsideDir, "inner"), { recursive: true });
+  fs.writeFileSync(_path.join(outsideDir, "outside-marker.txt"), "OUTSIDE");
+  fs.writeFileSync(
+    _path.join(outsideDir, "inner", "deep-marker.txt"),
+    FILE_CONTENT,
+  );
+
+  const linkFarm = _path.join(transferDir, "linkfarm");
+  fs.mkdirSync(linkFarm, { recursive: true });
+  // A link to a directory outside the root.
+  fs.symlinkSync(outsideDir, _path.join(linkFarm, "outsidedir"));
+  // A link to a file outside the root.
+  fs.symlinkSync(
+    _path.join(tmpRoot, "secret.txt"),
+    _path.join(linkFarm, "leak.txt"),
+  );
+  // A link whose target does not exist.
+  fs.symlinkSync(
+    _path.join(tmpRoot, "no-such-target"),
+    _path.join(linkFarm, "dangling"),
+  );
+  // A link to a directory that really is inside the root: still a symlink at
+  // the leaf, so the listing must not follow it either.
+  fs.symlinkSync(
+    _path.join(transferDir, "batch1"),
+    _path.join(linkFarm, "inside"),
+  );
 });
 
 afterAll(() => {
@@ -171,6 +213,45 @@ describe("GET /directory-files", () => {
     });
   });
 
+  describe("symlink escapes are refused", () => {
+    // The containment check used to be purely lexical, so fs.readdir followed
+    // any link planted in the drop directory and listed wherever it pointed.
+    test("refuses a symlink to a directory outside the root", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/outsidedir" });
+
+      expect(response.body.filesResults).toBeUndefined();
+      expect(response.text).not.toContain("outside-marker.txt");
+    });
+
+    test("refuses a directory beneath a symlinked ancestor", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/outsidedir/inner" });
+
+      expect(response.body.filesResults).toBeUndefined();
+      expect(response.text).not.toContain("deep-marker.txt");
+    });
+
+    test("refuses a dangling symlink", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/dangling" });
+
+      expect(response.body.filesResults).toBeUndefined();
+    });
+
+    test("does not follow a symlink at the leaf even when it stays inside the root", async () => {
+      const response = await request(app)
+        .get("/directory-files")
+        .query({ targetDirectoryName: "linkfarm/inside" });
+
+      expect(response.body.filesResults).toBeUndefined();
+      expect(response.text).not.toContain("reads.txt");
+    });
+  });
+
   test("reports when HPC_TRANSFER_DIRECTORY is not configured", async () => {
     delete process.env.HPC_TRANSFER_DIRECTORY;
 
@@ -206,6 +287,21 @@ describe("GET /directory-files/debug", () => {
     expect(response.body.exists).toBe(true);
     expect(response.body.isDirectory).toBe(true);
     expect(response.body.withinTransferDirectory).toBe(true);
+  });
+
+  test("flags a symlink that escapes the transfer directory", async () => {
+    // The diagnostic answers "does this name resolve inside the root?", and a
+    // lexical-only answer says yes for a planted symlink. A diagnostic that
+    // lies about containment is how the read paths came to be trusted.
+    mockUser = { username: "admin", groups: [], isAdmin: true };
+
+    const response = await request(app)
+      .get("/directory-files/debug")
+      .query({ targetDirectoryName: "linkfarm/outsidedir" });
+
+    expect(response.status).toBe(200);
+    expect(response.body.withinTransferDirectory).toBe(false);
+    expect(response.body.isSymbolicLink).toBe(true);
   });
 
   test("flags a path outside the transfer directory for an admin", async () => {
@@ -359,6 +455,48 @@ describe("POST /directory-files/verify-md5", () => {
       expect([403, 404]).toContain(response.status);
     });
 
+    test("refuses a symlinked file pointing outside the root", async () => {
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "linkfarm",
+          fileName: "leak.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.body.calculatedMd5).toBeUndefined();
+      expect([403, 404]).toContain(response.status);
+    });
+
+    test("refuses a real file beneath a symlinked ancestor", async () => {
+      // The MD5 of the file outside the root matches FILE_MD5 exactly, so a
+      // "matches: true" answer here is proof the endpoint read it.
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "linkfarm/outsidedir/inner",
+          fileName: "deep-marker.txt",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.body.calculatedMd5).toBeUndefined();
+      expect(response.body.matches).toBeUndefined();
+      expect([403, 404]).toContain(response.status);
+    });
+
+    test("refuses a dangling symlink", async () => {
+      const response = await request(app)
+        .post("/directory-files/verify-md5")
+        .send({
+          directoryName: "linkfarm",
+          fileName: "dangling",
+          expectedMd5: FILE_MD5,
+        });
+
+      expect(response.body.calculatedMd5).toBeUndefined();
+      expect([403, 404]).toContain(response.status);
+    });
+
     test("rejects a sibling directory sharing the root's prefix", async () => {
       // The previous `startsWith(hpcRoot)` check accepted "<root>-evil".
       fs.mkdirSync(`${transferDir}-evil`, { recursive: true });
@@ -374,5 +512,33 @@ describe("POST /directory-files/verify-md5", () => {
 
       expect(response.status).toBe(403);
     });
+  });
+});
+
+describe("HPC staging endpoints require group membership", () => {
+  afterEach(() => {
+    groupsICanRead.mockResolvedValue([{ _id: "group-1" }]);
+  });
+
+  test("GET /directory-files refuses a caller who belongs to no group", async () => {
+    // See BREAKING_CHANGES.md entry 32: the inbox is shared and unmapped, so
+    // membership of *some* group is the only check available here.
+    groupsICanRead.mockResolvedValue([]);
+
+    const response = await request(app)
+      .get("/directory-files")
+      .query({ targetDirectoryName: "batch1" });
+
+    expect(response.status).toBe(403);
+  });
+
+  test("POST /directory-files/verify-md5 refuses a caller who belongs to no group", async () => {
+    groupsICanRead.mockResolvedValue([]);
+
+    const response = await request(app)
+      .post("/directory-files/verify-md5")
+      .send({ directoryName: "batch1", fileName: "readme.txt", expectedMd5: "x" });
+
+    expect(response.status).toBe(403);
   });
 });
