@@ -13,9 +13,7 @@ const {
 // Namespace as well as named: requeueFailedIngest below prefers the queue's own
 // reset if it exports one, and destructuring would freeze that at require time.
 const ingestQueue = require("../lib/ingest-queue");
-const {
-  visibleGroupIds,
-} = require("../lib/utils/fullAccessUsers");
+const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const { enqueueRunIngest, idempotencyKeyFor, IngestJob } = ingestQueue;
 const {
   handleError,
@@ -129,7 +127,10 @@ const summariseIngestJob = (job) =>
  * @returns {Promise<mongoose.Document|null>} The requeued job, or null.
  */
 const requeueFailedIngest = async ({ runId, requestId, payload }) => {
-  if (payload === undefined && typeof ingestQueue.requeueRunIngest === "function") {
+  if (
+    payload === undefined &&
+    typeof ingestQueue.requeueRunIngest === "function"
+  ) {
     return ingestQueue.requeueRunIngest({ runId, requestId });
   }
 
@@ -260,7 +261,9 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error(`User '${req.user.username}' does not have permission to view this run.`),
+          new Error(
+            `User '${req.user.username}' does not have permission to view this run.`,
+          ),
           403,
         );
       }
@@ -284,7 +287,7 @@ router
         actualReads,
         actualAdditionalFiles,
         additionalFilesStatus,
-        rawFilesStatus
+        rawFilesStatus,
       });
     } catch (error) {
       handleError(res, error, 500, `Failed to retrieve run ${id}.`);
@@ -298,7 +301,7 @@ router
  * @param {*} file - A candidate file entry.
  * @returns {*} The name, or a falsy value if there is none.
  */
-const fileEntryName = (file) => file && (file.name || file.data?.name);
+const fileEntryName = (file) => file && file.name;
 
 /**
  * The reason lib/file-utils.js createFileDocument would reject one rawFiles or
@@ -321,7 +324,28 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
 
   const name = fileEntryName(file);
   if (!name || typeof name !== "string") {
+    // createFileDocument reads file.name and nothing else. A nested
+    // `data.name` used to satisfy this check and then fail inside the worker,
+    // so it is refused here with a message naming the field to send.
+    if (file.data && typeof file.data === "object" && file.data.name) {
+      return "carries its name under data.name; send it as name";
+    }
     return "is missing a name";
+  }
+
+  // createFileDocument builds the staged path from uploadName for a
+  // local-filesystem claim, so an entry without one cannot be processed.
+  if (
+    method === "local-filesystem" &&
+    (!file.uploadName || typeof file.uploadName !== "string")
+  ) {
+    return "is missing uploadName";
+  }
+
+  // Compared case-insensitively against the stored checksum, so a non-string
+  // throws inside verification rather than failing here.
+  if (file.md5 !== undefined && typeof file.md5 !== "string") {
+    return "has a non-string md5";
   }
 
   if (
@@ -361,7 +385,9 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
  */
 const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
   if (!Array.isArray(files)) {
-    return [`${label === "Raw file" ? "rawFiles" : "additionalFiles"} must be an array`];
+    return [
+      `${label === "Raw file" ? "rawFiles" : "additionalFiles"} must be an array`,
+    ];
   }
 
   const errors = [];
@@ -375,6 +401,34 @@ const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
       errors.push(`${label} at index ${index} ${error}`);
     }
   });
+
+  const names = files.map(fileEntryName).filter((n) => typeof n === "string");
+
+  // Names are the identity the retry planner and the pairing step both match
+  // on, so two entries sharing one make delivery state ambiguous.
+  const duplicates = [
+    ...new Set(names.filter((n, i) => names.indexOf(n) !== i)),
+  ];
+  duplicates.forEach((name) => {
+    errors.push(`${label} name "${name}" appears more than once`);
+  });
+
+  // A declared sibling that is not in this list can never be resolved: the
+  // pairing step logs the absence and the run finishes "complete" with a
+  // paired read that has no sibling.
+  const present = new Set(names);
+  files.forEach((file, index) => {
+    if (
+      file &&
+      typeof file.sibling === "string" &&
+      !present.has(file.sibling)
+    ) {
+      errors.push(
+        `${label} at index ${index} names sibling "${file.sibling}", which is not in the list`,
+      );
+    }
+  });
+
   return errors;
 };
 
@@ -679,13 +733,13 @@ router
         runId: savedRun._id,
         requestId,
         payload: {
-            rawFiles,
-            additionalFiles,
-            rawFilesUploadInfo,
-            // Recorded at enqueue time, used at claim time: the submitter is
-            // whose staged uploads the job claims.
-            username: req.user.username,
-          },
+          rawFiles,
+          additionalFiles,
+          rawFilesUploadInfo,
+          // Recorded at enqueue time, used at claim time: the submitter is
+          // whose staged uploads the job claims.
+          username: req.user.username,
+        },
       });
 
       if (!job) {
@@ -895,6 +949,42 @@ router
           );
         }
 
+        // The retry planner matches delivered files by NAME, so a correction
+        // that changes an already-delivered file's identity (a different
+        // upload, source or checksum under the same name) would be silently
+        // skipped, and dropping a delivered name would strand its Read.
+        // Corrections are therefore allowed only for what has not landed yet.
+        // Guarded: the export is new, and a stale mock or partial upgrade
+        // must not silently skip the check.
+        const delivered =
+          typeof ingestQueue.deliveredFileNames === "function"
+            ? await ingestQueue.deliveredFileNames(run._id)
+            : new Set();
+
+        if (delivered.size > 0) {
+          const submittedNames = new Set(
+            [...(req.body.rawFiles || []), ...(req.body.additionalFiles || [])]
+              .map((file) => file && file.name)
+              .filter((name) => typeof name === "string"),
+          );
+
+          const dropped = [...delivered].filter(
+            (name) => !submittedNames.has(name),
+          );
+
+          if (dropped.length > 0) {
+            return handleError(
+              res,
+              new Error(`Already delivered: ${dropped.join(", ")}`),
+              409,
+              `Cannot drop ${dropped.join(", ")} from the payload: ` +
+                "already delivered to the datastore. Correct only the files " +
+                "that have not landed yet.",
+              requestId,
+            );
+          }
+        }
+
         replacementPayload = {
           rawFiles: req.body.rawFiles,
           additionalFiles: req.body.additionalFiles,
@@ -1050,7 +1140,9 @@ router
         readableGroups.has(String(run.group)),
       );
 
-      const ingestJobs = await findIngestJobs(visibleRuns.map((run) => run._id));
+      const ingestJobs = await findIngestJobs(
+        visibleRuns.map((run) => run._id),
+      );
 
       const accessibleRuns = visibleRuns.map((run) => ({
         runId: run._id,

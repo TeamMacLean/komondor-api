@@ -452,7 +452,10 @@ describe("Runs API Routes", () => {
       libraryStrategy: "WGS",
       owner: "testuser",
       group: mockGroupId.toString(),
-      rawFiles: [{ name: "test_R1.fq.gz" }],
+      // uploadName as well as name: createFileDocument builds the staged path
+      // from uploadName for a local-filesystem claim, so a real client sends
+      // both. Without it this fixture described a payload the worker rejects.
+      rawFiles: [{ name: "test_R1.fq.gz", uploadName: "a".repeat(32) }],
       rawFilesUploadInfo: { method: "local-filesystem" },
       ...overrides,
     });
@@ -918,7 +921,9 @@ describe("Runs API Routes", () => {
       test("should queue the ingest and report its job id", async () => {
         const response = await request(app)
           .post("/runs/new")
-          .send(requestBody({ additionalFiles: [{ name: "notes.txt" }] }));
+          .send(requestBody({
+            additionalFiles: [{ name: "notes.txt", uploadName: "b".repeat(32) }],
+          }));
 
         expect(response.status).toBe(201);
         // The 201 shape komondor-power parses is preserved; jobId is additive.
@@ -929,8 +934,10 @@ describe("Runs API Routes", () => {
           runId: mockRunId,
           requestId: "test-request-id",
           payload: {
-            rawFiles: [{ name: "test_R1.fq.gz" }],
-            additionalFiles: [{ name: "notes.txt" }],
+            rawFiles: [{ name: "test_R1.fq.gz", uploadName: "a".repeat(32) }],
+            additionalFiles: [
+              { name: "notes.txt", uploadName: "b".repeat(32) },
+            ],
             rawFilesUploadInfo: { method: "local-filesystem" },
             // Recorded at enqueue time and used at claim time: the ingest
             // claims the submitter's staged uploads, and file-utils refuses a
@@ -1103,6 +1110,121 @@ describe("Runs API Routes", () => {
         expect(Sample.findById).not.toHaveBeenCalled();
       });
 
+      test("refuses an entry whose name is nested under data.name", async () => {
+        // createFileDocument reads file.name only. This shape passed validation
+        // and then failed inside the worker, stranding a durable job.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                { data: { name: "test_R1.fq.gz" }, uploadName: "a".repeat(32) },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a local-filesystem entry with no uploadName", async () => {
+        // The worker builds the staged path from uploadName for this method,
+        // so an entry without one cannot be processed.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ rawFiles: [{ name: "test_R1.fq.gz" }] }));
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a non-string md5", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "test_R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  md5: { $ne: null },
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+      });
+
+      test("refuses two entries sharing one name", async () => {
+        // Name is the identity the retry planner matches delivered files on,
+        // so a duplicate makes delivery state ambiguous.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                { name: "dup.fq.gz", uploadName: "a".repeat(32) },
+                { name: "dup.fq.gz", uploadName: "b".repeat(32) },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a sibling that is not in the list", async () => {
+        // An unresolvable sibling used to be logged and ignored, leaving the
+        // run "complete" with a paired read that has no sibling.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "test_R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "never_uploaded_R2.fq.gz",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("accepts a complete sibling pair", async () => {
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "R2.fq.gz",
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  sibling: "R1.fq.gz",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(201);
+      });
+
       test("should still succeed with a well-formed rawFiles and additionalFiles array", async () => {
         Run.findOne = jest.fn().mockReturnValue({
           populate: jest.fn().mockResolvedValue(null),
@@ -1115,8 +1237,12 @@ describe("Runs API Routes", () => {
           .post("/runs/new")
           .send(
             requestBody({
-              rawFiles: [{ name: "test_R1.fq.gz" }],
-              additionalFiles: [{ name: "notes.txt" }],
+              rawFiles: [
+                { name: "test_R1.fq.gz", uploadName: "a".repeat(32) },
+              ],
+              additionalFiles: [
+                { name: "notes.txt", uploadName: "b".repeat(32) },
+              ],
             }),
           );
 
