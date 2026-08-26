@@ -188,7 +188,7 @@ jobs:
         run: yarn test --detectOpenHandles --runInBand
 
   integration:
-    # See ci.yml: __tests__/integration/ does not exist, so this job runs zero
+    # __tests__/integration/ now exists and this job is a real gate. The guard
     # tests. The name says so rather than letting a green tick read as
     # integration coverage.
     name: Integration tests — PLACEHOLDER, runs zero tests
@@ -208,7 +208,9 @@ jobs:
     env:
       NODE_ENV: test
       MONGODB_PORT: 27017
-      MONGO_URI: mongodb://localhost:27017/komondor-ci
+      # MONGODB_URI, not MONGO_URI: the app reads MONGODB_URI
+      # (lib/utils/validateEnv.js, server.js), so the old name connected nowhere.
+      MONGODB_URI: mongodb://localhost:27017/komondor-ci
 
     steps:
       - name: Check out
@@ -235,4 +237,4 @@ jobs:
             exit 0
           fi
 
-          yarn test --testPathPattern "__tests__/integration/" --runInBand
+          yarn test --testPathIgnorePatterns "/node_modules/" --testPathPattern "__tests__/integration/" --runInBand

@@ -51,6 +51,30 @@ async function findSampleNameIndex(collection) {
 }
 
 /**
+ * Whether an index spec's keys are exactly { sample: 1, name: 1 }, in order.
+ *
+ * Name alone is not enough: an index called "sample_1_name_1" over different
+ * keys (or in a different order) still blocks the build, but a name-only check
+ * calls it safe and the failure only surfaces at startup.
+ *
+ * @param {Object|null} idx - An index spec from collection.indexes().
+ * @returns {boolean} True when the keys match exactly.
+ */
+function hasExpectedKeys(idx) {
+  if (!idx || !idx.key) {
+    return false;
+  }
+  const entries = Object.entries(idx.key);
+  return (
+    entries.length === 2 &&
+    entries[0][0] === "sample" &&
+    entries[0][1] === 1 &&
+    entries[1][0] === "name" &&
+    entries[1][1] === 1
+  );
+}
+
+/**
  * Drops the stale non-unique index and rebuilds it as unique, printing
  * before/after getIndexes() so the operator can see exactly what happened.
  * Only call this once duplicate documents are confirmed absent — creating a
@@ -105,8 +129,12 @@ async function main() {
 
     const total = await collection.countDocuments();
     const staleIndex = await findSampleNameIndex(collection);
-    // unique:true is only present on the spec once the index actually is one.
-    const indexConflict = staleIndex && !staleIndex.unique;
+    // Two distinct ways the same name can block the build: right keys but not
+    // unique, or the name reused over different keys entirely.
+    const keysMatch = hasExpectedKeys(staleIndex);
+    const indexConflict = Boolean(
+      staleIndex && (!staleIndex.unique || !keysMatch),
+    );
 
     console.log(`Checked ${total} runs.`);
 
@@ -132,7 +160,9 @@ async function main() {
       console.log(
         [
           "",
-          `Found a pre-existing NON-unique index named "${INDEX_NAME}":`,
+          keysMatch
+            ? `Found a pre-existing NON-unique index named "${INDEX_NAME}":`
+            : `Found an index named "${INDEX_NAME}" over unexpected keys:`,
           JSON.stringify(staleIndex, null, 2),
           "",
           "Mongoose will try to build the new unique index under this same",
@@ -177,4 +207,9 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { findSampleNameIndex, fixStaleIndex, INDEX_NAME };
+module.exports = {
+  findSampleNameIndex,
+  fixStaleIndex,
+  hasExpectedKeys,
+  INDEX_NAME,
+};

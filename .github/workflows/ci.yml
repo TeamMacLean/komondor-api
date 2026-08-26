@@ -263,6 +263,7 @@ jobs:
 
           const advisories = new Map();
           let sawSummary = false;
+          let summaryCounts = {};
 
           raw
             .split("\n")
@@ -279,6 +280,8 @@ jobs:
                 // Its absence below is what catches a truncated stream that
                 // still has well-formed advisory lines in it.
                 sawSummary = true;
+                summaryCounts =
+                  (parsed.data && parsed.data.vulnerabilities) || {};
                 return;
               }
               if (parsed.type !== "auditAdvisory") {
@@ -311,6 +314,28 @@ jobs:
 
           const bySeverity = (severity) =>
             [...advisories.values()].filter((a) => a.severity === severity);
+
+          // Reconcile what was parsed against yarn's own summary. The summary
+          // counts dependency PATHS and the map counts DISTINCT advisories, so
+          // the two are not equal — but a severity the summary reports and we
+          // parsed none of means advisory lines went missing, and triaging the
+          // remainder as clean would understate the real result.
+          const missedSeverities = ["critical", "high", "moderate", "low"]
+            .filter(
+              (severity) =>
+                Number(summaryCounts[severity]) > 0 &&
+                bySeverity(severity).length === 0,
+            );
+
+          if (missedSeverities.length > 0) {
+            console.log(
+              `::error::yarn's summary reports ${missedSeverities
+                .map((s) => `${summaryCounts[s]} ${s}`)
+                .join(", ")}, but no advisory of those severities survived ` +
+                "parsing. The stream is incomplete — refusing to report this as triaged.",
+            );
+            process.exit(1);
+          }
 
           const criticals = bySeverity("critical");
           const highs = bySeverity("high");
