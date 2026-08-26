@@ -131,7 +131,26 @@ const authoriseUploadAccess = async (req, res, uploadId) => {
     );
   }
 
-  quota.touchUpload(uploadId);
+  // touchUpload reports whether a reservation was actually found. A paused
+  // upload can outlive its reservation (idle-pruned, or a restart that raced
+  // recovery), and the PATCH that follows would then write bytes nothing
+  // accounted for. Re-admit before any of them land — if the user is genuinely
+  // over quota now, refusing the resume is the correct answer.
+  if (!quota.touchUpload(uploadId)) {
+    const decision = await quota.checkUploadAllowed({
+      id: uploadId,
+      username,
+      size: stored.size,
+      directory: uploadPath(),
+    });
+
+    if (!decision.allowed) {
+      console.warn(
+        `[UPLOAD] Refused to re-admit resumed upload ${uploadId} for "${username}": ${decision.error}`,
+      );
+      throw uploadError(decision.status, decision.error);
+    }
+  }
 };
 
 /**

@@ -72,8 +72,7 @@ describe("claiming an incomplete tus upload into a Run", () => {
     const uploadId = await writeStagedUpload({
       directory: process.env.UPLOAD_DIRECTORY,
       declaredSize: 1000,
-      blobBytes: 100,
-      declaredOffset: 100, // the client genuinely only sent 100 of 1000 bytes
+      blobBytes: 100, // the client genuinely only sent 100 of 1000 bytes
       owner: "it-owner",
     });
 
@@ -97,19 +96,24 @@ describe("claiming an incomplete tus upload into a Run", () => {
   });
 
   test("a sidecar that claims completion but whose blob was truncated on disk is also refused", async () => {
-    // The subtler half of the same bug: offset === size in the sidecar (so an
-    // ownership-only or offset-only check reads this as "done"), but the
-    // actual bytes on disk are short — a stalled or truncated write. Only
-    // checking the real file's size on disk catches this one.
+    // The subtler half of the same bug: the upload genuinely completed, so the
+    // sidecar is entirely consistent, but the bytes on disk were lost
+    // afterwards — a truncated write, a partial restore, a full disk. Only
+    // measuring the real file catches this one.
     const { run } = await makeRunChain();
 
     const uploadId = await writeStagedUpload({
       directory: process.env.UPLOAD_DIRECTORY,
       declaredSize: 1000,
-      blobBytes: 100,
-      declaredOffset: 1000, // sidecar claims the upload finished
+      blobBytes: 1000, // a real, complete upload...
       owner: "it-owner",
     });
+
+    // ...whose blob is then truncated behind the sidecar's back.
+    await fs.promises.truncate(
+      path.join(process.env.UPLOAD_DIRECTORY, uploadId),
+      100,
+    );
 
     const originalName = "truncated-reads.fastq.gz";
 
@@ -135,7 +139,6 @@ describe("claiming an incomplete tus upload into a Run", () => {
       directory: process.env.UPLOAD_DIRECTORY,
       declaredSize: 100,
       blobBytes: 100,
-      declaredOffset: 100,
       owner: "it-owner",
     });
 

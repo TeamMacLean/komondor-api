@@ -8,6 +8,7 @@
  */
 
 const fs = require("fs");
+const http = require("http");
 const path = require("path");
 const crypto = require("crypto");
 
@@ -105,49 +106,93 @@ const makeRunChain = async (overrides = {}) => {
 };
 
 /**
- * Writes a real tus upload (blob + '<id>.json' sidecar) into `directory`,
- * matching exactly what @tus/file-store's FileKvStore writes on disk (see
- * node_modules/@tus/utils/dist/kvstores/FileKvStore.js: `JSON.stringify` of
- * the Upload — id/size/offset/metadata — at "<directory>/<id>.json").
+ * Stages an upload by driving a REAL @tus/server + FileStore over HTTP, rather
+ * than hand-writing a sidecar.
+ *
+ * This used to fabricate the sidecar, setting `offset` to the declared size to
+ * represent a finished upload. FileStore never produces that state: it writes
+ * `offset: 0` at creation and never updates it, deriving the true offset from
+ * the blob's size instead. The fabricated state therefore hid a bug that
+ * rejected — and made deletable — every genuinely completed upload. Driving the
+ * real server is the only way these tests can speak to what production does.
  *
  * @param {object} params
  * @param {string} params.directory - The upload staging directory.
- * @param {number} params.declaredSize - The sidecar's `size`.
- * @param {number} [params.blobBytes] - Bytes actually written to the blob;
- *   defaults to declaredSize (a genuinely complete upload).
- * @param {number} [params.declaredOffset] - The sidecar's `offset`; defaults
- *   to declaredSize (matches a finished upload unless overridden).
+ * @param {number} params.declaredSize - Sent as Upload-Length.
+ * @param {number} [params.blobBytes] - Bytes actually PATCHed; defaults to
+ *   declaredSize (a genuinely complete upload). Fewer leaves it part-uploaded.
  * @param {string} [params.owner] - Stamped into metadata.owner.
  * @param {string} [params.originalName] - Stamped into metadata.filename.
- * @returns {Promise<string>} The generated 32-hex-char upload id.
+ * @returns {Promise<string>} The tus upload id.
  */
 const writeStagedUpload = async ({
   directory,
   declaredSize,
   blobBytes = declaredSize,
-  declaredOffset = declaredSize,
   owner = "it-owner",
   originalName = "reads.fastq.gz",
 }) => {
-  const id = crypto.randomBytes(16).toString("hex");
+  const { Server } = require("@tus/server");
+  const { FileStore } = require("@tus/file-store");
 
-  await fs.promises.writeFile(
-    path.join(directory, id),
-    Buffer.alloc(blobBytes, "x"),
-  );
+  const tus = new Server({
+    path: "/uploads",
+    datastore: new FileStore({ directory }),
+  });
+  const server = http.createServer((req, res) => tus.handle(req, res));
 
-  await fs.promises.writeFile(
-    path.join(directory, `${id}.json`),
-    JSON.stringify({
-      id,
-      size: declaredSize,
-      offset: declaredOffset,
-      metadata: { owner, filename: originalName },
-      creation_date: new Date().toISOString(),
-    }),
-  );
+  await new Promise((resolve) => server.listen(0, resolve));
+  const { port } = server.address();
 
-  return id;
+  const send = (options, payload) =>
+    new Promise((resolve, reject) => {
+      const req = http.request(
+        { host: "127.0.0.1", port, ...options },
+        (res) => {
+          res.resume();
+          res.on("end", () => resolve(res));
+        },
+      );
+      req.on("error", reject);
+      if (payload) req.write(payload);
+      req.end();
+    });
+
+  try {
+    const b64 = (value) => Buffer.from(String(value)).toString("base64");
+
+    const created = await send({
+      method: "POST",
+      path: "/uploads",
+      headers: {
+        "Tus-Resumable": "1.0.0",
+        "Upload-Length": String(declaredSize),
+        "Upload-Metadata": `filename ${b64(originalName)},owner ${b64(owner)}`,
+      },
+    });
+
+    const id = String(created.headers.location).split("/").pop();
+
+    if (blobBytes > 0) {
+      await send(
+        {
+          method: "PATCH",
+          path: `/uploads/${id}`,
+          headers: {
+            "Tus-Resumable": "1.0.0",
+            "Upload-Offset": "0",
+            "Content-Type": "application/offset+octet-stream",
+            "Content-Length": String(blobBytes),
+          },
+        },
+        Buffer.alloc(blobBytes, "x"),
+      );
+    }
+
+    return id;
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 };
 
 module.exports = {
