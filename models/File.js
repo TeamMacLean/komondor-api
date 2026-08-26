@@ -115,13 +115,22 @@ const unlinkPinnedSource = async (
  */
 const openPinnedSource = async (sourcePath) => {
   try {
-    return await fs.open(sourcePath, fsConstants.O_RDONLY | O_NOFOLLOW);
+    const handle = await fs.open(sourcePath, fsConstants.O_RDONLY | O_NOFOLLOW);
+    return { handle, path: sourcePath };
   } catch (err) {
     if (err.code !== "ELOOP") {
       throw err;
     }
+    // The leaf is a symlink that isPermittedSource() already vouched for.
+    // The resolved path is returned as well as the handle because link(2) on
+    // Linux does NOT dereference a symlink given as oldpath — it would link
+    // the symlink's own inode, which then fails the pinned-inode check below
+    // and deletes the destination. Darwin's link() does follow, which is why
+    // this passed locally and would have failed on the Ubuntu CI and in
+    // production.
     const realTarget = await fs.realpath(sourcePath);
-    return fs.open(realTarget, fsConstants.O_RDONLY | O_NOFOLLOW);
+    const handle = await fs.open(realTarget, fsConstants.O_RDONLY | O_NOFOLLOW);
+    return { handle, path: realTarget };
   }
 };
 
@@ -219,8 +228,15 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
     // Opened once and pinned: isPermittedSource() checked a name, and the name
     // can be re-pointed afterwards. Later steps compare against this handle.
     let sourceHandle;
+    // The path actually opened: the same as sourcePath, unless the leaf was a
+    // permitted symlink, in which case it is the resolved target. Every
+    // filesystem operation below uses this, so link()/copy operate on the real
+    // bytes on every platform.
+    let pinnedPath;
     try {
-      sourceHandle = await openPinnedSource(sourcePath);
+      const opened = await openPinnedSource(sourcePath);
+      sourceHandle = opened.handle;
+      pinnedPath = opened.path;
     } catch (openErr) {
       openErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${openErr.message}`;
       throw openErr;
@@ -231,80 +247,108 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       // Cleared by the cross-device fallback, which writes a fresh copy.
       let destinationIsSourceInode = true;
 
-      // link() + unlink(), not rename(): rename silently overwrites an existing
-      // destination, link fails with EEXIST.
-      try {
-        await fs.link(sourcePath, fullNewPath);
-      } catch (linkErr) {
-        if (linkErr.code === "EEXIST") {
-          throw new Error(
-            `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
-          );
-        }
-
-        if (!CROSS_DEVICE_CODES.has(linkErr.code)) {
-          // Must not fall through to the copy branch: on ENOENT the destination
-          // may hold the only copy, which a write would truncate.
-          linkErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${linkErr.message}`;
-          throw linkErr;
-        }
-
-        // Cross-device: copy to a sibling, then link it into place, so an
-        // interrupted copy never appears complete under the real name.
-        const partialPath = partialPathFor(fullNewPath, file._id);
-
+      // A retained HPC source must be an INDEPENDENT copy, not a hard link.
+      // Hard-linking shares one inode, so a scientist re-scp-ing over the
+      // staging name (scp truncates in place) would rewrite the archived bytes
+      // too — retention would protect nothing. COPYFILE_FICLONE asks the
+      // filesystem for a copy-on-write clone, which is near-free on APFS/XFS/
+      // Btrfs and silently falls back to a full copy elsewhere; COPYFILE_EXCL
+      // keeps the same no-clobber guarantee link() gives.
+      if (keepSource) {
         try {
-          // Size from the pinned handle, not the path: a source swapped behind
-          // us cannot make a short copy look complete.
-          const sourceSize = pinnedSource.size;
-
-          // The partial name is deterministic, so anything there is this file's
-          // own leftover. 'wx' not 'w': 'w' writes through a symlink.
-          await fs.unlink(partialPath).catch((err) => {
-            if (err.code !== "ENOENT") {
-              throw err;
-            }
-          });
-
-          await pipeline(
-            sourceHandle.createReadStream(),
-            createWriteStream(partialPath, { flags: "wx" }),
+          await fs.copyFile(
+            pinnedPath,
+            fullNewPath,
+            fsConstants.COPYFILE_FICLONE | fsConstants.COPYFILE_EXCL,
           );
-
-          // A stream that ends early still resolves cleanly, so the byte count
-          // is the only proof the copy is whole.
-          const { size: copiedSize } = await fs.stat(partialPath);
-          if (copiedSize !== sourceSize) {
+          // A fresh copy is a different inode by definition, so the
+          // same-inode assertion below does not apply to it.
+          destinationIsSourceInode = false;
+        } catch (copyErr) {
+          if (copyErr.code === "EEXIST") {
             throw new Error(
-              `Copy of ${file.path} is ${copiedSize} bytes but the source is ${sourceSize} bytes`,
+              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
+            );
+          }
+          copyErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${copyErr.message}`;
+          throw copyErr;
+        }
+      } else {
+        // link() + unlink(), not rename(): rename silently overwrites an existing
+        // destination, link fails with EEXIST.
+        try {
+          await fs.link(pinnedPath, fullNewPath);
+        } catch (linkErr) {
+          if (linkErr.code === "EEXIST") {
+            throw new Error(
+              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
             );
           }
 
-          // link + unlink again, for the same no-clobber reason as above.
-          try {
-            await fs.link(partialPath, fullNewPath);
-          } catch (promoteErr) {
-            if (promoteErr.code === "EEXIST") {
-              throw new Error(
-                `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
-              );
-            }
-            throw promoteErr;
+          if (!CROSS_DEVICE_CODES.has(linkErr.code)) {
+            // Must not fall through to the copy branch: on ENOENT the destination
+            // may hold the only copy, which a write would truncate.
+            linkErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${linkErr.message}`;
+            throw linkErr;
           }
-          await fs.unlink(partialPath);
-        } catch (copyErr) {
-          await fs.unlink(partialPath).catch((cleanupErr) => {
-            if (cleanupErr.code !== "ENOENT") {
-              console.error(
-                `Failed to remove partial file at ${partialPath}:`,
-                cleanupErr,
+
+          // Cross-device: copy to a sibling, then link it into place, so an
+          // interrupted copy never appears complete under the real name.
+          const partialPath = partialPathFor(fullNewPath, file._id);
+
+          try {
+            // Size from the pinned handle, not the path: a source swapped behind
+            // us cannot make a short copy look complete.
+            const sourceSize = pinnedSource.size;
+
+            // The partial name is deterministic, so anything there is this file's
+            // own leftover. 'wx' not 'w': 'w' writes through a symlink.
+            await fs.unlink(partialPath).catch((err) => {
+              if (err.code !== "ENOENT") {
+                throw err;
+              }
+            });
+
+            await pipeline(
+              sourceHandle.createReadStream(),
+              createWriteStream(partialPath, { flags: "wx" }),
+            );
+
+            // A stream that ends early still resolves cleanly, so the byte count
+            // is the only proof the copy is whole.
+            const { size: copiedSize } = await fs.stat(partialPath);
+            if (copiedSize !== sourceSize) {
+              throw new Error(
+                `Copy of ${file.path} is ${copiedSize} bytes but the source is ${sourceSize} bytes`,
               );
             }
-          });
-          throw copyErr;
-        }
 
-        destinationIsSourceInode = false;
+            // link + unlink again, for the same no-clobber reason as above.
+            try {
+              await fs.link(partialPath, fullNewPath);
+            } catch (promoteErr) {
+              if (promoteErr.code === "EEXIST") {
+                throw new Error(
+                  `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
+                );
+              }
+              throw promoteErr;
+            }
+            await fs.unlink(partialPath);
+          } catch (copyErr) {
+            await fs.unlink(partialPath).catch((cleanupErr) => {
+              if (cleanupErr.code !== "ENOENT") {
+                console.error(
+                  `Failed to remove partial file at ${partialPath}:`,
+                  cleanupErr,
+                );
+              }
+            });
+            throw copyErr;
+          }
+
+          destinationIsSourceInode = false;
+        }
       }
 
       if (destinationIsSourceInode) {
@@ -327,8 +371,8 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
 
       // Deliberately outside the try above: an unlink error must not reach the
       // CROSS_DEVICE_CODES check, since unlink shares EPERM with it. Skipped
-      // for the HPC inbox: same-filesystem links cost no extra disk, so
-      // retaining the staging copy is close to free against a directory typo.
+      // for the HPC inbox, whose staging copy is kept as an independent file
+      // so a directory typo cannot destroy another group's only copy.
       if (!keepSource) {
         await unlinkPinnedSource(sourcePath, pinnedSource, file, fullNewPath);
       }
