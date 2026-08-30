@@ -949,40 +949,34 @@ router
           );
         }
 
-        // The retry planner matches delivered files by NAME, so a correction
-        // that changes an already-delivered file's identity (a different
-        // upload, source or checksum under the same name) would be silently
-        // skipped, and dropping a delivered name would strand its Read.
-        // Corrections are therefore allowed only for what has not landed yet.
-        // Guarded: the export is new, and a stale mock or partial upgrade
-        // must not silently skip the check.
+        // A replacement payload can only correct files that have NOT landed
+        // yet. The retry planner matches delivered files by name and skips
+        // them, so any edit to a delivered entry — a changed upload, source or
+        // checksum, or dropping it — is silently ignored and the run finishes
+        // "complete" with the old file. Rather than diff each field (hpc-mv
+        // entries legitimately omit uploadName, so a per-field compare
+        // false-positives), the whole replacement is refused once anything has
+        // landed: a plain reingest with no payload still retries the rest, and
+        // a delivered file that genuinely needs changing is resolved in the web
+        // app first. Guarded: the export is new, and a stale mock or partial
+        // upgrade must not silently skip the check.
         const delivered =
           typeof ingestQueue.deliveredFileNames === "function"
             ? await ingestQueue.deliveredFileNames(run._id)
             : new Set();
 
         if (delivered.size > 0) {
-          const submittedNames = new Set(
-            [...(req.body.rawFiles || []), ...(req.body.additionalFiles || [])]
-              .map((file) => file && file.name)
-              .filter((name) => typeof name === "string"),
+          return handleError(
+            res,
+            new Error(`Already delivered: ${[...delivered].join(", ")}`),
+            409,
+            `Cannot supply a replacement payload: ${delivered.size} file(s) ` +
+              `(${[...delivered].join(", ")}) have already been delivered to ` +
+              "the datastore and a replacement cannot change or replay them. " +
+              "Reingest without a payload to retry the files that have not " +
+              "landed, or resolve the delivered files first.",
+            requestId,
           );
-
-          const dropped = [...delivered].filter(
-            (name) => !submittedNames.has(name),
-          );
-
-          if (dropped.length > 0) {
-            return handleError(
-              res,
-              new Error(`Already delivered: ${dropped.join(", ")}`),
-              409,
-              `Cannot drop ${dropped.join(", ")} from the payload: ` +
-                "already delivered to the datastore. Correct only the files " +
-                "that have not landed yet.",
-              requestId,
-            );
-          }
         }
 
         replacementPayload = {

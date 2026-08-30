@@ -36,6 +36,7 @@ jest.mock("../../models/Group", () => ({
 // requires the models and would talk to a database that is not here.
 jest.mock("../../lib/ingest-queue", () => ({
   enqueueRunIngest: jest.fn(),
+  deliveredFileNames: jest.fn().mockResolvedValue(new Set()),
   idempotencyKeyFor: jest.fn((runId) => `run-ingest:${String(runId)}`),
   IngestJob: {
     find: jest.fn(),
@@ -1926,6 +1927,47 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(400);
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
+      test("refuses a replacement that KEEPS a delivered name but changes it", async () => {
+        // The retry planner matches delivered files by name and skips them, so
+        // a change to a landed file's uploadName/md5 under the same name is a
+        // silent no-op. The old guard only refused DROPPING a delivered name;
+        // this keeps the name, so it slipped through and the run finished
+        // "complete" with the old file. The whole replacement is now refused.
+        ingestQueue.deliveredFileNames.mockResolvedValueOnce(
+          new Set(["delivered_R1.fq.gz"]),
+        );
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [
+              { name: "delivered_R1.fq.gz", uploadName: "corrected-upload" },
+            ],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          });
+
+        expect(response.status).toBe(409);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
+      test("a plain reingest still works when files have been delivered", async () => {
+        // Refusing the payload must not block the no-payload retry of the rest.
+        ingestQueue.deliveredFileNames.mockResolvedValueOnce(
+          new Set(["already_delivered_R1.fq.gz"]),
+        );
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({});
+
+        expect(response.status).toBe(200);
       });
 
       test("is still refused to a caller without write access to the run's group", async () => {
