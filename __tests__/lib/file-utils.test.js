@@ -1248,9 +1248,11 @@ describe("file-utils", () => {
     // This describe block's uploads are all hpc-mv, whose source
     // moveToFolderAndSave now deliberately KEEPS on a successful move rather
     // than unlinking it (see models/File.js's `keepSource`,
-    // BREAKING_CHANGES.md entry 35) — the fixture below hard-links the
-    // staged source to the destination, exactly as the real move does on the
-    // same filesystem, rather than renaming it away.
+    // BREAKING_CHANGES.md entry 35). The fixture below COPIES the staged
+    // source to the destination — an independent inode — exactly as the real
+    // move does now (fs.copyFile, not a hard link). This matters: an inode-
+    // based reconcile would pass a hard-link fixture but fail the real copy,
+    // so the fixture must copy or it would not catch that regression.
     let dataRoot;
     let stagedSource;
     let destination;
@@ -1286,12 +1288,12 @@ describe("file-utils", () => {
       fsSync.mkdirSync(path.dirname(stagedSource), { recursive: true });
       fsSync.writeFileSync(stagedSource, "ACGT");
 
-      // What production did: the bytes moved, and the save that followed did
-      // not. moveToFolderAndSave rejects with the source still in place — a
-      // hard link, exactly what an hpc-mv move does on the same filesystem —
-      // rather than gone.
+      // What production did: the bytes copied to the destination, and the
+      // save that followed did not. moveToFolderAndSave rejects with the
+      // source still in place and the destination an INDEPENDENT copy (a
+      // different inode) — exactly what an hpc-mv move does now.
       move = jest.fn().mockImplementation(async () => {
-        fsSync.linkSync(stagedSource, destination);
+        fsSync.copyFileSync(stagedSource, destination);
         throw new Error("MongoNetworkError: connection timed out");
       });
 
