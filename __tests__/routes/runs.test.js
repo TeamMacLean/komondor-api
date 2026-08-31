@@ -1175,6 +1175,113 @@ describe("Runs API Routes", () => {
         expect(Sample.findById).not.toHaveBeenCalled();
       });
 
+      test("refuses a local-filesystem entry marked paired with no rowID", async () => {
+        // A re-audit reproduced this end-to-end: paired:true with no rowID
+        // reached the worker, which silently excludes it from pairing
+        // (lib/ingest-queue.js's siblingLinks) — both files landed and the
+        // run finished "complete" with sibling:null on both Reads.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  paired: true,
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a rowID that is a lone entry, not a pair", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+      });
+
+      test("refuses a rowID shared by three entries", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+                {
+                  name: "R3.fq.gz",
+                  uploadName: "c".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+      });
+
+      test("accepts a genuine local-filesystem pair with matching rowID", async () => {
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  paired: true,
+                  rowID: "row-1",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(201);
+      });
+
       test("refuses a sibling that is not in the list", async () => {
         // An unresolvable sibling used to be logged and ignored, leaving the
         // run "complete" with a paired read that has no sibling.

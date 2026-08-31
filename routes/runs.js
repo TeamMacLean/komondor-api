@@ -367,6 +367,21 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
     return "has a non-boolean paired flag";
   }
 
+  // siblingLinks pairs local-filesystem reads by rowID, not by name — its
+  // own guard (`!file.paired || file.rowID == null`) treats a missing rowID
+  // as "not part of a pair" and silently excludes the file from pairing
+  // rather than erroring. Reproduced: paired:true with no rowID landed both
+  // files and finished the run "complete" with sibling:null on both Reads.
+  // Caught here instead, before a job is created.
+  if (method !== "hpc-mv" && file.paired === true) {
+    if (file.rowID === undefined || file.rowID === null) {
+      return "is paired but missing rowID";
+    }
+    if (typeof file.rowID !== "string" && typeof file.rowID !== "number") {
+      return "has a rowID that is not a string or number";
+    }
+  }
+
   return null;
 };
 
@@ -428,6 +443,35 @@ const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
       );
     }
   });
+
+  // rowID pairing is a raw-reads concept (lib/ingest-queue.js's siblingLinks
+  // only ever runs it over rawFiles); additionalFiles never reach this. A
+  // group of anything other than exactly 2 is what siblingLinks itself
+  // refuses ("Expected 2 paired reads for rowID X, found N") and silently
+  // leaves unpaired — caught here, at the door, instead of landing files the
+  // worker will only ever deliver unpaired.
+  if (label === "Raw file") {
+    const byRow = new Map();
+    files.forEach((file, index) => {
+      if (
+        file &&
+        file.paired === true &&
+        (typeof file.rowID === "string" || typeof file.rowID === "number")
+      ) {
+        const row = String(file.rowID);
+        byRow.set(row, (byRow.get(row) || []).concat(index));
+      }
+    });
+    byRow.forEach((indexes, row) => {
+      if (indexes.length !== 2) {
+        errors.push(
+          `Raw file rowID "${row}" has ${indexes.length} paired entr${
+            indexes.length === 1 ? "y" : "ies"
+          } (at index ${indexes.join(", ")}); pairing needs exactly 2`,
+        );
+      }
+    });
+  }
 
   return errors;
 };
