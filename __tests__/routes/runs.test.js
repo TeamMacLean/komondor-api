@@ -2036,27 +2036,134 @@ describe("Runs API Routes", () => {
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       });
 
-      test("refuses a replacement that KEEPS a delivered name but changes it", async () => {
-        // The retry planner matches delivered files by name and skips them, so
-        // a change to a landed file's uploadName/md5 under the same name is a
-        // silent no-op. The old guard only refused DROPPING a delivered name;
-        // this keeps the name, so it slipped through and the run finished
-        // "complete" with the old file. The whole replacement is now refused.
-        ingestQueue.deliveredFileNames.mockResolvedValueOnce(
-          new Set(["delivered_R1.fq.gz"]),
-        );
+      describe("a delivered file mixed with an undelivered correction", () => {
+        // The scenario a re-audit flagged as the real-world case that matters:
+        // a paired submission where one file landed and its sibling failed
+        // because of a bad upload id. Fixing just the broken one should not
+        // require also resubmitting the one that already worked, and must not
+        // silently drop or silently reapply either.
+        const originalRawFiles = [
+          { name: "delivered_R1.fq.gz", uploadName: "good-upload-id" },
+          { name: "broken_R2.fq.gz", uploadName: "bad-upload-id" },
+        ];
+
+        beforeEach(() => {
+          ingestQueue.deliveredFileNames.mockResolvedValueOnce(
+            new Set(["delivered_R1.fq.gz"]),
+          );
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: originalRawFiles,
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            },
+          });
+        });
+
+        test("carries the delivered file forward unchanged when the correction omits it", async () => {
+          IngestJob.findOneAndUpdate.mockResolvedValue({
+            _id: mockJobId,
+            status: "pending",
+            attempts: 0,
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            });
+
+          expect(response.status).toBe(200);
+          const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+          expect(update.$set.payload.rawFiles).toEqual(
+            expect.arrayContaining([
+              originalRawFiles[0], // delivered_R1.fq.gz, untouched
+              expect.objectContaining({
+                name: "broken_R2.fq.gz",
+                uploadName: "corrected-upload-id",
+              }),
+            ]),
+          );
+        });
+
+        test("accepts an identical resubmission of the delivered file alongside the correction", async () => {
+          // A client naturally resends its whole known state, not just the
+          // diff — resubmitting the delivered entry byte-for-byte must not
+          // be treated as an attempted change.
+          IngestJob.findOneAndUpdate.mockResolvedValue({
+            _id: mockJobId,
+            status: "pending",
+            attempts: 0,
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                originalRawFiles[0], // resent unchanged
+                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            });
+
+          expect(response.status).toBe(200);
+        });
+
+        test("refuses a resubmission that actually changes the delivered file's content", async () => {
+          // The genuine hazard the merge exists to catch: the retry planner
+          // matches delivered files by name and skips them, so a changed
+          // uploadName/md5 under a delivered name would be a silent no-op if
+          // accepted — it can neither be kept (that's not what the caller
+          // asked for) nor applied (the file is already in the datastore).
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                { name: "delivered_R1.fq.gz", uploadName: "DIFFERENT-upload-id" },
+                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            });
+
+          expect(response.status).toBe(409);
+          expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        });
+      });
+
+      test("a correction to only additionalFiles leaves rawFiles untouched, not dropped", async () => {
+        // rawFiles is entirely absent from this submission — correcting the
+        // OTHER list must not be read as "replace rawFiles with nothing".
+        const originalRawFiles = [
+          { name: "R1.fq.gz", uploadName: "up-1" },
+          { name: "R2.fq.gz", uploadName: "up-2" },
+        ];
+        mockJobLookup({
+          _id: mockJobId,
+          payload: {
+            rawFiles: originalRawFiles,
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        });
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
 
         const response = await request(app)
           .post(`/runs/${mockRunId}/reingest`)
           .send({
-            rawFiles: [
-              { name: "delivered_R1.fq.gz", uploadName: "corrected-upload" },
+            additionalFiles: [
+              { name: "notes.txt", uploadName: "a".repeat(32) },
             ],
-            rawFilesUploadInfo: { method: "local-filesystem" },
           });
 
-        expect(response.status).toBe(409);
-        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        expect(response.status).toBe(200);
+        const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+        expect(update.$set.payload.rawFiles).toEqual(originalRawFiles);
       });
 
       test("a plain reingest still works when files have been delivered", async () => {

@@ -477,11 +477,57 @@ const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
 };
 
 /**
+ * Validates rawFiles/additionalFiles entries actually present on a request
+ * body, without requiring the body to be a COMPLETE submission — unlike
+ * validateIngestFilesPayload below, a missing rawFiles here is not an error.
+ *
+ * For POST /runs/:id/reingest, whose replacement payload may correct only
+ * ONE of rawFiles/additionalFiles (see mergeReplacementList): the caller's
+ * raw submission is checked here, before anything is merged with the
+ * original, purely so a malformed entry is refused before any lookup runs.
+ * The MERGED result — which always ends up complete, carrying the original's
+ * untouched list forward when the caller didn't submit one — is what
+ * validateIngestFilesPayload checks afterward.
+ * @param {object} body - An object that may carry rawFiles and/or additionalFiles.
+ * @returns {string[]} Error messages; empty when whatever is present is well-formed.
+ */
+const validatePartialFilesPayload = (body) => {
+  const errors = [];
+
+  if (body.rawFiles !== undefined) {
+    const rawMethod = body.rawFilesUploadInfo?.method;
+    const relativePathCovered = Boolean(body.rawFilesUploadInfo?.relativePath);
+    errors.push(
+      ...validateFileList(
+        body.rawFiles,
+        "Raw file",
+        () => rawMethod,
+        () => relativePathCovered,
+      ),
+    );
+  }
+
+  if (body.additionalFiles !== undefined) {
+    errors.push(
+      ...validateFileList(
+        body.additionalFiles,
+        "Additional file",
+        (file) => (file && file.uploadMethod) || "local-filesystem",
+        () => false,
+      ),
+    );
+  }
+
+  return errors;
+};
+
+/**
  * Validates the rawFiles/additionalFiles/rawFilesUploadInfo portion of a
- * request body. Shared between the required fields on POST /runs/new and the
- * optional replacement payload POST /runs/:id/reingest accepts, so a
- * corrected reingest payload is held to exactly the same shape as a fresh
- * submission.
+ * COMPLETE submission: rawFiles is required and rawFilesUploadInfo.method
+ * must be present. Used for POST /runs/new's own body, and for the merged
+ * result POST /runs/:id/reingest builds before storing it — a partial
+ * REQUEST body (see validatePartialFilesPayload above) is a different,
+ * looser check.
  * @param {object} body - An object with rawFiles, additionalFiles, rawFilesUploadInfo.
  * @returns {string[]} Error messages; empty when the payload is well-formed.
  */
@@ -923,6 +969,90 @@ router
   });
 
 /**
+ * A stable key for one rawFiles/additionalFiles entry, for comparing whether
+ * a client's resubmission of an already-delivered name actually changes it.
+ * JSON.stringify with sorted keys, not a hand-rolled field comparator: these
+ * entries are plain JSON-shaped descriptors and two objects describing the
+ * same delivered file are expected to be structurally identical, not merely
+ * equivalent under some looser notion of sameness.
+ * @param {object} file - A rawFiles/additionalFiles entry.
+ * @returns {string} A canonical string for equality comparison.
+ */
+const entryFingerprint = (file) =>
+  JSON.stringify(file, Object.keys(file || {}).sort());
+
+/**
+ * Merges a replacement payload with the ORIGINAL payload's entries for
+ * whatever has already been delivered, so a correction to one broken file
+ * does not have to also resubmit the ones that already succeeded.
+ *
+ * A delivered name absent from the replacement, or resubmitted identically,
+ * is filled in from the original — a client naturally resends its whole known
+ * state, and only the broken part is actually different. A delivered name
+ * the client resubmits with DIFFERENT content is refused (409) by name,
+ * rather than silently kept as the original or silently applied: the retry
+ * planner matches by name and would skip a changed entry regardless, so
+ * accepting it without saying so would be exactly the silent no-op this
+ * function exists to remove.
+ *
+ * @param {Array<object>} originalList - The failed job's stored entries.
+ * @param {Array<object>|undefined} submittedList - What the caller sent.
+ * @param {Set<string>} delivered - Original names already in the datastore.
+ * @returns {{merged: Array<object>, rejectedChange: string|null}} The merged
+ *   list, and the name of a rejected change if the caller tried to alter a
+ *   delivered entry.
+ */
+const mergeReplacementList = (originalList, submittedList, delivered) => {
+  // The caller may correct only ONE of rawFiles/additionalFiles — the whole
+  // point of a partial replacement. `undefined` here means "I am not
+  // replacing this list at all", not "replace it with nothing": the merge
+  // logic below drops any undelivered name absent from the submission, which
+  // is correct for a list the caller IS replacing, and wrong for one they
+  // never touched. Carry the original forward untouched in that case.
+  if (submittedList === undefined) {
+    return { merged: originalList || [], rejectedChange: null };
+  }
+
+  const original = new Map(
+    (originalList || [])
+      .filter((file) => typeof fileEntryName(file) === "string")
+      .map((file) => [fileEntryName(file), file]),
+  );
+  const submitted = new Map(
+    (submittedList || [])
+      .filter((file) => typeof fileEntryName(file) === "string")
+      .map((file) => [fileEntryName(file), file]),
+  );
+
+  const names = new Set([...original.keys(), ...submitted.keys()]);
+  const merged = [];
+
+  for (const name of names) {
+    if (delivered.has(name)) {
+      const originalEntry = original.get(name);
+      const submittedEntry = submitted.get(name);
+      if (
+        submittedEntry !== undefined &&
+        entryFingerprint(submittedEntry) !== entryFingerprint(originalEntry)
+      ) {
+        return { merged: null, rejectedChange: name };
+      }
+      // Absent, or resubmitted identically: keep the original, unmodified.
+      if (originalEntry !== undefined) {
+        merged.push(originalEntry);
+      }
+    } else if (submitted.has(name)) {
+      // Not yet delivered: whatever the caller submitted is the correction.
+      merged.push(submitted.get(name));
+    }
+    // Not delivered and not in the new submission: the caller's replacement
+    // legitimately no longer wants this file — dropped, not carried forward.
+  }
+
+  return { merged, rejectedChange: null };
+};
+
+/**
  * POST /runs/:id/reingest
  * Returns a permanently failed ingest to the queue. Its own endpoint on
  * purpose: making POST /runs/new retry would let a duplicate submission replay
@@ -982,7 +1112,7 @@ router
 
       let replacementPayload;
       if (hasReplacementPayload) {
-        const payloadErrors = validateIngestFilesPayload(req.body);
+        const payloadErrors = validatePartialFilesPayload(req.body);
         if (payloadErrors.length > 0) {
           return handleError(
             res,
@@ -993,40 +1123,89 @@ router
           );
         }
 
-        // A replacement payload can only correct files that have NOT landed
-        // yet. The retry planner matches delivered files by name and skips
-        // them, so any edit to a delivered entry — a changed upload, source or
-        // checksum, or dropping it — is silently ignored and the run finishes
-        // "complete" with the old file. Rather than diff each field (hpc-mv
-        // entries legitimately omit uploadName, so a per-field compare
-        // false-positives), the whole replacement is refused once anything has
-        // landed: a plain reingest with no payload still retries the rest, and
-        // a delivered file that genuinely needs changing is resolved in the web
-        // app first. Guarded: the export is new, and a stale mock or partial
-        // upgrade must not silently skip the check.
+        // A replacement can correct the files that have NOT landed yet
+        // without also having to resubmit the ones that already succeeded.
+        // The retry planner matches delivered files by name and skips them,
+        // so a delivered entry is carried forward from the ORIGINAL stored
+        // payload — unchanged, whether the caller resent it identically or
+        // omitted it — and only an entry the caller actually tried to CHANGE
+        // under a delivered name is refused, by name, rather than silently
+        // kept or silently applied. Guarded: the export is new, and a stale
+        // mock or partial upgrade must not silently skip the check.
         const delivered =
           typeof ingestQueue.deliveredFileNames === "function"
             ? await ingestQueue.deliveredFileNames(run._id)
             : new Set();
 
-        if (delivered.size > 0) {
+        const existingJob = await IngestJob.findOne({
+          idempotencyKey: idempotencyKeyFor(run._id),
+          status: "failed",
+        }).select("payload");
+        const originalPayload = (existingJob && existingJob.payload) || {};
+
+        const rawFilesMerge = mergeReplacementList(
+          originalPayload.rawFiles,
+          req.body.rawFiles,
+          delivered,
+        );
+        if (rawFilesMerge.rejectedChange) {
           return handleError(
             res,
-            new Error(`Already delivered: ${[...delivered].join(", ")}`),
+            new Error(`Already delivered: ${rawFilesMerge.rejectedChange}`),
             409,
-            `Cannot supply a replacement payload: ${delivered.size} file(s) ` +
-              `(${[...delivered].join(", ")}) have already been delivered to ` +
-              "the datastore and a replacement cannot change or replay them. " +
-              "Reingest without a payload to retry the files that have not " +
-              "landed, or resolve the delivered files first.",
+            `Cannot change "${rawFilesMerge.rejectedChange}": it has already ` +
+              "been delivered to the datastore. Resubmit it unchanged (or " +
+              "omit it) to keep the rest of the correction, or resolve it " +
+              "directly first.",
+            requestId,
+          );
+        }
+
+        const additionalFilesMerge = mergeReplacementList(
+          originalPayload.additionalFiles,
+          req.body.additionalFiles,
+          delivered,
+        );
+        if (additionalFilesMerge.rejectedChange) {
+          return handleError(
+            res,
+            new Error(
+              `Already delivered: ${additionalFilesMerge.rejectedChange}`,
+            ),
+            409,
+            `Cannot change "${additionalFilesMerge.rejectedChange}": it has ` +
+              "already been delivered to the datastore. Resubmit it " +
+              "unchanged (or omit it) to keep the rest of the correction, " +
+              "or resolve it directly first.",
+            requestId,
+          );
+        }
+
+        // Re-validated after merging: the merge can add back a delivered
+        // entry the caller never mentioned, and that entry must still be
+        // well-formed (it always was, on its way in — this is a consistency
+        // check, not expected to fail in practice).
+        const mergedErrors = validateIngestFilesPayload({
+          rawFiles: rawFilesMerge.merged,
+          additionalFiles: additionalFilesMerge.merged,
+          rawFilesUploadInfo:
+            req.body.rawFilesUploadInfo || originalPayload.rawFilesUploadInfo,
+        });
+        if (mergedErrors.length > 0) {
+          return handleError(
+            res,
+            new Error(mergedErrors.join("; ")),
+            400,
+            `Merged replacement payload invalid: ${mergedErrors.join("; ")}`,
             requestId,
           );
         }
 
         replacementPayload = {
-          rawFiles: req.body.rawFiles,
-          additionalFiles: req.body.additionalFiles,
-          rawFilesUploadInfo: req.body.rawFilesUploadInfo,
+          rawFiles: rawFilesMerge.merged,
+          additionalFiles: additionalFilesMerge.merged,
+          rawFilesUploadInfo:
+            req.body.rawFilesUploadInfo || originalPayload.rawFilesUploadInfo,
           // Whoever supplies the fix is whose staged uploads the retry claims.
           username: req.user.username,
         };
