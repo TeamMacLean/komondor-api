@@ -43,6 +43,94 @@ const partialPathFor = (destination, fileId) =>
   `${destination}${PARTIAL_TRANSFER_SUFFIX}${fileId}`;
 
 /**
+ * Streams the pinned source into `fullNewPath`, via a deterministic partial
+ * file, verifying the byte count before promoting it into place.
+ *
+ * Reads from the already-open `sourceHandle` — not by reopening `pinnedPath`
+ * as a fresh path lookup. A path reopen defeats the whole point of pinning: a
+ * source swapped after isPermittedSource() vouched for it (the staging name
+ * re-scp'd mid-move, which truncates and rewrites in place) would have a
+ * path-based copy silently read the REPLACEMENT's bytes, not the ones that
+ * were checked. Reproduced by execution. An already-open file descriptor
+ * keeps referring to the same inode's data regardless of what the pathname
+ * is later made to point at, which is what actually closes this.
+ *
+ * The partial-then-promote shape is what makes an interrupted copy safe to
+ * crash on: the final name only ever appears once the whole byte count is
+ * verified. This was also reproduced by execution as broken when the retained
+ * copy was written directly to `fullNewPath` — an interrupt after 4 of 8 bytes
+ * left a permanently-truncated file AT THE REAL NAME, and every retry then
+ * failed "destination already exists" against a destination too short to
+ * ever adopt. Used for both the HPC-retention copy and the cross-device
+ * fallback below; two separate hand-rolled copies of this exact discipline is
+ * what let this gap open in the first place.
+ *
+ * @param {object} sourceHandle - The open, pinned source file handle.
+ * @param {object} pinnedSource - fstat of that handle; the expected byte count.
+ * @param {string} fullNewPath - The destination path.
+ * @param {mongoose.Document} file - The File being moved, for the deterministic
+ *   partial name and error messages.
+ * @returns {Promise<void>}
+ * @throws {Error} On a short copy, or if the destination already exists.
+ */
+const copyPinnedSourceTo = async (
+  sourceHandle,
+  pinnedSource,
+  fullNewPath,
+  file,
+) => {
+  const partialPath = partialPathFor(fullNewPath, file._id);
+
+  try {
+    // The partial name is deterministic, so anything there is this file's
+    // own leftover. 'wx' not 'w': 'w' writes through a symlink.
+    await fs.unlink(partialPath).catch((err) => {
+      if (err.code !== "ENOENT") {
+        throw err;
+      }
+    });
+
+    await pipeline(
+      sourceHandle.createReadStream(),
+      createWriteStream(partialPath, { flags: "wx" }),
+    );
+
+    // A stream that ends early still resolves cleanly, so the byte count is
+    // the only proof the copy is whole.
+    const { size: copiedSize } = await fs.stat(partialPath);
+    if (copiedSize !== pinnedSource.size) {
+      throw new Error(
+        `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`,
+      );
+    }
+
+    // link + unlink, not rename: no-clobber, same reason as the direct-link
+    // path this stands in for.
+    try {
+      await fs.link(partialPath, fullNewPath);
+    } catch (promoteErr) {
+      if (promoteErr.code === "EEXIST") {
+        throw new Error(
+          `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
+        );
+      }
+      throw promoteErr;
+    }
+    await fs.unlink(partialPath);
+  } catch (copyErr) {
+    await fs.unlink(partialPath).catch((cleanupErr) => {
+      if (cleanupErr.code !== "ENOENT") {
+        console.error(
+          `Failed to remove partial file at ${partialPath}:`,
+          cleanupErr,
+        );
+      }
+    });
+    throw copyErr;
+  }
+};
+
+/**
  * The only directories a File may legitimately be moved *out of*. `path` is
  * caller-supplied, and the move reads then unlinks whatever it names.
  * @returns {string[]} The configured roots, skipping any that are unset.
@@ -250,29 +338,16 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       // A retained HPC source must be an INDEPENDENT copy, not a hard link.
       // Hard-linking shares one inode, so a scientist re-scp-ing over the
       // staging name (scp truncates in place) would rewrite the archived bytes
-      // too — retention would protect nothing. COPYFILE_FICLONE asks the
-      // filesystem for a copy-on-write clone, which is near-free on APFS/XFS/
-      // Btrfs and silently falls back to a full copy elsewhere; COPYFILE_EXCL
-      // keeps the same no-clobber guarantee link() gives.
+      // too — retention would protect nothing. copyPinnedSourceTo streams
+      // through the pinned handle into a partial file and only promotes it
+      // once the byte count is verified — see its own doc comment for why a
+      // direct fs.copyFile(path, ...) here was neither crash-safe nor
+      // actually pinned.
       if (keepSource) {
-        try {
-          await fs.copyFile(
-            pinnedPath,
-            fullNewPath,
-            fsConstants.COPYFILE_FICLONE | fsConstants.COPYFILE_EXCL,
-          );
-          // A fresh copy is a different inode by definition, so the
-          // same-inode assertion below does not apply to it.
-          destinationIsSourceInode = false;
-        } catch (copyErr) {
-          if (copyErr.code === "EEXIST") {
-            throw new Error(
-              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
-            );
-          }
-          copyErr.message = `Failed to move ${file.path} to ${fullNewPath}: ${copyErr.message}`;
-          throw copyErr;
-        }
+        await copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file);
+        // A fresh copy is a different inode by definition, so the same-inode
+        // assertion below does not apply to it.
+        destinationIsSourceInode = false;
       } else {
         // link() + unlink(), not rename(): rename silently overwrites an existing
         // destination, link fails with EEXIST.
@@ -292,60 +367,10 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
             throw linkErr;
           }
 
-          // Cross-device: copy to a sibling, then link it into place, so an
-          // interrupted copy never appears complete under the real name.
-          const partialPath = partialPathFor(fullNewPath, file._id);
-
-          try {
-            // Size from the pinned handle, not the path: a source swapped behind
-            // us cannot make a short copy look complete.
-            const sourceSize = pinnedSource.size;
-
-            // The partial name is deterministic, so anything there is this file's
-            // own leftover. 'wx' not 'w': 'w' writes through a symlink.
-            await fs.unlink(partialPath).catch((err) => {
-              if (err.code !== "ENOENT") {
-                throw err;
-              }
-            });
-
-            await pipeline(
-              sourceHandle.createReadStream(),
-              createWriteStream(partialPath, { flags: "wx" }),
-            );
-
-            // A stream that ends early still resolves cleanly, so the byte count
-            // is the only proof the copy is whole.
-            const { size: copiedSize } = await fs.stat(partialPath);
-            if (copiedSize !== sourceSize) {
-              throw new Error(
-                `Copy of ${file.path} is ${copiedSize} bytes but the source is ${sourceSize} bytes`,
-              );
-            }
-
-            // link + unlink again, for the same no-clobber reason as above.
-            try {
-              await fs.link(partialPath, fullNewPath);
-            } catch (promoteErr) {
-              if (promoteErr.code === "EEXIST") {
-                throw new Error(
-                  `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
-                );
-              }
-              throw promoteErr;
-            }
-            await fs.unlink(partialPath);
-          } catch (copyErr) {
-            await fs.unlink(partialPath).catch((cleanupErr) => {
-              if (cleanupErr.code !== "ENOENT") {
-                console.error(
-                  `Failed to remove partial file at ${partialPath}:`,
-                  cleanupErr,
-                );
-              }
-            });
-            throw copyErr;
-          }
+          // Cross-device: same streamed, partial-then-promote copy the HPC
+          // retention branch above uses, so an interrupted copy never
+          // appears complete under the real name.
+          await copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file);
 
           destinationIsSourceInode = false;
         }

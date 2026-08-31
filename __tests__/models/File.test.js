@@ -544,7 +544,12 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
   // in place rather than destroyed. See BREAKING_CHANGES.md entry 32.
   const REL_PATH = _path.join("group", "raw", "reads.fq");
 
-  test("leaves the source in place after a same-filesystem link", async () => {
+  test("leaves the source in place after retention copies it", async () => {
+    // Retention always streams a copy now, on every device — a same-device
+    // hard link would share the destination's inode with the source, which is
+    // exactly what retention exists to avoid (see the file's own comment: a
+    // re-scp over the staging name must not rewrite the archived bytes too).
+    // There is no separate same-device-link code path here left to cover.
     const source = _path.join(hpcInboxDir, "reads.fq");
     fs.writeFileSync(source, "ACGTACGT");
     const doc = makeFile(source);
@@ -554,27 +559,79 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
     const dest = _path.join(datastoreRoot, REL_PATH);
     expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
     expect(fs.readFileSync(source, "utf8")).toBe("ACGTACGT");
+    expect(fs.statSync(dest).ino).not.toBe(fs.statSync(source).ino);
   });
 
-  test("leaves the source in place after a cross-device copy", async () => {
-    const realLink = fsp.link.bind(fsp);
-    jest.spyOn(fsp, "link").mockImplementation((from, to) => {
-      if (String(from).startsWith(datastoreRoot)) {
-        return realLink(from, to);
-      }
-      const err = new Error("EXDEV: cross-device link not permitted");
-      err.code = "EXDEV";
-      return Promise.reject(err);
-    });
+  test("an interrupted copy leaves no truncated file at the real name, and a retry still succeeds", async () => {
+    // Reproduced by execution before this fix: retention wrote fs.copyFile
+    // straight to the final name, so an interrupt part-way through left a
+    // permanently truncated file there, and every retry failed "destination
+    // already exists" against bytes too short to ever pass a content check.
+    // Streaming into a partial file first, and only promoting it once the
+    // byte count is verified, is what makes an interrupt safe to retry.
     const source = _path.join(hpcInboxDir, "reads.fq");
-    fs.writeFileSync(source, "ACGTACGT");
-    const doc = makeFile(source);
+    fs.writeFileSync(source, "ACGTACGT"); // 8 bytes
+    const dest = _path.join(datastoreRoot, REL_PATH);
 
+    mockWriteStreamFactory = (destPath) => {
+      fs.mkdirSync(_path.dirname(destPath), { recursive: true });
+      fs.writeFileSync(destPath, "ACGT"); // half the source, then stops
+      return new Writable({
+        write(chunk, encoding, callback) {
+          callback();
+        },
+      });
+    };
+
+    const firstAttempt = makeFile(source);
+    await expect(
+      firstAttempt.moveToFolderAndSave(REL_PATH),
+    ).rejects.toThrow(/4 bytes but the source is 8 bytes/);
+
+    // The real name was never touched — not created short, not left short.
+    expect(fs.existsSync(dest)).toBe(false);
+    expect(partialsIn(_path.dirname(dest))).toEqual([]);
+    expect(fs.readFileSync(source, "utf8")).toBe("ACGTACGT");
+
+    // A genuine retry, with the interruption lifted, succeeds rather than
+    // hitting a stale "destination already exists".
+    mockWriteStreamFactory = null;
+    const retry = makeFile(source);
+    await retry.moveToFolderAndSave(REL_PATH);
+
+    expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
+  });
+
+  test("copies from the pinned handle, not from a reopened path, if the staging name is swapped mid-move", async () => {
+    // The exact TOCTOU a re-audit reproduced: a source retained for the whole
+    // move is a live file a scientist can still touch. fs.copyFile(path, ...)
+    // reopens the name fresh and would copy whatever is THERE when it runs,
+    // not what isPermittedSource() actually vouched for. Streaming through
+    // the already-open sourceHandle instead keeps reading the pinned bytes
+    // even after the name is made to point elsewhere.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    const victim = _path.join(hpcInboxDir, "victim.fq");
+    fs.writeFileSync(source, "PINNED-BYTES");
+    fs.writeFileSync(victim, "SOMEONE-ELSES-DATA");
+
+    // fs.open is the one call common to both the old and new implementation
+    // of this branch, and it is what pins the handle in the first place —
+    // firing the swap in the resolved open's continuation lands it exactly
+    // between "the handle is pinned" and "the bytes are read", regardless of
+    // which reads-by-path-or-by-handle strategy the rest of the move uses.
+    const realOpen = fsp.open.bind(fsp);
+    jest.spyOn(fsp, "open").mockImplementation(async (p, flags) => {
+      const handle = await realOpen(p, flags);
+      fs.unlinkSync(source);
+      fs.linkSync(victim, source);
+      return handle;
+    });
+
+    const doc = makeFile(source);
     await doc.moveToFolderAndSave(REL_PATH);
 
     const dest = _path.join(datastoreRoot, REL_PATH);
-    expect(fs.readFileSync(dest, "utf8")).toBe("ACGTACGT");
-    expect(fs.readFileSync(source, "utf8")).toBe("ACGTACGT");
+    expect(fs.readFileSync(dest, "utf8")).toBe("PINNED-BYTES");
   });
 
   test("still updates the document's path even though the source is kept", async () => {
