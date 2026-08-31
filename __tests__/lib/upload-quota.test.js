@@ -495,6 +495,41 @@ describe("cleanupAbandonedUploads", () => {
     expect(getUploadRecord(ID_A)).toBeUndefined();
   });
 
+  test("does not remove a blob with a stale mtime whose registration was touched recently", async () => {
+    // Reproduced by execution: a 49-hour-idle upload (blob mtime older than
+    // the default 48h abandonedMs) is resumed — touchUpload fires at request
+    // authorisation, before any PATCH byte lands — and the request then
+    // pauses mid-body. Blob mtime alone reported the sweep-eligible age; the
+    // live registration is what actually says a request is holding this
+    // upload open right now.
+    writeUpload(ID_A, { size: 100, offset: 10 });
+    const sweepNow = Date.now() + 49 * HOUR;
+    registerUpload({ id: ID_A, username: "alice", size: 100, now: sweepNow });
+
+    const result = await cleanupAbandonedUploads({
+      directory: sweepDir,
+      now: sweepNow,
+    });
+
+    expect(result.removed).toEqual([]);
+    expect(fs.existsSync(_path.join(sweepDir, ID_A))).toBe(true);
+  });
+
+  test("removes a blob whose registration is itself stale", async () => {
+    // A registration existing at all must not be a blanket shield — only a
+    // RECENTLY touched one is evidence of an active request.
+    writeUpload(ID_A, { size: 100, offset: 10 });
+    const longAgo = Date.now();
+    registerUpload({ id: ID_A, username: "alice", size: 100, now: longAgo });
+
+    const result = await cleanupAbandonedUploads({
+      directory: sweepDir,
+      now: longAgo + 100 * HOUR,
+    });
+
+    expect(result.removed).toEqual([ID_A]);
+  });
+
   test("leaves an upload that is still within the abandonment window", async () => {
     writeUpload(ID_A, { size: 100, offset: 10 });
 
