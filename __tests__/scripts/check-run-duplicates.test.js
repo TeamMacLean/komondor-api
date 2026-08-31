@@ -14,15 +14,21 @@
 
 const {
   findSampleNameIndex,
+  isEquivalentToSchemaIndex,
   fixStaleIndex,
   INDEX_NAME,
 } = require("../../scripts/check-run-duplicates");
 
-/** A minimal stand-in for the mongodb driver's Collection, indexes() only. */
+/**
+ * A minimal stand-in for the mongodb driver's Collection. aggregate()
+ * defaults to reporting no duplicates, since fixStaleIndex re-checks for them
+ * immediately before dropping the old index.
+ */
 const makeCollection = (indexes) => ({
   indexes: jest.fn().mockResolvedValue(indexes),
   dropIndex: jest.fn().mockResolvedValue({}),
   createIndex: jest.fn().mockResolvedValue(INDEX_NAME),
+  aggregate: jest.fn().mockReturnValue({ toArray: async () => [] }),
 });
 
 beforeEach(() => {
@@ -94,6 +100,67 @@ describe("findSampleNameIndex", () => {
   });
 });
 
+describe("isEquivalentToSchemaIndex", () => {
+  test("accepts an index matching keys and unique exactly, with nothing else set", () => {
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+        unique: true,
+      }),
+    ).toBe(true);
+  });
+
+  test("refuses a non-unique index with the right keys", () => {
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+      }),
+    ).toBe(false);
+  });
+
+  test("refuses the right keys and unique, but carrying a partialFilterExpression", () => {
+    // Reproduced against a re-audit's finding: this passed the old
+    // keys-and-unique-only check as "safe" and then failed startup with
+    // MongoDB error 86 (IndexKeySpecsConflict) anyway, because mongoose's own
+    // schema.index() call declares no partialFilterExpression at all.
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+        unique: true,
+        partialFilterExpression: { status: { $ne: "deleted" } },
+      }),
+    ).toBe(false);
+  });
+
+  test("refuses the right keys and unique, but carrying a collation", () => {
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+        unique: true,
+        collation: { locale: "en", strength: 2 },
+      }),
+    ).toBe(false);
+  });
+
+  test("refuses wrong keys even if unique and otherwise bare", () => {
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { name: 1 },
+        unique: true,
+      }),
+    ).toBe(false);
+  });
+
+  test("refuses null", () => {
+    expect(isEquivalentToSchemaIndex(null)).toBe(false);
+  });
+});
+
 describe("fixStaleIndex", () => {
   test("drops the stale index and rebuilds it as a unique index of the same name", async () => {
     const collection = makeCollection([{ name: "sample_1_name_1" }]);
@@ -137,6 +204,7 @@ describe("fixStaleIndex", () => {
         .mockResolvedValueOnce([after]),
       dropIndex: jest.fn().mockResolvedValue({}),
       createIndex: jest.fn().mockResolvedValue(INDEX_NAME),
+      aggregate: jest.fn().mockReturnValue({ toArray: async () => [] }),
     };
 
     await fixStaleIndex(collection);
@@ -156,5 +224,40 @@ describe("fixStaleIndex", () => {
 
     await expect(fixStaleIndex(collection)).rejects.toThrow("ns not found");
     expect(collection.createIndex).not.toHaveBeenCalled();
+  });
+
+  test("aborts without dropping anything if a duplicate has appeared since the initial check", async () => {
+    // The re-check immediately before dropping — it narrows, not closes, the
+    // window a concurrent write could open, but a duplicate present AT THIS
+    // MOMENT must still stop the drop: rebuilding as unique would fail the
+    // same way as the original problem, only now with the old index gone too.
+    const collection = makeCollection([{ name: "sample_1_name_1" }]);
+    collection.aggregate.mockReturnValue({
+      toArray: async () => [{ _id: { sample: "s1", name: "run-1" } }],
+    });
+
+    await expect(fixStaleIndex(collection)).rejects.toThrow(/duplicate/i);
+    expect(collection.dropIndex).not.toHaveBeenCalled();
+    expect(collection.createIndex).not.toHaveBeenCalled();
+  });
+
+  test("throws loudly, naming the risk, when createIndex fails after dropIndex already succeeded", async () => {
+    // The genuinely dangerous failure this script can now cause: the old
+    // index is gone and the new one never landed. Silently swallowing this
+    // (e.g. logging and exiting 0) would report success on a collection with
+    // NO { sample, name } index enforcing anything at all.
+    const collection = makeCollection([{ name: "sample_1_name_1" }]);
+    const createError = new Error("E11000 duplicate key error");
+    collection.createIndex.mockRejectedValue(createError);
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+    await expect(fixStaleIndex(collection)).rejects.toThrow(
+      "E11000 duplicate key error",
+    );
+
+    expect(collection.dropIndex).toHaveBeenCalled();
+    const loggedError = errorSpy.mock.calls.map((call) => call.join(" ")).join("\n");
+    expect(loggedError).toMatch(/no index/i);
+    expect(loggedError).toMatch(/enforcing/i);
   });
 });

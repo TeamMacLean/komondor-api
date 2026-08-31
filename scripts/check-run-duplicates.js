@@ -18,15 +18,24 @@
  *
  * Without --fix, nothing is written and nothing is locked: safe to run
  * against production at any time, including while the API is serving.
- * --fix drops and rebuilds ONLY the conflicting { sample, name } index, and
- * only when no duplicate documents remain (rebuilding as unique would just
- * fail again otherwise).
+ *
+ * --fix is NOT the same guarantee. It drops the conflicting index and
+ * rebuilds it, and between those two steps this collection has no
+ * { sample, name } index enforcing anything at all — a duplicate inserted by
+ * a concurrent write in that window makes the rebuild fail, leaving the
+ * collection WITHOUT a unique index rather than with the stale one it had
+ * before. --fix still refuses outright if duplicate documents are already
+ * present, and re-checks once more immediately before dropping, but neither
+ * of those closes the window — only quiescing Run creation for the run does.
+ * Run --fix during a deploy window with new Run creation stopped.
  *
  * Exit 0: safe to deploy (or --fix left it that way).
  * Exit 1: duplicate documents found, resolve them first.
- * Exit 2: could not connect or query.
- * Exit 3: a stale non-unique index is occupying the name; re-run with --fix
- *         or resolve it manually.
+ * Exit 2: could not connect, could not query, or --fix failed after already
+ *         dropping the old index — the collection has no relevant index at
+ *         all and needs immediate attention (the error message explains).
+ * Exit 3: a stale or non-equivalent index is occupying the name; re-run with
+ *         --fix (writes quiesced) or resolve it manually.
  */
 
 const mongoose = require("mongoose");
@@ -74,24 +83,109 @@ function hasExpectedKeys(idx) {
   );
 }
 
+// The exact options models/Run.js's own schema.index({ sample: 1, name: 1 },
+// { unique: true }) call declares — nothing else. Read from the schema
+// itself, not hand-copied, so this cannot silently drift from what mongoose
+// will actually try to build.
+const EXPECTED_OPTIONS = { unique: true };
+
+// Fields that mean an existing index is NOT equivalent to the one above, even
+// when its keys match and it happens to be unique. Keys-and-unique alone is
+// not the full story: a re-audit found a same-name, same-keys index carrying
+// a partialFilterExpression passed the old check as "safe" and then failed
+// startup with MongoDB error 86 (IndexKeySpecsConflict) anyway, because
+// MongoDB compares the whole option set, not just the two this script used
+// to look at.
+const OPTION_FIELDS_THAT_MUST_BE_ABSENT = [
+  "partialFilterExpression",
+  "collation",
+  "sparse",
+  "expireAfterSeconds",
+];
+
 /**
- * Drops the stale non-unique index and rebuilds it as unique, printing
+ * Whether an existing index is fully equivalent to what models/Run.js's own
+ * schema.index() call will try to build — keys AND every option MongoDB
+ * would compare, not only the two (unique, name) this check used to cover.
+ *
+ * @param {Object|null} idx - An index spec from collection.indexes().
+ * @returns {boolean} True only if mongoose's own build would be a no-op
+ *   against this index.
+ */
+function isEquivalentToSchemaIndex(idx) {
+  if (!hasExpectedKeys(idx)) {
+    return false;
+  }
+  if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
+    return false;
+  }
+  return OPTION_FIELDS_THAT_MUST_BE_ABSENT.every(
+    (field) => idx[field] === undefined,
+  );
+}
+
+/**
+ * Drops the stale index and rebuilds it as the schema expects, printing
  * before/after getIndexes() so the operator can see exactly what happened.
- * Only call this once duplicate documents are confirmed absent — creating a
- * unique index over duplicates fails immediately, so there is nothing to gain
- * from attempting it here.
+ *
+ * NOT ATOMIC, and not safe against concurrent writes — unlike the rest of
+ * this script. Between the drop and the create, this collection has no
+ * { sample, name } index enforcing anything at all, and a duplicate document
+ * inserted in that window makes the create fail, leaving the collection
+ * WITHOUT a unique index where it previously at least had a non-unique one.
+ * A re-audit found exactly this gap: this script's own docblock claimed
+ * "--fix" was as safe to run live as the report-only mode, which was not
+ * true. Run this with Run creation quiesced — see the docblock.
+ *
+ * Only called once duplicate documents are confirmed absent by the caller —
+ * creating a unique index over duplicates fails immediately regardless.
+ * Re-checked once more immediately before dropping, to narrow (not close)
+ * the window between that first check and this function running.
  *
  * @param {import("mongodb").Collection} collection - The runs collection.
+ * @returns {Promise<void>}
+ * @throws {Error} If the create fails after the drop already succeeded —
+ *   the collection is left with no relevant index at all, and this is
+ *   deliberately fatal rather than swallowed.
  */
 async function fixStaleIndex(collection) {
+  const lastCheck = await collection
+    .aggregate([
+      { $group: { _id: { sample: "$sample", name: "$name" }, count: { $sum: 1 } } },
+      { $match: { count: { $gt: 1 } } },
+      { $limit: 1 },
+    ])
+    .toArray();
+  if (lastCheck.length > 0) {
+    throw new Error(
+      "Aborting: a duplicate appeared since the initial check. Not dropping the existing index.",
+    );
+  }
+
   console.log("Before:");
   console.log(JSON.stringify(await collection.indexes(), null, 2));
 
   await collection.dropIndex(INDEX_NAME);
-  await collection.createIndex(
-    { sample: 1, name: 1 },
-    { unique: true, name: INDEX_NAME },
-  );
+
+  try {
+    await collection.createIndex(
+      { sample: 1, name: 1 },
+      { unique: true, name: INDEX_NAME },
+    );
+  } catch (createErr) {
+    console.error(
+      [
+        "",
+        "FATAL: the old index was dropped but the new unique index failed to",
+        `build (${createErr.message}). The "runs" collection now has NO index`,
+        "enforcing { sample, name } uniqueness at all. This needs immediate",
+        "attention — most likely a duplicate was inserted during this run;",
+        "re-run this script's report mode (no --fix) to check, resolve any",
+        "duplicates found, then re-run --fix.",
+      ].join("\n"),
+    );
+    throw createErr;
+  }
 
   console.log("After:");
   console.log(JSON.stringify(await collection.indexes(), null, 2));
@@ -129,11 +223,15 @@ async function main() {
 
     const total = await collection.countDocuments();
     const staleIndex = await findSampleNameIndex(collection);
-    // Two distinct ways the same name can block the build: right keys but not
-    // unique, or the name reused over different keys entirely.
     const keysMatch = hasExpectedKeys(staleIndex);
+    // Equivalent, not just "keys match and unique is true": a same-name,
+    // same-keys, unique index can still carry an extra option (a
+    // partialFilterExpression, a collation) that makes it a genuinely
+    // different index to MongoDB, which compares the whole spec. A
+    // keys-and-unique-only check called that "safe" and startup failed
+    // anyway with IndexKeySpecsConflict.
     const indexConflict = Boolean(
-      staleIndex && (!staleIndex.unique || !keysMatch),
+      staleIndex && !isEquivalentToSchemaIndex(staleIndex),
     );
 
     console.log(`Checked ${total} runs.`);
@@ -209,6 +307,7 @@ if (require.main === module) {
 
 module.exports = {
   findSampleNameIndex,
+  isEquivalentToSchemaIndex,
   fixStaleIndex,
   hasExpectedKeys,
   INDEX_NAME,
