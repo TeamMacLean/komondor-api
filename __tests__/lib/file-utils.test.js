@@ -1436,6 +1436,56 @@ describe("file-utils", () => {
       expect(readData.file).toBe(ourFile._id);
     });
 
+    describe("no MD5 declared: content, not just size, decides adoption", () => {
+      // Reproduces the exact scenario a re-audit found by execution: the
+      // retained hpc-mv source is a live file a scientist can still touch.
+      // Correcting a bad upload by re-scp-ing a same-size but DIFFERENT file
+      // under the same staging name, between the failed save and the retry,
+      // must not have the retry silently adopt the stale destination bytes.
+      //
+      // The shared `move` mock unconditionally re-copies stagedSource onto
+      // destination before throwing, which is not what a real RETRY does:
+      // moveToFolderAndSave's copyFile uses COPYFILE_EXCL, so it fails EEXIST
+      // the instant destination already exists, without touching its bytes.
+      // These two tests need that real semantic — the whole point is that
+      // destination and stagedSource can genuinely disagree — so `move` is
+      // overridden locally to leave an existing destination alone.
+      beforeEach(() => {
+        calculateFileMd5.mockImplementation(realCalculateFileMd5);
+        move.mockImplementation(async () => {
+          if (fsSync.existsSync(destination)) {
+            throw new Error(
+              `Failed to move x to ${destination}: destination already exists`,
+            );
+          }
+          fsSync.copyFileSync(stagedSource, destination);
+          throw new Error("MongoNetworkError: connection timed out");
+        });
+      });
+
+      it("refuses to adopt a same-size destination whose content does not match the retained source", async () => {
+        fsSync.writeFileSync(destination, "AAAA"); // the earlier, now-stale attempt
+        fsSync.writeFileSync(stagedSource, "BBBB"); // corrected in place, same size
+
+        await expect(ingest(hpcRead())).rejects.toThrow(
+          /destination already exists/,
+        );
+
+        expect(readSave).not.toHaveBeenCalled();
+        // The stale destination is untouched, not silently accepted.
+        expect(fsSync.readFileSync(destination, "utf8")).toBe("AAAA");
+      });
+
+      it("adopts a same-size destination whose content genuinely matches the retained source", async () => {
+        fsSync.writeFileSync(destination, "ACGT");
+        fsSync.writeFileSync(stagedSource, "ACGT");
+
+        await ingest(hpcRead());
+
+        expect(readData.file).toBe(ourFile._id);
+      });
+    });
+
     it("does not adopt a destination that is a symlink rather than the real bytes", async () => {
       // A symlink planted at the destination name, pointing at somebody
       // else's file elsewhere in DATASTORE_ROOT, must never be adopted as
