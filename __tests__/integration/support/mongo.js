@@ -7,19 +7,45 @@
  */
 
 const mongoose = require("mongoose");
+const { resolveMongoUri } = require("../../../lib/utils/validateEnv");
 
 /**
- * Connects to MONGODB_URI, the same variable name (and same
- * MONGODB_PORT-assembled fallback) lib/utils/validateEnv.js and server.js
- * read — so a mismatch between what this suite connects to and what the app
- * would connect to cannot hide here.
+ * Connects to MONGODB_URI, which must be set explicitly.
+ *
+ * This used to claim it shared "the same MONGODB_PORT-assembled fallback"
+ * as lib/utils/validateEnv.js and server.js, and did not: the fallback here
+ * named the database `komondor-integration-test`, while resolveMongoUri
+ * names it `komondor`. With only MONGODB_PORT set, this suite therefore
+ * seeded fixtures into one database while the server it SPAWNS
+ * (startup-index-conflict.test.js runs the real server.js as a child
+ * process, inheriting the environment) connected to another — so a test
+ * asserting the server refuses to boot on a poisoned index was poisoning an
+ * index the server never looked at. An audit found it; the comment above it
+ * asserted the opposite.
+ *
+ * Rather than copy the app's fallback — which would point a suite that
+ * empties every collection at the developer's own `komondor` database —
+ * there is now no fallback at all. Set MONGODB_URI and both this process and
+ * any process it spawns resolve to the same string by construction.
  * @returns {Promise<void>}
+ * @throws {Error} When MONGODB_URI is not set.
  */
 const connect = async () => {
-  const uri =
-    process.env.MONGODB_URI && process.env.MONGODB_URI.trim() !== ""
-      ? process.env.MONGODB_URI.trim()
-      : `mongodb://localhost:${process.env.MONGODB_PORT || 27017}/komondor-integration-test`;
+  if (!process.env.MONGODB_URI || process.env.MONGODB_URI.trim() === "") {
+    const appWouldUse = resolveMongoUri({
+      MONGODB_PORT: process.env.MONGODB_PORT,
+    });
+    throw new Error(
+      [
+        "MONGODB_URI must be set explicitly to run the integration suite.",
+        `Without it the app — and the server this suite spawns — resolves to ${appWouldUse},`,
+        "which is a real database, not a scratch one.",
+        "Run with e.g. MONGODB_URI=mongodb://localhost:27017/komondor-integration-test",
+      ].join(" "),
+    );
+  }
+
+  const uri = process.env.MONGODB_URI.trim();
 
   await mongoose.connect(uri, {
     useNewUrlParser: true,

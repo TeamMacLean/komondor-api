@@ -15,6 +15,7 @@
 const {
   findSampleNameIndex,
   isEquivalentToSchemaIndex,
+  findIndexConflicts,
   fixStaleIndex,
   INDEX_NAME,
 } = require("../../scripts/check-run-duplicates");
@@ -88,15 +89,106 @@ describe("findSampleNameIndex", () => {
     await expect(findSampleNameIndex(collection)).resolves.toBeNull();
   });
 
-  test("does not match on key shape alone, only the name", async () => {
-    // A same-shaped index under a different name (e.g. explicitly named by an
-    // earlier migration) is not the collision this script is watching for —
-    // mongoose's background build only collides on the auto-generated name.
+  test("looks up by name only, and says nothing about whether that is the only conflict", async () => {
+    // This function answers "what occupies the auto-generated name", nothing
+    // more. It used to carry a comment asserting that a same-shaped index
+    // under a DIFFERENT name "is not the collision this script is watching
+    // for", which real MongoDB 7 flatly disproves — see findIndexConflicts
+    // below, where an audit's executed reproduction now lives.
     const collection = makeCollection([
       { name: "sample_and_name_custom", key: { sample: 1, name: 1 } },
     ]);
 
     await expect(findSampleNameIndex(collection)).resolves.toBeNull();
+  });
+});
+
+describe("findIndexConflicts", () => {
+  // Every case below was executed against a real MongoDB 7.0.29 before being
+  // written down; the verdicts are that server's, not a reading of the docs.
+  test("reports an equivalent index under a different name", () => {
+    // MongoDB: IndexOptionsConflict (85), "Index already exists with a
+    // different name: sample_and_name_custom". The old check declared this
+    // safe, and a deploy would have started with the index never built.
+    const conflicts = findIndexConflicts([
+      { name: "_id_", key: { _id: 1 } },
+      {
+        name: "sample_and_name_custom",
+        key: { sample: 1, name: 1 },
+        unique: true,
+      },
+    ]);
+
+    expect(conflicts).toHaveLength(1);
+    expect(conflicts[0].index.name).toBe("sample_and_name_custom");
+    expect(conflicts[0].reason).toMatch(/different name/i);
+  });
+
+  test("allows a NON-equivalent index of the same keys under a different name", () => {
+    // Executed: a non-unique { sample, name } index under another name does
+    // NOT conflict — MongoDB treats differing options as a different index
+    // and builds the unique one alongside it. Reporting this as a conflict
+    // would send an operator to drop an index nothing was wrong with.
+    expect(
+      findIndexConflicts([
+        { name: "sample_and_name_custom", key: { sample: 1, name: 1 } },
+      ]),
+    ).toEqual([]);
+  });
+
+  test("reports a same-name index carrying storageEngine", () => {
+    // Executed: IndexOptionsConflict (85). This is the case that showed a
+    // denylist of "options that must be absent" could only ever cover what
+    // it had thought of — storageEngine was not on it, and passed as safe.
+    const conflicts = findIndexConflicts([
+      {
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+        unique: true,
+        storageEngine: { wiredTiger: { configString: "block_compressor=zlib" } },
+      },
+    ]);
+
+    expect(conflicts).toHaveLength(1);
+    expect(conflicts[0].reason).toMatch(/different options/i);
+  });
+
+  test("accepts an existing background:true index as equivalent", () => {
+    // Executed: ACCEPTED. `background` is a build hint modern servers
+    // ignore, and it survives in listIndexes output on older data — so an
+    // allowlist that omitted it would report a conflict that is not one.
+    expect(
+      findIndexConflicts([
+        {
+          v: 2,
+          name: "sample_1_name_1",
+          key: { sample: 1, name: 1 },
+          unique: true,
+          background: true,
+        },
+      ]),
+    ).toEqual([]);
+  });
+
+  test("reports nothing when the schema's own index is already in place", () => {
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 } },
+        { v: 2, name: "sample_1_name_1", key: { sample: 1, name: 1 }, unique: true },
+      ]),
+    ).toEqual([]);
+  });
+
+  test("reports both a name collision and a differently-named twin at once", () => {
+    const conflicts = findIndexConflicts([
+      { name: "sample_1_name_1", key: { sample: 1, name: 1 } },
+      { name: "legacy_pair", key: { sample: 1, name: 1 }, unique: true },
+    ]);
+
+    expect(conflicts.map((c) => c.index.name).sort()).toEqual([
+      "legacy_pair",
+      "sample_1_name_1",
+    ]);
   });
 });
 

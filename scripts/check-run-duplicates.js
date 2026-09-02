@@ -9,12 +9,18 @@
  * separate ways it can fail to end up built, and this script checks both:
  *
  *  1. Duplicate documents already exist, so createIndex rejects them.
- *  2. A pre-existing NON-unique index already occupies the same
- *     auto-generated name (this collection used to declare { sample, name }
- *     without `unique`). mongoose builds indexes in the background and only
- *     *logs* IndexKeySpecsConflict/IndexOptionsConflict rather than
- *     throwing, so the app starts and serves traffic with the old,
- *     non-unique index still in place and nothing visible saying so.
+ *  2. Another index already blocks the build. mongoose builds indexes in the
+ *     background and only *logs* IndexKeySpecsConflict/IndexOptionsConflict
+ *     rather than throwing, so the app starts and serves traffic with the
+ *     old index still in place and nothing visible saying so. Two shapes
+ *     block it, both confirmed by execution against MongoDB 7.0:
+ *       - something else occupies the auto-generated name with different
+ *         options (85 or 86, depending which option differs);
+ *       - an EQUIVALENT index exists under a different name (85, "Index
+ *         already exists with a different name"). This script used to assert
+ *         that case was impossible.
+ *     A same-keys index under a different name with DIFFERENT options is
+ *     genuinely fine — MongoDB builds the unique one alongside it.
  *
  * Without --fix, nothing is written and nothing is locked: safe to run
  * against production at any time, including while the API is serving.
@@ -84,33 +90,43 @@ function hasExpectedKeys(idx) {
 }
 
 // The exact options models/Run.js's own schema.index({ sample: 1, name: 1 },
-// { unique: true }) call declares — nothing else. Read from the schema
-// itself, not hand-copied, so this cannot silently drift from what mongoose
-// will actually try to build.
+// { unique: true }) call declares — nothing else.
 const EXPECTED_OPTIONS = { unique: true };
 
-// Fields that mean an existing index is NOT equivalent to the one above, even
-// when its keys match and it happens to be unique. Keys-and-unique alone is
-// not the full story: a re-audit found a same-name, same-keys index carrying
-// a partialFilterExpression passed the old check as "safe" and then failed
-// startup with MongoDB error 86 (IndexKeySpecsConflict) anyway, because
-// MongoDB compares the whole option set, not just the two this script used
-// to look at.
-const OPTION_FIELDS_THAT_MUST_BE_ABSENT = [
-  "partialFilterExpression",
-  "collation",
-  "sparse",
-  "expireAfterSeconds",
-];
+// Every field a listIndexes entry may carry and still describe an index
+// EQUIVALENT to the one models/Run.js declares.
+//
+// An allowlist, not a denylist. The previous version listed four options that
+// must be absent (partialFilterExpression, collation, sparse,
+// expireAfterSeconds) and therefore called anything it had not thought of
+// "safe": an audit executed a storageEngine-carrying index against real
+// MongoDB 7 and got IndexOptionsConflict (85) from a spec this script had
+// just cleared. Any field not named here means "not the same index", which
+// at worst asks an operator to look at something harmless — the opposite
+// error ships a deploy whose unique index never builds.
+//
+// `v` is the index version, `ns` appears on older servers, and `background`
+// is a build hint modern servers ignore: verified by execution that an
+// existing background:true index accepts the schema's own build unchanged.
+const EQUIVALENT_INDEX_FIELDS = new Set([
+  "v",
+  "key",
+  "name",
+  "ns",
+  "unique",
+  "background",
+]);
 
 /**
  * Whether an existing index is fully equivalent to what models/Run.js's own
  * schema.index() call will try to build — keys AND every option MongoDB
  * would compare, not only the two (unique, name) this check used to cover.
  *
+ * Name is deliberately NOT part of this: an equivalent index under a
+ * different name is still a conflict (see findIndexConflicts).
+ *
  * @param {Object|null} idx - An index spec from collection.indexes().
- * @returns {boolean} True only if mongoose's own build would be a no-op
- *   against this index.
+ * @returns {boolean} True only if this index is the one the schema declares.
  */
 function isEquivalentToSchemaIndex(idx) {
   if (!hasExpectedKeys(idx)) {
@@ -119,9 +135,59 @@ function isEquivalentToSchemaIndex(idx) {
   if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
     return false;
   }
-  return OPTION_FIELDS_THAT_MUST_BE_ABSENT.every(
-    (field) => idx[field] === undefined,
-  );
+  return Object.keys(idx).every((field) => EQUIVALENT_INDEX_FIELDS.has(field));
+}
+
+/**
+ * Every existing index that would stop models/Run.js's own
+ * schema.index({ sample: 1, name: 1 }, { unique: true }) from building.
+ *
+ * Two distinct shapes, both executed against real MongoDB 7.0:
+ *
+ *  1. Something else already occupies the auto-generated name with different
+ *     options — IndexKeySpecsConflict (86).
+ *  2. An EQUIVALENT index already exists under a different name —
+ *     IndexOptionsConflict (85), "Index already exists with a different
+ *     name". This one was not merely unchecked, it was explicitly denied: a
+ *     test asserted a custom-named same-keys index could not collide, on the
+ *     reasoning that mongoose's build only collides on the name it generates.
+ *     Real MongoDB disagrees, and the audit that ran it was right.
+ *
+ * A same-keys index that is NOT equivalent (a non-unique one, say) under a
+ * different name is genuinely fine — verified by execution: MongoDB treats
+ * differing options as a different index and builds alongside it.
+ *
+ * @param {Array<Object>} indexes - The result of collection.indexes().
+ * @returns {Array<{index: Object, reason: string}>} Conflicts, empty if none.
+ */
+function findIndexConflicts(indexes) {
+  const conflicts = [];
+
+  for (const idx of indexes || []) {
+    if (idx.name === INDEX_NAME) {
+      if (!isEquivalentToSchemaIndex(idx)) {
+        conflicts.push({
+          index: idx,
+          // Which of the two errors comes back depends on the option: a
+          // storageEngine difference was observed as 85, a
+          // partialFilterExpression or sparse difference as 86. Naming both
+          // rather than guessing one, so the message matches what the
+          // operator will actually see in the log.
+          reason: `"${INDEX_NAME}" already exists with different options (IndexOptionsConflict 85 or IndexKeySpecsConflict 86)`,
+        });
+      }
+      continue;
+    }
+
+    if (isEquivalentToSchemaIndex(idx)) {
+      conflicts.push({
+        index: idx,
+        reason: `"${idx.name}" is the same index under a different name (IndexOptionsConflict, error 85)`,
+      });
+    }
+  }
+
+  return conflicts;
 }
 
 /**
@@ -143,12 +209,15 @@ function isEquivalentToSchemaIndex(idx) {
  * the window between that first check and this function running.
  *
  * @param {import("mongodb").Collection} collection - The runs collection.
+ * @param {Array<{index: Object}>} [conflicts] - The conflicting indexes to
+ *   drop, from findIndexConflicts. Defaults to just the auto-generated name,
+ *   for callers that already know that is the only one.
  * @returns {Promise<void>}
  * @throws {Error} If the create fails after the drop already succeeded —
  *   the collection is left with no relevant index at all, and this is
  *   deliberately fatal rather than swallowed.
  */
-async function fixStaleIndex(collection) {
+async function fixStaleIndex(collection, conflicts) {
   const lastCheck = await collection
     .aggregate([
       { $group: { _id: { sample: "$sample", name: "$name" }, count: { $sum: 1 } } },
@@ -165,7 +234,18 @@ async function fixStaleIndex(collection) {
   console.log("Before:");
   console.log(JSON.stringify(await collection.indexes(), null, 2));
 
-  await collection.dropIndex(INDEX_NAME);
+  // Every conflicting index, not just the auto-generated name: an equivalent
+  // index under a different name blocks the build too (error 85), and
+  // dropping only the named one would leave --fix reporting success against
+  // a collection whose index still had not been rebuilt.
+  const toDrop =
+    Array.isArray(conflicts) && conflicts.length > 0
+      ? [...new Set(conflicts.map((conflict) => conflict.index.name))]
+      : [INDEX_NAME];
+
+  for (const name of toDrop) {
+    await collection.dropIndex(name);
+  }
 
   try {
     await collection.createIndex(
@@ -222,17 +302,11 @@ async function main() {
       .toArray();
 
     const total = await collection.countDocuments();
-    const staleIndex = await findSampleNameIndex(collection);
-    const keysMatch = hasExpectedKeys(staleIndex);
-    // Equivalent, not just "keys match and unique is true": a same-name,
-    // same-keys, unique index can still carry an extra option (a
-    // partialFilterExpression, a collation) that makes it a genuinely
-    // different index to MongoDB, which compares the whole spec. A
-    // keys-and-unique-only check called that "safe" and startup failed
-    // anyway with IndexKeySpecsConflict.
-    const indexConflict = Boolean(
-      staleIndex && !isEquivalentToSchemaIndex(staleIndex),
-    );
+    // Every index, not just the one under the auto-generated name: an
+    // equivalent index under ANY other name blocks the build too (error 85),
+    // which this script used to assert was impossible.
+    const conflicts = findIndexConflicts(await collection.indexes());
+    const indexConflict = conflicts.length > 0;
 
     console.log(`Checked ${total} runs.`);
 
@@ -258,14 +332,17 @@ async function main() {
       console.log(
         [
           "",
-          keysMatch
-            ? `Found a pre-existing NON-unique index named "${INDEX_NAME}":`
-            : `Found an index named "${INDEX_NAME}" over unexpected keys:`,
-          JSON.stringify(staleIndex, null, 2),
+          `Found ${conflicts.length} index(es) that will stop the unique { sample, name } index building:`,
+        ].join("\n"),
+      );
+      conflicts.forEach((conflict) => {
+        console.log(`\n  ${conflict.reason}`);
+        console.log(JSON.stringify(conflict.index, null, 2));
+      });
+      console.log(
+        [
           "",
-          "Mongoose will try to build the new unique index under this same",
-          "auto-generated name. MongoDB refuses when a same-named index already",
-          "exists with different options, and mongoose only LOGS that refusal —",
+          "Mongoose builds this index in the background and only LOGS a refusal —",
           "the app starts and serves traffic with the race still open.",
         ].join("\n"),
       );
@@ -276,7 +353,7 @@ async function main() {
         );
       } else if (fix) {
         console.log(`\nFixing: dropping and rebuilding "${INDEX_NAME}" as unique...`);
-        await fixStaleIndex(collection);
+        await fixStaleIndex(collection, conflicts);
         console.log("\nFixed. The unique index is now in place.");
       } else {
         console.log("\nRe-run with --fix to drop and rebuild this index, or resolve it manually.");
@@ -308,6 +385,7 @@ if (require.main === module) {
 module.exports = {
   findSampleNameIndex,
   isEquivalentToSchemaIndex,
+  findIndexConflicts,
   fixStaleIndex,
   hasExpectedKeys,
   INDEX_NAME,
