@@ -36,7 +36,11 @@ jest.mock("../../models/Group", () => ({
 // requires the models and would talk to a database that is not here.
 jest.mock("../../lib/ingest-queue", () => ({
   enqueueRunIngest: jest.fn(),
-  deliveredFileNames: jest.fn().mockResolvedValue(new Set()),
+  // Mirrors the real return shape: delivered names split per list, never
+  // pooled. A raw read and an additional file may share a name.
+  deliveredFileNames: jest
+    .fn()
+    .mockResolvedValue({ raw: new Set(), additional: new Set() }),
   idempotencyKeyFor: jest.fn((runId) => `run-ingest:${String(runId)}`),
   IngestJob: {
     find: jest.fn(),
@@ -1303,6 +1307,106 @@ describe("Runs API Routes", () => {
         expect(Sample.findById).not.toHaveBeenCalled();
       });
 
+      test("refuses a file that names itself as its own sibling", async () => {
+        // siblingLinks emits one directed [name, sibling] link per
+        // declaration and asks nothing else of it, so a self-link was
+        // accepted and the file was "paired" with itself. Reproduced against
+        // a real Mongo and filesystem by a re-audit.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "R1.fq.gz",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a one-way sibling declaration", async () => {
+        // A named B, B named nobody. Both files land, A's Read gets a
+        // sibling and B's stays null — the run finishes "complete" half
+        // paired, which is exactly the silent half-success this validation
+        // exists to prevent.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "R2.fq.gz",
+                },
+                { name: "R2.fq.gz", uploadName: "b".repeat(32) },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a three-file sibling cycle", async () => {
+        // A→B→C→A. Every sibling resolves to a file that is present, so a
+        // presence-only check passes it, but no two of them are a pair.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "A.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "B.fq.gz",
+                },
+                {
+                  name: "B.fq.gz",
+                  uploadName: "b".repeat(32),
+                  sibling: "C.fq.gz",
+                },
+                {
+                  name: "C.fq.gz",
+                  uploadName: "c".repeat(32),
+                  sibling: "A.fq.gz",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses two names that differ only in what safeBasename strips", async () => {
+        // Validation compared raw strings; storage canonicalises with
+        // safeBasename (lib/file-utils.js createFileDocument), which trims
+        // and drops any directory part. So " R1.fq.gz" and "R1.fq.gz" were
+        // two distinct files to the duplicate check and one file on disk —
+        // a re-audit ran the retry and watched it reattempt an
+        // already-delivered file and stay errored.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                { name: "R1.fq.gz", uploadName: "a".repeat(32) },
+                { name: " R1.fq.gz", uploadName: "b".repeat(32) },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
       test("accepts a complete sibling pair", async () => {
         Run.findOne = jest.fn().mockReturnValue({
           populate: jest.fn().mockResolvedValue(null),
@@ -2042,15 +2146,34 @@ describe("Runs API Routes", () => {
         // because of a bad upload id. Fixing just the broken one should not
         // require also resubmitting the one that already worked, and must not
         // silently drop or silently reapply either.
+        //
+        // These entries carry `paired`/`rowID` for a reason. An earlier
+        // version of this fixture called itself "a paired submission" and
+        // declared neither — so the one-mate correction below never reached
+        // the pairing rules at all, and the 400 they returned on exactly this
+        // workflow went unnoticed until a re-audit ran it over real HTTP.
+        // The mismatch between a fixture's stated intent and its actual
+        // content is the whole failure mode; keep these fields.
         const originalRawFiles = [
-          { name: "delivered_R1.fq.gz", uploadName: "good-upload-id" },
-          { name: "broken_R2.fq.gz", uploadName: "bad-upload-id" },
+          {
+            name: "delivered_R1.fq.gz",
+            uploadName: "good-upload-id",
+            paired: true,
+            rowID: "row-1",
+          },
+          {
+            name: "broken_R2.fq.gz",
+            uploadName: "bad-upload-id",
+            paired: true,
+            rowID: "row-1",
+          },
         ];
 
         beforeEach(() => {
-          ingestQueue.deliveredFileNames.mockResolvedValueOnce(
-            new Set(["delivered_R1.fq.gz"]),
-          );
+          ingestQueue.deliveredFileNames.mockResolvedValueOnce({
+            raw: new Set(["delivered_R1.fq.gz"]),
+            additional: new Set(),
+          });
           mockJobLookup({
             _id: mockJobId,
             payload: {
@@ -2071,7 +2194,12 @@ describe("Runs API Routes", () => {
             .post(`/runs/${mockRunId}/reingest`)
             .send({
               rawFiles: [
-                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+                {
+                  name: "broken_R2.fq.gz",
+                  uploadName: "corrected-upload-id",
+                  paired: true,
+                  rowID: "row-1",
+                },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
             });
@@ -2104,7 +2232,12 @@ describe("Runs API Routes", () => {
             .send({
               rawFiles: [
                 originalRawFiles[0], // resent unchanged
-                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+                {
+                  name: "broken_R2.fq.gz",
+                  uploadName: "corrected-upload-id",
+                  paired: true,
+                  rowID: "row-1",
+                },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
             });
@@ -2122,14 +2255,166 @@ describe("Runs API Routes", () => {
             .post(`/runs/${mockRunId}/reingest`)
             .send({
               rawFiles: [
-                { name: "delivered_R1.fq.gz", uploadName: "DIFFERENT-upload-id" },
-                { name: "broken_R2.fq.gz", uploadName: "corrected-upload-id" },
+                {
+                  name: "delivered_R1.fq.gz",
+                  uploadName: "DIFFERENT-upload-id",
+                  paired: true,
+                  rowID: "row-1",
+                },
+                {
+                  name: "broken_R2.fq.gz",
+                  uploadName: "corrected-upload-id",
+                  paired: true,
+                  rowID: "row-1",
+                },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
             });
 
           expect(response.status).toBe(409);
           expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        });
+
+        test("renaming the undelivered mate can update the delivered file's sibling pointer", async () => {
+          // hpc-mv pairs by naming a sibling. Renaming the file that has NOT
+          // landed forces its delivered mate's pointer to change too, and a
+          // re-audit found that left no legal payload at all: omit the
+          // delivered mate and it still points at a name no longer in the
+          // list (400); update the pointer and it counts as changing a
+          // delivered file (409). The delivered file's BYTES are untouched
+          // either way — only the link moves, and siblingLinks re-derives
+          // every link from the merged list.
+          ingestQueue.deliveredFileNames.mockReset();
+          ingestQueue.deliveredFileNames.mockResolvedValue({
+            raw: new Set(["landed_R1.fq"]),
+            additional: new Set(),
+          });
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: [
+                { name: "landed_R1.fq", sibling: "typo_R2.fq" },
+                { name: "typo_R2.fq", sibling: "landed_R1.fq" },
+              ],
+              rawFilesUploadInfo: {
+                method: "hpc-mv",
+                relativePath: "/WGS_Test",
+              },
+            },
+          });
+          IngestJob.findOneAndUpdate.mockResolvedValue({
+            _id: mockJobId,
+            status: "pending",
+            attempts: 0,
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                { name: "landed_R1.fq", sibling: "correct_R2.fq" },
+                { name: "correct_R2.fq", sibling: "landed_R1.fq" },
+              ],
+              rawFilesUploadInfo: {
+                method: "hpc-mv",
+                relativePath: "/WGS_Test",
+              },
+            });
+
+          expect(response.status).toBe(200);
+          const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+          expect(update.$set.payload.rawFiles).toEqual(
+            expect.arrayContaining([
+              { name: "landed_R1.fq", sibling: "correct_R2.fq" },
+              { name: "correct_R2.fq", sibling: "landed_R1.fq" },
+            ]),
+          );
+        });
+
+        test("still refuses a delivered file whose own bytes are being changed, sibling aside", async () => {
+          // Excluding `sibling` from the comparison must not smuggle a real
+          // content change past the guard.
+          ingestQueue.deliveredFileNames.mockReset();
+          ingestQueue.deliveredFileNames.mockResolvedValue({
+            raw: new Set(["landed_R1.fq"]),
+            additional: new Set(),
+          });
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: [
+                { name: "landed_R1.fq", md5: "aaa", sibling: "typo_R2.fq" },
+                { name: "typo_R2.fq", md5: "bbb", sibling: "landed_R1.fq" },
+              ],
+              rawFilesUploadInfo: {
+                method: "hpc-mv",
+                relativePath: "/WGS_Test",
+              },
+            },
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                { name: "landed_R1.fq", md5: "CHANGED", sibling: "ok_R2.fq" },
+                { name: "ok_R2.fq", md5: "bbb", sibling: "landed_R1.fq" },
+              ],
+              rawFilesUploadInfo: {
+                method: "hpc-mv",
+                relativePath: "/WGS_Test",
+              },
+            });
+
+          expect(response.status).toBe(409);
+          expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        });
+
+        test("a delivered raw file does not block an undelivered additional file of the same name", async () => {
+          // Reproduced by a re-audit: delivered names were pooled into ONE
+          // set across both lists, so a delivered raw "shared.fastq" made an
+          // undelivered ADDITIONAL "shared.fastq" un-correctable — a 409 on a
+          // reingest that never touched the delivered file. They are separate
+          // rows with separate destinations, planned separately; they share a
+          // namespace, not an identity.
+          ingestQueue.deliveredFileNames.mockReset();
+          ingestQueue.deliveredFileNames.mockResolvedValue({
+            raw: new Set(["shared.fastq"]),
+            additional: new Set(),
+          });
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: [{ name: "shared.fastq", uploadName: "raw-up" }],
+              additionalFiles: [
+                { name: "shared.fastq", uploadName: "bad-additional-up" },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            },
+          });
+          IngestJob.findOneAndUpdate.mockResolvedValue({
+            _id: mockJobId,
+            status: "pending",
+            attempts: 0,
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              additionalFiles: [
+                { name: "shared.fastq", uploadName: "corrected-additional-up" },
+              ],
+            });
+
+          expect(response.status).toBe(200);
+          const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+          expect(update.$set.payload.additionalFiles).toEqual([
+            { name: "shared.fastq", uploadName: "corrected-additional-up" },
+          ]);
+          // The delivered RAW entry of the same name is untouched.
+          expect(update.$set.payload.rawFiles).toEqual([
+            { name: "shared.fastq", uploadName: "raw-up" },
+          ]);
         });
       });
 
@@ -2168,9 +2453,10 @@ describe("Runs API Routes", () => {
 
       test("a plain reingest still works when files have been delivered", async () => {
         // Refusing the payload must not block the no-payload retry of the rest.
-        ingestQueue.deliveredFileNames.mockResolvedValueOnce(
-          new Set(["already_delivered_R1.fq.gz"]),
-        );
+        ingestQueue.deliveredFileNames.mockResolvedValueOnce({
+          raw: new Set(["already_delivered_R1.fq.gz"]),
+          additional: new Set(),
+        });
         IngestJob.findOneAndUpdate.mockResolvedValue({
           _id: mockJobId,
           status: "pending",

@@ -20,6 +20,9 @@ const {
   generateRequestId,
   compareFilesToDirectory,
 } = require("./_utils");
+// The same canonicalisation lib/file-utils.js applies before a name becomes a
+// path on disk, so validation and storage agree on what "the same file" means.
+const { safeBasename } = require("../lib/utils/safePath");
 
 // Stricter than ObjectId.isValid(), which accepts any 12-character string.
 const OBJECT_ID_PATTERN = /^[0-9a-fA-F]{24}$/;
@@ -398,7 +401,13 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
  *   entry's relativePath requirement is already satisfied elsewhere.
  * @returns {string[]} Error messages; empty when the list is well-formed.
  */
-const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
+const validateFileList = (
+  files,
+  label,
+  methodFor,
+  relativePathCoveredFor,
+  { crossEntry = true } = {},
+) => {
   if (!Array.isArray(files)) {
     return [
       `${label === "Raw file" ? "rawFiles" : "additionalFiles"} must be an array`,
@@ -417,29 +426,80 @@ const validateFileList = (files, label, methodFor, relativePathCoveredFor) => {
     }
   });
 
-  const names = files.map(fileEntryName).filter((n) => typeof n === "string");
+  // Everything below is a statement about the list AS A WHOLE — that its
+  // pairs are complete, its siblings resolvable, its names distinct. None of
+  // it holds on a partial reingest correction, which by design carries only
+  // the entries being corrected and is merged with the delivered rest before
+  // any of these become true. Reproduced by execution: correcting one mate of
+  // a pair returned 400 `rowID "row-1" has 1 paired entry`, so the advertised
+  // one-file correction had no legal payload at all. The MERGED list is
+  // checked with crossEntry on, which is where these belong.
+  if (!crossEntry) {
+    return errors;
+  }
+
+  // Compared canonically, not raw. safeBasename is what actually names the
+  // file on disk (lib/file-utils.js createFileDocument), and it trims and
+  // strips any directory part — so "A.fq" and " A.fq" are two distinct names
+  // here but one file there. Reproduced: a retry reattempted an already-
+  // delivered file under its twin name and stayed errored.
+  const canonicalNames = files
+    .map(fileEntryName)
+    .filter((n) => typeof n === "string")
+    .map((n) => safeBasename(n) || n);
 
   // Names are the identity the retry planner and the pairing step both match
   // on, so two entries sharing one make delivery state ambiguous.
   const duplicates = [
-    ...new Set(names.filter((n, i) => names.indexOf(n) !== i)),
+    ...new Set(canonicalNames.filter((n, i) => canonicalNames.indexOf(n) !== i)),
   ];
   duplicates.forEach((name) => {
     errors.push(`${label} name "${name}" appears more than once`);
   });
 
-  // A declared sibling that is not in this list can never be resolved: the
-  // pairing step logs the absence and the run finishes "complete" with a
-  // paired read that has no sibling.
-  const present = new Set(names);
+  // hpc-mv pairing is declared by naming a sibling. siblingLinks emits one
+  // directed [name, sibling] link per declaration and asks nothing else of
+  // it, so an unreciprocated, self- or cycle-shaped declaration is accepted
+  // and delivered half-paired. Reproduced against real Mongo: a run finished
+  // "complete" with A linked to B while B stayed unpaired. A pair is exactly
+  // two files that each name the other.
+  const byCanonical = new Map();
+  files.forEach((file) => {
+    const name = fileEntryName(file);
+    if (typeof name === "string") {
+      byCanonical.set(safeBasename(name) || name, file);
+    }
+  });
+  const present = new Set(byCanonical.keys());
+
   files.forEach((file, index) => {
-    if (
-      file &&
-      typeof file.sibling === "string" &&
-      !present.has(file.sibling)
-    ) {
+    if (!file || typeof file.sibling !== "string") {
+      return;
+    }
+    const own = safeBasename(fileEntryName(file) || "") || fileEntryName(file);
+    const sibling = safeBasename(file.sibling) || file.sibling;
+
+    if (sibling === own) {
+      errors.push(
+        `${label} at index ${index} names itself as its own sibling`,
+      );
+      return;
+    }
+    if (!present.has(sibling)) {
       errors.push(
         `${label} at index ${index} names sibling "${file.sibling}", which is not in the list`,
+      );
+      return;
+    }
+
+    const mate = byCanonical.get(sibling);
+    const mateSibling =
+      mate && typeof mate.sibling === "string"
+        ? safeBasename(mate.sibling) || mate.sibling
+        : null;
+    if (mateSibling !== own) {
+      errors.push(
+        `${label} at index ${index} names sibling "${file.sibling}", but "${file.sibling}" does not name it back; pairing must be mutual`,
       );
     }
   });
@@ -503,6 +563,7 @@ const validatePartialFilesPayload = (body) => {
         "Raw file",
         () => rawMethod,
         () => relativePathCovered,
+        { crossEntry: false },
       ),
     );
   }
@@ -514,6 +575,7 @@ const validatePartialFilesPayload = (body) => {
         "Additional file",
         (file) => (file && file.uploadMethod) || "local-filesystem",
         () => false,
+        { crossEntry: false },
       ),
     );
   }
@@ -975,11 +1037,27 @@ router
  * entries are plain JSON-shaped descriptors and two objects describing the
  * same delivered file are expected to be structurally identical, not merely
  * equivalent under some looser notion of sameness.
+ *
+ * `sibling` is excluded: it points AT another entry rather than describing
+ * this one's bytes, and it is the one field a legitimate correction to the
+ * OTHER file forces to change here. Reproduced by execution — renaming an
+ * undelivered mate after its sibling had landed had no legal payload at all:
+ * omitting the delivered mate left it pointing at a name no longer in the
+ * list (400), and updating that pointer counted as changing a delivered file
+ * (409). The delivered file's bytes are untouched either way; only the link
+ * moves, and siblingLinks re-derives every link from the merged list.
  * @param {object} file - A rawFiles/additionalFiles entry.
  * @returns {string} A canonical string for equality comparison.
  */
+const PAIRING_POINTER_FIELDS = ["sibling"];
+
 const entryFingerprint = (file) =>
-  JSON.stringify(file, Object.keys(file || {}).sort());
+  JSON.stringify(
+    file,
+    Object.keys(file || {})
+      .filter((key) => !PAIRING_POINTER_FIELDS.includes(key))
+      .sort(),
+  );
 
 /**
  * Merges a replacement payload with the ORIGINAL payload's entries for
@@ -1013,16 +1091,24 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
     return { merged: originalList || [], rejectedChange: null };
   }
 
-  const original = new Map(
-    (originalList || [])
-      .filter((file) => typeof fileEntryName(file) === "string")
-      .map((file) => [fileEntryName(file), file]),
-  );
-  const submitted = new Map(
-    (submittedList || [])
-      .filter((file) => typeof fileEntryName(file) === "string")
-      .map((file) => [fileEntryName(file), file]),
-  );
+  // Keyed on the canonical basename, which is what actually names the file on
+  // disk and what `delivered` is built from — matching on the raw string
+  // instead let " A.fq" and "A.fq" look like two files to the merge and one
+  // to the datastore, so a retry reattempted a delivered file and stayed
+  // errored.
+  const keyOf = (file) => {
+    const name = fileEntryName(file);
+    return typeof name === "string" ? safeBasename(name) || name : null;
+  };
+  const indexByKey = (list) =>
+    new Map(
+      (list || [])
+        .filter((file) => keyOf(file) !== null)
+        .map((file) => [keyOf(file), file]),
+    );
+
+  const original = indexByKey(originalList);
+  const submitted = indexByKey(submittedList);
 
   const names = new Set([...original.keys(), ...submitted.keys()]);
   const merged = [];
@@ -1035,11 +1121,21 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
         submittedEntry !== undefined &&
         entryFingerprint(submittedEntry) !== entryFingerprint(originalEntry)
       ) {
-        return { merged: null, rejectedChange: name };
+        return {
+          merged: null,
+          rejectedChange: fileEntryName(submittedEntry) || name,
+        };
       }
-      // Absent, or resubmitted identically: keep the original, unmodified.
       if (originalEntry !== undefined) {
-        merged.push(originalEntry);
+        // Keep the delivered entry's own description of its bytes, but take
+        // the resubmitted pairing pointer: excluded from the fingerprint
+        // above precisely so a rename of its undelivered mate can be
+        // expressed, and dropping it here would make that exclusion useless.
+        merged.push(
+          submittedEntry !== undefined && "sibling" in submittedEntry
+            ? { ...originalEntry, sibling: submittedEntry.sibling }
+            : originalEntry,
+        );
       }
     } else if (submitted.has(name)) {
       // Not yet delivered: whatever the caller submitted is the correction.
@@ -1132,10 +1228,26 @@ router
         // under a delivered name is refused, by name, rather than silently
         // kept or silently applied. Guarded: the export is new, and a stale
         // mock or partial upgrade must not silently skip the check.
-        const delivered =
-          typeof ingestQueue.deliveredFileNames === "function"
-            ? await ingestQueue.deliveredFileNames(run._id)
-            : new Set();
+        // Per-list, never pooled: a raw read and an additional file may
+        // legitimately share a name, and treating one flat set as both made
+        // an undelivered additional file un-correctable behind a delivered
+        // raw one of the same name.
+        //
+        // The shape is asserted rather than defaulted. Silently substituting
+        // an empty set for an unrecognised return would drop this guard
+        // altogether and let a delivered file be changed unnoticed — and it
+        // is exactly how a stale test double goes on passing while
+        // production has moved on. Failing loudly is the point.
+        const delivered = await ingestQueue.deliveredFileNames(run._id);
+        if (
+          !delivered ||
+          !(delivered.raw instanceof Set) ||
+          !(delivered.additional instanceof Set)
+        ) {
+          throw new Error(
+            "deliveredFileNames did not return { raw: Set, additional: Set }",
+          );
+        }
 
         const existingJob = await IngestJob.findOne({
           idempotencyKey: idempotencyKeyFor(run._id),
@@ -1146,7 +1258,7 @@ router
         const rawFilesMerge = mergeReplacementList(
           originalPayload.rawFiles,
           req.body.rawFiles,
-          delivered,
+          delivered.raw,
         );
         if (rawFilesMerge.rejectedChange) {
           return handleError(
@@ -1164,7 +1276,7 @@ router
         const additionalFilesMerge = mergeReplacementList(
           originalPayload.additionalFiles,
           req.body.additionalFiles,
-          delivered,
+          delivered.additional,
         );
         if (additionalFilesMerge.rejectedChange) {
           return handleError(
