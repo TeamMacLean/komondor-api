@@ -24,6 +24,9 @@ const {
   isUploadOwner,
   getRecordedOwner,
   pruneIdleUploads,
+  beginRequest,
+  endRequest,
+  hasActiveRequest,
   cleanupAbandonedUploads,
   clearUploads,
   assertUploadComplete,
@@ -860,6 +863,73 @@ describe("checkUploadAllowed — the free-space floor is global", () => {
     });
 
     expect(decision).toEqual({ allowed: true });
+  });
+});
+
+describe("pruneIdleUploads — an active request is not idle", () => {
+  // An audit established this as blocking. `updatedAt` is stamped once when a
+  // request arrives, so a single PATCH streaming a large file goes an
+  // unbounded time without another touch. With UPLOAD_MAX_BYTES at 50 GiB, a
+  // PATCH running past the 60-minute idle window is ordinary here. Their
+  // reproduction: upload A was pruned while its PATCH was still active, B was
+  // then admitted, and the free-space floor was overrun because A's
+  // reservation had vanished from the accounting.
+  const ID_A = "a".repeat(32);
+  const ID_B = "b".repeat(32);
+
+  afterEach(() => {
+    releaseUpload(ID_A);
+    releaseUpload(ID_B);
+    endRequest(ID_A);
+    endRequest(ID_B);
+  });
+
+  test("keeps a registration whose request is still open, however stale", () => {
+    const longAgo = Date.now() - 10 * 60 * 60 * 1000;
+    registerUpload({ id: ID_A, username: "alice", size: 700, now: longAgo });
+    beginRequest(ID_A);
+
+    expect(pruneIdleUploads()).toEqual([]);
+    expect(getUploadRecord(ID_A)).toBeDefined();
+    // The reservation is still counted, which is the point: the free-space
+    // floor must keep seeing it.
+    expect(getUserUsage("alice").count).toBe(1);
+  });
+
+  test("prunes the same registration once its request has ended", () => {
+    const longAgo = Date.now() - 10 * 60 * 60 * 1000;
+    registerUpload({ id: ID_A, username: "alice", size: 700, now: longAgo });
+    beginRequest(ID_A);
+    endRequest(ID_A);
+
+    expect(pruneIdleUploads()).toEqual([ID_A]);
+    expect(getUploadRecord(ID_A)).toBeUndefined();
+  });
+
+  test("counts overlapping requests, so the first to finish does not unprotect it", () => {
+    // A resumed upload can briefly overlap its own previous request. A plain
+    // set plus a delete on the first response to close would unprotect a
+    // transfer that is still running.
+    const longAgo = Date.now() - 10 * 60 * 60 * 1000;
+    registerUpload({ id: ID_A, username: "alice", size: 700, now: longAgo });
+    beginRequest(ID_A);
+    beginRequest(ID_A);
+    endRequest(ID_A);
+
+    expect(hasActiveRequest(ID_A)).toBe(true);
+    expect(pruneIdleUploads()).toEqual([]);
+
+    endRequest(ID_A);
+    expect(hasActiveRequest(ID_A)).toBe(false);
+    expect(pruneIdleUploads()).toEqual([ID_A]);
+  });
+
+  test("an idle registration with no request is still pruned", () => {
+    // The behaviour this exemption must not swallow.
+    const longAgo = Date.now() - 10 * 60 * 60 * 1000;
+    registerUpload({ id: ID_B, username: "bob", size: 700, now: longAgo });
+
+    expect(pruneIdleUploads()).toEqual([ID_B]);
   });
 });
 

@@ -520,6 +520,35 @@ describe("POST /upload/cancel", () => {
   });
 });
 
+describe("active-request tracking on the mount", () => {
+  // The quota module's own tests cover the exemption logic; this covers the
+  // wiring, which is the half that can silently do nothing. A leak here would
+  // be worse than the bug it fixes: an upload marked active forever is never
+  // idle-pruned and holds its reservation until the process restarts.
+  test("marks an upload active for the request and releases it afterwards", async () => {
+    const created = await createUpload("alice");
+    const id = idFromLocation(created);
+
+    expect(quota.hasActiveRequest(id)).toBe(false);
+
+    currentUser = { username: "alice" };
+    await request(app).head(`/uploads/${id}`).set("Tus-Resumable", "1.0.0");
+
+    expect(quota.hasActiveRequest(id)).toBe(false);
+  });
+
+  test("does not leak a reservation when the request fails", async () => {
+    const created = await createUpload("alice");
+    const id = idFromLocation(created);
+
+    // Someone else's upload: refused by authoriseUploadAccess mid-request.
+    currentUser = { username: "mallory" };
+    await request(app).head(`/uploads/${id}`).set("Tus-Resumable", "1.0.0");
+
+    expect(quota.hasActiveRequest(id)).toBe(false);
+  });
+});
+
 describe("the tus mount inside the WHOLE application", () => {
   // Every test above builds its own express app around the upload router
   // alone. That topology is not production's: app.js mounts a global cors()

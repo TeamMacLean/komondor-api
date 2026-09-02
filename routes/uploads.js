@@ -279,7 +279,51 @@ uploadApp.use((req, res, next) => {
 });
 
 uploadApp.use(cors(corsOptions));
-uploadApp.all("*", requireUploadAuth, (req, res) => {
+
+/**
+ * Marks an upload as having a request in flight for exactly as long as the
+ * response is open, so the idle prune cannot reclaim a transfer that is
+ * actively streaming.
+ *
+ * `updatedAt` is stamped once per request, so a single PATCH moving tens of
+ * gigabytes looks idle to a timestamp check long before it finishes. tus
+ * offers no usable periodic signal for this — POST_RECEIVE fires only after
+ * the body is done, and POST_RECEIVE_V2 stops while a request is paused — so
+ * liveness is taken from the request itself.
+ *
+ * Both `finish` and `close` are hooked: `finish` is the normal completion,
+ * `close` covers a client that disappears mid-body. `once` on each with a
+ * shared latch, because both fire for an ordinary response.
+ * @param {object} req - The incoming request.
+ * @param {object} res - The outgoing response.
+ * @param {Function} next - The next middleware.
+ * @returns {void}
+ */
+const trackActiveUpload = (req, res, next) => {
+  const uploadId = getFileIdFromRequest(req, _path.basename(req.path || ""));
+
+  if (!uploadId) {
+    return next();
+  }
+
+  quota.beginRequest(uploadId);
+
+  let released = false;
+  const release = () => {
+    if (released) {
+      return;
+    }
+    released = true;
+    quota.endRequest(uploadId);
+  };
+
+  res.once("finish", release);
+  res.once("close", release);
+
+  return next();
+};
+
+uploadApp.all("*", requireUploadAuth, trackActiveUpload, (req, res) => {
   // An escaped rejection would reach server.js's unhandledRejection handler,
   // which shuts the API down.
   tusServer.handle(req, res).catch((err) => {
