@@ -7,13 +7,17 @@ order. Each step says what "pass" looks like and what to do when it doesn't.
 **Read step 0 before anything else.** It is the one that can take the API down.
 
 ```
-komondor-api    security/gates-1-2-3            3b230a9
-komondor-web    fix/tus-authentication          d8e1c4c
-komondor-power  fix/ingest-completion-contract  3e6a70d
+komondor-api    security/gates-1-2-3            HEAD of the branch
+komondor-web    fix/tus-authentication          HEAD of the branch
+komondor-power  fix/ingest-completion-contract  HEAD of the branch
 ```
 
-Nothing is pushed. Automated state at the time of writing: API 1698 unit + 15 integration
-(real MongoDB 7.0.29), Power 253, Web 499 — all green, Darwin only.
+Deliberately not pinned to a hash: an audit found the previous version of this file naming a
+commit that had already been superseded, and a runbook that describes a tree nobody is deploying
+is worse than one that says "the branch head". Check the heads yourself before you start.
+
+Nothing is pushed. Automated state at the time of writing: API 1723 unit + 15 integration (real
+MongoDB 7.0.29), Power 253, Web 501 — all green, **Darwin only**.
 
 ---
 
@@ -42,7 +46,19 @@ Read-only. Nothing is written, nothing is locked, safe while the API is serving.
 | **3** | A conflicting index is present | **Stop.** See below |
 | **2** | Could not connect or query | **Stop.** Fix that first — do not deploy blind |
 
-On exit 3, the output names each conflicting index and why. To repair:
+Then inspect the stored ingest backlog, which this release's stricter validation can refuse:
+
+```bash
+cd /storage/www/komondor-api && node scripts/inspect-ingest-backlog.js
+```
+
+Also read-only. Exit 0 means nothing stored would be refused — and if the `ingestjobs`
+collection does not exist at all, it says so in one line and stops, which is the likely case
+since the durable queue postdates the currently deployed master. Exit 1 lists each stored payload
+that would be refused and why; repair those by hand before deploying. Do **not** blanket-migrate,
+and note that a plain no-body reingest does **not** repair them (BREAKING_CHANGES.md §37).
+
+On preflight exit 3, the output names each conflicting index and why. To repair:
 
 ```bash
 cd /storage/www/komondor-api && node scripts/check-run-duplicates.js --fix
@@ -72,7 +88,7 @@ On an Ubuntu/Debian box with the same Node major as production:
 git checkout security/gates-1-2-3 && yarn install --frozen-lockfile && yarn jest
 ```
 
-**Pass:** 51 suites / 1698 tests. **Fail:** send me the output — do not work around it.
+**Pass:** 52 suites / 1723 tests. **Fail:** send me the output — do not work around it.
 
 Then the integration suites, which need a real mongod:
 
@@ -105,15 +121,19 @@ trusting.
 
 ---
 
-## 3. Deploy web and API together — they will not work apart
+## 3. Deploy WEB FIRST, then the API
 
-The API now requires authentication on the tus mount; the web client only started sending it on
-`fix/tus-authentication`. **Old web + new API = every upload 401s.**
+The API requires authentication on the tus mount; the web client only started sending it on
+`fix/tus-authentication`. I originally wrote this section with the API first, and an audit
+corrected it: **new web against the old API is backward-compatible** — the old upload endpoint is
+permissive and simply ignores the extra `Authorization` header — whereas **new API against old
+web 401s every upload immediately**. So web first is strictly safer, and shortens the window in
+which anything is broken to zero.
 
 Order:
 
-1. API into the deploy window (writes quiesced), preflight already green from step 0.
-2. Web immediately after.
+1. Web.
+2. API into the deploy window (writes quiesced), preflight already green from step 0.
 3. Power any time — its changes are independent.
 
 Check the API actually came up:
@@ -150,11 +170,15 @@ Not curl. The CORS and preflight behaviour changed, and only a browser exercises
 
 This is the workflow the whole B6 fix exists for, and it has never run against production data.
 
+- [ ] **First, an ordinary paired upload.** Two files, paired, through the web form. Before this
+      release the API rejected the web's own payload outright (`400 ... is paired but missing
+      rowID`, and `400 ... has a non-string md5` for any file with no typed checksum), and before
+      *that* the pair landed silently unpaired. Confirm the run completes and **both** Reads have
+      a non-null `sibling` — the second half is the one that was silently wrong for a long time.
 - [ ] Create a **paired** run where one file has a deliberately bad upload id, so the ingest
       fails with one mate delivered and one not.
 - [ ] `POST /runs/:id/reingest` with a replacement payload containing **only the broken file**.
-      It must return **200**, not 400. Before this release it returned
-      `400 rowID "..." has 1 paired entry`.
+      It must return **200**, not 400.
 - [ ] Confirm the run completes and **both** Reads end up with a non-null `sibling`.
 - [ ] Try changing an **already-delivered** file's `uploadName` in a replacement payload. It must
       return **409** naming that file — the guard against a silent no-op.
@@ -172,9 +196,10 @@ Grep the logs (**stdout**, not just the stderr you usually paste):
 - `is not a bare filename` — the new canonical-name rule (BREAKING_CHANGES.md §37) rejecting a
   client that used to work. If komondor-nudge or a script sends path-qualified names, this is
   where you will find out.
-- `Expected 2 paired reads for rowID` — should now be impossible via the API, since validation
-  refuses it at the door. If it appears, a payload is reaching the worker without going through
-  `POST /runs/new`.
+- `cannot link ... — no ingested read for` — a pairing declaration the worker could not resolve.
+  Should be impossible for a payload that went through `POST /runs/new`, since validation now
+  requires mutual siblings; if it appears, something is reaching the queue another way, or a
+  payload stored before this release is being replayed.
 
 ---
 
@@ -194,16 +219,14 @@ re-create the old custom-named index to "undo" it.
 These are real and unfixed. I flagged all three to the auditor in
 `docs/AUDIT_RESPONSE_PROMPT_R5.md`; none of them is a silent-corruption risk.
 
-1. **A single upload PATCH lasting longer than `UPLOAD_IDLE_MINUTES` (default 60) loses its quota
-   reservation.** Activity is recorded once when the request arrives, and the idle prune runs on
-   every new admission. With `UPLOAD_MAX_BYTES` at 50 GiB, a slow single PATCH exceeding an hour
-   is ordinary here, not an edge case. It self-heals on the next request, but in between the
-   free-space floor is computed without that upload. **This may be the most likely-to-fire item
-   left in the codebase.** The fix is small (touch from the tus `POST_RECEIVE` hook, which
-   already fires) — say the word and I will do it before you deploy.
-2. **Power waits the full 30-minute poll window before reporting some terminal errors.** The entry
-   is still correctly marked as errored; it is a latency and message-quality problem.
-3. **19 pre-existing lint errors in komondor-web**, on files this branch does not touch.
+1. **Power waits the full 30-minute poll window before reporting some terminal errors.** The entry
+   is still correctly marked as errored; it is a latency and message-quality problem, confirmed
+   as such by the audit.
+2. **19 pre-existing lint errors in komondor-web**, on files this branch does not touch.
+3. **`entryFingerprint` does not see inside nested objects**, so a change to `data.md5` on an
+   already-delivered entry returns 200 and is then discarded. Pre-existing; nested `data` is not
+   currently used to identify or move bytes, so the audit classified it follow-up rather than
+   blocking.
 
 ---
 

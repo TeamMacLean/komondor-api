@@ -1157,13 +1157,30 @@ path-qualified or space-padded name was relying on the silent collapse and
 must send the basename.
 
 **Stored payloads predating this change.** A failed `IngestJob` whose stored
-payload contains a non-canonical name (or a one-way `sibling`) will now fail
+payload contains a non-canonical name (or a one-way `sibling`) will fail
 validation on a **reingest with a replacement payload**, because the merged
 list is re-validated in full — including entries the caller never resubmitted.
-A plain `POST /runs/:id/reingest` with no body still replays the stored
-payload untouched and is the escape hatch. There is no migration: the
-affected shape is rare, and the error names the exact entry and the value to
-send.
+
+An earlier version of this entry claimed a plain no-body
+`POST /runs/:id/reingest` was the escape hatch. **It is not**, and an audit
+disproved it by execution:
+
+- A stored `" A.fq"` delivered canonically as `A.fq` replays, and the worker
+  re-attempts a file already in the datastore.
+- A stored one-way pair replays to a `complete` run with one paired Read and
+  one unpaired Read.
+- An already-delivered non-canonical entry cannot be repaired through the API
+  at all: the canonical spelling returns 409 (it is a delivered file being
+  changed), the old spelling returns 400, and omitting it carries the invalid
+  spelling forward.
+
+There is still no migration, because a blanket one would be wrong — a run
+whose files are already delivered needs a different correction from one whose
+files never arrived. Run `node scripts/inspect-ingest-backlog.js` before
+deploying instead: it is read-only, it lists every stored payload this release
+would refuse and why, and it exits 0 in one line if the `ingestjobs`
+collection does not exist (the durable queue postdates the currently deployed
+master, so that is the likely case). Repair whatever it finds by hand.
 
 ---
 
