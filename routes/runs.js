@@ -376,7 +376,18 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
 
   // Compared case-insensitively against the stored checksum, so a non-string
   // throws inside verification rather than failing here.
-  if (file.md5 !== undefined && typeof file.md5 !== "string") {
+  //
+  // `null` is accepted, not just `undefined`. komondor-web sends
+  // `md5: this.fileMd5Inputs[file.name]?.trim() || null` for EVERY file, so
+  // an upload where the user typed no checksum arrives with an explicit null —
+  // and rejecting it here 400'd every ordinary web upload, paired or not.
+  // Downstream is already null-safe: lib/file-utils.js reads `file.md5?.
+  // toLowerCase()` and treats a falsy value as "no checksum declared".
+  if (
+    file.md5 !== undefined &&
+    file.md5 !== null &&
+    typeof file.md5 !== "string"
+  ) {
     return "has a non-string md5";
   }
 
@@ -399,17 +410,35 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
     return "has a non-boolean paired flag";
   }
 
-  // siblingLinks pairs local-filesystem reads by rowID, not by name — its
-  // own guard (`!file.paired || file.rowID == null`) treats a missing rowID
-  // as "not part of a pair" and silently excludes the file from pairing
-  // rather than erroring. Reproduced: paired:true with no rowID landed both
-  // files and finished the run "complete" with sibling:null on both Reads.
-  // Caught here instead, before a job is created.
-  if (method !== "hpc-mv" && file.paired === true) {
-    if (file.rowID === undefined || file.rowID === null) {
-      return "is paired but missing rowID";
+  // A paired entry has to say WHICH file it is paired with, by one of the two
+  // mechanisms siblingLinks understands.
+  //
+  // This used to demand `rowID` for every non-hpc-mv paired entry. An audit
+  // established that nothing has ever sent one: komondor-web emits `sibling`
+  // + `paired` for both sources (components/uploads/FileProcessor.vue),
+  // komondor-power emits `sibling`, and the only rowID in either codebase is
+  // commented-out web code and this API's own tests. So the rule rejected the
+  // real client's ordinary paired upload with 400 — and before that, the
+  // matching gap in siblingLinks meant those uploads landed silently
+  // unpaired. The contract was invented in a test and then enforced against a
+  // client that never spoke it.
+  //
+  // Either mechanism is now accepted; the mutual-sibling and exactly-two-per-
+  // rowID rules in validateFileList are what make each of them coherent.
+  if (file.paired === true) {
+    const hasSibling = typeof file.sibling === "string" && file.sibling !== "";
+    const hasRowId =
+      typeof file.rowID === "string" || typeof file.rowID === "number";
+
+    if (!hasSibling && !hasRowId) {
+      return "is marked paired but names no sibling and has no rowID";
     }
-    if (typeof file.rowID !== "string" && typeof file.rowID !== "number") {
+    if (
+      !hasSibling &&
+      file.rowID !== undefined &&
+      file.rowID !== null &&
+      !hasRowId
+    ) {
       return "has a rowID that is not a string or number";
     }
   }
