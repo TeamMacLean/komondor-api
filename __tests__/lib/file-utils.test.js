@@ -1484,6 +1484,46 @@ describe("file-utils", () => {
 
         expect(readData.file).toBe(ourFile._id);
       });
+
+      it("adopts when the retained source is a permitted leaf symlink", async () => {
+        // The regression the content check introduced, found by a re-audit
+        // running it: lib/utils/md5.js opens O_NOFOLLOW on purpose, so a
+        // symlinked leaf raises ELOOP — and hashing it behind a bare
+        // `.catch(() => null)` turned "this is a link" into "the content
+        // cannot be verified", i.e. never adopt.
+        //
+        // Symlinking a real file into the staging area instead of copying
+        // terabytes is ordinary cluster practice, and the MOVE explicitly
+        // supports it (models/File.js openPinnedSource takes the same ELOOP
+        // fallback). So this shape could pass the move, fail its Read save,
+        // and then never reconcile: zero Reads, and every retry stalled on
+        // "destination already exists" forever.
+        const linkTarget = path.join(hpcRoot, "WGS_Test/01.RawData/real.fq");
+        fsSync.writeFileSync(linkTarget, "ACGT");
+        fsSync.rmSync(stagedSource);
+        fsSync.symlinkSync(linkTarget, stagedSource);
+        fsSync.writeFileSync(destination, "ACGT");
+
+        await ingest(hpcRead());
+
+        expect(readData.file).toBe(ourFile._id);
+        expect(ourFile.save).toHaveBeenCalled();
+      });
+
+      it("still refuses a permitted leaf symlink whose target does not match", async () => {
+        // Following the link must not weaken the check it exists to perform.
+        const linkTarget = path.join(hpcRoot, "WGS_Test/01.RawData/real.fq");
+        fsSync.writeFileSync(linkTarget, "BBBB");
+        fsSync.rmSync(stagedSource);
+        fsSync.symlinkSync(linkTarget, stagedSource);
+        fsSync.writeFileSync(destination, "AAAA");
+
+        await expect(ingest(hpcRead())).rejects.toThrow(
+          /destination already exists/,
+        );
+
+        expect(readSave).not.toHaveBeenCalled();
+      });
     });
 
     it("does not adopt a destination that is a symlink rather than the real bytes", async () => {
