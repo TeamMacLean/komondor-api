@@ -96,4 +96,10 @@ const disconnect = async () => {
   await mongoose.disconnect();
 };
 
-module.exports = { mongoose, connect, resetCollections, dropDatabase, disconnect };
+module.exports = {
+  mongoose,
+  connect,
+  resetCollections,
+  dropDatabase,
+  disconnect,
+};

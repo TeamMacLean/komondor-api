@@ -182,7 +182,15 @@ function findIndexConflicts(indexes) {
     if (isEquivalentToSchemaIndex(idx)) {
       conflicts.push({
         index: idx,
-        reason: `"${idx.name}" is the same index under a different name (IndexOptionsConflict, error 85)`,
+        // Worth stating precisely, because it reads like a false alarm and is
+        // not: this index IS enforcing the uniqueness constraint right now
+        // (verified — a duplicate insert against it is refused 11000). What
+        // it blocks is STARTUP. models/Run.js's Run.init() rejects with 85
+        // rather than logging, and server.js awaits it, so the app does not
+        // boot at all. Dropping a healthy index would be indefensible if the
+        // only cost were a log line; it is defensible because the
+        // alternative is a deploy that will not start.
+        reason: `"${idx.name}" is the same index under a different name — it IS enforcing uniqueness, but Run.init() rejects on it (IndexOptionsConflict, error 85) and the app will not boot`,
       });
     }
   }
@@ -220,7 +228,12 @@ function findIndexConflicts(indexes) {
 async function fixStaleIndex(collection, conflicts) {
   const lastCheck = await collection
     .aggregate([
-      { $group: { _id: { sample: "$sample", name: "$name" }, count: { $sum: 1 } } },
+      {
+        $group: {
+          _id: { sample: "$sample", name: "$name" },
+          count: { $sum: 1 },
+        },
+      },
       { $match: { count: { $gt: 1 } } },
       { $limit: 1 },
     ])
@@ -238,33 +251,75 @@ async function fixStaleIndex(collection, conflicts) {
   // index under a different name blocks the build too (error 85), and
   // dropping only the named one would leave --fix reporting success against
   // a collection whose index still had not been rebuilt.
+  //
+  // `undefined` means the caller has not looked, and the auto-generated name
+  // is the historical assumption. An EMPTY array is a different statement —
+  // "I looked and there are none" — and must not be read as the same thing,
+  // or a caller that checked would drop a healthy index.
   const toDrop =
-    Array.isArray(conflicts) && conflicts.length > 0
-      ? [...new Set(conflicts.map((conflict) => conflict.index.name))]
-      : [INDEX_NAME];
+    conflicts === undefined
+      ? [INDEX_NAME]
+      : [...new Set(conflicts.map((conflict) => conflict.index.name))];
 
-  for (const name of toDrop) {
-    await collection.dropIndex(name);
+  if (toDrop.length === 0) {
+    console.log("Nothing to drop: no conflicting index.");
+    return;
   }
 
+  // The drop loop is inside this try, not before it. With two or more
+  // conflicting indexes, a failure on the SECOND drop leaves the first
+  // already gone and createIndex never reached — the operator needs the
+  // same warning as a failed create, because the collection is in the same
+  // state either way.
   try {
+    for (const name of toDrop) {
+      await collection.dropIndex(name);
+    }
+
     await collection.createIndex(
       { sample: 1, name: 1 },
       { unique: true, name: INDEX_NAME },
     );
-  } catch (createErr) {
+  } catch (repairErr) {
     console.error(
       [
         "",
-        "FATAL: the old index was dropped but the new unique index failed to",
-        `build (${createErr.message}). The "runs" collection now has NO index`,
+        "FATAL: an index was dropped but the unique index is not in place",
+        `(${repairErr.message}). The "runs" collection may now have NO index`,
         "enforcing { sample, name } uniqueness at all. This needs immediate",
         "attention — most likely a duplicate was inserted during this run;",
         "re-run this script's report mode (no --fix) to check, resolve any",
         "duplicates found, then re-run --fix.",
       ].join("\n"),
     );
-    throw createErr;
+    throw repairErr;
+  }
+
+  // Re-read and re-classify rather than trusting that a successful
+  // createIndex means the job is done. A collection created with
+  // `indexOptionDefaults` (or a default collation) stamps those options onto
+  // every index it builds, INCLUDING this rebuild — so the new index can
+  // come back still classified as a conflict, and a caller that trusted the
+  // create would report "Fixed" and send the operator round the same loop
+  // next run. Saying so is the whole value here.
+  const remaining = findIndexConflicts(await collection.indexes());
+  if (remaining.length > 0) {
+    console.error(
+      [
+        "",
+        "The rebuild completed but the collection STILL reports a conflict:",
+        ...remaining.map((conflict) => `  ${conflict.reason}`),
+        "",
+        "This usually means the collection carries index option defaults",
+        "(indexOptionDefaults, or a default collation) that are stamped onto",
+        "every index it builds, so rebuilding cannot clear it. Do NOT re-run",
+        "--fix — it will drop and rebuild to the same state. Resolve the",
+        "collection's own defaults instead.",
+      ].join("\n"),
+    );
+    throw new Error(
+      "The unique index was rebuilt but is still classified as conflicting",
+    );
   }
 
   console.log("After:");
@@ -295,7 +350,13 @@ async function main() {
 
     const duplicates = await collection
       .aggregate([
-        { $group: { _id: { sample: "$sample", name: "$name" }, count: { $sum: 1 }, ids: { $push: "$_id" } } },
+        {
+          $group: {
+            _id: { sample: "$sample", name: "$name" },
+            count: { $sum: 1 },
+            ids: { $push: "$_id" },
+          },
+        },
         { $match: { count: { $gt: 1 } } },
         { $sort: { count: -1 } },
       ])
@@ -313,9 +374,13 @@ async function main() {
     if (duplicates.length === 0) {
       console.log("No duplicate { sample, name } pairs.");
     } else {
-      console.log(`Found ${duplicates.length} duplicate { sample, name } pair(s):\n`);
+      console.log(
+        `Found ${duplicates.length} duplicate { sample, name } pair(s):\n`,
+      );
       duplicates.forEach((d) => {
-        console.log(`  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`);
+        console.log(
+          `  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`,
+        );
         console.log(`    ${d.count} runs: ${d.ids.join(", ")}`);
       });
       console.log(
@@ -352,11 +417,16 @@ async function main() {
           "\nNot attempting a fix: duplicate documents exist, so a rebuilt unique index would fail the same way. Resolve the duplicates first.",
         );
       } else if (fix) {
-        console.log(`\nFixing: dropping and rebuilding "${INDEX_NAME}" as unique...`);
+        const names = conflicts.map((conflict) => `"${conflict.index.name}"`);
+        console.log(
+          `\nFixing: dropping ${names.join(", ")} and rebuilding "${INDEX_NAME}" as unique...`,
+        );
         await fixStaleIndex(collection, conflicts);
         console.log("\nFixed. The unique index is now in place.");
       } else {
-        console.log("\nRe-run with --fix to drop and rebuild this index, or resolve it manually.");
+        console.log(
+          "\nRe-run with --fix to drop and rebuild this index, or resolve it manually.",
+        );
       }
     }
 

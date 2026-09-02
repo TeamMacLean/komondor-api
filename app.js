@@ -58,20 +58,35 @@ var corsOptions = {
 
 const globalCors = cors(corsOptions);
 
-// The /uploads mount runs its own cors(), plus a middleware that advertises
-// the tus capability headers (Tus-Max-Size and friends). This one, mounted
-// first, answers the OPTIONS preflight and ENDS the request — so before this
-// skip, an OPTIONS to /uploads returned 200 with the right origin and no tus
-// headers at all, and the router's own capability middleware never ran. An
-// audit caught it against the whole application; the router's own test suite
+// The /uploads mount runs its own cors(), plus a middleware advertising the
+// tus capability headers (Tus-Max-Size and friends). This one, mounted first,
+// ANSWERS the OPTIONS preflight and ends the request — so an OPTIONS to
+// /uploads returned 200 with the right origin and no tus headers at all, and
+// the router's own capability middleware never ran. The router's test suite
 // mounts the router alone, so its topology could not show this.
 //
-// Browsers do not read those headers off the preflight and uploads worked
-// either way, but a tus client asking the endpoint what it supports was
-// getting an answer with the capabilities stripped out.
+// The fix is `preflightContinue`, not a skip. Skipping CORS for /uploads
+// entirely looks equivalent and is not: routes/uploads.js guards the mount
+// with `router.use(TUS_ROUTE, requireUploadAuth, uploadApp)`, so an
+// unauthenticated request is answered 401 BEFORE reaching uploadApp's own
+// cors() — and with the global one skipped, that 401 carried no CORS headers
+// at all. A JWT expiring mid-upload would then show the browser an opaque
+// CORS failure instead of "Authentication required", which the web app
+// cannot tell apart from the network dying. Setting the headers and letting
+// the preflight through gives both halves.
+const uploadsCors = cors({ ...corsOptions, preflightContinue: true });
+
+// Case-insensitively: Express routes case-insensitively by default, so
+// /Uploads reaches the tus mount. A case-sensitive predicate here would send
+// it down the wrong branch — the same bug this fixes, one capital letter away.
+const isUploadPath = (path) => {
+  const lower = String(path).toLowerCase();
+  return lower === "/uploads" || lower.startsWith("/uploads/");
+};
+
 app.use((req, res, next) =>
-  req.path === "/uploads" || req.path.startsWith("/uploads/")
-    ? next()
+  isUploadPath(req.path)
+    ? uploadsCors(req, res, next)
     : globalCors(req, res, next),
 );
 
@@ -274,7 +289,10 @@ app.use((req, res) => {
 // eslint-disable-next-line no-unused-vars -- Express identifies error handlers by arity.
 app.use((err, req, res, next) => {
   const requestId = generateRequestId();
-  console.error(`[${requestId}] Unhandled error on ${req.method} ${req.path}:`, err);
+  console.error(
+    `[${requestId}] Unhandled error on ${req.method} ${req.path}:`,
+    err,
+  );
 
   if (res.headersSent) {
     return next(err);

@@ -51,12 +51,10 @@ jest.mock("../../lib/ingest-queue", () => ({
 
 jest.mock("../../routes/_utils", () => ({
   handleError: jest.fn((res, error, status, message) => {
-    res
-      .status(status)
-      .json({
-        error: message || error.message,
-        detail: error instanceof Error ? error.message : undefined,
-      });
+    res.status(status).json({
+      error: message || error.message,
+      detail: error instanceof Error ? error.message : undefined,
+    });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
   generateRequestId: jest.fn().mockReturnValue("test-request-id"),
@@ -764,7 +762,9 @@ describe("Runs API Routes", () => {
           populate: jest.fn().mockResolvedValue(null),
         });
         Run.mockImplementation(() => ({
-          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
         }));
       });
 
@@ -919,16 +919,22 @@ describe("Runs API Routes", () => {
         });
 
         Run.mockImplementation(() => ({
-          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
         }));
       });
 
       test("should queue the ingest and report its job id", async () => {
         const response = await request(app)
           .post("/runs/new")
-          .send(requestBody({
-            additionalFiles: [{ name: "notes.txt", uploadName: "b".repeat(32) }],
-          }));
+          .send(
+            requestBody({
+              additionalFiles: [
+                { name: "notes.txt", uploadName: "b".repeat(32) },
+              ],
+            }),
+          );
 
         expect(response.status).toBe(201);
         // The 201 shape komondor-power parses is preserved; jobId is additive.
@@ -1036,7 +1042,10 @@ describe("Runs API Routes", () => {
           .post("/runs/new")
           .send(
             requestBody({
-              rawFiles: [{ name: "good_R1.fq.gz" }, { uploadName: "no-name-here" }],
+              rawFiles: [
+                { name: "good_R1.fq.gz" },
+                { uploadName: "no-name-here" },
+              ],
             }),
           );
 
@@ -1051,7 +1060,9 @@ describe("Runs API Routes", () => {
 
         const response = await request(app)
           .post("/runs/new")
-          .send(requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] }));
+          .send(
+            requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] }),
+          );
 
         expect(response.status).toBe(400);
         expect(Sample.findById).not.toHaveBeenCalled();
@@ -1078,7 +1089,9 @@ describe("Runs API Routes", () => {
           populate: jest.fn().mockResolvedValue(null),
         });
         Run.mockImplementation(() => ({
-          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
         }));
 
         const response = await request(app)
@@ -1086,7 +1099,10 @@ describe("Runs API Routes", () => {
           .send(
             requestBody({
               rawFiles: [{ name: "hpc_R1.fq.gz" }],
-              rawFilesUploadInfo: { method: "hpc-mv", relativePath: "/WGS_Test" },
+              rawFilesUploadInfo: {
+                method: "hpc-mv",
+                relativePath: "/WGS_Test",
+              },
             }),
           );
 
@@ -1098,7 +1114,9 @@ describe("Runs API Routes", () => {
 
         const response = await request(app)
           .post("/runs/new")
-          .send(requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } }));
+          .send(
+            requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } }),
+          );
 
         expect(response.status).toBe(400);
         expect(Sample.findById).not.toHaveBeenCalled();
@@ -1407,12 +1425,63 @@ describe("Runs API Routes", () => {
         expect(Sample.findById).not.toHaveBeenCalled();
       });
 
+      test("refuses a sibling that is not already a bare filename", async () => {
+        // A review found the hole this closes. Validation canonicalised names
+        // before comparing them, but lib/ingest-queue.js siblingLinks matches
+        // the RAW payload string — so {name:"A.fq", sibling:" B.fq"} and
+        // {name:"B.fq", sibling:"A.fq"} passed the mutuality check and then
+        // delivered half-paired at runtime: A's link to " B.fq" never
+        // resolved, B's to "A.fq" did, and the run finished "complete" with A
+        // unpaired. Requiring the canonical form at the door is what makes
+        // raw and canonical the same string everywhere downstream.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "A.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: " B.fq.gz",
+                },
+                {
+                  name: "B.fq.gz",
+                  uploadName: "b".repeat(32),
+                  sibling: "A.fq.gz",
+                },
+              ],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses a name that is not already a bare filename", async () => {
+        // Same reason from the other side: lib/file-utils.js stores
+        // safeBasename(name) while the retry planner matches the raw string,
+        // so a delivered "A.fq" stored under a payload entry named " A.fq"
+        // is re-attempted by every retry, forever.
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: " A.fq.gz", uploadName: "a".repeat(32) }],
+            }),
+          );
+
+        expect(response.status).toBe(400);
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
       test("accepts a complete sibling pair", async () => {
         Run.findOne = jest.fn().mockReturnValue({
           populate: jest.fn().mockResolvedValue(null),
         });
         Run.mockImplementation(() => ({
-          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
         }));
 
         const response = await request(app)
@@ -1442,16 +1511,16 @@ describe("Runs API Routes", () => {
           populate: jest.fn().mockResolvedValue(null),
         });
         Run.mockImplementation(() => ({
-          save: jest.fn().mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
         }));
 
         const response = await request(app)
           .post("/runs/new")
           .send(
             requestBody({
-              rawFiles: [
-                { name: "test_R1.fq.gz", uploadName: "a".repeat(32) },
-              ],
+              rawFiles: [{ name: "test_R1.fq.gz", uploadName: "a".repeat(32) }],
               additionalFiles: [
                 { name: "notes.txt", uploadName: "b".repeat(32) },
               ],
@@ -2106,7 +2175,9 @@ describe("Runs API Routes", () => {
       test("does not delegate to the queue's own reset when replacing a payload", async () => {
         // Today's requeueRunIngest export takes no payload; delegating to it
         // anyway would silently serve the old payload back instead of the fix.
-        const requeueRunIngest = jest.fn().mockResolvedValue({ _id: mockJobId });
+        const requeueRunIngest = jest
+          .fn()
+          .mockResolvedValue({ _id: mockJobId });
         ingestQueue.requeueRunIngest = requeueRunIngest;
 
         IngestJob.findOneAndUpdate.mockResolvedValue({
@@ -2416,6 +2487,91 @@ describe("Runs API Routes", () => {
             { name: "shared.fastq", uploadName: "raw-up" },
           ]);
         });
+      });
+
+      test("refuses a replacement payload that names the same file twice", async () => {
+        // A review reproduced this: the duplicate-name check was moved behind
+        // the whole-list gate along with the pairing rules, but a duplicate
+        // is a defect in the SUBMISSION, not a statement about entries the
+        // caller did not send. Worse than merely permissive —
+        // mergeReplacementList indexes by name into a Map, so the two
+        // collapsed LAST-WINS and the merged list looked clean to the
+        // re-validation afterwards. A client that double-adds a correction
+        // (a double-click, a script appending to a list it already has) got
+        // 200 with the second copy silently winning.
+        ingestQueue.deliveredFileNames.mockReset();
+        ingestQueue.deliveredFileNames.mockResolvedValue({
+          raw: new Set(),
+          additional: new Set(),
+        });
+        mockJobLookup({
+          _id: mockJobId,
+          payload: {
+            rawFiles: [{ name: "A.fq", uploadName: "u1" }],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [
+              { name: "A.fq", uploadName: "corrected" },
+              { name: "A.fq", uploadName: "OOPS-second" },
+            ],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          });
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/appears more than once/i);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
+      test("lets a delivered file be un-paired, not just re-pointed", async () => {
+        // The mirror of the rename case. Excluding `sibling` from the
+        // fingerprint let a delivered file's pointer CHANGE, but the merge
+        // only took the submitted value when the key was present — so
+        // dropping the mate kept the original's now-dangling pointer and
+        // 400'd on the merged list. Same dead end, opposite direction.
+        ingestQueue.deliveredFileNames.mockReset();
+        ingestQueue.deliveredFileNames.mockResolvedValue({
+          raw: new Set(["landed_R1.fq"]),
+          additional: new Set(),
+        });
+        mockJobLookup({
+          _id: mockJobId,
+          payload: {
+            rawFiles: [
+              { name: "landed_R1.fq", sibling: "gone_R2.fq" },
+              { name: "gone_R2.fq", sibling: "landed_R1.fq" },
+            ],
+            rawFilesUploadInfo: {
+              method: "hpc-mv",
+              relativePath: "/WGS_Test",
+            },
+          },
+        });
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [{ name: "landed_R1.fq" }],
+            rawFilesUploadInfo: {
+              method: "hpc-mv",
+              relativePath: "/WGS_Test",
+            },
+          });
+
+        expect(response.status).toBe(200);
+        const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
+        expect(update.$set.payload.rawFiles).toEqual([
+          { name: "landed_R1.fq" },
+        ]);
       });
 
       test("a correction to only additionalFiles leaves rawFiles untouched, not dropped", async () => {

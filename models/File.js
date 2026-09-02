@@ -40,18 +40,25 @@ const isSameFile = (a, b) => a.dev === b.dev && a.ino === b.ino;
  * copy, with the source re-scp'd over itself after the first 4096 bytes and
  * ending at the same length, produced a destination holding 4096 old bytes
  * followed by 1,044,480 new ones and reported success, because both the size
- * check and the inode check still passed. Timestamps are what actually move:
- * a write updates mtime, and any inode change updates ctime.
+ * check and the inode check still passed. mtime is what actually moves: any
+ * write to the file updates it.
  *
- * @param {import('fs').Stats} current - A fresh fstat of the pinned handle.
+ * ctime is deliberately NOT compared, though it was at first. ctime moves on
+ * any INODE change, which includes changes that touch no content at all —
+ * measured here, a chmod and creating a hard link each bump ctime while
+ * leaving size, mtime and content alone. HPC_TRANSFER_DIRECTORY is a shared
+ * inbox other people's tooling operates on (BREAKING_CHANGES.md 35), so a
+ * `chmod -R` or a backup agent writing an xattr during a multi-hundred-GB
+ * copy would have failed the whole move and forced a full re-copy. It buys
+ * nothing against corruption either: a write that changes content always
+ * moves mtime, so ctime only ever added false positives.
+ *
+ * @param {import('fs').Stats} current - A fresh stat of the pinned source.
  * @param {import('fs').Stats} pinned - The fstat taken when it was pinned.
  * @returns {boolean} True when the bytes may have changed underneath us.
  */
 const wasMutatedSincePinned = (current, pinned) =>
-  !isSameFile(current, pinned) ||
-  current.size !== pinned.size ||
-  current.mtimeMs !== pinned.mtimeMs ||
-  current.ctimeMs !== pinned.ctimeMs;
+  current.size !== pinned.size || current.mtimeMs !== pinned.mtimeMs;
 
 /**
  * Where an in-progress copy is written before promotion to its real name.
@@ -430,12 +437,12 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
           // retention branch above uses, so an interrupted copy never
           // appears complete under the real name.
           await copyPinnedSourceTo(
-          sourceHandle,
-          pinnedSource,
-          pinnedPath,
-          fullNewPath,
-          file,
-        );
+            sourceHandle,
+            pinnedSource,
+            pinnedPath,
+            fullNewPath,
+            file,
+          );
 
           destinationIsSourceInode = false;
         }

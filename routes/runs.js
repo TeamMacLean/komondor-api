@@ -336,6 +336,35 @@ const fileEntryShapeError = (file, method, relativePathCovered) => {
     return "is missing a name";
   }
 
+  // The name must already BE its own basename.
+  //
+  // Comparing names canonically is not enough, because only some of the code
+  // does it. lib/file-utils.js createFileDocument stores safeBasename(name),
+  // but lib/ingest-queue.js siblingLinks and planRawFileStage match on the
+  // RAW payload string. So " A.fq" is one file to the datastore and another
+  // to the pairing and retry steps: a review caught a payload where
+  // {name:"A.fq", sibling:" B.fq"} and {name:"B.fq", sibling:"A.fq"} passed a
+  // canonicalised mutuality check and then delivered half-paired, and a
+  // delivered file under a non-canonical name is re-attempted by every retry
+  // forever. Requiring the canonical form at the door makes raw and canonical
+  // the same string everywhere downstream, which is the only version of this
+  // that does not depend on remembering to canonicalise at each site.
+  const canonicalName = safeBasename(file.name);
+  if (canonicalName !== file.name) {
+    return canonicalName === null
+      ? "has a name that is not a usable filename"
+      : `has a name that is not a bare filename (send "${canonicalName}")`;
+  }
+
+  if (typeof file.sibling === "string") {
+    const canonicalSibling = safeBasename(file.sibling);
+    if (canonicalSibling !== file.sibling) {
+      return canonicalSibling === null
+        ? "names a sibling that is not a usable filename"
+        : `names a sibling that is not a bare filename (send "${canonicalSibling}")`;
+    }
+  }
+
   // createFileDocument builds the staged path from uploadName for a
   // local-filesystem claim, so an entry without one cannot be processed.
   if (
@@ -426,23 +455,9 @@ const validateFileList = (
     }
   });
 
-  // Everything below is a statement about the list AS A WHOLE — that its
-  // pairs are complete, its siblings resolvable, its names distinct. None of
-  // it holds on a partial reingest correction, which by design carries only
-  // the entries being corrected and is merged with the delivered rest before
-  // any of these become true. Reproduced by execution: correcting one mate of
-  // a pair returned 400 `rowID "row-1" has 1 paired entry`, so the advertised
-  // one-file correction had no legal payload at all. The MERGED list is
-  // checked with crossEntry on, which is where these belong.
-  if (!crossEntry) {
-    return errors;
-  }
-
-  // Compared canonically, not raw. safeBasename is what actually names the
-  // file on disk (lib/file-utils.js createFileDocument), and it trims and
-  // strips any directory part — so "A.fq" and " A.fq" are two distinct names
-  // here but one file there. Reproduced: a retry reattempted an already-
-  // delivered file under its twin name and stayed errored.
+  // Canonical as well as literal: fileEntryShapeError already refuses a
+  // non-canonical name, so these agree — comparing the canonical form keeps
+  // that true even for an entry that failed the shape check above.
   const canonicalNames = files
     .map(fileEntryName)
     .filter((n) => typeof n === "string")
@@ -450,12 +465,35 @@ const validateFileList = (
 
   // Names are the identity the retry planner and the pairing step both match
   // on, so two entries sharing one make delivery state ambiguous.
+  //
+  // Checked on a partial payload too, unlike the whole-list rules below: a
+  // duplicate is a defect in the submission itself, not a statement about
+  // entries the caller did not send. Skipping it here was worse than merely
+  // permissive — mergeReplacementList indexes by name into a Map, so two
+  // entries sharing one collapsed LAST-WINS and the merged list looked clean
+  // to the re-validation afterwards. A review reproduced a client
+  // double-adding a correction and getting 200, with the second copy quietly
+  // winning.
   const duplicates = [
-    ...new Set(canonicalNames.filter((n, i) => canonicalNames.indexOf(n) !== i)),
+    ...new Set(
+      canonicalNames.filter((n, i) => canonicalNames.indexOf(n) !== i),
+    ),
   ];
   duplicates.forEach((name) => {
     errors.push(`${label} name "${name}" appears more than once`);
   });
+
+  // Everything below is a statement about the list AS A WHOLE — that its
+  // pairs are complete and its siblings resolvable. Neither holds on a
+  // partial reingest correction, which by design carries only the entries
+  // being corrected and is merged with the delivered rest before either
+  // becomes true. Reproduced by execution: correcting one mate of a pair
+  // returned 400 `rowID "row-1" has 1 paired entry`, so the advertised
+  // one-file correction had no legal payload at all. The MERGED list is
+  // checked with crossEntry on, which is where these belong.
+  if (!crossEntry) {
+    return errors;
+  }
 
   // hpc-mv pairing is declared by naming a sibling. siblingLinks emits one
   // directed [name, sibling] link per declaration and asks nothing else of
@@ -480,9 +518,7 @@ const validateFileList = (
     const sibling = safeBasename(file.sibling) || file.sibling;
 
     if (sibling === own) {
-      errors.push(
-        `${label} at index ${index} names itself as its own sibling`,
-      );
+      errors.push(`${label} at index ${index} names itself as its own sibling`);
       return;
     }
     if (!present.has(sibling)) {
@@ -1131,11 +1167,23 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
         // the resubmitted pairing pointer: excluded from the fingerprint
         // above precisely so a rename of its undelivered mate can be
         // expressed, and dropping it here would make that exclusion useless.
-        merged.push(
-          submittedEntry !== undefined && "sibling" in submittedEntry
-            ? { ...originalEntry, sibling: submittedEntry.sibling }
-            : originalEntry,
-        );
+        //
+        // Taken from the submission whether or not `sibling` is present on
+        // it: an entry resubmitted WITHOUT one means "this file is no longer
+        // paired". Keying on `"sibling" in submittedEntry` instead left
+        // un-pairing with no legal payload — dropping the mate kept the
+        // original's now-dangling pointer and 400'd on the merged list, the
+        // same dead end the rename case had.
+        if (submittedEntry !== undefined) {
+          const { sibling, ...bytes } = originalEntry;
+          merged.push(
+            submittedEntry.sibling === undefined
+              ? bytes
+              : { ...bytes, sibling: submittedEntry.sibling },
+          );
+        } else {
+          merged.push(originalEntry);
+        }
       }
     } else if (submitted.has(name)) {
       // Not yet delivered: whatever the caller submitted is the correction.

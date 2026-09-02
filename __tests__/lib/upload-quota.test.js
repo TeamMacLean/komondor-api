@@ -756,7 +756,10 @@ describe("assertUploadComplete", () => {
   });
 
   const writeSidecar = (id, info) =>
-    fs.writeFileSync(_path.join(dir, `${id}.json`), JSON.stringify({ id, ...info }));
+    fs.writeFileSync(
+      _path.join(dir, `${id}.json`),
+      JSON.stringify({ id, ...info }),
+    );
 
   test("refuses an upload whose offset is behind its declared size", async () => {
     // The auditor reproduced acceptance of exactly this: size 100, offset 1.

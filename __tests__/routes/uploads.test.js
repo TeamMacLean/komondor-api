@@ -565,6 +565,40 @@ describe("the tus mount inside the WHOLE application", () => {
     expect(response.status).toBe(401);
   });
 
+  test("still sets CORS headers on the 401 the mount's own guard returns", async () => {
+    // A review caught this as a regression from the first attempt at the
+    // fix above. routes/uploads.js guards the mount with
+    // `router.use(TUS_ROUTE, requireUploadAuth, uploadApp)`, so an
+    // unauthenticated request is answered 401 BEFORE reaching uploadApp's
+    // own cors(). Skipping the global cors() for /uploads therefore stripped
+    // the headers from every 401 — and a JWT expiring mid-upload would show
+    // the browser an opaque CORS failure instead of "Authentication
+    // required", which the web app cannot tell apart from the network dying.
+    const response = await request(realApp)
+      .post("/uploads")
+      .set("Origin", "http://localhost:3000")
+      .set("Tus-Resumable", "1.0.0")
+      .set("Upload-Length", "4");
+
+    expect(response.status).toBe(401);
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:3000",
+    );
+  });
+
+  test("routes a case-variant path the same way Express does", async () => {
+    // Express routes case-insensitively by default, so /Uploads reaches the
+    // tus mount. A case-sensitive predicate in app.js sent it down the other
+    // branch — the exact bug this suite exists to catch, one capital letter
+    // away from the path it does catch.
+    const response = await request(realApp)
+      .options("/Uploads")
+      .set("Origin", "http://localhost:3000")
+      .set("Access-Control-Request-Method", "POST");
+
+    expect(response.headers["tus-max-size"]).toBeDefined();
+  });
+
   test("keeps normal CORS on a route that is not the upload mount", async () => {
     // The skip is scoped to /uploads; everything else must still get the
     // global cors() answer it always had.

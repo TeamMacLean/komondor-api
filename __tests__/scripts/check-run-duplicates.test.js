@@ -21,16 +21,36 @@ const {
 } = require("../../scripts/check-run-duplicates");
 
 /**
- * A minimal stand-in for the mongodb driver's Collection. aggregate()
- * defaults to reporting no duplicates, since fixStaleIndex re-checks for them
- * immediately before dropping the old index.
+ * A stand-in for the mongodb driver's Collection that actually keeps state.
+ *
+ * indexes() used to return one frozen list no matter what dropIndex and
+ * createIndex had done to it — a database that cannot exist, and the reason
+ * fixStaleIndex could not be tested for what it leaves behind. It now
+ * reflects the drops and creates made against it, so a test asserting the
+ * repair worked is asserting something.
+ *
+ * aggregate() defaults to reporting no duplicates, since fixStaleIndex
+ * re-checks for them immediately before dropping the old index.
  */
-const makeCollection = (indexes) => ({
-  indexes: jest.fn().mockResolvedValue(indexes),
-  dropIndex: jest.fn().mockResolvedValue({}),
-  createIndex: jest.fn().mockResolvedValue(INDEX_NAME),
-  aggregate: jest.fn().mockReturnValue({ toArray: async () => [] }),
-});
+const makeCollection = (indexes) => {
+  let current = [...indexes];
+
+  return {
+    indexes: jest.fn(async () => current),
+    dropIndex: jest.fn(async (name) => {
+      current = current.filter((idx) => idx.name !== name);
+      return {};
+    }),
+    createIndex: jest.fn(async (key, options) => {
+      current = [
+        ...current,
+        { v: 2, key, name: options.name, unique: options.unique },
+      ];
+      return options.name;
+    }),
+    aggregate: jest.fn().mockReturnValue({ toArray: async () => [] }),
+  };
+};
 
 beforeEach(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
@@ -145,7 +165,9 @@ describe("findIndexConflicts", () => {
         name: "sample_1_name_1",
         key: { sample: 1, name: 1 },
         unique: true,
-        storageEngine: { wiredTiger: { configString: "block_compressor=zlib" } },
+        storageEngine: {
+          wiredTiger: { configString: "block_compressor=zlib" },
+        },
       },
     ]);
 
@@ -174,7 +196,12 @@ describe("findIndexConflicts", () => {
     expect(
       findIndexConflicts([
         { name: "_id_", key: { _id: 1 } },
-        { v: 2, name: "sample_1_name_1", key: { sample: 1, name: 1 }, unique: true },
+        {
+          v: 2,
+          name: "sample_1_name_1",
+          key: { sample: 1, name: 1 },
+          unique: true,
+        },
       ]),
     ).toEqual([]);
   });
@@ -272,13 +299,18 @@ describe("fixStaleIndex", () => {
     // index has to be gone first.
     const order = [];
     const collection = makeCollection([{ name: "sample_1_name_1" }]);
-    collection.dropIndex.mockImplementation(async () => {
+    // Wrapped, not replaced: the stand-in has to keep tracking state, or
+    // fixStaleIndex's post-repair re-check sees a collection where the drop
+    // never happened.
+    const realDrop = collection.dropIndex.getMockImplementation();
+    const realCreate = collection.createIndex.getMockImplementation();
+    collection.dropIndex.mockImplementation(async (...args) => {
       order.push("drop");
-      return {};
+      return realDrop(...args);
     });
-    collection.createIndex.mockImplementation(async () => {
+    collection.createIndex.mockImplementation(async (...args) => {
       order.push("create");
-      return INDEX_NAME;
+      return realCreate(...args);
     });
 
     await fixStaleIndex(collection);
@@ -287,26 +319,27 @@ describe("fixStaleIndex", () => {
   });
 
   test("reports the index list before and after, for the operator's record", async () => {
-    const before = { name: "sample_1_name_1", unique: undefined };
-    const after = { name: "sample_1_name_1", unique: true };
-    const collection = {
-      indexes: jest
-        .fn()
-        .mockResolvedValueOnce([before])
-        .mockResolvedValueOnce([after]),
-      dropIndex: jest.fn().mockResolvedValue({}),
-      createIndex: jest.fn().mockResolvedValue(INDEX_NAME),
-      aggregate: jest.fn().mockReturnValue({ toArray: async () => [] }),
-    };
+    const before = { name: "sample_1_name_1" };
+    const collection = makeCollection([before]);
 
     await fixStaleIndex(collection);
 
-    expect(collection.indexes).toHaveBeenCalledTimes(2);
-    const logged = console.log.mock.calls.map((call) => call.join(" ")).join("\n");
+    const logged = console.log.mock.calls
+      .map((call) => call.join(" "))
+      .join("\n");
     expect(logged).toContain("Before:");
     expect(logged).toContain("After:");
+    // The stale index as it was, then the rebuilt one — read back from a
+    // stand-in that actually applied the drop and the create, so this shows
+    // the repair rather than two hard-coded lists.
     expect(logged).toContain(JSON.stringify([before], null, 2));
-    expect(logged).toContain(JSON.stringify([after], null, 2));
+    expect(logged).toContain(
+      JSON.stringify(
+        [{ v: 2, key: { sample: 1, name: 1 }, name: INDEX_NAME, unique: true }],
+        null,
+        2,
+      ),
+    );
   });
 
   test("propagates a failed dropIndex rather than attempting createIndex anyway", async () => {
@@ -348,7 +381,9 @@ describe("fixStaleIndex", () => {
     );
 
     expect(collection.dropIndex).toHaveBeenCalled();
-    const loggedError = errorSpy.mock.calls.map((call) => call.join(" ")).join("\n");
+    const loggedError = errorSpy.mock.calls
+      .map((call) => call.join(" "))
+      .join("\n");
     expect(loggedError).toMatch(/no index/i);
     expect(loggedError).toMatch(/enforcing/i);
   });

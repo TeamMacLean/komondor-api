@@ -584,9 +584,9 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
     };
 
     const firstAttempt = makeFile(source);
-    await expect(
-      firstAttempt.moveToFolderAndSave(REL_PATH),
-    ).rejects.toThrow(/4 bytes but the source is 8 bytes/);
+    await expect(firstAttempt.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /4 bytes but the source is 8 bytes/,
+    );
 
     // The real name was never touched — not created short, not left short.
     expect(fs.existsSync(dest)).toBe(false);
