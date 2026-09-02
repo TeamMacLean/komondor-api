@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const _path = require("path");
-const { Server, EVENTS } = require("@tus/server");
+const { Server, EVENTS, TUS_VERSION } = require("@tus/server");
 const { FileStore } = require("@tus/file-store");
 
 const { isAuthenticated } = require("./middleware");
@@ -258,10 +258,23 @@ const requireUploadAuth = (req, res, next) => {
 
 const uploadApp = express();
 
-// Set here rather than left to tus: cors() answers the preflight before the
-// tus handler can advertise Tus-Max-Size itself.
+// Set here rather than left to tus: cors() answers the preflight below and
+// ends the request, so tus's own OptionsHandler never runs on a preflight and
+// none of what it would advertise reaches the client. An audit found the
+// whole application returning a preflight with no tus capabilities at all.
+//
+// Every value is sourced, not hard-coded — the extension list comes from the
+// datastore the server is actually built on, and the version from the
+// library's own constant — so this cannot drift into advertising support for
+// something the installed @tus/server does not do. Mirrors what
+// @tus/server's OptionsHandler sets, deliberately.
 uploadApp.use((req, res, next) => {
   res.setHeader("Tus-Max-Size", String(quota.getLimits().maxUploadBytes));
+  res.setHeader("Tus-Version", TUS_VERSION.join(","));
+  const extensions = tusServer.datastore.extensions;
+  if (Array.isArray(extensions) && extensions.length > 0) {
+    res.setHeader("Tus-Extension", extensions.join(","));
+  }
   next();
 });
 

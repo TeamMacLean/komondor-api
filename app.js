@@ -56,7 +56,24 @@ var corsOptions = {
   exposedHeaders: EXPOSED_HEADERS,
 };
 
-app.use(cors(corsOptions));
+const globalCors = cors(corsOptions);
+
+// The /uploads mount runs its own cors(), plus a middleware that advertises
+// the tus capability headers (Tus-Max-Size and friends). This one, mounted
+// first, answers the OPTIONS preflight and ENDS the request — so before this
+// skip, an OPTIONS to /uploads returned 200 with the right origin and no tus
+// headers at all, and the router's own capability middleware never ran. An
+// audit caught it against the whole application; the router's own test suite
+// mounts the router alone, so its topology could not show this.
+//
+// Browsers do not read those headers off the preflight and uploads worked
+// either way, but a tus client asking the endpoint what it supports was
+// getting an answer with the capabilities stripped out.
+app.use((req, res, next) =>
+  req.path === "/uploads" || req.path.startsWith("/uploads/")
+    ? next()
+    : globalCors(req, res, next),
+);
 
 app.use(express.json({ limit: "5mb" }));
 app.use(express.urlencoded({ extended: false }));

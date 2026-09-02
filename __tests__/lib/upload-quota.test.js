@@ -794,13 +794,38 @@ describe("assertUploadComplete", () => {
 });
 
 describe("checkUploadAllowed — the free-space floor is global", () => {
+  // These two used to read the machine's REAL free space and set the floor
+  // relative to it. That makes the assertion depend on free space holding
+  // still between the measurement and the call under test, which on a busy
+  // or nearly-full disk it does not: both tests failed intermittently here,
+  // reporting a 507 for a request the arithmetic said was fine. The property
+  // being tested has nothing to do with the host's disk, so the volume is
+  // pinned and the numbers are chosen, not discovered.
+  const PINNED_FREE = 1_100;
+
+  beforeEach(() => {
+    // getFreeBytes multiplies bsize by bavail; 1 x 1,100 keeps it readable.
+    jest
+      .spyOn(fs.promises, "statfs")
+      .mockResolvedValue({ bsize: 1, bavail: PINNED_FREE });
+    process.env.UPLOAD_MIN_FREE_BYTES = String(PINNED_FREE - 1000); // 100
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("the pinned volume is what the module actually reads", async () => {
+    // Guards the pin itself: if getFreeBytes stopped going through
+    // fs.promises.statfs, both tests below would quietly go back to
+    // measuring the real disk and to being flaky.
+    await expect(getFreeBytes(tmpRoot)).resolves.toBe(PINNED_FREE);
+  });
+
   test("admits a request alone but refuses a second once the first is reserved", async () => {
     // The auditor reproduced this with 1,100 bytes free and a 100-byte floor:
     // two 700-byte uploads from different users each independently saw
     // ~1,100 free and were both admitted, together overrunning the floor.
-    const free = await getFreeBytes(tmpRoot);
-    process.env.UPLOAD_MIN_FREE_BYTES = String(free - 1000);
-
     const first = await checkUploadAllowed({
       id: "a".repeat(32),
       username: "alice",
@@ -824,9 +849,6 @@ describe("checkUploadAllowed — the free-space floor is global", () => {
   });
 
   test("does not count itself twice: a lone request is still charged once", async () => {
-    const free = await getFreeBytes(tmpRoot);
-    process.env.UPLOAD_MIN_FREE_BYTES = String(free - 1000);
-
     const decision = await checkUploadAllowed({
       id: "c".repeat(32),
       username: "alice",

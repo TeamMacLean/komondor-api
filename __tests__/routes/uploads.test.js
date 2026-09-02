@@ -30,6 +30,7 @@ const ORIGINAL_ENV = {
 process.env.UPLOAD_DIRECTORY = uploadDir;
 process.env.WEB_APP_URL = "http://localhost:3000";
 
+const { TUS_VERSION } = require("@tus/server");
 const uploadRouter = require("../../routes/uploads");
 const quota = require("../../lib/upload-quota");
 
@@ -516,5 +517,64 @@ describe("POST /upload/cancel", () => {
       .send({ uploadId: "e".repeat(32) });
 
     expect(response.status).toBe(404);
+  });
+});
+
+describe("the tus mount inside the WHOLE application", () => {
+  // Every test above builds its own express app around the upload router
+  // alone. That topology is not production's: app.js mounts a global cors()
+  // long before the upload routes, and cors() ANSWERS an OPTIONS preflight
+  // and ends the request rather than passing it on. So the router's own
+  // capability middleware never ran on a preflight, and no test here could
+  // have noticed — an audit found it by driving the real application.
+  //
+  // This suite requires app.js itself so the mount order is the real one.
+  let realApp;
+
+  beforeAll(() => {
+    jest.isolateModules(() => {
+      realApp = require("../../app");
+    });
+  });
+
+  test("answers an OPTIONS preflight with the tus capability headers", async () => {
+    const response = await request(realApp)
+      .options("/uploads")
+      .set("Origin", "http://localhost:3000")
+      .set("Access-Control-Request-Method", "POST")
+      .set("Access-Control-Request-Headers", "authorization,tus-resumable");
+
+    expect(response.status).toBeLessThan(300);
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:3000",
+    );
+    // The half that was missing: answered by the global cors() before the
+    // upload router could contribute anything of its own.
+    expect(response.headers["tus-max-size"]).toBeDefined();
+    expect(response.headers["tus-version"]).toBe(TUS_VERSION.join(","));
+    expect(response.headers["tus-extension"]).toBeDefined();
+  });
+
+  test("still refuses an unauthenticated upload through the real mount", async () => {
+    // The preflight exemption must not have opened the actual request path.
+    const response = await request(realApp)
+      .post("/uploads")
+      .set("Tus-Resumable", "1.0.0")
+      .set("Upload-Length", "4");
+
+    expect(response.status).toBe(401);
+  });
+
+  test("keeps normal CORS on a route that is not the upload mount", async () => {
+    // The skip is scoped to /uploads; everything else must still get the
+    // global cors() answer it always had.
+    const response = await request(realApp)
+      .options("/news")
+      .set("Origin", "http://localhost:3000")
+      .set("Access-Control-Request-Method", "GET");
+
+    expect(response.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:3000",
+    );
   });
 });
