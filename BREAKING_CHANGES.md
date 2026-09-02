@@ -1118,6 +1118,55 @@ change `instances`/`exec_mode` without revisiting this.
 
 ---
 
+## 37. A file name must already be a bare filename
+
+**Where:** `routes/runs.js` `fileEntryShapeError`, applied to `POST /runs/new`
+and `POST /runs/:id/reingest`
+
+`rawFiles[].name`, `additionalFiles[].name` and `rawFiles[].sibling` must now
+equal their own `safeBasename()`. A value carrying a directory component
+(`"./A.fq"`, `"raw/A.fq"`) or surrounding whitespace (`" A.fq"`) is refused
+with 400 and a message naming the canonical form to send instead. It used to
+be accepted and silently collapsed.
+
+**Why.** Only half the pipeline canonicalised. `lib/file-utils.js`
+`createFileDocument` stores `safeBasename(name)` as the file's
+`originalName`, but `lib/ingest-queue.js` `siblingLinks`, `planRawFileStage`
+and `pendingAdditionalFiles` all match the **raw** payload string. So one
+value meant two different files depending on which step was asking:
+
+- A payload of `{name:"A.fq", sibling:" B.fq"}` and
+  `{name:"B.fq", sibling:"A.fq"}` passed validation, then paired only one way
+  at runtime — `A`'s link to `" B.fq"` never resolved, `B`'s to `"A.fq"` did.
+  The run finished `complete` with `A` carrying `paired: true` and
+  `sibling: null`.
+- A file delivered as `A.fq` under a payload entry named `" A.fq"` is not
+  recognised as delivered by the retry planner, so every retry re-attempts a
+  file that is already in the datastore and the job stays errored forever.
+
+Comparing canonically at the validation layer was tried first and is not
+sufficient: it makes validation agree with storage while leaving the pairing
+and retry steps still matching raw strings. Requiring the canonical form at
+the door makes raw and canonical the same string everywhere downstream, which
+is the only version of this that does not depend on remembering to
+canonicalise at every future call site.
+
+**What this affects.** A client already sending bare filenames — which
+komondor-web and komondor-power both do — is unaffected. A client that sent a
+path-qualified or space-padded name was relying on the silent collapse and
+must send the basename.
+
+**Stored payloads predating this change.** A failed `IngestJob` whose stored
+payload contains a non-canonical name (or a one-way `sibling`) will now fail
+validation on a **reingest with a replacement payload**, because the merged
+list is re-validated in full — including entries the caller never resubmitted.
+A plain `POST /runs/:id/reingest` with no body still replays the stored
+payload untouched and is the escape hatch. There is no migration: the
+affected shape is rare, and the error names the exact entry and the value to
+send.
+
+---
+
 ## Known issues not addressed here
 - **`routes/auth.js` `DEV_USERS` is gated only on `NODE_ENV === "development"`.**
   The containment added in §24 is network-level — development may only bind
