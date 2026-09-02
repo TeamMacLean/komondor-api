@@ -15,6 +15,8 @@
 const {
   findSampleNameIndex,
   isEquivalentToSchemaIndex,
+  hasSameSignatureAsSchemaIndex,
+  collectionIndexDefaults,
   findIndexConflicts,
   fixStaleIndex,
   INDEX_NAME,
@@ -216,6 +218,115 @@ describe("findIndexConflicts", () => {
       "legacy_pair",
       "sample_1_name_1",
     ]);
+  });
+});
+
+describe("the different-name signature rule, as MongoDB 7.0.29 applies it", () => {
+  // One probe per option against a real server, then written down here. The
+  // server's rule for "same index under a different name" (error 85) is NOT
+  // the same question as "would mongoose's build be a no-op" — using the
+  // strict test for both is what reported a custom-named unique index
+  // carrying storageEngine as safe while the server refused it and the app
+  // would not boot.
+  //
+  //   unique                            REFUSES 85
+  //   unique + background               REFUSES 85
+  //   unique + storageEngine            REFUSES 85
+  //   unique + hidden                   REFUSES 85
+  //   unique + sparse                   ACCEPTS (a genuinely different index)
+  //   unique + collation                ACCEPTS
+  //   unique + partialFilterExpression  ACCEPTS
+  //   NOT unique                        ACCEPTS
+  const custom = (extra) => ({
+    v: 2,
+    name: "legacy_pair",
+    key: { sample: 1, name: 1 },
+    unique: true,
+    ...extra,
+  });
+
+  test.each([
+    ["bare unique", {}],
+    ["background", { background: true }],
+    ["storageEngine", { storageEngine: { wiredTiger: { configString: "x" } } }],
+    ["hidden", { hidden: true }],
+  ])("treats a custom-named unique index with %s as a conflict", (_, extra) => {
+    expect(hasSameSignatureAsSchemaIndex(custom(extra), {})).toBe(true);
+    expect(findIndexConflicts([custom(extra)])).toHaveLength(1);
+  });
+
+  test.each([
+    ["sparse", { sparse: true }],
+    ["collation", { collation: { locale: "en" } }],
+    ["partialFilterExpression", { partialFilterExpression: { name: 1 } }],
+  ])("leaves a custom-named unique index with %s alone", (_, extra) => {
+    expect(hasSameSignatureAsSchemaIndex(custom(extra), {})).toBe(false);
+    expect(findIndexConflicts([custom(extra)])).toEqual([]);
+  });
+
+  test("leaves a custom-named NON-unique index alone", () => {
+    expect(
+      hasSameSignatureAsSchemaIndex(
+        { name: "legacy_pair", key: { sample: 1, name: 1 } },
+        {},
+      ),
+    ).toBe(false);
+  });
+});
+
+describe("collection-level index defaults", () => {
+  // A collection created with a default collation stamps it onto EVERY index
+  // it builds, including _id_ and including the perfectly healthy
+  // sample_1_name_1 mongoose itself creates — verified, along with the fact
+  // that Run.init() resolves happily against such a collection. Without this,
+  // that healthy index was reported as a conflict and --fix would have
+  // dropped and rebuilt it into the same state: a loop, on a collection that
+  // was never broken.
+  const collation = { locale: "en", strength: 3 };
+
+  test("reads the defaults off _id_, which nothing configures per-index", () => {
+    expect(
+      collectionIndexDefaults([
+        { name: "_id_", key: { _id: 1 }, collation },
+        {
+          name: INDEX_NAME,
+          key: { sample: 1, name: 1 },
+          unique: true,
+          collation,
+        },
+      ]),
+    ).toEqual({ collation });
+  });
+
+  test("reports no conflict for a healthy index carrying only the default", () => {
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 }, collation },
+        {
+          v: 2,
+          name: INDEX_NAME,
+          key: { sample: 1, name: 1 },
+          unique: true,
+          collation,
+        },
+      ]),
+    ).toEqual([]);
+  });
+
+  test("still reports a collation set on ONE index, which _id_ does not share", () => {
+    // The difference that matters: this one really is a different index.
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 } },
+        {
+          v: 2,
+          name: INDEX_NAME,
+          key: { sample: 1, name: 1 },
+          unique: true,
+          collation,
+        },
+      ]),
+    ).toHaveLength(1);
   });
 });
 

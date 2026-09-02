@@ -128,14 +128,21 @@ const EQUIVALENT_INDEX_FIELDS = new Set([
  * @param {Object|null} idx - An index spec from collection.indexes().
  * @returns {boolean} True only if this index is the one the schema declares.
  */
-function isEquivalentToSchemaIndex(idx) {
+function isEquivalentToSchemaIndex(idx, collectionDefaults) {
   if (!hasExpectedKeys(idx)) {
     return false;
   }
   if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
     return false;
   }
-  return Object.keys(idx).every((field) => EQUIVALENT_INDEX_FIELDS.has(field));
+  return Object.keys(idx).every(
+    (field) =>
+      EQUIVALENT_INDEX_FIELDS.has(field) ||
+      // An option every index on this collection carries is a collection
+      // default, not a difference between this index and the schema's — the
+      // schema's own build inherits it too.
+      (collectionDefaults && collectionDefaults[field] !== undefined),
+  );
 }
 
 /**
@@ -160,12 +167,100 @@ function isEquivalentToSchemaIndex(idx) {
  * @param {Array<Object>} indexes - The result of collection.indexes().
  * @returns {Array<{index: Object, reason: string}>} Conflicts, empty if none.
  */
+// The options MongoDB actually uses to decide whether two indexes are "the
+// same index under a different name" (error 85). Pinned by execution against
+// 7.0.29, one probe per option, not read off the documentation:
+//
+//   existing index under a custom name        server's answer to the build
+//   ----------------------------------        ---------------------------
+//   unique                                    REFUSES 85
+//   unique + background                       REFUSES 85
+//   unique + storageEngine                    REFUSES 85
+//   unique + hidden                           REFUSES 85
+//   unique + sparse                           ACCEPTS (a different index)
+//   unique + collation                        ACCEPTS
+//   unique + partialFilterExpression          ACCEPTS
+//   NOT unique                                ACCEPTS
+//
+// So the signature is the key pattern plus these four; everything else is a
+// storage or display detail the server ignores when comparing. This is a
+// LOOSER test than isEquivalentToSchemaIndex, and deliberately so: that one
+// asks "would mongoose's build be a no-op", which storageEngine and hidden do
+// affect. Using the strict test for both questions is what let an audit find
+// a custom-named unique index carrying storageEngine reported as safe while
+// the server refused it and the app would not boot.
+const SIGNIFICANT_OPTIONS = [
+  "sparse",
+  "collation",
+  "partialFilterExpression",
+  "expireAfterSeconds",
+];
+
+/**
+ * Whether MongoDB would consider this index the same one the schema declares,
+ * and so refuse to build the schema's under its own name.
+ *
+ * @param {Object|null} idx - An index spec from collection.indexes().
+ * @param {Object|null} [collectionDefaults] - Options every index on this
+ *   collection carries by default (see collectionIndexDefaults).
+ * @returns {boolean} True when a same-signature clash exists.
+ */
+function hasSameSignatureAsSchemaIndex(idx, collectionDefaults) {
+  if (!hasExpectedKeys(idx)) {
+    return false;
+  }
+  if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
+    return false;
+  }
+  return SIGNIFICANT_OPTIONS.every(
+    (field) =>
+      idx[field] === undefined ||
+      (collectionDefaults && collectionDefaults[field] !== undefined),
+  );
+}
+
+/**
+ * The index options this collection stamps onto everything it builds.
+ *
+ * A collection created with a default collation gives EVERY index that
+ * collation, including `_id_` and including the perfectly healthy
+ * `sample_1_name_1` mongoose itself builds — verified by execution, along
+ * with the fact that Run.init() resolves happily against such a collection.
+ * Without this, that healthy index came back carrying an option the schema
+ * does not declare, was reported as a conflict, and `--fix` would have
+ * dropped and rebuilt it into exactly the same state: a loop, on a collection
+ * that was never broken.
+ *
+ * `_id_` is the tell. Nothing configures it per-index, so an option present
+ * there is a collection-level default rather than something set on one index.
+ *
+ * @param {Array<Object>} indexes - The result of collection.indexes().
+ * @returns {Object} The defaulted options, possibly empty.
+ */
+function collectionIndexDefaults(indexes) {
+  const idIndex = (indexes || []).find((idx) => idx.name === "_id_");
+  const defaults = {};
+
+  if (!idIndex) {
+    return defaults;
+  }
+
+  SIGNIFICANT_OPTIONS.forEach((field) => {
+    if (idIndex[field] !== undefined) {
+      defaults[field] = idIndex[field];
+    }
+  });
+
+  return defaults;
+}
+
 function findIndexConflicts(indexes) {
   const conflicts = [];
+  const defaults = collectionIndexDefaults(indexes);
 
   for (const idx of indexes || []) {
     if (idx.name === INDEX_NAME) {
-      if (!isEquivalentToSchemaIndex(idx)) {
+      if (!isEquivalentToSchemaIndex(idx, defaults)) {
         conflicts.push({
           index: idx,
           // Which of the two errors comes back depends on the option: a
@@ -179,7 +274,7 @@ function findIndexConflicts(indexes) {
       continue;
     }
 
-    if (isEquivalentToSchemaIndex(idx)) {
+    if (hasSameSignatureAsSchemaIndex(idx, defaults)) {
       conflicts.push({
         index: idx,
         // Worth stating precisely, because it reads like a false alarm and is
@@ -348,6 +443,25 @@ async function main() {
   try {
     const collection = mongoose.connection.collection("runs");
 
+    // A collection that does not exist yet has no indexes and nothing to
+    // conflict with — Run.init() will create it and build cleanly. The driver
+    // throws NamespaceNotFound rather than returning an empty list, which the
+    // outer catch reported as "Query failed" and exit 2: a fresh deployment
+    // was told it could not be checked when in fact it was fine.
+    const listIndexes = async () => {
+      try {
+        return await collection.indexes();
+      } catch (err) {
+        if (err && (err.codeName === "NamespaceNotFound" || err.code === 26)) {
+          console.log(
+            'The "runs" collection does not exist yet — nothing to conflict with.',
+          );
+          return [];
+        }
+        throw err;
+      }
+    };
+
     const duplicates = await collection
       .aggregate([
         {
@@ -366,7 +480,7 @@ async function main() {
     // Every index, not just the one under the auto-generated name: an
     // equivalent index under ANY other name blocks the build too (error 85),
     // which this script used to assert was impossible.
-    const conflicts = findIndexConflicts(await collection.indexes());
+    const conflicts = findIndexConflicts(await listIndexes());
     const indexConflict = conflicts.length > 0;
 
     console.log(`Checked ${total} runs.`);
@@ -455,6 +569,8 @@ if (require.main === module) {
 module.exports = {
   findSampleNameIndex,
   isEquivalentToSchemaIndex,
+  hasSameSignatureAsSchemaIndex,
+  collectionIndexDefaults,
   findIndexConflicts,
   fixStaleIndex,
   hasExpectedKeys,
