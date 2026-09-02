@@ -1385,7 +1385,16 @@ describe("file-utils", () => {
       await expect(ingest()).rejects.toThrow(/connection timed out/);
 
       expect(readSave).not.toHaveBeenCalled();
-      expect(File.deleteOne).not.toHaveBeenCalled();
+      // This attempt's own File row IS removed. It was saved before the move
+      // was attempted (BREAKING_CHANGES.md 30 — the row is written only after
+      // the bytes move, so nothing references it yet), the move failed, and
+      // nothing was adopted: it is unreferenced. Leaving it made the failure
+      // permanent, because the unique { name, path, createFileDocumentId }
+      // index then refuses the next attempt's identical document — an audit
+      // reproduced an hpc-mv claim for a file that had not arrived yet, and
+      // once it did arrive every retry died on E11000 against the orphan.
+      // The occupant's row is a different document and is not touched.
+      expect(File.deleteOne).toHaveBeenCalledWith({ _id: ourFile._id });
     });
 
     it("refuses to adopt a file an AdditionalFile already claims", async () => {
@@ -1574,11 +1583,21 @@ describe("file-utils", () => {
       );
 
       expect(readSave).not.toHaveBeenCalled();
-      // Refused on the inode mismatch, before MD5 (or O_NOFOLLOW in
-      // lib/utils/md5.js) ever entered into it.
+      // The unreferenced File row this attempt created is cleaned up, so a
+      // retry is not blocked by its own leftover — see the Read-claims case
+      // above for why that matters. The symlink and its target are untouched.
+      expect(File.deleteOne).toHaveBeenCalledWith({ _id: ourFile._id });
+      // Refused before the MD5 comparison was ever reached. An audit noted
+      // that the comment here used to credit an "inode guard" this path no
+      // longer uses — the retained-source branch now compares size and then
+      // content — and that the test passed on the size difference rather than
+      // on what it claimed. It does refuse, and refusing early is right, but
+      // the reason is the size mismatch between this run's staged source and
+      // somebody else's file behind the link, not an inode check.
       expect(calculateFileMd5).not.toHaveBeenCalled();
-      // Nothing was repointed at the link.
-      expect(File.deleteOne).not.toHaveBeenCalled();
+      // Nothing was repointed at the link: the ADOPTED document would have
+      // been the occupant's, and no Read was written.
+      expect(readData).toBeNull();
     });
 
     it("does not adopt when the destination holds nothing at all", async () => {

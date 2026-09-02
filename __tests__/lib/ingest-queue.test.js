@@ -1190,11 +1190,11 @@ describe("runIngestJob", () => {
       expect(sortReadFiles).not.toHaveBeenCalled();
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r1._id },
-        { $set: { sibling: r2._id } },
+        { $set: { sibling: r2._id, paired: true } },
       );
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r2._id },
-        { $set: { sibling: r1._id } },
+        { $set: { sibling: r1._id, paired: true } },
       );
     });
 
@@ -1219,11 +1219,11 @@ describe("runIngestJob", () => {
 
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r1._id },
-        { $set: { sibling: r2._id } },
+        { $set: { sibling: r2._id, paired: true } },
       );
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r2._id },
-        { $set: { sibling: r1._id } },
+        { $set: { sibling: r1._id, paired: true } },
       );
     });
 
@@ -1255,6 +1255,61 @@ describe("runIngestJob", () => {
       expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
         $set: { status: "complete" },
       });
+    });
+
+    test("clears a link the payload no longer declares, rather than only adding", async () => {
+      // An audit reingested a run with the pairing removed: it returned 200,
+      // the run completed, and the delivered Read kept paired:true with a
+      // sibling pointing at a file that is no longer its mate. Finalisation
+      // only ever SET a sibling, so a link the payload had dropped survived
+      // forever. A reingest is a statement of what the run should be.
+      const r1 = await movedDoc("solo_R1.fq", "raw");
+      const r2 = await movedDoc("solo_R2.fq", "raw");
+      r1.sibling = r2._id;
+      r2.sibling = r1._id;
+      existingReads([r1, r2]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            // Both files still delivered; the pairing between them is gone.
+            rawFiles: [{ name: "solo_R1.fq" }, { name: "solo_R2.fq" }],
+            rawFilesUploadInfo: { method: "hpc-mv" },
+          },
+        }),
+      );
+
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r1._id },
+        { $set: { sibling: null, paired: false } },
+      );
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r2._id },
+        { $set: { sibling: null, paired: false } },
+      );
+    });
+
+    test("leaves reads the payload does not name alone", async () => {
+      // The reconciliation must not reach past the files this payload speaks
+      // for: a run's other reads are not its business.
+      const mine = await movedDoc("mine_R1.fq", "raw");
+      const theirs = await movedDoc("unrelated.fq", "raw");
+      theirs.sibling = mine._id;
+      existingReads([mine, theirs]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [{ name: "mine_R1.fq" }],
+            rawFilesUploadInfo: { method: "hpc-mv" },
+          },
+        }),
+      );
+
+      expect(Read.updateOne).not.toHaveBeenCalledWith(
+        { _id: theirs._id },
+        expect.anything(),
+      );
     });
 
     test("finalises after sortReadFiles's move completes, on a fresh run too", async () => {
@@ -1625,11 +1680,11 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
     expect(newReadId).not.toBeNull();
     expect(Read.updateOne).toHaveBeenCalledWith(
       { _id: r1._id },
-      { $set: { sibling: newReadId } },
+      { $set: { sibling: newReadId, paired: true } },
     );
     expect(Read.updateOne).toHaveBeenCalledWith(
       { _id: newReadId },
-      { $set: { sibling: r1._id } },
+      { $set: { sibling: r1._id, paired: true } },
     );
 
     // And the run reaches "complete": the retry is not stuck forever on the
