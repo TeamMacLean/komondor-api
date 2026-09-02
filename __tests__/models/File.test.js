@@ -691,6 +691,100 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
     expect(partialsIn(_path.dirname(dest))).toEqual([]);
   });
 
+  test("refuses a copy whose source was rewritten with its mtime preserved", async () => {
+    // The audit's defeat of the first version of this guard, which compared
+    // size and mtime. `cp -p`, `rsync -t` and `tar -p` all RESTORE the
+    // source's mtime, so an ordinary re-send preserves inode, size and mtime
+    // while changing the content — measured, not assumed. Their reproduction
+    // was a 32 MiB file overwritten after the first 64 KiB, promoted as a
+    // mixture of both and reported as success.
+    //
+    // ctime is the only signal that always moves. It also moves for changes
+    // that touch no content (a chmod, an added hard link), so it cannot be
+    // treated as corruption on its own — when only ctime has moved, the
+    // digests decide.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    const OLD = Buffer.alloc(256 * 1024, "A");
+    const NEW = Buffer.alloc(256 * 1024, "B");
+    fs.writeFileSync(source, OLD);
+    // Pinned to a whole second first. fs.utimesSync takes seconds-as-number
+    // and cannot restore a sub-millisecond mtime exactly, so without this the
+    // "restore" below leaves mtimeMs slightly different and the test passes
+    // on the size/mtime check instead of the one it is meant to exercise —
+    // which is what it did on the first attempt. cp -p uses utimensat and
+    // preserves mtime EXACTLY, so pinning to a value that survives the
+    // round-trip is what makes this faithful.
+    const pinnedSeconds = Math.floor(Date.now() / 1000) - 60;
+    fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    const actualFs = jest.requireActual("fs");
+
+    let rewritten = false;
+    mockWriteStreamFactory = (destPath, options) => {
+      const real = actualFs.createWriteStream(destPath, options);
+      return new Writable({
+        write(chunk, encoding, callback) {
+          if (!rewritten) {
+            rewritten = true;
+            const fd = fs.openSync(source, "r+");
+            fs.writeSync(fd, NEW, 0, NEW.length, 0);
+            fs.closeSync(fd);
+            // What cp -p does after writing: put the timestamps back.
+            fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+          }
+          real.write(chunk, encoding, callback);
+        },
+        final(callback) {
+          real.end(callback);
+        },
+      });
+    };
+
+    const doc = makeFile(source);
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source was modified while it was being copied/,
+    );
+
+    expect(fs.existsSync(dest)).toBe(false);
+    expect(partialsIn(_path.dirname(dest))).toEqual([]);
+  });
+
+  test("allows a copy whose source was only chmod'd during it", async () => {
+    // The other side of the same trade. HPC_TRANSFER_DIRECTORY is a shared
+    // inbox other people's tooling runs over, so a chmod -R or a backup agent
+    // writing an xattr during a multi-hundred-GB copy must not fail the move.
+    // ctime moves for those; the content does not, and the digest says so.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    fs.writeFileSync(source, Buffer.alloc(256 * 1024, "A"));
+
+    const actualFs = jest.requireActual("fs");
+    let touched = false;
+    mockWriteStreamFactory = (destPath, options) => {
+      const real = actualFs.createWriteStream(destPath, options);
+      return new Writable({
+        write(chunk, encoding, callback) {
+          if (!touched) {
+            touched = true;
+            fs.chmodSync(source, 0o640);
+          }
+          real.write(chunk, encoding, callback);
+        },
+        final(callback) {
+          real.end(callback);
+        },
+      });
+    };
+
+    const doc = makeFile(source);
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    expect(fs.readFileSync(dest).equals(Buffer.alloc(256 * 1024, "A"))).toBe(
+      true,
+    );
+  });
+
   test("still updates the document's path even though the source is kept", async () => {
     const source = _path.join(hpcInboxDir, "reads.fq");
     fs.writeFileSync(source, "ACGT");
