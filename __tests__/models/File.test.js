@@ -634,6 +634,63 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
     expect(fs.readFileSync(dest, "utf8")).toBe("PINNED-BYTES");
   });
 
+  test("refuses a copy whose source was rewritten in place while it was read", async () => {
+    // An open fd defeats a path SWAP, but not an in-place rewrite of the same
+    // inode — the descriptor keeps streaming whatever that inode now holds.
+    // A re-audit executed this: a 1 MiB copy with the source re-scp'd over
+    // itself after the first 4096 bytes, ending at the same length, promoted a
+    // destination made of 4096 old bytes followed by 1,044,480 new ones and
+    // reported success. Both the size check and the inode check still passed,
+    // because neither of them moves when a file is rewritten in place.
+    //
+    // "scp over the same name" is the ordinary way a scientist resends a file
+    // they think arrived wrong, so this needs no attacker at all — and the
+    // failure is silent, mixed-content corruption, which is worse than any
+    // stall.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    const OLD = Buffer.alloc(256 * 1024, "A");
+    const NEW = Buffer.alloc(256 * 1024, "B");
+    fs.writeFileSync(source, OLD);
+
+    // Backdated so the rewrite below is guaranteed to move mtime, rather than
+    // relying on the two writes landing in different milliseconds.
+    const past = new Date(Date.now() - 60_000);
+    fs.utimesSync(source, past, past);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    const actualFs = jest.requireActual("fs");
+
+    let rewritten = false;
+    mockWriteStreamFactory = (destPath, options) => {
+      const real = actualFs.createWriteStream(destPath, options);
+      return new Writable({
+        write(chunk, encoding, callback) {
+          if (!rewritten) {
+            rewritten = true;
+            // Truncate-and-rewrite in place: same inode, same final length.
+            const fd = fs.openSync(source, "r+");
+            fs.writeSync(fd, NEW, 0, NEW.length, 0);
+            fs.closeSync(fd);
+          }
+          real.write(chunk, encoding, callback);
+        },
+        final(callback) {
+          real.end(callback);
+        },
+      });
+    };
+
+    const doc = makeFile(source);
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source was modified while it was being copied/,
+    );
+
+    // Nothing promoted, nothing left behind: the retry gets a clean run at a
+    // source that has now settled.
+    expect(fs.existsSync(dest)).toBe(false);
+    expect(partialsIn(_path.dirname(dest))).toEqual([]);
+  });
+
   test("still updates the document's path even though the source is kept", async () => {
     const source = _path.join(hpcInboxDir, "reads.fq");
     fs.writeFileSync(source, "ACGT");

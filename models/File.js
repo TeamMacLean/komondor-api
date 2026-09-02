@@ -32,6 +32,28 @@ const O_NOFOLLOW = fsConstants.O_NOFOLLOW || 0;
 const isSameFile = (a, b) => a.dev === b.dev && a.ino === b.ino;
 
 /**
+ * Whether the file behind a pinned handle has been written to since it was
+ * pinned.
+ *
+ * isSameFile alone is not enough: it compares dev+ino, which are unchanged by
+ * an in-place rewrite of the SAME inode. Reproduced by execution — a 1 MiB
+ * copy, with the source re-scp'd over itself after the first 4096 bytes and
+ * ending at the same length, produced a destination holding 4096 old bytes
+ * followed by 1,044,480 new ones and reported success, because both the size
+ * check and the inode check still passed. Timestamps are what actually move:
+ * a write updates mtime, and any inode change updates ctime.
+ *
+ * @param {import('fs').Stats} current - A fresh fstat of the pinned handle.
+ * @param {import('fs').Stats} pinned - The fstat taken when it was pinned.
+ * @returns {boolean} True when the bytes may have changed underneath us.
+ */
+const wasMutatedSincePinned = (current, pinned) =>
+  !isSameFile(current, pinned) ||
+  current.size !== pinned.size ||
+  current.mtimeMs !== pinned.mtimeMs ||
+  current.ctimeMs !== pinned.ctimeMs;
+
+/**
  * Where an in-progress copy is written before promotion to its real name.
  * Keep the `<destination>.part-<fileId>` shape: lib/active-transfers.js
  * pattern-matches it, and determinism lets a retry reuse its own leftover.
@@ -67,15 +89,19 @@ const partialPathFor = (destination, fileId) =>
  *
  * @param {object} sourceHandle - The open, pinned source file handle.
  * @param {object} pinnedSource - fstat of that handle; the expected byte count.
+ * @param {string} pinnedPath - The path that handle was opened from, re-stat'd
+ *   after the copy to detect an in-place rewrite of the same inode.
  * @param {string} fullNewPath - The destination path.
  * @param {mongoose.Document} file - The File being moved, for the deterministic
  *   partial name and error messages.
  * @returns {Promise<void>}
- * @throws {Error} On a short copy, or if the destination already exists.
+ * @throws {Error} On a short copy, a source modified mid-copy, or if the
+ *   destination already exists.
  */
 const copyPinnedSourceTo = async (
   sourceHandle,
   pinnedSource,
+  pinnedPath,
   fullNewPath,
   file,
 ) => {
@@ -101,6 +127,33 @@ const copyPinnedSourceTo = async (
     if (copiedSize !== pinnedSource.size) {
       throw new Error(
         `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`,
+      );
+    }
+
+    // The byte count above proves the copy is not SHORT; it does not prove the
+    // bytes are the ones that were pinned. Pinning an open handle defeats a
+    // path swap, but not an in-place rewrite of the same inode — the fd
+    // happily streams whatever the file holds as it is read. An HPC source
+    // re-scp'd over itself mid-copy (the ordinary "I resent it because the
+    // first transfer looked wrong" case) is a same-inode, same-size rewrite:
+    // reproduced as a destination containing a 4096-byte head of the old file
+    // and the rest of the new one, promoted and reported as success. Refuse
+    // it and let the retry copy a settled source instead.
+    //
+    // Stat'd by path, not through the handle: pipeline() destroys the read
+    // stream when it finishes, which closes the FileHandle with it, so an
+    // fstat here fails "file closed". The same-inode guard is what makes the
+    // path safe to trust for this one question — if the name now points
+    // somewhere else entirely, the pinned fd still streamed the right bytes
+    // and there is nothing to reject.
+    const sourceNow = await fs.stat(pinnedPath).catch(() => null);
+    if (
+      sourceNow &&
+      isSameFile(sourceNow, pinnedSource) &&
+      wasMutatedSincePinned(sourceNow, pinnedSource)
+    ) {
+      throw new Error(
+        `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`,
       );
     }
 
@@ -344,7 +397,13 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       // direct fs.copyFile(path, ...) here was neither crash-safe nor
       // actually pinned.
       if (keepSource) {
-        await copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file);
+        await copyPinnedSourceTo(
+          sourceHandle,
+          pinnedSource,
+          pinnedPath,
+          fullNewPath,
+          file,
+        );
         // A fresh copy is a different inode by definition, so the same-inode
         // assertion below does not apply to it.
         destinationIsSourceInode = false;
@@ -370,7 +429,13 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
           // Cross-device: same streamed, partial-then-promote copy the HPC
           // retention branch above uses, so an interrupted copy never
           // appears complete under the real name.
-          await copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file);
+          await copyPinnedSourceTo(
+          sourceHandle,
+          pinnedSource,
+          pinnedPath,
+          fullNewPath,
+          file,
+        );
 
           destinationIsSourceInode = false;
         }
