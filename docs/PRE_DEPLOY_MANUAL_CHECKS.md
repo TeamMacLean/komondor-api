@@ -280,9 +280,15 @@ Before a planned API rollback:
    `Checked 0 unfinished ingest job(s).` (`No ingestjobs collection ...` is equivalent only if
    this release never started). If the count is non-zero, wait for the worker or correct the jobs
    through the current API before continuing.
-3. Check out the recorded previous API commit and reload PM2. Confirm the process is online **and**
-   the production health check receives an HTTP response; recent log lines alone can describe a
-   previous start.
+3. Check out the recorded previous API commit, run `yarn install --frozen-lockfile`, and only then
+   reload PM2. This release replaces `tus-node-server` with `@tus/server`; reusing the new
+   `node_modules` with the old code makes rollback fail immediately with `MODULE_NOT_FOUND`.
+   Restoring an immutable previous release directory that already includes its dependencies is
+   equivalent. After reload, wait beyond the old API's 10-second Mongo connection timeout, confirm
+   stable PM2 uptime, and require the expected success response from an authenticated,
+   database-backed read such as the production Runs list. The old `/health` is unconditional and
+   its listener opens before Mongo connects, so `/health` alone can false-green a failed rollback;
+   recent log lines can likewise describe a previous start.
 4. Keep uploads and Run/Power submissions quiesced while the old API is serving. It is suitable as
    a read-service rollback, not as a return to safe Run ingest. Restore this API version and
    complete the controlled smokes before reopening writes.
@@ -293,8 +299,18 @@ but will not progress on the old API; roll forward to this version to resume or 
 
 The new Web and Power builds may remain deployed during that read-only rollback. For a full
 three-app rollback, keep producers quiesced, drain the queue, roll back the API first, then Power
-if desired, and Web last. Rolling Web back while the new API is still live makes every old-tab
-upload fail authentication; rolling all three back does not make paired local writes safe.
+if desired, and Web last. A Web or Power checkout must likewise be followed by its frozen install
+and production build (or restoration of its immutable previous build artifact) before its process
+is reloaded; a checkout does not replace Nuxt's generated output. Rolling Web back while the new
+API is still live makes every old-tab upload fail authentication; rolling all three back does not
+make paired local writes safe. A later roll-forward must reinstall the current lockfile and
+rebuild the Nuxt apps before reload for the same reason.
+
+To roll forward, keep writes quiesced and repeat the section-3 order from the exact reviewed
+hashes: restore/rebuild current Web first; check out current API, run
+`yarn install --frozen-lockfile`, reload it and require `/ready` to return 200; then restore/build
+Power. Let the current worker resume any durable jobs, run the controlled smokes, and only then
+reopen submissions.
 
 If you ran `--fix` in step 0, do not undo the generated unique `sample_1_name_1` index. The old API
 continues serving with that stronger constraint, although its unawaited model index build may log
