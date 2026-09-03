@@ -23,7 +23,9 @@ Nothing is pushed. Automated state at the time of writing:
 
 - API: 53 suites / 1782 tests (all passed on Darwin; 1780 passed and 2 platform-skipped on
   Debian), plus 7 suites / 38 integration tests against real MongoDB 7.0.29. Both suites passed
-  on Darwin and Debian/Node 24.
+  on Darwin and Debian/Node 24. The CI coverage gate (`yarn test --coverage --ci`, thresholds in
+  `jest.config.js`) passes — it is a separate check from the test count, and a release that
+  passes every test can still fail it. Run it before pushing; see step 1.
 - Power: project `verify` gate green (typecheck, ESLint, Prettier, 260 tests).
 - Web: 513 tests and the production build green; touched-file lint has zero errors and three
   pre-existing component-order warnings in `pages/runs/new.vue`.
@@ -112,6 +114,18 @@ yarn jest
 
 The hash must equal the exact approved API hash from the deploy record. **Pass:** 53 suites /
 1782 tests (1780 passed, 2 skipped). **Fail:** stop and investigate; do not work around it.
+
+Then the coverage gate, which is what CI actually runs and is a **separate check** from the test
+count — a release that passes every test can still fail it, and one did during review:
+
+```bash
+yarn test --coverage --ci
+```
+
+**Pass:** no `coverage threshold ... not met` line. Thresholds live in `jest.config.js`; `scripts/`
+is deliberately excluded from the figure because those CLIs are covered by the integration job
+below, which this run cannot execute. A single `socket hang up` failure on re-run is the known
+supertest transport flake that CI itself tolerates and retries — anything else is real.
 
 Then the integration suites, which need a real mongod:
 
@@ -254,7 +268,7 @@ re-create the old custom-named index to "undo" it.
 ## 8. Known open items — your call, not mine
 
 These are known follow-ups rather than release blockers. I flagged them to the auditor in
-`docs/AUDIT_RESPONSE_PROMPT_R5.md`; none of them is a silent-corruption risk.
+`docs/AUDIT_RESPONSE_PROMPT_R6.md`; none of them is a silent-corruption risk.
 
 1. **Power waits the full 30-minute poll window before reporting some terminal errors.** The entry
    is still correctly marked as errored; it is a latency and message-quality problem, confirmed
