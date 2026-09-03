@@ -120,9 +120,10 @@ paths:
       description: |
         Registered directly on the app in `app.js`, and unauthenticated.
 
-        Checks the MongoDB connection state, that `DATASTORE_ROOT` and
-        `HPC_TRANSFER_DIRECTORY` are configured and readable/writable, and any
-        probe `server.js` has registered (the ingest worker, when present).
+        Checks the MongoDB connection state, that `DATASTORE_ROOT` is
+        configured and readable/writable, that `HPC_TRANSFER_DIRECTORY` is
+        configured and readable, and any probe `server.js` has registered
+        (the ingest worker, when present).
         Reports 503 while the process is draining.
 
         Answers **503**, never 500, when the probe itself fails: a 500 reads as

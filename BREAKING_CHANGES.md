@@ -618,10 +618,12 @@ failing later at the first request that needed the missing value.
 - The **effective** MongoDB URI is validated — `MONGODB_URI` if set, otherwise
   the URI assembled from `MONGODB_PORT` — and must name a database. Requiring
   `MONGODB_URI` outright would have refused to start every existing deployment.
-- Mount checks verify `DATASTORE_ROOT` and `HPC_TRANSFER_DIRECTORY` are
-  readable, writable **and directories**: `fs.access` is happy with a plain
-  file, and a stand-in file where a mount should be is a common shape of a
-  mount that never came up.
+- Mount checks verify `DATASTORE_ROOT` is readable and writable and that
+  `HPC_TRANSFER_DIRECTORY` is readable; both must be **directories**.
+  `hpc-mv` copies from the HPC inbox and deliberately retains its source, so
+  requiring the API service account to write there rejects a valid read-only
+  production mount. `fs.access` is happy with a plain file, and a stand-in file
+  where a mount should be is a common shape of a mount that never came up.
 - A loud SMTP TLS warning fires whenever `SMTP_HOST` is set, because
   `lib/utils/sendEmail.js` hardcodes `rejectUnauthorized: false`. It is
   truthful until that line changes.

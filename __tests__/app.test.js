@@ -15,6 +15,11 @@ process.env.JWT_SECRET = "test-secret-for-app-tests";
 // A real directory to point the mount checks at. Nothing is written to it —
 // /ready only asks whether it can be read and written.
 const mountRoot = fs.mkdtempSync(path.join(os.tmpdir(), "komondor-app-ready-"));
+const readOnlyHpc = path.join(mountRoot, "read-only-hpc");
+fs.mkdirSync(readOnlyHpc, { mode: 0o500 });
+
+const isRoot = typeof process.getuid === "function" && process.getuid() === 0;
+const testUnlessRoot = isRoot ? test.skip : test;
 
 // The route modules pull in mongoose models at import time; the app-level
 // behaviour under test never reaches them.
@@ -65,6 +70,7 @@ afterEach(() => {
 });
 
 afterAll(() => {
+  fs.chmodSync(readOnlyHpc, 0o700);
   fs.rmSync(mountRoot, { recursive: true, force: true });
   delete process.env.UPLOAD_DIRECTORY;
 });
@@ -153,6 +159,15 @@ describe("readiness probe", () => {
 
     expect(response.status).toBe(503);
     expect(response.body.failed).toEqual(["HPC_TRANSFER_DIRECTORY"]);
+  });
+
+  testUnlessRoot("allows a readable, non-writable HPC inbox", async () => {
+    process.env.HPC_TRANSFER_DIRECTORY = readOnlyHpc;
+
+    const response = await request(app).get("/ready");
+
+    expect(response.status).toBe(200);
+    expect(response.body.failed).toEqual([]);
   });
 
   test("answers 503 when the upload staging directory is gone", async () => {

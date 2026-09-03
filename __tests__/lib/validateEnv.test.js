@@ -311,12 +311,23 @@ describe("required mounts", () => {
   });
 
   testUnlessRoot("reports a mount it cannot write to", async () => {
-    // A read-only mount is the normal shape of a failed NFS mount, and every
-    // upload path needs to write.
+    // The datastore is a destination, so read-only access is not usable.
     const result = await validateEnv(validEnv({ DATASTORE_ROOT: unwritable }));
 
     expect(result.ok).toBe(false);
     expect(errorFor(result, "DATASTORE_ROOT")).toMatch(/readable and writable/);
+  });
+
+  testUnlessRoot("allows a readable, non-writable HPC inbox", async () => {
+    // hpc-mv reads and copies from this directory and deliberately retains the
+    // source. Requiring write access blocked the real production layout
+    // without protecting an operation the API performs.
+    const result = await validateEnv(
+      validEnv({ HPC_TRANSFER_DIRECTORY: unwritable }),
+    );
+
+    expect(result.ok).toBe(true);
+    expect(errorFor(result, "HPC_TRANSFER_DIRECTORY")).toBeUndefined();
   });
 
   test("reports a path that is a file rather than a directory", async () => {

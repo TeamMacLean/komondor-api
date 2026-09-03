@@ -124,9 +124,13 @@ const MONGO_READY_STATES = {
   3: "disconnecting",
 };
 
-// Mounts every write path depends on, read at request time so a probe sees the
-// current state of the disk rather than a snapshot from boot.
-const REQUIRED_MOUNTS = ["DATASTORE_ROOT", "HPC_TRANSFER_DIRECTORY"];
+// Filesystem dependencies, read at request time so a probe sees the current
+// state rather than a snapshot from boot. The HPC inbox is a read-only source
+// for this process; hpc-mv deliberately retains files there.
+const REQUIRED_MOUNTS = [
+  { name: "DATASTORE_ROOT", writable: true },
+  { name: "HPC_TRANSFER_DIRECTORY", writable: false },
+];
 
 // Set by server.js at the start of a shutdown, so a load balancer polling
 // /ready stops sending work before the listener closes underneath it.
@@ -164,28 +168,33 @@ const checkMongo = () => {
 };
 
 /**
- * Reports whether a mount is present and writable. The path is deliberately not
- * echoed back into the response: /ready is unauthenticated.
+ * Reports whether a mount has the access this process uses. The path is
+ * deliberately not echoed back into the response: /ready is unauthenticated.
  * @param {string} name - Reported as the check's name.
  * @param {string} path - The directory to test.
+ * @param {{writable?: boolean}} [options] - Whether the process writes here.
  */
-const checkMount = (name, path) => {
+const checkMount = (name, path, { writable = true } = {}) => {
   if (!path) {
     return Promise.resolve({ name, ok: false, detail: "not configured" });
   }
 
+  const mode = fsConstants.R_OK | (writable ? fsConstants.W_OK : 0);
+  const requiredAccess = writable ? "readable and writable" : "readable";
+
   return fs
-    .access(path, fsConstants.R_OK | fsConstants.W_OK)
+    .access(path, mode)
     .then(() => ({ name, ok: true, detail: "accessible" }))
     .catch((err) => ({
       name,
       ok: false,
-      detail: `not readable and writable (${err.code || err.message})`,
+      detail: `not ${requiredAccess} (${err.code || err.message})`,
     }));
 };
 
 /** The mount named by an environment variable, read at request time. */
-const checkEnvMount = (name) => checkMount(name, process.env[name]);
+const checkEnvMount = ({ name, writable }) =>
+  checkMount(name, process.env[name], { writable });
 
 /**
  * Reports whether the tus upload staging directory is usable. Separate from
