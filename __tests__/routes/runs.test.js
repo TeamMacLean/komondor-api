@@ -83,7 +83,7 @@ app.use("/", runsRouter);
  */
 const setGroups = ({ read = [], write = [] }) => {
   Group.GroupsIAmIn.mockImplementation(async (user, options = {}) =>
-    options.mode === "write" ? write : read
+    options.mode === "write" ? write : read,
   );
 };
 
@@ -508,7 +508,7 @@ describe("Runs API Routes", () => {
         expect(response.body).toHaveProperty("idempotent", true);
         expect(response.body).toHaveProperty("message");
         expect(response.body.run._id.toString()).toEqual(
-          existingRun._id.toString()
+          existingRun._id.toString(),
         );
         expect(Run.findOne).toHaveBeenCalledWith({
           sample: mockSampleId.toString(),
@@ -537,7 +537,7 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(200);
         expect(enqueueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId })
+          expect.objectContaining({ runId: mockRunId }),
         );
         expect(response.body.jobId).toEqual(mockJobId.toString());
       });
@@ -737,7 +737,7 @@ describe("Runs API Routes", () => {
             requestBody({
               sample: mockSampleId.toString().toUpperCase(),
               group: mockGroupId.toString().toUpperCase(),
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -761,7 +761,7 @@ describe("Runs API Routes", () => {
           expect.objectContaining({
             sample: mockSampleId.toString(),
             group: mockGroupId,
-          })
+          }),
         );
       });
     });
@@ -788,7 +788,7 @@ describe("Runs API Routes", () => {
           .send(requestBody({ owner: "somebody-else" }));
 
         expect(Run).toHaveBeenCalledWith(
-          expect.objectContaining({ owner: "testuser" })
+          expect.objectContaining({ owner: "testuser" }),
         );
       });
     });
@@ -839,7 +839,7 @@ describe("Runs API Routes", () => {
         await request(app).post("/runs/new").send(requestBody());
 
         expect(enqueueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId })
+          expect.objectContaining({ runId: mockRunId }),
         );
       });
 
@@ -943,7 +943,7 @@ describe("Runs API Routes", () => {
               additionalFiles: [
                 { name: "notes.txt", uploadName: "b".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1036,7 +1036,7 @@ describe("Runs API Routes", () => {
           .send(
             requestBody({
               rawFiles: { length: 2, 0: { name: "a" }, 1: { name: "b" } },
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1056,7 +1056,7 @@ describe("Runs API Routes", () => {
                 { name: "good_R1.fq.gz" },
                 { uploadName: "no-name-here" },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1071,7 +1071,7 @@ describe("Runs API Routes", () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
-            requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] })
+            requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] }),
           );
 
         expect(response.status).toBe(400);
@@ -1087,7 +1087,7 @@ describe("Runs API Routes", () => {
             requestBody({
               rawFiles: [{ name: "hpc_R1.fq.gz" }],
               rawFilesUploadInfo: { method: "hpc-mv" },
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1113,7 +1113,7 @@ describe("Runs API Routes", () => {
                 method: "hpc-mv",
                 relativePath: "/WGS_Test",
               },
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1135,7 +1135,7 @@ describe("Runs API Routes", () => {
             requestBody({
               rawFiles: [{ name: "at-transfer-root.fq.gz", relativePath: "" }],
               rawFilesUploadInfo: { method: "hpc-mv" },
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1147,7 +1147,7 @@ describe("Runs API Routes", () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
-            requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } })
+            requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } }),
           );
 
         expect(response.status).toBe(400);
@@ -1175,7 +1175,7 @@ describe("Runs API Routes", () => {
               rawFiles: [
                 { data: { name: "test_R1.fq.gz" }, uploadName: "a".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1205,7 +1205,7 @@ describe("Runs API Routes", () => {
                   md5: { $ne: null },
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1222,7 +1222,7 @@ describe("Runs API Routes", () => {
                 { name: "dup.fq.gz", uploadName: "a".repeat(32) },
                 { name: "dup.fq.gz", uploadName: "b".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1241,7 +1241,7 @@ describe("Runs API Routes", () => {
                   paired: true,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1261,7 +1261,7 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1292,7 +1292,7 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1317,7 +1317,7 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1348,7 +1348,7 @@ describe("Runs API Routes", () => {
                   paired: false,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1398,7 +1398,7 @@ describe("Runs API Routes", () => {
                   indexed: true,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1428,12 +1428,12 @@ describe("Runs API Routes", () => {
                   sibling: "index_R1.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
         expect(response.body.detail).toMatch(
-          /indexed read.*cannot declare a sibling/i
+          /indexed read.*cannot declare a sibling/i,
         );
         expect(Sample.findById).not.toHaveBeenCalled();
       });
@@ -1457,7 +1457,7 @@ describe("Runs API Routes", () => {
                   indexed: false,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1476,7 +1476,7 @@ describe("Runs API Routes", () => {
                   indexed: true,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1515,7 +1515,7 @@ describe("Runs API Routes", () => {
                   paired: true,
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1536,7 +1536,7 @@ describe("Runs API Routes", () => {
                   sibling: "never_uploaded_R2.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1559,7 +1559,7 @@ describe("Runs API Routes", () => {
                   sibling: "R1.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1583,7 +1583,7 @@ describe("Runs API Routes", () => {
                 },
                 { name: "R2.fq.gz", uploadName: "b".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1614,7 +1614,7 @@ describe("Runs API Routes", () => {
                   sibling: "A.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1636,7 +1636,7 @@ describe("Runs API Routes", () => {
                 { name: "R1.fq.gz", uploadName: "a".repeat(32) },
                 { name: " R1.fq.gz", uploadName: "b".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1668,7 +1668,7 @@ describe("Runs API Routes", () => {
                   sibling: "A.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1685,7 +1685,7 @@ describe("Runs API Routes", () => {
           .send(
             requestBody({
               rawFiles: [{ name: " A.fq.gz", uploadName: "a".repeat(32) }],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1724,7 +1724,7 @@ describe("Runs API Routes", () => {
                   sibling: "R1.fq.gz",
                 },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1748,7 +1748,7 @@ describe("Runs API Routes", () => {
               additionalFiles: [
                 { name: "notes.txt", uploadName: "b".repeat(32) },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(201);
@@ -1762,7 +1762,7 @@ describe("Runs API Routes", () => {
               additionalFiles: [
                 { name: "notes.txt", uploadMethod: "teleport" },
               ],
-            })
+            }),
           );
 
         expect(response.status).toBe(400);
@@ -1839,7 +1839,7 @@ describe("Runs API Routes", () => {
       expect(response.body).toHaveProperty("status", "complete");
       expect(response.body).toHaveProperty(
         "md5VerificationStatus",
-        "in_progress"
+        "in_progress",
       );
       expect(response.body).toHaveProperty("progress");
       expect(response.body.progress).toEqual({
@@ -1899,7 +1899,7 @@ describe("Runs API Routes", () => {
           attempts: 3,
           maxAttempts: 3,
           lastError: "ENOSPC: no space left on device",
-        })
+        }),
       );
     });
 
@@ -2258,7 +2258,7 @@ describe("Runs API Routes", () => {
       const [filter, update] = IngestJob.findOneAndUpdate.mock.calls[0];
       expect(filter).toEqual(expect.objectContaining({ status: "failed" }));
       expect(update.$set).toEqual(
-        expect.objectContaining({ status: "pending", attempts: 0 })
+        expect.objectContaining({ status: "pending", attempts: 0 }),
       );
     });
 
@@ -2291,7 +2291,7 @@ describe("Runs API Routes", () => {
 
       expect(Run.updateOne).toHaveBeenCalledWith(
         { _id: mockRunId },
-        { $set: { status: "pending", statusError: null } }
+        { $set: { status: "pending", statusError: null } },
       );
     });
 
@@ -2362,7 +2362,7 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(200);
         expect(requeueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId })
+          expect.objectContaining({ runId: mockRunId }),
         );
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       } finally {
@@ -2414,7 +2414,7 @@ describe("Runs API Routes", () => {
             // Whoever supplied the fix is whose staged uploads the retry
             // claims, same rule as a fresh POST /runs/new.
             username: "testuser",
-          })
+          }),
         );
       });
 
@@ -2464,7 +2464,7 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(400);
         expect(response.body.detail).toMatch(
-          /replaceRawFiles must be a boolean/
+          /replaceRawFiles must be a boolean/,
         );
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       });
@@ -2560,7 +2560,7 @@ describe("Runs API Routes", () => {
                 name: "broken_R2.fq.gz",
                 uploadName: "corrected-upload-id",
               }),
-            ])
+            ]),
           );
         });
 
@@ -2680,7 +2680,7 @@ describe("Runs API Routes", () => {
             expect.arrayContaining([
               { name: "landed_R1.fq", sibling: "correct_R2.fq" },
               { name: "correct_R2.fq", sibling: "landed_R1.fq" },
-            ])
+            ]),
           );
         });
 
@@ -3036,7 +3036,7 @@ describe("Runs API Routes", () => {
               uploadName: "corrected-r2",
             }),
             originalRawFiles[2],
-          ])
+          ]),
         );
         expect(update.$set.payload.rawFiles).toHaveLength(3);
       });
@@ -3230,12 +3230,12 @@ describe("Runs API Routes", () => {
       expect(response.body.runs[0]).toHaveProperty("runName", "Run 1");
       expect(response.body.runs[0]).toHaveProperty(
         "md5VerificationStatus",
-        "complete"
+        "complete",
       );
       expect(response.body.runs[1]).toHaveProperty("runName", "Run 2");
       expect(response.body.runs[1]).toHaveProperty(
         "md5VerificationStatus",
-        "pending"
+        "pending",
       );
       expect(response.body.missing).toEqual([]);
       expect(response.body.invalid).toEqual([]);

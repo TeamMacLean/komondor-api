@@ -35,7 +35,7 @@ const runPreflight = (...args) =>
         cwd: path.join(__dirname, "../.."),
         env: { ...process.env },
         stdio: ["ignore", "pipe", "pipe"],
-      }
+      },
     );
 
     let stdout = "";
@@ -56,7 +56,7 @@ const createSchemaIndex = () =>
     {
       name: "sample_1_name_1",
       unique: true,
-    }
+    },
   );
 
 const expectSchemaIndexRefused = async (...codes) => {
@@ -130,7 +130,7 @@ describe("check-run-duplicates CLI", () => {
         name: "legacy_french_pair",
         unique: true,
         collation: { locale: "fr", strength: 2 },
-      }
+      },
     );
 
     const result = await runPreflight();
@@ -150,7 +150,7 @@ describe("check-run-duplicates CLI", () => {
       .collection("runs")
       .createIndex(
         { sample: 1, name: 1 },
-        { name: "sample_1_name_1", unique: true }
+        { name: "sample_1_name_1", unique: true },
       );
 
     const result = await runPreflight();
@@ -172,10 +172,10 @@ describe("check-run-duplicates CLI", () => {
         name: "sample_1_name_1",
         unique: true,
         collation: { locale: "simple" },
-      }
+      },
     );
     const listed = (await db.collection("runs").indexes()).find(
-      (index) => index.name === "sample_1_name_1"
+      (index) => index.name === "sample_1_name_1",
     );
     expect(listed.collation).toBeUndefined();
 
@@ -198,7 +198,7 @@ describe("check-run-duplicates CLI", () => {
         name: "legacy_simple_pair",
         unique: true,
         collation: { locale: "simple" },
-      }
+      },
     );
 
     const result = await runPreflight();
@@ -218,7 +218,7 @@ describe("check-run-duplicates CLI", () => {
       .collection("runs")
       .createIndex(
         { sample: 1, name: 1 },
-        { name: "legacy_inherited_pair", unique: true }
+        { name: "legacy_inherited_pair", unique: true },
       );
 
     const result = await runPreflight();
@@ -264,7 +264,7 @@ describe("check-run-duplicates CLI", () => {
       const runs = rootMongo.mongoose.connection.db.collection("runs");
       await runs.createIndex(
         { sample: 1, name: 1 },
-        { name: "legacy_unique_pair", unique: true, ...options }
+        { name: "legacy_unique_pair", unique: true, ...options },
       );
 
       const result = await runPreflight();
@@ -274,7 +274,7 @@ describe("check-run-duplicates CLI", () => {
       expect(result.stdout).not.toMatch(/Safe to deploy/i);
       expect(result.stderr).toBe("");
       await expectSchemaIndexRefused(85);
-    }
+    },
   );
 
   test("flags a custom-name raw hidden index that the server treats as equivalent", async () => {
@@ -312,7 +312,7 @@ describe("check-run-duplicates CLI", () => {
       const runs = rootMongo.mongoose.connection.db.collection("runs");
       await runs.createIndex(
         { sample: 1, name: 1 },
-        { name: "different_pair_index", ...options }
+        { name: "different_pair_index", ...options },
       );
 
       const result = await runPreflight();
@@ -321,14 +321,14 @@ describe("check-run-duplicates CLI", () => {
       expect(result.stdout).toMatch(/Safe to deploy/i);
       expect(result.stderr).toBe("");
       await expect(createSchemaIndex()).resolves.toBe("sample_1_name_1");
-    }
+    },
   );
 
   test("--fix repairs a custom-named equivalent index end to end", async () => {
     const runs = rootMongo.mongoose.connection.db.collection("runs");
     await runs.createIndex(
       { sample: 1, name: 1 },
-      { name: "legacy_unique_pair", unique: true }
+      { name: "legacy_unique_pair", unique: true },
     );
 
     const result = await runPreflight("--fix");
@@ -344,10 +344,10 @@ describe("check-run-duplicates CLI", () => {
           key: { sample: 1, name: 1 },
           unique: true,
         }),
-      ])
+      ]),
     );
     expect(indexes.some((index) => index.name === "legacy_unique_pair")).toBe(
-      false
+      false,
     );
     await expect(createSchemaIndex()).resolves.toBe("sample_1_name_1");
   });

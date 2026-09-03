@@ -34,7 +34,7 @@ const runInspector = () =>
         cwd: path.join(__dirname, "../.."),
         env: { ...process.env },
         stdio: ["ignore", "pipe", "pipe"],
-      }
+      },
     );
 
     let stdout = "";
@@ -112,7 +112,7 @@ describe("inspect-ingest-backlog CLI", () => {
 
     expect(result.code).toBe(1);
     expect(result.stdout).toMatch(
-      /LibraryType "Renamed away".*does not exist/i
+      /LibraryType "Renamed away".*does not exist/i,
     );
     expect(result.stdout).not.toMatch(/Nothing stored would be refused/i);
     expect(result.stderr).toBe("");

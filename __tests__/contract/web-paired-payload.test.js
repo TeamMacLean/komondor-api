@@ -160,7 +160,7 @@ describe("the payload komondor-web actually sends", () => {
     expect(ingestQueue.enqueueRunIngest).toHaveBeenCalledWith(
       expect.objectContaining({
         payload: expect.objectContaining({ rawFiles: webPairedRawFiles() }),
-      })
+      }),
     );
   });
 
@@ -188,7 +188,7 @@ describe("the payload komondor-web actually sends", () => {
       expect.arrayContaining([
         ["SampleA_R1.fastq.gz", "SampleA_R2.fastq.gz"],
         ["SampleA_R2.fastq.gz", "SampleA_R1.fastq.gz"],
-      ])
+      ]),
     );
     expect(links).toHaveLength(2);
   });

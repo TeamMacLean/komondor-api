@@ -14,10 +14,10 @@ const localInfo = { method: "local-filesystem" };
 describe("ingest backlog validation", () => {
   test("exports the exact validator used by the HTTP route", () => {
     expect(inspector.validateIngestFilesPayload).toBe(
-      validation.validateIngestFilesPayload
+      validation.validateIngestFilesPayload,
     );
     expect(inspector.validateRawFilesForLibraryType).toBe(
-      validation.validateRawFilesForLibraryType
+      validation.validateRawFilesForLibraryType,
     );
   });
 
@@ -59,7 +59,7 @@ describe("ingest backlog validation", () => {
       inspector.validateIngestFilesPayload({
         rawFiles: [validEntry],
         rawFilesUploadInfo: localInfo,
-      })
+      }),
     ).toEqual([]);
   });
 });
@@ -85,7 +85,7 @@ describe("ingest backlog Run and LibraryType validation", () => {
     expect(inspector.validateStoredJob(job(), null, null)).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/Run run-1.*does not exist/i),
-      ])
+      ]),
     );
   });
 
@@ -93,7 +93,7 @@ describe("ingest backlog Run and LibraryType validation", () => {
     expect(inspector.validateStoredJob(job(), run, null)).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/LibraryType "FASTQ - Single".*does not exist/i),
-      ])
+      ]),
     );
   });
 
@@ -103,11 +103,11 @@ describe("ingest backlog Run and LibraryType validation", () => {
         value: run.libraryType,
         paired: 1,
         indexed: 0,
-      })
+      }),
     ).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/paired library requires/i),
-      ])
+      ]),
     );
   });
 
@@ -117,21 +117,21 @@ describe("ingest backlog Run and LibraryType validation", () => {
         value: run.libraryType,
         paired: "false",
         indexed: "true",
-      })
+      }),
     ).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/requires at least one indexed/i),
-      ])
+      ]),
     );
   });
 
   test("flags duplicate exact-value LibraryType documents as ambiguous", () => {
     expect(
-      inspector.validateStoredJob(job(), run, null, { libraryTypeCount: 2 })
+      inspector.validateStoredJob(job(), run, null, { libraryTypeCount: 2 }),
     ).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/ambiguous LibraryType.*2 option documents/i),
-      ])
+      ]),
     );
   });
 
@@ -141,17 +141,17 @@ describe("ingest backlog Run and LibraryType validation", () => {
         value: run.libraryType,
         paired: true,
         indexed: false,
-      })
+      }),
     ).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/paired library requires/i),
-      ])
+      ]),
     );
   });
 
   test("reports a malformed null entry instead of crashing semantic validation", () => {
     expect(inspector.validateStoredJob(job([null]), run, unpaired)).toEqual(
-      expect.arrayContaining([expect.stringMatching(/Raw file at index 0/i)])
+      expect.arrayContaining([expect.stringMatching(/Raw file at index 0/i)]),
     );
   });
 
@@ -176,11 +176,11 @@ describe("ingest backlog Run and LibraryType validation", () => {
         value: run.libraryType,
         paired: true,
         indexed: true,
-      })
+      }),
     ).toEqual(
       expect.arrayContaining([
         expect.stringMatching(/requires at least one indexed/i),
-      ])
+      ]),
     );
   });
 });

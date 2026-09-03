@@ -77,7 +77,7 @@ describe("findInvalidRunShapes", () => {
     });
 
     await expect(findInvalidRunShapes({ aggregate })).resolves.toEqual(
-      malformed
+      malformed,
     );
 
     const pipeline = aggregate.mock.calls[0][0];
@@ -177,7 +177,7 @@ describe("findIndexConflicts", () => {
     expect(
       findIndexConflicts([
         { name: "sample_and_name_custom", key: { sample: 1, name: 1 } },
-      ])
+      ]),
     ).toEqual([]);
   });
 
@@ -213,7 +213,7 @@ describe("findIndexConflicts", () => {
           unique: true,
           background: true,
         },
-      ])
+      ]),
     ).toEqual([]);
   });
 
@@ -227,7 +227,7 @@ describe("findIndexConflicts", () => {
           key: { sample: 1, name: 1 },
           unique: true,
         },
-      ])
+      ]),
     ).toEqual([]);
   });
 
@@ -291,8 +291,8 @@ describe("the different-name signature rule, as MongoDB 7.0.29 applies it", () =
     expect(
       hasSameSignatureAsSchemaIndex(
         { name: "legacy_pair", key: { sample: 1, name: 1 } },
-        {}
-      )
+        {},
+      ),
     ).toBe(false);
   });
 });
@@ -317,7 +317,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ])
+      ]),
     ).toEqual({ collation });
   });
 
@@ -332,7 +332,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ])
+      ]),
     ).toEqual([]);
   });
 
@@ -351,7 +351,10 @@ describe("collection-level index defaults", () => {
     // collation must not turn every explicit collation into a default.
     expect(hasSameSignatureAsSchemaIndex(custom, { collation })).toBe(false);
     expect(
-      findIndexConflicts([{ name: "_id_", key: { _id: 1 }, collation }, custom])
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 }, collation },
+        custom,
+      ]),
     ).toEqual([]);
   });
 
@@ -366,7 +369,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation: { locale: "fr", strength: 2 },
         },
-      ])
+      ]),
     ).toHaveLength(1);
   });
 
@@ -383,7 +386,7 @@ describe("collection-level index defaults", () => {
           key: { sample: 1, name: 1 },
           unique: true,
         },
-      ])
+      ]),
     ).toHaveLength(1);
   });
 
@@ -401,13 +404,13 @@ describe("collection-level index defaults", () => {
       findIndexConflicts([
         { name: "_id_", key: { _id: 1 }, collation },
         customSimple,
-      ])
+      ]),
     ).toEqual([]);
   });
 
   test("matches collection defaults in both directions", () => {
     expect(
-      expectedOptionMatches({ collation }, "collation", { collation })
+      expectedOptionMatches({ collation }, "collation", { collation }),
     ).toBe(true);
     expect(expectedOptionMatches({}, "collation", { collation })).toBe(false);
     expect(expectedOptionMatches({}, "collation", {})).toBe(true);
@@ -426,7 +429,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ])
+      ]),
     ).toHaveLength(1);
   });
 });
@@ -438,7 +441,7 @@ describe("isEquivalentToSchemaIndex", () => {
         name: "sample_1_name_1",
         key: { sample: 1, name: 1 },
         unique: true,
-      })
+      }),
     ).toBe(true);
   });
 
@@ -451,7 +454,7 @@ describe("isEquivalentToSchemaIndex", () => {
         key: { sample: 1, name: 1 },
         unique: true,
         hidden: true,
-      })
+      }),
     ).toBe(true);
   });
 
@@ -460,7 +463,7 @@ describe("isEquivalentToSchemaIndex", () => {
       isEquivalentToSchemaIndex({
         name: "sample_1_name_1",
         key: { sample: 1, name: 1 },
-      })
+      }),
     ).toBe(false);
   });
 
@@ -475,7 +478,7 @@ describe("isEquivalentToSchemaIndex", () => {
         key: { sample: 1, name: 1 },
         unique: true,
         partialFilterExpression: { status: { $ne: "deleted" } },
-      })
+      }),
     ).toBe(false);
   });
 
@@ -486,7 +489,7 @@ describe("isEquivalentToSchemaIndex", () => {
         key: { sample: 1, name: 1 },
         unique: true,
         collation: { locale: "en", strength: 2 },
-      })
+      }),
     ).toBe(false);
   });
 
@@ -496,7 +499,7 @@ describe("isEquivalentToSchemaIndex", () => {
         name: "sample_1_name_1",
         key: { name: 1 },
         unique: true,
-      })
+      }),
     ).toBe(false);
   });
 
@@ -514,7 +517,7 @@ describe("fixStaleIndex", () => {
     expect(collection.dropIndex).toHaveBeenCalledWith(INDEX_NAME);
     expect(collection.createIndex).toHaveBeenCalledWith(
       { sample: 1, name: 1 },
-      { unique: true, name: INDEX_NAME }
+      { unique: true, name: INDEX_NAME },
     );
   });
 
@@ -562,8 +565,8 @@ describe("fixStaleIndex", () => {
       JSON.stringify(
         [{ v: 2, key: { sample: 1, name: 1 }, name: INDEX_NAME, unique: true }],
         null,
-        2
-      )
+        2,
+      ),
     );
   });
 
@@ -602,7 +605,7 @@ describe("fixStaleIndex", () => {
     const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     await expect(fixStaleIndex(collection)).rejects.toThrow(
-      "E11000 duplicate key error"
+      "E11000 duplicate key error",
     );
 
     expect(collection.dropIndex).toHaveBeenCalled();

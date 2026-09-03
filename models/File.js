@@ -85,7 +85,7 @@ const SOURCE_VERIFICATION_ATTEMPTS = 3;
  */
 const sourceModifiedError = (file, fullNewPath) =>
   new Error(
-    `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`
+    `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`,
   );
 
 /**
@@ -105,7 +105,7 @@ const verifyStableCopy = async (
   pinnedSource,
   copiedDigest,
   file,
-  fullNewPath
+  fullNewPath,
 ) => {
   for (let attempt = 0; attempt < SOURCE_VERIFICATION_ATTEMPTS; attempt += 1) {
     const beforeDigest = await sourceHandle.stat();
@@ -187,7 +187,7 @@ const copyPinnedSourceTo = async (
   sourceHandle,
   pinnedSource,
   fullNewPath,
-  file
+  file,
 ) => {
   const partialPath = partialPathFor(fullNewPath, file._id);
   let promoted = false;
@@ -221,7 +221,7 @@ const copyPinnedSourceTo = async (
     await pipeline(
       sourceHandle.createReadStream({ autoClose: false }),
       hashCopiedBytes,
-      createWriteStream(partialPath, { flags: "wx" })
+      createWriteStream(partialPath, { flags: "wx" }),
     );
     const copiedDigest = copiedHash.digest("hex");
 
@@ -230,7 +230,7 @@ const copyPinnedSourceTo = async (
     const { size: copiedSize } = await fs.stat(partialPath);
     if (copiedSize !== pinnedSource.size) {
       throw new Error(
-        `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`
+        `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`,
       );
     }
 
@@ -262,7 +262,7 @@ const copyPinnedSourceTo = async (
       pinnedSource,
       copiedDigest,
       file,
-      fullNewPath
+      fullNewPath,
     );
 
     // link + unlink, not rename: no-clobber, same reason as the direct-link
@@ -272,7 +272,7 @@ const copyPinnedSourceTo = async (
     } catch (promoteErr) {
       if (promoteErr.code === "EEXIST") {
         throw new Error(
-          `Failed to move ${file.path} to ${fullNewPath}: destination already exists`
+          `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
         );
       }
       throw promoteErr;
@@ -287,7 +287,7 @@ const copyPinnedSourceTo = async (
         if (cleanupErr.code !== "ENOENT") {
           console.error(
             `Failed to remove invalid copy at ${fullNewPath}:`,
-            cleanupErr
+            cleanupErr,
           );
         }
       });
@@ -296,7 +296,7 @@ const copyPinnedSourceTo = async (
       if (cleanupErr.code !== "ENOENT") {
         console.error(
           `Failed to remove partial file at ${partialPath}:`,
-          cleanupErr
+          cleanupErr,
         );
       }
     });
@@ -350,13 +350,13 @@ const unlinkPinnedSource = async (
   sourcePath,
   pinnedSource,
   file,
-  fullNewPath
+  fullNewPath,
 ) => {
   const current = await fs.stat(sourcePath);
 
   if (!isSameFile(current, pinnedSource)) {
     throw new Error(
-      `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`
+      `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`,
     );
   }
 
@@ -427,7 +427,7 @@ const schema = new mongoose.Schema(
     oldAdditionalFileId: { type: String },
     uploadMethod: { type: String },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 // create a unique combo of name and path (and when uploaded)
@@ -448,17 +448,17 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
   // request-supplied. Leading slashes are stripped, not rejected.
   const fullNewPath = await resolveWithinReal(
     process.env.DATASTORE_ROOT,
-    cleanDirectoryName(relNewPath)
+    cleanDirectoryName(relNewPath),
   );
   if (!fullNewPath) {
     // Rejected path is logged, not thrown: the message reaches the client as
     // the Run's statusError.
     console.error(
       `File ${file._id}: refusing to move to a destination outside DATASTORE_ROOT:`,
-      relNewPath
+      relNewPath,
     );
     throw new Error(
-      `Cannot move file ${file._id}: the destination is not inside the datastore`
+      `Cannot move file ${file._id}: the destination is not inside the datastore`,
     );
   }
 
@@ -466,10 +466,10 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
   if (!(await isPermittedSource(sourcePath))) {
     console.error(
       `File ${file._id}: refusing to move from a source outside every permitted root:`,
-      file.path
+      file.path,
     );
     throw new Error(
-      `Cannot move file ${file._id}: its source is not inside a permitted directory`
+      `Cannot move file ${file._id}: its source is not inside a permitted directory`,
     );
   }
 
@@ -530,7 +530,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
         } catch (linkErr) {
           if (linkErr.code === "EEXIST") {
             throw new Error(
-              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`
+              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
             );
           }
 
@@ -548,7 +548,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
             sourceHandle,
             pinnedSource,
             fullNewPath,
-            file
+            file,
           );
 
           destinationIsSourceInode = false;
@@ -564,11 +564,11 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
           await fs.unlink(fullNewPath).catch((cleanupErr) => {
             console.error(
               `Failed to remove the wrongly linked file at ${fullNewPath}:`,
-              cleanupErr
+              cleanupErr,
             );
           });
           throw new Error(
-            `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`
+            `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`,
           );
         }
       }
@@ -593,7 +593,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       // Bytes are at the destination and the source is gone: recovery means
       // repointing the document, not retrying the move.
       console.error(
-        `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`
+        `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`,
       );
       throw saveErr;
     }

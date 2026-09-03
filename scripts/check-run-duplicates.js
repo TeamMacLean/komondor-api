@@ -144,7 +144,7 @@ function isEquivalentToSchemaIndex(idx, collectionDefaults) {
     !Object.keys(idx).every(
       (field) =>
         EQUIVALENT_INDEX_FIELDS.has(field) ||
-        SIGNIFICANT_OPTIONS.includes(field)
+        SIGNIFICANT_OPTIONS.includes(field),
     )
   ) {
     return false;
@@ -158,7 +158,7 @@ function isEquivalentToSchemaIndex(idx, collectionDefaults) {
   // rejects with 86. Require the effective option to agree in both
   // directions.
   return SIGNIFICANT_OPTIONS.every((field) =>
-    expectedOptionMatches(idx, field, collectionDefaults)
+    expectedOptionMatches(idx, field, collectionDefaults),
   );
 }
 
@@ -250,7 +250,7 @@ function hasSameSignatureAsSchemaIndex(idx, collectionDefaults) {
     return false;
   }
   return SIGNIFICANT_OPTIONS.every((field) =>
-    expectedOptionMatches(idx, field, collectionDefaults)
+    expectedOptionMatches(idx, field, collectionDefaults),
   );
 }
 
@@ -370,7 +370,7 @@ async function fixStaleIndex(collection, conflicts) {
     .toArray();
   if (lastCheck.length > 0) {
     throw new Error(
-      "Aborting: a duplicate appeared since the initial check. Not dropping the existing index."
+      "Aborting: a duplicate appeared since the initial check. Not dropping the existing index.",
     );
   }
 
@@ -408,7 +408,7 @@ async function fixStaleIndex(collection, conflicts) {
 
     await collection.createIndex(
       { sample: 1, name: 1 },
-      { unique: true, name: INDEX_NAME }
+      { unique: true, name: INDEX_NAME },
     );
   } catch (repairErr) {
     console.error(
@@ -420,7 +420,7 @@ async function fixStaleIndex(collection, conflicts) {
         "attention — most likely a duplicate was inserted during this run;",
         "re-run this script's report mode (no --fix) to check, resolve any",
         "duplicates found, then re-run --fix.",
-      ].join("\n")
+      ].join("\n"),
     );
     throw repairErr;
   }
@@ -445,10 +445,10 @@ async function fixStaleIndex(collection, conflicts) {
         "every index it builds, so rebuilding cannot clear it. Do NOT re-run",
         "--fix — it will drop and rebuild to the same state. Resolve the",
         "collection's own defaults instead.",
-      ].join("\n")
+      ].join("\n"),
     );
     throw new Error(
-      "The unique index was rebuilt but is still classified as conflicting"
+      "The unique index was rebuilt but is still classified as conflicting",
     );
   }
 
@@ -512,7 +512,7 @@ async function main() {
       } catch (err) {
         if (err && (err.codeName === "NamespaceNotFound" || err.code === 26)) {
           console.log(
-            'The "runs" collection does not exist yet — nothing to conflict with.'
+            'The "runs" collection does not exist yet — nothing to conflict with.',
           );
           return [];
         }
@@ -552,17 +552,17 @@ async function main() {
 
     if (invalidShapes.length > 0) {
       console.log(
-        `Found ${invalidShapes.length} run(s) whose sample/name types violate the Run schema and may prevent safe index creation:`
+        `Found ${invalidShapes.length} run(s) whose sample/name types violate the Run schema and may prevent safe index creation:`,
       );
       invalidShapes.forEach((run) => {
         console.log(
           `  run=${run._id} sampleType=${
             Array.isArray(run.sample) ? "array" : typeof run.sample
-          } nameType=${Array.isArray(run.name) ? "array" : typeof run.name}`
+          } nameType=${Array.isArray(run.name) ? "array" : typeof run.name}`,
         );
       });
       console.log(
-        "Resolve these malformed documents before deploying; the unique compound index may expand array values and fail with E11000."
+        "Resolve these malformed documents before deploying; the unique compound index may expand array values and fail with E11000.",
       );
     }
 
@@ -570,11 +570,11 @@ async function main() {
       console.log("No duplicate { sample, name } pairs.");
     } else {
       console.log(
-        `Found ${duplicates.length} duplicate { sample, name } pair(s):\n`
+        `Found ${duplicates.length} duplicate { sample, name } pair(s):\n`,
       );
       duplicates.forEach((d) => {
         console.log(
-          `  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`
+          `  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`,
         );
         console.log(`    ${d.count} runs: ${d.ids.join(", ")}`);
       });
@@ -584,7 +584,7 @@ async function main() {
           "Resolve these before deploying: keep the run that has files attached and",
           "delete or rename the others. Until then the unique index will fail to",
           "build, and the API will refuse to start.",
-        ].join("\n")
+        ].join("\n"),
       );
     }
 
@@ -593,7 +593,7 @@ async function main() {
         [
           "",
           `Found ${conflicts.length} index(es) that will stop the unique { sample, name } index building:`,
-        ].join("\n")
+        ].join("\n"),
       );
       conflicts.forEach((conflict) => {
         console.log(`\n  ${conflict.reason}`);
@@ -604,29 +604,29 @@ async function main() {
           "",
           "The API awaits this index during startup. A refusal is fatal and the",
           "process exits rather than serving traffic without uniqueness.",
-        ].join("\n")
+        ].join("\n"),
       );
 
       if (duplicates.length > 0) {
         console.log(
-          "\nNot attempting a fix: duplicate documents exist, so a rebuilt unique index would fail the same way. Resolve the duplicates first."
+          "\nNot attempting a fix: duplicate documents exist, so a rebuilt unique index would fail the same way. Resolve the duplicates first.",
         );
       } else if (invalidShapes.length > 0) {
         console.log(
-          "\nNot attempting a fix: malformed sample/name values exist. Resolve them first."
+          "\nNot attempting a fix: malformed sample/name values exist. Resolve them first.",
         );
       } else if (fix) {
         const names = conflicts.map((conflict) => `"${conflict.index.name}"`);
         console.log(
           `\nFixing: dropping ${names.join(
-            ", "
-          )} and rebuilding "${INDEX_NAME}" as unique...`
+            ", ",
+          )} and rebuilding "${INDEX_NAME}" as unique...`,
         );
         await fixStaleIndex(collection, conflicts);
         console.log("\nFixed. The unique index is now in place.");
       } else {
         console.log(
-          "\nRe-run with --fix to drop and rebuild this index, or resolve it manually."
+          "\nRe-run with --fix to drop and rebuild this index, or resolve it manually.",
         );
       }
     }

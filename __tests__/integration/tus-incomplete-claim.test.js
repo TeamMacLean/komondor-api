@@ -83,7 +83,7 @@ describe("claiming an incomplete tus upload into a Run", () => {
     const originalName = "incomplete-reads.fastq.gz";
 
     await expect(ingestOneFile(run, uploadId, originalName)).rejects.toThrow(
-      /is not complete: 100 of 1000 bytes on disk/i
+      /is not complete: 100 of 1000 bytes on disk/i,
     );
 
     const destination = await expectedDatastoreDestination(run, originalName);
@@ -116,13 +116,13 @@ describe("claiming an incomplete tus upload into a Run", () => {
     // ...whose blob is then truncated behind the sidecar's back.
     await fs.promises.truncate(
       path.join(process.env.UPLOAD_DIRECTORY, uploadId),
-      100
+      100,
     );
 
     const originalName = "truncated-reads.fastq.gz";
 
     await expect(ingestOneFile(run, uploadId, originalName)).rejects.toThrow(
-      /is not complete: 100 of 1000 bytes on disk/i
+      /is not complete: 100 of 1000 bytes on disk/i,
     );
 
     const destination = await expectedDatastoreDestination(run, originalName);

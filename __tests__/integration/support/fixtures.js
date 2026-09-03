@@ -95,7 +95,7 @@ const makeRun = async (sample, group, overrides = {}) => {
     await LibraryType.updateOne(
       { value: defaultLibraryType.value },
       { $setOnInsert: defaultLibraryType },
-      { upsert: true }
+      { upsert: true },
     );
   }
 
@@ -174,7 +174,7 @@ const writeStagedUpload = async ({
         (res) => {
           res.resume();
           res.on("end", () => resolve(res));
-        }
+        },
       );
       req.on("error", reject);
       if (payload) req.write(payload);
@@ -208,7 +208,7 @@ const writeStagedUpload = async ({
             "Content-Length": String(blobBytes),
           },
         },
-        Buffer.alloc(blobBytes, "x")
+        Buffer.alloc(blobBytes, "x"),
       );
     }
 

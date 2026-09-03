@@ -97,7 +97,7 @@ const validateStoredJob = (
   job,
   run,
   libraryType,
-  { libraryTypeCount = libraryType ? 1 : 0 } = {}
+  { libraryTypeCount = libraryType ? 1 : 0 } = {},
 ) => {
   const payload = (job && job.payload) || {};
   const problems = [...validateIngestFilesPayload(payload)];
@@ -106,7 +106,7 @@ const validateStoredJob = (
     problems.push(
       `Referenced Run ${
         job && job.runId ? job.runId : "(missing runId)"
-      } does not exist`
+      } does not exist`,
     );
     return [...new Set(problems)];
   }
@@ -118,14 +118,14 @@ const validateStoredJob = (
 
   if (libraryTypeCount > 1) {
     problems.push(
-      `Run ${run._id} references ambiguous LibraryType "${run.libraryType}": ${libraryTypeCount} option documents exist`
+      `Run ${run._id} references ambiguous LibraryType "${run.libraryType}": ${libraryTypeCount} option documents exist`,
     );
     return [...new Set(problems)];
   }
 
   if (!libraryType) {
     problems.push(
-      `Run ${run._id} references LibraryType "${run.libraryType}", but that option does not exist`
+      `Run ${run._id} references LibraryType "${run.libraryType}", but that option does not exist`,
     );
     return [...new Set(problems)];
   }
@@ -133,8 +133,8 @@ const validateStoredJob = (
   problems.push(
     ...validateRawFilesForLibraryType(
       payload.rawFiles,
-      asWorkerLibraryType(libraryType)
-    )
+      asWorkerLibraryType(libraryType),
+    ),
   );
   return [...new Set(problems)];
 };
@@ -158,7 +158,7 @@ async function main() {
 
     if (collections.length === 0) {
       console.log(
-        "No ingestjobs collection: the durable queue has never run here. Nothing to inspect."
+        "No ingestjobs collection: the durable queue has never run here. Nothing to inspect.",
       );
       await mongoose.disconnect();
       process.exit(0);
@@ -189,7 +189,7 @@ async function main() {
       ...new Set(
         runs
           .map((run) => run.libraryType)
-          .filter((value) => typeof value === "string" && value.length > 0)
+          .filter((value) => typeof value === "string" && value.length > 0),
       ),
     ];
     // Query each referenced value exactly as LibraryType.findOne({ value })
@@ -206,8 +206,8 @@ async function main() {
             .find({ value })
             .project({ value: 1, paired: 1, indexed: 1 })
             .toArray(),
-        ])
-      )
+        ]),
+      ),
     );
 
     const flagged = [];
@@ -233,14 +233,14 @@ async function main() {
 
     if (flagged.length === 0) {
       console.log(
-        "\nNothing stored would be refused by this release's validation."
+        "\nNothing stored would be refused by this release's validation.",
       );
       await mongoose.disconnect();
       process.exit(0);
     }
 
     console.log(
-      `\n${flagged.length} job(s) hold a payload this release would refuse:\n`
+      `\n${flagged.length} job(s) hold a payload this release would refuse:\n`,
     );
     flagged.forEach(({ job, problems }) => {
       console.log(`  run ${job.runId} (job ${job._id}, status ${job.status})`);
@@ -261,7 +261,7 @@ async function main() {
         "migrate — the shapes above are not interchangeable, and a run whose",
         "files are already delivered needs a different correction from one whose",
         "files never arrived.",
-      ].join("\n")
+      ].join("\n"),
     );
 
     await mongoose.disconnect();

@@ -160,7 +160,7 @@ const requeueFailedIngest = async ({ runId, requestId, payload }) => {
   return IngestJob.findOneAndUpdate(
     { idempotencyKey: idempotencyKeyFor(runId), status: "failed" },
     { $set: set },
-    { new: true }
+    { new: true },
   );
 };
 
@@ -212,9 +212,9 @@ router
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to view this sample.`
+            `User '${req.user.username}' does not have permission to view this sample.`,
           ),
-          403
+          403,
         );
       }
 
@@ -232,7 +232,7 @@ router
         res,
         error,
         500,
-        `Failed to retrieve run names for sample ${sampleId}.`
+        `Failed to retrieve run names for sample ${sampleId}.`,
       );
     }
   });
@@ -266,15 +266,15 @@ router
       // lib/utils/groupAccess).
       const canAccess = await canReadGroup(
         req.user,
-        run.group && run.group._id
+        run.group && run.group._id,
       );
       if (!canAccess) {
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to view this run.`
+            `User '${req.user.username}' does not have permission to view this run.`,
           ),
-          403
+          403,
         );
       }
 
@@ -387,7 +387,7 @@ router
           new Error(validation.errors.join("; ")),
           400,
           `Validation failed: ${validation.errors.join("; ")}`,
-          requestId
+          requestId,
         );
       }
 
@@ -418,7 +418,7 @@ router
           new Error("The submitted sample does not exist."),
           400,
           "The submitted sample does not exist.",
-          requestId
+          requestId,
         );
       }
 
@@ -430,11 +430,11 @@ router
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to create a run in this group.`
+            `User '${req.user.username}' does not have permission to create a run in this group.`,
           ),
           403,
           "Permission denied",
-          requestId
+          requestId,
         );
       }
 
@@ -446,7 +446,7 @@ router
           new Error("The submitted group does not own the submitted sample."),
           400,
           "The submitted group does not own the submitted sample.",
-          requestId
+          requestId,
         );
       }
 
@@ -464,7 +464,7 @@ router
           new Error(`Unknown library type: ${libraryType}`),
           400,
           `Unknown library type: ${libraryType}`,
-          requestId
+          requestId,
         );
       }
 
@@ -473,7 +473,7 @@ router
       // the same metadata contradictions as fresh create.
       const libraryTypeErrors = validateRawFilesForLibraryType(
         rawFiles,
-        selectedLibraryType
+        selectedLibraryType,
       );
       if (libraryTypeErrors.length > 0) {
         return handleError(
@@ -481,7 +481,7 @@ router
           new Error(libraryTypeErrors.join("; ")),
           400,
           libraryTypeErrors.join("; "),
-          requestId
+          requestId,
         );
       }
 
@@ -494,16 +494,16 @@ router
           return handleError(
             res,
             new Error(
-              `User '${req.user.username}' does not have permission to modify this run.`
+              `User '${req.user.username}' does not have permission to modify this run.`,
             ),
             403,
             "Permission denied",
-            requestId
+            requestId,
           );
         }
 
         console.log(
-          `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`
+          `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`,
         );
 
         // Queued here too, keyed by run id so it returns any existing job: a
@@ -563,12 +563,12 @@ router
         // an E11000: the wanted run now exists, so answer as the findOne would.
         if (saveError && saveError.code === 11000) {
           const raced = await Run.findOne({ sample: sampleId, name }).populate(
-            "rawFiles additionalFiles"
+            "rawFiles additionalFiles",
           );
 
           if (raced) {
             console.log(
-              `[${requestId}] Lost the create race for run '${name}'; serving the winner ${raced._id}`
+              `[${requestId}] Lost the create race for run '${name}'; serving the winner ${raced._id}`,
             );
             return respondWithExistingRun(raced);
           }
@@ -612,7 +612,7 @@ router
           error,
           400,
           `Run validation failed: ${error.message}`,
-          requestId
+          requestId,
         );
       }
 
@@ -621,7 +621,7 @@ router
         error,
         500,
         `Failed to create new run: ${error.message}`,
-        requestId
+        requestId,
       );
     }
   });
@@ -644,7 +644,7 @@ router
         new Error("A valid run ID is required."),
         400,
         "A valid run ID is required.",
-        requestId
+        requestId,
       );
     }
 
@@ -659,7 +659,7 @@ router
           new Error("Run not found"),
           404,
           "Run not found",
-          requestId
+          requestId,
         );
       }
 
@@ -671,7 +671,7 @@ router
           new Error("Access denied"),
           403,
           `User '${req.user.username}' does not have permission to view this run`,
-          requestId
+          requestId,
         );
       }
 
@@ -689,7 +689,7 @@ router
       const totalFiles = reads.length;
       const verifiedFiles = reads.filter((r) => r.destinationMd5).length;
       const mismatchedFiles = reads.filter(
-        (r) => r.md5Mismatch === true
+        (r) => r.md5Mismatch === true,
       ).length;
 
       // Only the queue can say whether a run stuck at "pending" with no files
@@ -723,7 +723,7 @@ router
         error,
         500,
         `Failed to get run status: ${error.message}`,
-        requestId
+        requestId,
       );
     }
   });
@@ -812,7 +812,7 @@ const mergeReplacementList = (
   originalList,
   submittedList,
   delivered,
-  { replaceUndelivered = false } = {}
+  { replaceUndelivered = false } = {},
 ) => {
   // The caller may correct only ONE of rawFiles/additionalFiles — the whole
   // point of a partial replacement. `undefined` here means "I am not
@@ -834,7 +834,7 @@ const mergeReplacementList = (
     new Map(
       (list || [])
         .filter((file) => keyOf(file) !== null)
-        .map((file) => [keyOf(file), file])
+        .map((file) => [keyOf(file), file]),
     );
 
   const original = indexByKey(originalList);
@@ -907,13 +907,13 @@ router
         new Error("A valid run ID is required."),
         400,
         "A valid run ID is required.",
-        requestId
+        requestId,
       );
     }
 
     try {
       const run = await Run.findById(runId).select(
-        "name group owner status libraryType"
+        "name group owner status libraryType",
       );
 
       if (!run) {
@@ -922,7 +922,7 @@ router
           new Error("Run not found"),
           404,
           "Run not found",
-          requestId
+          requestId,
         );
       }
 
@@ -934,7 +934,7 @@ router
           new Error("Access denied"),
           403,
           `User '${req.user.username}' does not have permission to modify this run`,
-          requestId
+          requestId,
         );
       }
 
@@ -966,7 +966,7 @@ router
           !Array.isArray(req.body.rawFiles)
         ) {
           replacementModeErrors.push(
-            "replaceRawFiles requires a complete rawFiles array"
+            "replaceRawFiles requires a complete rawFiles array",
           );
         }
         if (
@@ -974,7 +974,7 @@ router
           !Array.isArray(req.body.additionalFiles)
         ) {
           replacementModeErrors.push(
-            "replaceAdditionalFiles requires a complete additionalFiles array"
+            "replaceAdditionalFiles requires a complete additionalFiles array",
           );
         }
         if (replacementModeErrors.length > 0) {
@@ -983,7 +983,7 @@ router
             new Error(replacementModeErrors.join("; ")),
             400,
             `Replacement payload invalid: ${replacementModeErrors.join("; ")}`,
-            requestId
+            requestId,
           );
         }
 
@@ -994,7 +994,7 @@ router
             new Error(payloadErrors.join("; ")),
             400,
             `Replacement payload invalid: ${payloadErrors.join("; ")}`,
-            requestId
+            requestId,
           );
         }
 
@@ -1024,7 +1024,7 @@ router
           !(delivered.additional instanceof Set)
         ) {
           throw new Error(
-            "deliveredFileNames did not return { raw: Set, additional: Set }"
+            "deliveredFileNames did not return { raw: Set, additional: Set }",
           );
         }
 
@@ -1038,7 +1038,7 @@ router
           originalPayload.rawFiles,
           req.body.rawFiles,
           delivered.raw,
-          { replaceUndelivered: req.body.replaceRawFiles === true }
+          { replaceUndelivered: req.body.replaceRawFiles === true },
         );
         if (rawFilesMerge.rejectedChange) {
           return handleError(
@@ -1049,7 +1049,7 @@ router
               "been delivered to the datastore. Resubmit it unchanged (or " +
               "omit it) to keep the rest of the correction, or resolve it " +
               "directly first.",
-            requestId
+            requestId,
           );
         }
 
@@ -1057,20 +1057,20 @@ router
           originalPayload.additionalFiles,
           req.body.additionalFiles,
           delivered.additional,
-          { replaceUndelivered: req.body.replaceAdditionalFiles === true }
+          { replaceUndelivered: req.body.replaceAdditionalFiles === true },
         );
         if (additionalFilesMerge.rejectedChange) {
           return handleError(
             res,
             new Error(
-              `Already delivered: ${additionalFilesMerge.rejectedChange}`
+              `Already delivered: ${additionalFilesMerge.rejectedChange}`,
             ),
             409,
             `Cannot change "${additionalFilesMerge.rejectedChange}": it has ` +
               "already been delivered to the datastore. Resubmit it " +
               "unchanged (or omit it) to keep the rest of the correction, " +
               "or resolve it directly first.",
-            requestId
+            requestId,
           );
         }
 
@@ -1090,7 +1090,7 @@ router
             new Error(mergedErrors.join("; ")),
             400,
             `Merged replacement payload invalid: ${mergedErrors.join("; ")}`,
-            requestId
+            requestId,
           );
         }
 
@@ -1103,13 +1103,13 @@ router
             new Error(`Unknown library type: ${run.libraryType}`),
             400,
             `Cannot reingest a run with unknown library type: ${run.libraryType}`,
-            requestId
+            requestId,
           );
         }
 
         const libraryTypeErrors = validateRawFilesForLibraryType(
           rawFilesMerge.merged,
-          selectedLibraryType
+          selectedLibraryType,
         );
         if (libraryTypeErrors.length > 0) {
           return handleError(
@@ -1119,7 +1119,7 @@ router
             `Merged replacement contradicts library type "${
               run.libraryType
             }": ${libraryTypeErrors.join("; ")}`,
-            requestId
+            requestId,
           );
         }
 
@@ -1152,7 +1152,7 @@ router
             new Error("No ingest job"),
             404,
             "This run has no ingest job to retry",
-            requestId
+            requestId,
           );
         }
 
@@ -1161,7 +1161,7 @@ router
           new Error("Ingest has not failed"),
           409,
           `The ingest for this run is '${existing.status}', not 'failed'; only a failed ingest can be retried`,
-          requestId
+          requestId,
         );
       }
 
@@ -1170,24 +1170,24 @@ router
       try {
         await Run.updateOne(
           { _id: run._id },
-          { $set: { status: "pending", statusError: null } }
+          { $set: { status: "pending", statusError: null } },
         );
       } catch (statusError) {
         console.error(
           `[${requestId}] Requeued the ingest for run ${run._id} but could not clear its error status:`,
-          statusError
+          statusError,
         );
       }
 
       console.log(
-        `[${requestId}] Requeued ingest job ${job._id} for run ${run._id} at the request of '${req.user.username}'`
+        `[${requestId}] Requeued ingest job ${job._id} for run ${run._id} at the request of '${req.user.username}'`,
       );
 
       // Audit trail for the overwrite: the original payload is gone once this
       // line runs, and this is the only record that it was replaced at all.
       if (replacementPayload) {
         console.log(
-          `[${requestId}] Reingest for run ${run._id}: the stored ingest payload was replaced at the request of '${req.user.username}'`
+          `[${requestId}] Reingest for run ${run._id}: the stored ingest payload was replaced at the request of '${req.user.username}'`,
         );
       }
 
@@ -1203,7 +1203,7 @@ router
         error,
         500,
         `Failed to requeue the ingest: ${error.message}`,
-        requestId
+        requestId,
       );
     }
   });
@@ -1229,7 +1229,7 @@ router
           new Error("Invalid request"),
           400,
           "runIds must be an array",
-          requestId
+          requestId,
         );
       }
 
@@ -1239,7 +1239,7 @@ router
           new Error("Too many runs requested"),
           400,
           "Maximum 100 runs per request",
-          requestId
+          requestId,
         );
       }
 
@@ -1263,7 +1263,7 @@ router
 
       const runs = requested.length
         ? await Run.find({ _id: { $in: requested } }).select(
-            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt"
+            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
           )
         : [];
 
@@ -1271,16 +1271,16 @@ router
       const readableGroups = new Set(
         (await groupsICanRead(req.user))
           .map((group) => group && group._id && String(group._id))
-          .filter(Boolean)
+          .filter(Boolean),
       );
 
       // Group membership decides visibility, exactly as on GET /run.
       const visibleRuns = (runs || []).filter((run) =>
-        readableGroups.has(String(run.group))
+        readableGroups.has(String(run.group)),
       );
 
       const ingestJobs = await findIngestJobs(
-        visibleRuns.map((run) => run._id)
+        visibleRuns.map((run) => run._id),
       );
 
       const accessibleRuns = visibleRuns.map((run) => ({
@@ -1299,7 +1299,7 @@ router
       // Lower-cased on both sides: an id sent in upper case would otherwise be
       // reported missing in the same response that answers for it.
       const returned = new Set(
-        accessibleRuns.map((run) => String(run.runId).toLowerCase())
+        accessibleRuns.map((run) => String(run.runId).toLowerCase()),
       );
 
       // Does not distinguish "no such run" from "not yours": that would make
@@ -1319,7 +1319,7 @@ router
         error,
         500,
         `Failed to get batch status: ${error.message}`,
-        requestId
+        requestId,
       );
     }
   });

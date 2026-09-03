@@ -123,11 +123,11 @@ const authoriseUploadAccess = async (req, res, uploadId) => {
 
   if (!quota.isUploadOwner(ownerOf(stored, uploadId), username)) {
     console.warn(
-      `[UPLOAD] Refused ${req.method} on upload ${uploadId} to "${username}"`
+      `[UPLOAD] Refused ${req.method} on upload ${uploadId} to "${username}"`,
     );
     throw uploadError(
       403,
-      `User '${username}' does not have permission to access this upload`
+      `User '${username}' does not have permission to access this upload`,
     );
   }
 
@@ -146,7 +146,7 @@ const authoriseUploadAccess = async (req, res, uploadId) => {
 
     if (!decision.allowed) {
       console.warn(
-        `[UPLOAD] Refused to re-admit resumed upload ${uploadId} for "${username}": ${decision.error}`
+        `[UPLOAD] Refused to re-admit resumed upload ${uploadId} for "${username}": ${decision.error}`,
       );
       throw uploadError(decision.status, decision.error);
     }
@@ -184,7 +184,7 @@ const admitUpload = async (req, res, upload) => {
 
   if (!decision.allowed) {
     console.warn(
-      `[UPLOAD] Refused new upload for "${username}": ${decision.error}`
+      `[UPLOAD] Refused new upload for "${username}": ${decision.error}`,
     );
     throw uploadError(decision.status, decision.error);
   }
@@ -229,7 +229,7 @@ const uploadRecovery = quota
   .then((count) => {
     if (count > 0) {
       console.log(
-        `[UPLOAD] Reserved ${count} in-flight upload(s) found on disk after a restart`
+        `[UPLOAD] Reserved ${count} in-flight upload(s) found on disk after a restart`,
       );
     }
     return count;
@@ -373,7 +373,7 @@ router
 
     if (!quota.isUploadOwner(ownerOf(stored, uploadId), req.user.username)) {
       console.warn(
-        `[UPLOAD] Refused cancel of upload ${uploadId} to "${req.user.username}"`
+        `[UPLOAD] Refused cancel of upload ${uploadId} to "${req.user.username}"`,
       );
       return res.status(403).send({
         error: `User '${req.user.username}' does not have permission to cancel this upload`,

@@ -118,7 +118,7 @@ describe("getLimits", () => {
 
     expect(getLimits().maxUploadBytes).toBe(50 * GIB);
     expect(console.warn).toHaveBeenCalledWith(
-      expect.stringContaining("UPLOAD_MAX_BYTES")
+      expect.stringContaining("UPLOAD_MAX_BYTES"),
     );
   });
 
@@ -341,8 +341,8 @@ describe("checkUploadAllowed — admission is atomic", () => {
           username,
           size,
           directory: tmpRoot,
-        })
-      )
+        }),
+      ),
     );
 
   test("registers the upload itself, so the caller cannot leave a gap", async () => {
@@ -464,7 +464,7 @@ describe("cleanupAbandonedUploads", () => {
     if (info !== null) {
       fs.writeFileSync(
         _path.join(sweepDir, `${id}.json`),
-        JSON.stringify({ id, ...info })
+        JSON.stringify({ id, ...info }),
       );
     }
   };
@@ -711,7 +711,7 @@ describe("cleanupAbandonedUploads", () => {
       // datastore and unlinks it, and nothing ever removed the '<id>.json'.
       fs.writeFileSync(
         _path.join(sweepDir, `${ID_A}.json`),
-        JSON.stringify({ id: ID_A, size: 4, offset: 4 })
+        JSON.stringify({ id: ID_A, size: 4, offset: 4 }),
       );
 
       const result = await cleanupAbandonedUploads({
@@ -802,7 +802,7 @@ describe("getRecordedOwner", () => {
   const writeSidecar = (id, metadata) =>
     fs.writeFileSync(
       _path.join(ownerDir, `${id}.json`),
-      JSON.stringify({ id, size: 4, offset: 4, metadata })
+      JSON.stringify({ id, size: 4, offset: 4, metadata }),
     );
 
   test("reads the owner stamped into the tus sidecar", async () => {
@@ -823,7 +823,7 @@ describe("getRecordedOwner", () => {
 
     expect(await getRecordedOwner(ownerDir, ID)).toBeNull();
     expect(isUploadOwner(await getRecordedOwner(ownerDir, ID), "alice")).toBe(
-      false
+      false,
     );
   });
 
@@ -843,7 +843,7 @@ describe("assertUploadComplete", () => {
   const writeSidecar = (id, info) =>
     fs.writeFileSync(
       _path.join(dir, `${id}.json`),
-      JSON.stringify({ id, ...info })
+      JSON.stringify({ id, ...info }),
     );
 
   test("refuses an upload whose offset is behind its declared size", async () => {
@@ -1028,7 +1028,7 @@ describe("recoverUploadReservations", () => {
     fs.writeFileSync(_path.join(dir, id), Buffer.alloc(bytes));
     fs.writeFileSync(
       _path.join(dir, `${id}.json`),
-      JSON.stringify({ id, ...info })
+      JSON.stringify({ id, ...info }),
     );
   };
 
@@ -1036,12 +1036,12 @@ describe("recoverUploadReservations", () => {
     writeUpload(
       DONE_ID,
       { size: 4, offset: 4, metadata: { owner: "alice" } },
-      4
+      4,
     );
     writeUpload(
       OPEN_ID,
       { size: 100, offset: 30, metadata: { owner: "bob" } },
-      30
+      30,
     );
 
     const recovered = await recoverUploadReservations(dir);

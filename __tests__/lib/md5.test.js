@@ -34,7 +34,7 @@ describe("calculateFileMd5", () => {
 
   beforeEach(() => {
     tmpRoot = fs.realpathSync(
-      fs.mkdtempSync(path.join(os.tmpdir(), "komondor-md5-"))
+      fs.mkdtempSync(path.join(os.tmpdir(), "komondor-md5-")),
     );
     realFile = path.join(tmpRoot, "real.fq");
     fs.writeFileSync(realFile, CONTENT);
@@ -159,13 +159,13 @@ describe("calculateFileMd5", () => {
     fs.symlinkSync(path.join(tmpRoot, "actual"), linkedDir);
 
     await expect(
-      calculateFileMd5(path.join(linkedDir, "reads.fq"))
+      calculateFileMd5(path.join(linkedDir, "reads.fq")),
     ).resolves.toBe(CONTENT_MD5);
   });
 
   test("reports a missing file rather than resolving to a digest", async () => {
     await expect(
-      calculateFileMd5(path.join(tmpRoot, "absent.fq"))
+      calculateFileMd5(path.join(tmpRoot, "absent.fq")),
     ).rejects.toMatchObject({ code: "ENOENT" });
   });
 });
