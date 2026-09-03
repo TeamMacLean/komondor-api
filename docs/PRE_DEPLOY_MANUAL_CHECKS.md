@@ -282,8 +282,10 @@ cannot be claimed after this release is restored.
 Before a planned API rollback:
 
 1. Block new uploads and Run/reingest requests from Web, Power, scripts and every direct client,
-   then wait for already-in-flight `/runs/new` and `/runs/:id/reingest` responses to return. Leave
-   the current API running so its worker can finish the work those responses durably enqueued.
+   then wait for already-in-flight `/uploads`, `/runs/new` and `/runs/:id/reingest` requests to
+   return. If an upload cannot finish, record its id and leave it paused; do not let the old API
+   resume it. Leave the current API running so its worker can finish the work the Run responses
+   durably enqueued.
 2. Run `node scripts/inspect-ingest-backlog.js` from the current checkout. Exit 0 is not enough: a
    structurally valid pending job also exits 0. Require the literal line
    `Checked 0 unfinished ingest job(s).` (`No ingestjobs collection ...` is equivalent only if
@@ -299,8 +301,9 @@ Before a planned API rollback:
    its listener opens before Mongo connects, so `/health` alone can false-green a failed rollback;
    recent log lines can likewise describe a previous start.
 4. Keep uploads and Run/Power submissions quiesced while the old API is serving. It is suitable as
-   a read-service rollback, not as a return to safe Run ingest. Restore this API version and
-   complete the controlled smokes before reopening writes.
+   a read-service rollback, not as a return to safe Run ingest. Roll forward to the exact reviewed
+   current API release using the instructions below, require `/ready` to return 200, let its queue
+   drain, and complete the controlled smokes before reopening writes.
 
 If the incident makes waiting for the queue impossible, save the inspector output and perform the
 API rollback as read-only: do not delete the `ingestjobs` rows or staged files. They remain durable
