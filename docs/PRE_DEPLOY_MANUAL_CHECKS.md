@@ -165,19 +165,27 @@ The API requires authentication on the tus mount; the web client only started se
 `fix/tus-authentication`. I originally wrote this section with the API first, and an audit
 corrected it: **new web against the old API is backward-compatible** — the old upload endpoint is
 permissive and simply ignores the extra `Authorization` header — whereas **new API against old
-web 401s every upload immediately**. So web first is strictly safer, and shortens the window in
-which anything is broken to zero.
+web 401s every upload immediately**. That compatibility is limited to the upload transport. Both
+web generations send reciprocal `sibling` names for local paired reads, while the old API looks
+for the never-emitted `rowID`; allowing paired submissions during the gap can therefore complete
+them with null sibling links. This is the pre-existing bug the new API fixes, but it means the
+deploy window is safe only while submissions are quiesced.
 
 Order:
 
-1. Web.
-2. Before the API cutover, stop active uploads and inventory the upload directory. Uploads staged
-   by the old unauthenticated endpoint have no owner and cannot be claimed after ownership
-   enforcement; finish/attach them now or deliberately re-upload them, and have users reload old
-   browser tabs (BREAKING_CHANGES.md §29).
-3. With writes quiesced, re-run **both** step-0 preflights. Only if both are green, reload the API
-   into the deploy window.
-4. Power any time — its changes are independent.
+1. **Before deploying any app**, stop new uploads and all Run submissions from Web, Power and
+   scripts. Let active uploads finish, then inventory the upload directory. Uploads staged by the
+   old unauthenticated endpoint have no owner and cannot be claimed after ownership enforcement;
+   finish/attach them with the old API now or deliberately re-upload them later
+   (BREAKING_CHANGES.md §29).
+2. With writes quiesced, re-run **both** step-0 preflights. Only continue if both are green.
+3. Deploy Web, then reload the API immediately. Keep ordinary submissions quiesced: an old browser
+   tab does not send upload authentication and will 401 against the new API. Have users reload
+   their tabs after the cutover.
+4. Deploy Power. Its changes are compatible with either API generation, but putting it after the
+   API makes the supervised three-app cutover unambiguous.
+5. Check that the API came up, then run the controlled browser, paired-run and Power smokes in
+   steps 4 and 5 before reopening submissions.
 
 Check the API actually came up:
 
