@@ -173,9 +173,11 @@ deploy window is safe only while submissions are quiesced.
 
 Order:
 
-1. **Before deploying any app**, announce the freeze and stop Power, scripts and other direct Run
-   producers. Let active Web uploads finish and be attached to Runs through the old API; record the
-   ids of Runs accepted during this drain.
+1. **Before deploying any app**, announce the freeze and stop accepting new Power, script and
+   direct-client submissions, but leave the Power process running. Wait for every Power entry that
+   was already accepted to leave `pending`/`validating`/`inserting` for `completed` or `error`;
+   stopping the process earlier abandons its in-memory continuation. Let active Web uploads finish
+   and be attached to Runs through the old API, and record every Run id created during this drain.
 2. Enforce the write block on new uploads and `/runs/new`, then wait for every already-in-flight
    request to return **and** for every recorded Run to leave `pending`/`processing`. The old API
    returns 201 before its in-process file work finishes, and step 0 cannot see that work because it
