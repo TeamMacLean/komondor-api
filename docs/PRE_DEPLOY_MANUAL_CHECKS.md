@@ -292,11 +292,12 @@ cannot be claimed after this release is restored.
 
 Before a planned API rollback:
 
-1. Block new uploads and Run/reingest requests from Web, Power, scripts and every direct client,
-   then wait for already-in-flight `/uploads`, `/runs/new` and `/runs/:id/reingest` requests to
-   return. If an upload cannot finish, record its id and leave it paused; do not let the old API
-   resume it. Leave the current API running so its worker can finish the work the Run responses
-   durably enqueued.
+1. Stop accepting new Power submissions without stopping its process, and wait for every accepted
+   entry to reach `completed` or `error`. Then block new uploads and Run/reingest requests from
+   Web, scripts and every direct client, and wait for already-in-flight `/uploads`, `/runs/new` and
+   `/runs/:id/reingest` requests to return. If an upload cannot finish, record its id and leave it
+   paused; do not let the old API resume it. Leave the current API running so its worker can finish
+   the work the Run responses durably enqueued.
 2. Run `node scripts/inspect-ingest-backlog.js` from the current checkout. Exit 0 is not enough: a
    structurally valid pending job also exits 0. Require the literal line
    `Checked 0 unfinished ingest job(s).` (`No ingestjobs collection ...` is equivalent only if
