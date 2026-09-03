@@ -178,11 +178,15 @@ Order:
    was already accepted to leave `pending`/`validating`/`inserting` for `completed` or `error`;
    stopping the process earlier abandons its in-memory continuation. Let active Web uploads finish
    and be attached to Runs through the old API, and record every Run id created during this drain.
-2. Enforce the write block on new uploads and `/runs/new`, then wait for every already-in-flight
-   request to return **and** for every recorded Run to leave `pending`/`processing`. The old API
-   returns 201 before its in-process file work finishes, and step 0 cannot see that work because it
-   has no durable ingest queue. Only now inventory the upload directory. Any remaining staged
-   upload has no owner and must be deliberately re-uploaded later (BREAKING_CHANGES.md §29).
+2. Enforce the write block on new uploads and every file-bearing Project/Sample/Run create, then
+   wait for every already-in-flight request to return. For every recorded Run, call the old
+   `GET /run?id=...` and compare `actualReads`/`actualAdditionalFiles` with the names that were
+   submitted; require both status objects to report `OK` and every expected name to be present.
+   Do not rely on the Run merely leaving `pending`/`processing`: the old API can set it `complete`
+   after raw reads finish while its parallel additional-file copy is still running. It returns 201
+   before that in-process work finishes, and step 0 cannot see the work because the old API has no
+   durable ingest queue. Only now inventory the upload directory. Any remaining staged upload has
+   no owner and must be deliberately re-uploaded later (BREAKING_CHANGES.md §29).
 3. With writes quiesced, re-run **both** step-0 preflights. Only continue if both are green.
 4. At the exact reviewed Web hash, run its frozen install and production build (or restore the
    reviewed immutable artifact), then deploy it. At the exact reviewed API hash, run
