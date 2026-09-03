@@ -4,17 +4,17 @@ How komondor-api's HTTP surface is described, who depends on it, and what has
 to happen before that surface changes.
 
 The short version: **`openapi.yaml` in this repo is the description of record**,
-it describes what the server *does* rather than what anyone wishes it did, and
+it describes what the server _does_ rather than what anyone wishes it did, and
 API changes are gated against consumer contract suites rather than against
 hand-maintained lists kept in step by memory.
 
 ## Who consumes this API
 
-| Repo | How it talks to us | What breaks it |
-| --- | --- | --- |
-| **komondor-web** | Nuxt 2 + axios, `baseURL: process.env.API_URL`. Interactive UI; the `@nuxtjs/auth` local strategy posts to `/login` and reads `/me`. | Response *shape* changes, and status codes — its `plugins/error-handler.js` acts on 401 globally and leaves everything else to call sites. |
-| **komondor-power** | Nuxt 3 server routes via `server/utils/komondorApiClient.ts`. Bulk CSV ingest: creates projects, samples and runs in sequence. | Idempotency semantics and the `detail` field. It retries, so a create that is not idempotent duplicates data. |
-| **komondor-nudge** | **Does not use HTTP at all.** A scheduled worker that connects to the same MongoDB and reads the `projects` and `groups` collections directly. | *Schema* changes, not API changes. It has its own read-only mongoose models in `models.js`. |
+| Repo               | How it talks to us                                                                                                                             | What breaks it                                                                                                                             |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **komondor-web**   | Nuxt 2 + axios, `baseURL: process.env.API_URL`. Interactive UI; the `@nuxtjs/auth` local strategy posts to `/login` and reads `/me`.           | Response _shape_ changes, and status codes — its `plugins/error-handler.js` acts on 401 globally and leaves everything else to call sites. |
+| **komondor-power** | Nuxt 3 server routes via `server/utils/komondorApiClient.ts`. Bulk CSV ingest: creates projects, samples and runs in sequence.                 | Idempotency semantics and the `detail` field. It retries, so a create that is not idempotent duplicates data.                              |
+| **komondor-nudge** | **Does not use HTTP at all.** A scheduled worker that connects to the same MongoDB and reads the `projects` and `groups` collections directly. | _Schema_ changes, not API changes. It has its own read-only mongoose models in `models.js`.                                                |
 
 That third row is the one people forget. komondor-nudge is a consumer of the
 **data model**, not of the API, so an OpenAPI spec cannot protect it and a
@@ -43,8 +43,8 @@ published spec exists to replace.
 ### 2. Bearer tokens must carry an `exp` claim
 
 `lib/utils/getUserFromRequest.js` rejects a correctly signed token with no
-`exp`, raising `TokenExpiredError` → 401. See the commit *"refuse legacy tokens
-without an expiry claim"* and BREAKING_CHANGES §14.
+`exp`, raising `TokenExpiredError` → 401. See the commit _"refuse legacy tokens
+without an expiry claim"_ and BREAKING_CHANGES §14.
 
 Two consequences worth stating to consumers:
 
@@ -99,7 +99,7 @@ exactly this flag but only ever covered one of the two groups carrying it. So:
 - A `nudgeable` sent as a **real JSON boolean** is stored as sent.
 - Anything else — notably the strings `"true"` / `"false"` — is discarded in
   favour of the group default, with a `[projects/new] Ignoring non-boolean
-  'nudgeable'` warning naming the type and the user. komondor-power carries a
+'nudgeable'` warning naming the type and the user. komondor-power carries a
   `project_nudgeable` column through its entire CSV validation pipeline, but as
   of this writing it is not sent on this call at all — see "Needs coordinated
   action in komondor-power" below.
@@ -110,7 +110,7 @@ exactly this flag but only ever covered one of the two groups carrying it. So:
 - `PUT /project/toggle-nudgeable` now requires **write access to the project's
   group**. It previously had no authorisation beyond "is logged in", so any
   authenticated user could flip the flag on any project.
-- komondor-nudge distinguishes `false` from *absent* (`NUDGEABLE_UNDEFINED`,
+- komondor-nudge distinguishes `false` from _absent_ (`NUDGEABLE_UNDEFINED`,
   gated by `NUDGE_INCLUDE_UNDEFINED_NUDGEABLE`). The API can no longer produce
   an absent value, but old documents have one.
 
@@ -124,9 +124,9 @@ via `POST /groups/edit`, which already accepts the field — not code.
 
 ### 5. `Run.status` and `Run.md5VerificationStatus` are different enums
 
-| Field | Values |
-| --- | --- |
-| `status` | `pending`, `processing`, `complete`, `error` |
+| Field                   | Values                                         |
+| ----------------------- | ---------------------------------------------- |
+| `status`                | `pending`, `processing`, `complete`, `error`   |
 | `md5VerificationStatus` | `pending`, `in_progress`, `complete`, `failed` |
 
 Note `processing`/`in_progress` and `error`/`failed`. They mean analogous
@@ -136,7 +136,7 @@ Both are enforced by the mongoose schema, so an unknown value cannot be stored
 — but a client that switch-cases on one enum and receives the other will fall
 through its default branch.
 
-### 6. `LibraryType.indexed` cannot be set through the API
+### 6. `LibraryType.indexed` cannot be set through the options API
 
 The field exists on the model with `default: false`. But
 `registerOptionRoutes("/options/librarytype", …)` maps only `value`, `paired`
@@ -146,15 +146,24 @@ creates it as `false`. Today it can only be set directly in MongoDB.
 Because the default is `false` rather than undefined, documents predating the
 field report `false` too — "not indexed" and "unknown" are indistinguishable.
 
-Separately: `Run.libraryType` stores a free-text **string**, not a reference to
-a `LibraryType` document, and nothing validates one against the other. Renaming
-a `LibraryType.value` silently orphans every run using the old spelling.
+`Run.libraryType` still stores a string rather than a reference. Run creation,
+reingest replacement and the ingest worker now resolve that string against the
+`LibraryType` collection and enforce its `paired`/`indexed` flags. Renaming or
+deleting a value therefore does not silently change an old Run: a later retry
+fails loudly as an unknown type. It still leaves an operational repair to do,
+so treat `LibraryType.value` as immutable once Runs use it.
+
+Before an API cutover, `scripts/inspect-ingest-backlog.js` checks unfinished
+jobs against those exact option values and their paired/indexed flags. It
+rejects duplicate values and casts legacy raw Boolean values exactly as the
+worker's Mongoose model does. Run it again after writes are quiesced; an
+earlier read-only result is not a lock.
 
 ### 7. Idempotent create: 200 means "already existed", 201 means "created"
 
 `POST /samples/new` and `POST /runs/new` look for an existing record first
 (sample: same `project` + `name`; run: same `sample` + `name`). If one exists
-they answer **200** with the *pre-existing* document and `idempotent: true`. A
+they answer **200** with the _pre-existing_ document and `idempotent: true`. A
 real insert answers **201**.
 
 ```jsonc
@@ -167,7 +176,7 @@ real insert answers **201**.
 
 Branch on the status code, or on the presence of `idempotent`. A client that
 treats 200 as "created" double-counts; one that treats anything but 201 as
-failure breaks on retry — and komondor-power *does* retry.
+failure breaks on retry — and komondor-power _does_ retry.
 
 Two asymmetries: the sample lookup only runs when both `name` and `project` are
 present, so a nameless non-TPlex sample is never deduplicated; and
@@ -194,6 +203,21 @@ id and uses `$setOnInsert`, so it finds the dead job and changes nothing —
 `/runs/new` also requires WRITE access to the **existing run's** group, which
 can differ from its sample's group for runs predating the group remediation.
 
+A reingest body is a partial correction by default. `rawFiles` and
+`additionalFiles` entries omitted from it are retained whether or not they
+have already reached the datastore; this prevents correcting one failed file
+from silently deleting another failed file. Entries under delivered names may
+change relationship metadata (`sibling`/`paired`) but not their immutable file
+descriptor. A changed delivered descriptor returns **409**.
+
+To make a submitted list the complete desired list, set `replaceRawFiles: true`
+or `replaceAdditionalFiles: true` and provide the corresponding array. Only
+omitted **undelivered** entries are removed; delivered entries cannot be
+removed through reingest. The final merged raw list must still satisfy the
+Run's stored `LibraryType` (all biological reads paired when required, index
+reads present when required, and no contradictory flags), and the worker
+repeats that invariant before moving bytes.
+
 Because `{ sample, name }` is unique on `Run`, two concurrent retries of a lost
 201 can both miss the lookup; the loser of the save race re-reads the winner
 and returns the same idempotent 200 rather than a 500.
@@ -204,7 +228,11 @@ and returns the same idempotent 200 rather than a 500.
 emit:
 
 ```jsonc
-{ "error": "Failed to create new project.", "detail": "E11000 duplicate key error …", "requestId": "1735689600000-k3j9x2p1a" }
+{
+  "error": "Failed to create new project.",
+  "detail": "E11000 duplicate key error …",
+  "requestId": "1735689600000-k3j9x2p1a"
+}
 ```
 
 `detail` carries the underlying message and is present **even for production
@@ -213,12 +241,12 @@ correlates with the server log line.
 
 The exceptions, all of which clients must special-case:
 
-| Route | Deviation |
-| --- | --- |
-| `POST /login` | Reports failure as `message`, not `error`. The only route that does. |
+| Route                                    | Deviation                                                                                                                                                               |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /login`                            | Reports failure as `message`, not `error`. The only route that does.                                                                                                    |
 | `GET /read-file`, `GET /directory-files` | Report failure as **HTTP 200** with `{ error }` — but answer a real 403 for a rejected path, so both branches are needed. Deliberately preserved (BREAKING_CHANGES §9). |
-| `GET /me`, `/groups/*` | Bare `{ error }` — no `detail`, no `requestId`. |
-| `POST /accessions/new` | Success is 200 with an **empty body**. Do not parse it as JSON. |
+| `GET /me`, `/groups/*`                   | Bare `{ error }` — no `detail`, no `requestId`.                                                                                                                         |
+| `POST /accessions/new`                   | Success is 200 with an **empty body**. Do not parse it as JSON.                                                                                                         |
 
 `GET /read-file` goes further: on success it returns the file's **raw text**,
 and on failure a **JSON object**. The body type depends on the outcome.
@@ -270,7 +298,7 @@ and its `DEFECT` note change in the same commit.
 entry — or if the spec documents a path that no longer exists. It runs in CI on
 every push and pull request.
 
-It reads the *live* routers rather than pattern-matching source, so paths
+It reads the _live_ routers rather than pattern-matching source, so paths
 registered through helpers (`registerOptionRoutes`, `registerEntitySearch`) are
 caught too. What it does **not** verify is response bodies: it checks paths and
 methods, not schemas. Body-level conformance is the job of the consumer suites
@@ -327,7 +355,7 @@ Suggested sequence when it is picked up:
 
 1. Publish `openapi.yaml` somewhere the sibling repos can fetch it by version.
 2. One consumer at a time, generate a client and run its existing suite against
-   the generated types — the diff *is* the drift report.
+   the generated types — the diff _is_ the drift report.
 3. Add the consumer's suite to this repo's pull-request gate.
 4. Only then delete the hand-written client code.
 
@@ -341,4 +369,4 @@ Suggested sequence when it is picked up:
    file is already the record for §1–§15 and consumers read it.
 4. Name the affected consumers in the pull request. The table at the top of
    this document is the list to check against; remember that komondor-nudge is
-   broken by *schema* changes even when the HTTP surface is untouched.
+   broken by _schema_ changes even when the HTTP surface is untouched.

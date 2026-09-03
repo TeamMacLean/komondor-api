@@ -96,7 +96,7 @@ beforeEach(() => {
   // host's spare capacity. The test that wants a 507 raises it itself.
   process.env.UPLOAD_MIN_FREE_BYTES = "0";
   uploadDirEntries().forEach((entry) =>
-    fs.rmSync(_path.join(uploadDir, entry), { force: true }),
+    fs.rmSync(_path.join(uploadDir, entry), { force: true })
   );
   jest.spyOn(console, "warn").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -195,7 +195,7 @@ describe("authentication on the upload mount", () => {
 
     expect(response.status).toBe(201);
     expect(response.headers.location).toMatch(
-      /^\/\/[^/]+\/uploads\/[0-9a-f]{32}$/,
+      /^\/\/[^/]+\/uploads\/[0-9a-f]{32}$/
     );
     expect(uploadDirEntries()).toContain(idFromLocation(response));
   });
@@ -219,7 +219,7 @@ describe("authentication on the upload mount", () => {
 
     expect(response.status).toBe(200);
     expect(response.headers["access-control-allow-origin"]).toBe(
-      "http://localhost:3000",
+      "http://localhost:3000"
     );
   });
 
@@ -324,7 +324,7 @@ describe("upload ownership", () => {
     // The in-memory register is gone after a restart; the sidecar is not.
     quota.clearUploads();
     const stored = JSON.parse(
-      fs.readFileSync(_path.join(uploadDir, `${id}.json`), "utf8"),
+      fs.readFileSync(_path.join(uploadDir, `${id}.json`), "utf8")
     );
 
     expect(stored.metadata.owner).toBe("alice");
@@ -369,7 +369,7 @@ describe("upload quotas", () => {
 
     expect(response.status).toBe(429);
     expect(JSON.parse(response.text).error).toContain(
-      "already has 1 uploads in progress",
+      "already has 1 uploads in progress"
     );
   });
 
@@ -412,8 +412,8 @@ describe("upload quotas", () => {
         request(app)
           .post("/uploads")
           .set("Tus-Resumable", "1.0.0")
-          .set("Upload-Length", "4"),
-      ),
+          .set("Upload-Length", "4")
+      )
     );
 
     expect(responses.filter((r) => r.status === 201)).toHaveLength(2);
@@ -431,8 +431,8 @@ describe("upload quotas", () => {
         request(app)
           .post("/uploads")
           .set("Tus-Resumable", "1.0.0")
-          .set("Upload-Length", "4"),
-      ),
+          .set("Upload-Length", "4")
+      )
     );
 
     expect(responses.filter((r) => r.status === 201)).toHaveLength(2);
@@ -547,6 +547,23 @@ describe("active-request tracking on the mount", () => {
 
     expect(quota.hasActiveRequest(id)).toBe(false);
   });
+
+  test("refuses a request when abandoned cleanup already owns the upload", async () => {
+    const created = await createUpload("alice");
+    const id = idFromLocation(created);
+    const beginRequest = jest
+      .spyOn(quota, "beginRequest")
+      .mockReturnValue(false);
+
+    currentUser = { username: "alice" };
+    const response = await request(app)
+      .head(`/uploads/${id}`)
+      .set("Tus-Resumable", "1.0.0");
+
+    expect(response.status).toBe(410);
+    expect(beginRequest).toHaveBeenCalledWith(id);
+    expect(quota.hasActiveRequest(id)).toBe(false);
+  });
 });
 
 describe("the tus mount inside the WHOLE application", () => {
@@ -575,7 +592,7 @@ describe("the tus mount inside the WHOLE application", () => {
 
     expect(response.status).toBeLessThan(300);
     expect(response.headers["access-control-allow-origin"]).toBe(
-      "http://localhost:3000",
+      "http://localhost:3000"
     );
     // The half that was missing: answered by the global cors() before the
     // upload router could contribute anything of its own.
@@ -611,7 +628,7 @@ describe("the tus mount inside the WHOLE application", () => {
 
     expect(response.status).toBe(401);
     expect(response.headers["access-control-allow-origin"]).toBe(
-      "http://localhost:3000",
+      "http://localhost:3000"
     );
   });
 
@@ -637,7 +654,7 @@ describe("the tus mount inside the WHOLE application", () => {
       .set("Access-Control-Request-Method", "GET");
 
     expect(response.headers["access-control-allow-origin"]).toBe(
-      "http://localhost:3000",
+      "http://localhost:3000"
     );
   });
 });

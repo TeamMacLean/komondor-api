@@ -1,6 +1,7 @@
 /**
  * Read-only inventory of stored ingest work that this release's stricter
- * validation would refuse.
+ * validation would refuse: malformed payloads, orphan Runs, missing/renamed
+ * LibraryTypes (including duplicates), and paired/indexed contradictions.
  *
  *   node scripts/inspect-ingest-backlog.js
  *
@@ -27,7 +28,7 @@
  *
  * Writes nothing, locks nothing. Safe against production while it serves.
  *
- * Exit 0: nothing stored would be refused.
+ * Exit 0: nothing unfinished would be refused.
  * Exit 1: something would be. Each item is listed with what is wrong.
  * Exit 2: could not connect or query.
  */
@@ -35,121 +36,110 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const { safeBasename } = require("../lib/utils/safePath");
+const { resolveMongoUri } = require("../lib/utils/validateEnv");
+const {
+  validateIngestFilesPayload,
+  validateRawFilesForLibraryType,
+} = require("../lib/ingest-payload-validation");
 
-const MONGO_URI = process.env.MONGODB_URI;
+const MONGO_URI = resolveMongoUri(process.env);
 
 // A job in one of these has no further work to do, so its payload will never
 // be re-validated.
 const SETTLED = ["done", "completed", "succeeded"];
+const castMongooseBoolean = mongoose.Schema.Types.Boolean.cast();
+
+const asObjectId = (value) => {
+  const rendered = value === undefined || value === null ? "" : String(value);
+  return /^[a-f\d]{24}$/i.test(rendered)
+    ? new mongoose.Types.ObjectId(rendered)
+    : null;
+};
+
+// The inspector reads raw BSON while the worker reads through the Mongoose
+// LibraryType model. Match Mongoose's Boolean casting (including indexed's
+// default false) or legacy values such as 1 / "true" become a false green.
+const castBooleanField = (value, defaultValue) => {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  try {
+    const cast = castMongooseBoolean(value);
+    return cast === undefined ? defaultValue : cast;
+  } catch (_err) {
+    // Hydration leaves a failed paired cast undefined and applies indexed's
+    // default. Those are exactly the defaults supplied by the caller.
+    return defaultValue;
+  }
+};
+
+const asWorkerLibraryType = (libraryType) =>
+  libraryType && {
+    ...libraryType,
+    paired: castBooleanField(libraryType.paired, undefined),
+    indexed: castBooleanField(libraryType.indexed, false),
+  };
 
 /**
- * The problems in one stored file list, as plain sentences.
- * @param {Array<object>} files - rawFiles or additionalFiles from a payload.
- * @param {string} label - Which list this is, for the message.
- * @returns {string[]} One message per problem; empty when the list is fine.
+ * Mirrors every validation dependency the worker needs before it can move an
+ * unfinished job's bytes. It stays model-free: the production inspector must
+ * not compile schemas (and therefore indexes) merely by being imported.
+ *
+ * @param {object} job - Raw ingestjobs document.
+ * @param {object|null} run - Raw Runs document referenced by the job.
+ * @param {object|null} libraryType - Raw LibraryTypes document for the Run.
+ * @param {object} [options]
+ * @param {number} [options.libraryTypeCount] - Exact-value option matches.
+ * @returns {string[]} Refusal reasons.
  */
-function inspectFileList(files, label) {
-  if (!Array.isArray(files)) {
-    return [];
+const validateStoredJob = (
+  job,
+  run,
+  libraryType,
+  { libraryTypeCount = libraryType ? 1 : 0 } = {}
+) => {
+  const payload = (job && job.payload) || {};
+  const problems = [...validateIngestFilesPayload(payload)];
+
+  if (!run) {
+    problems.push(
+      `Referenced Run ${
+        job && job.runId ? job.runId : "(missing runId)"
+      } does not exist`
+    );
+    return [...new Set(problems)];
   }
 
-  const problems = [];
-  const canonical = new Map();
+  if (typeof run.libraryType !== "string" || run.libraryType.length === 0) {
+    problems.push(`Run ${run._id} has no libraryType value`);
+    return [...new Set(problems)];
+  }
 
-  files.forEach((file, index) => {
-    const name = file && file.name;
-    if (typeof name !== "string") {
-      return;
-    }
+  if (libraryTypeCount > 1) {
+    problems.push(
+      `Run ${run._id} references ambiguous LibraryType "${run.libraryType}": ${libraryTypeCount} option documents exist`
+    );
+    return [...new Set(problems)];
+  }
 
-    const bare = safeBasename(name);
-    if (bare !== name) {
-      problems.push(
-        bare === null
-          ? `${label}[${index}] "${name}" is not a usable filename`
-          : `${label}[${index}] "${name}" is not a bare filename (would need "${bare}")`,
-      );
-    }
+  if (!libraryType) {
+    problems.push(
+      `Run ${run._id} references LibraryType "${run.libraryType}", but that option does not exist`
+    );
+    return [...new Set(problems)];
+  }
 
-    const key = bare || name;
-    canonical.set(key, (canonical.get(key) || 0) + 1);
-  });
-
-  canonical.forEach((count, name) => {
-    if (count > 1) {
-      problems.push(`${label} name "${name}" appears ${count} times`);
-    }
-  });
-
-  // Pairing, by whichever mechanism the payload used.
-  const byName = new Map(
-    files
-      .filter((file) => file && typeof file.name === "string")
-      .map((file) => [safeBasename(file.name) || file.name, file]),
+  problems.push(
+    ...validateRawFilesForLibraryType(
+      payload.rawFiles,
+      asWorkerLibraryType(libraryType)
+    )
   );
-
-  files.forEach((file, index) => {
-    if (!file || typeof file.sibling !== "string") {
-      return;
-    }
-    const own = safeBasename(file.name || "") || file.name;
-    const mateName = safeBasename(file.sibling) || file.sibling;
-
-    if (mateName === own) {
-      problems.push(`${label}[${index}] "${own}" names itself as its sibling`);
-      return;
-    }
-    const mate = byName.get(mateName);
-    if (!mate) {
-      problems.push(
-        `${label}[${index}] "${own}" names sibling "${file.sibling}", which is not in the list`,
-      );
-      return;
-    }
-    const mateSibling =
-      typeof mate.sibling === "string"
-        ? safeBasename(mate.sibling) || mate.sibling
-        : null;
-    if (mateSibling !== own) {
-      problems.push(
-        `${label}[${index}] "${own}" names "${mateName}", which does not name it back`,
-      );
-    }
-  });
-
-  const byRow = new Map();
-  files.forEach((file) => {
-    if (!file || file.paired !== true) {
-      return;
-    }
-    if (typeof file.sibling === "string") {
-      return; // paired by sibling, already checked above
-    }
-    if (file.rowID === undefined || file.rowID === null) {
-      problems.push(
-        `${label} entry "${file.name}" is paired but names no sibling and has no rowID`,
-      );
-      return;
-    }
-    const row = String(file.rowID);
-    byRow.set(row, (byRow.get(row) || 0) + 1);
-  });
-  byRow.forEach((count, row) => {
-    if (count !== 2) {
-      problems.push(`${label} rowID "${row}" has ${count} paired entries`);
-    }
-  });
-
-  return problems;
-}
+  return [...new Set(problems)];
+};
 
 async function main() {
-  if (!MONGO_URI) {
-    console.error("MONGODB_URI is not set. Nothing to check.");
-    process.exit(2);
-  }
-
   try {
     await mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
@@ -168,7 +158,7 @@ async function main() {
 
     if (collections.length === 0) {
       console.log(
-        "No ingestjobs collection: the durable queue has never run here. Nothing to inspect.",
+        "No ingestjobs collection: the durable queue has never run here. Nothing to inspect."
       );
       await mongoose.disconnect();
       process.exit(0);
@@ -182,13 +172,60 @@ async function main() {
 
     console.log(`Checked ${jobs.length} unfinished ingest job(s).`);
 
+    const runObjectIds = jobs
+      .map((job) => asObjectId(job.runId))
+      .filter(Boolean);
+    const runs =
+      runObjectIds.length === 0
+        ? []
+        : await mongoose.connection
+            .collection("runs")
+            .find({ _id: { $in: runObjectIds } })
+            .project({ libraryType: 1 })
+            .toArray();
+    const runsById = new Map(runs.map((run) => [String(run._id), run]));
+
+    const libraryTypeValues = [
+      ...new Set(
+        runs
+          .map((run) => run.libraryType)
+          .filter((value) => typeof value === "string" && value.length > 0)
+      ),
+    ];
+    // Query each referenced value exactly as LibraryType.findOne({ value })
+    // does in the worker. A bulk `$in` followed by a JavaScript Map is not
+    // equivalent when the collection has a case-insensitive default
+    // collation: Mongo can match two differently-cased values that JS would
+    // split into separate keys, hiding an ambiguous option.
+    const libraryTypesByValue = new Map(
+      await Promise.all(
+        libraryTypeValues.map(async (value) => [
+          value,
+          await mongoose.connection
+            .collection("librarytypes")
+            .find({ value })
+            .project({ value: 1, paired: 1, indexed: 1 })
+            .toArray(),
+        ])
+      )
+    );
+
     const flagged = [];
     jobs.forEach((job) => {
-      const payload = job.payload || {};
-      const problems = [
-        ...inspectFileList(payload.rawFiles, "rawFiles"),
-        ...inspectFileList(payload.additionalFiles, "additionalFiles"),
-      ];
+      const run = runsById.get(String(job.runId)) || null;
+      const libraryTypeMatches = run
+        ? libraryTypesByValue.get(run.libraryType) || []
+        : [];
+      const libraryType =
+        libraryTypeMatches.length === 1 ? libraryTypeMatches[0] : null;
+      // These are the same pure functions used by POST /runs/new, replacement
+      // reingests and the worker. A hand-copied subset previously returned 0
+      // for malformed jobs that the route rejected with 400; checking only
+      // payload shape likewise missed a renamed LibraryType and semantic
+      // paired/indexed contradictions the worker refuses before moving bytes.
+      const problems = validateStoredJob(job, run, libraryType, {
+        libraryTypeCount: libraryTypeMatches.length,
+      });
       if (problems.length > 0) {
         flagged.push({ job, problems });
       }
@@ -196,14 +233,14 @@ async function main() {
 
     if (flagged.length === 0) {
       console.log(
-        "\nNothing stored would be refused by this release's validation.",
+        "\nNothing stored would be refused by this release's validation."
       );
       await mongoose.disconnect();
       process.exit(0);
     }
 
     console.log(
-      `\n${flagged.length} job(s) hold a payload this release would refuse:\n`,
+      `\n${flagged.length} job(s) hold a payload this release would refuse:\n`
     );
     flagged.forEach(({ job, problems }) => {
       console.log(`  run ${job.runId} (job ${job._id}, status ${job.status})`);
@@ -218,12 +255,13 @@ async function main() {
         "did not resubmit. A plain no-body reingest replays the stored payload",
         "unchanged and will NOT repair them.",
         "",
-        "Repair each by hand before deploying: correct the stored payload's",
-        "names and pairing to what the files on disk actually are. Do not",
-        "blanket-migrate — the shapes above are not interchangeable, and a run",
-        "whose files are already delivered needs a different correction from one",
-        "whose files never arrived.",
-      ].join("\n"),
+        "Repair each by hand before deploying: restore any missing Run or",
+        "LibraryType reference/ambiguity, then correct the stored payload's names, pairing",
+        "and index flags to what the files on disk actually are. Do not blanket-",
+        "migrate — the shapes above are not interchangeable, and a run whose",
+        "files are already delivered needs a different correction from one whose",
+        "files never arrived.",
+      ].join("\n")
     );
 
     await mongoose.disconnect();
@@ -239,4 +277,8 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { inspectFileList };
+module.exports = {
+  validateIngestFilesPayload,
+  validateRawFilesForLibraryType,
+  validateStoredJob,
+};

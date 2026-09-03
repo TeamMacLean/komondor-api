@@ -9,11 +9,10 @@
  * separate ways it can fail to end up built, and this script checks both:
  *
  *  1. Duplicate documents already exist, so createIndex rejects them.
- *  2. Another index already blocks the build. mongoose builds indexes in the
- *     background and only *logs* IndexKeySpecsConflict/IndexOptionsConflict
- *     rather than throwing, so the app starts and serves traffic with the
- *     old index still in place and nothing visible saying so. Two shapes
- *     block it, both confirmed by execution against MongoDB 7.0:
+ *  2. Another index already blocks the build. The API now awaits Run.init()
+ *     and exits on IndexKeySpecsConflict/IndexOptionsConflict, so a missed
+ *     conflict is a failed deployment. Two shapes block it, both confirmed
+ *     by execution against MongoDB 7.0:
  *       - something else occupies the auto-generated name with different
  *         options (85 or 86, depending which option differs);
  *       - an EQUIVALENT index exists under a different name (85, "Index
@@ -46,8 +45,12 @@
 
 const mongoose = require("mongoose");
 require("dotenv").config();
+const { isDeepStrictEqual } = require("util");
+const { resolveMongoUri } = require("../lib/utils/validateEnv");
 
-const MONGO_URI = process.env.MONGODB_URI;
+// Use the same resolution rule as server.js. Older installations commonly
+// provide only MONGODB_PORT, which remains an explicitly supported setup.
+const MONGO_URI = resolveMongoUri(process.env);
 
 // mongoose's auto-generated name for schema.index({ sample: 1, name: 1 }).
 // This is what a background index build has to slot into.
@@ -105,9 +108,10 @@ const EXPECTED_OPTIONS = { unique: true };
 // at worst asks an operator to look at something harmless — the opposite
 // error ships a deploy whose unique index never builds.
 //
-// `v` is the index version, `ns` appears on older servers, and `background`
-// is a build hint modern servers ignore: verified by execution that an
-// existing background:true index accepts the schema's own build unchanged.
+// `v` is the index version, `ns` appears on older servers, `background` is a
+// build hint modern servers ignore, and `hidden` controls planner visibility
+// without changing create-equivalence. All four were verified by executing
+// the schema's own build against MongoDB 7.0.29.
 const EQUIVALENT_INDEX_FIELDS = new Set([
   "v",
   "key",
@@ -115,6 +119,7 @@ const EQUIVALENT_INDEX_FIELDS = new Set([
   "ns",
   "unique",
   "background",
+  "hidden",
 ]);
 
 /**
@@ -135,13 +140,25 @@ function isEquivalentToSchemaIndex(idx, collectionDefaults) {
   if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
     return false;
   }
-  return Object.keys(idx).every(
-    (field) =>
-      EQUIVALENT_INDEX_FIELDS.has(field) ||
-      // An option every index on this collection carries is a collection
-      // default, not a difference between this index and the schema's — the
-      // schema's own build inherits it too.
-      (collectionDefaults && collectionDefaults[field] !== undefined),
+  if (
+    !Object.keys(idx).every(
+      (field) =>
+        EQUIVALENT_INDEX_FIELDS.has(field) ||
+        SIGNIFICANT_OPTIONS.includes(field)
+    )
+  ) {
+    return false;
+  }
+
+  // The schema request inherits every collection-level default. Comparing
+  // only options present on the existing index is not enough: under a
+  // collection default collation, MongoDB represents an explicitly-simple
+  // index by OMITTING `collation` from listIndexes. Absence then means
+  // "simple", not "inherits the collection default", and the same-name build
+  // rejects with 86. Require the effective option to agree in both
+  // directions.
+  return SIGNIFICANT_OPTIONS.every((field) =>
+    expectedOptionMatches(idx, field, collectionDefaults)
   );
 }
 
@@ -185,16 +202,36 @@ function isEquivalentToSchemaIndex(idx, collectionDefaults) {
 // So the signature is the key pattern plus these four; everything else is a
 // storage or display detail the server ignores when comparing. This is a
 // LOOSER test than isEquivalentToSchemaIndex, and deliberately so: that one
-// asks "would mongoose's build be a no-op", which storageEngine and hidden do
-// affect. Using the strict test for both questions is what let an audit find
-// a custom-named unique index carrying storageEngine reported as safe while
-// the server refused it and the app would not boot.
+// asks "would mongoose's same-name build be a no-op". For example,
+// storageEngine makes a same-name index non-equivalent but still makes a
+// custom-name index collide; hidden is ignored for same-name equivalence and
+// also remains part of the colliding custom signature. Using the strict test
+// for both questions is what let an audit find a custom-named unique index
+// carrying storageEngine reported as safe while the server refused it and the
+// app would not boot.
 const SIGNIFICANT_OPTIONS = [
   "sparse",
   "collation",
   "partialFilterExpression",
   "expireAfterSeconds",
 ];
+
+/**
+ * Whether one option on an existing index has the value the schema request
+ * will have after collection defaults are applied.
+ *
+ * An option absent from listIndexes normally means the option is absent, but
+ * when the collection supplies a default the schema request will inherit it.
+ * In that case the existing index must explicitly list the normalized default
+ * too. This distinction matters for collation: explicit `{ locale: "simple" }`
+ * is reported as no `collation` field at all.
+ */
+function expectedOptionMatches(idx, field, collectionDefaults = {}) {
+  const expected = collectionDefaults[field];
+  return expected !== undefined
+    ? idx[field] !== undefined && isDeepStrictEqual(idx[field], expected)
+    : idx[field] === undefined;
+}
 
 /**
  * Whether MongoDB would consider this index the same one the schema declares,
@@ -212,10 +249,8 @@ function hasSameSignatureAsSchemaIndex(idx, collectionDefaults) {
   if (Boolean(idx.unique) !== Boolean(EXPECTED_OPTIONS.unique)) {
     return false;
   }
-  return SIGNIFICANT_OPTIONS.every(
-    (field) =>
-      idx[field] === undefined ||
-      (collectionDefaults && collectionDefaults[field] !== undefined),
+  return SIGNIFICANT_OPTIONS.every((field) =>
+    expectedOptionMatches(idx, field, collectionDefaults)
   );
 }
 
@@ -335,7 +370,7 @@ async function fixStaleIndex(collection, conflicts) {
     .toArray();
   if (lastCheck.length > 0) {
     throw new Error(
-      "Aborting: a duplicate appeared since the initial check. Not dropping the existing index.",
+      "Aborting: a duplicate appeared since the initial check. Not dropping the existing index."
     );
   }
 
@@ -373,7 +408,7 @@ async function fixStaleIndex(collection, conflicts) {
 
     await collection.createIndex(
       { sample: 1, name: 1 },
-      { unique: true, name: INDEX_NAME },
+      { unique: true, name: INDEX_NAME }
     );
   } catch (repairErr) {
     console.error(
@@ -385,7 +420,7 @@ async function fixStaleIndex(collection, conflicts) {
         "attention — most likely a duplicate was inserted during this run;",
         "re-run this script's report mode (no --fix) to check, resolve any",
         "duplicates found, then re-run --fix.",
-      ].join("\n"),
+      ].join("\n")
     );
     throw repairErr;
   }
@@ -410,10 +445,10 @@ async function fixStaleIndex(collection, conflicts) {
         "every index it builds, so rebuilding cannot clear it. Do NOT re-run",
         "--fix — it will drop and rebuild to the same state. Resolve the",
         "collection's own defaults instead.",
-      ].join("\n"),
+      ].join("\n")
     );
     throw new Error(
-      "The unique index was rebuilt but is still classified as conflicting",
+      "The unique index was rebuilt but is still classified as conflicting"
     );
   }
 
@@ -421,12 +456,35 @@ async function fixStaleIndex(collection, conflicts) {
   console.log(JSON.stringify(await collection.indexes(), null, 2));
 }
 
-async function main() {
-  if (!MONGO_URI) {
-    console.error("MONGODB_URI is not set. Nothing to check.");
-    process.exit(2);
-  }
+/**
+ * Finds documents whose indexed fields do not match the Run schema's scalar
+ * types. Besides being malformed data, arrays are significant here because a
+ * compound multikey index expands them and can encounter a duplicate key that
+ * grouping the whole array value cannot see.
+ *
+ * @param {import("mongodb").Collection} collection - The runs collection.
+ * @returns {Promise<Array<Object>>} Up to 100 malformed documents.
+ */
+async function findInvalidRunShapes(collection) {
+  return collection
+    .aggregate([
+      {
+        $match: {
+          $expr: {
+            $or: [
+              { $ne: [{ $type: "$sample" }, "objectId"] },
+              { $ne: [{ $type: "$name" }, "string"] },
+            ],
+          },
+        },
+      },
+      { $project: { _id: 1, sample: 1, name: 1 } },
+      { $limit: 100 },
+    ])
+    .toArray();
+}
 
+async function main() {
   const fix = process.argv.includes("--fix");
 
   try {
@@ -454,13 +512,20 @@ async function main() {
       } catch (err) {
         if (err && (err.codeName === "NamespaceNotFound" || err.code === 26)) {
           console.log(
-            'The "runs" collection does not exist yet — nothing to conflict with.',
+            'The "runs" collection does not exist yet — nothing to conflict with.'
           );
           return [];
         }
         throw err;
       }
     };
+
+    // The schema and compound index both require scalar values. Grouping an
+    // array as one aggregation value does not model a multikey index, which
+    // expands it into individual keys: two different arrays can share an
+    // expanded key while an ordinary $group reports no duplicate. Refuse all
+    // type-invalid documents before claiming the index can build.
+    const invalidShapes = await findInvalidRunShapes(collection);
 
     const duplicates = await collection
       .aggregate([
@@ -485,15 +550,31 @@ async function main() {
 
     console.log(`Checked ${total} runs.`);
 
+    if (invalidShapes.length > 0) {
+      console.log(
+        `Found ${invalidShapes.length} run(s) whose sample/name types violate the Run schema and may prevent safe index creation:`
+      );
+      invalidShapes.forEach((run) => {
+        console.log(
+          `  run=${run._id} sampleType=${
+            Array.isArray(run.sample) ? "array" : typeof run.sample
+          } nameType=${Array.isArray(run.name) ? "array" : typeof run.name}`
+        );
+      });
+      console.log(
+        "Resolve these malformed documents before deploying; the unique compound index may expand array values and fail with E11000."
+      );
+    }
+
     if (duplicates.length === 0) {
       console.log("No duplicate { sample, name } pairs.");
     } else {
       console.log(
-        `Found ${duplicates.length} duplicate { sample, name } pair(s):\n`,
+        `Found ${duplicates.length} duplicate { sample, name } pair(s):\n`
       );
       duplicates.forEach((d) => {
         console.log(
-          `  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`,
+          `  sample=${d._id.sample}  name=${JSON.stringify(d._id.name)}`
         );
         console.log(`    ${d.count} runs: ${d.ids.join(", ")}`);
       });
@@ -502,8 +583,8 @@ async function main() {
           "",
           "Resolve these before deploying: keep the run that has files attached and",
           "delete or rename the others. Until then the unique index will fail to",
-          "build, and mongoose will only log it — the deploy will otherwise look fine.",
-        ].join("\n"),
+          "build, and the API will refuse to start.",
+        ].join("\n")
       );
     }
 
@@ -512,7 +593,7 @@ async function main() {
         [
           "",
           `Found ${conflicts.length} index(es) that will stop the unique { sample, name } index building:`,
-        ].join("\n"),
+        ].join("\n")
       );
       conflicts.forEach((conflict) => {
         console.log(`\n  ${conflict.reason}`);
@@ -521,32 +602,38 @@ async function main() {
       console.log(
         [
           "",
-          "Mongoose builds this index in the background and only LOGS a refusal —",
-          "the app starts and serves traffic with the race still open.",
-        ].join("\n"),
+          "The API awaits this index during startup. A refusal is fatal and the",
+          "process exits rather than serving traffic without uniqueness.",
+        ].join("\n")
       );
 
       if (duplicates.length > 0) {
         console.log(
-          "\nNot attempting a fix: duplicate documents exist, so a rebuilt unique index would fail the same way. Resolve the duplicates first.",
+          "\nNot attempting a fix: duplicate documents exist, so a rebuilt unique index would fail the same way. Resolve the duplicates first."
+        );
+      } else if (invalidShapes.length > 0) {
+        console.log(
+          "\nNot attempting a fix: malformed sample/name values exist. Resolve them first."
         );
       } else if (fix) {
         const names = conflicts.map((conflict) => `"${conflict.index.name}"`);
         console.log(
-          `\nFixing: dropping ${names.join(", ")} and rebuilding "${INDEX_NAME}" as unique...`,
+          `\nFixing: dropping ${names.join(
+            ", "
+          )} and rebuilding "${INDEX_NAME}" as unique...`
         );
         await fixStaleIndex(collection, conflicts);
         console.log("\nFixed. The unique index is now in place.");
       } else {
         console.log(
-          "\nRe-run with --fix to drop and rebuild this index, or resolve it manually.",
+          "\nRe-run with --fix to drop and rebuild this index, or resolve it manually."
         );
       }
     }
 
     await mongoose.disconnect();
 
-    if (duplicates.length > 0) {
+    if (duplicates.length > 0 || invalidShapes.length > 0) {
       process.exit(1);
     }
     if (indexConflict && !fix) {
@@ -573,6 +660,8 @@ module.exports = {
   collectionIndexDefaults,
   findIndexConflicts,
   fixStaleIndex,
+  findInvalidRunShapes,
   hasExpectedKeys,
+  expectedOptionMatches,
   INDEX_NAME,
 };

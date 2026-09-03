@@ -41,7 +41,7 @@ is, the fix is to populate its group membership (LDAP `memberOf` or the
 The check was:
 
 ```js
-process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username)
+process.env.FULL_RECORDS_ACCESS_USERS.includes(user.username);
 ```
 
 That is a **substring test against the raw environment string**. With
@@ -165,7 +165,7 @@ The response fields `isAbsolute` and `resolvedPath` were removed;
 
 **Note:** `isAdmin` is only present on tokens issued by the built-in `admin`
 login (which has always set it) and, as of this change, on LDAP tokens. An LDAP
-user holding a token issued *before* this deploy has no `isAdmin` claim and
+user holding a token issued _before_ this deploy has no `isAdmin` claim and
 must log in again.
 
 ---
@@ -379,7 +379,7 @@ or edit this". `Group.GroupsIAmIn` now takes `{ mode: "read" | "write" }`, and
 middleware). The three local copies are gone.
 
 **Who is affected:** users named in `FULL_RECORDS_ACCESS_USERS`. They hold a
-cross-group *read* capability, but because every write check was built on the
+cross-group _read_ capability, but because every write check was built on the
 same lookup, they could also **create and edit records in groups they are not
 members of**. In write mode they now fall through to their real membership like
 anyone else. Read breadth is unchanged.
@@ -388,7 +388,7 @@ Consequences worth knowing:
 
 - **Soft-deleted groups no longer authorise anyone, admins included** — see
   §17.
-- `isAdmin` is *not* a short-circuit in `canReadGroup` / `canWriteGroup`.
+- `isAdmin` is _not_ a short-circuit in `canReadGroup` / `canWriteGroup`.
   Admin authority flows through `GroupsIAmIn`, which returns every live group,
   so "admins can do both" and "deleted groups authorise nobody" stay consistent
   rather than fighting. A test that mocks `GroupsIAmIn` to resolve `[]` for an
@@ -400,7 +400,7 @@ Consequences worth knowing:
   route callers of it today.
 - **`getUserForToken` now asks for the write capability** when stamping the
   token's `groups` claim. This is load-bearing, not cosmetic: in read mode a
-  full-access user's token was stamped with *every* group id, and write mode
+  full-access user's token was stamped with _every_ group id, and write mode
   reads that claim back as real membership — which would silently re-grant
   write-everywhere and undo the whole split.
 
@@ -446,8 +446,7 @@ Per endpoint:
 - `GET /projects/names` now requires a bearer token. It previously handed every
   project name in the database to anonymous callers. It still returns names
   across all groups — `Project.name` is unique, so a client needs the full list
-  for its "name already taken" hint. **Any pre-login page using it will now get
-  401.**
+  for its "name already taken" hint. **Any pre-login page using it will now get 401.**
 - `PUT /project/toggle-nudgeable` now answers 403 outside the caller's writable
   groups, and 400 for a non-boolean `nudgeable`. It previously accepted any
   truthy value from any logged-in user for any project.
@@ -546,7 +545,7 @@ longer returns; nothing reads it, but the type is now optimistic.
 `server.js`
 
 `POST /runs/new` previously did file movement, the overseer email and MD5
-verification in a `setImmediate` callback fired *after* the response. A failure
+verification in a `setImmediate` callback fired _after_ the response. A failure
 there could reach nobody: it was logged and dropped, and the worker that could
 retry it never saw it. The route now saves the run, **enqueues an ingest job
 before responding**, and a background worker performs the work.
@@ -554,7 +553,7 @@ before responding**, and a background worker performs the work.
 - The 201 and the idempotent 200 both gain `jobId`.
 - `GET /runs/{id}/status` gains `ingest` (`null` when nothing was ever queued,
   which is what every pre-existing run looks like).
-- A failed ingest is now *visible*: `ingest.status: "failed"` with `lastError`,
+- A failed ingest is now _visible_: `ingest.status: "failed"` with `lastError`,
   instead of a run sitting at `pending` forever.
 - A failed enqueue fails the request (and rolls back the run) rather than
   returning a 201 for an ingest nobody will run.
@@ -721,13 +720,13 @@ use.
 - A token carrying no groups now lists **nothing** from those endpoints, where
   it previously listed that user's own records.
 - **Admins and `FULL_RECORDS_ACCESS_USERS` are affected too.** Their reach used
-  to be expressed as the *absence* of a filter (`visibleGroupIds` returned
+  to be expressed as the _absence_ of a filter (`visibleGroupIds` returned
   `null`, and `Model.find({})` follows), which is why they alone could still
   read records in soft-deleted groups from the list, search and news endpoints
   while the per-record routes refused the same group. It is now expressed the
   same way everyone else's is: `GroupsIAmIn` hands them every **live** group and
   those ids become an ordinary `$in`. Two consequences are user-visible — an
-  admin whose groups have *all* been soft-deleted now sees an empty
+  admin whose groups have _all_ been soft-deleted now sees an empty
   list/search/news result rather than every record, and a record whose `group`
   points at a hard-deleted `Group` document is no longer returned to anyone.
   Both are the intended reading of "the group is gone"; both were previously
@@ -786,10 +785,10 @@ the API process could read. A symlinked last path component is now refused on
 all three endpoints **even when it points at a file that really is inside the
 transfer directory**:
 
-| Endpoint | Result |
-| --- | --- |
-| `GET /read-file` | `File does not exist` |
-| `GET /directory-files` | `Directory does not exist` |
+| Endpoint                           | Result                           |
+| ---------------------------------- | -------------------------------- |
+| `GET /read-file`                   | `File does not exist`            |
+| `GET /directory-files`             | `Directory does not exist`       |
 | `POST /directory-files/verify-md5` | 404 (403 if it escapes the root) |
 
 `models/File.js` also refuses a source that is itself a symlink on the write
@@ -820,7 +819,7 @@ should be told.
 Claiming a staged upload — naming its id in `rawFiles`/`additionalFiles` on a
 create — was the one operation on an upload that was never checked. The tus
 endpoints and `/upload/cancel` both enforce ownership, so it was enforced
-everywhere bytes are *written* and nowhere they are taken away: naming somebody
+everywhere bytes are _written_ and nowhere they are taken away: naming somebody
 else's upload id linked their file into the claimant's datastore and unlinked it
 from staging.
 
@@ -843,7 +842,7 @@ uploads.
 
 **Where:** `lib/file-utils.js`, `models/AdditionalFile.js`
 
-The row used to be saved *before* the file was moved, and `AdditionalFile`'s
+The row used to be saved _before_ the file was moved, and `AdditionalFile`'s
 post-save hook moved the file and then swallowed the failure. A move that failed
 (ENOSPC, EROFS, the no-clobber EEXIST) therefore left a row asserting the file
 had arrived while it was still in staging — and everything downstream, including
@@ -858,7 +857,7 @@ fails is at least visible.
 **Who is affected:** nobody at the API surface. Operationally, a failed ingest
 now fails loudly where it used to complete quietly with files missing.
 
-**Note:** a run that failed *before* this change may already carry `Read` rows
+**Note:** a run that failed _before_ this change may already carry `Read` rows
 for files still in staging. The ingest queue re-attempts those (it stats the
 destination rather than trusting the row), and the re-attempt creates a second
 `File`/`Read` pair — the stale one is deliberately left behind rather than
@@ -877,29 +876,35 @@ and the second run queues a second ingest for the same source files — which ca
 only fail, the first having already moved them
 (`File.moveToFolderAndSave` refuses to clobber a destination).
 
-**Run this before deploying.** `mongoose` *logs* an index-creation failure
+**Run this before deploying.** `mongoose` _logs_ an index-creation failure
 rather than throwing it, so a single existing duplicate means the index silently
 never exists, the race stays open, and nothing anywhere reports a problem:
 
 ```js
 db.runs.aggregate([
-  { $group: { _id: { sample: "$sample", name: "$name" }, n: { $sum: 1 }, ids: { $push: "$_id" } } },
+  {
+    $group: {
+      _id: { sample: "$sample", name: "$name" },
+      n: { $sum: 1 },
+      ids: { $push: "$_id" },
+    },
+  },
   { $match: { n: { $gt: 1 } } },
-])
+]);
 ```
 
 Resolve every hit (rename or remove the duplicate runs) before the deploy, then
 confirm afterwards that the index exists:
 
 ```js
-db.runs.getIndexes().filter((i) => i.name === "sample_1_name_1")
+db.runs.getIndexes().filter((i) => i.name === "sample_1_name_1");
 ```
 
 **API effect:** the losing side of a create race now gets an `E11000` from the
 save instead of quietly writing a duplicate. `POST /runs/new` catches that,
 re-reads `Run.findOne({ sample, name })` and returns the winner with the same
 idempotent 200 body it already returns for a lookup hit — so clients see no
-change. A duplicate key on any *other* index is still a 500.
+change. A duplicate key on any _other_ index is still a 500.
 
 **Two robustness additions on top of the above.** `scripts/check-run-duplicates.js`
 now also flags an index that already exists under the name `sample_1_name_1`
@@ -933,10 +938,10 @@ and would break the existing HPC workflow on the day it deployed.
 > discoverable because `GET /directory-files` accepts any `targetDirectoryName`.
 > `createFileDocument` resolves `<HPC_ROOT>/group_b/PATIENT_R1.fastq.gz`, which
 > is inside the root, so it is accepted — the only question the path guard asks
-> is whether the path stays under the shared root, never *whose* directory it is.
+> is whether the path stays under the shared root, never _whose_ directory it is.
 > `moveToFolderAndSave` then hard-links the file into A's datastore and
 > **unlinks the source**. Group B's sequencing data is now readable by every
-> member of A, and is *gone* from B's inbox before B's own run-create ran.
+> member of A, and is _gone_ from B's inbox before B's own run-create ran.
 
 So this is simultaneously cross-tenant disclosure and destruction of another
 group's data, available to any legitimate user of any group.
@@ -961,8 +966,8 @@ have. That removal is reversed. The guard is back on all three endpoints
 refusing a caller who belongs to no group at all — but it now reads the
 `groups` claim already embedded in the caller's JWT instead of querying
 `Group` per request, so the cost objection that got it pulled no longer
-applies. It still only asks "does this caller belong to *any* group", not
-"does this caller belong to *the* group that owns this directory" — the
+applies. It still only asks "does this caller belong to _any_ group", not
+"does this caller belong to _the_ group that owns this directory" — the
 per-directory question §32 declines to answer — so it does not narrow the
 attack above. Like every group check in this app, it is only as fresh as the
 caller's token: a user removed from their last group keeps passing this check
@@ -989,7 +994,7 @@ that a newline splits in two.
 trail is no longer forgeable regardless (entry 32). But the trail was not the
 only sink. The refusal diagnostics in `routes/read-file.js` and
 `routes/directory-files.js` are plain `console.error` lines with the raw name
-interpolated and are *not* escaped — they are stderr diagnostics rather than the
+interpolated and are _not_ escaped — they are stderr diagnostics rather than the
 trail, but a newline still splits them — and the same string reaches `File.name`
 and anything downstream that renders it, where the rest of the C0 range arrives
 as terminal escape sequences. `HPC_TRANSFER_DIRECTORY` is writable by
@@ -1040,7 +1045,7 @@ is what makes a symlinked project directory listable via `GET
 /directory-files`. But `GET /read-file`, `POST /directory-files/verify-md5`,
 and `models/File.js`'s `moveToFolderAndSave` (the ingest move path) all then
 opened the final component with an unconditional `O_NOFOLLOW`, refusing
-outright if the *file itself* was a symlink — regardless of
+outright if the _file itself_ was a symlink — regardless of
 `ALLOWED_LINK_ROOTS`. That is exactly the "symlink -> large file on scratch
 storage" case this entry opens with, and it was still refused after the rest
 of this fix landed. All three now check, when `O_NOFOLLOW` reports a
@@ -1089,7 +1094,7 @@ not reverting to unlink-on-claim.
 
 The ingest worker's lease (`leaseExpiresAt`) and the `/ready` readiness signal
 (`lastTickAt`) were both driven off the same 6-hour `DEFAULT_MAX_JOB_MS` bound:
-past it, the heartbeat stopped renewing the lease *and* stopped recording
+past it, the heartbeat stopped renewing the lease _and_ stopped recording
 progress in the same branch. A job that is still genuinely running past 6
 hours — a large enough HPC transfer can take that long — lost its lease at the
 same moment it started making `/ready` report a problem, even though nothing
@@ -1106,7 +1111,7 @@ operator should be told when one has not.
 (`instances: 1`, `exec_mode: "fork"`) specifically because both in-memory
 safety mechanisms in this app — the active-transfer register and this same
 ingest lease — are per-process. `recoverStaleJobs` only ever runs once, at a
-worker's own startup, against jobs a *previous* process left behind; there is
+worker's own startup, against jobs a _previous_ process left behind; there is
 never a second, concurrently-running worker for a live process to lose a job
 to. So letting the lease lapse under a still-alive worker never protected
 anything in this deployment — it only made a slow-but-healthy job
@@ -1178,13 +1183,53 @@ There is still no migration, because a blanket one would be wrong — a run
 whose files are already delivered needs a different correction from one whose
 files never arrived. Run `node scripts/inspect-ingest-backlog.js` before
 deploying instead: it is read-only, it lists every stored payload this release
-would refuse and why, and it exits 0 in one line if the `ingestjobs`
+would refuse and why, including orphan Runs and missing/renamed LibraryTypes,
+and it exits 0 in one line if the `ingestjobs`
 collection does not exist (the durable queue postdates the currently deployed
 master, so that is the likely case). Repair whatever it finds by hand.
 
 ---
 
+## 38. Reingest omission is patch-like; full-list replacement is explicit
+
+**Where:** `POST /runs/:id/reingest`, `lib/ingest-queue.js`
+
+A replacement body used to retain omitted delivered files but silently drop
+omitted undelivered files. Correcting one failed mate could therefore erase a
+second failed index read from the durable job. The worker then completed a
+paired-indexed Run with no indexed Read because reingest did not repeat the
+fresh-create `LibraryType` rules.
+
+Omission now means "unchanged" for both delivered and undelivered entries. To
+submit a complete desired list and remove omitted **undelivered** entries, send
+`replaceRawFiles: true` or `replaceAdditionalFiles: true` with the corresponding
+array. A delivered entry remains non-removable, and changing its immutable
+descriptor still returns 409.
+
+The final merged raw list is checked against the Run's stored `LibraryType`.
+The worker repeats that check before moving bytes, so a stale or directly
+seeded job cannot bypass the HTTP boundary. In particular, reingest cannot
+unpair a genuinely paired Run or remove the final index read from an indexed
+Run; changing the Run's metadata is a separate authorised workflow.
+
+The read-only backlog inspector now joins every unfinished job to its Run and
+LibraryType and applies the same semantic helper. It therefore also blocks a
+cutover on a missing Run, renamed/deleted or duplicate option, or stored
+paired/indexed contradiction. Because it reads raw BSON while the worker reads
+through Mongoose, it applies Mongoose's Boolean casting to legacy option values
+before comparing semantics; values such as `paired: 1` cannot produce a false
+green. Run it once early and again after writes are quiesced: while the old API
+is serving, any read-only snapshot can be made stale by the next job.
+
+**Who is affected:** only callers that relied on omission to delete a failed,
+undelivered entry. Add the explicit replacement flag after confirming the
+submitted array is complete. Ordinary one-file corrections need no change and
+are now safer.
+
+---
+
 ## Known issues not addressed here
+
 - **`routes/auth.js` `DEV_USERS` is gated only on `NODE_ENV === "development"`.**
   The containment added in §24 is network-level — development may only bind
   loopback. A second belt would be an explicit opt-in (e.g. `ALLOW_DEV_USERS=true`)
@@ -1197,12 +1242,11 @@ master, so that is the likely case). Repair whatever it finds by hand.
   is set. The warning is truthful until that line changes: make verification the
   default and require an explicit opt-out (e.g.
   `SMTP_TLS_REJECT_UNAUTHORIZED=false`), then re-gate the warning on it.
-- **`models/options/LibraryType.js` `indexed` is dead.** Nothing in `routes/`,
-  `lib/` or `models/` sets or reads it — the only `indexed` consumers are
-  `models/Read.js` and `lib/file-utils.js`, a different field on a different
-  model. Either wire it to whatever was meant to consume it, or drop it from the
-  schema. It was deliberately NOT added to the `/options/librarytype` write
-  mapping: a settable field nothing reads is noise.
+- **`models/options/LibraryType.js` `indexed` cannot be set through the options
+  API.** Run creation, reingest and the worker now read and enforce it, but
+  `POST /options/librarytype` maps only `value`, `paired` and `extensions`.
+  Indexed types must still be seeded through the existing data-management path
+  until that administrative route is changed deliberately.
 - **`Group.sendToEna` is member-editable.** Treated as cosmetic, and implemented
   that way, but it is the flag deciding whether a group's records go to a public
   external archive — a policy decision with an irreversible external
@@ -1223,11 +1267,11 @@ the build while the known unpatchable one is tracked with a reason. Clearing
 these lets the gate ratchet up to fail-on-high; `nightly.yml` reports the
 remaining count every morning.
 
-| Advisory | Package | Fix | Cost |
-| --- | --- | --- | --- |
-| 1115527 (ReDoS) | `path-to-regexp` 0.1.12 | → 0.1.13, via a yarn resolution or an express bump | Cheapest win |
-| 1121191, 1123478 | `nodemailer` 6.10.1 | → >= 9.0.1 | Major; changes API surface `lib/utils/sendEmail.js` uses |
-| 1117404 (critical), 1118999 | `mongoose` 5.13.23 | → >= 6.13.9 | Large — see `MONGOOSE_MIGRATION.md` |
+| Advisory                    | Package                 | Fix                                                | Cost                                                     |
+| --------------------------- | ----------------------- | -------------------------------------------------- | -------------------------------------------------------- |
+| 1115527 (ReDoS)             | `path-to-regexp` 0.1.12 | → 0.1.13, via a yarn resolution or an express bump | Cheapest win                                             |
+| 1121191, 1123478            | `nodemailer` 6.10.1     | → >= 9.0.1                                         | Major; changes API surface `lib/utils/sendEmail.js` uses |
+| 1117404 (critical), 1118999 | `mongoose` 5.13.23      | → >= 6.13.9                                        | Large — see `MONGOOSE_MIGRATION.md`                      |
 
 Notes:
 

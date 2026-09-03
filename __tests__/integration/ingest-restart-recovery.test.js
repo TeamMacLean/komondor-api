@@ -67,12 +67,18 @@ describe("a partially-completed ingest survives a simulated restart", () => {
     // disk) — an entirely ordinary partial failure: the second file's upload
     // hadn't landed yet, or the request named it before it finished. This is
     // what makes attempt 1 genuinely partial rather than all-or-nothing.
-    const missingUploadNameB = require("crypto").randomBytes(16).toString("hex");
+    const missingUploadNameB = require("crypto")
+      .randomBytes(16)
+      .toString("hex");
 
     const payload = {
       rawFiles: [
         { uploadName: uploadA, name: "reads_A.fastq.gz", paired: false },
-        { uploadName: missingUploadNameB, name: "reads_B.fastq.gz", paired: false },
+        {
+          uploadName: missingUploadNameB,
+          name: "reads_B.fastq.gz",
+          paired: false,
+        },
       ],
       additionalFiles: [],
       rawFilesUploadInfo: { method: "local-filesystem" },
@@ -86,14 +92,16 @@ describe("a partially-completed ingest survives a simulated restart", () => {
     // Attempt 1: file A can succeed, file B cannot — runIngestJob must
     // reject overall (file B is a real failure), but file A's move still
     // happens inside it (Promise.allSettled, not Promise.all).
-    await expect(runIngestJob(job1)).rejects.toThrow();
+    await expect(runIngestJob(job1)).rejects.toThrow(
+      /named upload does not belong to 'it-owner'/i
+    );
 
     const relPath = await run.getRelativePath();
     const destinationA = path.join(
       process.env.DATASTORE_ROOT,
       relPath,
       "raw",
-      "reads_A.fastq.gz",
+      "reads_A.fastq.gz"
     );
     const aLandedAfterAttempt1 = await fs.promises
       .access(destinationA)
@@ -111,7 +119,7 @@ describe("a partially-completed ingest survives a simulated restart", () => {
     // the same failure bookkeeping by hand before simulating the retry.
     await IngestJob.updateOne(
       { _id: queued._id },
-      { $set: { status: "pending", leaseExpiresAt: null, workerId: null } },
+      { $set: { status: "pending", leaseExpiresAt: null, workerId: null } }
     );
 
     // File B's upload now genuinely completes — the ordinary case this run
@@ -128,7 +136,7 @@ describe("a partially-completed ingest survives a simulated restart", () => {
       // would: same file, now-valid uploadName.
       await IngestJob.updateOne(
         { _id: queued._id },
-        { $set: { "payload.rawFiles.1.uploadName": idB } },
+        { $set: { "payload.rawFiles.1.uploadName": idB } }
       );
     });
 
@@ -144,7 +152,7 @@ describe("a partially-completed ingest survives a simulated restart", () => {
       process.env.DATASTORE_ROOT,
       relPath,
       "raw",
-      "reads_B.fastq.gz",
+      "reads_B.fastq.gz"
     );
     const bLanded = await fs.promises
       .access(destinationB)

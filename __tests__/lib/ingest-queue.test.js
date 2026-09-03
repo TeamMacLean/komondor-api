@@ -29,6 +29,7 @@ jest.mock("../../models/IngestJob");
 jest.mock("../../models/Run");
 jest.mock("../../models/Read");
 jest.mock("../../models/AdditionalFile");
+jest.mock("../../models/options/LibraryType");
 // NOT mocked at this boundary for the "re-run after a partial failure: the
 // real move-and-pair pipeline" tests below, which need the real
 // lib/sortAssociatedFiles.js (and so the real lib/file-utils.js underneath
@@ -45,6 +46,7 @@ const IngestJob = require("../../models/IngestJob");
 const Run = require("../../models/Run");
 const Read = require("../../models/Read");
 const AdditionalFile = require("../../models/AdditionalFile");
+const LibraryType = require("../../models/options/LibraryType");
 const File = require("../../models/File");
 const {
   sortReadFiles,
@@ -90,7 +92,7 @@ const matchesCondition = (value, condition) => {
         // which is what makes "claimed by nothing this process is running"
         // catch a job whose workerId was never written.
         return !operand.some(
-          (candidate) => String(value) === String(candidate),
+          (candidate) => String(value) === String(candidate)
         );
       }
       if (value === null || value === undefined) {
@@ -144,7 +146,7 @@ const useAtomicStore = (jobs) => {
     if (options.sort) {
       const [key] = Object.keys(options.sort);
       candidates.sort((a, b) =>
-        a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0,
+        a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0
       );
     }
 
@@ -284,11 +286,21 @@ const makeJob = (overrides = {}) => ({
   ...overrides,
 });
 
+const makeRunnableJob = () =>
+  makeJob({ payload: { rawFiles: [{ name: "reads.fq" }] } });
+
 const makeRun = () => ({
   _id: runId,
   name: "Test Run",
   path: "group/project/sample/run",
+  libraryType: "test-library",
 });
+
+const resolveLibraryType = ({ paired = false, indexed = false } = {}) => {
+  LibraryType.findOne.mockReturnValue({
+    select: jest.fn().mockResolvedValue({ paired, indexed }),
+  });
+};
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -314,8 +326,22 @@ beforeEach(() => {
   AdditionalFile.find = jest.fn().mockReturnValue({
     populate: jest.fn().mockResolvedValue([]),
   });
+  LibraryType.findOne = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({ paired: false, indexed: false }),
+  });
 
-  sortReadFiles.mockResolvedValue(undefined);
+  // The production sorter resolves with one pairing record per newly moved
+  // raw file. Keep the default fake faithful to that contract so finalisation
+  // can assert that every promised Read actually exists.
+  sortReadFiles.mockImplementation((files = []) =>
+    Promise.resolve(
+      files.map((file) => ({
+        readId: new mongoose.Types.ObjectId(),
+        fileName: file.name,
+        isPaired: typeof file.sibling === "string",
+      }))
+    )
+  );
   sortAdditionalFiles.mockResolvedValue(undefined);
   sendOverseerEmail.mockResolvedValue(undefined);
   sendMd5VerificationEmail.mockResolvedValue(undefined);
@@ -358,7 +384,7 @@ describe("enqueueRunIngest", () => {
           payload: { rawFiles: [{ name: "reads.fq" }] },
         }),
       },
-      expect.objectContaining({ upsert: true, new: true }),
+      expect.objectContaining({ upsert: true, new: true })
     );
   });
 
@@ -393,13 +419,13 @@ describe("enqueueRunIngest", () => {
     IngestJob.findOneAndUpdate.mockRejectedValue(new Error("mongo is down"));
 
     await expect(enqueueRunIngest({ runId, payload: {} })).rejects.toThrow(
-      "mongo is down",
+      "mongo is down"
     );
   });
 
   test("refuses to queue work with no run to attach it to", async () => {
     await expect(enqueueRunIngest({ payload: {} })).rejects.toThrow(
-      "requires a runId",
+      "requires a runId"
     );
   });
 });
@@ -427,7 +453,7 @@ describe("requeueRunIngest", () => {
           requestId: "req-retry",
         },
       },
-      { new: true },
+      { new: true }
     );
   });
 
@@ -522,7 +548,7 @@ describe("claimNextJob", () => {
     expect(claimed.workerId).toBe("worker-a");
     expect(claimed.attempts).toBe(1);
     expect(jobs[0].leaseExpiresAt.getTime()).toBeGreaterThanOrEqual(
-      before + 60000,
+      before + 60000
     );
   });
 
@@ -571,7 +597,7 @@ describe("claimNextJob", () => {
     ]);
 
     expect(
-      await claimNextJob({ workerId: "worker-b", leaseMs: 1000 }),
+      await claimNextJob({ workerId: "worker-b", leaseMs: 1000 })
     ).toBeNull();
   });
 
@@ -587,7 +613,7 @@ describe("claimNextJob", () => {
     ]);
 
     expect(
-      await claimNextJob({ workerId: "worker-a", leaseMs: 1000 }),
+      await claimNextJob({ workerId: "worker-a", leaseMs: 1000 })
     ).toBeNull();
   });
 
@@ -814,7 +840,7 @@ describe("completeJob", () => {
           leaseExpiresAt: null,
           lastError: null,
         },
-      },
+      }
     );
   });
 
@@ -823,7 +849,7 @@ describe("completeJob", () => {
 
     expect(IngestJob.updateOne).toHaveBeenCalledWith(
       { _id: jobId, workerId: "worker-a" },
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -835,7 +861,7 @@ describe("completeJob", () => {
 
     expect(await completeJob(jobId, "worker-a")).toBe(false);
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining("no longer holds"),
+      expect.stringContaining("no longer holds")
     );
   });
 
@@ -852,7 +878,7 @@ describe("failJob", () => {
 
   test("returns the job to the queue with a backoff while attempts remain", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 1, maxAttempts: 3 }),
+      makeJob({ attempts: 1, maxAttempts: 3 })
     );
     const before = Date.now();
 
@@ -863,7 +889,7 @@ describe("failJob", () => {
     expect(update.workerId).toBeNull();
     expect(update.lastError).toBe("mount is unresponsive");
     expect(update.leaseExpiresAt.getTime() - before).toBeGreaterThanOrEqual(
-      30000,
+      30000
     );
     expect(update.leaseExpiresAt.getTime() - before).toBeLessThan(35000);
     expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
@@ -871,14 +897,14 @@ describe("failJob", () => {
 
   test("backs off further on each successive attempt", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 2, maxAttempts: 5 }),
+      makeJob({ attempts: 2, maxAttempts: 5 })
     );
     const before = Date.now();
 
     await failJob(jobId, new Error("still unresponsive"));
 
     expect(
-      firstUpdate().leaseExpiresAt.getTime() - before,
+      firstUpdate().leaseExpiresAt.getTime() - before
     ).toBeGreaterThanOrEqual(60000);
   });
 
@@ -886,7 +912,7 @@ describe("failJob", () => {
     // A job nobody will retry is work the API promised and will never do. It
     // has to surface somewhere an operator looks, which is the Run.
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 3, maxAttempts: 3 }),
+      makeJob({ attempts: 3, maxAttempts: 3 })
     );
 
     await failJob(jobId, new Error("no space left on device"));
@@ -903,7 +929,7 @@ describe("failJob", () => {
 
   test("fails terminally when the caller says not to retry", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 1, maxAttempts: 3 }),
+      makeJob({ attempts: 1, maxAttempts: 3 })
     );
 
     await failJob(jobId, new Error("payload is unusable"), { retry: false });
@@ -914,7 +940,7 @@ describe("failJob", () => {
 
   test("accepts a plain string as the error", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 3, maxAttempts: 3 }),
+      makeJob({ attempts: 3, maxAttempts: 3 })
     );
 
     await failJob(jobId, "something went wrong", { retry: false });
@@ -928,13 +954,13 @@ describe("failJob", () => {
     await expect(failJob(jobId, new Error("boom"))).resolves.toBeUndefined();
     expect(IngestJob.updateOne).not.toHaveBeenCalled();
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining("no such job"),
+      expect.stringContaining("no such job")
     );
   });
 
   test("fences its write on the worker that holds the claim", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 1, maxAttempts: 3 }),
+      makeJob({ attempts: 1, maxAttempts: 3 })
     );
 
     await failJob(jobId, new Error("mount is unresponsive"), {
@@ -943,7 +969,7 @@ describe("failJob", () => {
 
     expect(IngestJob.updateOne).toHaveBeenCalledWith(
       { _id: jobId, workerId: "worker-a" },
-      expect.anything(),
+      expect.anything()
     );
   });
 
@@ -951,7 +977,7 @@ describe("failJob", () => {
     // The takeover worker is mid-attempt. Marking the run errored from here
     // would report a failure for work that is still running.
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 3, maxAttempts: 3 }),
+      makeJob({ attempts: 3, maxAttempts: 3 })
     );
     IngestJob.updateOne.mockResolvedValue({ matchedCount: 0 });
 
@@ -961,13 +987,13 @@ describe("failJob", () => {
 
     expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining("no longer holds"),
+      expect.stringContaining("no longer holds")
     );
   });
 
   test("still records the failed job when the run cannot be updated", async () => {
     IngestJob.findById.mockResolvedValue(
-      makeJob({ attempts: 3, maxAttempts: 3 }),
+      makeJob({ attempts: 3, maxAttempts: 3 })
     );
     Run.findByIdAndUpdate.mockRejectedValue(new Error("run write failed"));
 
@@ -995,28 +1021,30 @@ describe("runIngestJob", () => {
       runId,
       "group/project/sample/run",
       payload.rawFilesUploadInfo,
-      "submitter",
+      "submitter"
     );
     expect(sortAdditionalFiles).toHaveBeenCalledWith(
       payload.additionalFiles,
       "run",
       runId,
       "group/project/sample/run",
-      "submitter",
+      "submitter"
     );
   });
 
-  test("does nothing with file processing when the payload carries no files", async () => {
-    await runIngestJob(makeJob({ payload: {} }));
+  test("refuses a durable job whose payload carries no raw files", async () => {
+    await expect(runIngestJob(makeJob({ payload: {} }))).rejects.toThrow(
+      /At least one raw file is required/i
+    );
 
     expect(sortReadFiles).not.toHaveBeenCalled();
     expect(sortAdditionalFiles).not.toHaveBeenCalled();
-    expect(sendOverseerEmail).toHaveBeenCalled();
+    expect(sendOverseerEmail).not.toHaveBeenCalled();
   });
 
   test("emails the overseer only after the files are in place, then verifies MD5", async () => {
     await runIngestJob(
-      makeJob({ payload: { rawFiles: [{ name: "reads_R1.fq" }] } }),
+      makeJob({ payload: { rawFiles: [{ name: "reads_R1.fq" }] } })
     );
 
     expect(sendOverseerEmail).toHaveBeenCalledWith({
@@ -1024,15 +1052,15 @@ describe("runIngestJob", () => {
       data: expect.objectContaining({ _id: runId }),
     });
     expect(sortReadFiles.mock.invocationCallOrder[0]).toBeLessThan(
-      sendOverseerEmail.mock.invocationCallOrder[0],
+      sendOverseerEmail.mock.invocationCallOrder[0]
     );
     expect(sendOverseerEmail.mock.invocationCallOrder[0]).toBeLessThan(
-      verifyRunMd5.mock.invocationCallOrder[0],
+      verifyRunMd5.mock.invocationCallOrder[0]
     );
   });
 
   test("stays silent when MD5 verification finds nothing wrong", async () => {
-    await runIngestJob(makeJob());
+    await runIngestJob(makeRunnableJob());
 
     expect(verifyRunMd5).toHaveBeenCalledWith(runId);
     expect(sendMd5VerificationEmail).not.toHaveBeenCalled();
@@ -1046,7 +1074,7 @@ describe("runIngestJob", () => {
       duration: 42,
     });
 
-    await runIngestJob(makeJob());
+    await runIngestJob(makeRunnableJob());
 
     expect(sendMd5VerificationEmail).toHaveBeenCalledWith({
       runId,
@@ -1066,20 +1094,20 @@ describe("runIngestJob", () => {
       duration: 7,
     });
 
-    await runIngestJob(makeJob());
+    await runIngestJob(makeRunnableJob());
 
     expect(sendMd5VerificationEmail).toHaveBeenCalledWith(
-      expect.objectContaining({ errors: 2 }),
+      expect.objectContaining({ errors: 2 })
     );
   });
 
   test("a failed overseer email does not fail the ingest", async () => {
     sendOverseerEmail.mockRejectedValue(new Error("smtp refused"));
 
-    await expect(runIngestJob(makeJob())).resolves.toBeUndefined();
+    await expect(runIngestJob(makeRunnableJob())).resolves.toBeUndefined();
     expect(console.error).toHaveBeenCalledWith(
       "[req-1] Failed to send overseer email for run " + runId + ":",
-      expect.any(Error),
+      expect.any(Error)
     );
   });
 
@@ -1088,10 +1116,10 @@ describe("runIngestJob", () => {
     // re-verifies anything still marked pending.
     verifyRunMd5.mockRejectedValue(new Error("checksum read failed"));
 
-    await expect(runIngestJob(makeJob())).resolves.toBeUndefined();
+    await expect(runIngestJob(makeRunnableJob())).resolves.toBeUndefined();
     expect(console.error).toHaveBeenCalledWith(
       "[req-1] Failed to verify MD5 for run " + runId + ":",
-      expect.any(Error),
+      expect.any(Error)
     );
   });
 
@@ -1099,12 +1127,12 @@ describe("runIngestJob", () => {
     verifyRunMd5.mockResolvedValue({ mismatches: 1, errors: 0 });
     sendMd5VerificationEmail.mockRejectedValue(new Error("smtp refused"));
 
-    await expect(runIngestJob(makeJob())).resolves.toBeUndefined();
+    await expect(runIngestJob(makeRunnableJob())).resolves.toBeUndefined();
     expect(console.error).toHaveBeenCalledWith(
       "[req-1] Failed to send MD5 verification failure email for run " +
         runId +
         ":",
-      expect.any(Error),
+      expect.any(Error)
     );
   });
 
@@ -1114,20 +1142,95 @@ describe("runIngestJob", () => {
     sortReadFiles.mockRejectedValue(new Error("no space left on device"));
 
     await expect(
-      runIngestJob(makeJob({ payload: { rawFiles: [{ name: "reads.fq" }] } })),
+      runIngestJob(makeJob({ payload: { rawFiles: [{ name: "reads.fq" }] } }))
     ).rejects.toThrow("no space left on device");
 
     expect(console.error).toHaveBeenCalledWith(
       "[req-1] Background processing failed for run " + runId + ":",
-      expect.any(Error),
+      expect.any(Error)
     );
   });
 
   test("throws when the run has been deleted since the job was queued", async () => {
     Run.findById.mockResolvedValue(null);
 
-    await expect(runIngestJob(makeJob())).rejects.toThrow("no longer exists");
+    await expect(runIngestJob(makeRunnableJob())).rejects.toThrow(
+      "no longer exists"
+    );
     expect(sortReadFiles).not.toHaveBeenCalled();
+  });
+
+  test("refuses a durable job whose Run has no LibraryType value", async () => {
+    Run.findById.mockResolvedValue({ ...makeRun(), libraryType: undefined });
+
+    await expect(
+      runIngestJob(makeJob({ payload: { rawFiles: [{ name: "reads.fq" }] } }))
+    ).rejects.toThrow(/Run has no library type/i);
+
+    expect(LibraryType.findOne).not.toHaveBeenCalled();
+    expect(sortReadFiles).not.toHaveBeenCalled();
+  });
+
+  test("refuses a durable job whose LibraryType option was deleted", async () => {
+    LibraryType.findOne.mockReturnValue({
+      select: jest.fn().mockResolvedValue(null),
+    });
+
+    await expect(
+      runIngestJob(makeJob({ payload: { rawFiles: [{ name: "reads.fq" }] } }))
+    ).rejects.toThrow(/unknown library type "test-library"/i);
+
+    expect(sortReadFiles).not.toHaveBeenCalled();
+  });
+
+  test("refuses self-sibling relationships before moving or completing", async () => {
+    resolveLibraryType({ paired: true });
+
+    await expect(
+      runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "R1.fq", paired: true, sibling: "R1.fq" },
+              { name: "R2.fq", paired: true, sibling: "R2.fq" },
+            ],
+          },
+        })
+      )
+    ).rejects.toThrow(/names itself as its own sibling/i);
+
+    expect(sortReadFiles).not.toHaveBeenCalled();
+    expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
+      $set: { status: "complete" },
+    });
+  });
+
+  test("refuses a stale job whose files contradict the Run LibraryType", async () => {
+    Run.findById.mockResolvedValue({
+      ...makeRun(),
+      libraryType: "paired-indexed",
+    });
+    LibraryType.findOne.mockReturnValue({
+      select: jest.fn().mockResolvedValue({ paired: true, indexed: true }),
+    });
+
+    await expect(
+      runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "R1.fq", sibling: "R2.fq" },
+              { name: "R2.fq", sibling: "R1.fq" },
+            ],
+          },
+        })
+      )
+    ).rejects.toThrow(/requires at least one indexed raw file/i);
+
+    expect(sortReadFiles).not.toHaveBeenCalled();
+    expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
+      $set: { status: "complete" },
+    });
   });
 
   describe("re-run after a partial failure", () => {
@@ -1144,7 +1247,7 @@ describe("runIngestJob", () => {
           payload: {
             rawFiles: [{ name: "reads_R1.fq" }, { name: "reads_R2.fq" }],
           },
-        }),
+        })
       );
 
       expect(sortReadFiles).not.toHaveBeenCalled();
@@ -1168,6 +1271,7 @@ describe("runIngestJob", () => {
     });
 
     test("links paired siblings the interrupted attempt never reached", async () => {
+      resolveLibraryType({ paired: true });
       // Step 5 of processReadFiles, owed for the same reason step 6 is: the
       // files are all in place, so nothing will call processReadFiles again,
       // so nothing else in the system will ever pair these two reads.
@@ -1184,50 +1288,83 @@ describe("runIngestJob", () => {
             ],
             rawFilesUploadInfo: { method: "hpc-mv" },
           },
-        }),
+        })
       );
 
       expect(sortReadFiles).not.toHaveBeenCalled();
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r1._id },
-        { $set: { sibling: r2._id, paired: true } },
+        { $set: { sibling: r2._id, paired: true } }
       );
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r2._id },
-        { $set: { sibling: r1._id, paired: true } },
+        { $set: { sibling: r1._id, paired: true } }
       );
     });
 
-    test("pairs a local-filesystem upload by its rowID, as file-utils does", async () => {
-      // The other pairing rule: a local-filesystem upload names no sibling,
-      // it puts both halves on one row of the submission form.
+    test("fails loudly on a stored rowID payload instead of dropping its pair", async () => {
       const r1 = await movedDoc("row_R1.fq", "raw");
       const r2 = await movedDoc("row_R2.fq", "raw");
+      existingReads([r1, r2]);
+
+      await expect(
+        runIngestJob(
+          makeJob({
+            payload: {
+              rawFiles: [
+                { name: "row_R1.fq", paired: true, rowID: "row-7" },
+                { name: "row_R2.fq", paired: true, rowID: "row-7" },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            },
+          })
+        )
+      ).rejects.toThrow(/unsupported rowID/i);
+
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+    });
+
+    test("pairs a local-filesystem upload by reciprocal sibling names", async () => {
+      resolveLibraryType({ paired: true });
+      const r1 = await movedDoc("local_R1.fq", "raw");
+      const r2 = await movedDoc("local_R2.fq", "raw");
       existingReads([r1, r2]);
 
       await runIngestJob(
         makeJob({
           payload: {
             rawFiles: [
-              { name: "row_R1.fq", paired: true, rowID: "row-7" },
-              { name: "row_R2.fq", paired: true, rowID: "row-7" },
+              {
+                name: "local_R1.fq",
+                paired: true,
+                sibling: "local_R2.fq",
+              },
+              {
+                name: "local_R2.fq",
+                paired: true,
+                sibling: "local_R1.fq",
+              },
             ],
             rawFilesUploadInfo: { method: "local-filesystem" },
           },
-        }),
+        })
       );
 
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r1._id },
-        { $set: { sibling: r2._id, paired: true } },
+        { $set: { sibling: r2._id, paired: true } }
       );
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r2._id },
-        { $set: { sibling: r1._id, paired: true } },
+        { $set: { sibling: r1._id, paired: true } }
       );
     });
 
     test("leaves an already-linked pair alone", async () => {
+      resolveLibraryType({ paired: true });
       // The ordinary case for a retry: the previous attempt got as far as the
       // pairing and died before the status write. Rewriting the same value
       // would be harmless, but a write that is not needed is a write that can
@@ -1236,6 +1373,8 @@ describe("runIngestJob", () => {
       const r2 = await movedDoc("linked_R2.fq", "raw");
       r1.sibling = r2._id;
       r2.sibling = r1._id;
+      r1.paired = true;
+      r2.paired = true;
       existingReads([r1, r2]);
 
       await runIngestJob(
@@ -1247,7 +1386,7 @@ describe("runIngestJob", () => {
             ],
             rawFilesUploadInfo: { method: "hpc-mv" },
           },
-        }),
+        })
       );
 
       expect(Read.updateOne).not.toHaveBeenCalled();
@@ -1255,6 +1394,52 @@ describe("runIngestJob", () => {
       expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
         $set: { status: "complete" },
       });
+    });
+
+    test("repairs paired:false when the sibling pointer is already correct", async () => {
+      resolveLibraryType({ paired: true });
+      const r1 = await movedDoc("drift_R1.fq", "raw", { paired: false });
+      const r2 = await movedDoc("drift_R2.fq", "raw", { paired: true });
+      r1.sibling = r2._id;
+      r2.sibling = r1._id;
+      existingReads([r1, r2]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [
+              { name: "drift_R1.fq", sibling: "drift_R2.fq" },
+              { name: "drift_R2.fq", sibling: "drift_R1.fq" },
+            ],
+            rawFilesUploadInfo: { method: "hpc-mv" },
+          },
+        })
+      );
+
+      expect(Read.updateOne).toHaveBeenCalledTimes(1);
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: r1._id },
+        { $set: { sibling: r2._id, paired: true } }
+      );
+    });
+
+    test("repairs paired:true when an unpaired read has no sibling", async () => {
+      const read = await movedDoc("drift_solo.fq", "raw", { paired: true });
+      existingReads([read]);
+
+      await runIngestJob(
+        makeJob({
+          payload: {
+            rawFiles: [{ name: "drift_solo.fq", paired: false }],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        })
+      );
+
+      expect(Read.updateOne).toHaveBeenCalledWith(
+        { _id: read._id },
+        { $set: { sibling: null, paired: false } }
+      );
     });
 
     test("clears a link the payload no longer declares, rather than only adding", async () => {
@@ -1276,16 +1461,16 @@ describe("runIngestJob", () => {
             rawFiles: [{ name: "solo_R1.fq" }, { name: "solo_R2.fq" }],
             rawFilesUploadInfo: { method: "hpc-mv" },
           },
-        }),
+        })
       );
 
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r1._id },
-        { $set: { sibling: null, paired: false } },
+        { $set: { sibling: null, paired: false } }
       );
       expect(Read.updateOne).toHaveBeenCalledWith(
         { _id: r2._id },
-        { $set: { sibling: null, paired: false } },
+        { $set: { sibling: null, paired: false } }
       );
     });
 
@@ -1303,12 +1488,12 @@ describe("runIngestJob", () => {
             rawFiles: [{ name: "mine_R1.fq" }],
             rawFilesUploadInfo: { method: "hpc-mv" },
           },
-        }),
+        })
       );
 
       expect(Read.updateOne).not.toHaveBeenCalledWith(
         { _id: theirs._id },
-        expect.anything(),
+        expect.anything()
       );
     });
 
@@ -1317,13 +1502,13 @@ describe("runIngestJob", () => {
       // module doc comment) — finaliseReadStage always does, strictly after
       // the move, whether anything was pre-ingested or not. sortReadFiles is
       // mocked here (as everywhere in this describe block above the "real
-      // move-and-pair pipeline" tests below), so it reports no newly-created
-      // reads of its own; the single unpaired file needs no sibling link, but
-      // the run still has to reach "complete".
+      // move-and-pair pipeline" tests below), with the same one-record-per-read
+      // result contract as production. The single unpaired file needs no
+      // sibling link, but the run still has to reach "complete".
       existingReads([await unmovedDoc("stranded.fq")]);
 
       await runIngestJob(
-        makeJob({ payload: { rawFiles: [{ name: "stranded.fq" }] } }),
+        makeJob({ payload: { rawFiles: [{ name: "stranded.fq" }] } })
       );
 
       expect(sortReadFiles).toHaveBeenCalled();
@@ -1333,17 +1518,19 @@ describe("runIngestJob", () => {
       });
     });
 
-    test("does not mark a run complete when it never had raw files", async () => {
-      // processReadFiles returns before its status write for an empty list,
-      // and a run with no reads has never been marked complete by this path.
-      // Finalising here would invent a state the ingest never produced.
+    test("refuses a durable job that never had raw files", async () => {
+      // A directly-seeded job must not process its attachments and then leave
+      // an impossible Run half-complete. The HTTP boundary always requires at
+      // least one raw file; the worker repeats that structural invariant.
       existingAdditionalFiles([]);
 
-      await runIngestJob(
-        makeJob({ payload: { additionalFiles: [{ name: "notes.txt" }] } }),
-      );
+      await expect(
+        runIngestJob(
+          makeJob({ payload: { additionalFiles: [{ name: "notes.txt" }] } })
+        )
+      ).rejects.toThrow(/At least one raw file is required/i);
 
-      expect(sortAdditionalFiles).toHaveBeenCalled();
+      expect(sortAdditionalFiles).not.toHaveBeenCalled();
       expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
     });
 
@@ -1355,11 +1542,11 @@ describe("runIngestJob", () => {
       // at "pending", nothing left that will ever fix it.
       existingReads([await movedDoc("done.fq", "raw")]);
       Run.findByIdAndUpdate.mockRejectedValue(
-        new Error("mongo is unreachable"),
+        new Error("mongo is unreachable")
       );
 
       await expect(
-        runIngestJob(makeJob({ payload: { rawFiles: [{ name: "done.fq" }] } })),
+        runIngestJob(makeJob({ payload: { rawFiles: [{ name: "done.fq" }] } }))
       ).rejects.toThrow("mongo is unreachable");
 
       expect(sendOverseerEmail).not.toHaveBeenCalled();
@@ -1385,7 +1572,7 @@ describe("runIngestJob", () => {
         runId,
         expect.any(String),
         undefined,
-        undefined,
+        undefined
       );
     });
 
@@ -1409,11 +1596,12 @@ describe("runIngestJob", () => {
         runId,
         expect.any(String),
         undefined,
-        undefined,
+        undefined
       );
     });
 
     test("retries only the file a previous attempt did not finish, not the paired one that already succeeded", async () => {
+      resolveLibraryType({ paired: true });
       // The bug this fix closes: handing sortReadFiles the whole set,
       // including paired_R1.fq, re-runs processSingleReadFile on a file that
       // is already at its destination and already claimed by a Read — its
@@ -1430,6 +1618,13 @@ describe("runIngestJob", () => {
         { name: "paired_R1.fq", sibling: "paired_R2.fq" },
         { name: "paired_R2.fq", sibling: "paired_R1.fq" },
       ];
+      sortReadFiles.mockResolvedValueOnce([
+        {
+          readId: new mongoose.Types.ObjectId(),
+          fileName: "paired_R2.fq",
+          isPaired: true,
+        },
+      ]);
 
       await runIngestJob(makeJob({ payload: { rawFiles } }));
 
@@ -1438,12 +1633,77 @@ describe("runIngestJob", () => {
         runId,
         expect.any(String),
         undefined,
-        undefined,
+        undefined
       );
 
       // The job still reaches "complete" — the whole point of the fix is
       // that a retry does not get stuck once every file is delivered.
       expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+    });
+
+    test("fails rather than completing when a declared sibling has no ingested Read", async () => {
+      resolveLibraryType({ paired: true });
+      const r1 = await movedDoc("missing_R1.fq", "raw", { paired: true });
+      existingReads([r1]);
+      const rawFiles = [
+        { name: "missing_R1.fq", sibling: "missing_R2.fq" },
+        { name: "missing_R2.fq", sibling: "missing_R1.fq" },
+      ];
+      // Simulates an impossible/buggy move result: the move promise resolved
+      // but did not return the Read it owed for R2.
+      sortReadFiles.mockResolvedValueOnce([]);
+
+      await expect(
+        runIngestJob(makeJob({ payload: { rawFiles } }))
+      ).rejects.toThrow(/cannot link.*sibling/i);
+
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+    });
+
+    test("fails rather than completing when an unpaired move returns no Read", async () => {
+      existingReads([await unmovedDoc("missing_solo.fq")]);
+      sortReadFiles.mockResolvedValueOnce([]);
+
+      await expect(
+        runIngestJob(
+          makeJob({ payload: { rawFiles: [{ name: "missing_solo.fq" }] } })
+        )
+      ).rejects.toThrow(/cannot finalise raw file.*no ingested Read/i);
+
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
+        $set: { status: "complete" },
+      });
+    });
+
+    test("fails loudly if a stored index read declares a sibling", async () => {
+      const index = await movedDoc("index.fq", "raw");
+      const r1 = await movedDoc("R1.fq", "raw");
+      const r2 = await movedDoc("R2.fq", "raw");
+      existingReads([index, r1, r2]);
+      resolveLibraryType({ paired: true, indexed: true });
+
+      await expect(
+        runIngestJob(
+          makeJob({
+            payload: {
+              rawFiles: [
+                { name: "index.fq", indexed: true, sibling: "R1.fq" },
+                { name: "R1.fq", sibling: "R2.fq" },
+                { name: "R2.fq", sibling: "R1.fq" },
+              ],
+            },
+          })
+        )
+      ).rejects.toThrow(/indexed read.*cannot declare a sibling/i);
+
+      expect(Read.updateOne).not.toHaveBeenCalled();
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalledWith(runId, {
         $set: { status: "complete" },
       });
     });
@@ -1454,9 +1714,10 @@ describe("runIngestJob", () => {
       await runIngestJob(
         makeJob({
           payload: {
+            rawFiles: [{ name: "reads.fq" }],
             additionalFiles: [{ name: "notes.txt" }, { name: "protocol.pdf" }],
           },
-        }),
+        })
       );
 
       expect(sortAdditionalFiles).toHaveBeenCalledWith(
@@ -1464,7 +1725,7 @@ describe("runIngestJob", () => {
         "run",
         runId,
         expect.any(String),
-        undefined,
+        undefined
       );
     });
 
@@ -1475,7 +1736,12 @@ describe("runIngestJob", () => {
       existingAdditionalFiles([await unmovedDoc("stranded.txt")]);
 
       await runIngestJob(
-        makeJob({ payload: { additionalFiles: [{ name: "stranded.txt" }] } }),
+        makeJob({
+          payload: {
+            rawFiles: [{ name: "reads.fq" }],
+            additionalFiles: [{ name: "stranded.txt" }],
+          },
+        })
       );
 
       expect(sortAdditionalFiles).toHaveBeenCalledWith(
@@ -1483,7 +1749,7 @@ describe("runIngestJob", () => {
         "run",
         runId,
         expect.any(String),
-        undefined,
+        undefined
       );
     });
 
@@ -1491,7 +1757,12 @@ describe("runIngestJob", () => {
       existingAdditionalFiles([await movedDoc("done.txt", "additional")]);
 
       await runIngestJob(
-        makeJob({ payload: { additionalFiles: [{ name: "done.txt" }] } }),
+        makeJob({
+          payload: {
+            rawFiles: [{ name: "reads.fq" }],
+            additionalFiles: [{ name: "done.txt" }],
+          },
+        })
       );
 
       expect(sortAdditionalFiles).not.toHaveBeenCalled();
@@ -1530,7 +1801,7 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
     // reach the real processReadFiles / moveIntoDatastore /
     // adoptAlreadyMovedFile chain instead of the automock.
     const { sortReadFiles: realSortReadFiles } = jest.requireActual(
-      "../../lib/sortAssociatedFiles",
+      "../../lib/sortAssociatedFiles"
     );
     sortReadFiles.mockImplementation(realSortReadFiles);
 
@@ -1565,7 +1836,7 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
               // What a re-attempted, already-delivered file actually hits:
               // its earlier move already unlinked the staging copy.
               throw new Error(
-                `Cannot move ${sourceAbs} to ${destAbs}: no such source file`,
+                `Cannot move ${sourceAbs} to ${destAbs}: no such source file`
               );
             }
 
@@ -1575,7 +1846,7 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
               .catch(() => false);
             if (destExists) {
               throw new Error(
-                `Cannot move ${sourceAbs} to ${destAbs}: destination already exists`,
+                `Cannot move ${sourceAbs} to ${destAbs}: destination already exists`
               );
             }
 
@@ -1599,6 +1870,7 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
   });
 
   test("moves only the remaining file, links the pair, and completes the run", async () => {
+    resolveLibraryType({ paired: true });
     const r1 = await movedDoc("retry_R1.fq", "raw");
     existingReads([r1]);
 
@@ -1616,14 +1888,14 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
         Promise.resolve(
           filter && filter.path === file1DestRelPath
             ? { _id: file1OccupantId }
-            : null,
-        ),
+            : null
+        )
       );
     File.deleteOne = jest.fn().mockResolvedValue({});
     Read.exists = jest
       .fn()
       .mockImplementation(({ file }) =>
-        Promise.resolve(String(file) === String(file1OccupantId)),
+        Promise.resolve(String(file) === String(file1OccupantId))
       );
     AdditionalFile.exists = jest.fn().mockResolvedValue(false);
 
@@ -1649,28 +1921,28 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
     await runIngestJob(
       makeJob({
         payload: { rawFiles, rawFilesUploadInfo: { method: "hpc-mv" } },
-      }),
+      })
     );
 
     // file 1 was never re-created or re-moved: exactly one File document
     // this attempt, and it is file 2's.
     expect(File).toHaveBeenCalledTimes(1);
     expect(File).toHaveBeenCalledWith(
-      expect.objectContaining({ originalName: "retry_R2.fq" }),
+      expect.objectContaining({ originalName: "retry_R2.fq" })
     );
     expect(sortReadFiles).toHaveBeenCalledWith(
       [rawFiles[1]],
       runId,
       expect.any(String),
       { method: "hpc-mv" },
-      undefined,
+      undefined
     );
 
     // file 2's bytes really landed at their destination.
     const movedBytes = await fsp
       .readFile(
         _path.join(datastoreRoot, RUN_REL_PATH, "raw", "retry_R2.fq"),
-        "utf8",
+        "utf8"
       )
       .catch(() => null);
     expect(movedBytes).toBe("ACGT\n");
@@ -1680,11 +1952,11 @@ describe("re-run after a partial failure: the real move-and-pair pipeline", () =
     expect(newReadId).not.toBeNull();
     expect(Read.updateOne).toHaveBeenCalledWith(
       { _id: r1._id },
-      { $set: { sibling: newReadId, paired: true } },
+      { $set: { sibling: newReadId, paired: true } }
     );
     expect(Read.updateOne).toHaveBeenCalledWith(
       { _id: newReadId },
-      { $set: { sibling: r1._id, paired: true } },
+      { $set: { sibling: r1._id, paired: true } }
     );
 
     // And the run reaches "complete": the retry is not stuck forever on the
@@ -1731,7 +2003,7 @@ describe("startIngestWorker", () => {
 
     expect(IngestJob.updateMany).toHaveBeenCalled();
     expect(IngestJob.updateMany.mock.invocationCallOrder[0]).toBeLessThan(
-      IngestJob.findOneAndUpdate.mock.invocationCallOrder[0],
+      IngestJob.findOneAndUpdate.mock.invocationCallOrder[0]
     );
   });
 
@@ -1750,7 +2022,7 @@ describe("startIngestWorker", () => {
       { _id: jobId, workerId: expect.any(String) },
       expect.objectContaining({
         $set: expect.objectContaining({ status: "done" }),
-      }),
+      })
     );
   });
 
@@ -1771,7 +2043,7 @@ describe("startIngestWorker", () => {
           status: "pending",
           lastError: "no space left on device",
         }),
-      }),
+      })
     );
   });
 
@@ -1795,13 +2067,13 @@ describe("startIngestWorker", () => {
       { _id: jobId, workerId: expect.any(String) },
       expect.objectContaining({
         $set: expect.objectContaining({ status: "failed" }),
-      }),
+      })
     );
     expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(
       runId,
       expect.objectContaining({
         $set: expect.objectContaining({ status: "error" }),
-      }),
+      })
     );
   });
 
@@ -1812,7 +2084,7 @@ describe("startIngestWorker", () => {
       () =>
         new Promise((resolve) => {
           releaseTheMove = resolve;
-        }),
+        })
     );
 
     const worker = startIngestWorker({ intervalMs: 10, leaseMs: 1000 });
@@ -1830,7 +2102,13 @@ describe("startIngestWorker", () => {
     expect(stopped).toBe(false);
     expect(IngestJob.updateOne).not.toHaveBeenCalled();
 
-    releaseTheMove();
+    releaseTheMove([
+      {
+        readId: new mongoose.Types.ObjectId(),
+        fileName: "reads.fq",
+        isPaired: false,
+      },
+    ]);
     await stopping;
 
     expect(stopped).toBe(true);
@@ -1838,7 +2116,7 @@ describe("startIngestWorker", () => {
       { _id: jobId, workerId: expect.any(String) },
       expect.objectContaining({
         $set: expect.objectContaining({ status: "done" }),
-      }),
+      })
     );
   });
 
@@ -1885,7 +2163,7 @@ describe("startIngestWorker", () => {
 
     expect(firstTick).toBeInstanceOf(Date);
     expect(getLastTickAt().getTime()).toBeGreaterThanOrEqual(
-      firstTick.getTime(),
+      firstTick.getTime()
     );
   });
 
@@ -1964,16 +2242,16 @@ describe("startIngestWorker", () => {
     expect(IngestJob.updateOne.mock.calls.length).toBeGreaterThan(renewals);
     const [, lastUpdate] = IngestJob.updateOne.mock.calls.at(-1);
     expect(lastUpdate.$set.leaseExpiresAt.getTime()).toBeGreaterThan(
-      Date.now(),
+      Date.now()
     );
     expect(getLastTickAt().getTime()).toBe(frozenTick.getTime());
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining(`Job ${jobId} has held worker`),
+      expect.stringContaining(`Job ${jobId} has held worker`)
     );
     // The wording a reviewer would have to trust is correct: no false claim
     // that the lease is lapsing or that another worker can take the job.
     expect(console.error).not.toHaveBeenCalledWith(
-      expect.stringMatching(/no longer renewing|another worker can take/),
+      expect.stringMatching(/no longer renewing|another worker can take/)
     );
 
     jest.clearAllTimers();
@@ -1990,7 +2268,7 @@ describe("startIngestWorker", () => {
       () =>
         new Promise((resolve) => {
           releaseTheMove = resolve;
-        }),
+        })
     );
     IngestJob.updateOne.mockResolvedValue({ matchedCount: 1 });
 
@@ -2006,7 +2284,7 @@ describe("startIngestWorker", () => {
     await flush();
 
     const renewals = IngestJob.updateOne.mock.calls.filter(
-      ([, update]) => update.$set && update.$set.leaseExpiresAt,
+      ([, update]) => update.$set && update.$set.leaseExpiresAt
     );
     expect(renewals.length).toBeGreaterThan(0);
     // Draining, not working: nothing new is claimed on the way out.
@@ -2058,7 +2336,7 @@ describe("startIngestWorker", () => {
     await flush();
 
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining("no longer holds"),
+      expect.stringContaining("no longer holds")
     );
     expect(getLastTickAt().getTime()).toBe(afterClaim.getTime());
 

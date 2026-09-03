@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 const _path = require("path");
 const fs = require("fs").promises;
 const { createWriteStream, constants: fsConstants } = require("fs");
+const { Transform } = require("stream");
 const { pipeline } = require("stream/promises");
 const {
   addTransfer,
@@ -41,18 +43,18 @@ const isSameFile = (a, b) => a.dev === b.dev && a.ino === b.ino;
  * copy, with the source re-scp'd over itself after the first 4096 bytes and
  * ending at the same length, produced a destination holding 4096 old bytes
  * followed by 1,044,480 new ones and reported success, because both the size
- * check and the inode check still passed. mtime is what actually moves: any
- * write to the file updates it.
+ * check and the inode check still passed. A normal write moves mtime, while a
+ * metadata-preserving resend can restore it; the content verification below
+ * covers that latter case even when the filesystem timestamp clock is coarse.
  *
- * ctime is deliberately NOT compared, though it was at first. ctime moves on
- * any INODE change, which includes changes that touch no content at all —
- * measured here, a chmod and creating a hard link each bump ctime while
- * leaving size, mtime and content alone. HPC_TRANSFER_DIRECTORY is a shared
- * inbox other people's tooling operates on (BREAKING_CHANGES.md 35), so a
- * `chmod -R` or a backup agent writing an xattr during a multi-hundred-GB
- * copy would have failed the whole move and forced a full re-copy. It buys
- * nothing against corruption either: a write that changes content always
- * moves mtime, so ctime only ever added false positives.
+ * ctime is deliberately not treated as mutation by itself. It is updated for
+ * inode changes that touch no content at all — measured here, a chmod and
+ * creating a hard link can bump ctime while leaving size, mtime and content
+ * alone. HPC_TRANSFER_DIRECTORY is a shared inbox other
+ * people's tooling operates on (BREAKING_CHANGES.md 35), so rejecting every
+ * ctime move would turn `chmod -R` or a backup agent writing an xattr into a
+ * full re-copy. The copy path verifies content regardless, and uses ctime only
+ * to decide whether a digest was taken through a stable metadata window.
  *
  * @param {import('fs').Stats} current - A fresh stat of the pinned source.
  * @param {import('fs').Stats} pinned - The fstat taken when it was pinned.
@@ -60,6 +62,83 @@ const isSameFile = (a, b) => a.dev === b.dev && a.ino === b.ino;
  */
 const wasMutatedSincePinned = (current, pinned) =>
   current.size !== pinned.size || current.mtimeMs !== pinned.mtimeMs;
+
+/**
+ * Whether two observations bound the same stable verification window.
+ * ctime is included here even though it is not corruption by itself: if it
+ * moves while bytes are being hashed, the digest may describe a mixture of
+ * states and must be retried before it can prove anything.
+ * @param {import('fs').Stats} a - An observation of the pinned descriptor.
+ * @param {import('fs').Stats} b - A later observation of that descriptor.
+ * @returns {boolean} True when no observable file state moved between them.
+ */
+const isSameVerificationSnapshot = (a, b) =>
+  a.size === b.size && a.mtimeMs === b.mtimeMs && a.ctimeMs === b.ctimeMs;
+
+const SOURCE_VERIFICATION_ATTEMPTS = 3;
+
+/**
+ * The common corruption error for a retained/cross-mount copy.
+ * @param {mongoose.Document} file - The File being moved.
+ * @param {string} fullNewPath - Its intended destination.
+ * @returns {Error} A stable operator-facing error.
+ */
+const sourceModifiedError = (file, fullNewPath) =>
+  new Error(
+    `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`
+  );
+
+/**
+ * Proves that the digest accumulated from the exact copy stream matches the
+ * pinned source during a stable metadata window. A one-off chmod/hard-link
+ * event merely retries; a content mutation or a source that never settles is
+ * refused.
+ * @param {import('fs').promises.FileHandle} sourceHandle - Pinned source.
+ * @param {import('fs').Stats} pinnedSource - Initial descriptor stat.
+ * @param {string} copiedDigest - Digest of every byte passed to the writer.
+ * @param {mongoose.Document} file - The File being moved.
+ * @param {string} fullNewPath - Its intended destination.
+ * @returns {Promise<void>}
+ */
+const verifyStableCopy = async (
+  sourceHandle,
+  pinnedSource,
+  copiedDigest,
+  file,
+  fullNewPath
+) => {
+  for (let attempt = 0; attempt < SOURCE_VERIFICATION_ATTEMPTS; attempt += 1) {
+    const beforeDigest = await sourceHandle.stat();
+    if (wasMutatedSincePinned(beforeDigest, pinnedSource)) {
+      throw sourceModifiedError(file, fullNewPath);
+    }
+
+    // Sequential by design: copiedDigest is already fixed, so there is no
+    // mutable source and partial being read in lockstep. One source pass is the
+    // minimum content proof when ctime can have coarser granularity than a
+    // small rewrite (observed on Linux even with bigint ctimeNs).
+    const sourceDigest = await calculateFileMd5(sourceHandle);
+
+    const afterDigest = await sourceHandle.stat();
+    if (wasMutatedSincePinned(afterDigest, pinnedSource)) {
+      throw sourceModifiedError(file, fullNewPath);
+    }
+
+    // A digest read across a ctime change is not evidence either way. Retry
+    // so harmless metadata-only activity still succeeds once it settles.
+    if (!isSameVerificationSnapshot(beforeDigest, afterDigest)) {
+      continue;
+    }
+
+    if (sourceDigest !== copiedDigest) {
+      throw sourceModifiedError(file, fullNewPath);
+    }
+
+    return;
+  }
+
+  throw sourceModifiedError(file, fullNewPath);
+};
 
 /**
  * Where an in-progress copy is written before promotion to its real name.
@@ -108,9 +187,10 @@ const copyPinnedSourceTo = async (
   sourceHandle,
   pinnedSource,
   fullNewPath,
-  file,
+  file
 ) => {
   const partialPath = partialPathFor(fullNewPath, file._id);
+  let promoted = false;
 
   try {
     // The partial name is deterministic, so anything there is this file's
@@ -127,17 +207,30 @@ const copyPinnedSourceTo = async (
     // check onto a path-based stat — and a path-based stat is defeatable:
     // mutate the pinned inode, rename it away, recreate the pathname, and the
     // different-inode result made the check skip itself entirely.
+    // Hash the exact stream sent to the writer. This removes the old second
+    // full read of the partial while still detecting a source rewrite that
+    // made the copy a mixture of old and new bytes.
+    const copiedHash = crypto.createHash("md5");
+    const hashCopiedBytes = new Transform({
+      transform(chunk, _encoding, callback) {
+        copiedHash.update(chunk);
+        callback(null, chunk);
+      },
+    });
+
     await pipeline(
       sourceHandle.createReadStream({ autoClose: false }),
-      createWriteStream(partialPath, { flags: "wx" }),
+      hashCopiedBytes,
+      createWriteStream(partialPath, { flags: "wx" })
     );
+    const copiedDigest = copiedHash.digest("hex");
 
     // A stream that ends early still resolves cleanly, so the byte count is
     // the only proof the copy is whole.
     const { size: copiedSize } = await fs.stat(partialPath);
     if (copiedSize !== pinnedSource.size) {
       throw new Error(
-        `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`,
+        `Copy of ${file.path} is ${copiedSize} bytes but the source is ${pinnedSource.size} bytes`
       );
     }
 
@@ -150,45 +243,27 @@ const copyPinnedSourceTo = async (
     // 32 MiB destination made of 64 KiB of old bytes and the rest new,
     // promoted and reported as success.
     //
-    // fstat through the descriptor, so this always asks about the inode that
-    // was actually read rather than about whatever the name points at now.
-    const sourceNow = await sourceHandle.stat();
-
     // Size or mtime moving is proof of a write. Neither is sufficient alone:
     // `cp -p`, `rsync -t` and `tar -p` all restore the source's mtime, so an
     // ordinary re-send preserves inode, size AND mtime while changing the
-    // content — measured, not assumed. ctime is the only signal that always
-    // moves, and it also moves for changes that touch no content at all (a
-    // chmod, an added hard link — also measured), so it cannot simply be
-    // treated as corruption on a shared inbox other people's tooling runs
-    // over.
+    // content — measured, not assumed. ctime is the only metadata signal meant
+    // to move even when mtime is restored, but it also moves for changes that
+    // touch no content at all (a chmod, an added hard link — also measured),
+    // and consecutive updates can collapse into one filesystem clock tick. It
+    // therefore cannot be the content proof on a shared inbox.
     //
-    // So: size or mtime moved means refuse outright. ctime alone moved means
-    // "something happened to this inode, and it may or may not have been the
-    // bytes" — settle it by comparing content rather than guessing, which
-    // admits the harmless metadata change and still catches the
-    // timestamp-preserving rewrite. The re-read costs a full pass over the
-    // source, but only in that narrow case.
-    if (
-      sourceNow.size !== pinnedSource.size ||
-      sourceNow.mtimeMs !== pinnedSource.mtimeMs
-    ) {
-      throw new Error(
-        `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`,
-      );
-    }
-
-    if (sourceNow.ctimeMs !== pinnedSource.ctimeMs) {
-      const [sourceDigest, copyDigest] = await Promise.all([
-        calculateFileMd5(sourceHandle),
-        calculateFileMd5(partialPath),
-      ]);
-      if (sourceDigest !== copyDigest) {
-        throw new Error(
-          `Failed to move ${file.path} to ${fullNewPath}: the source was modified while it was being copied`,
-        );
-      }
-    }
+    // So: compare content on every copy, not only when ctime visibly moved.
+    // Exact bigint ctimeNs was observed to remain unchanged across rapid writes
+    // on Linux, so a timestamp-triggered digest still admitted small rewrites.
+    // The copy digest was accumulated inline, making this one extra source pass
+    // rather than re-reading both a 50 GiB source and a 50 GiB partial.
+    await verifyStableCopy(
+      sourceHandle,
+      pinnedSource,
+      copiedDigest,
+      file,
+      fullNewPath
+    );
 
     // link + unlink, not rename: no-clobber, same reason as the direct-link
     // path this stands in for.
@@ -197,18 +272,31 @@ const copyPinnedSourceTo = async (
     } catch (promoteErr) {
       if (promoteErr.code === "EEXIST") {
         throw new Error(
-          `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
+          `Failed to move ${file.path} to ${fullNewPath}: destination already exists`
         );
       }
       throw promoteErr;
     }
+
+    promoted = true;
+
     await fs.unlink(partialPath);
   } catch (copyErr) {
+    if (promoted) {
+      await fs.unlink(fullNewPath).catch((cleanupErr) => {
+        if (cleanupErr.code !== "ENOENT") {
+          console.error(
+            `Failed to remove invalid copy at ${fullNewPath}:`,
+            cleanupErr
+          );
+        }
+      });
+    }
     await fs.unlink(partialPath).catch((cleanupErr) => {
       if (cleanupErr.code !== "ENOENT") {
         console.error(
           `Failed to remove partial file at ${partialPath}:`,
-          cleanupErr,
+          cleanupErr
         );
       }
     });
@@ -262,13 +350,13 @@ const unlinkPinnedSource = async (
   sourcePath,
   pinnedSource,
   file,
-  fullNewPath,
+  fullNewPath
 ) => {
   const current = await fs.stat(sourcePath);
 
   if (!isSameFile(current, pinnedSource)) {
     throw new Error(
-      `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`,
+      `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`
     );
   }
 
@@ -339,7 +427,7 @@ const schema = new mongoose.Schema(
     oldAdditionalFileId: { type: String },
     uploadMethod: { type: String },
   },
-  { timestamps: true, toJSON: { virtuals: true } },
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
 // create a unique combo of name and path (and when uploaded)
@@ -360,17 +448,17 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
   // request-supplied. Leading slashes are stripped, not rejected.
   const fullNewPath = await resolveWithinReal(
     process.env.DATASTORE_ROOT,
-    cleanDirectoryName(relNewPath),
+    cleanDirectoryName(relNewPath)
   );
   if (!fullNewPath) {
     // Rejected path is logged, not thrown: the message reaches the client as
     // the Run's statusError.
     console.error(
       `File ${file._id}: refusing to move to a destination outside DATASTORE_ROOT:`,
-      relNewPath,
+      relNewPath
     );
     throw new Error(
-      `Cannot move file ${file._id}: the destination is not inside the datastore`,
+      `Cannot move file ${file._id}: the destination is not inside the datastore`
     );
   }
 
@@ -378,10 +466,10 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
   if (!(await isPermittedSource(sourcePath))) {
     console.error(
       `File ${file._id}: refusing to move from a source outside every permitted root:`,
-      file.path,
+      file.path
     );
     throw new Error(
-      `Cannot move file ${file._id}: its source is not inside a permitted directory`,
+      `Cannot move file ${file._id}: its source is not inside a permitted directory`
     );
   }
 
@@ -442,7 +530,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
         } catch (linkErr) {
           if (linkErr.code === "EEXIST") {
             throw new Error(
-              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`,
+              `Failed to move ${file.path} to ${fullNewPath}: destination already exists`
             );
           }
 
@@ -460,7 +548,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
             sourceHandle,
             pinnedSource,
             fullNewPath,
-            file,
+            file
           );
 
           destinationIsSourceInode = false;
@@ -476,11 +564,11 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
           await fs.unlink(fullNewPath).catch((cleanupErr) => {
             console.error(
               `Failed to remove the wrongly linked file at ${fullNewPath}:`,
-              cleanupErr,
+              cleanupErr
             );
           });
           throw new Error(
-            `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`,
+            `Failed to move ${file.path} to ${fullNewPath}: the source was replaced while it was being moved`
           );
         }
       }
@@ -505,7 +593,7 @@ schema.methods.moveToFolderAndSave = async function (relNewPath) {
       // Bytes are at the destination and the source is gone: recovery means
       // repointing the document, not retrying the move.
       console.error(
-        `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`,
+        `File ${file._id} was moved to ${fullNewPath} but the document could not be saved; the database still points at the previous path.`
       );
       throw saveErr;
     }

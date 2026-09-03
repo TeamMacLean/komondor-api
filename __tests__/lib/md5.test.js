@@ -34,7 +34,7 @@ describe("calculateFileMd5", () => {
 
   beforeEach(() => {
     tmpRoot = fs.realpathSync(
-      fs.mkdtempSync(path.join(os.tmpdir(), "komondor-md5-")),
+      fs.mkdtempSync(path.join(os.tmpdir(), "komondor-md5-"))
     );
     realFile = path.join(tmpRoot, "real.fq");
     fs.writeFileSync(realFile, CONTENT);
@@ -54,14 +54,50 @@ describe("calculateFileMd5", () => {
     try {
       await expect(calculateFileMd5(handle)).resolves.toBe(CONTENT_MD5);
     } finally {
-      // Deliberately tolerant. The module documents that a handle it was
-      // handed is never closed here, and routes/directory-files.js repeats
-      // that claim — but on this Node the stream teardown closes the
-      // descriptor anyway, so a second close reports "file closed". The sole
-      // handle caller closes and drops the handle immediately, so nothing
-      // depends on the claim today; it is not restated as an assertion here
-      // because it is not currently true.
-      await handle.close().catch(() => {});
+      await handle.close();
+    }
+  });
+
+  test("leaves a caller-owned handle open and reusable", async () => {
+    // copy verification hashes and then fstats the same pinned descriptor.
+    // ReadStream.destroy() closed that descriptor despite autoClose:false on
+    // supported Node releases, turning the post-digest integrity check into
+    // EBADF. Positional reads do not take ownership of it.
+    const handle = await fsp.open(realFile, "r");
+
+    try {
+      await calculateFileMd5(handle);
+
+      await expect(handle.stat()).resolves.toMatchObject({
+        size: Buffer.byteLength(CONTENT),
+      });
+
+      const bytes = Buffer.alloc(Buffer.byteLength(CONTENT));
+      const { bytesRead } = await handle.read(bytes, 0, bytes.length, 0);
+      expect(bytesRead).toBe(bytes.length);
+      expect(bytes.toString()).toBe(CONTENT);
+    } finally {
+      await handle.close();
+    }
+  });
+
+  test("hashes from byte zero without moving the caller's descriptor position", async () => {
+    const handle = await fsp.open(realFile, "r");
+    const first = Buffer.alloc(4);
+    const next = Buffer.alloc(4);
+
+    try {
+      await handle.read(first, 0, first.length, null);
+      expect(first.toString()).toBe(CONTENT.slice(0, 4));
+
+      await expect(calculateFileMd5(handle)).resolves.toBe(CONTENT_MD5);
+
+      // The hash uses explicit positions, so the caller's sequential offset
+      // is still byte 4 rather than EOF (or an implementation-specific spot).
+      await handle.read(next, 0, next.length, null);
+      expect(next.toString()).toBe(CONTENT.slice(4, 8));
+    } finally {
+      await handle.close();
     }
   });
 
@@ -123,13 +159,13 @@ describe("calculateFileMd5", () => {
     fs.symlinkSync(path.join(tmpRoot, "actual"), linkedDir);
 
     await expect(
-      calculateFileMd5(path.join(linkedDir, "reads.fq")),
+      calculateFileMd5(path.join(linkedDir, "reads.fq"))
     ).resolves.toBe(CONTENT_MD5);
   });
 
   test("reports a missing file rather than resolving to a digest", async () => {
     await expect(
-      calculateFileMd5(path.join(tmpRoot, "absent.fq")),
+      calculateFileMd5(path.join(tmpRoot, "absent.fq"))
     ).rejects.toMatchObject({ code: "ENOENT" });
   });
 });

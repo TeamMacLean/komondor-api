@@ -17,6 +17,18 @@ const crypto = require("crypto");
 // and Project's unique `name` indexes.
 const unique = (label) => `${label}-${crypto.randomBytes(4).toString("hex")}`;
 
+// These fixtures save Runs directly, deliberately bypassing the HTTP route.
+// The production worker nevertheless resolves every Run's libraryType from
+// the option collection before it moves bytes. Keep the default fixture
+// internally coherent with the real seeded option rather than relying on an
+// orphaned string that the route could never have accepted.
+const defaultLibraryType = {
+  value: "FASTQ - Single",
+  paired: false,
+  indexed: false,
+  extensions: [".fastq.gz", ".fq.gz"],
+};
+
 /**
  * @param {object} [overrides] - Fields to override on the Group.
  * @returns {Promise<mongoose.Document>} The saved Group.
@@ -76,6 +88,17 @@ const makeSample = async (project, group, overrides = {}) => {
  */
 const makeRun = async (sample, group, overrides = {}) => {
   const Run = require("../../../models/Run");
+  const LibraryType = require("../../../models/options/LibraryType");
+  const libraryType = overrides.libraryType || defaultLibraryType.value;
+
+  if (libraryType === defaultLibraryType.value) {
+    await LibraryType.updateOne(
+      { value: defaultLibraryType.value },
+      { $setOnInsert: defaultLibraryType },
+      { upsert: true }
+    );
+  }
+
   return new Run({
     name: unique("run"),
     sample: sample._id,
@@ -83,7 +106,7 @@ const makeRun = async (sample, group, overrides = {}) => {
     sequencingProvider: "in-house",
     sequencingTechnology: "illumina",
     librarySource: "genomic",
-    libraryType: "paired",
+    libraryType,
     librarySelection: "random",
     libraryStrategy: "wgs",
     owner: "it-owner",
@@ -151,7 +174,7 @@ const writeStagedUpload = async ({
         (res) => {
           res.resume();
           res.on("end", () => resolve(res));
-        },
+        }
       );
       req.on("error", reject);
       if (payload) req.write(payload);
@@ -185,7 +208,7 @@ const writeStagedUpload = async ({
             "Content-Length": String(blobBytes),
           },
         },
-        Buffer.alloc(blobBytes, "x"),
+        Buffer.alloc(blobBytes, "x")
       );
     }
 

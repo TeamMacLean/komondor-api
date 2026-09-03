@@ -118,7 +118,7 @@ describe("getLimits", () => {
 
     expect(getLimits().maxUploadBytes).toBe(50 * GIB);
     expect(console.warn).toHaveBeenCalledWith(
-      expect.stringContaining("UPLOAD_MAX_BYTES"),
+      expect.stringContaining("UPLOAD_MAX_BYTES")
     );
   });
 
@@ -341,8 +341,8 @@ describe("checkUploadAllowed — admission is atomic", () => {
           username,
           size,
           directory: tmpRoot,
-        }),
-      ),
+        })
+      )
     );
 
   test("registers the upload itself, so the caller cannot leave a gap", async () => {
@@ -464,7 +464,7 @@ describe("cleanupAbandonedUploads", () => {
     if (info !== null) {
       fs.writeFileSync(
         _path.join(sweepDir, `${id}.json`),
-        JSON.stringify({ id, ...info }),
+        JSON.stringify({ id, ...info })
       );
     }
   };
@@ -531,6 +531,88 @@ describe("cleanupAbandonedUploads", () => {
     });
 
     expect(result.removed).toEqual([ID_A]);
+  });
+
+  test("never removes a stale upload while its request is still open", async () => {
+    // A PATCH can remain open beyond abandonedMs. Registration and blob
+    // timestamps are only snapshots of its start/last byte, so neither makes
+    // a live request safe to delete. The active marker is the liveness proof.
+    writeUpload(ID_A, { size: 100, offset: 10 }, "ACGT");
+    const longAgo = Date.now();
+    registerUpload({ id: ID_A, username: "alice", size: 100, now: longAgo });
+    beginRequest(ID_A);
+
+    try {
+      const whileActive = await cleanupAbandonedUploads({
+        directory: sweepDir,
+        now: longAgo + 100 * HOUR,
+      });
+
+      expect(whileActive.removed).toEqual([]);
+      expect(fs.existsSync(_path.join(sweepDir, ID_A))).toBe(true);
+      expect(fs.existsSync(_path.join(sweepDir, `${ID_A}.json`))).toBe(true);
+      expect(getUploadRecord(ID_A)).toBeDefined();
+    } finally {
+      endRequest(ID_A);
+    }
+
+    const afterClose = await cleanupAbandonedUploads({
+      directory: sweepDir,
+      now: longAgo + 100 * HOUR,
+    });
+
+    expect(afterClose.removed).toEqual([ID_A]);
+    expect(getUploadRecord(ID_A)).toBeUndefined();
+  });
+
+  test("a resume cannot enter after cleanup claims the upload but before unlink finishes", async () => {
+    // The active check and fs.rm used to have an await-sized TOCTOU window.
+    // Pause the real unlink after cleanup's last check, then model the mount's
+    // beginRequest call. Cleanup has already claimed the id, so the request
+    // must be refused rather than marked active while its blob is deleted.
+    writeUpload(ID_A, { size: 100, offset: 10 }, "ACGT");
+    const longAgo = Date.now();
+    registerUpload({ id: ID_A, username: "alice", size: 100, now: longAgo });
+
+    const blobPath = _path.join(sweepDir, ID_A);
+    const realRm = fs.promises.rm.bind(fs.promises);
+    let deletionReached;
+    let releaseDeletion;
+    const atDeletion = new Promise((resolve) => {
+      deletionReached = resolve;
+    });
+    const deletionGate = new Promise((resolve) => {
+      releaseDeletion = resolve;
+    });
+    let paused = false;
+
+    jest
+      .spyOn(fs.promises, "rm")
+      .mockImplementation(async (target, options) => {
+        if (!paused && target === blobPath) {
+          paused = true;
+          deletionReached();
+          await deletionGate;
+        }
+        return realRm(target, options);
+      });
+
+    const cleanup = cleanupAbandonedUploads({
+      directory: sweepDir,
+      now: longAgo + 100 * HOUR,
+    });
+
+    await atDeletion;
+    try {
+      expect(beginRequest(ID_A)).toBe(false);
+      expect(hasActiveRequest(ID_A)).toBe(false);
+    } finally {
+      releaseDeletion();
+    }
+
+    const result = await cleanup;
+    expect(result.removed).toEqual([ID_A]);
+    expect(fs.existsSync(blobPath)).toBe(false);
   });
 
   test("leaves an upload that is still within the abandonment window", async () => {
@@ -629,7 +711,7 @@ describe("cleanupAbandonedUploads", () => {
       // datastore and unlinks it, and nothing ever removed the '<id>.json'.
       fs.writeFileSync(
         _path.join(sweepDir, `${ID_A}.json`),
-        JSON.stringify({ id: ID_A, size: 4, offset: 4 }),
+        JSON.stringify({ id: ID_A, size: 4, offset: 4 })
       );
 
       const result = await cleanupAbandonedUploads({
@@ -720,7 +802,7 @@ describe("getRecordedOwner", () => {
   const writeSidecar = (id, metadata) =>
     fs.writeFileSync(
       _path.join(ownerDir, `${id}.json`),
-      JSON.stringify({ id, size: 4, offset: 4, metadata }),
+      JSON.stringify({ id, size: 4, offset: 4, metadata })
     );
 
   test("reads the owner stamped into the tus sidecar", async () => {
@@ -741,7 +823,7 @@ describe("getRecordedOwner", () => {
 
     expect(await getRecordedOwner(ownerDir, ID)).toBeNull();
     expect(isUploadOwner(await getRecordedOwner(ownerDir, ID), "alice")).toBe(
-      false,
+      false
     );
   });
 
@@ -761,7 +843,7 @@ describe("assertUploadComplete", () => {
   const writeSidecar = (id, info) =>
     fs.writeFileSync(
       _path.join(dir, `${id}.json`),
-      JSON.stringify({ id, ...info }),
+      JSON.stringify({ id, ...info })
     );
 
   test("refuses an upload whose offset is behind its declared size", async () => {
@@ -946,7 +1028,7 @@ describe("recoverUploadReservations", () => {
     fs.writeFileSync(_path.join(dir, id), Buffer.alloc(bytes));
     fs.writeFileSync(
       _path.join(dir, `${id}.json`),
-      JSON.stringify({ id, ...info }),
+      JSON.stringify({ id, ...info })
     );
   };
 
@@ -954,12 +1036,12 @@ describe("recoverUploadReservations", () => {
     writeUpload(
       DONE_ID,
       { size: 4, offset: 4, metadata: { owner: "alice" } },
-      4,
+      4
     );
     writeUpload(
       OPEN_ID,
       { size: 100, offset: 30, metadata: { owner: "bob" } },
-      30,
+      30
     );
 
     const recovered = await recoverUploadReservations(dir);

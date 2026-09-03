@@ -11,6 +11,7 @@
 // File.js destructures createWriteStream at module load, so it must be
 // swappable at the module boundary rather than via a later spy.
 let mockWriteStreamFactory = null;
+let mockCalculateFileMd5 = null;
 
 jest.mock("fs", () => {
   const actual = jest.requireActual("fs");
@@ -23,11 +24,25 @@ jest.mock("fs", () => {
   };
 });
 
+jest.mock("../../lib/utils/md5", () => {
+  const actual = jest.requireActual("../../lib/utils/md5");
+  return {
+    ...actual,
+    calculateFileMd5: (...args) =>
+      mockCalculateFileMd5
+        ? mockCalculateFileMd5(...args)
+        : actual.calculateFileMd5(...args),
+  };
+});
+
 const fs = require("fs");
 const fsp = require("fs").promises;
 const os = require("os");
 const _path = require("path");
 const { Writable } = require("stream");
+const { calculateFileMd5: realCalculateFileMd5 } = jest.requireActual(
+  "../../lib/utils/md5"
+);
 
 const File = require("../../models/File");
 const {
@@ -91,6 +106,7 @@ beforeEach(() => {
 afterEach(() => {
   jest.restoreAllMocks();
   mockWriteStreamFactory = null;
+  mockCalculateFileMd5 = null;
   fs.rmSync(tmpRoot, { recursive: true, force: true });
   if (ORIGINAL_DATASTORE === undefined) {
     delete process.env.DATASTORE_ROOT;
@@ -149,7 +165,7 @@ describe("moveToFolderAndSave — same filesystem (link)", () => {
     await doc.moveToFolderAndSave(_path.join("a", "b", "c", "reads.fq"));
 
     expect(
-      fs.existsSync(_path.join(datastoreRoot, "a", "b", "c", "reads.fq")),
+      fs.existsSync(_path.join(datastoreRoot, "a", "b", "c", "reads.fq"))
     ).toBe(true);
   });
 
@@ -216,7 +232,7 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
     forceCrossDevice();
     const source = _path.join(stagingDir, "reads.fq");
     const payload = Buffer.from(
-      Array.from({ length: 100000 }, (_, i) => i % 256),
+      Array.from({ length: 100000 }, (_, i) => i % 256)
     );
     fs.writeFileSync(source, payload);
     const doc = makeFile(source);
@@ -256,10 +272,10 @@ describe("moveToFolderAndSave — cross-device (copy fallback)", () => {
     const doc = makeFile(source);
 
     await expect(
-      doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq")),
+      doc.moveToFolderAndSave(_path.join("group", "raw", "reads.fq"))
     ).rejects.toThrow(/2 bytes but the source is 8 bytes/);
     expect(
-      fs.existsSync(_path.join(datastoreRoot, "group", "raw", "reads.fq")),
+      fs.existsSync(_path.join(datastoreRoot, "group", "raw", "reads.fq"))
     ).toBe(false);
     expect(fs.existsSync(source)).toBe(true);
   });
@@ -384,7 +400,7 @@ describe("moveToFolderAndSave — move failures that are not cross-device", () =
     const doc = makeFile(source);
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      new RegExp(`${source}.*${dest}`),
+      new RegExp(`${source}.*${dest}`)
     );
   });
 });
@@ -424,7 +440,7 @@ describe("moveToFolderAndSave — the source is pinned, not re-resolved", () => 
     const doc = makeFile(source);
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /replaced while it was being moved/,
+      /replaced while it was being moved/
     );
   });
 
@@ -529,7 +545,7 @@ describe("moveToFolderAndSave — ALLOWED_LINK_ROOTS symlink sources", () => {
     const doc = makeFile(link);
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source is not inside a permitted directory/,
+      /source is not inside a permitted directory/
     );
 
     expect(fs.existsSync(_path.join(datastoreRoot, REL_PATH))).toBe(false);
@@ -585,7 +601,7 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
 
     const firstAttempt = makeFile(source);
     await expect(firstAttempt.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /4 bytes but the source is 8 bytes/,
+      /4 bytes but the source is 8 bytes/
     );
 
     // The real name was never touched — not created short, not left short.
@@ -682,7 +698,7 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
 
     const doc = makeFile(source);
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source was modified while it was being copied/,
+      /source was modified while it was being copied/
     );
 
     // Nothing promoted, nothing left behind: the retry gets a clean run at a
@@ -743,12 +759,142 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
 
     const doc = makeFile(source);
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source was modified while it was being copied/,
+      /source was modified while it was being copied/
     );
 
     expect(fs.existsSync(dest)).toBe(false);
     expect(partialsIn(_path.dirname(dest))).toEqual([]);
   });
+
+  test("refuses a preserved-mtime rewrite even when timestamp granularity hides it", async () => {
+    // Exact bigint ctimeNs can remain unchanged across rapid writes on Linux.
+    // Rewrite immediately before the post-copy source digest, restoring mtime:
+    // correctness must come from comparing content, not from whether this
+    // filesystem happened to advance its timestamp clock.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    const OLD = Buffer.alloc(256 * 1024, "A");
+    const NEW = Buffer.alloc(256 * 1024, "B");
+    fs.writeFileSync(source, OLD);
+    const pinnedSeconds = Math.floor(Date.now() / 1000) - 60;
+    fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+
+    let rewrittenBeforeDigest = false;
+    mockCalculateFileMd5 = async (target, ...args) => {
+      if (
+        !rewrittenBeforeDigest &&
+        target !== null &&
+        typeof target === "object"
+      ) {
+        rewrittenBeforeDigest = true;
+        const fd = fs.openSync(source, "r+");
+        fs.writeSync(fd, NEW, 0, NEW.length, 0);
+        fs.closeSync(fd);
+        fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+      }
+      return realCalculateFileMd5(target, ...args);
+    };
+
+    const doc = makeFile(source);
+    await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
+      /source was modified while it was being copied/
+    );
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    expect(rewrittenBeforeDigest).toBe(true);
+    expect(fs.readFileSync(source).equals(NEW)).toBe(true);
+    expect(fs.existsSync(dest)).toBe(false);
+    expect(partialsIn(_path.dirname(dest))).toEqual([]);
+  });
+
+  test("keeps the coherent verified snapshot if the retained source changes after verification", async () => {
+    // Success linearises when the post-copy source digest matches the fixed
+    // copy digest. The retained HPC source is allowed to change afterward; a
+    // write at promotion can make it newer, but cannot make the destination a
+    // silent old/new mixture.
+    const source = _path.join(hpcInboxDir, "reads.fq");
+    const OLD = Buffer.alloc(256 * 1024, "A");
+    const NEW = Buffer.alloc(256 * 1024, "B");
+    fs.writeFileSync(source, OLD);
+    const pinnedSeconds = Math.floor(Date.now() / 1000) - 60;
+    fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+
+    const dest = _path.join(datastoreRoot, REL_PATH);
+    const realLink = fsp.link.bind(fsp);
+    let changedAtPromotion = false;
+    jest.spyOn(fsp, "link").mockImplementation(async (from, to) => {
+      await realLink(from, to);
+      if (!changedAtPromotion && to === dest) {
+        changedAtPromotion = true;
+        const fd = fs.openSync(source, "r+");
+        fs.writeSync(fd, NEW, 0, NEW.length, 0);
+        fs.closeSync(fd);
+        fs.utimesSync(source, pinnedSeconds, pinnedSeconds);
+      }
+    });
+
+    const doc = makeFile(source);
+    await doc.moveToFolderAndSave(REL_PATH);
+
+    expect(changedAtPromotion).toBe(true);
+    expect(fs.readFileSync(source).equals(NEW)).toBe(true);
+    expect(fs.readFileSync(dest).equals(OLD)).toBe(true);
+    expect(partialsIn(_path.dirname(dest))).toEqual([]);
+  });
+
+  test.each([
+    ["chmod", (source) => fs.chmodSync(source, 0o600)],
+    [
+      "a new hard link",
+      (source) => fs.linkSync(source, _path.join(hpcInboxDir, "reads.link")),
+    ],
+  ])(
+    "allows %s to move ctime while checksum verification is running",
+    async (_label, changeMetadata) => {
+      const source = _path.join(hpcInboxDir, "reads.fq");
+      const content = Buffer.alloc(256 * 1024, "A");
+      fs.writeFileSync(source, content);
+
+      const actualFs = jest.requireActual("fs");
+      let enteredVerification = false;
+      mockWriteStreamFactory = (destPath, options) => {
+        const real = actualFs.createWriteStream(destPath, options);
+        return new Writable({
+          write(chunk, encoding, callback) {
+            if (!enteredVerification) {
+              enteredVerification = true;
+              fs.chmodSync(source, 0o640);
+            }
+            real.write(chunk, encoding, callback);
+          },
+          final(callback) {
+            real.end(callback);
+          },
+        });
+      };
+
+      let metadataChangedDuringDigest = false;
+      let sourceHashCount = 0;
+      mockCalculateFileMd5 = async (target, ...args) => {
+        const digest = await realCalculateFileMd5(target, ...args);
+        if (target !== null && typeof target === "object") {
+          sourceHashCount += 1;
+          if (!metadataChangedDuringDigest) {
+            metadataChangedDuringDigest = true;
+            changeMetadata(source);
+          }
+        }
+        return digest;
+      };
+
+      const doc = makeFile(source);
+      await doc.moveToFolderAndSave(REL_PATH);
+
+      const dest = _path.join(datastoreRoot, REL_PATH);
+      expect(metadataChangedDuringDigest).toBe(true);
+      expect(sourceHashCount).toBeGreaterThanOrEqual(1);
+      expect(fs.readFileSync(dest).equals(content)).toBe(true);
+    }
+  );
 
   test("allows a copy whose source was only chmod'd during it", async () => {
     // The other side of the same trade. HPC_TRANSFER_DIRECTORY is a shared
@@ -781,7 +927,7 @@ describe("moveToFolderAndSave — HPC inbox source retention", () => {
 
     const dest = _path.join(datastoreRoot, REL_PATH);
     expect(fs.readFileSync(dest).equals(Buffer.alloc(256 * 1024, "A"))).toBe(
-      true,
+      true
     );
   });
 
@@ -906,7 +1052,7 @@ describe("moveToFolderAndSave — configuration and input guards", () => {
     const doc = makeFile(_path.join(stagingDir, "reads.fq"));
 
     await expect(doc.moveToFolderAndSave("group/raw/reads.fq")).rejects.toThrow(
-      /DATASTORE_ROOT is not configured/,
+      /DATASTORE_ROOT is not configured/
     );
   });
 
@@ -914,7 +1060,7 @@ describe("moveToFolderAndSave — configuration and input guards", () => {
     const doc = makeFile(undefined);
 
     await expect(doc.moveToFolderAndSave("group/raw/reads.fq")).rejects.toThrow(
-      /no source path/,
+      /no source path/
     );
   });
 
@@ -922,7 +1068,7 @@ describe("moveToFolderAndSave — configuration and input guards", () => {
     const doc = makeFile(_path.join(stagingDir, "missing.fq"));
 
     await expect(
-      doc.moveToFolderAndSave("group/raw/reads.fq"),
+      doc.moveToFolderAndSave("group/raw/reads.fq")
     ).rejects.toThrow();
     expect(doc.save).not.toHaveBeenCalled();
   });
@@ -945,8 +1091,8 @@ describe("moveToFolderAndSave — destination containment", () => {
     await expect(
       move(
         doc,
-        _path.join("group", "raw", "..", "..", "..", "outside", "planted.fq"),
-      ),
+        _path.join("group", "raw", "..", "..", "..", "outside", "planted.fq")
+      )
     ).rejects.toThrow(/destination is not inside the datastore/);
 
     expect(fs.existsSync(_path.join(outsideDir, "planted.fq"))).toBe(false);
@@ -960,7 +1106,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     const doc = makeFile(source);
 
     await expect(
-      move(doc, _path.join("group", "raw", "../../../outside/payload")),
+      move(doc, _path.join("group", "raw", "../../../outside/payload"))
     ).rejects.toThrow(/destination is not inside the datastore/);
 
     expect(fs.existsSync(_path.join(outsideDir, "payload"))).toBe(false);
@@ -973,7 +1119,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     await expect(move(doc, "../../outside/planted.fq")).rejects.toThrow(
       expect.objectContaining({
         message: expect.not.stringContaining(".."),
-      }),
+      })
     );
   });
 
@@ -994,7 +1140,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     const doc = makeFile(source);
 
     await expect(move(doc, "group/raw/reads\0.fq")).rejects.toThrow(
-      /destination is not inside the datastore/,
+      /destination is not inside the datastore/
     );
     expect(fs.existsSync(source)).toBe(true);
   });
@@ -1007,7 +1153,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     const doc = makeFile(source);
 
     await expect(move(doc, _path.join("escape", "reads.fq"))).rejects.toThrow(
-      /destination is not inside the datastore/,
+      /destination is not inside the datastore/
     );
 
     expect(fs.existsSync(_path.join(outsideDir, "reads.fq"))).toBe(false);
@@ -1023,7 +1169,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     const doc = makeFile(stagedFile());
 
     await expect(
-      move(doc, _path.join("group", "raw", "reads.fq")),
+      move(doc, _path.join("group", "raw", "reads.fq"))
     ).rejects.toThrow(/destination/);
 
     expect(fs.readFileSync(victim, "utf8")).toBe("DO-NOT-TOUCH");
@@ -1038,7 +1184,7 @@ describe("moveToFolderAndSave — destination containment", () => {
     const doc = makeFile(stagedFile());
 
     await expect(
-      move(doc, _path.join("group", "raw", "reads.fq")),
+      move(doc, _path.join("group", "raw", "reads.fq"))
     ).rejects.toThrow(/destination/);
 
     expect(fs.existsSync(target)).toBe(false);
@@ -1056,7 +1202,7 @@ describe("moveToFolderAndSave — source containment", () => {
     const doc = makeFile(victim);
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source is not inside a permitted directory/,
+      /source is not inside a permitted directory/
     );
 
     expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
@@ -1070,7 +1216,7 @@ describe("moveToFolderAndSave — source containment", () => {
     const doc = makeFile(_path.join(stagingDir, "..", "outside", "victim.txt"));
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source is not inside a permitted directory/,
+      /source is not inside a permitted directory/
     );
     expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
   });
@@ -1083,7 +1229,7 @@ describe("moveToFolderAndSave — source containment", () => {
     const doc = makeFile(link);
 
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-      /source is not inside a permitted directory/,
+      /source is not inside a permitted directory/
     );
 
     expect(fs.readFileSync(victim, "utf8")).toBe("SOMEONE-ELSES-DATA");
@@ -1097,7 +1243,7 @@ describe("moveToFolderAndSave — source containment", () => {
     await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
       expect.objectContaining({
         message: expect.not.stringContaining(outsideDir),
-      }),
+      })
     );
   });
 
@@ -1111,7 +1257,7 @@ describe("moveToFolderAndSave — source containment", () => {
     await doc.moveToFolderAndSave(REL_PATH);
 
     expect(fs.readFileSync(_path.join(datastoreRoot, REL_PATH), "utf8")).toBe(
-      "ACGT",
+      "ACGT"
     );
   });
 });
@@ -1147,7 +1293,7 @@ describe("moveToFolderAndSave — no-clobber at the destination", () => {
       const doc = makeFile(source);
 
       await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-        /destination already exists/,
+        /destination already exists/
       );
 
       expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");
@@ -1173,7 +1319,7 @@ describe("moveToFolderAndSave — no-clobber at the destination", () => {
       await doc.moveToFolderAndSave(REL_PATH).catch(() => {});
 
       expect(fs.readdirSync(_path.join(datastoreRoot, "group", "raw"))).toEqual(
-        ["reads.fq"],
+        ["reads.fq"]
       );
       expect(doc.save).not.toHaveBeenCalled();
     });
@@ -1188,7 +1334,7 @@ describe("moveToFolderAndSave — no-clobber at the destination", () => {
       const doc = makeFile(source);
 
       await expect(doc.moveToFolderAndSave(REL_PATH)).rejects.toThrow(
-        /destination already exists/,
+        /destination already exists/
       );
 
       expect(fs.readFileSync(dest, "utf8")).toBe("COMPLETE-GENOMIC-DATA");

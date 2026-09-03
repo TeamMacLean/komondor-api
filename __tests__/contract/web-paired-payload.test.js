@@ -44,6 +44,7 @@ jest.mock("../../lib/ingest-queue", () => ({
 
 jest.mock("../../models/Run");
 jest.mock("../../models/Sample");
+jest.mock("../../models/options/LibraryType");
 jest.mock("../../lib/utils/groupAccess", () => ({
   canReadGroup: jest.fn().mockResolvedValue(true),
   canWriteGroup: jest.fn().mockResolvedValue(true),
@@ -61,6 +62,8 @@ jest.mock("../../routes/middleware", () => ({
 
 const Run = require("../../models/Run");
 const Sample = require("../../models/Sample");
+const LibraryType = require("../../models/options/LibraryType");
+const ingestQueue = require("../../lib/ingest-queue");
 const runsRouter = require("../../routes/runs");
 
 const SAMPLE_ID = "a".repeat(24);
@@ -87,15 +90,16 @@ app.use(runsRouter);
 
 /**
  * The two-file paired local-filesystem payload komondor-web emits, field for
- * field. `data` and `uploadName` come from the Uppy upload; `md5` and
- * `calculatedMd5` are null when the user typed no checksum; `sibling` is
- * reciprocal and `paired` is true. There is deliberately no rowID.
+ * field. `data` and `uploadName` come from the Uppy upload; MD5 is valid and
+ * confirmed because the real UI does not call confirmSelection before that
+ * gate passes; `sibling` is reciprocal and `paired` is true. There is
+ * deliberately no rowID.
  */
 const webPairedRawFiles = () => [
   {
     name: "SampleA_R1.fastq.gz",
-    md5: null,
-    calculatedMd5: null,
+    md5: "a".repeat(32),
+    calculatedMd5: "a".repeat(32),
     data: {},
     uploadName: "1".repeat(32),
     sibling: "SampleA_R2.fastq.gz",
@@ -103,8 +107,8 @@ const webPairedRawFiles = () => [
   },
   {
     name: "SampleA_R2.fastq.gz",
-    md5: null,
-    calculatedMd5: null,
+    md5: "b".repeat(32),
+    calculatedMd5: "b".repeat(32),
     data: {},
     uploadName: "2".repeat(32),
     sibling: "SampleA_R1.fastq.gz",
@@ -117,9 +121,18 @@ beforeEach(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
 
-  Sample.findById = jest.fn().mockResolvedValue({
-    _id: SAMPLE_ID,
-    group: GROUP_ID,
+  Sample.findById = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({
+      _id: SAMPLE_ID,
+      group: GROUP_ID,
+    }),
+  });
+  LibraryType.findOne = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({
+      value: "PAIRED",
+      paired: true,
+      indexed: false,
+    }),
   });
   Run.findOne = jest.fn().mockReturnValue({
     populate: jest.fn().mockResolvedValue(null),
@@ -143,11 +156,12 @@ describe("the payload komondor-web actually sends", () => {
         rawFilesUploadInfo: { method: "local-filesystem" },
       });
 
-    // Asserted as "not a validation refusal" rather than 201: this file
-    // mocks the models thinly on purpose, and what is under test is whether
-    // the real payload SURVIVES validation, not whether a fully-mocked Run
-    // saves. A 400 here is the bug; anything past validation is not.
-    expect(response.status).not.toBe(400);
+    expect(response.status).toBe(201);
+    expect(ingestQueue.enqueueRunIngest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        payload: expect.objectContaining({ rawFiles: webPairedRawFiles() }),
+      })
+    );
   });
 
   test("the fixture carries no rowID, which is the whole point", () => {
@@ -174,14 +188,14 @@ describe("the payload komondor-web actually sends", () => {
       expect.arrayContaining([
         ["SampleA_R1.fastq.gz", "SampleA_R2.fastq.gz"],
         ["SampleA_R2.fastq.gz", "SampleA_R1.fastq.gz"],
-      ]),
+      ])
     );
     expect(links).toHaveLength(2);
   });
 
-  test("an unpaired single-file upload is still accepted", async () => {
-    // The web emits `paired: false` with no sibling when the user did not
-    // pair the selection.
+  test("a paired library cannot silently submit an unpaired selection", async () => {
+    // This is the exact UI regression the API must catch independently: the
+    // selected library type is paired, but serialization emits no relationship.
     const response = await request(app)
       .post("/runs/new")
       .send({
@@ -189,8 +203,8 @@ describe("the payload komondor-web actually sends", () => {
         rawFiles: [
           {
             name: "SampleA.fastq.gz",
-            md5: null,
-            calculatedMd5: null,
+            md5: "c".repeat(32),
+            calculatedMd5: "c".repeat(32),
             data: {},
             uploadName: "3".repeat(32),
             paired: false,
@@ -199,6 +213,56 @@ describe("the payload komondor-web actually sends", () => {
         rawFilesUploadInfo: { method: "local-filesystem" },
       });
 
-    expect(response.status).not.toBe(400);
+    expect(response.status).toBe(400);
+  });
+
+  test("a delivered Web read cannot contradict its paired LibraryType", async () => {
+    const [landed, missing] = webPairedRawFiles();
+    Run.findById = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: "c".repeat(24),
+        name: "Run 1",
+        group: GROUP_ID,
+        owner: "scientist",
+        status: "error",
+        libraryType: "PAIRED",
+      }),
+    });
+    ingestQueue.deliveredFileNames.mockResolvedValue({
+      raw: new Set([landed.name]),
+      additional: new Set(),
+    });
+    ingestQueue.IngestJob.findOne.mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: "d".repeat(24),
+        payload: {
+          rawFiles: [landed, missing],
+          rawFilesUploadInfo: { method: "local-filesystem" },
+        },
+      }),
+    });
+    ingestQueue.IngestJob.findOneAndUpdate.mockResolvedValue({
+      _id: "d".repeat(24),
+      status: "pending",
+      attempts: 0,
+    });
+
+    const response = await request(app)
+      .post(`/runs/${"c".repeat(24)}/reingest`)
+      .send({
+        rawFiles: [
+          {
+            ...landed,
+            sibling: undefined,
+            paired: false,
+          },
+        ],
+        rawFilesUploadInfo: { method: "local-filesystem" },
+        replaceRawFiles: true,
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.detail).toMatch(/paired library requires/i);
+    expect(ingestQueue.IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
   });
 });

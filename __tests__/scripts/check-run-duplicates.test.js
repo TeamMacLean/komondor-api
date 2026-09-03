@@ -1,15 +1,10 @@
 /**
  * Tests for scripts/check-run-duplicates.js's index-conflict decision logic.
  *
- * Only findSampleNameIndex and fixStaleIndex are exported (main() is a CLI
- * entrypoint that connects to a real Mongo and calls process.exit, so it is
- * exercised end-to-end by __tests__/integration/startup-index-conflict.test.js
- * instead — that suite proves Run.init()/IngestJob.init() actually refuse to
- * boot on a poisoned index, which is the property this script exists to catch
- * before a deploy). This file covers the two pure decision points a mocked
- * collection can prove without a real database: which index (if any) a
- * background build would collide with, and exactly what a --fix repair does
- * to it.
+ * The CLI connects to real Mongo and calls process.exit, so its end-to-end
+ * agreement with the server lives in integration/preflight-cli.test.js.
+ * This file covers the pure decision points and exact --fix mutations with a
+ * stateful collection stand-in.
  */
 
 const {
@@ -17,8 +12,10 @@ const {
   isEquivalentToSchemaIndex,
   hasSameSignatureAsSchemaIndex,
   collectionIndexDefaults,
+  expectedOptionMatches,
   findIndexConflicts,
   fixStaleIndex,
+  findInvalidRunShapes,
   INDEX_NAME,
 } = require("../../scripts/check-run-duplicates");
 
@@ -69,6 +66,32 @@ describe("INDEX_NAME", () => {
     // constant here would rebuild a same-shaped index under a different name
     // and leave the original conflict in place.
     expect(INDEX_NAME).toBe("sample_1_name_1");
+  });
+});
+
+describe("findInvalidRunShapes", () => {
+  test("checks the exact scalar types required by the compound index", async () => {
+    const malformed = [{ _id: "r1", sample: ["a", "b"], name: "Run" }];
+    const aggregate = jest.fn().mockReturnValue({
+      toArray: jest.fn().mockResolvedValue(malformed),
+    });
+
+    await expect(findInvalidRunShapes({ aggregate })).resolves.toEqual(
+      malformed
+    );
+
+    const pipeline = aggregate.mock.calls[0][0];
+    expect(pipeline[0]).toEqual({
+      $match: {
+        $expr: {
+          $or: [
+            { $ne: [{ $type: "$sample" }, "objectId"] },
+            { $ne: [{ $type: "$name" }, "string"] },
+          ],
+        },
+      },
+    });
+    expect(pipeline).toContainEqual({ $limit: 100 });
   });
 });
 
@@ -154,7 +177,7 @@ describe("findIndexConflicts", () => {
     expect(
       findIndexConflicts([
         { name: "sample_and_name_custom", key: { sample: 1, name: 1 } },
-      ]),
+      ])
     ).toEqual([]);
   });
 
@@ -190,7 +213,7 @@ describe("findIndexConflicts", () => {
           unique: true,
           background: true,
         },
-      ]),
+      ])
     ).toEqual([]);
   });
 
@@ -204,7 +227,7 @@ describe("findIndexConflicts", () => {
           key: { sample: 1, name: 1 },
           unique: true,
         },
-      ]),
+      ])
     ).toEqual([]);
   });
 
@@ -268,8 +291,8 @@ describe("the different-name signature rule, as MongoDB 7.0.29 applies it", () =
     expect(
       hasSameSignatureAsSchemaIndex(
         { name: "legacy_pair", key: { sample: 1, name: 1 } },
-        {},
-      ),
+        {}
+      )
     ).toBe(false);
   });
 });
@@ -294,7 +317,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ]),
+      ])
     ).toEqual({ collation });
   });
 
@@ -309,8 +332,86 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ]),
+      ])
     ).toEqual([]);
+  });
+
+  test("does not mistake a different explicit collation for the collection default", () => {
+    const differentCollation = { locale: "fr", strength: 2 };
+    const custom = {
+      v: 2,
+      name: "legacy_pair",
+      key: { sample: 1, name: 1 },
+      unique: true,
+      collation: differentCollation,
+    };
+
+    // MongoDB can build the schema's default-collation index alongside this
+    // genuinely different custom index. Merely seeing that _id_ has *some*
+    // collation must not turn every explicit collation into a default.
+    expect(hasSameSignatureAsSchemaIndex(custom, { collation })).toBe(false);
+    expect(
+      findIndexConflicts([{ name: "_id_", key: { _id: 1 }, collation }, custom])
+    ).toEqual([]);
+  });
+
+  test("reports a same-name index whose explicit collation differs from the default", () => {
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 }, collation },
+        {
+          v: 2,
+          name: INDEX_NAME,
+          key: { sample: 1, name: 1 },
+          unique: true,
+          collation: { locale: "fr", strength: 2 },
+        },
+      ])
+    ).toHaveLength(1);
+  });
+
+  test("reports a same-name explicit-simple index when the collection default is non-simple", () => {
+    // MongoDB omits `collation` from listIndexes for explicit simple. That
+    // absence must NOT be mistaken for inheriting the collection's `en`
+    // default: the schema's same-name create rejects this with error 86.
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 }, collation },
+        {
+          v: 2,
+          name: INDEX_NAME,
+          key: { sample: 1, name: 1 },
+          unique: true,
+        },
+      ])
+    ).toHaveLength(1);
+  });
+
+  test("allows a custom-name explicit-simple index beside a non-simple default", () => {
+    // The desired schema index inherits `en`; this existing index is
+    // effectively simple, so MongoDB treats them as different and builds the
+    // desired index alongside it.
+    const customSimple = {
+      v: 2,
+      name: "legacy_simple",
+      key: { sample: 1, name: 1 },
+      unique: true,
+    };
+    expect(
+      findIndexConflicts([
+        { name: "_id_", key: { _id: 1 }, collation },
+        customSimple,
+      ])
+    ).toEqual([]);
+  });
+
+  test("matches collection defaults in both directions", () => {
+    expect(
+      expectedOptionMatches({ collation }, "collation", { collation })
+    ).toBe(true);
+    expect(expectedOptionMatches({}, "collation", { collation })).toBe(false);
+    expect(expectedOptionMatches({}, "collation", {})).toBe(true);
+    expect(expectedOptionMatches({ collation }, "collation", {})).toBe(false);
   });
 
   test("still reports a collation set on ONE index, which _id_ does not share", () => {
@@ -325,7 +426,7 @@ describe("collection-level index defaults", () => {
           unique: true,
           collation,
         },
-      ]),
+      ])
     ).toHaveLength(1);
   });
 });
@@ -337,7 +438,20 @@ describe("isEquivalentToSchemaIndex", () => {
         name: "sample_1_name_1",
         key: { sample: 1, name: 1 },
         unique: true,
-      }),
+      })
+    ).toBe(true);
+  });
+
+  test("accepts hidden on the generated-name index", () => {
+    // MongoDB 7 treats visibility as a planner setting, not a create-option
+    // difference: the schema's same-name build is a no-op.
+    expect(
+      isEquivalentToSchemaIndex({
+        name: "sample_1_name_1",
+        key: { sample: 1, name: 1 },
+        unique: true,
+        hidden: true,
+      })
     ).toBe(true);
   });
 
@@ -346,7 +460,7 @@ describe("isEquivalentToSchemaIndex", () => {
       isEquivalentToSchemaIndex({
         name: "sample_1_name_1",
         key: { sample: 1, name: 1 },
-      }),
+      })
     ).toBe(false);
   });
 
@@ -361,7 +475,7 @@ describe("isEquivalentToSchemaIndex", () => {
         key: { sample: 1, name: 1 },
         unique: true,
         partialFilterExpression: { status: { $ne: "deleted" } },
-      }),
+      })
     ).toBe(false);
   });
 
@@ -372,7 +486,7 @@ describe("isEquivalentToSchemaIndex", () => {
         key: { sample: 1, name: 1 },
         unique: true,
         collation: { locale: "en", strength: 2 },
-      }),
+      })
     ).toBe(false);
   });
 
@@ -382,7 +496,7 @@ describe("isEquivalentToSchemaIndex", () => {
         name: "sample_1_name_1",
         key: { name: 1 },
         unique: true,
-      }),
+      })
     ).toBe(false);
   });
 
@@ -400,7 +514,7 @@ describe("fixStaleIndex", () => {
     expect(collection.dropIndex).toHaveBeenCalledWith(INDEX_NAME);
     expect(collection.createIndex).toHaveBeenCalledWith(
       { sample: 1, name: 1 },
-      { unique: true, name: INDEX_NAME },
+      { unique: true, name: INDEX_NAME }
     );
   });
 
@@ -448,8 +562,8 @@ describe("fixStaleIndex", () => {
       JSON.stringify(
         [{ v: 2, key: { sample: 1, name: 1 }, name: INDEX_NAME, unique: true }],
         null,
-        2,
-      ),
+        2
+      )
     );
   });
 
@@ -488,7 +602,7 @@ describe("fixStaleIndex", () => {
     const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     await expect(fixStaleIndex(collection)).rejects.toThrow(
-      "E11000 duplicate key error",
+      "E11000 duplicate key error"
     );
 
     expect(collection.dropIndex).toHaveBeenCalled();

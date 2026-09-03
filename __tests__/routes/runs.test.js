@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const runsRouter = require("../../routes/runs");
 const Run = require("../../models/Run");
 const Sample = require("../../models/Sample");
+const LibraryType = require("../../models/options/LibraryType");
 const Group = require("../../models/Group");
 const ingestQueue = require("../../lib/ingest-queue");
 const { enqueueRunIngest, IngestJob } = ingestQueue;
@@ -22,6 +23,7 @@ jest.mock("../../models/Run");
 // Mock the Sample model — the run routes now resolve a run's group from its
 // parent sample rather than trusting the submitted one.
 jest.mock("../../models/Sample");
+jest.mock("../../models/options/LibraryType");
 
 // Mock the Read model (used inline in status endpoint)
 jest.mock("../../models/Read");
@@ -81,7 +83,7 @@ app.use("/", runsRouter);
  */
 const setGroups = ({ read = [], write = [] }) => {
   Group.GroupsIAmIn.mockImplementation(async (user, options = {}) =>
-    options.mode === "write" ? write : read,
+    options.mode === "write" ? write : read
   );
 };
 
@@ -89,6 +91,13 @@ const setGroups = ({ read = [], write = [] }) => {
 const mockSampleLookup = (sample) => {
   Sample.findById = jest.fn().mockReturnValue({
     select: jest.fn().mockResolvedValue(sample),
+  });
+};
+
+/** A LibraryType.findOne(...).select("paired indexed") lookup. */
+const mockLibraryTypeLookup = (libraryType) => {
+  LibraryType.findOne = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue(libraryType),
   });
 };
 
@@ -469,6 +478,7 @@ describe("Runs API Routes", () => {
         write: [{ _id: mockGroupId, name: "Test Group" }],
       });
       mockSampleLookup({ _id: mockSampleId, group: mockGroupId });
+      mockLibraryTypeLookup({ value: "WGS", paired: false, indexed: false });
       enqueueRunIngest.mockResolvedValue({ _id: mockJobId });
     });
 
@@ -498,7 +508,7 @@ describe("Runs API Routes", () => {
         expect(response.body).toHaveProperty("idempotent", true);
         expect(response.body).toHaveProperty("message");
         expect(response.body.run._id.toString()).toEqual(
-          existingRun._id.toString(),
+          existingRun._id.toString()
         );
         expect(Run.findOne).toHaveBeenCalledWith({
           sample: mockSampleId.toString(),
@@ -527,7 +537,7 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(200);
         expect(enqueueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId }),
+          expect.objectContaining({ runId: mockRunId })
         );
         expect(response.body.jobId).toEqual(mockJobId.toString());
       });
@@ -727,7 +737,7 @@ describe("Runs API Routes", () => {
             requestBody({
               sample: mockSampleId.toString().toUpperCase(),
               group: mockGroupId.toString().toUpperCase(),
-            }),
+            })
           );
 
         expect(response.status).toBe(201);
@@ -751,7 +761,7 @@ describe("Runs API Routes", () => {
           expect.objectContaining({
             sample: mockSampleId.toString(),
             group: mockGroupId,
-          }),
+          })
         );
       });
     });
@@ -778,7 +788,7 @@ describe("Runs API Routes", () => {
           .send(requestBody({ owner: "somebody-else" }));
 
         expect(Run).toHaveBeenCalledWith(
-          expect.objectContaining({ owner: "testuser" }),
+          expect.objectContaining({ owner: "testuser" })
         );
       });
     });
@@ -829,7 +839,7 @@ describe("Runs API Routes", () => {
         await request(app).post("/runs/new").send(requestBody());
 
         expect(enqueueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId }),
+          expect.objectContaining({ runId: mockRunId })
         );
       });
 
@@ -933,7 +943,7 @@ describe("Runs API Routes", () => {
               additionalFiles: [
                 { name: "notes.txt", uploadName: "b".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(201);
@@ -1026,7 +1036,7 @@ describe("Runs API Routes", () => {
           .send(
             requestBody({
               rawFiles: { length: 2, 0: { name: "a" }, 1: { name: "b" } },
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1046,7 +1056,7 @@ describe("Runs API Routes", () => {
                 { name: "good_R1.fq.gz" },
                 { uploadName: "no-name-here" },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1061,7 +1071,7 @@ describe("Runs API Routes", () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
-            requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] }),
+            requestBody({ rawFiles: [{ name: "ok_R1.fq.gz" }, "not-a-file"] })
           );
 
         expect(response.status).toBe(400);
@@ -1077,7 +1087,7 @@ describe("Runs API Routes", () => {
             requestBody({
               rawFiles: [{ name: "hpc_R1.fq.gz" }],
               rawFilesUploadInfo: { method: "hpc-mv" },
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1103,7 +1113,29 @@ describe("Runs API Routes", () => {
                 method: "hpc-mv",
                 relativePath: "/WGS_Test",
               },
-            }),
+            })
+          );
+
+        expect(response.status).toBe(201);
+      });
+
+      test("should accept an explicit empty relativePath for a file at the HPC transfer root", async () => {
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [{ name: "at-transfer-root.fq.gz", relativePath: "" }],
+              rawFilesUploadInfo: { method: "hpc-mv" },
+            })
           );
 
         expect(response.status).toBe(201);
@@ -1115,7 +1147,7 @@ describe("Runs API Routes", () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
-            requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } }),
+            requestBody({ additionalFiles: { length: 1, 0: { name: "n" } } })
           );
 
         expect(response.status).toBe(400);
@@ -1143,7 +1175,7 @@ describe("Runs API Routes", () => {
               rawFiles: [
                 { data: { name: "test_R1.fq.gz" }, uploadName: "a".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1173,7 +1205,7 @@ describe("Runs API Routes", () => {
                   md5: { $ne: null },
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1190,18 +1222,14 @@ describe("Runs API Routes", () => {
                 { name: "dup.fq.gz", uploadName: "a".repeat(32) },
                 { name: "dup.fq.gz", uploadName: "b".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
         expect(Sample.findById).not.toHaveBeenCalled();
       });
 
-      test("refuses a local-filesystem entry marked paired with no rowID", async () => {
-        // A re-audit reproduced this end-to-end: paired:true with no rowID
-        // reached the worker, which silently excludes it from pairing
-        // (lib/ingest-queue.js's siblingLinks) — both files landed and the
-        // run finished "complete" with sibling:null on both Reads.
+      test("refuses an entry marked paired with no sibling", async () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
@@ -1213,7 +1241,7 @@ describe("Runs API Routes", () => {
                   paired: true,
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1233,7 +1261,7 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1264,22 +1292,13 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
       });
 
-      test("accepts a genuine local-filesystem pair with matching rowID", async () => {
-        Run.findOne = jest.fn().mockReturnValue({
-          populate: jest.fn().mockResolvedValue(null),
-        });
-        Run.mockImplementation(() => ({
-          save: jest
-            .fn()
-            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
-        }));
-
+      test("refuses rowID even when exactly two entries share it", async () => {
         const response = await request(app)
           .post("/runs/new")
           .send(
@@ -1298,10 +1317,209 @@ describe("Runs API Routes", () => {
                   rowID: "row-1",
                 },
               ],
-            }),
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/unsupported rowID/i);
+      });
+
+      test("refuses a paired library whose non-index reads are not paired", async () => {
+        mockLibraryTypeLookup({
+          value: "Paired-end",
+          paired: true,
+          indexed: false,
+        });
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              libraryType: "Paired-end",
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  paired: false,
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  paired: false,
+                },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/paired library requires/i);
+        expect(Run.findOne).not.toHaveBeenCalled();
+      });
+
+      test("accepts a paired indexed library with a reciprocal pair and an unpaired index", async () => {
+        mockLibraryTypeLookup({
+          value: "Paired-indexed",
+          paired: true,
+          indexed: true,
+        });
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation(() => ({
+          save: jest
+            .fn()
+            .mockResolvedValue({ _id: mockRunId, name: "New Run" }),
+        }));
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              libraryType: "Paired-indexed",
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "R2.fq.gz",
+                  paired: true,
+                  indexed: false,
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  sibling: "R1.fq.gz",
+                  paired: true,
+                  indexed: false,
+                },
+                {
+                  name: "I1.fq.gz",
+                  uploadName: "c".repeat(32),
+                  paired: false,
+                  indexed: true,
+                },
+              ],
+            })
           );
 
         expect(response.status).toBe(201);
+      });
+
+      test("refuses the Power shape that marks sibling reads as index reads", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              libraryType: "Paired-indexed",
+              rawFilesUploadInfo: { method: "hpc-mv" },
+              // Power can currently produce this from one CSV row containing
+              // read_isIndex=TRUE plus read_siblingFullHpcPath. Index reads are
+              // outside biological pairs and cannot name each other as mates.
+              rawFiles: [
+                {
+                  name: "index_R1.fq.gz",
+                  relativePath: "batch",
+                  indexed: true,
+                  sibling: "index_R2.fq.gz",
+                },
+                {
+                  name: "index_R2.fq.gz",
+                  relativePath: "batch",
+                  indexed: true,
+                  sibling: "index_R1.fq.gz",
+                },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(
+          /indexed read.*cannot declare a sibling/i
+        );
+        expect(Sample.findById).not.toHaveBeenCalled();
+      });
+
+      test("refuses an indexed library with no indexed raw file", async () => {
+        mockLibraryTypeLookup({
+          value: "Indexed",
+          paired: false,
+          indexed: true,
+        });
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              libraryType: "Indexed",
+              rawFiles: [
+                {
+                  name: "reads.fq.gz",
+                  uploadName: "a".repeat(32),
+                  indexed: false,
+                },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/requires at least one indexed/i);
+      });
+
+      test("refuses an index read under a non-indexed library", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "index.fq.gz",
+                  uploadName: "a".repeat(32),
+                  indexed: true,
+                },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/non-indexed library/i);
+      });
+
+      test("refuses a library type that is not in the shared option collection", async () => {
+        mockLibraryTypeLookup(null);
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ libraryType: "invented-type" }));
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/unknown library type/i);
+        expect(Run.findOne).not.toHaveBeenCalled();
+      });
+
+      test("refuses sibling declarations for an unpaired library", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              rawFiles: [
+                {
+                  name: "R1.fq.gz",
+                  uploadName: "a".repeat(32),
+                  sibling: "R2.fq.gz",
+                  paired: true,
+                },
+                {
+                  name: "R2.fq.gz",
+                  uploadName: "b".repeat(32),
+                  sibling: "R1.fq.gz",
+                  paired: true,
+                },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/unpaired library/i);
       });
 
       test("refuses a sibling that is not in the list", async () => {
@@ -1318,7 +1536,7 @@ describe("Runs API Routes", () => {
                   sibling: "never_uploaded_R2.fq.gz",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1341,7 +1559,7 @@ describe("Runs API Routes", () => {
                   sibling: "R1.fq.gz",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1365,7 +1583,7 @@ describe("Runs API Routes", () => {
                 },
                 { name: "R2.fq.gz", uploadName: "b".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1396,7 +1614,7 @@ describe("Runs API Routes", () => {
                   sibling: "A.fq.gz",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1418,7 +1636,7 @@ describe("Runs API Routes", () => {
                 { name: "R1.fq.gz", uploadName: "a".repeat(32) },
                 { name: " R1.fq.gz", uploadName: "b".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1450,7 +1668,7 @@ describe("Runs API Routes", () => {
                   sibling: "A.fq.gz",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1467,7 +1685,7 @@ describe("Runs API Routes", () => {
           .send(
             requestBody({
               rawFiles: [{ name: " A.fq.gz", uploadName: "a".repeat(32) }],
-            }),
+            })
           );
 
         expect(response.status).toBe(400);
@@ -1475,6 +1693,11 @@ describe("Runs API Routes", () => {
       });
 
       test("accepts a complete sibling pair", async () => {
+        mockLibraryTypeLookup({
+          value: "Paired-end",
+          paired: true,
+          indexed: false,
+        });
         Run.findOne = jest.fn().mockReturnValue({
           populate: jest.fn().mockResolvedValue(null),
         });
@@ -1488,6 +1711,7 @@ describe("Runs API Routes", () => {
           .post("/runs/new")
           .send(
             requestBody({
+              libraryType: "Paired-end",
               rawFiles: [
                 {
                   name: "R1.fq.gz",
@@ -1500,7 +1724,7 @@ describe("Runs API Routes", () => {
                   sibling: "R1.fq.gz",
                 },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(201);
@@ -1524,10 +1748,26 @@ describe("Runs API Routes", () => {
               additionalFiles: [
                 { name: "notes.txt", uploadName: "b".repeat(32) },
               ],
-            }),
+            })
           );
 
         expect(response.status).toBe(201);
+      });
+
+      test("refuses an unsupported additional-file upload method", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(
+            requestBody({
+              additionalFiles: [
+                { name: "notes.txt", uploadMethod: "teleport" },
+              ],
+            })
+          );
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/invalid uploadMethod/i);
+        expect(Sample.findById).not.toHaveBeenCalled();
       });
     });
   });
@@ -1599,7 +1839,7 @@ describe("Runs API Routes", () => {
       expect(response.body).toHaveProperty("status", "complete");
       expect(response.body).toHaveProperty(
         "md5VerificationStatus",
-        "in_progress",
+        "in_progress"
       );
       expect(response.body).toHaveProperty("progress");
       expect(response.body.progress).toEqual({
@@ -1659,7 +1899,7 @@ describe("Runs API Routes", () => {
           attempts: 3,
           maxAttempts: 3,
           lastError: "ENOSPC: no space left on device",
-        }),
+        })
       );
     });
 
@@ -1979,6 +2219,12 @@ describe("Runs API Routes", () => {
         group: mockGroupId,
         owner: "testuser",
         status: "error",
+        libraryType: "single",
+      });
+      mockLibraryTypeLookup({
+        value: "single",
+        paired: false,
+        indexed: false,
       });
 
       Run.updateOne = jest.fn().mockResolvedValue({});
@@ -2012,7 +2258,7 @@ describe("Runs API Routes", () => {
       const [filter, update] = IngestJob.findOneAndUpdate.mock.calls[0];
       expect(filter).toEqual(expect.objectContaining({ status: "failed" }));
       expect(update.$set).toEqual(
-        expect.objectContaining({ status: "pending", attempts: 0 }),
+        expect.objectContaining({ status: "pending", attempts: 0 })
       );
     });
 
@@ -2045,7 +2291,7 @@ describe("Runs API Routes", () => {
 
       expect(Run.updateOne).toHaveBeenCalledWith(
         { _id: mockRunId },
-        { $set: { status: "pending", statusError: null } },
+        { $set: { status: "pending", statusError: null } }
       );
     });
 
@@ -2116,7 +2362,7 @@ describe("Runs API Routes", () => {
 
         expect(response.status).toBe(200);
         expect(requeueRunIngest).toHaveBeenCalledWith(
-          expect.objectContaining({ runId: mockRunId }),
+          expect.objectContaining({ runId: mockRunId })
         );
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       } finally {
@@ -2168,7 +2414,7 @@ describe("Runs API Routes", () => {
             // Whoever supplied the fix is whose staged uploads the retry
             // claims, same rule as a fresh POST /runs/new.
             username: "testuser",
-          }),
+          })
         );
       });
 
@@ -2211,6 +2457,18 @@ describe("Runs API Routes", () => {
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       });
 
+      test("requires explicit replacement-mode flags to be booleans", async () => {
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({ replaceRawFiles: "yes" });
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(
+          /replaceRawFiles must be a boolean/
+        );
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
       describe("a delivered file mixed with an undelivered correction", () => {
         // The scenario a re-audit flagged as the real-world case that matters:
         // a paired submission where one file landed and its sibling failed
@@ -2218,7 +2476,8 @@ describe("Runs API Routes", () => {
         // require also resubmitting the one that already worked, and must not
         // silently drop or silently reapply either.
         //
-        // These entries carry `paired`/`rowID` for a reason. An earlier
+        // These entries carry reciprocal `sibling`/`paired` metadata for a
+        // reason. An earlier
         // version of this fixture called itself "a paired submission" and
         // declared neither — so the one-mate correction below never reached
         // the pairing rules at all, and the 400 they returned on exactly this
@@ -2230,13 +2489,13 @@ describe("Runs API Routes", () => {
             name: "delivered_R1.fq.gz",
             uploadName: "good-upload-id",
             paired: true,
-            rowID: "row-1",
+            sibling: "broken_R2.fq.gz",
           },
           {
             name: "broken_R2.fq.gz",
             uploadName: "bad-upload-id",
             paired: true,
-            rowID: "row-1",
+            sibling: "delivered_R1.fq.gz",
           },
         ];
 
@@ -2254,7 +2513,24 @@ describe("Runs API Routes", () => {
           });
         });
 
+        const usePairedRun = () => {
+          mockRunLookup({
+            _id: mockRunId,
+            name: "Broken paired Run",
+            group: mockGroupId,
+            owner: "testuser",
+            status: "error",
+            libraryType: "paired",
+          });
+          mockLibraryTypeLookup({
+            value: "paired",
+            paired: true,
+            indexed: false,
+          });
+        };
+
         test("carries the delivered file forward unchanged when the correction omits it", async () => {
+          usePairedRun();
           IngestJob.findOneAndUpdate.mockResolvedValue({
             _id: mockJobId,
             status: "pending",
@@ -2269,7 +2545,7 @@ describe("Runs API Routes", () => {
                   name: "broken_R2.fq.gz",
                   uploadName: "corrected-upload-id",
                   paired: true,
-                  rowID: "row-1",
+                  sibling: "delivered_R1.fq.gz",
                 },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
@@ -2284,11 +2560,12 @@ describe("Runs API Routes", () => {
                 name: "broken_R2.fq.gz",
                 uploadName: "corrected-upload-id",
               }),
-            ]),
+            ])
           );
         });
 
         test("accepts an identical resubmission of the delivered file alongside the correction", async () => {
+          usePairedRun();
           // A client naturally resends its whole known state, not just the
           // diff — resubmitting the delivered entry byte-for-byte must not
           // be treated as an attempted change.
@@ -2307,7 +2584,7 @@ describe("Runs API Routes", () => {
                   name: "broken_R2.fq.gz",
                   uploadName: "corrected-upload-id",
                   paired: true,
-                  rowID: "row-1",
+                  sibling: "delivered_R1.fq.gz",
                 },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
@@ -2330,13 +2607,13 @@ describe("Runs API Routes", () => {
                   name: "delivered_R1.fq.gz",
                   uploadName: "DIFFERENT-upload-id",
                   paired: true,
-                  rowID: "row-1",
+                  sibling: "broken_R2.fq.gz",
                 },
                 {
                   name: "broken_R2.fq.gz",
                   uploadName: "corrected-upload-id",
                   paired: true,
-                  rowID: "row-1",
+                  sibling: "delivered_R1.fq.gz",
                 },
               ],
               rawFilesUploadInfo: { method: "local-filesystem" },
@@ -2378,6 +2655,7 @@ describe("Runs API Routes", () => {
             status: "pending",
             attempts: 0,
           });
+          usePairedRun();
 
           const response = await request(app)
             .post(`/runs/${mockRunId}/reingest`)
@@ -2390,6 +2668,10 @@ describe("Runs API Routes", () => {
                 method: "hpc-mv",
                 relativePath: "/WGS_Test",
               },
+              // A list is patch-like by default. Renaming intentionally
+              // removes the old undelivered name, so state that this is the
+              // complete desired raw-file list.
+              replaceRawFiles: true,
             });
 
           expect(response.status).toBe(200);
@@ -2398,7 +2680,7 @@ describe("Runs API Routes", () => {
             expect.arrayContaining([
               { name: "landed_R1.fq", sibling: "correct_R2.fq" },
               { name: "correct_R2.fq", sibling: "landed_R1.fq" },
-            ]),
+            ])
           );
         });
 
@@ -2439,6 +2721,90 @@ describe("Runs API Routes", () => {
 
           expect(response.status).toBe(409);
           expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        });
+
+        test("detects a nested descriptor change on a delivered file", async () => {
+          ingestQueue.deliveredFileNames.mockReset();
+          ingestQueue.deliveredFileNames.mockResolvedValue({
+            raw: new Set(["landed.fq"]),
+            additional: new Set(),
+          });
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: [
+                {
+                  name: "landed.fq",
+                  uploadName: "upload-1",
+                  data: { metadata: { source: "lane-1", chunks: [1, 2] } },
+                },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            },
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                {
+                  name: "landed.fq",
+                  uploadName: "upload-1",
+                  data: { metadata: { source: "lane-2", chunks: [1, 2] } },
+                },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            });
+
+          expect(response.status).toBe(409);
+          expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+        });
+
+        test("treats reordered nested keys as the same delivered descriptor", async () => {
+          ingestQueue.deliveredFileNames.mockReset();
+          ingestQueue.deliveredFileNames.mockResolvedValue({
+            raw: new Set(["landed.fq"]),
+            additional: new Set(),
+          });
+          mockJobLookup({
+            _id: mockJobId,
+            payload: {
+              rawFiles: [
+                {
+                  name: "landed.fq",
+                  uploadName: "upload-1",
+                  data: {
+                    z: 1,
+                    metadata: { source: "lane-1", chunks: [1, 2] },
+                  },
+                },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            },
+          });
+          IngestJob.findOneAndUpdate.mockResolvedValue({
+            _id: mockJobId,
+            status: "pending",
+            attempts: 0,
+          });
+
+          const response = await request(app)
+            .post(`/runs/${mockRunId}/reingest`)
+            .send({
+              rawFiles: [
+                {
+                  data: {
+                    metadata: { chunks: [1, 2], source: "lane-1" },
+                    z: 1,
+                  },
+                  uploadName: "upload-1",
+                  name: "landed.fq",
+                },
+              ],
+              rawFilesUploadInfo: { method: "local-filesystem" },
+            });
+
+          expect(response.status).toBe(200);
         });
 
         test("a delivered raw file does not block an undelivered additional file of the same name", async () => {
@@ -2527,12 +2893,11 @@ describe("Runs API Routes", () => {
         expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       });
 
-      test("lets a delivered file be un-paired, not just re-pointed", async () => {
-        // The mirror of the rename case. Excluding `sibling` from the
-        // fingerprint let a delivered file's pointer CHANGE, but the merge
-        // only took the submitted value when the key was present — so
-        // dropping the mate kept the original's now-dangling pointer and
-        // 400'd on the merged list. Same dead end, opposite direction.
+      test("refuses to unpair a delivered read while the Run's LibraryType is paired", async () => {
+        // Relationship reconciliation can mechanically clear a pointer, but
+        // reingest must not use that ability to leave a paired Run complete
+        // with unpaired Reads. Changing LibraryType is a separate authorised
+        // metadata workflow.
         ingestQueue.deliveredFileNames.mockReset();
         ingestQueue.deliveredFileNames.mockResolvedValue({
           raw: new Set(["landed_R1.fq"]),
@@ -2542,8 +2907,16 @@ describe("Runs API Routes", () => {
           _id: mockJobId,
           payload: {
             rawFiles: [
-              { name: "landed_R1.fq", sibling: "gone_R2.fq" },
-              { name: "gone_R2.fq", sibling: "landed_R1.fq" },
+              {
+                name: "landed_R1.fq",
+                sibling: "gone_R2.fq",
+                paired: true,
+              },
+              {
+                name: "gone_R2.fq",
+                sibling: "landed_R1.fq",
+                paired: true,
+              },
             ],
             rawFilesUploadInfo: {
               method: "hpc-mv",
@@ -2556,22 +2929,181 @@ describe("Runs API Routes", () => {
           status: "pending",
           attempts: 0,
         });
+        mockRunLookup({
+          _id: mockRunId,
+          name: "Broken paired Run",
+          group: mockGroupId,
+          owner: "testuser",
+          status: "error",
+          libraryType: "paired",
+        });
+        mockLibraryTypeLookup({
+          value: "paired",
+          paired: true,
+          indexed: false,
+        });
 
         const response = await request(app)
           .post(`/runs/${mockRunId}/reingest`)
           .send({
-            rawFiles: [{ name: "landed_R1.fq" }],
+            // Exact Web unpair shape: paired:false and no sibling.
+            rawFiles: [{ name: "landed_R1.fq", paired: false }],
             rawFilesUploadInfo: {
               method: "hpc-mv",
               relativePath: "/WGS_Test",
             },
+            replaceRawFiles: true,
+          });
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/paired library requires/i);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      });
+
+      test("a partial correction retains every omitted undelivered raw file", async () => {
+        const originalRawFiles = [
+          {
+            name: "partial_R1.fq",
+            uploadName: "good-r1",
+            paired: true,
+            sibling: "partial_R2.fq",
+            indexed: false,
+          },
+          {
+            name: "partial_R2.fq",
+            uploadName: "bad-r2",
+            paired: true,
+            sibling: "partial_R1.fq",
+            indexed: false,
+          },
+          {
+            name: "partial_I1.fq",
+            uploadName: "bad-i1",
+            paired: false,
+            indexed: true,
+          },
+        ];
+        ingestQueue.deliveredFileNames.mockReset();
+        ingestQueue.deliveredFileNames.mockResolvedValue({
+          raw: new Set(["partial_R1.fq"]),
+          additional: new Set(),
+        });
+        mockJobLookup({
+          _id: mockJobId,
+          payload: {
+            rawFiles: originalRawFiles,
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        });
+        mockRunLookup({
+          _id: mockRunId,
+          name: "Broken paired-indexed Run",
+          group: mockGroupId,
+          owner: "testuser",
+          status: "error",
+          libraryType: "paired-indexed",
+        });
+        mockLibraryTypeLookup({
+          value: "paired-indexed",
+          paired: true,
+          indexed: true,
+        });
+        IngestJob.findOneAndUpdate.mockResolvedValue({
+          _id: mockJobId,
+          status: "pending",
+          attempts: 0,
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [
+              {
+                ...originalRawFiles[1],
+                uploadName: "corrected-r2",
+              },
+            ],
+            rawFilesUploadInfo: { method: "local-filesystem" },
           });
 
         expect(response.status).toBe(200);
         const [, update] = IngestJob.findOneAndUpdate.mock.calls[0];
-        expect(update.$set.payload.rawFiles).toEqual([
-          { name: "landed_R1.fq" },
-        ]);
+        expect(update.$set.payload.rawFiles).toEqual(
+          expect.arrayContaining([
+            originalRawFiles[0],
+            expect.objectContaining({
+              name: "partial_R2.fq",
+              uploadName: "corrected-r2",
+            }),
+            originalRawFiles[2],
+          ])
+        );
+        expect(update.$set.payload.rawFiles).toHaveLength(3);
+      });
+
+      test("an explicit full replacement still cannot violate the Run's indexed type", async () => {
+        const originalRawFiles = [
+          {
+            name: "full_R1.fq",
+            uploadName: "good-r1",
+            paired: true,
+            sibling: "full_R2.fq",
+          },
+          {
+            name: "full_R2.fq",
+            uploadName: "bad-r2",
+            paired: true,
+            sibling: "full_R1.fq",
+          },
+          {
+            name: "full_I1.fq",
+            uploadName: "bad-i1",
+            paired: false,
+            indexed: true,
+          },
+        ];
+        ingestQueue.deliveredFileNames.mockReset();
+        ingestQueue.deliveredFileNames.mockResolvedValue({
+          raw: new Set(["full_R1.fq"]),
+          additional: new Set(),
+        });
+        mockJobLookup({
+          _id: mockJobId,
+          payload: {
+            rawFiles: originalRawFiles,
+            rawFilesUploadInfo: { method: "local-filesystem" },
+          },
+        });
+        mockRunLookup({
+          _id: mockRunId,
+          name: "Broken paired-indexed Run",
+          group: mockGroupId,
+          owner: "testuser",
+          status: "error",
+          libraryType: "paired-indexed",
+        });
+        mockLibraryTypeLookup({
+          value: "paired-indexed",
+          paired: true,
+          indexed: true,
+        });
+
+        const response = await request(app)
+          .post(`/runs/${mockRunId}/reingest`)
+          .send({
+            rawFiles: [
+              {
+                ...originalRawFiles[1],
+                uploadName: "corrected-r2",
+              },
+            ],
+            rawFilesUploadInfo: { method: "local-filesystem" },
+            replaceRawFiles: true,
+          });
+
+        expect(response.status).toBe(400);
+        expect(response.body.detail).toMatch(/requires at least one indexed/i);
+        expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
       });
 
       test("a correction to only additionalFiles leaves rawFiles untouched, not dropped", async () => {
@@ -2698,12 +3230,12 @@ describe("Runs API Routes", () => {
       expect(response.body.runs[0]).toHaveProperty("runName", "Run 1");
       expect(response.body.runs[0]).toHaveProperty(
         "md5VerificationStatus",
-        "complete",
+        "complete"
       );
       expect(response.body.runs[1]).toHaveProperty("runName", "Run 2");
       expect(response.body.runs[1]).toHaveProperty(
         "md5VerificationStatus",
-        "pending",
+        "pending"
       );
       expect(response.body.missing).toEqual([]);
       expect(response.body.invalid).toEqual([]);

@@ -4,6 +4,7 @@ const _path = require("path");
 
 const Run = require("../models/Run");
 const Sample = require("../models/Sample");
+const LibraryType = require("../models/options/LibraryType");
 const { isAuthenticated } = require("./middleware");
 const {
   canReadGroup,
@@ -23,9 +24,15 @@ const {
 // The same canonicalisation lib/file-utils.js applies before a name becomes a
 // path on disk, so validation and storage agree on what "the same file" means.
 const { safeBasename } = require("../lib/utils/safePath");
+const {
+  validateIngestFilesPayload,
+  validatePartialFilesPayload,
+  validateRawFilesForLibraryType,
+} = require("../lib/ingest-payload-validation");
 
 // Stricter than ObjectId.isValid(), which accepts any 12-character string.
 const OBJECT_ID_PATTERN = /^[0-9a-fA-F]{24}$/;
+const fileEntryName = (file) => file && file.name;
 
 /**
  * Narrows a client-supplied value to an object id string.
@@ -153,7 +160,7 @@ const requeueFailedIngest = async ({ runId, requestId, payload }) => {
   return IngestJob.findOneAndUpdate(
     { idempotencyKey: idempotencyKeyFor(runId), status: "failed" },
     { $set: set },
-    { new: true },
+    { new: true }
   );
 };
 
@@ -205,9 +212,9 @@ router
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to view this sample.`,
+            `User '${req.user.username}' does not have permission to view this sample.`
           ),
-          403,
+          403
         );
       }
 
@@ -225,7 +232,7 @@ router
         res,
         error,
         500,
-        `Failed to retrieve run names for sample ${sampleId}.`,
+        `Failed to retrieve run names for sample ${sampleId}.`
       );
     }
   });
@@ -259,15 +266,15 @@ router
       // lib/utils/groupAccess).
       const canAccess = await canReadGroup(
         req.user,
-        run.group && run.group._id,
+        run.group && run.group._id
       );
       if (!canAccess) {
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to view this run.`,
+            `User '${req.user.username}' does not have permission to view this run.`
           ),
-          403,
+          403
         );
       }
 
@@ -296,415 +303,6 @@ router
       handleError(res, error, 500, `Failed to retrieve run ${id}.`);
     }
   });
-
-/**
- * A rawFiles/additionalFiles entry's declared name, however the client spelled
- * it — lib/file-utils.js createFileDocument reads `.name` for every method,
- * with `.data.name` as the shape an older upload widget used.
- * @param {*} file - A candidate file entry.
- * @returns {*} The name, or a falsy value if there is none.
- */
-const fileEntryName = (file) => file && file.name;
-
-/**
- * The reason lib/file-utils.js createFileDocument would reject one rawFiles or
- * additionalFiles entry, or null if the entry is well-formed. Checked before
- * the entry ever reaches a durable job — a shape createFileDocument refuses
- * used to surface only when a worker processed the job, deep inside file
- * processing rather than at the door.
- * @param {*} file - The candidate entry.
- * @param {string} [method] - 'hpc-mv' or 'local-filesystem' for this entry.
- * @param {boolean} [relativePathCovered] - True when a relativePath elsewhere
- *   in the request (rawFilesUploadInfo) already applies to this entry —
- *   createFileDocument falls back to it for rawFiles. Always false for
- *   additionalFiles, which only ever carry their own relativePath.
- * @returns {string|null} A message fragment, e.g. "is missing a name".
- */
-const fileEntryShapeError = (file, method, relativePathCovered) => {
-  if (!file || typeof file !== "object" || Array.isArray(file)) {
-    return "must be an object";
-  }
-
-  const name = fileEntryName(file);
-  if (!name || typeof name !== "string") {
-    // createFileDocument reads file.name and nothing else. A nested
-    // `data.name` used to satisfy this check and then fail inside the worker,
-    // so it is refused here with a message naming the field to send.
-    if (file.data && typeof file.data === "object" && file.data.name) {
-      return "carries its name under data.name; send it as name";
-    }
-    return "is missing a name";
-  }
-
-  // The name must already BE its own basename.
-  //
-  // Comparing names canonically is not enough, because only some of the code
-  // does it. lib/file-utils.js createFileDocument stores safeBasename(name),
-  // but lib/ingest-queue.js siblingLinks and planRawFileStage match on the
-  // RAW payload string. So " A.fq" is one file to the datastore and another
-  // to the pairing and retry steps: a review caught a payload where
-  // {name:"A.fq", sibling:" B.fq"} and {name:"B.fq", sibling:"A.fq"} passed a
-  // canonicalised mutuality check and then delivered half-paired, and a
-  // delivered file under a non-canonical name is re-attempted by every retry
-  // forever. Requiring the canonical form at the door makes raw and canonical
-  // the same string everywhere downstream, which is the only version of this
-  // that does not depend on remembering to canonicalise at each site.
-  const canonicalName = safeBasename(file.name);
-  if (canonicalName !== file.name) {
-    return canonicalName === null
-      ? "has a name that is not a usable filename"
-      : `has a name that is not a bare filename (send "${canonicalName}")`;
-  }
-
-  if (typeof file.sibling === "string") {
-    const canonicalSibling = safeBasename(file.sibling);
-    if (canonicalSibling !== file.sibling) {
-      return canonicalSibling === null
-        ? "names a sibling that is not a usable filename"
-        : `names a sibling that is not a bare filename (send "${canonicalSibling}")`;
-    }
-  }
-
-  // createFileDocument builds the staged path from uploadName for a
-  // local-filesystem claim, so an entry without one cannot be processed.
-  if (
-    method === "local-filesystem" &&
-    (!file.uploadName || typeof file.uploadName !== "string")
-  ) {
-    return "is missing uploadName";
-  }
-
-  // Compared case-insensitively against the stored checksum, so a non-string
-  // throws inside verification rather than failing here.
-  //
-  // `null` is accepted, not just `undefined`. komondor-web sends
-  // `md5: this.fileMd5Inputs[file.name]?.trim() || null` for EVERY file, so
-  // an upload where the user typed no checksum arrives with an explicit null —
-  // and rejecting it here 400'd every ordinary web upload, paired or not.
-  // Downstream is already null-safe: lib/file-utils.js reads `file.md5?.
-  // toLowerCase()` and treats a falsy value as "no checksum declared".
-  if (
-    file.md5 !== undefined &&
-    file.md5 !== null &&
-    typeof file.md5 !== "string"
-  ) {
-    return "has a non-string md5";
-  }
-
-  if (
-    method === "hpc-mv" &&
-    !relativePathCovered &&
-    (!file.relativePath || typeof file.relativePath !== "string")
-  ) {
-    return "is missing relativePath";
-  }
-
-  // siblingLinks (lib/ingest-queue.js, run via finaliseReadStage) matches
-  // sibling by exact string equality, so a non-string value can never resolve
-  // and fails the whole ingest at the pairing step.
-  if (file.sibling !== undefined && typeof file.sibling !== "string") {
-    return "has a non-string sibling";
-  }
-
-  if (file.paired !== undefined && typeof file.paired !== "boolean") {
-    return "has a non-boolean paired flag";
-  }
-
-  // A paired entry has to say WHICH file it is paired with, by one of the two
-  // mechanisms siblingLinks understands.
-  //
-  // This used to demand `rowID` for every non-hpc-mv paired entry. An audit
-  // established that nothing has ever sent one: komondor-web emits `sibling`
-  // + `paired` for both sources (components/uploads/FileProcessor.vue),
-  // komondor-power emits `sibling`, and the only rowID in either codebase is
-  // commented-out web code and this API's own tests. So the rule rejected the
-  // real client's ordinary paired upload with 400 — and before that, the
-  // matching gap in siblingLinks meant those uploads landed silently
-  // unpaired. The contract was invented in a test and then enforced against a
-  // client that never spoke it.
-  //
-  // Either mechanism is now accepted; the mutual-sibling and exactly-two-per-
-  // rowID rules in validateFileList are what make each of them coherent.
-  if (file.paired === true) {
-    const hasSibling = typeof file.sibling === "string" && file.sibling !== "";
-    const hasRowId =
-      typeof file.rowID === "string" || typeof file.rowID === "number";
-
-    if (!hasSibling && !hasRowId) {
-      return "is marked paired but names no sibling and has no rowID";
-    }
-    if (
-      !hasSibling &&
-      file.rowID !== undefined &&
-      file.rowID !== null &&
-      !hasRowId
-    ) {
-      return "has a rowID that is not a string or number";
-    }
-  }
-
-  return null;
-};
-
-/**
- * Validates a rawFiles or additionalFiles list: must actually be an array,
- * not merely truthy with a `.length` (an object like `{ length: 3 }` used to
- * pass here and reach the ingest job unexamined), and every entry must be
- * shaped the way createFileDocument requires.
- * @param {*} files - The candidate list.
- * @param {string} label - "Raw file" or "Additional file", for messages.
- * @param {(file: object) => string} methodFor - The upload method that will
- *   apply to one entry.
- * @param {(file: object) => boolean} relativePathCoveredFor - Whether the
- *   entry's relativePath requirement is already satisfied elsewhere.
- * @returns {string[]} Error messages; empty when the list is well-formed.
- */
-const validateFileList = (
-  files,
-  label,
-  methodFor,
-  relativePathCoveredFor,
-  { crossEntry = true } = {},
-) => {
-  if (!Array.isArray(files)) {
-    return [
-      `${label === "Raw file" ? "rawFiles" : "additionalFiles"} must be an array`,
-    ];
-  }
-
-  const errors = [];
-  files.forEach((file, index) => {
-    const error = fileEntryShapeError(
-      file,
-      methodFor(file),
-      relativePathCoveredFor(file),
-    );
-    if (error) {
-      errors.push(`${label} at index ${index} ${error}`);
-    }
-  });
-
-  // Canonical as well as literal: fileEntryShapeError already refuses a
-  // non-canonical name, so these agree — comparing the canonical form keeps
-  // that true even for an entry that failed the shape check above.
-  const canonicalNames = files
-    .map(fileEntryName)
-    .filter((n) => typeof n === "string")
-    .map((n) => safeBasename(n) || n);
-
-  // Names are the identity the retry planner and the pairing step both match
-  // on, so two entries sharing one make delivery state ambiguous.
-  //
-  // Checked on a partial payload too, unlike the whole-list rules below: a
-  // duplicate is a defect in the submission itself, not a statement about
-  // entries the caller did not send. Skipping it here was worse than merely
-  // permissive — mergeReplacementList indexes by name into a Map, so two
-  // entries sharing one collapsed LAST-WINS and the merged list looked clean
-  // to the re-validation afterwards. A review reproduced a client
-  // double-adding a correction and getting 200, with the second copy quietly
-  // winning.
-  const duplicates = [
-    ...new Set(
-      canonicalNames.filter((n, i) => canonicalNames.indexOf(n) !== i),
-    ),
-  ];
-  duplicates.forEach((name) => {
-    errors.push(`${label} name "${name}" appears more than once`);
-  });
-
-  // Everything below is a statement about the list AS A WHOLE — that its
-  // pairs are complete and its siblings resolvable. Neither holds on a
-  // partial reingest correction, which by design carries only the entries
-  // being corrected and is merged with the delivered rest before either
-  // becomes true. Reproduced by execution: correcting one mate of a pair
-  // returned 400 `rowID "row-1" has 1 paired entry`, so the advertised
-  // one-file correction had no legal payload at all. The MERGED list is
-  // checked with crossEntry on, which is where these belong.
-  if (!crossEntry) {
-    return errors;
-  }
-
-  // hpc-mv pairing is declared by naming a sibling. siblingLinks emits one
-  // directed [name, sibling] link per declaration and asks nothing else of
-  // it, so an unreciprocated, self- or cycle-shaped declaration is accepted
-  // and delivered half-paired. Reproduced against real Mongo: a run finished
-  // "complete" with A linked to B while B stayed unpaired. A pair is exactly
-  // two files that each name the other.
-  const byCanonical = new Map();
-  files.forEach((file) => {
-    const name = fileEntryName(file);
-    if (typeof name === "string") {
-      byCanonical.set(safeBasename(name) || name, file);
-    }
-  });
-  const present = new Set(byCanonical.keys());
-
-  files.forEach((file, index) => {
-    if (!file || typeof file.sibling !== "string") {
-      return;
-    }
-    const own = safeBasename(fileEntryName(file) || "") || fileEntryName(file);
-    const sibling = safeBasename(file.sibling) || file.sibling;
-
-    if (sibling === own) {
-      errors.push(`${label} at index ${index} names itself as its own sibling`);
-      return;
-    }
-    if (!present.has(sibling)) {
-      errors.push(
-        `${label} at index ${index} names sibling "${file.sibling}", which is not in the list`,
-      );
-      return;
-    }
-
-    const mate = byCanonical.get(sibling);
-    const mateSibling =
-      mate && typeof mate.sibling === "string"
-        ? safeBasename(mate.sibling) || mate.sibling
-        : null;
-    if (mateSibling !== own) {
-      errors.push(
-        `${label} at index ${index} names sibling "${file.sibling}", but "${file.sibling}" does not name it back; pairing must be mutual`,
-      );
-    }
-  });
-
-  // rowID pairing is a raw-reads concept (lib/ingest-queue.js's siblingLinks
-  // only ever runs it over rawFiles); additionalFiles never reach this. A
-  // group of anything other than exactly 2 is what siblingLinks itself
-  // refuses ("Expected 2 paired reads for rowID X, found N") and silently
-  // leaves unpaired — caught here, at the door, instead of landing files the
-  // worker will only ever deliver unpaired.
-  if (label === "Raw file") {
-    const byRow = new Map();
-    files.forEach((file, index) => {
-      if (
-        file &&
-        file.paired === true &&
-        (typeof file.rowID === "string" || typeof file.rowID === "number")
-      ) {
-        const row = String(file.rowID);
-        byRow.set(row, (byRow.get(row) || []).concat(index));
-      }
-    });
-    byRow.forEach((indexes, row) => {
-      if (indexes.length !== 2) {
-        errors.push(
-          `Raw file rowID "${row}" has ${indexes.length} paired entr${
-            indexes.length === 1 ? "y" : "ies"
-          } (at index ${indexes.join(", ")}); pairing needs exactly 2`,
-        );
-      }
-    });
-  }
-
-  return errors;
-};
-
-/**
- * Validates rawFiles/additionalFiles entries actually present on a request
- * body, without requiring the body to be a COMPLETE submission — unlike
- * validateIngestFilesPayload below, a missing rawFiles here is not an error.
- *
- * For POST /runs/:id/reingest, whose replacement payload may correct only
- * ONE of rawFiles/additionalFiles (see mergeReplacementList): the caller's
- * raw submission is checked here, before anything is merged with the
- * original, purely so a malformed entry is refused before any lookup runs.
- * The MERGED result — which always ends up complete, carrying the original's
- * untouched list forward when the caller didn't submit one — is what
- * validateIngestFilesPayload checks afterward.
- * @param {object} body - An object that may carry rawFiles and/or additionalFiles.
- * @returns {string[]} Error messages; empty when whatever is present is well-formed.
- */
-const validatePartialFilesPayload = (body) => {
-  const errors = [];
-
-  if (body.rawFiles !== undefined) {
-    const rawMethod = body.rawFilesUploadInfo?.method;
-    const relativePathCovered = Boolean(body.rawFilesUploadInfo?.relativePath);
-    errors.push(
-      ...validateFileList(
-        body.rawFiles,
-        "Raw file",
-        () => rawMethod,
-        () => relativePathCovered,
-        { crossEntry: false },
-      ),
-    );
-  }
-
-  if (body.additionalFiles !== undefined) {
-    errors.push(
-      ...validateFileList(
-        body.additionalFiles,
-        "Additional file",
-        (file) => (file && file.uploadMethod) || "local-filesystem",
-        () => false,
-        { crossEntry: false },
-      ),
-    );
-  }
-
-  return errors;
-};
-
-/**
- * Validates the rawFiles/additionalFiles/rawFilesUploadInfo portion of a
- * COMPLETE submission: rawFiles is required and rawFilesUploadInfo.method
- * must be present. Used for POST /runs/new's own body, and for the merged
- * result POST /runs/:id/reingest builds before storing it — a partial
- * REQUEST body (see validatePartialFilesPayload above) is a different,
- * looser check.
- * @param {object} body - An object with rawFiles, additionalFiles, rawFilesUploadInfo.
- * @returns {string[]} Error messages; empty when the payload is well-formed.
- */
-const validateIngestFilesPayload = (body) => {
-  const errors = [];
-
-  if (!body.rawFilesUploadInfo || !body.rawFilesUploadInfo.method) {
-    errors.push("Upload method is required (rawFilesUploadInfo.method)");
-  } else if (
-    !["hpc-mv", "local-filesystem"].includes(body.rawFilesUploadInfo.method)
-  ) {
-    errors.push(
-      "Invalid upload method. Must be 'hpc-mv' or 'local-filesystem'",
-    );
-  }
-
-  if (!Array.isArray(body.rawFiles) || body.rawFiles.length === 0) {
-    errors.push("At least one raw file is required");
-  } else {
-    const rawMethod = body.rawFilesUploadInfo?.method;
-    // Every rawFiles entry, not just index 0: a relativePath here covers all
-    // of them, so this is checked once rather than per entry.
-    const relativePathCovered = Boolean(body.rawFilesUploadInfo?.relativePath);
-    errors.push(
-      ...validateFileList(
-        body.rawFiles,
-        "Raw file",
-        () => rawMethod,
-        () => relativePathCovered,
-      ),
-    );
-  }
-
-  // Optional: absent or empty is fine (processAdditionalFiles no-ops), but
-  // anything present must be shaped correctly, same as rawFiles.
-  if (body.additionalFiles !== undefined) {
-    errors.push(
-      ...validateFileList(
-        body.additionalFiles,
-        "Additional file",
-        // Per-entry: unlike rawFiles, each additional file carries its own
-        // uploadMethod (see lib/file-utils.js processAdditionalFiles).
-        (file) => (file && file.uploadMethod) || "local-filesystem",
-        () => false,
-      ),
-    );
-  }
-
-  return errors;
-};
 
 /**
  * Validates the request body for creating a new run.
@@ -789,7 +387,7 @@ router
           new Error(validation.errors.join("; ")),
           400,
           `Validation failed: ${validation.errors.join("; ")}`,
-          requestId,
+          requestId
         );
       }
 
@@ -820,7 +418,7 @@ router
           new Error("The submitted sample does not exist."),
           400,
           "The submitted sample does not exist.",
-          requestId,
+          requestId
         );
       }
 
@@ -832,11 +430,11 @@ router
         return handleError(
           res,
           new Error(
-            `User '${req.user.username}' does not have permission to create a run in this group.`,
+            `User '${req.user.username}' does not have permission to create a run in this group.`
           ),
           403,
           "Permission denied",
-          requestId,
+          requestId
         );
       }
 
@@ -848,7 +446,42 @@ router
           new Error("The submitted group does not own the submitted sample."),
           400,
           "The submitted group does not own the submitted sample.",
-          requestId,
+          requestId
+        );
+      }
+
+      // Library types are data, not a hard-coded enum: admins can add them and
+      // both clients consume the same option collection. Resolve the submitted
+      // value here and enforce its relationship semantics at the API boundary,
+      // so a UI regression cannot create a paired library whose reads silently
+      // land unpaired. Index reads are intentionally outside biological pairs.
+      const selectedLibraryType = await LibraryType.findOne({
+        value: libraryType,
+      }).select("paired indexed");
+      if (!selectedLibraryType) {
+        return handleError(
+          res,
+          new Error(`Unknown library type: ${libraryType}`),
+          400,
+          `Unknown library type: ${libraryType}`,
+          requestId
+        );
+      }
+
+      // Both clients treat paired/indexed as LibraryType properties. Keep the
+      // rule in one shared helper because reingest and the worker must reject
+      // the same metadata contradictions as fresh create.
+      const libraryTypeErrors = validateRawFilesForLibraryType(
+        rawFiles,
+        selectedLibraryType
+      );
+      if (libraryTypeErrors.length > 0) {
+        return handleError(
+          res,
+          new Error(libraryTypeErrors.join("; ")),
+          400,
+          libraryTypeErrors.join("; "),
+          requestId
         );
       }
 
@@ -861,16 +494,16 @@ router
           return handleError(
             res,
             new Error(
-              `User '${req.user.username}' does not have permission to modify this run.`,
+              `User '${req.user.username}' does not have permission to modify this run.`
             ),
             403,
             "Permission denied",
-            requestId,
+            requestId
           );
         }
 
         console.log(
-          `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`,
+          `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`
         );
 
         // Queued here too, keyed by run id so it returns any existing job: a
@@ -930,12 +563,12 @@ router
         // an E11000: the wanted run now exists, so answer as the findOne would.
         if (saveError && saveError.code === 11000) {
           const raced = await Run.findOne({ sample: sampleId, name }).populate(
-            "rawFiles additionalFiles",
+            "rawFiles additionalFiles"
           );
 
           if (raced) {
             console.log(
-              `[${requestId}] Lost the create race for run '${name}'; serving the winner ${raced._id}`,
+              `[${requestId}] Lost the create race for run '${name}'; serving the winner ${raced._id}`
             );
             return respondWithExistingRun(raced);
           }
@@ -979,7 +612,7 @@ router
           error,
           400,
           `Run validation failed: ${error.message}`,
-          requestId,
+          requestId
         );
       }
 
@@ -988,7 +621,7 @@ router
         error,
         500,
         `Failed to create new run: ${error.message}`,
-        requestId,
+        requestId
       );
     }
   });
@@ -1011,7 +644,7 @@ router
         new Error("A valid run ID is required."),
         400,
         "A valid run ID is required.",
-        requestId,
+        requestId
       );
     }
 
@@ -1026,7 +659,7 @@ router
           new Error("Run not found"),
           404,
           "Run not found",
-          requestId,
+          requestId
         );
       }
 
@@ -1038,7 +671,7 @@ router
           new Error("Access denied"),
           403,
           `User '${req.user.username}' does not have permission to view this run`,
-          requestId,
+          requestId
         );
       }
 
@@ -1056,7 +689,7 @@ router
       const totalFiles = reads.length;
       const verifiedFiles = reads.filter((r) => r.destinationMd5).length;
       const mismatchedFiles = reads.filter(
-        (r) => r.md5Mismatch === true,
+        (r) => r.md5Mismatch === true
       ).length;
 
       // Only the queue can say whether a run stuck at "pending" with no files
@@ -1090,7 +723,7 @@ router
         error,
         500,
         `Failed to get run status: ${error.message}`,
-        requestId,
+        requestId
       );
     }
   });
@@ -1103,31 +736,57 @@ router
  * same delivered file are expected to be structurally identical, not merely
  * equivalent under some looser notion of sameness.
  *
- * `sibling` is excluded: it points AT another entry rather than describing
- * this one's bytes, and it is the one field a legitimate correction to the
- * OTHER file forces to change here. Reproduced by execution — renaming an
- * undelivered mate after its sibling had landed had no legal payload at all:
- * omitting the delivered mate left it pointing at a name no longer in the
- * list (400), and updating that pointer counted as changing a delivered file
- * (409). The delivered file's bytes are untouched either way; only the link
- * moves, and siblingLinks re-derives every link from the merged list.
+ * Relationship metadata is excluded: it describes how reads relate, not the
+ * bytes already delivered under this name. A retry may legitimately repoint,
+ * pair, or unpair a delivered Read while leaving its immutable descriptor
+ * untouched. Nested descriptor objects are canonicalised recursively; using
+ * JSON.stringify's array replacer here used to drop every nested key that was
+ * not also a top-level key, allowing a nested content change through as equal.
  * @param {object} file - A rawFiles/additionalFiles entry.
  * @returns {string} A canonical string for equality comparison.
  */
-const PAIRING_POINTER_FIELDS = ["sibling"];
+const RELATIONSHIP_FIELDS = new Set(["sibling", "paired", "rowID"]);
+
+const stableJsonValue = (value) => {
+  if (Array.isArray(value)) {
+    return value.map(stableJsonValue);
+  }
+  if (value && typeof value === "object") {
+    return Object.keys(value)
+      .sort()
+      .reduce((result, key) => {
+        result[key] = stableJsonValue(value[key]);
+        return result;
+      }, {});
+  }
+  return value;
+};
+
+const withoutRelationshipMetadata = (file) =>
+  Object.keys(file || {}).reduce((result, key) => {
+    if (!RELATIONSHIP_FIELDS.has(key)) {
+      result[key] = file[key];
+    }
+    return result;
+  }, {});
+
+const relationshipMetadata = (file) =>
+  ["sibling", "paired", "rowID"].reduce((result, key) => {
+    if (file && file[key] !== undefined) {
+      result[key] = file[key];
+    }
+    return result;
+  }, {});
 
 const entryFingerprint = (file) =>
-  JSON.stringify(
-    file,
-    Object.keys(file || {})
-      .filter((key) => !PAIRING_POINTER_FIELDS.includes(key))
-      .sort(),
-  );
+  JSON.stringify(stableJsonValue(withoutRelationshipMetadata(file)));
 
 /**
- * Merges a replacement payload with the ORIGINAL payload's entries for
- * whatever has already been delivered, so a correction to one broken file
- * does not have to also resubmit the ones that already succeeded.
+ * Merges a partial replacement payload with the ORIGINAL payload. Omission
+ * means "unchanged" for delivered and undelivered entries alike, so fixing
+ * one failed file cannot silently delete another failed file the caller did
+ * not mention. Callers that intentionally supply a complete replacement list
+ * opt into dropping omitted UNDELIVERED entries explicitly.
  *
  * A delivered name absent from the replacement, or resubmitted identically,
  * is filled in from the original — a client naturally resends its whole known
@@ -1141,17 +800,23 @@ const entryFingerprint = (file) =>
  * @param {Array<object>} originalList - The failed job's stored entries.
  * @param {Array<object>|undefined} submittedList - What the caller sent.
  * @param {Set<string>} delivered - Original names already in the datastore.
+ * @param {object} [options]
+ * @param {boolean} [options.replaceUndelivered=false] - Treat submittedList as
+ *   complete for entries not yet delivered. Delivered entries are immutable
+ *   and are retained even when omitted.
  * @returns {{merged: Array<object>, rejectedChange: string|null}} The merged
  *   list, and the name of a rejected change if the caller tried to alter a
  *   delivered entry.
  */
-const mergeReplacementList = (originalList, submittedList, delivered) => {
+const mergeReplacementList = (
+  originalList,
+  submittedList,
+  delivered,
+  { replaceUndelivered = false } = {}
+) => {
   // The caller may correct only ONE of rawFiles/additionalFiles — the whole
   // point of a partial replacement. `undefined` here means "I am not
-  // replacing this list at all", not "replace it with nothing": the merge
-  // logic below drops any undelivered name absent from the submission, which
-  // is correct for a list the caller IS replacing, and wrong for one they
-  // never touched. Carry the original forward untouched in that case.
+  // replacing this list at all", not "replace it with nothing".
   if (submittedList === undefined) {
     return { merged: originalList || [], rejectedChange: null };
   }
@@ -1169,7 +834,7 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
     new Map(
       (list || [])
         .filter((file) => keyOf(file) !== null)
-        .map((file) => [keyOf(file), file]),
+        .map((file) => [keyOf(file), file])
     );
 
   const original = indexByKey(originalList);
@@ -1192,24 +857,15 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
         };
       }
       if (originalEntry !== undefined) {
-        // Keep the delivered entry's own description of its bytes, but take
-        // the resubmitted pairing pointer: excluded from the fingerprint
-        // above precisely so a rename of its undelivered mate can be
-        // expressed, and dropping it here would make that exclusion useless.
-        //
-        // Taken from the submission whether or not `sibling` is present on
-        // it: an entry resubmitted WITHOUT one means "this file is no longer
-        // paired". Keying on `"sibling" in submittedEntry` instead left
-        // un-pairing with no legal payload — dropping the mate kept the
-        // original's now-dangling pointer and 400'd on the merged list, the
-        // same dead end the rename case had.
+        // Keep the delivered entry's immutable description, but replace its
+        // relationship state as one unit. In particular, the Web's real
+        // unpair shape is `{ paired: false }` with no sibling: retaining the
+        // original `paired:true` made that correction either 409 or 400.
         if (submittedEntry !== undefined) {
-          const { sibling, ...bytes } = originalEntry;
-          merged.push(
-            submittedEntry.sibling === undefined
-              ? bytes
-              : { ...bytes, sibling: submittedEntry.sibling },
-          );
+          merged.push({
+            ...withoutRelationshipMetadata(originalEntry),
+            ...relationshipMetadata(submittedEntry),
+          });
         } else {
           merged.push(originalEntry);
         }
@@ -1217,9 +873,16 @@ const mergeReplacementList = (originalList, submittedList, delivered) => {
     } else if (submitted.has(name)) {
       // Not yet delivered: whatever the caller submitted is the correction.
       merged.push(submitted.get(name));
+    } else if (!replaceUndelivered && original.has(name)) {
+      // Partial replacement is PATCH-like. An omitted, undelivered entry may
+      // simply be another failure the caller is not fixing in this request;
+      // retain it unless the caller explicitly said this is the complete
+      // desired list.
+      merged.push(original.get(name));
     }
-    // Not delivered and not in the new submission: the caller's replacement
-    // legitimately no longer wants this file — dropped, not carried forward.
+    // Explicit full replacement: an omitted, undelivered original is dropped.
+    // A delivered original took the immutable branch above and cannot be
+    // removed through this endpoint.
   }
 
   return { merged, rejectedChange: null };
@@ -1244,12 +907,14 @@ router
         new Error("A valid run ID is required."),
         400,
         "A valid run ID is required.",
-        requestId,
+        requestId
       );
     }
 
     try {
-      const run = await Run.findById(runId).select("name group owner status");
+      const run = await Run.findById(runId).select(
+        "name group owner status libraryType"
+      );
 
       if (!run) {
         return handleError(
@@ -1257,7 +922,7 @@ router
           new Error("Run not found"),
           404,
           "Run not found",
-          requestId,
+          requestId
         );
       }
 
@@ -1269,7 +934,7 @@ router
           new Error("Access denied"),
           403,
           `User '${req.user.username}' does not have permission to modify this run`,
-          requestId,
+          requestId
         );
       }
 
@@ -1281,10 +946,47 @@ router
         req.body &&
         (req.body.rawFiles !== undefined ||
           req.body.additionalFiles !== undefined ||
-          req.body.rawFilesUploadInfo !== undefined);
+          req.body.rawFilesUploadInfo !== undefined ||
+          req.body.replaceRawFiles !== undefined ||
+          req.body.replaceAdditionalFiles !== undefined);
 
       let replacementPayload;
       if (hasReplacementPayload) {
+        const replacementModeErrors = [];
+        ["replaceRawFiles", "replaceAdditionalFiles"].forEach((field) => {
+          if (
+            req.body[field] !== undefined &&
+            typeof req.body[field] !== "boolean"
+          ) {
+            replacementModeErrors.push(`${field} must be a boolean`);
+          }
+        });
+        if (
+          req.body.replaceRawFiles === true &&
+          !Array.isArray(req.body.rawFiles)
+        ) {
+          replacementModeErrors.push(
+            "replaceRawFiles requires a complete rawFiles array"
+          );
+        }
+        if (
+          req.body.replaceAdditionalFiles === true &&
+          !Array.isArray(req.body.additionalFiles)
+        ) {
+          replacementModeErrors.push(
+            "replaceAdditionalFiles requires a complete additionalFiles array"
+          );
+        }
+        if (replacementModeErrors.length > 0) {
+          return handleError(
+            res,
+            new Error(replacementModeErrors.join("; ")),
+            400,
+            `Replacement payload invalid: ${replacementModeErrors.join("; ")}`,
+            requestId
+          );
+        }
+
         const payloadErrors = validatePartialFilesPayload(req.body);
         if (payloadErrors.length > 0) {
           return handleError(
@@ -1292,7 +994,7 @@ router
             new Error(payloadErrors.join("; ")),
             400,
             `Replacement payload invalid: ${payloadErrors.join("; ")}`,
-            requestId,
+            requestId
           );
         }
 
@@ -1322,7 +1024,7 @@ router
           !(delivered.additional instanceof Set)
         ) {
           throw new Error(
-            "deliveredFileNames did not return { raw: Set, additional: Set }",
+            "deliveredFileNames did not return { raw: Set, additional: Set }"
           );
         }
 
@@ -1336,6 +1038,7 @@ router
           originalPayload.rawFiles,
           req.body.rawFiles,
           delivered.raw,
+          { replaceUndelivered: req.body.replaceRawFiles === true }
         );
         if (rawFilesMerge.rejectedChange) {
           return handleError(
@@ -1346,7 +1049,7 @@ router
               "been delivered to the datastore. Resubmit it unchanged (or " +
               "omit it) to keep the rest of the correction, or resolve it " +
               "directly first.",
-            requestId,
+            requestId
           );
         }
 
@@ -1354,19 +1057,20 @@ router
           originalPayload.additionalFiles,
           req.body.additionalFiles,
           delivered.additional,
+          { replaceUndelivered: req.body.replaceAdditionalFiles === true }
         );
         if (additionalFilesMerge.rejectedChange) {
           return handleError(
             res,
             new Error(
-              `Already delivered: ${additionalFilesMerge.rejectedChange}`,
+              `Already delivered: ${additionalFilesMerge.rejectedChange}`
             ),
             409,
             `Cannot change "${additionalFilesMerge.rejectedChange}": it has ` +
               "already been delivered to the datastore. Resubmit it " +
               "unchanged (or omit it) to keep the rest of the correction, " +
               "or resolve it directly first.",
-            requestId,
+            requestId
           );
         }
 
@@ -1386,7 +1090,36 @@ router
             new Error(mergedErrors.join("; ")),
             400,
             `Merged replacement payload invalid: ${mergedErrors.join("; ")}`,
-            requestId,
+            requestId
+          );
+        }
+
+        const selectedLibraryType = await LibraryType.findOne({
+          value: run.libraryType,
+        }).select("paired indexed");
+        if (!selectedLibraryType) {
+          return handleError(
+            res,
+            new Error(`Unknown library type: ${run.libraryType}`),
+            400,
+            `Cannot reingest a run with unknown library type: ${run.libraryType}`,
+            requestId
+          );
+        }
+
+        const libraryTypeErrors = validateRawFilesForLibraryType(
+          rawFilesMerge.merged,
+          selectedLibraryType
+        );
+        if (libraryTypeErrors.length > 0) {
+          return handleError(
+            res,
+            new Error(libraryTypeErrors.join("; ")),
+            400,
+            `Merged replacement contradicts library type "${
+              run.libraryType
+            }": ${libraryTypeErrors.join("; ")}`,
+            requestId
           );
         }
 
@@ -1419,7 +1152,7 @@ router
             new Error("No ingest job"),
             404,
             "This run has no ingest job to retry",
-            requestId,
+            requestId
           );
         }
 
@@ -1428,7 +1161,7 @@ router
           new Error("Ingest has not failed"),
           409,
           `The ingest for this run is '${existing.status}', not 'failed'; only a failed ingest can be retried`,
-          requestId,
+          requestId
         );
       }
 
@@ -1437,24 +1170,24 @@ router
       try {
         await Run.updateOne(
           { _id: run._id },
-          { $set: { status: "pending", statusError: null } },
+          { $set: { status: "pending", statusError: null } }
         );
       } catch (statusError) {
         console.error(
           `[${requestId}] Requeued the ingest for run ${run._id} but could not clear its error status:`,
-          statusError,
+          statusError
         );
       }
 
       console.log(
-        `[${requestId}] Requeued ingest job ${job._id} for run ${run._id} at the request of '${req.user.username}'`,
+        `[${requestId}] Requeued ingest job ${job._id} for run ${run._id} at the request of '${req.user.username}'`
       );
 
       // Audit trail for the overwrite: the original payload is gone once this
       // line runs, and this is the only record that it was replaced at all.
       if (replacementPayload) {
         console.log(
-          `[${requestId}] Reingest for run ${run._id}: the stored ingest payload was replaced at the request of '${req.user.username}'`,
+          `[${requestId}] Reingest for run ${run._id}: the stored ingest payload was replaced at the request of '${req.user.username}'`
         );
       }
 
@@ -1470,7 +1203,7 @@ router
         error,
         500,
         `Failed to requeue the ingest: ${error.message}`,
-        requestId,
+        requestId
       );
     }
   });
@@ -1496,7 +1229,7 @@ router
           new Error("Invalid request"),
           400,
           "runIds must be an array",
-          requestId,
+          requestId
         );
       }
 
@@ -1506,7 +1239,7 @@ router
           new Error("Too many runs requested"),
           400,
           "Maximum 100 runs per request",
-          requestId,
+          requestId
         );
       }
 
@@ -1530,7 +1263,7 @@ router
 
       const runs = requested.length
         ? await Run.find({ _id: { $in: requested } }).select(
-            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
+            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt"
           )
         : [];
 
@@ -1538,16 +1271,16 @@ router
       const readableGroups = new Set(
         (await groupsICanRead(req.user))
           .map((group) => group && group._id && String(group._id))
-          .filter(Boolean),
+          .filter(Boolean)
       );
 
       // Group membership decides visibility, exactly as on GET /run.
       const visibleRuns = (runs || []).filter((run) =>
-        readableGroups.has(String(run.group)),
+        readableGroups.has(String(run.group))
       );
 
       const ingestJobs = await findIngestJobs(
-        visibleRuns.map((run) => run._id),
+        visibleRuns.map((run) => run._id)
       );
 
       const accessibleRuns = visibleRuns.map((run) => ({
@@ -1566,7 +1299,7 @@ router
       // Lower-cased on both sides: an id sent in upper case would otherwise be
       // reported missing in the same response that answers for it.
       const returned = new Set(
-        accessibleRuns.map((run) => String(run.runId).toLowerCase()),
+        accessibleRuns.map((run) => String(run.runId).toLowerCase())
       );
 
       // Does not distinguish "no such run" from "not yours": that would make
@@ -1586,7 +1319,7 @@ router
         error,
         500,
         `Failed to get batch status: ${error.message}`,
-        requestId,
+        requestId
       );
     }
   });
