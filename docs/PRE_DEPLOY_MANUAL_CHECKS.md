@@ -173,19 +173,22 @@ deploy window is safe only while submissions are quiesced.
 
 Order:
 
-1. **Before deploying any app**, stop new uploads and all Run submissions from Web, Power and
-   scripts. Let active uploads finish, then inventory the upload directory. Uploads staged by the
-   old unauthenticated endpoint have no owner and cannot be claimed after ownership enforcement;
-   finish/attach them with the old API now or deliberately re-upload them later
-   (BREAKING_CHANGES.md §29).
-2. With writes quiesced, re-run **both** step-0 preflights. Only continue if both are green.
-3. Deploy Web, then reload the API immediately. Keep ordinary submissions quiesced: an old browser
+1. **Before deploying any app**, announce the freeze and stop Power, scripts and other direct Run
+   producers. Let active Web uploads finish and be attached to Runs through the old API; record the
+   ids of Runs accepted during this drain.
+2. Enforce the write block on new uploads and `/runs/new`, then wait for every already-in-flight
+   request to return **and** for every recorded Run to leave `pending`/`processing`. The old API
+   returns 201 before its in-process file work finishes, and step 0 cannot see that work because it
+   has no durable ingest queue. Only now inventory the upload directory. Any remaining staged
+   upload has no owner and must be deliberately re-uploaded later (BREAKING_CHANGES.md §29).
+3. With writes quiesced, re-run **both** step-0 preflights. Only continue if both are green.
+4. Deploy Web, then reload the API immediately. Keep ordinary submissions quiesced: an old browser
    tab does not send upload authentication and will 401 against the new API. Have users reload
    their tabs after the cutover.
-4. Deploy Power. Its changes are compatible with either API generation, but putting it after the
+5. Deploy Power. Its changes are compatible with either API generation, but putting it after the
    API makes the supervised three-app cutover unambiguous.
-5. Check that the API came up, then run the controlled browser, paired-run and Power smokes in
-   steps 4 and 5 before reopening submissions.
+6. Check that the API came up, then run step 4's browser checks, step 5's paired/reingest checks,
+   and one paired plus one unpaired CSV through Power before reopening submissions.
 
 Check the API actually came up:
 
@@ -273,8 +276,9 @@ cannot be claimed after this release is restored.
 
 Before a planned API rollback:
 
-1. Quiesce new uploads and every Run producer: Web, Power, scripts and any direct client. Leave the
-   current API running so its worker can finish accepted work.
+1. Block new uploads and Run/reingest requests from Web, Power, scripts and every direct client,
+   then wait for already-in-flight `/runs/new` and `/runs/:id/reingest` responses to return. Leave
+   the current API running so its worker can finish the work those responses durably enqueued.
 2. Run `node scripts/inspect-ingest-backlog.js` from the current checkout. Exit 0 is not enough: a
    structurally valid pending job also exits 0. Require the literal line
    `Checked 0 unfinished ingest job(s).` (`No ingestjobs collection ...` is equivalent only if
