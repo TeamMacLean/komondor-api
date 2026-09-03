@@ -191,21 +191,26 @@ Order:
    which the old install does not contain. Keep ordinary submissions quiesced; an old browser tab
    does not send upload authentication and will 401 against the new API. Have users reload their
    tabs after the cutover.
-5. At the exact reviewed Power hash, run its frozen install and normal production build/deploy (or
+5. Before touching Power, require stable PM2 uptime and an HTTP 200 from the new API's `/ready`
+   endpoint with `"status":"ready"` and every listed check green.
+6. At the exact reviewed Power hash, run its frozen install and normal production build/deploy (or
    restore its reviewed immutable artifact). Its changes are compatible with either API
    generation, but putting it after the API makes the supervised three-app cutover unambiguous.
-6. Check that the API came up, then run step 4's browser checks, step 5's paired/reingest checks,
+7. Run step 4's browser checks, step 5's paired/reingest checks,
    and one paired plus one unpaired CSV through Power before reopening submissions.
 
 Check the API actually came up:
 
 ```bash
+pm2 status komondor-api
 pm2 logs komondor-api --lines 50
 ```
 
-`[LOGIN]` and `[Background Job]` lines go to **stdout**; the log you usually paste is **stderr
-only**. If the process is restart-looping, the index build is the first thing to suspect — go
-back to step 0.
+The PM2 process must remain online rather than restart-looping, and `/ready` must return 200 with
+`"status":"ready"`; it checks MongoDB, all three file roots and the ingest worker. Logs are
+diagnostic only and can contain a stale success from the previous process. `[LOGIN]` and
+`[Background Job]` lines go to **stdout**; the log you usually paste is **stderr only**. If the
+process is restart-looping, the index build is the first thing to suspect — go back to step 0.
 
 ---
 
