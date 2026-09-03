@@ -182,11 +182,16 @@ Order:
    has no durable ingest queue. Only now inventory the upload directory. Any remaining staged
    upload has no owner and must be deliberately re-uploaded later (BREAKING_CHANGES.md §29).
 3. With writes quiesced, re-run **both** step-0 preflights. Only continue if both are green.
-4. Deploy Web, then reload the API immediately. Keep ordinary submissions quiesced: an old browser
-   tab does not send upload authentication and will 401 against the new API. Have users reload
-   their tabs after the cutover.
-5. Deploy Power. Its changes are compatible with either API generation, but putting it after the
-   API makes the supervised three-app cutover unambiguous.
+4. At the exact reviewed Web hash, run its frozen install and production build (or restore the
+   reviewed immutable artifact), then deploy it. At the exact reviewed API hash, run
+   `yarn install --frozen-lockfile` on the production checkout before reloading the API
+   immediately. The dependency install is part of the cutover: this release needs `@tus/server`,
+   which the old install does not contain. Keep ordinary submissions quiesced; an old browser tab
+   does not send upload authentication and will 401 against the new API. Have users reload their
+   tabs after the cutover.
+5. At the exact reviewed Power hash, run its frozen install and normal production build/deploy (or
+   restore its reviewed immutable artifact). Its changes are compatible with either API
+   generation, but putting it after the API makes the supervised three-app cutover unambiguous.
 6. Check that the API came up, then run step 4's browser checks, step 5's paired/reingest checks,
    and one paired plus one unpaired CSV through Power before reopening submissions.
 
