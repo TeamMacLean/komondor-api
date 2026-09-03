@@ -264,12 +264,42 @@ Grep the logs (**stdout**, not just the stderr you usually paste):
 
 ## 7. Rollback
 
-Rollback is `git checkout` of the recorded previous commit plus a `pm2 reload`. The new Web is
-backward-compatible with the old API, so an API rollback does not require rolling Web back too.
+Rollback is **not** just `git checkout` plus `pm2 reload`. This release accepts a Run only after it
+has durably enqueued its file work; the previous API has no ingest worker and cannot drain or
+reingest those jobs. It also cannot safely reopen local paired submissions: both Web generations
+send reciprocal `sibling` names, but the old API looks for `rowID` and can complete the Run with
+both sibling links null. Finally, uploads staged through the old API have no recorded owner and
+cannot be claimed after this release is restored.
 
-The one thing that does **not** roll back cleanly: if you ran `--fix` in step 0, the index was
-renamed to `sample_1_name_1`. That is what the old code expects too, so it is fine — but do not
-re-create the old custom-named index to "undo" it.
+Before a planned API rollback:
+
+1. Quiesce new uploads and every Run producer: Web, Power, scripts and any direct client. Leave the
+   current API running so its worker can finish accepted work.
+2. Run `node scripts/inspect-ingest-backlog.js` from the current checkout. Exit 0 is not enough: a
+   structurally valid pending job also exits 0. Require the literal line
+   `Checked 0 unfinished ingest job(s).` (`No ingestjobs collection ...` is equivalent only if
+   this release never started). If the count is non-zero, wait for the worker or correct the jobs
+   through the current API before continuing.
+3. Check out the recorded previous API commit and reload PM2. Confirm the process is online **and**
+   the production health check receives an HTTP response; recent log lines alone can describe a
+   previous start.
+4. Keep uploads and Run/Power submissions quiesced while the old API is serving. It is suitable as
+   a read-service rollback, not as a return to safe Run ingest. Restore this API version and
+   complete the controlled smokes before reopening writes.
+
+If the incident makes waiting for the queue impossible, save the inspector output and perform the
+API rollback as read-only: do not delete the `ingestjobs` rows or staged files. They remain durable
+but will not progress on the old API; roll forward to this version to resume or reingest them.
+
+The new Web and Power builds may remain deployed during that read-only rollback. For a full
+three-app rollback, keep producers quiesced, drain the queue, roll back the API first, then Power
+if desired, and Web last. Rolling Web back while the new API is still live makes every old-tab
+upload fail authentication; rolling all three back does not make paired local writes safe.
+
+If you ran `--fix` in step 0, do not undo the generated unique `sample_1_name_1` index. The old API
+continues serving with that stronger constraint, although its unawaited model index build may log
+an index-options conflict because its schema declares the same key non-unique. Leave the unique
+index in place; do not recreate the old custom or non-unique definition to silence the log.
 
 ---
 
