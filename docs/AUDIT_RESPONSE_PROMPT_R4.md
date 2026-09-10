@@ -31,8 +31,8 @@ analysis. Three rounds running, the bugs that got through were ones where **my t
 false assumption with the code they tested**, so a fully green suite proved nothing. Assume that
 is still true somewhere.
 
-Where you still object, please say plainly whether it is *"this loses data or breaks a normal
-workflow"* (blocking) or *"this needs a deliberate attacker"* — read section 2 first.
+Where you still object, please say plainly whether it is _"this loses data or breaks a normal
+workflow"_ (blocking) or _"this needs a deliberate attacker"_ — read section 2 first.
 
 ---
 
@@ -75,6 +75,7 @@ deploy together**, or uploads break.
 ## 4. Your six blockers, and what I did about each
 
 ### B1 — my own previous fix could adopt the wrong bytes (`6dde70c`)
+
 Last round I changed `adoptAlreadyMovedFile` to reconcile a moved file by **size** instead of
 inode. You pointed out that with no declared MD5 and an hpc-mv source that legitimately persists,
 size alone lets a retry adopt a **different file of the same length** — a legitimate
@@ -88,6 +89,7 @@ DB blip left a collision — but if you think that can stall the ingest queue or
 a way a smaller check would not, I would rather hear it now.
 
 ### B2 — the sweep could delete a file mid-upload (`ea10957`)
+
 The abandoned-upload sweep judged staleness from the **blob's mtime** only. A large upload that
 is being actively resumed — paused, retried, or slow — has no protection: nothing about a live
 resumed session necessarily touches the blob mtime within the window.
@@ -96,6 +98,7 @@ real last-activity signal, falling back to mtime when no registration exists. Tw
 both directions (stale blob + fresh registration must survive; stale registration must not).
 
 ### B3 — Power reported a failed ingest as success (`bb3d1cc`, komondor-power)
+
 `pollRunsUntilComplete` detected `ingest.failed`, logged a warning, and then **returned
 normally** — so the CSV entry was reported to the user as a success. It was also unexported and
 therefore untested.
@@ -105,13 +108,15 @@ what actually marks the entry as errored. New suite
 run-error, unanswered ids, multi-tick polling, timeout, and chunking.
 
 ### B4 — Power 400s for the full poll window on any CSV over 100 runs (`bb3d1cc`)
-It called `komondorApiClient.batchRunStatus(runIds)` with the whole list; the API caps a batch at
-100. A CSV creating 101+ runs therefore 400'd on **every** poll tick until the 30-minute timeout.
+
+It called `komondorApiClient.batchRunStatus(runIds)` with the whole list; the API caps a batch at 100. A CSV creating 101+ runs therefore 400'd on **every** poll tick until the 30-minute timeout.
 **Fix:** `fetchBatchRunStatus` chunks at `BATCH_STATUS_CHUNK_SIZE = 100` and merges the
 responses. Covered by a >100-run test.
 
 ### B5 — the retention copy was neither crash-safe nor actually pinned (`d6cd5e4`)
+
 Two problems in the same block of `models/File.js`:
+
 1. The `keepSource` (HPC retention) branch wrote **directly to the final path** via
    `fs.copyFile`. An interrupt mid-copy left a permanently truncated file sitting at the real
    destination name, which then blocked every future retry with "destination already exists" —
@@ -119,14 +124,15 @@ Two problems in the same block of `models/File.js`:
 2. It called `fs.copyFile(pinnedPath, …)`, which **reopens by path**. The whole point of pinning
    an open handle earlier is that the path can be swapped underneath us; a path-based syscall
    throws that guarantee away and copies whatever is at the name at that moment.
-**Fix:** one shared `copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file)` streams
-from the **already-open handle**, writes to a deterministic `.part-<id>` file with `flags: "wx"`,
-verifies the byte count against the pinned source, then promotes with `link` + `unlink` and
-cleans up the partial on any failure. **Both** the retention branch and the cross-device fallback
-now call it, replacing two divergent implementations. See section 6 — this is the change I most
-expect to have gotten subtly wrong.
+   **Fix:** one shared `copyPinnedSourceTo(sourceHandle, pinnedSource, fullNewPath, file)` streams
+   from the **already-open handle**, writes to a deterministic `.part-<id>` file with `flags: "wx"`,
+   verifies the byte count against the pinned source, then promotes with `link` + `unlink` and
+   cleans up the partial on any failure. **Both** the retention branch and the cross-device fallback
+   now call it, replacing two divergent implementations. See section 6 — this is the change I most
+   expect to have gotten subtly wrong.
 
 ### B6 — pairing and reingest (`91ec6e8`, `ba78681`)
+
 - A local-filesystem entry declaring `paired: true` **with no `rowID`** was accepted and silently
   ingested **unpaired**. Now rejected at validation, with a group check that a `rowID` group under
   `label === "Raw file"` contains exactly two entries.
@@ -134,6 +140,7 @@ expect to have gotten subtly wrong.
   rest — see section 5c, this is the reversal.
 
 ### Also fixed, from your "minimum before deployment" list
+
 - **Index preflight (`9ef37df`):** `scripts/check-run-duplicates.js` compared only keys and
   `unique`, so a same-name, same-keys index carrying a `partialFilterExpression` or `collation`
   passed as "safe" and then failed startup with `IndexKeySpecsConflict` anyway. Now
@@ -184,7 +191,7 @@ input that produces the wrong branch, because I could not construct one.
 
 Last round I fixed "a reingest correction was silently discarded" by **refusing the whole
 replacement payload once any file had been delivered**, and I asked you directly whether that was
-too blunt. You were right that it is: it blocks the *normal* recovery case, where one file of a
+too blunt. You were right that it is: it blocks the _normal_ recovery case, where one file of a
 pair arrives corrupt and the scientist wants to resubmit **just that one**.
 
 So `routes/runs.js` now **merges** instead:
@@ -253,7 +260,7 @@ against `git show` and the working tree, not against this document.
 ## 8. Knowingly accepted / deferred (argue any you disagree with)
 
 - **Not verified on Linux.** Still Darwin only. This matters more than usual: the `link(2)`
-  symlink fix from round 3 existed *because* of a Darwin/Linux divergence, and B5 adds new
+  symlink fix from round 3 existed _because_ of a Darwin/Linux divergence, and B5 adds new
   `link`/`unlink` promotion behaviour on a path that previously used `copyFile`. A real Ubuntu CI
   run remains my top recommendation before shipping.
 - **Mongoose 5→7 not attempted.** One critical advisory open. A blind major ORM upgrade without a

@@ -80,7 +80,11 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user, options) {
   }
 
   const username =
-    user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+    user.username ||
+    user.sAMAccountName ||
+    user.uid ||
+    user.mailNickname ||
+    "unknown";
 
   const fullAccessUsers = getFullAccessUsers();
 

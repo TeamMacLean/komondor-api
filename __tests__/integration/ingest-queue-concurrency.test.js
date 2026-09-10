@@ -7,7 +7,12 @@
  */
 
 const { configureEnv, restoreEnv } = require("./support/env");
-const { mongoose, connect, resetCollections, disconnect } = require("./support/mongo");
+const {
+  mongoose,
+  connect,
+  resetCollections,
+  disconnect,
+} = require("./support/mongo");
 
 let envHandle;
 
@@ -27,7 +32,11 @@ beforeEach(async () => {
 
 describe("claimNextJob — concurrent claims on one pending job", () => {
   test("exactly one of two racing workers wins the claim", async () => {
-    const { enqueueRunIngest, claimNextJob, IngestJob } = require("../../lib/ingest-queue");
+    const {
+      enqueueRunIngest,
+      claimNextJob,
+      IngestJob,
+    } = require("../../lib/ingest-queue");
 
     const runId = new mongoose.Types.ObjectId();
     const queued = await enqueueRunIngest({
@@ -66,7 +75,11 @@ describe("claimNextJob — concurrent claims on one pending job", () => {
   });
 
   test("ten racing workers still produce exactly one winner", async () => {
-    const { enqueueRunIngest, claimNextJob, IngestJob } = require("../../lib/ingest-queue");
+    const {
+      enqueueRunIngest,
+      claimNextJob,
+      IngestJob,
+    } = require("../../lib/ingest-queue");
 
     const runId = new mongoose.Types.ObjectId();
     const queued = await enqueueRunIngest({

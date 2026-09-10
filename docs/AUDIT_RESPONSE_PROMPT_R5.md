@@ -5,7 +5,7 @@ several test-integrity findings, and a six-item "smallest path to GO". This is m
 
 Read all of it before answering. The most important section is **5**, not 4: after fixing your
 findings I ran an internal adversarial review over my own five commits, and **three of them had
-introduced new bugs** — including one where the fix for *your* CORS finding created a fresh
+introduced new bugs** — including one where the fix for _your_ CORS finding created a fresh
 regression on the same endpoint. That is the third round running where my first draft of a fix
 broke something adjacent, and it is the pattern I most want you attacking.
 
@@ -21,10 +21,10 @@ A **go / no-go** on a supervised deploy of the three branches below.
 The single most valuable thing you can do, again: **re-run your own reproductions** rather than
 reading my summary or my tests. Every round so far, the bugs that survived did so because a test
 and the code shared a false assumption — and in round 4 I used one of those tests to argue
-*against* a finding of yours that was correct.
+_against_ a finding of yours that was correct.
 
-Where you still object, say plainly whether it is *"this loses data or breaks a normal
-workflow"* (blocking) or *"this needs a deliberate attacker"* — read section 2 first.
+Where you still object, say plainly whether it is _"this loses data or breaks a normal
+workflow"_ (blocking) or _"this needs a deliberate attacker"_ — read section 2 first.
 
 ---
 
@@ -69,6 +69,7 @@ deploy together**, or uploads break.
 **B2, B3, B4** you marked closed; I have not touched them except as noted in section 6.
 
 ### B1 — retained symlink source could never be reconciled — FIXED (`8a684bf`)
+
 You were right and the cause was exactly where you pointed. `calculateFileMd5` opens
 `O_NOFOLLOW`, so a permitted leaf symlink raised ELOOP, and hashing it behind a bare
 `.catch(() => null)` turned "this is a link" into "content unverifiable", i.e. never adopt.
@@ -77,10 +78,12 @@ re-vouches for the target with `assertWithinReal` rather than trusting the link.
 target does **not** match is still refused — there is a test holding that in place.
 
 ### B5 — source mutated mid-copy — FIXED (`205e1be`, corrected in `3b230a9`)
+
 Your reproduction (same inode, same size, rewritten after the first 4096 bytes) is now refused:
 the copy re-stats the source before promoting and rejects on a size or mtime change.
 
 Two things worth your attention here:
+
 - It stats **by path**, not through the handle: `pipeline()` destroys the read stream on
   completion, which closes the FileHandle with it. A same-inode guard is what makes the path
   safe to trust for that one question. **Tell me if you can defeat that.**
@@ -92,6 +95,7 @@ Two things worth your attention here:
   only construct one with a deliberate `utimes()` call afterwards.
 
 ### B6 — FIXED, all five parts (`22f988a`, corrected in `3b230a9`)
+
 - **One-mate correction returned 400.** Whole-list rules (pair completeness, sibling
   resolvability) now run only on the MERGED list, not the raw partial submission. The fixture
   that should have caught this called itself "a paired submission" and declared neither `paired`
@@ -107,6 +111,7 @@ Two things worth your attention here:
 - **`A.fq` vs ` A.fq`.** See 5.3 — my first fix for this was insufficient and I have replaced it.
 
 ### Also from your "smallest path to GO"
+
 - **Index preflight (`1f5e19e`).** Rewritten around `findIndexConflicts`, which walks **every**
   index. Verified against real MongoDB 7.0.29: a custom-named equivalent index is refused (85);
   `storageEngine` is refused (85); `partialFilterExpression`/`sparse` are refused (86); a
@@ -123,16 +128,17 @@ Two things worth your attention here:
   the same name, so it never ran the checks at all — it failed on an unrelated `better-sqlite3`
   engine mismatch. There is now a `verify` script that cannot be shadowed.
 - **Power MD5 fixtures.** Corrected to the real enum (`pending | in_progress | complete |
-  failed`). Nothing in Power branches on the value, so this was a fixture describing a fictional
+failed`). Nothing in Power branches on the value, so this was a fixture describing a fictional
   API rather than a live bug — but you were right that it was wrong.
 - **Web lint (`d8e1c4c`).** The 2 errors this branch introduced are fixed. The other 19 are
   pre-existing on master across five unrelated files and are deliberately left — a formatting
   sweep there would bury the two-file auth change.
 
 ### And one correction to you, on 5a
+
 **You were right that I was wrong, and I want to be precise about how.** You said the test
 asserts CORS behaviour production does not have. It does. `app.js` mounts a global `cors()` long
-before the upload routes, and `cors()` *answers* an OPTIONS preflight and ends the request, so the
+before the upload routes, and `cors()` _answers_ an OPTIONS preflight and ends the request, so the
 router's capability middleware never ran. I could not see it because every test in that file
 builds its own Express app around the router alone — reading that suite told me the header was
 set, because in that topology it is. New tests now require `app.js` itself.
@@ -146,6 +152,7 @@ execution and is fixed in `3b230a9`; each new test was mutation-verified against
 stood before that commit. **This is the section to attack.**
 
 ### 5.1 — my fix for YOUR CORS finding broke every 401 on /uploads
+
 Skipping the global `cors()` for `/uploads` looked equivalent to letting the mount answer its own
 preflight. It is not: `routes/uploads.js` guards with
 `router.use(TUS_ROUTE, requireUploadAuth, uploadApp)`, so an unauthenticated request is answered
@@ -160,6 +167,7 @@ Also, my predicate was case-sensitive while Express routes case-insensitively, s
 reached the tus mount but took the other branch — the same bug, one capital letter away.
 
 ### 5.2 — duplicate names in a reingest payload were silently collapsed
+
 I moved the duplicate-name check behind the new `crossEntry` gate along with the pairing rules.
 But `mergeReplacementList` indexes by name into a `Map`, so two entries sharing a name collapsed
 **last-wins** and the merged list looked clean to the re-validation afterwards. A client that
@@ -167,7 +175,8 @@ double-adds a correction got 200 with the second copy quietly winning; it used t
 duplicate is a defect in the submission itself, so the check now runs before the gate.
 
 ### 5.3 — comparing names canonically was not enough
-My first fix for your `A.fq`/` A.fq` finding made validation *compare* canonically. That is
+
+My first fix for your `A.fq`/` A.fq` finding made validation _compare_ canonically. That is
 insufficient, because only half the code canonicalises: `lib/file-utils.js` stores
 `safeBasename(name)`, but `siblingLinks` and `planRawFileStage` match the **raw** payload string.
 So `{name:"A.fq", sibling:" B.fq"}` + `{name:"B.fq", sibling:"A.fq"}` passed my new mutuality
@@ -181,16 +190,19 @@ note that `planRawFileStage` and `pendingAdditionalFiles` in `lib/ingest-queue.j
 raw strings for payloads **stored before this deploy** (see 7.3).
 
 ### 5.4 — a delivered file could be re-pointed but not un-paired
+
 The sibling override fired only when the key was present, so dropping a mate kept the original's
 dangling pointer and 400'd on the merged list — the same dead end I had just written the fix to
 remove, in the opposite direction.
 
 ### 5.5 — the mutation guard's ctime comparison
+
 See B5 above.
 
 ### And in the preflight script
+
 - The drop loop sat **outside** the try that prints the FATAL "no index enforcing uniqueness"
-  warning, so a failure on the *second* of two drops left the collection in exactly that state
+  warning, so a failure on the _second_ of two drops left the collection in exactly that state
   with no warning.
 - An empty `conflicts` array was treated like an omitted one and dropped `INDEX_NAME` anyway —
   "I looked and found none" is not "I did not look".
@@ -204,7 +216,8 @@ See B5 above.
   pattern, this time in a mock I had written the day before.**
 
 ### One place I checked and think you were half right
-You suggested `--fix` drops a *healthy* index when an equivalent one exists under a custom name,
+
+You suggested `--fix` drops a _healthy_ index when an equivalent one exists under a custom name,
 since it is already enforcing the constraint. I executed both halves: the constraint **is**
 enforced (a duplicate insert against it is refused, 11000) — **but `Run.init()` rejects with 85**,
 and `server.js` awaits it, so the app does not boot at all. So it stays a blocker, and the
@@ -220,8 +233,9 @@ Both were in your "follow-up work, not the original defect" notes. I am listing 
 quietly dropping them, and I would like your read on whether either should block.
 
 ### 6.1 — a single PATCH longer than the idle window loses its quota reservation
-You wrote: *"activity is touched only at request start, so a PATCH lasting over the 60-minute
-idle window can be pruned from quota accounting when another upload is admitted."* Confirmed:
+
+You wrote: _"activity is touched only at request start, so a PATCH lasting over the 60-minute
+idle window can be pruned from quota accounting when another upload is admitted."_ Confirmed:
 `touchUpload` is called once when the request arrives, `pruneIdleUploads` (`lib/upload-quota.js`)
 drops any registration whose `updatedAt` is older than `UPLOAD_IDLE_MINUTES` (default 60), and it
 runs on every admission. `UPLOAD_MAX_BYTES` defaults to **50 GiB**, so a single slow PATCH
@@ -236,8 +250,9 @@ you think so I will fix it before deploying; the obvious fix is a periodic touch
 `POST_RECEIVE` hook, which already fires.
 
 ### 6.2 — Power polls 30 minutes before reporting a terminal error
-You wrote: *"A failed ingest paired with a still-pending Run can nevertheless poll for 30 minutes
-before a generic timeout after the API's best-effort Run update fails."* Not fixed. The entry does
+
+You wrote: _"A failed ingest paired with a still-pending Run can nevertheless poll for 30 minutes
+before a generic timeout after the API's best-effort Run update fails."_ Not fixed. The entry does
 end up correctly marked as errored — this is a latency and error-message-quality problem, not a
 correctness one, which is why I left it. Confirm that reading or correct it.
 

@@ -109,9 +109,10 @@ describe.each(MODELS)("%s.iCanSee", (name, getModel) => {
     // token was issued, so the live lookup returns only g1. The stale claim
     // used to keep serving the deleted group's records for the rest of that
     // token's life, which is the whole defect this argument closes.
-    const query = getModel().iCanSee({ username: "eve", groups: ["g1", "g2"] }, [
-      "g1",
-    ]);
+    const query = getModel().iCanSee(
+      { username: "eve", groups: ["g1", "g2"] },
+      ["g1"],
+    );
 
     expect(filterOf(query)).toEqual({ group: { $in: ["g1"] } });
   });
@@ -126,9 +127,9 @@ describe.each(MODELS)("%s.iCanSee", (name, getModel) => {
   test("refuses to be called without the live group ids", () => {
     // Omitting them used to mean "fall back to user.groups", silently
     // restoring the stale-claim behaviour. It has to fail loudly instead.
-    expect(() => getModel().iCanSee({ username: "eve", groups: ["g1"] })).toThrow(
-      TypeError,
-    );
+    expect(() =>
+      getModel().iCanSee({ username: "eve", groups: ["g1"] }),
+    ).toThrow(TypeError);
   });
 
   test("does not hand a user records they own outside their groups", () => {

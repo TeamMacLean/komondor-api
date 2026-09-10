@@ -28,7 +28,10 @@
 require("dotenv").config();
 
 const ldap = require("ldapjs");
-const { escapeLdapFilterValue, USER_SEARCH_ATTRIBUTES } = require("../lib/ldap");
+const {
+  escapeLdapFilterValue,
+  USER_SEARCH_ATTRIBUTES,
+} = require("../lib/ldap");
 
 const args = process.argv.slice(2).filter((a) => a !== "--no-db");
 const skipDb = process.argv.includes("--no-db");
@@ -39,10 +42,21 @@ if (!username) {
   process.exit(1);
 }
 
-const { LDAP_URL, LDAP_BIND_DN, LDAP_BIND_CREDENTIALS, LDAP_SEARCH_BASE, LDAP_SEARCH_FILTER } =
-  process.env;
+const {
+  LDAP_URL,
+  LDAP_BIND_DN,
+  LDAP_BIND_CREDENTIALS,
+  LDAP_SEARCH_BASE,
+  LDAP_SEARCH_FILTER,
+} = process.env;
 
-for (const name of ["LDAP_URL", "LDAP_BIND_DN", "LDAP_BIND_CREDENTIALS", "LDAP_SEARCH_BASE", "LDAP_SEARCH_FILTER"]) {
+for (const name of [
+  "LDAP_URL",
+  "LDAP_BIND_DN",
+  "LDAP_BIND_CREDENTIALS",
+  "LDAP_SEARCH_BASE",
+  "LDAP_SEARCH_FILTER",
+]) {
   if (!process.env[name]) {
     console.error(`Missing required environment variable: ${name}`);
     process.exit(1);
@@ -51,7 +65,9 @@ for (const name of ["LDAP_URL", "LDAP_BIND_DN", "LDAP_BIND_CREDENTIALS", "LDAP_S
 
 // A hung LDAP server or Mongo connection should fail the script, not hang it.
 const watchdog = setTimeout(() => {
-  console.error("\nTimed out after 30s — is the LDAP server / Mongo reachable from here?");
+  console.error(
+    "\nTimed out after 30s — is the LDAP server / Mongo reachable from here?",
+  );
   process.exit(1);
 }, 30000);
 watchdog.unref();
@@ -115,12 +131,17 @@ function report(label, record) {
   }
 
   console.log("dn:", record.dn);
-  const attributeNames = Object.keys(record).filter((k) => k !== "dn" && k !== "controls");
+  const attributeNames = Object.keys(record).filter(
+    (k) => k !== "dn" && k !== "controls",
+  );
   console.log("attributes returned:", attributeNames.join(", ") || "(none)");
 
-  const rawMemberOf = record.memberOf != null ? record.memberOf : record.memberof;
+  const rawMemberOf =
+    record.memberOf != null ? record.memberOf : record.memberof;
   if (rawMemberOf == null) {
-    console.log("memberOf: MISSING — group resolution would find nothing for this user");
+    console.log(
+      "memberOf: MISSING — group resolution would find nothing for this user",
+    );
     return;
   }
 
@@ -136,8 +157,14 @@ function report(label, record) {
  * which memberOf values resolve to which groups.
  */
 async function compareWithMongo(record) {
-  const rawMemberOf = record.memberOf != null ? record.memberOf : record.memberof;
-  const memberOf = rawMemberOf == null ? [] : Array.isArray(rawMemberOf) ? rawMemberOf : [rawMemberOf];
+  const rawMemberOf =
+    record.memberOf != null ? record.memberOf : record.memberof;
+  const memberOf =
+    rawMemberOf == null
+      ? []
+      : Array.isArray(rawMemberOf)
+        ? rawMemberOf
+        : [rawMemberOf];
 
   const mongoose = require("mongoose");
   const mongoosePort = process.env.MONGODB_PORT || 27017;
@@ -148,10 +175,15 @@ async function compareWithMongo(record) {
 
   const groups = await mongoose.connection
     .collection("groups")
-    .find({}, { projection: { name: 1, safeName: 1, ldapGroups: 1, deleted: 1 } })
+    .find(
+      {},
+      { projection: { name: 1, safeName: 1, ldapGroups: 1, deleted: 1 } },
+    )
     .toArray();
 
-  console.log(`\n=== Mongo group matching (${groups.length} groups in collection) ===`);
+  console.log(
+    `\n=== Mongo group matching (${groups.length} groups in collection) ===`,
+  );
 
   const resolved = [];
   for (const value of memberOf) {
@@ -170,11 +202,15 @@ async function compareWithMongo(record) {
       for (const { group, exact } of matches) {
         const flags = [
           group.deleted ? "DELETED" : null,
-          exact ? null : "case-insensitive only — exact-case matching would have missed this",
+          exact
+            ? null
+            : "case-insensitive only — exact-case matching would have missed this",
         ]
           .filter(Boolean)
           .join("; ");
-        console.log(`  ${value}\n    -> ${group.name}${flags ? `  [${flags}]` : ""}`);
+        console.log(
+          `  ${value}\n    -> ${group.name}${flags ? `  [${flags}]` : ""}`,
+        );
         resolved.push(group);
       }
     }
@@ -187,7 +223,11 @@ async function compareWithMongo(record) {
   // user falls through to their real membership; in the old read-mode call they
   // were stamped with every group in the collection and this line under-reported
   // for them.
-  const usable = [...new Set(resolved.filter((g) => !g.deleted).map((g) => g.safeName || g.name))];
+  const usable = [
+    ...new Set(
+      resolved.filter((g) => !g.deleted).map((g) => g.safeName || g.name),
+    ),
+  ];
   console.log(
     `\nA fresh login would resolve ${usable.length} group(s): [${usable.join(", ")}]`,
   );
@@ -206,10 +246,16 @@ async function compareWithMongo(record) {
   console.log("filter:", searchFilter);
 
   const withDefaults = await searchUser(undefined);
-  report("Server default attributes (no attribute list requested)", withDefaults);
+  report(
+    "Server default attributes (no attribute list requested)",
+    withDefaults,
+  );
 
   const withExplicit = await searchUser(USER_SEARCH_ATTRIBUTES);
-  report("Explicit attribute list (what the app requests at login)", withExplicit);
+  report(
+    "Explicit attribute list (what the app requests at login)",
+    withExplicit,
+  );
 
   const record = withExplicit || withDefaults;
   if (record && !skipDb) {

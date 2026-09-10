@@ -118,7 +118,9 @@ describe("GET /user", () => {
     const populate = jest.fn().mockResolvedValue([{ name: "proj" }]);
     Project.find.mockReturnValue({ populate });
 
-    const response = await request(app).get("/user").query({ username: "alice" });
+    const response = await request(app)
+      .get("/user")
+      .query({ username: "alice" });
 
     expect(response.status).toBe(200);
     expect(response.body.user).toEqual({
@@ -140,7 +142,9 @@ describe("GET /user", () => {
       populate: jest.fn().mockResolvedValue([]),
     });
 
-    const response = await request(app).get("/user").query({ username: "alice" });
+    const response = await request(app)
+      .get("/user")
+      .query({ username: "alice" });
 
     expect(response.body.user.$__).toBeUndefined();
     expect(response.body.user._doc).toBeUndefined();
@@ -152,7 +156,9 @@ describe("GET /user", () => {
       populate: jest.fn().mockResolvedValue([{ name: "proj" }]),
     });
 
-    const response = await request(app).get("/user").query({ username: "ghost" });
+    const response = await request(app)
+      .get("/user")
+      .query({ username: "ghost" });
 
     expect(response.status).toBe(200);
     expect(response.body.user).toEqual({
@@ -268,7 +274,9 @@ describe("GET /user", () => {
       populate: jest.fn().mockResolvedValue([]),
     });
 
-    const response = await request(app).get("/user").query({ username: "alice" });
+    const response = await request(app)
+      .get("/user")
+      .query({ username: "alice" });
 
     expect(response.status).toBe(500);
   });

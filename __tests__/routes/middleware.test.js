@@ -208,7 +208,10 @@ describe("belongsToGroup", () => {
   test("passes an admin, who is a member of every group", async () => {
     // An admin's authority arrives as GroupsIAmIn returning every live group;
     // this middleware no longer short-circuits on the isAdmin flag itself.
-    Group.GroupsIAmIn.mockResolvedValue([{ _id: groupId }, { _id: otherGroupId }]);
+    Group.GroupsIAmIn.mockResolvedValue([
+      { _id: groupId },
+      { _id: otherGroupId },
+    ]);
 
     const response = await request(
       buildApp({ username: "admin", isAdmin: true }, middleware),

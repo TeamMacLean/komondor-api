@@ -10,7 +10,10 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const { auditHpcAccess, requireHpcGroupAccess } = require("../lib/utils/hpcAudit");
+const {
+  auditHpcAccess,
+  requireHpcGroupAccess,
+} = require("../lib/utils/hpcAudit");
 let router = express.Router();
 
 /**
@@ -91,7 +94,8 @@ router
         throw new Error("Missing targetDirectoryName");
       }
 
-      const cleanedTargetDirectoryName = cleanDirectoryName(targetDirectoryName);
+      const cleanedTargetDirectoryName =
+        cleanDirectoryName(targetDirectoryName);
 
       if (!cleanedTargetDirectoryName) {
         throw new Error("Missing targetDirectoryName");
@@ -306,8 +310,8 @@ router
       });
 
       // Write headers early and stream spaces to prevent reverse proxy timeout for large files
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader('X-Accel-Buffering', 'no'); // Disable Nginx buffering
+      res.setHeader("Content-Type", "application/json");
+      res.setHeader("X-Accel-Buffering", "no"); // Disable Nginx buffering
       res.status(200);
       res.flushHeaders(); // Send headers immediately
 
@@ -315,16 +319,18 @@ router
       let calculatedMd5;
       try {
         calculatedMd5 = await calculateFileMd5(handle, () => {
-          res.write(' ');
+          res.write(" ");
           if (res.flush) res.flush(); // If compression middleware is used, flush it
         });
       } catch (err) {
         hasError = true;
         console.error(`[${requestId}] Error calculating MD5 mid-stream:`, err);
-        res.write(JSON.stringify({
-          error: `Failed to calculate MD5: ${err.message}`,
-          requestId,
-        }));
+        res.write(
+          JSON.stringify({
+            error: `Failed to calculate MD5: ${err.message}`,
+            requestId,
+          }),
+        );
         res.end();
       } finally {
         // calculateFileMd5 never closes a handle it was handed; this one is
@@ -336,12 +342,14 @@ router
         const normalizedExpected = expectedMd5.toLowerCase().trim();
         const matches = calculatedMd5 === normalizedExpected;
 
-        res.write(JSON.stringify({
-          fileName,
-          expectedMd5: normalizedExpected,
-          calculatedMd5,
-          matches,
-        }));
+        res.write(
+          JSON.stringify({
+            fileName,
+            expectedMd5: normalizedExpected,
+            calculatedMd5,
+            matches,
+          }),
+        );
         res.end();
       }
     } catch (e) {

@@ -4,6 +4,7 @@ const _path = require("path");
 
 const Run = require("../models/Run");
 const Sample = require("../models/Sample");
+const Project = require("../models/Project");
 const LibraryType = require("../models/options/LibraryType");
 const { isAuthenticated } = require("./middleware");
 const {
@@ -20,7 +21,16 @@ const {
   handleError,
   generateRequestId,
   compareFilesToDirectory,
+  storageReadOnlyResponse,
 } = require("./_utils");
+const {
+  resolveStorageState,
+  publicStorageSummary,
+  locationFor,
+  notApplicableReconciliation,
+  attachProjectStorage,
+  setDerivedField,
+} = require("../lib/storage-state");
 // The same canonicalisation lib/file-utils.js applies before a name becomes a
 // path on disk, so validation and storage agree on what "the same file" means.
 const { safeBasename } = require("../lib/utils/safePath");
@@ -73,6 +83,32 @@ const groupIdOf = (doc) => {
 
   return group._id || group;
 };
+
+/** Resolves a Project without populating or changing the existing relation. */
+const projectForSample = async (sampleLike) => {
+  let sample = sampleLike;
+  if (!sample || typeof sample !== "object" || !sample.project) {
+    const sampleId =
+      sample && typeof sample === "object" && sample._id ? sample._id : sample;
+    if (!sampleId) return null;
+    sample = await Sample.findById(sampleId).select("project");
+  }
+
+  if (!sample || !sample.project) return null;
+  if (
+    typeof sample.project === "object" &&
+    sample.project._id &&
+    (sample.project.path !== undefined || sample.project.storage !== undefined)
+  ) {
+    return sample.project;
+  }
+
+  return Project.findById(sample.project).select(
+    "path storage +archiveMigration",
+  );
+};
+
+const projectForRun = (run) => projectForSample(run && run.sample);
 
 // Only what the status endpoints report: a job's payload is the whole submitted
 // file list and must not be pulled into a status response.
@@ -178,6 +214,7 @@ router
         .populate("group")
         .sort("-createdAt")
         .exec();
+      await attachProjectStorage(runs, { via: "sample" });
       res.status(200).send({ runs });
     } catch (error) {
       handleError(res, error, 500, "Failed to retrieve runs.");
@@ -278,22 +315,35 @@ router
         );
       }
 
-      const runDirectory = _path.join(process.env.DATASTORE_ROOT, run.path);
-      const rawDir = _path.join(runDirectory, "raw");
-      const additionalDir = _path.join(runDirectory, "additional");
+      const project = await projectForRun(run);
+      const storageState = resolveStorageState(project);
+      setDerivedField(run, "projectStorage", publicStorageSummary(project));
 
-      const [raw, additional] = await Promise.all([
-        compareFilesToDirectory(run.rawFiles, rawDir),
-        compareFilesToDirectory(run.additionalFiles, additionalDir),
-      ]);
+      let actualReads = null;
+      let actualAdditionalFiles = null;
+      let rawFilesStatus = notApplicableReconciliation(storageState.state);
+      let additionalFilesStatus = notApplicableReconciliation(
+        storageState.state,
+      );
 
-      const actualReads = raw.actualFiles;
-      const rawFilesStatus = raw.status;
-      const actualAdditionalFiles = additional.actualFiles;
-      const additionalFilesStatus = additional.status;
+      if (storageState.state === "hpc") {
+        const runDirectory = _path.join(process.env.DATASTORE_ROOT, run.path);
+        const rawDir = _path.join(runDirectory, "raw");
+        const additionalDir = _path.join(runDirectory, "additional");
+
+        const [raw, additional] = await Promise.all([
+          compareFilesToDirectory(run.rawFiles, rawDir),
+          compareFilesToDirectory(run.additionalFiles, additionalDir),
+        ]);
+        actualReads = raw.actualFiles;
+        rawFilesStatus = raw.status;
+        actualAdditionalFiles = additional.actualFiles;
+        additionalFilesStatus = additional.status;
+      }
 
       res.status(200).send({
         run,
+        location: locationFor(project, run.path, { includeRaw: true }),
         actualReads,
         actualAdditionalFiles,
         additionalFilesStatus,
@@ -411,7 +461,8 @@ router
 
       // The sample's group, never the body's claim about it: otherwise a member
       // of any group can hang a run, and its files, off another group's sample.
-      const parentSample = await Sample.findById(sampleId).select("group");
+      const parentSample =
+        await Sample.findById(sampleId).select("group project");
       if (!parentSample) {
         return handleError(
           res,
@@ -448,6 +499,21 @@ router
           "The submitted group does not own the submitted sample.",
           requestId,
         );
+      }
+
+      const project = await projectForSample(parentSample);
+      if (!project) {
+        return handleError(
+          res,
+          new Error("The submitted sample has no project."),
+          500,
+          "The submitted sample has no project and cannot take new runs.",
+          requestId,
+        );
+      }
+      const storageState = resolveStorageState(project);
+      if (!storageState.acceptsHpcWrites) {
+        return storageReadOnlyResponse(res, project, requestId);
       }
 
       // Library types are data, not a hard-coded enum: admins can add them and
@@ -504,6 +570,11 @@ router
 
         console.log(
           `[${requestId}] Run already exists: ${existingRun._id} (${existingRun.name})`,
+        );
+        setDerivedField(
+          existingRun,
+          "projectStorage",
+          publicStorageSummary(project),
         );
 
         // Queued here too, keyed by run id so it returns any existing job: a
@@ -597,6 +668,11 @@ router
       }
 
       // Shape preserved for komondor-power, plus jobId so the client can poll.
+      setDerivedField(
+        savedRun,
+        "projectStorage",
+        publicStorageSummary(project),
+      );
       res.status(201).send({ run: savedRun, jobId: job._id });
     } catch (error) {
       // Roll back a saved run: one with no queued ingest sits at "pending"
@@ -695,6 +771,10 @@ router
       // Only the queue can say whether a run stuck at "pending" with no files
       // is queued, being worked on, or permanently failed.
       const ingestJobs = await findIngestJobs([run._id]);
+      const project = await projectForRun(run);
+      const projectStorage = publicStorageSummary(project);
+      const md5VerificationApplicable =
+        projectStorage.acceptsHpcWrites === true;
 
       res.status(200).send({
         runId: run._id,
@@ -706,6 +786,11 @@ router
         md5VerificationAttempts: run.md5VerificationAttempts,
         md5VerificationLastAttempt: run.md5VerificationLastAttempt,
         md5VerificationCompletedAt: run.md5VerificationCompletedAt,
+        md5VerificationApplicable,
+        md5VerificationNotApplicableReason: md5VerificationApplicable
+          ? null
+          : "PROJECT_STORAGE_READ_ONLY",
+        projectStorage,
         progress: {
           totalFiles,
           verifiedFiles,
@@ -913,7 +998,7 @@ router
 
     try {
       const run = await Run.findById(runId).select(
-        "name group owner status libraryType",
+        "name group owner status libraryType sample",
       );
 
       if (!run) {
@@ -936,6 +1021,21 @@ router
           `User '${req.user.username}' does not have permission to modify this run`,
           requestId,
         );
+      }
+
+      const project = await projectForRun(run);
+      if (!project) {
+        return handleError(
+          res,
+          new Error("Run has no project"),
+          500,
+          "This run has no project and cannot be reingested",
+          requestId,
+        );
+      }
+      const storageState = resolveStorageState(project);
+      if (!storageState.acceptsHpcWrites) {
+        return storageReadOnlyResponse(res, project, requestId);
       }
 
       // A replacement payload is optional: any of its fields being present
@@ -1263,7 +1363,7 @@ router
 
       const runs = requested.length
         ? await Run.find({ _id: { $in: requested } }).select(
-            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group createdAt",
+            "_id name status statusError md5VerificationStatus md5VerificationAttempts md5VerificationLastAttempt md5VerificationCompletedAt group sample createdAt",
           )
         : [];
 
@@ -1283,18 +1383,30 @@ router
         visibleRuns.map((run) => run._id),
       );
 
-      const accessibleRuns = visibleRuns.map((run) => ({
-        runId: run._id,
-        runName: run.name,
-        status: run.status,
-        statusError: run.statusError || null,
-        ingest: summariseIngestJob(ingestJobs.get(String(run._id))),
-        md5VerificationStatus: run.md5VerificationStatus,
-        md5VerificationAttempts: run.md5VerificationAttempts,
-        md5VerificationLastAttempt: run.md5VerificationLastAttempt,
-        md5VerificationCompletedAt: run.md5VerificationCompletedAt,
-        createdAt: run.createdAt,
-      }));
+      await attachProjectStorage(visibleRuns, { via: "sample" });
+
+      const accessibleRuns = visibleRuns.map((run) => {
+        const projectStorage = run.projectStorage;
+        const md5VerificationApplicable =
+          projectStorage?.acceptsHpcWrites === true;
+        return {
+          runId: run._id,
+          runName: run.name,
+          status: run.status,
+          statusError: run.statusError || null,
+          ingest: summariseIngestJob(ingestJobs.get(String(run._id))),
+          md5VerificationStatus: run.md5VerificationStatus,
+          md5VerificationAttempts: run.md5VerificationAttempts,
+          md5VerificationLastAttempt: run.md5VerificationLastAttempt,
+          md5VerificationCompletedAt: run.md5VerificationCompletedAt,
+          md5VerificationApplicable,
+          md5VerificationNotApplicableReason: md5VerificationApplicable
+            ? null
+            : "PROJECT_STORAGE_READ_ONLY",
+          projectStorage,
+          createdAt: run.createdAt,
+        };
+      });
 
       // Lower-cased on both sides: an id sent in upper case would otherwise be
       // reported missing in the same response that answers for it.

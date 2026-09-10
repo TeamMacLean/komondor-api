@@ -27,6 +27,8 @@ const _path = require("path");
 
 jest.mock("../../models/IngestJob");
 jest.mock("../../models/Run");
+jest.mock("../../models/Sample");
+jest.mock("../../models/Project");
 jest.mock("../../models/Read");
 jest.mock("../../models/AdditionalFile");
 jest.mock("../../models/options/LibraryType");
@@ -44,6 +46,8 @@ jest.mock("../../lib/utils/sendEmail");
 
 const IngestJob = require("../../models/IngestJob");
 const Run = require("../../models/Run");
+const Sample = require("../../models/Sample");
+const Project = require("../../models/Project");
 const Read = require("../../models/Read");
 const AdditionalFile = require("../../models/AdditionalFile");
 const LibraryType = require("../../models/options/LibraryType");
@@ -177,6 +181,8 @@ const flush = async (times = 25) => {
 
 const runId = new mongoose.Types.ObjectId();
 const jobId = new mongoose.Types.ObjectId();
+const sampleId = new mongoose.Types.ObjectId();
+const projectId = new mongoose.Types.ObjectId();
 
 // ---------------------------------------------------------------------------
 // A real datastore on disk.
@@ -294,6 +300,7 @@ const makeRun = () => ({
   name: "Test Run",
   path: "group/project/sample/run",
   libraryType: "test-library",
+  sample: sampleId,
 });
 
 const resolveLibraryType = ({ paired = false, indexed = false } = {}) => {
@@ -318,6 +325,12 @@ beforeEach(() => {
 
   Run.findById = jest.fn().mockResolvedValue(makeRun());
   Run.findByIdAndUpdate = jest.fn().mockResolvedValue({});
+  Sample.findById = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({ _id: sampleId, project: projectId }),
+  });
+  Project.findById = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({ _id: projectId }),
+  });
 
   Read.find = jest.fn().mockReturnValue({
     populate: jest.fn().mockResolvedValue([]),
@@ -1003,6 +1016,27 @@ describe("failJob", () => {
 });
 
 describe("runIngestJob", () => {
+  test("fails closed before file work when the project has left HPC", async () => {
+    Project.findById.mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: projectId,
+        storage: {
+          state: "migrating",
+          s3Uri: "s3://archive/data/group/project",
+        },
+      }),
+    });
+
+    await expect(runIngestJob(makeRunnableJob())).rejects.toMatchObject({
+      code: "PROJECT_STORAGE_READ_ONLY",
+      retryable: false,
+      storageState: "migrating",
+    });
+    expect(sortReadFiles).not.toHaveBeenCalled();
+    expect(sortAdditionalFiles).not.toHaveBeenCalled();
+    expect(LibraryType.findOne).not.toHaveBeenCalled();
+  });
+
   test("moves raw and additional files with the arguments the route used", async () => {
     const payload = {
       rawFiles: [{ name: "reads_R1.fq" }],
@@ -2024,6 +2058,44 @@ describe("startIngestWorker", () => {
         $set: expect.objectContaining({ status: "done" }),
       }),
     );
+  });
+
+  test("fails a raced job terminally when its project was locked", async () => {
+    const jobs = queueOneJob();
+    IngestJob.findById.mockImplementation(() => Promise.resolve(jobs[0]));
+    Project.findById.mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: projectId,
+        storage: {
+          state: "migrating",
+          s3Uri: "s3://archive/data/group/project",
+        },
+      }),
+    });
+
+    const worker = startIngestWorker({ intervalMs: 10, leaseMs: 1000 });
+    jest.advanceTimersByTime(10);
+    await flush();
+    await worker.stop();
+
+    expect(IngestJob.updateOne).toHaveBeenCalledWith(
+      { _id: jobId, workerId: expect.any(String) },
+      expect.objectContaining({
+        $set: expect.objectContaining({
+          status: "failed",
+          lastError: `PROJECT_STORAGE_READ_ONLY: project ${projectId} is migrating`,
+        }),
+      }),
+    );
+    expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(runId, {
+      $set: {
+        status: "error",
+        statusError:
+          "This project's storage is read-only (migrating); the ingest was not performed.",
+      },
+    });
+    expect(sortReadFiles).not.toHaveBeenCalled();
+    expect(sortAdditionalFiles).not.toHaveBeenCalled();
   });
 
   test("hands a failed ingest to failJob rather than losing it", async () => {

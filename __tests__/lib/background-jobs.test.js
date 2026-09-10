@@ -142,7 +142,7 @@ describe("Background Jobs", () => {
       // ONLY the failed run should trigger an email now
       expect(sendMd5VerificationEmail).toHaveBeenCalledTimes(1);
       expect(sendMd5VerificationEmail).toHaveBeenCalledWith(
-        expect.objectContaining({ runName: "Run 2", mismatches: 1 })
+        expect.objectContaining({ runName: "Run 2", mismatches: 1 }),
       );
     });
 
@@ -365,7 +365,9 @@ describe("Background Jobs", () => {
     });
 
     test("reports what it left behind", async () => {
-      const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+      const errorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
       const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
       cleanupAbandonedUploads.mockResolvedValue({
         removed: ["a"],

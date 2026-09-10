@@ -32,6 +32,8 @@ jest.mock("../../lib/utils/sendOverseerEmail");
 const mockSendOverseerEmail = jest.requireMock(
   "../../lib/utils/sendOverseerEmail",
 );
+const { compareFilesToDirectory: mockCompareFilesToDirectory } =
+  jest.requireMock("../../routes/_utils");
 jest.mock("../../routes/_utils", () => ({
   handleError: jest.fn((res, error, status, message) => {
     res.status(status).json({
@@ -234,6 +236,42 @@ describe("GET /project?id=:id", () => {
         "bioinformatics",
       );
     });
+
+    test("does not report archived database files missing from HPC", async () => {
+      const now = new Date();
+      const archived = {
+        ...mockProject,
+        storage: {
+          state: "aws",
+          s3Uri: "s3://archive/data/bioinformatics/test-project",
+          s3VerifiedAt: now,
+          hpcVerifiedAbsentAt: now,
+          archivedAt: now,
+        },
+      };
+      Project.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockReturnValue({
+            populate: jest.fn().mockReturnValue({
+              exec: jest.fn().mockResolvedValue(archived),
+            }),
+          }),
+        }),
+      });
+      Group.GroupsIAmIn.mockResolvedValue([
+        { _id: { toString: () => mockGroupId }, name: "bioinformatics" },
+      ]);
+
+      const response = await request(app).get(`/project?id=${mockProjectId}`);
+
+      expect(response.status).toBe(200);
+      expect(mockCompareFilesToDirectory).not.toHaveBeenCalled();
+      expect(response.body.actualAdditionalFiles).toBeNull();
+      expect(response.body.additionalFilesStatus.status).toBe("NOT_APPLICABLE");
+      expect(response.body.location.baseUri).toBe(
+        "s3://archive/data/bioinformatics/test-project",
+      );
+    });
   });
 
   describe("error handling", () => {
@@ -272,7 +310,9 @@ describe("GET /project?id=:id", () => {
         populate: jest.fn().mockReturnValue({
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
-              exec: jest.fn().mockResolvedValue({ ...mockProject, owner: "someone-else" }),
+              exec: jest
+                .fn()
+                .mockResolvedValue({ ...mockProject, owner: "someone-else" }),
             }),
           }),
         }),
@@ -490,7 +530,9 @@ describe("GET /project?id=:id", () => {
         populate: jest.fn().mockReturnValue({
           populate: jest.fn().mockReturnValue({
             populate: jest.fn().mockReturnValue({
-              exec: jest.fn().mockResolvedValue({ ...mockProject, owner: "someone-else" }),
+              exec: jest
+                .fn()
+                .mockResolvedValue({ ...mockProject, owner: "someone-else" }),
             }),
           }),
         }),

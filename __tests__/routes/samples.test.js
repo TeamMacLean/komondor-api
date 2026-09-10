@@ -33,14 +33,15 @@ jest.mock("../../lib/sortAssociatedFiles", () => ({
 jest.mock("../../lib/utils/sendOverseerEmail", () =>
   jest.fn().mockResolvedValue(true),
 );
+const {
+  sortAdditionalFiles: mockSortAdditionalFiles,
+} = require("../../lib/sortAssociatedFiles");
 jest.mock("../../routes/_utils", () => ({
   handleError: jest.fn((res, error, status, message) => {
-    res
-      .status(status)
-      .json({
-        error: message || error.message,
-        detail: error instanceof Error ? error.message : undefined,
-      });
+    res.status(status).json({
+      error: message || error.message,
+      detail: error instanceof Error ? error.message : undefined,
+    });
   }),
   getActualFiles: jest.fn().mockResolvedValue([]),
   compareFilesToDirectory: jest.fn().mockResolvedValue({
@@ -53,6 +54,16 @@ jest.mock("../../routes/_utils", () => ({
       unresolved: [],
     },
   }),
+  storageReadOnlyResponse: jest.fn((res, project) =>
+    res.status(409).json({
+      error:
+        "This project's data storage is read-only; new data cannot be added to it.",
+      detail: `Project storage is read-only (${project.storage.state})`,
+      code: "PROJECT_STORAGE_READ_ONLY",
+      projectId: String(project._id),
+      storageState: project.storage.state,
+    }),
+  ),
 }));
 
 // Create test app
@@ -316,13 +327,14 @@ describe("GET /sample?id=:id", () => {
 
     test("should return 403 when user does not belong to sample group", async () => {
       mockSampleFindById(
-        jest
-          .fn()
-          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+        jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
       );
 
       // User belongs to different group
-      grantGroups({ read: ["different-group-id"], write: ["different-group-id"] });
+      grantGroups({
+        read: ["different-group-id"],
+        write: ["different-group-id"],
+      });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -332,7 +344,9 @@ describe("GET /sample?id=:id", () => {
     });
 
     test("should return 500 when database error occurs", async () => {
-      mockSampleFindById(jest.fn().mockRejectedValue(new Error("Database error")));
+      mockSampleFindById(
+        jest.fn().mockRejectedValue(new Error("Database error")),
+      );
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -383,13 +397,14 @@ describe("GET /sample?id=:id", () => {
 
     test("should deny access when user belongs to multiple groups but none match sample group", async () => {
       mockSampleFindById(
-        jest
-          .fn()
-          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+        jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
       );
 
       // User belongs to multiple groups, none of which match
-      grantGroups({ read: ["group-a", "group-b"], write: ["group-a", "group-b"] });
+      grantGroups({
+        read: ["group-a", "group-b"],
+        write: ["group-a", "group-b"],
+      });
 
       const response = await request(app).get(`/sample?id=${mockSampleId}`);
 
@@ -456,9 +471,7 @@ describe("GET /sample?id=:id", () => {
       mockUser = { username: "enaadmin", groups: [], isAdmin: false };
 
       mockSampleFindById(
-        jest
-          .fn()
-          .mockResolvedValue({ ...mockSample, owner: "someone-else" }),
+        jest.fn().mockResolvedValue({ ...mockSample, owner: "someone-else" }),
       );
       grantGroups({ read: [mockGroupId], write: [] });
 
@@ -888,7 +901,13 @@ describe("POST /samples/new - TPlex Mode", () => {
   test("should not throw when a name column arrives as a number", async () => {
     // `.trim()` on a number used to throw a TypeError and surface as a 500.
     const tplexCsvData = [
-      { name: 42, scientificName: 7, commonName: null, ncbi: "1", conditions: "x" },
+      {
+        name: 42,
+        scientificName: 7,
+        commonName: null,
+        ncbi: "1",
+        conditions: "x",
+      },
     ];
 
     Sample.mockImplementation((data) => {
@@ -1051,12 +1070,14 @@ describe("POST /samples/new - TPlex Mode", () => {
   });
 
   test("should reject TPlex rows that are not objects", async () => {
-    const response = await request(app).post("/samples/new").send({
-      project: projectId,
-      group: groupId,
-      owner: "testuser",
-      tplexCsv: ["not-an-object"],
-    });
+    const response = await request(app)
+      .post("/samples/new")
+      .send({
+        project: projectId,
+        group: groupId,
+        owner: "testuser",
+        tplexCsv: ["not-an-object"],
+      });
 
     expect(response.status).toBe(400);
     expect(Sample).not.toHaveBeenCalled();
@@ -1083,6 +1104,39 @@ describe("POST /samples/new - Standard Mode", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  test("refuses an archived project before idempotency or file work", async () => {
+    const now = new Date();
+    Project.findById.mockResolvedValue({
+      _id: projectId,
+      group: groupId,
+      storage: {
+        state: "aws",
+        s3Uri: "s3://archive/data/group/project",
+        s3VerifiedAt: now,
+        hpcVerifiedAbsentAt: now,
+        archivedAt: now,
+      },
+    });
+
+    const response = await request(app).post("/samples/new").send({
+      name: "Too late",
+      project: projectId,
+      scientificName: "Arabidopsis thaliana",
+      commonName: "Thale cress",
+      ncbi: "3702",
+      conditions: "Archived",
+      group: groupId,
+    });
+
+    expect(response.status).toBe(409);
+    expect(response.body).toMatchObject({
+      code: "PROJECT_STORAGE_READ_ONLY",
+      storageState: "aws",
+    });
+    expect(Sample.findOne).not.toHaveBeenCalled();
+    expect(mockSortAdditionalFiles).not.toHaveBeenCalled();
   });
 
   test("should create a single sample with all required fields", async () => {
@@ -1228,8 +1282,7 @@ describe("POST /samples/new - Standard Mode", () => {
       });
 
     const { sortAdditionalFiles } = require("../../lib/sortAssociatedFiles");
-    const [files, parentType, , , username] =
-      sortAdditionalFiles.mock.calls[0];
+    const [files, parentType, , , username] = sortAdditionalFiles.mock.calls[0];
     expect(files).toEqual([{ id: "upload-1" }]);
     expect(parentType).toBe("sample");
     expect(username).toBe("testuser");

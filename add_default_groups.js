@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Group = require('./models/Group');
+const mongoose = require("mongoose");
+const Group = require("./models/Group");
 
 function bioinformatics() {
   return new Promise((resolve, reject) => {
@@ -146,7 +146,9 @@ function ntalbot() {
 }
 
 try {
-    mongoose.connect('mongodb://localhost:27017/komondor', { useNewUrlParser: true });
+  mongoose.connect("mongodb://localhost:27017/komondor", {
+    useNewUrlParser: true,
+  });
 } catch (err) {
   console.error(err);
 }

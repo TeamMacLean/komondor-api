@@ -10,7 +10,7 @@ const schema = new mongoose.Schema(
     name: { type: String, required: true },
     body: { type: String, required: true },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } },
 );
 
 /**

@@ -35,6 +35,14 @@ beforeEach(() => {
   jest.spyOn(console, "warn").mockImplementation(() => {});
   delete process.env.SKIP_MD5_VERIFICATION;
   Run.findByIdAndUpdate.mockResolvedValue({});
+  Run.findById.mockReturnValue({
+    populate: jest.fn().mockReturnValue({
+      populate: jest.fn().mockResolvedValue({
+        _id: "r1",
+        sample: { project: { _id: "p1" } },
+      }),
+    }),
+  });
 });
 
 afterEach(() => {
@@ -159,9 +167,10 @@ describe("verifyRunMd5 failure handling", () => {
 
     expect(result.shouldRetry).toBe(false);
     expect(Run.findByIdAndUpdate).toHaveBeenCalledWith("r1", {
-      $set: { 
+      $set: {
         md5VerificationStatus: "failed",
-        statusError: "MD5 Verification failed internally after maximum attempts. Please contact the webmaster (deeks@nbi.ac.uk).",
+        statusError:
+          "MD5 Verification failed internally after maximum attempts. Please contact the webmaster (deeks@nbi.ac.uk).",
       },
     });
   });

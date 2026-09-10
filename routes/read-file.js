@@ -9,7 +9,10 @@ const {
   resolveBelow,
   assertWithinReal,
 } = require("../lib/utils/safePath");
-const { auditHpcAccess, requireHpcGroupAccess } = require("../lib/utils/hpcAudit");
+const {
+  auditHpcAccess,
+  requireHpcGroupAccess,
+} = require("../lib/utils/hpcAudit");
 
 // Files served by this endpoint are small text artefacts (logs, manifests).
 // Reading an arbitrarily large file into memory would stall the event loop and
@@ -28,7 +31,10 @@ router
         throw new Error("Missing targetDirectoryName or filename");
       }
 
-      if (typeof targetDirectoryName !== "string" || typeof filename !== "string") {
+      if (
+        typeof targetDirectoryName !== "string" ||
+        typeof filename !== "string"
+      ) {
         throw new Error("targetDirectoryName and filename must be strings");
       }
 
@@ -36,7 +42,8 @@ router
         throw new Error("HPC_TRANSFER_DIRECTORY is not configured");
       }
 
-      const cleanedTargetDirectoryName = cleanDirectoryName(targetDirectoryName);
+      const cleanedTargetDirectoryName =
+        cleanDirectoryName(targetDirectoryName);
 
       // The previous implementation used path.join, which treats a leading
       // slash on the filename as a plain separator. Stripping it keeps those
@@ -60,7 +67,9 @@ router
         console.error(
           `[read-file] Rejected path outside transfer directory: ${targetDirectoryName}/${filename}`,
         );
-        return res.status(403).send({ error: "Access denied: Invalid file path" });
+        return res
+          .status(403)
+          .send({ error: "Access denied: Invalid file path" });
       }
 
       // resolveBelow above is purely lexical, and that is not enough here.
@@ -77,7 +86,9 @@ router
         console.error(
           `[read-file] Rejected path escaping transfer directory via symlink: ${targetDirectoryName}/${filename}`,
         );
-        return res.status(403).send({ error: "Access denied: Invalid file path" });
+        return res
+          .status(403)
+          .send({ error: "Access denied: Invalid file path" });
       }
 
       // O_NOFOLLOW refuses a symlink at the leaf itself, and holding one

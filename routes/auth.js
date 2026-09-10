@@ -38,7 +38,9 @@ router.get("/me", (req, res, next) => {
     .catch((err) => {
       // A bad or expired token is a client problem, not a server fault.
       console.error("[AUTH] /me token verification failed:", err.message);
-      res.status(401).json({ error: "Invalid or expired authentication token" });
+      res
+        .status(401)
+        .json({ error: "Invalid or expired authentication token" });
     });
 });
 

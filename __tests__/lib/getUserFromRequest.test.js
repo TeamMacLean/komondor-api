@@ -41,7 +41,9 @@ describe("getUserFromRequest", () => {
   });
 
   test("resolves undefined when no Authorization header is present", async () => {
-    await expect(getUserFromRequest(makeReq(undefined))).resolves.toBeUndefined();
+    await expect(
+      getUserFromRequest(makeReq(undefined)),
+    ).resolves.toBeUndefined();
   });
 
   test("resolves undefined for a non-bearer scheme", async () => {

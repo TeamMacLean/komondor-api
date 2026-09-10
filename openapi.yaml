@@ -445,7 +445,7 @@ paths:
                       mail:
                         type: string
         "400":
-          description: '`username` missing or not a string.'
+          description: "`username` missing or not a string."
           content:
             application/json:
               schema:
@@ -614,7 +614,7 @@ paths:
                   group:
                     $ref: "#/components/schemas/Group"
         "400":
-          description: '`id` not provided.'
+          description: "`id` not provided."
           content:
             application/json:
               schema:
@@ -679,7 +679,7 @@ paths:
                   message:
                     const: Group deleted successfully
         "400":
-          description: '`id` not provided.'
+          description: "`id` not provided."
           content:
             application/json:
               schema:
@@ -707,7 +707,7 @@ paths:
     post:
       tags: [Groups]
       summary: Undo a soft-delete. Admin only.
-      description: 'Sets `deleted: false`. The exact inverse of `/groups/delete`.'
+      description: "Sets `deleted: false`. The exact inverse of `/groups/delete`."
       requestBody:
         required: true
         content:
@@ -729,7 +729,7 @@ paths:
                   message:
                     const: Group restored successfully
         "400":
-          description: '`id` not provided.'
+          description: "`id` not provided."
           content:
             application/json:
               schema:
@@ -822,7 +822,9 @@ paths:
         Alongside the project this returns a reconciliation of the database
         records against the `additional/` directory on disk. A datastore that
         cannot be read degrades to `additionalFilesStatus.status = "UNKNOWN"`
-        rather than failing the request.
+        rather than failing the request. Once a project has left `hpc`, the
+        directory is not read: the listing is null and reconciliation is
+        `NOT_APPLICABLE`.
       parameters:
         - name: id
           in: query
@@ -839,8 +841,10 @@ paths:
                 properties:
                   project:
                     $ref: "#/components/schemas/Project"
+                  location:
+                    $ref: "#/components/schemas/EntityLocation"
                   actualAdditionalFiles:
-                    type: array
+                    type: [array, "null"]
                     items:
                       type: string
                     description: Filenames actually present in the project's `additional/` directory.
@@ -1072,6 +1076,10 @@ paths:
     get:
       tags: [Samples]
       summary: One sample, with its runs and on-disk file status.
+      description: |
+        For a Project in `hpc`, reconciles the sample's additional-file
+        records with disk. For every other storage state it performs no HPC
+        read, returns a null listing and `NOT_APPLICABLE` reconciliation.
       parameters:
         - name: id
           in: query
@@ -1088,8 +1096,10 @@ paths:
                 properties:
                   sample:
                     $ref: "#/components/schemas/Sample"
+                  location:
+                    $ref: "#/components/schemas/EntityLocation"
                   actualAdditionalFiles:
-                    type: array
+                    type: [array, "null"]
                     items:
                       type: string
                   additionalFilesStatus:
@@ -1145,6 +1155,10 @@ paths:
         with the array flattened to CSV text in `tplexCsv`, the per-organism
         fields forced to null, and a name derived from the first row when none
         was supplied. `additionalFiles` is ignored in this mode.
+
+        If the parent Project has left `hpc`, the authorised request is
+        refused before idempotency or file work with 409 and
+        `code: PROJECT_STORAGE_READ_ONLY`.
       requestBody:
         required: true
         content:
@@ -1229,6 +1243,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorEnvelope"
+        "409":
+          description: The Project is migrating, archived, or has invalid storage state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
         "500":
           $ref: "#/components/responses/ServerError"
 
@@ -1301,6 +1321,8 @@ paths:
         Reconciles two directories, `raw/` and `additional/`, and returns a
         separate status object for each. Note the asymmetric key names:
         `actualReads` for raw files but `actualAdditionalFiles` for the others.
+        No directory is read after the owning Project leaves `hpc`; both
+        listings are null and both statuses are `NOT_APPLICABLE`.
       parameters:
         - name: id
           in: query
@@ -1317,13 +1339,15 @@ paths:
                 properties:
                   run:
                     $ref: "#/components/schemas/Run"
+                  location:
+                    $ref: "#/components/schemas/EntityLocation"
                   actualReads:
-                    type: array
+                    type: [array, "null"]
                     items:
                       type: string
                     description: Filenames present in the run's `raw/` directory.
                   actualAdditionalFiles:
-                    type: array
+                    type: [array, "null"]
                     items:
                       type: string
                   rawFilesStatus:
@@ -1408,6 +1432,11 @@ paths:
         the permission check, so an invalid body gets 400 even from a caller
         who would have been refused with 403. A malformed `sample` id is a 400
         and the database is never queried.
+
+        After authorisation, Project storage is checked before the idempotent
+        lookup. Any state other than `hpc` returns terminal 409
+        `PROJECT_STORAGE_READ_ONLY`, including a repeated request for a run
+        that already exists.
       requestBody:
         required: true
         content:
@@ -1525,6 +1554,12 @@ paths:
           $ref: "#/components/responses/Unauthenticated"
         "403":
           $ref: "#/components/responses/GroupPermissionDenied"
+        "409":
+          description: The Project is migrating, archived, or has invalid storage state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
         "500":
           $ref: "#/components/responses/ServerError"
 
@@ -1544,6 +1579,11 @@ paths:
 
         `progress.percentComplete` is 100 when the run has no read files at
         all, which reads as "finished" rather than "nothing to do".
+
+        `projectStorage` reports the owning Project's current lifecycle. Once
+        it is read-only, historical MD5 fields remain unchanged and
+        `md5VerificationApplicable` is false with reason
+        `PROJECT_STORAGE_READ_ONLY`.
 
         A malformed `id` is a 400 and the database is never queried.
       parameters:
@@ -1581,6 +1621,13 @@ paths:
                   md5VerificationCompletedAt:
                     type: [string, "null"]
                     format: date-time
+                  md5VerificationApplicable:
+                    type: boolean
+                  md5VerificationNotApplicableReason:
+                    type: [string, "null"]
+                    enum: [PROJECT_STORAGE_READ_ONLY, null]
+                  projectStorage:
+                    $ref: "#/components/schemas/StorageSummary"
                   progress:
                     type: object
                     properties:
@@ -1605,7 +1652,7 @@ paths:
                           type: [string, "null"]
                         md5Mismatch:
                           type: [boolean, "null"]
-                          description: '`null` means not yet checked.'
+                          description: "`null` means not yet checked."
                         lastChecked:
                           type: [string, "null"]
                           format: date-time
@@ -1692,9 +1739,10 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "409":
           description: |
-            The ingest job exists but is not `failed`. Only a failed ingest can
-            be retried, so a retry can never clobber a healthy or in-flight
-            run.
+            The ingest job exists but is not `failed`, or the owning Project
+            has left `hpc`. Storage refusal carries
+            `code: PROJECT_STORAGE_READ_ONLY` and happens before the job or
+            replacement payload is inspected.
           content:
             application/json:
               schema:
@@ -1722,7 +1770,9 @@ paths:
 
         Each entry also carries `ingest`, the same summary as
         `GET /runs/{id}/status`, so the two endpoints agree about what a run's
-        status is. The caller's groups are read once for the whole batch.
+        status is. It also carries `projectStorage`; archived rows keep their
+        historical MD5 values but set `md5VerificationApplicable: false`.
+        The caller's groups are read once for the whole batch.
       requestBody:
         required: true
         content:
@@ -1769,6 +1819,13 @@ paths:
                         md5VerificationCompletedAt:
                           type: [string, "null"]
                           format: date-time
+                        md5VerificationApplicable:
+                          type: boolean
+                        md5VerificationNotApplicableReason:
+                          type: [string, "null"]
+                          enum: [PROJECT_STORAGE_READ_ONLY, null]
+                        projectStorage:
+                          $ref: "#/components/schemas/StorageSummary"
                         createdAt:
                           type: string
                           format: date-time
@@ -1795,7 +1852,7 @@ paths:
                     items:
                       type: string
         "400":
-          description: '`runIds` is not an array, or has more than 100 entries.'
+          description: "`runIds` is not an array, or has more than 100 entries."
           content:
             application/json:
               schema:
@@ -2011,7 +2068,7 @@ paths:
                     type: string
                 releaseDate:
                   type: string
-                  description: 'DD-MM-YYYY. Stored as a string; ignored unless `type` is `project`.'
+                  description: "DD-MM-YYYY. Stored as a string; ignored unless `type` is `project`."
       responses:
         "200":
           description: Updated. Empty body.
@@ -2067,6 +2124,13 @@ paths:
 
         Rows whose sample, project or group cannot be resolved are skipped and
         logged, so the export can be shorter than the run count.
+
+        `list_of_read_files` contains the effective authoritative location:
+        the configured HPC display root for `hpc`/`migrating` projects and
+        `s3://` URIs for verified AWS copies. An inconsistent historical file
+        path is emitted as `unresolved:<stored path>` rather than pointing at a
+        nonexistent HPC file or duplicating the project prefix. One export may
+        therefore contain both POSIX and S3 locations.
 
         DRIFT: `FULL_RECORDS_ACCESS_USERS` on this server must be kept in step
         with `ENA_ADMINS` in komondor-web, which decides who is offered the
@@ -2199,7 +2263,7 @@ paths:
                     type: [string, "null"]
                   dirRoot:
                     type: [string, "null"]
-                    description: '`null` when the path would escape the transfer directory.'
+                    description: "`null` when the path would escape the transfer directory."
                   withinTransferDirectory:
                     type: boolean
                   exists:
@@ -2944,6 +3008,64 @@ components:
           type: string
           description: Correlates with the server log line for this failure.
           examples: ["1735689600000-k3j9x2p1a"]
+        code:
+          type: string
+          description: Optional stable machine-readable error code.
+        projectId:
+          type: string
+          description: Present on project-storage refusals.
+        storageState:
+          type: string
+          description: Present on project-storage refusals; may be `invalid`.
+
+    StorageSummary:
+      type: object
+      description: |
+        Public Project-owned storage lifecycle. A Project written before this
+        field existed is returned as `hpc`. Samples and runs derive the same
+        object as `projectStorage`; they do not store their own copy.
+      required: [state, acceptsHpcWrites, authoritativeLocation]
+      properties:
+        state:
+          type: string
+          enum: [hpc, migrating, aws_pending_hpc_deletion, aws, invalid]
+        acceptsHpcWrites:
+          type: boolean
+        authoritativeLocation:
+          type: [string, "null"]
+          enum: [hpc, s3, null]
+        s3Uri:
+          type: [string, "null"]
+        s3VerifiedAt:
+          type: [string, "null"]
+          format: date-time
+        hpcVerifiedAbsentAt:
+          type: [string, "null"]
+          format: date-time
+        archivedAt:
+          type: [string, "null"]
+          format: date-time
+        migrationHealth:
+          type: [string, "null"]
+          enum: [active, needs_attention, null]
+
+    EntityLocation:
+      type: object
+      description: Display-ready authoritative location for a detail response.
+      properties:
+        authoritative:
+          type: [string, "null"]
+          enum: [hpc, s3, null]
+        baseUri:
+          type: [string, "null"]
+        rawUri:
+          type: [string, "null"]
+          description: Present on run details only.
+        additionalUri:
+          type: [string, "null"]
+        plannedS3Uri:
+          type: [string, "null"]
+          description: Set while migrating; it is not yet authoritative.
 
     ReadinessReport:
       type: object
@@ -2965,7 +3087,7 @@ components:
             properties:
               name:
                 type: string
-                description: '`mongodb`, a mount variable name, `ingest-worker`, or `draining`.'
+                description: "`mongodb`, a mount variable name, `ingest-worker`, or `draining`."
               ok:
                 type: boolean
               detail:
@@ -3104,7 +3226,7 @@ components:
             type: string
         releaseDate:
           type: string
-          description: 'ENA submission date, stored as a `DD-MM-YYYY` STRING, not a date.'
+          description: "ENA submission date, stored as a `DD-MM-YYYY` STRING, not a date."
         doNotSendToEna:
           type: boolean
           default: false
@@ -3128,6 +3250,8 @@ components:
             `NUDGE_INCLUDE_UNDEFINED_NUDGEABLE=true` — so absent and `false`
             are not the same thing to that consumer, even though the API can no
             longer produce an absent value.
+        storage:
+          $ref: "#/components/schemas/StorageSummary"
         nudges:
           type: array
           description: |
@@ -3170,6 +3294,8 @@ components:
           oneOf:
             - $ref: "#/components/schemas/ObjectId"
             - $ref: "#/components/schemas/Project"
+        projectStorage:
+          $ref: "#/components/schemas/StorageSummary"
         group:
           oneOf:
             - $ref: "#/components/schemas/ObjectId"
@@ -3314,6 +3440,8 @@ components:
           oneOf:
             - $ref: "#/components/schemas/ObjectId"
             - $ref: "#/components/schemas/Sample"
+        projectStorage:
+          $ref: "#/components/schemas/StorageSummary"
         group:
           oneOf:
             - $ref: "#/components/schemas/ObjectId"
@@ -3399,7 +3527,7 @@ components:
         md5Mismatch:
           type: [boolean, "null"]
           default: null
-          description: '`null` = not yet checked, `true` = mismatch, `false` = verified equal.'
+          description: "`null` = not yet checked, `true` = mismatch, `false` = verified equal."
         MD5LastChecked:
           type: string
           format: date-time
@@ -3496,13 +3624,20 @@ components:
       properties:
         status:
           type: string
-          enum: [OK, WARNING, MISMATCH, UNKNOWN]
+          enum: [OK, WARNING, MISMATCH, UNKNOWN, NOT_APPLICABLE]
           description: |
             `MISMATCH` — files are missing from disk, or a record's filename
             could not be resolved. `WARNING` — only untracked extra files on
             disk. `UNKNOWN` — the directory could not be read at all; the
             request still succeeds rather than 500-ing on an unmounted
-            datastore.
+            datastore. `NOT_APPLICABLE` means the project has left live HPC
+            storage, so no filesystem check was attempted.
+        reason:
+          type: string
+          description: "PROJECT_STORAGE_READ_ONLY for NOT_APPLICABLE."
+        storageState:
+          type: string
+          description: Project storage state for `NOT_APPLICABLE`.
         message:
           type: string
           description: A human-readable summary. A file both missing and extra is reported as a probable rename.

@@ -300,9 +300,7 @@ describe("openapi.yaml contract", () => {
 
   describe("the spec documents nothing that does not exist", () => {
     test("every documented path is a registered route", () => {
-      const expressPaths = new Set(
-        [...registered.keys()].map(toSpecPath),
-      );
+      const expressPaths = new Set([...registered.keys()].map(toSpecPath));
 
       const fictional = [...spec.keys()]
         .filter((path) => !expressPaths.has(path))

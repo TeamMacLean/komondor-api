@@ -6,9 +6,8 @@ let router = express.Router();
 const Project = require("../models/Project");
 const Sample = require("../models/Sample");
 const Run = require("../models/Run");
-const {
-  visibleGroupIds,
-} = require("../lib/utils/fullAccessUsers");
+const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const { attachProjectStorage } = require("../lib/storage-state");
 
 // Upper bound on a search term: long terms produce pathological regexes.
 const MAX_QUERY_LENGTH = 200;
@@ -60,8 +59,16 @@ const searchByName = async (Model, user, query) => {
 };
 
 const searchProjects = (user, query) => searchByName(Project, user, query);
-const searchSamples = (user, query) => searchByName(Sample, user, query);
-const searchRuns = (user, query) => searchByName(Run, user, query);
+const searchSamples = async (user, query) => {
+  const samples = await searchByName(Sample, user, query);
+  await attachProjectStorage(samples, { via: "project" });
+  return samples;
+};
+const searchRuns = async (user, query) => {
+  const runs = await searchByName(Run, user, query);
+  await attachProjectStorage(runs, { via: "sample" });
+  return runs;
+};
 
 router
   .route("/search")

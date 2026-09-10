@@ -12,6 +12,11 @@ const {
 } = require("../lib/utils/fullAccessUsers");
 const _path = require("path");
 const { handleError } = require("./_utils");
+const {
+  resolveStorageState,
+  relativePathWithinProject,
+  appendUri,
+} = require("../lib/storage-state");
 
 const ENTITY_TYPES = ["project", "sample", "run"];
 
@@ -215,10 +220,36 @@ const getMatrixOfData = async () => {
         return read.run && read.run.toString() === runPlus._id.toString();
       });
 
-      const readsRootPath = process.env.READS_ROOT_PATH || "/tsl/data/reads";
       const relatedReadsPaths = relatedReads
         .filter((read) => read.file && read.file.path)
-        .map((read) => _path.join(readsRootPath, read.file.path));
+        .map((read) => {
+          const filePath = read.file.path;
+          const storage = resolveStorageState(targetProjectObj);
+
+          if (storage.authoritativeLocation === "hpc") {
+            const readsRootPath =
+              process.env.READS_ROOT_PATH || "/tsl/data/reads";
+            return _path.posix.join(
+              readsRootPath,
+              String(filePath).replace(/^\/+/, ""),
+            );
+          }
+
+          if (storage.authoritativeLocation === "s3") {
+            const relative = relativePathWithinProject(
+              targetProjectObj,
+              filePath,
+            );
+            if (relative !== null) {
+              return appendUri(targetProjectObj.storage.s3Uri, relative);
+            }
+          }
+
+          console.warn(
+            `[accessions/csv] Could not resolve authoritative storage URI for File ${read.file._id || "unknown"} (${filePath}) in Project ${targetProjectObj._id}`,
+          );
+          return `unresolved:${filePath}`;
+        });
       const relatedReadsPathsString = relatedReadsPaths.join(";");
 
       return [

@@ -7,5 +7,5 @@ module.exports = mongoose.model(
     paired: { type: Boolean, required: true },
     extensions: { type: [String], required: true },
     indexed: { type: Boolean, default: false },
-  })
+  }),
 );

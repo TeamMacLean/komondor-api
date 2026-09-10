@@ -1230,6 +1230,47 @@ are now safer.
 
 ---
 
+## 39. Archived projects are read-only and expose S3 locations
+
+**Where:** `models/Project.js`, `lib/storage-state.js`, project/sample/run
+routes, the ingest worker, MD5 verification and the accessions CSV export.
+
+A Project now owns a storage lifecycle: `hpc`, `migrating`,
+`aws_pending_hpc_deletion` or `aws`. Existing records with no `storage` field
+continue to behave as `hpc`. Samples and Runs do not store a second copy; their
+API documents derive `projectStorage` from the parent Project.
+
+Once a Project leaves `hpc`, the three storage-bearing HTTP writes are
+terminally refused:
+
+- `POST /samples/new`
+- `POST /runs/new`
+- `POST /runs/:id/reingest`
+
+They answer **409** with `code: "PROJECT_STORAGE_READ_ONLY"`, plus `projectId`
+and `storageState`. This check runs after authorisation but before idempotency,
+file handling or queue work. Clients must not retry that 409; choosing an HPC
+Project is the recovery.
+
+Read responses change additively. Projects expose a sanitised `storage`
+summary, Samples/Runs expose `projectStorage`, and the three detail routes add
+`location`. For a non-HPC Project they no longer inspect a deleted or stale HPC
+tree: `actualReads`/`actualAdditionalFiles` are `null` and reconciliation is
+`NOT_APPLICABLE`. Database-backed Read and AdditionalFile records remain.
+
+The accessions CSV keeps its columns, but `list_of_read_files` now describes
+the authoritative storage: POSIX paths for `hpc`/`migrating`, S3 URIs after
+verification, and `unresolved:<stored path>` for an inconsistent record. A
+single export can contain both POSIX and S3 locations.
+
+**Rollback:** do not roll the API back to a version without these guards after
+any Project has been locked for migration. An older API would treat that
+Project as writable and could add files to the HPC tree after its archive
+inventory was sealed. Abort the migration while that operation is still safe,
+or finish it; do not remove the storage-aware guards underneath it.
+
+---
+
 ## Known issues not addressed here
 
 - **`routes/auth.js` `DEV_USERS` is gated only on `NODE_ENV === "development"`.**

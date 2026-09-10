@@ -158,7 +158,9 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
 
       expect(response.status).toBe(200);
       expect(response.body.doc).toEqual({ _id: "saved" });
-      expect(model().lastDoc).toEqual(expect.objectContaining({ value: "new" }));
+      expect(model().lastDoc).toEqual(
+        expect.objectContaining({ value: "new" }),
+      );
     });
 
     test("rejects a missing value", async () => {
@@ -175,7 +177,9 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
     });
 
     test("rejects a non-string value", async () => {
-      const response = await request(app).post(path).send({ value: { a: 1 } });
+      const response = await request(app)
+        .post(path)
+        .send({ value: { a: 1 } });
 
       expect(response.status).toBe(400);
     });
@@ -278,7 +282,9 @@ describe.each(OPTION_PATHS)("%s", (path, modelName) => {
     });
 
     test("rejects a malformed id without touching the collection", async () => {
-      const response = await request(app).delete(path).send({ id: "not-an-id" });
+      const response = await request(app)
+        .delete(path)
+        .send({ id: "not-an-id" });
 
       expect(response.status).toBe(400);
       expect(model().deleteOne).not.toHaveBeenCalled();

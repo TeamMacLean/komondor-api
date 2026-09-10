@@ -8,11 +8,21 @@ const Project = require("../models/Project");
 const { isAuthenticated } = require("./middleware");
 const { canReadGroup, canWriteGroup } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
-const {
-  visibleGroupIds,
-} = require("../lib/utils/fullAccessUsers");
+const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { handleError, compareFilesToDirectory } = require("./_utils");
+const {
+  handleError,
+  compareFilesToDirectory,
+  storageReadOnlyResponse,
+} = require("./_utils");
+const {
+  resolveStorageState,
+  publicStorageSummary,
+  locationFor,
+  notApplicableReconciliation,
+  attachProjectStorage,
+  setDerivedField,
+} = require("../lib/storage-state");
 
 /**
  * Whether a request value is safe to use as an id in a query.
@@ -105,6 +115,7 @@ router
         .populate("group")
         .sort("-createdAt")
         .exec();
+      await attachProjectStorage(samples, { via: "project" });
       res.status(200).send({ samples });
     } catch (error) {
       handleError(res, error, 500, "Failed to retrieve samples.");
@@ -191,7 +202,7 @@ router
     try {
       const sample = await Sample.findById(id)
         .populate("group")
-        .populate("project")
+        .populate({ path: "project", select: "+archiveMigration" })
         .populate({ path: "runs", populate: { path: "group" } })
         .populate({ path: "additionalFiles", populate: { path: "file" } })
         .exec();
@@ -206,22 +217,42 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error(`User '${req.user.username}' does not have permission to view this sample.`),
+          new Error(
+            `User '${req.user.username}' does not have permission to view this sample.`,
+          ),
           403,
         );
       }
 
-      const additionalDir = _path.join(
-        process.env.DATASTORE_ROOT,
-        sample.path,
-        "additional",
-      );
-      const {
-        actualFiles: actualAdditionalFiles,
-        status: additionalFilesStatus,
-      } = await compareFilesToDirectory(sample.additionalFiles, additionalDir);
+      const project = sample.project;
+      const storageState = resolveStorageState(project);
+      setDerivedField(sample, "projectStorage", publicStorageSummary(project));
 
-      res.status(200).send({ sample, actualAdditionalFiles, additionalFilesStatus });
+      let actualAdditionalFiles = null;
+      let additionalFilesStatus = notApplicableReconciliation(
+        storageState.state,
+      );
+
+      if (storageState.state === "hpc") {
+        const additionalDir = _path.join(
+          process.env.DATASTORE_ROOT,
+          sample.path,
+          "additional",
+        );
+        const comparison = await compareFilesToDirectory(
+          sample.additionalFiles,
+          additionalDir,
+        );
+        actualAdditionalFiles = comparison.actualFiles;
+        additionalFilesStatus = comparison.status;
+      }
+
+      res.status(200).send({
+        sample,
+        location: locationFor(project, sample.path),
+        actualAdditionalFiles,
+        additionalFilesStatus,
+      });
     } catch (error) {
       handleError(res, error, 500, `Failed to retrieve sample ${id}.`);
     }
@@ -320,6 +351,11 @@ router
         );
       }
 
+      const storageState = resolveStorageState(project);
+      if (!storageState.acceptsHpcWrites) {
+        return storageReadOnlyResponse(res, project);
+      }
+
       let sampleName = body.name;
 
       if (isTplexSample && (!sampleName || sampleName.trim() === "")) {
@@ -352,6 +388,11 @@ router
 
           console.log(
             `Sample already exists: ${existingSample._id} (${existingSample.name})`,
+          );
+          setDerivedField(
+            existingSample,
+            "projectStorage",
+            publicStorageSummary(project),
           );
           return res.status(200).send({
             sample: existingSample,
@@ -417,6 +458,11 @@ router
         }
       }
 
+      setDerivedField(
+        savedSample,
+        "projectStorage",
+        publicStorageSummary(project),
+      );
       res.status(201).send({ sample: savedSample });
 
       // After the response, non-blocking: a failed email must not fail the save.

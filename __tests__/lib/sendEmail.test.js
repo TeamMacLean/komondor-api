@@ -166,7 +166,12 @@ describe("sendOverseerEmail", () => {
 
     await sendOverseerEmail({
       type: "Project",
-      data: { _id: "id1", name: "thing", owner: "alice", doNotSendToEna: false },
+      data: {
+        _id: "id1",
+        name: "thing",
+        owner: "alice",
+        doNotSendToEna: false,
+      },
     });
 
     expect(mockSendMail.mock.calls[0][0].text).toContain("Send to ENA: true");
@@ -177,7 +182,12 @@ describe("sendOverseerEmail", () => {
 
     await sendOverseerEmail({
       type: "Sample",
-      data: { _id: "id1", name: "thing", owner: "alice", doNotSendToEna: false },
+      data: {
+        _id: "id1",
+        name: "thing",
+        owner: "alice",
+        doNotSendToEna: false,
+      },
     });
 
     expect(mockSendMail.mock.calls[0][0].text).not.toContain("Send to ENA");

@@ -56,7 +56,9 @@ const makeQueryChain = (result, capture = {}) => {
       return chain;
     }),
     exec: jest.fn(() =>
-      result instanceof Error ? Promise.reject(result) : Promise.resolve(result),
+      result instanceof Error
+        ? Promise.reject(result)
+        : Promise.resolve(result),
     ),
   };
   return chain;
@@ -84,8 +86,18 @@ describe("GET /search", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.results.projects).toEqual([{ name: "proj" }]);
-    expect(response.body.results.samples).toEqual([{ name: "samp" }]);
-    expect(response.body.results.runs).toEqual([{ name: "run" }]);
+    expect(response.body.results.samples[0]).toEqual(
+      expect.objectContaining({
+        name: "samp",
+        projectStorage: expect.any(Object),
+      }),
+    );
+    expect(response.body.results.runs[0]).toEqual(
+      expect.objectContaining({
+        name: "run",
+        projectStorage: expect.any(Object),
+      }),
+    );
   });
 
   test("returns an empty array when no query is supplied", async () => {
@@ -189,7 +201,9 @@ describe("search matching", () => {
   });
 
   test("uses the first value when the query parameter is repeated", async () => {
-    const response = await request(app).get("/search/project?query=ab&query=cd");
+    const response = await request(app).get(
+      "/search/project?query=ab&query=cd",
+    );
 
     expect(response.status).toBe(200);
     expect(Project.iCanSee).toHaveBeenCalled();
@@ -207,7 +221,14 @@ describe.each([
     const response = await request(app).get(path).query({ query: "hit" });
 
     expect(response.status).toBe(200);
-    expect(response.body.results).toEqual([{ name: "hit" }]);
+    expect(response.body.results[0]).toEqual(
+      expect.objectContaining({ name: "hit" }),
+    );
+    if (path !== "/search/project") {
+      expect(response.body.results[0].projectStorage).toEqual(
+        expect.objectContaining({ acceptsHpcWrites: false }),
+      );
+    }
   });
 
   test("returns an empty array with no query", async () => {

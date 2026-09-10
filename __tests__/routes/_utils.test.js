@@ -14,6 +14,7 @@ const {
   generateRequestId,
   getAdditionalFilesStatus,
   compareFilesToDirectory,
+  storageReadOnlyResponse,
 } = require("../../routes/_utils");
 
 /** Builds a minimal Express response double. */
@@ -129,6 +130,37 @@ describe("handleError", () => {
       expect.stringContaining("Validation errors"),
       expect.any(String),
     );
+  });
+});
+
+describe("storageReadOnlyResponse", () => {
+  test("returns the stable terminal storage envelope", () => {
+    const res = makeRes();
+    storageReadOnlyResponse(
+      res,
+      {
+        _id: "64f1c0000000000000000000",
+        storage: {
+          state: "aws",
+          s3Uri: "s3://archive/data/group/project",
+          s3VerifiedAt: new Date("2026-09-01T00:00:00Z"),
+          hpcVerifiedAbsentAt: new Date("2026-09-02T00:00:00Z"),
+          archivedAt: new Date("2026-09-02T00:00:00Z"),
+        },
+      },
+      "request-123",
+    );
+
+    expect(res.statusCode).toBe(409);
+    expect(res.body).toEqual({
+      error:
+        "This project's data storage is archived in AWS S3; new data cannot be added to it.",
+      detail: "Project storage is read-only (aws)",
+      requestId: "request-123",
+      code: "PROJECT_STORAGE_READ_ONLY",
+      projectId: "64f1c0000000000000000000",
+      storageState: "aws",
+    });
   });
 });
 
@@ -291,7 +323,12 @@ describe("getAdditionalFilesStatus", () => {
       // Dropping it emptied the database side, so every real file on disk was
       // reported as untracked.
       const result = getAdditionalFilesStatus(
-        [{ _id: new mongoose.Types.ObjectId(), file: new mongoose.Types.ObjectId() }],
+        [
+          {
+            _id: new mongoose.Types.ObjectId(),
+            file: new mongoose.Types.ObjectId(),
+          },
+        ],
         ["a.pdf"],
       );
 
@@ -312,7 +349,10 @@ describe("getAdditionalFilesStatus", () => {
 
     test("does not count an unresolved record as a file on disk", () => {
       const result = getAdditionalFilesStatus(
-        [populated("a.pdf"), { _id: new mongoose.Types.ObjectId(), file: null }],
+        [
+          populated("a.pdf"),
+          { _id: new mongoose.Types.ObjectId(), file: null },
+        ],
         ["a.pdf"],
       );
 
@@ -338,14 +378,18 @@ describe("getAdditionalFilesStatus", () => {
     test("tolerates a virtual that was never populated", () => {
       // An unpopulated virtual is undefined, and throwing here turned a
       // working GET into a 500.
-      expect(() => getAdditionalFilesStatus(undefined, ["a.pdf"])).not.toThrow();
+      expect(() =>
+        getAdditionalFilesStatus(undefined, ["a.pdf"]),
+      ).not.toThrow();
       expect(getAdditionalFilesStatus(undefined, ["a.pdf"]).extra).toEqual([
         "a.pdf",
       ]);
     });
 
     test("tolerates a missing directory listing", () => {
-      expect(() => getAdditionalFilesStatus([populated("a.pdf")])).not.toThrow();
+      expect(() =>
+        getAdditionalFilesStatus([populated("a.pdf")]),
+      ).not.toThrow();
     });
   });
 });

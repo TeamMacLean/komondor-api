@@ -11,11 +11,14 @@ const {
   groupsICanWrite,
 } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
-const {
-  visibleGroupIds,
-} = require("../lib/utils/fullAccessUsers");
+const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { handleError, compareFilesToDirectory } = require("./_utils");
+const {
+  resolveStorageState,
+  locationFor,
+  notApplicableReconciliation,
+} = require("../lib/storage-state");
 
 /**
  * Narrows a request value to something usable as a mongoose id.
@@ -115,7 +118,7 @@ router
     }
 
     try {
-      const project = await Project.findById(id)
+      const project = await Project.findById(id, "+archiveMigration")
         .populate("group")
         .populate({ path: "samples", populate: { path: "group" } })
         .populate({ path: "additionalFiles", populate: { path: "file" } })
@@ -131,22 +134,39 @@ router
       if (!canAccess) {
         return handleError(
           res,
-          new Error(`User '${req.user.username}' does not have permission to view this project.`),
+          new Error(
+            `User '${req.user.username}' does not have permission to view this project.`,
+          ),
           403,
         );
       }
 
-      const additionalDir = _path.join(
-        process.env.DATASTORE_ROOT,
-        project.path,
-        "additional",
+      const storageState = resolveStorageState(project);
+      let actualAdditionalFiles = null;
+      let additionalFilesStatus = notApplicableReconciliation(
+        storageState.state,
       );
-      const {
-        actualFiles: actualAdditionalFiles,
-        status: additionalFilesStatus,
-      } = await compareFilesToDirectory(project.additionalFiles, additionalDir);
 
-      res.status(200).send({ project, actualAdditionalFiles, additionalFilesStatus });
+      if (storageState.state === "hpc") {
+        const additionalDir = _path.join(
+          process.env.DATASTORE_ROOT,
+          project.path,
+          "additional",
+        );
+        const comparison = await compareFilesToDirectory(
+          project.additionalFiles,
+          additionalDir,
+        );
+        actualAdditionalFiles = comparison.actualFiles;
+        additionalFilesStatus = comparison.status;
+      }
+
+      res.status(200).send({
+        project,
+        location: locationFor(project, project.path),
+        actualAdditionalFiles,
+        additionalFilesStatus,
+      });
     } catch (error) {
       handleError(res, error, 500, `Failed to retrieve project ${id}.`);
     }
@@ -301,6 +321,7 @@ router
         doNotSendToEnaReason: asString(doNotSendToEnaReason),
         nudgeable,
         nudges: [],
+        storage: { state: "hpc" },
       });
 
       savedProject = await newProject.save();

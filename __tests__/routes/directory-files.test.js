@@ -27,7 +27,6 @@ jest.mock("../../routes/middleware", () => ({
   },
 }));
 
-
 // The HPC read endpoints now also require membership of at least one group
 // (lib/utils/hpcAudit.js). These tests are about path containment, not
 // membership, so grant it by default; the refusal has its own test below.
@@ -51,7 +50,10 @@ beforeAll(() => {
   tmpRoot = fs.mkdtempSync(_path.join(os.tmpdir(), "komondor-dirfiles-"));
   transferDir = _path.join(tmpRoot, "transfer");
   fs.mkdirSync(_path.join(transferDir, "batch1"), { recursive: true });
-  fs.writeFileSync(_path.join(transferDir, "batch1", "reads.txt"), FILE_CONTENT);
+  fs.writeFileSync(
+    _path.join(transferDir, "batch1", "reads.txt"),
+    FILE_CONTENT,
+  );
   fs.mkdirSync(_path.join(transferDir, "empty"), { recursive: true });
 
   fs.writeFileSync(_path.join(tmpRoot, "secret.txt"), "TOP SECRET");
@@ -760,7 +762,9 @@ describe("HPC staging endpoints leave an audit trail", () => {
   const auditLines = () =>
     logSpy.mock.calls
       .map((call) => call[0])
-      .filter((line) => typeof line === "string" && line.includes(AUDIT_PREFIX));
+      .filter(
+        (line) => typeof line === "string" && line.includes(AUDIT_PREFIX),
+      );
 
   describe("GET /directory-files", () => {
     test("emits exactly one line naming the caller and the resolved directory", async () => {
@@ -843,13 +847,11 @@ describe("HPC staging endpoints leave an audit trail", () => {
     });
 
     test("does not claim a read of a file that does not exist", async () => {
-      await request(app)
-        .post("/directory-files/verify-md5")
-        .send({
-          directoryName: "batch1",
-          fileName: "nope.txt",
-          expectedMd5: FILE_MD5,
-        });
+      await request(app).post("/directory-files/verify-md5").send({
+        directoryName: "batch1",
+        fileName: "nope.txt",
+        expectedMd5: FILE_MD5,
+      });
 
       expect(auditLines()).toHaveLength(0);
     });

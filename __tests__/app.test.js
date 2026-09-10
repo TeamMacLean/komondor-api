@@ -129,7 +129,9 @@ describe("readiness probe", () => {
 
     const response = await request(app).get("/ready");
 
-    const mongo = response.body.checks.find((check) => check.name === "mongodb");
+    const mongo = response.body.checks.find(
+      (check) => check.name === "mongodb",
+    );
     expect(mongo.detail).toBe("connecting");
   });
 

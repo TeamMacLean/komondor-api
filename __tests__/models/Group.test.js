@@ -43,7 +43,11 @@ describe("GroupsIAmIn logic", () => {
     const { mode = "read", includeDeleted = false } = options || {};
 
     const username =
-      user.username || user.sAMAccountName || user.uid || user.mailNickname || "unknown";
+      user.username ||
+      user.sAMAccountName ||
+      user.uid ||
+      user.mailNickname ||
+      "unknown";
 
     let groupFindCriteria = null;
 

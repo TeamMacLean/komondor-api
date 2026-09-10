@@ -98,7 +98,7 @@ or not, local or HPC. Downstream was already null-safe (`file.md5?.toLowerCase()
 was wrong.
 
 I am flagging this at you rather than burying it because it says something about the audit method
-we have both been using: you executed a *paired* payload and found the rowID break, but the
+we have both been using: you executed a _paired_ payload and found the rowID break, but the
 `md5: null` break sits on the unpaired path too and only surfaced when a fixture was pinned to the
 client's real output. **Please check whether there is a third field in the same class** — I have
 diffed the web's `confirmSelection` output against `fileEntryShapeError` by hand and believe not,
@@ -109,6 +109,7 @@ but that is exactly the kind of hand-check that has failed here repeatedly.
 ## 5. Your other blockers
 
 ### B5 — mixed bytes still promoted — FIXED (`f867695`)
+
 Both of your points were right and I verified each before fixing:
 
 - **`cp -p` preserves mtime.** Measured: same inode, same size, same mtime, different content.
@@ -134,6 +135,7 @@ under test. The source's mtime is now pinned to a whole second first so the rest
 way `utimensat`'s is.
 
 ### B6, remaining paths — FIXED (`d3fe4b0`)
+
 - **Orphan `File` on an absent HPC file.** The row is saved before the move (deliberately —
   BREAKING_CHANGES §30), so a move that never happened left a document nothing references, and the
   unique index made every later retry die on E11000. Now deleted in exactly the branch where
@@ -146,6 +148,7 @@ way `utimensat`'s is.
   a partial retry cannot clear a pairing whose mate it did not happen to be moving.
 
 ### 6.1 upload reservation — FIXED (`5bcc5f6`), and you were right to promote it
+
 I had judged this out of scope last round; that was wrong. You also caught that **my proposed fix
 does not work**: `@tus/server` emits `POST_RECEIVE` only after the PATCH body finishes, and
 `POST_RECEIVE_V2` stops while a request is paused. You checked the installed library rather than
@@ -158,14 +161,15 @@ Tests cover the logic **and** the wiring — a leak there would be worse than th
 upload marked active forever holds its reservation until the process restarts.
 
 ### Preflight — FIXED (`19ad350`)
+
 Your matrix was right on every case. I re-derived the server's actual rule by execution, one probe
 per option against 7.0.29:
 
-| existing index, custom name | server |
-|---|---|
-| unique / +background / +storageEngine / +hidden | **REFUSES 85** |
-| unique + sparse / +collation / +partialFilterExpression | ACCEPTS |
-| not unique | ACCEPTS |
+| existing index, custom name                             | server         |
+| ------------------------------------------------------- | -------------- |
+| unique / +background / +storageEngine / +hidden         | **REFUSES 85** |
+| unique + sparse / +collation / +partialFilterExpression | ACCEPTS        |
+| not unique                                              | ACCEPTS        |
 
 The bug was using one predicate for two different questions. "Would mongoose's build be a no-op"
 and "does MongoDB consider this the same index" are not the same test, and the second is looser.
@@ -183,6 +187,7 @@ Re-verified end to end after the change: all four matrix cases agree with the se
 database exits 0, a default-collation collection exits 0.
 
 ### Legacy payloads — you disproved my escape hatch (`21b77cf`)
+
 I claimed a plain no-body reingest was the way out for a stored payload predating the
 canonical-name rule. You showed by execution that it is not. BREAKING_CHANGES §37 now says so.
 
@@ -194,6 +199,7 @@ your note is the likely production state. Verified against seeded data covering 
 name, a one-way pair, a settled job correctly ignored, and a clean job.
 
 ### Your sixth false-assumption instance, and the other two
+
 All three confirmed and fixed. The preflight's test double returned one frozen index list no
 matter what `dropIndex`/`createIndex` had done — it is stateful now. The destination-symlink test
 credited an "inode guard" this path no longer uses and passed on a size difference; the comment

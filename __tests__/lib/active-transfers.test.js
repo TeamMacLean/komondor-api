@@ -156,9 +156,9 @@ describe("getBlockingTransfers", () => {
 
 describe("isPartialTransferFile", () => {
   test("recognises an in-progress copy", () => {
-    expect(isPartialTransferFile("reads.fq.part-651f9c0a1b2c3d4e5f6a7b8c")).toBe(
-      true,
-    );
+    expect(
+      isPartialTransferFile("reads.fq.part-651f9c0a1b2c3d4e5f6a7b8c"),
+    ).toBe(true);
   });
 
   test("leaves ordinary files alone", () => {

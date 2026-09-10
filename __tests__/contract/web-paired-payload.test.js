@@ -44,6 +44,7 @@ jest.mock("../../lib/ingest-queue", () => ({
 
 jest.mock("../../models/Run");
 jest.mock("../../models/Sample");
+jest.mock("../../models/Project");
 jest.mock("../../models/options/LibraryType");
 jest.mock("../../lib/utils/groupAccess", () => ({
   canReadGroup: jest.fn().mockResolvedValue(true),
@@ -62,12 +63,14 @@ jest.mock("../../routes/middleware", () => ({
 
 const Run = require("../../models/Run");
 const Sample = require("../../models/Sample");
+const Project = require("../../models/Project");
 const LibraryType = require("../../models/options/LibraryType");
 const ingestQueue = require("../../lib/ingest-queue");
 const runsRouter = require("../../routes/runs");
 
 const SAMPLE_ID = "a".repeat(24);
 const GROUP_ID = "b".repeat(24);
+const PROJECT_ID = "d".repeat(24);
 
 /** The non-file metadata komondor-web sends alongside, so that the file
  *  validation is what these tests are actually exercising. */
@@ -125,6 +128,13 @@ beforeEach(() => {
     select: jest.fn().mockResolvedValue({
       _id: SAMPLE_ID,
       group: GROUP_ID,
+      project: PROJECT_ID,
+    }),
+  });
+  Project.findById = jest.fn().mockReturnValue({
+    select: jest.fn().mockResolvedValue({
+      _id: PROJECT_ID,
+      storage: { state: "hpc" },
     }),
   });
   LibraryType.findOne = jest.fn().mockReturnValue({
@@ -226,6 +236,7 @@ describe("the payload komondor-web actually sends", () => {
         owner: "scientist",
         status: "error",
         libraryType: "PAIRED",
+        sample: SAMPLE_ID,
       }),
     });
     ingestQueue.deliveredFileNames.mockResolvedValue({

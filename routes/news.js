@@ -3,9 +3,7 @@ const express = require("express");
 let router = express.Router();
 const NewsItem = require("../models/NewsItem");
 const { handleError } = require("./_utils");
-const {
-  visibleGroupIds,
-} = require("../lib/utils/fullAccessUsers");
+const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 
 // Native replacement for moment().calendar()
 function formatDateCalendar(date) {

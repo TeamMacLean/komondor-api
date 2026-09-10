@@ -37,7 +37,9 @@ beforeEach(() => {
   process.env.NODE_ENV = "test";
   process.env.ADMIN_PASSWORD = "admin-secret";
   // The login handler updates the user record after responding.
-  User.findOne.mockResolvedValue({ notifyLogin: jest.fn().mockResolvedValue() });
+  User.findOne.mockResolvedValue({
+    notifyLogin: jest.fn().mockResolvedValue(),
+  });
 });
 
 afterEach(() => {

@@ -63,13 +63,13 @@ The operating context this actually runs in:
 **So the goal is robustness, not security.** The distinction that ended up mattering most,
 and the one I would like you to apply when judging this:
 
-| Fires by accident, on an ordinary Tuesday | Requires a deliberate, skilled adversary |
-| --- | --- |
-| A file move silently overwriting a colleague's data because two runs share a filename | Log-record forgery via a newline embedded in a filename |
-| Accepted work vanishing when a deploy lands mid-ingest | NoSQL operator injection via hand-crafted JSON |
-| A health check reporting "ok" while Mongo is unreachable | Planting a symlink to escape a managed root |
-| A cross-group-read user accidentally writing to the wrong group | Claiming another user's in-progress upload by guessing its id |
-| Malformed client input producing a 500 instead of a 400 | |
+| Fires by accident, on an ordinary Tuesday                                             | Requires a deliberate, skilled adversary                      |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| A file move silently overwriting a colleague's data because two runs share a filename | Log-record forgery via a newline embedded in a filename       |
+| Accepted work vanishing when a deploy lands mid-ingest                                | NoSQL operator injection via hand-crafted JSON                |
+| A health check reporting "ok" while Mongo is unreachable                              | Planting a symlink to escape a managed root                   |
+| A cross-group-read user accidentally writing to the wrong group                       | Claiming another user's in-progress upload by guessing its id |
+| Malformed client input producing a 500 instead of a 400                               |                                                               |
 
 Most of your findings sit in the **left** column once re-read this way, and I mis-sold them
 by describing them in attack language. The left column is where I have invested. The right
@@ -122,6 +122,7 @@ Dependency audit (`yarn audit --groups dependencies`): **121 findings (4 critica
 ## 4. Your findings, and what happened to each
 
 ### Critical — authenticated filesystem escape and overwrite
+
 **Fixed.** `safeBasename` reduces every user-supplied filename to a basename;
 `resolveWithinReal` resolves the path and refuses anything escaping the configured root,
 including via a symlinked ancestor with a not-yet-existing leaf. The move itself changed
@@ -135,6 +136,7 @@ keep. Two scientists using the same filename is routine, and the old code silent
 one of them.
 
 ### High — anonymous, unbounded resumable uploads
+
 **Fixed.** The TUS mount had no authentication of any kind; a probe returned
 `412 Tus-Resumable Required`, not `401`. It is now behind `isAuthenticated` at both the
 outer mount and the inner app. Added per-user concurrency and in-flight byte caps, a global
@@ -150,6 +152,7 @@ can fill the disk" needs no skill at all — which is why it was fixed without h
 despite the framing change.
 
 ### High — global-read permission silently grants global write
+
 **Fixed.** `Group.GroupsIAmIn` now takes `{ mode: "read" | "write" }`. Only `isAdmin` gets
 all groups in write mode; `FULL_RECORDS_ACCESS_USERS` fall through to real membership.
 `lib/utils/groupAccess.js` is now the single authorization module; the three duplicated
@@ -163,6 +166,7 @@ admin-only; global vocabularies require admin for writes; sample and run creatio
 group from the parent rather than trusting the request body.
 
 ### High — reachable operator injection and cross-tenant disclosure
+
 **Fixed.** I confirmed your finding empirically before acting: `M.find({sample:{$ne:null}}).cast()`
 does preserve `{"$ne":null}` through Mongoose 5 casting. Every `req.body` / `req.query` value
 reaching a query is now type-guarded; the returned entity is authorized before being sent;
@@ -175,17 +179,19 @@ route file and found no survivor.
 **Partially accepted, not fixed:** the transfer-directory listing and reading. See section 6.
 
 ### High — accepted work can disappear during deploys
+
 **Fixed.** `POST /runs/new` now writes an `IngestJob` row and awaits it before responding.
 A worker claims jobs with a single atomic `findOneAndUpdate`; `completeJob`/`failJob` are
 fenced on `workerId`; startup recovery reclaims jobs held by a worker that is no longer
 alive. "Ingested" is decided by stat-ing the destination, not by a row existing — and the
-`Read` row is now written *after* the move, so a failed move leaves nothing claiming success.
+`Read` row is now written _after_ the move, so a failed move leaves nothing claiming success.
 `POST /runs/:id/reingest` requeues a permanently failed job.
 
 This is squarely a robustness fix, not a security one, and I would rate it the highest-value
 change on the branch.
 
 ### High — readiness is factually wrong
+
 **Fixed.** `app.listen` moved inside the Mongo-connect success continuation. `/health` is
 liveness only; `/ready` checks Mongo, the required mounts and ingest-worker freshness and
 returns 503 naming the failed check. A refused shutdown now sets draining first, so `/ready`
@@ -196,6 +202,7 @@ has caused a production incident here before), plus secrets, origins and mount a
 aggregated into one error.
 
 ### High — dependency baseline fails
+
 **Substantially improved, not closed.** 121 → 19; 4 critical → 1; 41 high → 4. The remaining
 critical is `mongoose` 5.13.23, which needs ≥6.13.6. **I deliberately did not attempt that
 upgrade** — see section 6.
@@ -205,6 +212,7 @@ newest 6.x, so clearing its advisories needs a major that changes the API surfac
 `lib/utils/sendEmail.js` uses.
 
 ### Conditional critical — development credentials can escape local use
+
 **Contained, not eliminated.** `routes/auth.js` still carries the hardcoded `DEV_USERS` list
 gated on `NODE_ENV === "development"`. Startup now refuses to run in development mode on a
 non-loopback bind. The list itself was left in place; the residual is recorded in
@@ -212,8 +220,9 @@ non-loopback bind. The list itself was left in place; the residual is recorded i
 second belt. Tell me if you think network-level containment is insufficient here.
 
 ### Other material risks you listed
+
 - **CSV formula injection** — fixed on the sample and accession exports.
-- **Raw production error details** — *not changed.* This is deliberate and pre-existing:
+- **Raw production error details** — _not changed._ This is deliberate and pre-existing:
   `routes/_utils.js` documents that `komondor-power` is an internal client and needs the
   underlying message for diagnostics. Argue it if you disagree.
 - **Unthrottled login / LDAP** — **not done.** Still open. See section 6.
@@ -225,6 +234,7 @@ second belt. Tell me if you think network-level containment is insufficient here
 - **Transfer-root symlink traversal** — see section 6, this one was reversed.
 
 ### Sibling contract drift
+
 `openapi.yaml` now describes the API's actual current surface, including every drift you
 identified: routes mounted at root rather than `/api`, the JWT expiry requirement,
 `Group.deleted`, the idempotent 200-vs-201 creates, `LibraryType.indexed`, the
@@ -238,6 +248,7 @@ spec documents what the server does and flags it.
 modified.** Generating clients into web/power/nudge needs their owners' agreement.
 
 ### Testing pipeline
+
 CI added: frozen install on pinned Node, syntax check, unit tests with coverage, coverage
 ratchet, dependency audit failing on critical, and open-handle detection. A pull-request job
 provisions an ephemeral MongoDB — but `__tests__/integration/` does not exist yet, so that
@@ -256,7 +267,8 @@ batch whose moves all failed would be skipped on retry and the job marked done w
 files still in staging — reintroducing the exact failure the queue was built to remove,
 relocated from memory into the database.
 
-**Round 2** found that three of the round-1 fixes had *moved* the bug rather than removed it:
+**Round 2** found that three of the round-1 fixes had _moved_ the bug rather than removed it:
+
 - The owner-based read grant was stripped from the list endpoints but left on five
   per-record endpoints, so a caller in no group still got 200 on any record naming them as
   owner.
@@ -274,7 +286,7 @@ on a single test.
 Every fix on this branch was mutation-verified: the fix is reverted in a scratch copy, the
 test confirmed red, then restored and confirmed green. A test that passes against the
 unfixed code proves nothing, and that failure mode turned out to be endemic — at one point a
-reviewer deleted *every* audit call site and the entire 1,398-test suite stayed green.
+reviewer deleted _every_ audit call site and the entire 1,398-test suite stayed green.
 
 **My own error, for completeness:** while removing a middleware I used an over-broad text
 edit that deleted more tests than intended, including the ones binding the audit log to its
@@ -295,6 +307,7 @@ atomicity claims made on top of it, or whether 56/60 is the right denominator.
 These are the ones you should scrutinise hardest.
 
 ### 6.1 The Mongoose upgrade was deliberately not attempted
+
 Your audit called for it, and one critical advisory remains open because of that choice.
 Reasoning: a major ORM upgrade with no integration suite against a real database is exactly
 the change that breaks production quietly. `MONGOOSE_MIGRATION.md` inventories the real
@@ -307,10 +320,11 @@ job that provisions ephemeral Mongo exists specifically to gate it.
 remaining critical blocks the release on its own, say so.
 
 ### 6.2 The shared HPC staging directory — accepted, not fixed
+
 `HPC_TRANSFER_DIRECTORY` is one flat inbox shared by every group, and nothing records which
 group owns a subdirectory. A member of group A can name group B's directory in a run
 submission; the file is linked into A's datastore and unlinked from B's inbox — cross-group
-disclosure *and* destruction.
+disclosure _and_ destruction.
 
 The owner reviewed this and chose to accept it rather than impose a directory naming
 convention, because real uploads arrive under names like `/WGS_Test/01.RawData` that carry no
@@ -328,6 +342,7 @@ directory name"), which is how this actually goes wrong here.
 break the `scp` workflow?
 
 ### 6.3 Symlink containment was deliberately loosened
+
 This one reverses a hardening, and it is the change I most want a second opinion on.
 
 The first remediation refused any symlink resolving outside the guarded root. Testing against
@@ -356,12 +371,14 @@ disabled by whoever gets the support call, which is worse than a scoped one. Tel
 disagree.
 
 ### 6.4 A membership check was removed
+
 An earlier round added `requireAnyGroupMembership` to the three file-browsing endpoints,
 refusing callers belonging to no group. It was removed under the section 2 framing: it added
 a database query per request to defend against a principal this deployment does not produce.
 Those endpoints are back to `isAuthenticated` alone.
 
 ### 6.5 Comment volume was cut deliberately
+
 Files we touched reached 34–62% comment lines, with 40-line docblocks narrating attack
 scenarios. For a small team that is worse than no comment — it buries the sentence saying
 what the function does. Comments are now 15–30%, with the traps kept as one-liners at the
@@ -372,6 +389,7 @@ If you think a specific piece of reasoning should have survived in the source ra
 `BREAKING_CHANGES.md`, name it.
 
 ### 6.6 Known-open items, not addressed
+
 - **Login / LDAP rate limiting — not implemented.** Still open from your audit.
 - **SMTP `rejectUnauthorized: false` — not fixed**, only warned about at startup.
 - **Production error `detail` — unchanged**, deliberately, for the internal client.
@@ -381,14 +399,15 @@ If you think a specific piece of reasoning should have survived in the source ra
   4,000 sequential express+supertest requests with none of this repository's code produce
   zero failures. Upgrading supertest 6→7 did not fix it (3 failures in 40 runs either way);
   disabling HTTP keep-alive did not fix it; it survives `--runInBand`; fake timers are ruled
-  out. CI tolerates it narrowly — retrying only when *every* failure matches a bare transport
+  out. CI tolerates it narrowly — retrying only when _every_ failure matches a bare transport
   error, capped at two, and refusing to retry when a suite failed to load or when coverage
   was the thing that failed. The root cause is unresolved and needs an owner. I consider this
   the weakest part of the release gate and would value your view on whether it blocks.
 
 ### 6.7 One operational step before deploy
+
 `{ sample, name }` on `Run` is now a unique index. Mongoose builds indexes in the background
-and only *logs* a failure, so one pre-existing duplicate means the index silently never
+and only _logs_ a failure, so one pre-existing duplicate means the index silently never
 exists and the race stays open with nothing reporting a problem.
 `scripts/check-run-duplicates.js` is a read-only pre-deploy check — safe against production
 while serving, no locks, nothing written — printing either "safe to deploy" or the exact
@@ -421,8 +440,8 @@ finding was verified against the code before acting on it. What changed, mapped 
 sections above:
 
 **§6.3, symlink containment.** `ALLOWED_LINK_ROOTS` resolved a symlinked directory correctly,
-but `GET /read-file` and `POST /directory-files/verify-md5` still opened a symlinked *leaf
-file* with an unconditional `O_NOFOLLOW`, refusing it regardless of `ALLOWED_LINK_ROOTS` —
+but `GET /read-file` and `POST /directory-files/verify-md5` still opened a symlinked _leaf
+file_ with an unconditional `O_NOFOLLOW`, refusing it regardless of `ALLOWED_LINK_ROOTS` —
 exactly the "symlink -> large file on scratch storage" case §6.3 opens with. Both endpoints
 now permit a symlinked leaf that resolves into a configured link root, the same allowance the
 path-resolution step already had. See `BREAKING_CHANGES.md` §34.

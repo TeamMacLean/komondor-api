@@ -4,10 +4,12 @@ const mongoose = require("mongoose");
 const runsRouter = require("../../routes/runs");
 const Run = require("../../models/Run");
 const Sample = require("../../models/Sample");
+const Project = require("../../models/Project");
 const LibraryType = require("../../models/options/LibraryType");
 const Group = require("../../models/Group");
 const ingestQueue = require("../../lib/ingest-queue");
 const { enqueueRunIngest, IngestJob } = ingestQueue;
+const { compareFilesToDirectory } = require("../../routes/_utils");
 
 // Mock the middleware
 jest.mock("../../routes/middleware", () => ({
@@ -23,6 +25,7 @@ jest.mock("../../models/Run");
 // Mock the Sample model — the run routes now resolve a run's group from its
 // parent sample rather than trusting the submitted one.
 jest.mock("../../models/Sample");
+jest.mock("../../models/Project");
 jest.mock("../../models/options/LibraryType");
 
 // Mock the Read model (used inline in status endpoint)
@@ -70,11 +73,25 @@ jest.mock("../../routes/_utils", () => ({
       unresolved: [],
     },
   }),
+  storageReadOnlyResponse: jest.fn((res, project, requestId) => {
+    const state = project?.storage?.state || "hpc";
+    return res.status(409).json({
+      error:
+        "This project's data storage is read-only; new data cannot be added to it.",
+      detail: `Project storage is read-only (${state})`,
+      requestId,
+      code: "PROJECT_STORAGE_READ_ONLY",
+      projectId: String(project?._id),
+      storageState: state,
+    });
+  }),
 }));
 
 const app = express();
 app.use(express.json());
 app.use("/", runsRouter);
+
+const DEFAULT_PROJECT_ID = new mongoose.Types.ObjectId();
 
 /**
  * Answers GroupsIAmIn per capability, so a test can give a user broad read
@@ -90,7 +107,13 @@ const setGroups = ({ read = [], write = [] }) => {
 /** A Sample.findById(...).select("group") that resolves to `sample`. */
 const mockSampleLookup = (sample) => {
   Sample.findById = jest.fn().mockReturnValue({
-    select: jest.fn().mockResolvedValue(sample),
+    select: jest
+      .fn()
+      .mockResolvedValue(
+        sample && sample.project === undefined
+          ? { ...sample, project: DEFAULT_PROJECT_ID }
+          : sample,
+      ),
   });
 };
 
@@ -104,6 +127,19 @@ const mockLibraryTypeLookup = (libraryType) => {
 describe("Runs API Routes", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+
+    Project.findById = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: DEFAULT_PROJECT_ID,
+        path: "/group/project",
+      }),
+    });
+    Sample.findById = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue({
+        _id: new mongoose.Types.ObjectId(),
+        project: DEFAULT_PROJECT_ID,
+      }),
+    });
 
     // No ingest jobs unless a test says otherwise.
     IngestJob.find.mockReturnValue({
@@ -400,6 +436,38 @@ describe("Runs API Routes", () => {
       expect(response.body.run.name).toBe("Test Run");
     });
 
+    test("does not reconcile an archived run against the deleted HPC tree", async () => {
+      const now = new Date();
+      setGroups({ read: [{ _id: runGroupId }], write: [] });
+      mockRunLookup(
+        buildRun({
+          sample: {
+            project: {
+              _id: DEFAULT_PROJECT_ID,
+              path: "/group/project",
+              storage: {
+                state: "aws",
+                s3Uri: "s3://archive/data/group/project",
+                s3VerifiedAt: now,
+                hpcVerifiedAbsentAt: now,
+                archivedAt: now,
+              },
+            },
+          },
+        }),
+      );
+
+      const response = await request(app).get(`/run?id=${singleRunId}`);
+
+      expect(response.status).toBe(200);
+      expect(compareFilesToDirectory).not.toHaveBeenCalled();
+      expect(response.body.actualReads).toBeNull();
+      expect(response.body.rawFilesStatus.status).toBe("NOT_APPLICABLE");
+      expect(response.body.location.rawUri).toBe(
+        "s3://archive/data/group/project/sample/run/raw",
+      );
+    });
+
     test("should refuse a caller who cannot read the run's group", async () => {
       // Nothing in this suite exercised the 403: replacing the whole condition
       // with `if (false)` — deleting the refusal outright — changed no test.
@@ -673,6 +741,36 @@ describe("Runs API Routes", () => {
     });
 
     describe("parent sample authorization", () => {
+      test("returns a terminal 409 before idempotency for an archived project", async () => {
+        const now = new Date();
+        Project.findById.mockReturnValue({
+          select: jest.fn().mockResolvedValue({
+            _id: DEFAULT_PROJECT_ID,
+            path: "/group/project",
+            storage: {
+              state: "aws",
+              s3Uri: "s3://archive/data/group/project",
+              s3VerifiedAt: now,
+              hpcVerifiedAbsentAt: now,
+              archivedAt: now,
+            },
+          }),
+        });
+        Run.findOne = jest.fn();
+
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody());
+
+        expect(response.status).toBe(409);
+        expect(response.body).toMatchObject({
+          code: "PROJECT_STORAGE_READ_ONLY",
+          storageState: "aws",
+        });
+        expect(Run.findOne).not.toHaveBeenCalled();
+        expect(enqueueRunIngest).not.toHaveBeenCalled();
+      });
+
       test("should refuse a sample belonging to another group", async () => {
         // The body names a group the user may write to, but the sample it
         // points at belongs elsewhere. The old code authorised the submitted
@@ -2196,7 +2294,13 @@ describe("Runs API Routes", () => {
     /** A Run.findById(...).select(...) that resolves to `run`. */
     const mockRunLookup = (run) => {
       Run.findById = jest.fn().mockReturnValue({
-        select: jest.fn().mockResolvedValue(run),
+        select: jest
+          .fn()
+          .mockResolvedValue(
+            run && run.sample === undefined
+              ? { ...run, sample: new mongoose.Types.ObjectId() }
+              : run,
+          ),
       });
     };
 
@@ -2230,6 +2334,29 @@ describe("Runs API Routes", () => {
       Run.updateOne = jest.fn().mockResolvedValue({});
       IngestJob.findOneAndUpdate.mockResolvedValue(null);
       mockJobLookup(null);
+    });
+
+    test("refuses archived reingest before inspecting or updating the job", async () => {
+      const now = new Date();
+      Project.findById.mockReturnValue({
+        select: jest.fn().mockResolvedValue({
+          _id: DEFAULT_PROJECT_ID,
+          storage: {
+            state: "aws",
+            s3Uri: "s3://archive/data/group/project",
+            s3VerifiedAt: now,
+            hpcVerifiedAbsentAt: now,
+            archivedAt: now,
+          },
+        }),
+      });
+
+      const response = await request(app).post(`/runs/${mockRunId}/reingest`);
+
+      expect(response.status).toBe(409);
+      expect(response.body.code).toBe("PROJECT_STORAGE_READ_ONLY");
+      expect(IngestJob.findOneAndUpdate).not.toHaveBeenCalled();
+      expect(ingestQueue.deliveredFileNames).not.toHaveBeenCalled();
     });
 
     test("should return a permanently failed ingest to the queue", async () => {

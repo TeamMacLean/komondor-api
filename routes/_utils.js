@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const { isPartialTransferFile } = require("../lib/active-transfers");
+const { READ_ONLY_CODE, resolveStorageState } = require("../lib/storage-state");
 
 /**
  * Generates a unique request ID for log correlation.
@@ -16,8 +17,16 @@ const generateRequestId = () => {
  * @param {number} [statusCode=500] - HTTP status code.
  * @param {string} [message] - Custom user-facing message.
  * @param {string} [requestId] - Request ID for log correlation.
+ * @param {object} [extra] - Additional stable machine-readable fields.
  */
-const handleError = (res, error, statusCode = 500, message, requestId) => {
+const handleError = (
+  res,
+  error,
+  statusCode = 500,
+  message,
+  requestId,
+  extra = {},
+) => {
   const reqId = requestId || generateRequestId();
 
   console.error(`[${reqId}] Error (${statusCode}):`, message || error.message);
@@ -43,14 +52,54 @@ const handleError = (res, error, statusCode = 500, message, requestId) => {
       error: "An internal server error occurred.",
       detail,
       requestId: reqId,
+      ...extra,
     });
   } else {
     res.status(statusCode).send({
       error: clientMessage,
       detail,
       requestId: reqId,
+      ...extra,
     });
   }
+};
+
+const storageDescription = (state) => {
+  switch (state) {
+    case "migrating":
+      return "being moved to AWS S3";
+    case "aws_pending_hpc_deletion":
+      return "copied to AWS S3 and awaiting HPC cleanup";
+    case "aws":
+      return "archived in AWS S3";
+    default:
+      return "in an invalid storage state";
+  }
+};
+
+/** Sends the common terminal response used by every storage-bearing route. */
+const storageReadOnlyResponse = (res, project, requestId) => {
+  const { state, integrityError } = resolveStorageState(project);
+  if (integrityError) {
+    console.error(
+      `[storage-integrity] project ${project?._id || "unknown"}: ${integrityError}`,
+    );
+  }
+
+  return handleError(
+    res,
+    new Error(`Project storage is read-only (${state})`),
+    409,
+    `This project's data storage is ${storageDescription(
+      state,
+    )}; new data cannot be added to it.`,
+    requestId,
+    {
+      code: READ_ONLY_CODE,
+      projectId: project?._id ? String(project._id) : null,
+      storageState: state,
+    },
+  );
 };
 
 /**
@@ -62,13 +111,15 @@ const handleError = (res, error, statusCode = 500, message, requestId) => {
 const getActualFiles = async (directoryPath) => {
   try {
     const entries = await fs.readdir(directoryPath, { withFileTypes: true });
-    return entries
-      // !isDirectory(), not isFile(): isFile() is false for a symlink, and
-      // sequencing pipelines do produce those.
-      .filter((entry) => !entry.isDirectory())
-      .map((entry) => entry.name)
-      .filter((name) => !name.startsWith(".")) // Filter out hidden files
-      .filter((name) => !isPartialTransferFile(name)); // in-flight copies
+    return (
+      entries
+        // !isDirectory(), not isFile(): isFile() is false for a symlink, and
+        // sequencing pipelines do produce those.
+        .filter((entry) => !entry.isDirectory())
+        .map((entry) => entry.name)
+        .filter((name) => !name.startsWith(".")) // Filter out hidden files
+        .filter((name) => !isPartialTransferFile(name))
+    ); // in-flight copies
   } catch (error) {
     if (error.code === "ENOENT") {
       return [];
@@ -178,7 +229,8 @@ const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
       : capitalise(problems.join(", "));
 
   return {
-    status: missing.length > 0 || unresolved.length > 0 ? "MISMATCH" : "WARNING",
+    status:
+      missing.length > 0 || unresolved.length > 0 ? "MISMATCH" : "WARNING",
     message: summary,
     missing,
     extra,
@@ -222,4 +274,5 @@ module.exports = {
   generateRequestId,
   getAdditionalFilesStatus,
   compareFilesToDirectory,
+  storageReadOnlyResponse,
 };

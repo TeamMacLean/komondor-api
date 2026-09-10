@@ -34,7 +34,9 @@ describe("toSafeName", () => {
 
 describe("generateSafeName", () => {
   test("returns the plain slug when nothing collides", async () => {
-    await expect(generateSafeName("My Project", [])).resolves.toBe("my_project");
+    await expect(generateSafeName("My Project", [])).resolves.toBe(
+      "my_project",
+    );
   });
 
   test("appends _2 on the first collision", async () => {

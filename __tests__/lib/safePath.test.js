@@ -427,7 +427,9 @@ describe("resolveWithinReal / assertWithinReal", () => {
     });
 
     test("returns null when the root is not configured", async () => {
-      await expect(resolveWithinReal(undefined, "reads.fq")).resolves.toBeNull();
+      await expect(
+        resolveWithinReal(undefined, "reads.fq"),
+      ).resolves.toBeNull();
     });
   });
 
@@ -461,7 +463,10 @@ describe("resolveWithinReal / assertWithinReal", () => {
       fs.symlinkSync(outsideDir, _path.join(realRoot, "escape"));
 
       await expect(
-        assertWithinReal(realRoot, _path.join(realRoot, "escape", "secret.txt")),
+        assertWithinReal(
+          realRoot,
+          _path.join(realRoot, "escape", "secret.txt"),
+        ),
       ).resolves.toBe(false);
     });
 
@@ -505,7 +510,10 @@ describe("symlinks into a configured storage root", () => {
       _path.join(root, "realdata", "in.fq"),
       _path.join(root, "link_inside.fq"),
     );
-    fs.symlinkSync(_path.join(scratch, "big.fq"), _path.join(root, "link_scratch.fq"));
+    fs.symlinkSync(
+      _path.join(scratch, "big.fq"),
+      _path.join(root, "link_scratch.fq"),
+    );
     fs.symlinkSync(scratch, _path.join(root, "projectdir"));
     fs.symlinkSync(
       _path.join(elsewhere, "secrets.txt"),
@@ -530,11 +538,15 @@ describe("symlinks into a configured storage root", () => {
     });
 
     test("accepts a link that stays inside the root", async () => {
-      await expect(resolveWithinReal(root, "link_inside.fq")).resolves.not.toBeNull();
+      await expect(
+        resolveWithinReal(root, "link_inside.fq"),
+      ).resolves.not.toBeNull();
     });
 
     test("refuses a link that leaves the root", async () => {
-      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.toBeNull();
+      await expect(
+        resolveWithinReal(root, "link_scratch.fq"),
+      ).resolves.toBeNull();
     });
   });
 
@@ -544,7 +556,9 @@ describe("symlinks into a configured storage root", () => {
     });
 
     test("accepts a link to a file in that root", async () => {
-      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.not.toBeNull();
+      await expect(
+        resolveWithinReal(root, "link_scratch.fq"),
+      ).resolves.not.toBeNull();
     });
 
     test("accepts a file reached through a symlinked directory in that root", async () => {
@@ -560,7 +574,9 @@ describe("symlinks into a configured storage root", () => {
     });
 
     test("still refuses lexical traversal out of the root", async () => {
-      await expect(resolveWithinReal(root, "../../etc/passwd")).resolves.toBeNull();
+      await expect(
+        resolveWithinReal(root, "../../etc/passwd"),
+      ).resolves.toBeNull();
     });
 
     test("matches a configured root that is itself reached through a symlink", async () => {
@@ -577,7 +593,9 @@ describe("symlinks into a configured storage root", () => {
 
     test("ignores a relative entry in the configured list", async () => {
       process.env.ALLOWED_LINK_ROOTS = "relative/path";
-      await expect(resolveWithinReal(root, "link_scratch.fq")).resolves.toBeNull();
+      await expect(
+        resolveWithinReal(root, "link_scratch.fq"),
+      ).resolves.toBeNull();
     });
   });
 });

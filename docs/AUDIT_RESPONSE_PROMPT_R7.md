@@ -54,15 +54,15 @@ then the API, then Power — the runbook explains why and it has been independen
 
 Independently re-measured on the tree above, not taken from records:
 
-| | Result |
-|---|---|
-| API unit, macOS | 53 suites / 1782 |
-| API unit, Debian / Node 24 | 1780 passed + 2 platform skips |
-| API integration, real MongoDB 7.0.29 | 7 suites / 38, macOS **and** Linux |
-| API CI coverage gate (`yarn test --coverage --ci`) | passes — 75.81 / 81.67 / 66.27 / 75.86 |
-| Web | 16 files / 513, production build green |
-| Power | 16 files / 260, `yarn run verify` green |
-| `git diff --check` | clean ×3 |
+|                                                    | Result                                  |
+| -------------------------------------------------- | --------------------------------------- |
+| API unit, macOS                                    | 53 suites / 1782                        |
+| API unit, Debian / Node 24                         | 1780 passed + 2 platform skips          |
+| API integration, real MongoDB 7.0.29               | 7 suites / 38, macOS **and** Linux      |
+| API CI coverage gate (`yarn test --coverage --ci`) | passes — 75.81 / 81.67 / 66.27 / 75.86  |
+| Web                                                | 16 files / 513, production build green  |
+| Power                                              | 16 files / 260, `yarn run verify` green |
+| `git diff --check`                                 | clean ×3                                |
 
 ---
 
@@ -133,7 +133,7 @@ first day. Concretely, and in this order:
    inspector) exists for this; check that following it literally, as someone who has never seen
    this codebase, cannot leave the API down.
 2. **The coordinated cutover.** Web first, then API. What does a user with an old web tab open
-   see at each moment? Is anything that used to work silently broken *between* the two deploys,
+   see at each moment? Is anything that used to work silently broken _between_ the two deploys,
    beyond what the runbook already says (unowned staged uploads, reload old tabs)?
 3. **The first real upload.** Through komondor-web, with a real browser: preflight, 201, PATCH,
    completion, and the 401-with-CORS on an expired token. Then the first **paired** run — both
@@ -161,7 +161,7 @@ data. Then:
 - **Smallest change that closes it.** No refactors, renames, reformatting, dependency changes,
   threshold changes, or "while I'm here" tidying. If the smallest change is not small, stop and
   report instead.
-- **One fix per commit**, with a message that says *why*, not just what. Do not amend or squash
+- **One fix per commit**, with a message that says _why_, not just what. Do not amend or squash
   anything already on the branch.
 - **Do not change a cross-repo contract.** If the fix would alter what one app sends or another
   accepts, stop and report. A coordinated contract change is exactly the kind of risk this round

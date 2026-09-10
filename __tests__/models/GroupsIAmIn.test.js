@@ -62,7 +62,10 @@ describe("Group.GroupsIAmIn", () => {
   });
 
   test("returns every group for an admin in write mode too", async () => {
-    await Group.GroupsIAmIn({ username: "root", isAdmin: true }, { mode: "write" });
+    await Group.GroupsIAmIn(
+      { username: "root", isAdmin: true },
+      { mode: "write" },
+    );
 
     expect(findSpy).toHaveBeenCalledWith({ ...LIVE_ONLY });
   });
@@ -85,7 +88,7 @@ describe("Group.GroupsIAmIn", () => {
     expect(findSpy).toHaveBeenCalledWith({
       $or: [
         { ldapGroups: { $regex: /^CN=bioinformatics$/i } },
-        { ldapGroups: { $regex: /^CN=lab$/i } }
+        { ldapGroups: { $regex: /^CN=lab$/i } },
       ],
       ...LIVE_ONLY,
     });

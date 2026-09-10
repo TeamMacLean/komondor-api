@@ -1,7 +1,3 @@
 {
-    "include": [
-        "./routes/**/*",
-        "./models/**/*",
-        "./lib/**/*",
-    ]
+  "include": ["./routes/**/*", "./models/**/*", "./lib/**/*"]
 }

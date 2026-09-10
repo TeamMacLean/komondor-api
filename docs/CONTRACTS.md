@@ -231,7 +231,7 @@ emit:
 {
   "error": "Failed to create new project.",
   "detail": "E11000 duplicate key error …",
-  "requestId": "1735689600000-k3j9x2p1a"
+  "requestId": "1735689600000-k3j9x2p1a",
 }
 ```
 
@@ -255,6 +255,26 @@ komondor-web's `utils/apiError.js` already documents all of this from the
 client side. That file existing at all is the symptom this policy addresses:
 a consumer reverse-engineered the contract and wrote it down in its own repo,
 where this repo cannot see it go stale.
+
+### 9. Storage state is Project-owned; its 409 is terminal for komondor-power
+
+`Project.storage` is the only stored lifecycle. A missing field is legacy
+`hpc`; Sample and Run responses derive `projectStorage` and never persist their
+own copy. Consumers must use `projectStorage` on children even when a populated
+relationship happens to include the Project's `storage` as well.
+
+An authorised storage-bearing create or reingest against any state other than
+`hpc` answers 409 with the stable code `PROJECT_STORAGE_READ_ONLY`. This is an
+authoritative state decision, not a transient conflict. komondor-power must
+keep 409 out of its retry set, stop creating later descendants, and report the
+Project that needs operator attention. The API performs the check again before
+side effects, so this response wins even if Power validated the Project before
+an operator locked it.
+
+The public `storage`/`projectStorage` summary is intentionally sanitised.
+Migration ids, operator identities, manifest locations and digests are never
+part of the HTTP contract. Detail routes supply a ready-made `location`; web
+clients should not reconstruct an HPC or S3 root from entity paths.
 
 ## Needs coordinated action in komondor-power
 

@@ -125,12 +125,15 @@ describe("hasFullRecordsAccess", () => {
       expect(() => hasFullRecordsAccess({ username: "alice" })).not.toThrow();
     });
 
-    test.each([[null], [undefined], [{}], [{ username: "" }], [{ username: 5 }]])(
-      "denies for user %p",
-      (user) => {
-        expect(hasFullRecordsAccess(user)).toBe(false);
-      },
-    );
+    test.each([
+      [null],
+      [undefined],
+      [{}],
+      [{ username: "" }],
+      [{ username: 5 }],
+    ])("denies for user %p", (user) => {
+      expect(hasFullRecordsAccess(user)).toBe(false);
+    });
   });
 });
 
@@ -172,9 +175,9 @@ describe("buildVisibilityFilter", () => {
     // standalone owner clause was a read grant no group change could withdraw
     // — and, because the client chooses the value, a way to hand access to
     // somebody else. Visibility is group visibility now.
-    expect(
-      buildVisibilityFilter({ username: "eve" }, ["g1", "g2"]),
-    ).toEqual({ group: { $in: ["g1", "g2"] } });
+    expect(buildVisibilityFilter({ username: "eve" }, ["g1", "g2"])).toEqual({
+      group: { $in: ["g1", "g2"] },
+    });
   });
 
   test("does not grant a user access to their own records outside their groups", () => {
@@ -199,9 +202,9 @@ describe("buildVisibilityFilter", () => {
   });
 
   test("matches nothing for a non-array group list", () => {
-    expect(
-      buildVisibilityFilter({ username: "eve" }, "not-an-array"),
-    ).toEqual({ _id: { $in: [] } });
+    expect(buildVisibilityFilter({ username: "eve" }, "not-an-array")).toEqual({
+      _id: { $in: [] },
+    });
   });
 
   test("normalises group ids to strings", () => {
@@ -210,7 +213,8 @@ describe("buildVisibilityFilter", () => {
     const objectIdish = { toString: () => "g1" };
 
     expect(buildVisibilityFilter({ username: "eve" }, [objectIdish])).toEqual({
-      group: { $in: ["g1"] } });
+      group: { $in: ["g1"] },
+    });
   });
 
   test("matches nothing when the user carries no identifying information", () => {

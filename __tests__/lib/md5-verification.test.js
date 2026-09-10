@@ -7,10 +7,14 @@ const path = require("path");
 // Mock dependencies before requiring the module
 jest.mock("../../models/Run");
 jest.mock("../../models/Read");
+jest.mock("../../models/Sample");
+jest.mock("../../models/Project");
 jest.mock("../../lib/utils/md5");
 
 const Run = require("../../models/Run");
 const Read = require("../../models/Read");
+const Sample = require("../../models/Sample");
+const Project = require("../../models/Project");
 const { calculateFileMd5 } = require("../../lib/utils/md5");
 // The unmocked hasher, for the one test whose subject is what the *open* does
 // rather than what this module does with the digest. See the symlink-inside-
@@ -50,6 +54,24 @@ describe("MD5 Verification", () => {
     jest.clearAllMocks();
     process.env.DATASTORE_ROOT = datastoreRoot;
     process.env.SKIP_MD5_VERIFICATION = "false";
+    Run.findById = jest.fn().mockReturnValue({
+      populate: jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue({
+          _id: mockRunId,
+          name: "Test Run",
+          sample: { project: { _id: new mongoose.Types.ObjectId() } },
+          getRelativePath: jest
+            .fn()
+            .mockResolvedValue("group/project/sample/run"),
+        }),
+      }),
+    });
+    Project.find = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue([]),
+    });
+    Sample.find = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue([]),
+    });
   });
 
   describe("verifyRunMd5", () => {
@@ -72,11 +94,48 @@ describe("MD5 Verification", () => {
       );
     });
 
+    test("skips an archived project without changing checksum state", async () => {
+      const now = new Date();
+      Run.findById.mockReturnValue({
+        populate: jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue({
+            _id: mockRunId,
+            sample: {
+              project: {
+                _id: new mongoose.Types.ObjectId(),
+                storage: {
+                  state: "aws",
+                  s3Uri: "s3://archive/data/group/project",
+                  s3VerifiedAt: now,
+                  hpcVerifiedAbsentAt: now,
+                  archivedAt: now,
+                },
+              },
+            },
+          }),
+        }),
+      });
+
+      const result = await verifyRunMd5(mockRunId);
+
+      expect(result).toEqual({
+        success: true,
+        skipped: true,
+        reason: "PROJECT_STORAGE_READ_ONLY",
+      });
+      expect(Run.findByIdAndUpdate).not.toHaveBeenCalled();
+      expect(Read.find).not.toHaveBeenCalled();
+      expect(calculateFileMd5).not.toHaveBeenCalled();
+    });
+
     test("should verify all reads and return success", async () => {
       const mockRun = {
         _id: mockRunId,
         name: "Test Run",
-        getRelativePath: jest.fn().mockResolvedValue("group/project/sample/run"),
+        sample: { project: { _id: new mongoose.Types.ObjectId() } },
+        getRelativePath: jest
+          .fn()
+          .mockResolvedValue("group/project/sample/run"),
       };
 
       const mockReads = [
@@ -126,7 +185,10 @@ describe("MD5 Verification", () => {
       const mockRun = {
         _id: mockRunId,
         name: "Test Run",
-        getRelativePath: jest.fn().mockResolvedValue("group/project/sample/run"),
+        sample: { project: { _id: new mongoose.Types.ObjectId() } },
+        getRelativePath: jest
+          .fn()
+          .mockResolvedValue("group/project/sample/run"),
       };
 
       const mockReads = [
@@ -194,6 +256,7 @@ describe("MD5 Verification", () => {
     const runWithPath = (relativePath) => ({
       _id: mockRunId,
       name: "Test Run",
+      sample: { project: { _id: new mongoose.Types.ObjectId() } },
       getRelativePath: jest.fn().mockResolvedValue(relativePath),
     });
 
@@ -236,19 +299,22 @@ describe("MD5 Verification", () => {
       ["a traversal that stays inside the datastore", "../../other-group/x.fq"],
       ["an absolute originalName", "/etc/passwd"],
       ["a NUL-truncated originalName", "reads.fq\u0000.png"],
-    ])("refuses to hash anything outside the datastore: %s", async (_l, name) => {
-      const result = await verifyReadMd5(
-        readNamed(name),
-        runWithPath("group/project/sample/run"),
-      );
+    ])(
+      "refuses to hash anything outside the datastore: %s",
+      async (_l, name) => {
+        const result = await verifyReadMd5(
+          readNamed(name),
+          runWithPath("group/project/sample/run"),
+        );
 
-      // Never opened. Hashing it would turn md5Mismatch into an oracle for
-      // files the API user was never entitled to read.
-      expect(calculateFileMd5).not.toHaveBeenCalled();
-      expect(result.error).toMatch(/does not resolve inside DATASTORE_ROOT/);
-      // And nothing is recorded as verified.
-      expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
-    });
+        // Never opened. Hashing it would turn md5Mismatch into an oracle for
+        // files the API user was never entitled to read.
+        expect(calculateFileMd5).not.toHaveBeenCalled();
+        expect(result.error).toMatch(/does not resolve inside DATASTORE_ROOT/);
+        // And nothing is recorded as verified.
+        expect(Read.findByIdAndUpdate).not.toHaveBeenCalled();
+      },
+    );
 
     test("refuses a destination reached through a symlink out of the datastore", async () => {
       // The lexical check alone is satisfied by <root>/link/raw/x: the string
@@ -292,10 +358,7 @@ describe("MD5 Verification", () => {
         .update("SOMEBODY ELSE'S SEQUENCE DATA")
         .digest("hex");
 
-      const rawDir = path.join(
-        datastoreRoot,
-        "group/project/sample/run/raw",
-      );
+      const rawDir = path.join(datastoreRoot, "group/project/sample/run/raw");
       const planted = path.join(rawDir, "file1.fastq");
       fs.mkdirSync(rawDir, { recursive: true });
       fs.symlinkSync(victim, planted);
@@ -304,7 +367,11 @@ describe("MD5 Verification", () => {
 
       try {
         const result = await verifyReadMd5(
-          { _id: mockReadId, MD5: victimMd5, file: { originalName: "file1.fastq" } },
+          {
+            _id: mockReadId,
+            MD5: victimMd5,
+            file: { originalName: "file1.fastq" },
+          },
           runWithPath("group/project/sample/run"),
         );
 
@@ -380,14 +447,45 @@ describe("MD5 Verification", () => {
         }),
       );
     });
+
+    test("excludes every sample belonging to a non-HPC project", async () => {
+      Project.find.mockReturnValue({
+        select: jest.fn().mockResolvedValue([{ _id: "archived-project" }]),
+      });
+      Sample.find.mockReturnValue({
+        select: jest.fn().mockResolvedValue([{ _id: "archived-sample" }]),
+      });
+      Run.find.mockReturnValue({
+        sort: jest.fn().mockReturnThis(),
+        limit: jest.fn().mockReturnThis(),
+        select: jest.fn().mockResolvedValue([]),
+      });
+
+      await findRunsNeedingVerification(10);
+
+      expect(Sample.find).toHaveBeenCalledWith({
+        project: { $in: ["archived-project"] },
+      });
+      expect(Run.find.mock.calls[0][0].sample).toEqual({
+        $nin: ["archived-sample"],
+      });
+    });
   });
 
   describe("cleanupStalePendingRuns", () => {
     test("should mark stale runs as error", async () => {
       const now = new Date();
       const staleRuns = [
-        { _id: "run1", name: "Stale Run 1", createdAt: new Date(now - 25 * 60 * 60 * 1000) },
-        { _id: "run2", name: "Stale Run 2", createdAt: new Date(now - 30 * 60 * 60 * 1000) },
+        {
+          _id: "run1",
+          name: "Stale Run 1",
+          createdAt: new Date(now - 25 * 60 * 60 * 1000),
+        },
+        {
+          _id: "run2",
+          name: "Stale Run 2",
+          createdAt: new Date(now - 30 * 60 * 60 * 1000),
+        },
       ];
 
       Run.find = jest.fn().mockResolvedValue(staleRuns);

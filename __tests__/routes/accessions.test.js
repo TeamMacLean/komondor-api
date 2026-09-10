@@ -151,12 +151,14 @@ describe("POST /accessions/new", () => {
   test("stores a release date for projects", async () => {
     Project.findByIdAndUpdate.mockResolvedValue({ _id: validId });
 
-    await request(app).post("/accessions/new").send({
-      type: "project",
-      typeId: validId,
-      accessions: ["ERP1"],
-      releaseDate: "01-01-2030",
-    });
+    await request(app)
+      .post("/accessions/new")
+      .send({
+        type: "project",
+        typeId: validId,
+        accessions: ["ERP1"],
+        releaseDate: "01-01-2030",
+      });
 
     expect(Project.findByIdAndUpdate).toHaveBeenCalledWith(
       validId,
@@ -534,6 +536,60 @@ describe("GET /accessions/csv", () => {
     const response = await request(app).get("/accessions/csv");
 
     expect(response.body.csv).toContain("/reads/a/r1.fq;/reads/a/r2.fq");
+  });
+
+  test("emits S3 read URIs for an archived project without duplicating its prefix", async () => {
+    const run = buildRun();
+    const now = new Date();
+    mockRunFind([run]);
+    Project.find.mockResolvedValue([
+      buildProject({
+        path: "/group_a/project_1",
+        storage: {
+          state: "aws",
+          s3Uri: "s3://archive/data/group_a/project_1",
+          s3VerifiedAt: now,
+          hpcVerifiedAbsentAt: now,
+          archivedAt: now,
+        },
+      }),
+    ]);
+    mockReadFind([
+      {
+        run: run._id,
+        file: { path: "group_a/project_1/sample_1/run_1/raw/r1.fq" },
+      },
+    ]);
+
+    const response = await request(app).get("/accessions/csv");
+
+    expect(response.body.csv).toContain(
+      "s3://archive/data/group_a/project_1/sample_1/run_1/raw/r1.fq",
+    );
+    expect(response.body.csv).not.toContain("project_1/group_a/project_1");
+  });
+
+  test("marks a historically inconsistent archived File.path unresolved", async () => {
+    const run = buildRun();
+    const now = new Date();
+    mockRunFind([run]);
+    Project.find.mockResolvedValue([
+      buildProject({
+        path: "/group_a/project_1",
+        storage: {
+          state: "aws",
+          s3Uri: "s3://archive/data/group_a/project_1",
+          s3VerifiedAt: now,
+          hpcVerifiedAbsentAt: now,
+          archivedAt: now,
+        },
+      }),
+    ]);
+    mockReadFind([{ run: run._id, file: { path: "another/project/r1.fq" } }]);
+
+    const response = await request(app).get("/accessions/csv");
+
+    expect(response.body.csv).toContain("unresolved:another/project/r1.fq");
   });
 
   describe("skips unusable rows rather than failing the export", () => {

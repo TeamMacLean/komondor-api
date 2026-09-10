@@ -54,6 +54,7 @@ suites against a real MongoDB**. Dependency audit: 19 findings (1 critical, 4 hi
 critical is still Mongoose, deferred (section 6).
 
 ### P0-1 — every completed upload was rejected, and could be deleted
+
 You reproduced (real POST+PATCH) that `@tus/file-store` writes `offset:0` at creation and never
 updates it, so my `assertUploadComplete` — which compared the sidecar's `offset` to its `size`
 — refused every finished upload, and the abandoned-upload sweep could then **delete** it.
@@ -65,6 +66,7 @@ library never produces (`offset === size`). The fixture now **drives a real tus 
 HTTP**. Please re-run your POST+PATCH reproduction against the current code.
 
 ### P0-2 — the web client sent no auth, so every upload would 401
+
 The API now requires auth on the tus mount; komondor-web's Uppy config sent no `Authorization`.
 **Fix (komondor-web `92baf6b`):** `onBeforeRequest` adds the bearer token per request. This is a
 coordinated release — **web and api must deploy together**. Please verify the assumption I was
@@ -73,6 +75,7 @@ prefix** (my internal review checked the installed lib and believes it does; con
 the API's CORS actually admits the `Authorization` preflight.
 
 ### P0-3 — permitted leaf symlinks failed on Linux
+
 You found `fs.link()` was called with the raw symlink path; Linux does not dereference a symlink
 as `link(2)`'s oldpath, so the destination linked the wrong inode and was then deleted. This
 machine is Darwin, which follows — so it passed here and would fail on your Ubuntu CI.
@@ -85,13 +88,14 @@ executed** — I have no Linux host here. This is the item I most want a second 
 the reason I recommend a real Ubuntu CI run before shipping.
 
 ### P1s you raised — all addressed
+
 - **Malformed payloads became poison jobs / reingest replayed the same mistake** (`0b5555c`):
   validation now matches what the worker actually requires (rejects nested `data.name`, a
   local-filesystem entry with no `uploadName`, non-string `md5`, duplicate names, a sibling not
   in the list); reingest accepts a corrected payload.
 - **HPC "retention" was a hard link (same inode), so overwriting staging mutated the archive**
   (`7ed7b72`): retention is now an independent copy (`fs.copyFile` with `COPYFILE_FICLONE |
-  COPYFILE_EXCL`).
+COPYFILE_EXCL`).
 - **TUS completeness / global free-space race / lost reservations on restart** (`7ac121f`):
   addressed via `readUploadState`, cross-user reservation accounting, and startup reconstruction
   from sidecars.
@@ -113,6 +117,7 @@ I ran an internal adversarial pass over my own fixes. It found two more, both "f
 accident," and I want you to confirm the fixes and check I did not create a third.
 
 ### 4a — reingest correction was still a silent no-op (commit `c00a5ee`)
+
 My P1 reingest fix (`0b5555c`) only blocked **dropping** an already-delivered file. A payload
 that **kept** a delivered file's name but changed its `uploadName`/`md5` passed the guard,
 returned 200, and was then silently discarded (the retry planner matches delivered files by
@@ -124,6 +129,7 @@ entries legitimately omit `uploadName`, so a field-by-field compare false-positi
 refusing the whole payload too blunt for your taste, or the right robustness/simplicity trade?**
 
 ### 4b — I introduced a regression while fixing P1 (commit `1a327e4`)
+
 Changing HPC retention from a hard link to a **copy** (P1 fix above) gave the datastore file a
 **different inode** from the retained source. But the ingest recovery path
 (`adoptAlreadyMovedFile` in `lib/file-utils.js`) still required them to be the **same inode** —

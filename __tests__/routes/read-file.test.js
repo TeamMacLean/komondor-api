@@ -22,7 +22,6 @@ jest.mock("../../routes/middleware", () => ({
   isAdmin: (req, res, next) => next(),
 }));
 
-
 // The HPC read endpoints now also require membership of at least one group
 // (lib/utils/hpcAudit.js). These tests are about path containment, not
 // membership, so grant it by default; the refusal has its own test below.
@@ -199,12 +198,10 @@ describe("GET /read-file", () => {
     });
 
     test("rejects a sibling directory sharing the root's prefix", async () => {
-      const response = await request(app)
-        .get("/read-file")
-        .query({
-          targetDirectoryName: "../transfer-evil",
-          filename: "evil.txt",
-        });
+      const response = await request(app).get("/read-file").query({
+        targetDirectoryName: "../transfer-evil",
+        filename: "evil.txt",
+      });
 
       expect(response.status).toBe(403);
       expect(response.text).not.toContain("EVIL");
@@ -234,24 +231,20 @@ describe("GET /read-file", () => {
     });
 
     test("refuses a real file beneath a symlinked ancestor", async () => {
-      const response = await request(app)
-        .get("/read-file")
-        .query({
-          targetDirectoryName: "linkfarm",
-          filename: "outsidedir/inner/deep.txt",
-        });
+      const response = await request(app).get("/read-file").query({
+        targetDirectoryName: "linkfarm",
+        filename: "outsidedir/inner/deep.txt",
+      });
 
       expect(response.status).toBe(403);
       expect(response.text).not.toContain("DEEP PAYLOAD");
     });
 
     test("refuses a symlinked ancestor supplied as the directory name", async () => {
-      const response = await request(app)
-        .get("/read-file")
-        .query({
-          targetDirectoryName: "linkfarm/outsidedir",
-          filename: "outside.txt",
-        });
+      const response = await request(app).get("/read-file").query({
+        targetDirectoryName: "linkfarm/outsidedir",
+        filename: "outside.txt",
+      });
 
       expect(response.status).toBe(403);
       expect(response.text).not.toContain("OUTSIDE PAYLOAD");
@@ -264,7 +257,6 @@ describe("GET /read-file", () => {
 
       expect(response.status).toBe(403);
     });
-
   });
 
   describe("a symlinked leaf is followed once assertWithinReal has vouched for it", () => {
@@ -292,7 +284,9 @@ describe("GET /read-file", () => {
         .query({ targetDirectoryName: "batch1" });
 
       expect(response.status).toBe(200);
-      expect(response.body.error).toMatch(/Missing targetDirectoryName or filename/);
+      expect(response.body.error).toMatch(
+        /Missing targetDirectoryName or filename/,
+      );
     });
 
     test("reports a missing targetDirectoryName", async () => {
@@ -301,7 +295,9 @@ describe("GET /read-file", () => {
         .query({ filename: "reads.txt" });
 
       expect(response.status).toBe(200);
-      expect(response.body.error).toMatch(/Missing targetDirectoryName or filename/);
+      expect(response.body.error).toMatch(
+        /Missing targetDirectoryName or filename/,
+      );
     });
 
     test("reports repeated parameters supplied as arrays", async () => {
@@ -377,7 +373,9 @@ describe("GET /read-file audit trail", () => {
   const auditLines = () =>
     logSpy.mock.calls
       .map((call) => call[0])
-      .filter((line) => typeof line === "string" && line.includes(AUDIT_PREFIX));
+      .filter(
+        (line) => typeof line === "string" && line.includes(AUDIT_PREFIX),
+      );
 
   test("emits exactly one line naming the caller and the resolved path", async () => {
     const response = await request(app)
@@ -487,7 +485,9 @@ describe("GET /read-file cannot be used to forge the audit trail", () => {
   const auditLines = () =>
     logSpy.mock.calls
       .map((call) => call[0])
-      .filter((line) => typeof line === "string" && line.includes(AUDIT_PREFIX));
+      .filter(
+        (line) => typeof line === "string" && line.includes(AUDIT_PREFIX),
+      );
 
   test("a newline in the filename is refused before anything is read", async () => {
     // This used to assert a 200 and `response.text === "PAYLOAD"`: the read was
@@ -513,9 +513,9 @@ describe("GET /read-file cannot be used to forge the audit trail", () => {
 
     // Nothing was read, so nothing claims a read happened — a forged record
     // cannot be planted by a request that was refused either.
-    expect(auditLines().filter((line) => line.includes('action="read"'))).toHaveLength(
-      0,
-    );
+    expect(
+      auditLines().filter((line) => line.includes('action="read"')),
+    ).toHaveLength(0);
     auditLines().forEach((line) => {
       expect(line.split("\n")).toHaveLength(1);
       expect(line).not.toContain('user="alice"');

@@ -3,11 +3,11 @@
 `package.json` pins `mongoose@^5.13.23`. Mongoose 5 has been end-of-life since
 2024 and carries three open advisories, one of them critical:
 
-| Severity | Advisory | Patched in |
-| --- | --- | --- |
-| critical | Mongoose search injection | ≥ 6.13.6 |
-| high | Improper sanitization of `$nor` in `sanitizeFilter` | ≥ 6.13.9 |
-| moderate | Prototype pollution in update casting via `__proto__`-prefixed dotted path | ≥ 6.13.10 |
+| Severity | Advisory                                                                   | Patched in |
+| -------- | -------------------------------------------------------------------------- | ---------- |
+| critical | Mongoose search injection                                                  | ≥ 6.13.6   |
+| high     | Improper sanitization of `$nor` in `sanitizeFilter`                        | ≥ 6.13.9   |
+| moderate | Prototype pollution in update casting via `__proto__`-prefixed dotted path | ≥ 6.13.10  |
 
 There is no fix on the 5.x line, so the only way to close them is to move up.
 
@@ -28,8 +28,8 @@ or builds a document and validates it in memory. **No test in the suite executes
 a query against a MongoDB server**, and `mongodb-memory-server` is not a
 dependency.
 
-That matters because almost every breaking change below is in *query
-behaviour*: which documents come back, what the write result looks like, and
+That matters because almost every breaking change below is in _query
+behaviour_: which documents come back, what the write result looks like, and
 whether an unknown filter path is honoured or silently dropped. None of that is
 observable without a server.
 
@@ -39,7 +39,7 @@ minimum:
 
 - `iCanSee` on `Project`, `Sample`, `Run` and `NewsItem` — for an admin, a
   member of one group, a `FULL_RECORDS_ACCESS_USERS` user, and a user with no
-  groups. This is the permission boundary, and it is a *query filter*, which is
+  groups. This is the permission boundary, and it is a _query filter_, which is
   exactly what `strictQuery` changes.
 - `Group.GroupsIAmIn` with and without soft-deleted groups.
 - The populate paths listed in section 2 — every one of them, because
@@ -69,18 +69,18 @@ so the process fails at connect time.
 grep -rn "useNewUrlParser\|useCreateIndex\|useUnifiedTopology\|useFindAndModify" --include="*.js" .
 ```
 
-| Call site | Option | Action |
-| --- | --- | --- |
-| `server.js:364` | `useNewUrlParser: true` | delete |
-| `server.js:365` | `useCreateIndex: true` | delete — see section 7 |
-| `server.js:366` | `useUnifiedTopology: true` | delete |
-| `add_default_groups.js:149` | `useNewUrlParser: true` | delete |
-| `add_default_options.js:287` | `useNewUrlParser: true` | delete |
+| Call site                    | Option                     | Action                 |
+| ---------------------------- | -------------------------- | ---------------------- |
+| `server.js:364`              | `useNewUrlParser: true`    | delete                 |
+| `server.js:365`              | `useCreateIndex: true`     | delete — see section 7 |
+| `server.js:366`              | `useUnifiedTopology: true` | delete                 |
+| `add_default_groups.js:149`  | `useNewUrlParser: true`    | delete                 |
+| `add_default_options.js:287` | `useNewUrlParser: true`    | delete                 |
 
 `serverSelectionTimeoutMS` at `server.js:367` is a driver option and stays.
 
 **DONE:** `routes/projects.js` no longer passes `useFindAndModify: false`. It
-was the one to look at twice — a *query* option on a `findByIdAndUpdate` rather
+was the one to look at twice — a _query_ option on a `findByIdAndUpdate` rather
 than a connection option, so no startup smoke test would have caught it. On
 mongoose 5.13 the query now falls back to the global default (`true`), which
 returns the driver's `findAndModify` DeprecationWarning to the logs until the
@@ -97,16 +97,16 @@ the worst place to find out.
 grep -rn "execPopulate" --include="*.js" .
 ```
 
-| Call site | Context |
-| --- | --- |
-| `models/Project.js:72` | `pre("validate")` path building |
-| `models/Project.js:166` | `getRelativePath` |
-| `models/Read.js:62` | post-save file populate |
-| `models/AdditionalFile.js:54` | post-save file populate |
-| `models/Run.js:115` | `pre("validate")` path building |
-| `models/Run.js:192` | `getRelativePath` |
-| `models/Sample.js:121` | `pre("validate")` path building |
-| `models/Sample.js:225` | `getRelativePath` |
+| Call site                     | Context                         |
+| ----------------------------- | ------------------------------- |
+| `models/Project.js:72`        | `pre("validate")` path building |
+| `models/Project.js:166`       | `getRelativePath`               |
+| `models/Read.js:62`           | post-save file populate         |
+| `models/AdditionalFile.js:54` | post-save file populate         |
+| `models/Run.js:115`           | `pre("validate")` path building |
+| `models/Run.js:192`           | `getRelativePath`               |
+| `models/Sample.js:121`        | `pre("validate")` path building |
+| `models/Sample.js:225`        | `getRelativePath`               |
 
 The rewrite is mechanical — `await doc.populate("file")` — and it is
 **forward-compatible with Mongoose 5.13**, so it belongs in Stage 1.
@@ -120,7 +120,7 @@ The rewrite is mechanical — `await doc.populate("file")` — and it is
 - Mongoose 7: back to `false`.
 
 A filter path that is silently dropped does not narrow the query, so the result
-set gets *wider*. In this codebase the filters that matter are the permission
+set gets _wider_. In this codebase the filters that matter are the permission
 filters — `iCanSee` and `GroupsIAmIn` — where a dropped clause means returning
 records the user may not see. That failure is invisible: no error, no log, just
 more rows.
@@ -139,13 +139,13 @@ thing at a time.
 grep -rn "\.updateOne(\|\.updateMany(\|\.deleteOne(\|\.deleteMany(" --include="*.js" .
 ```
 
-| Call site | Reads the result? | Action |
-| --- | --- | --- |
-| `lib/ingest-queue.js:327` | yes — `result.nModified \|\| result.modifiedCount` | already handles both |
-| `routes/options.js:91` | yes — `result.deletedCount` | unchanged in both |
-| `lib/file-utils.js:250, 272, 276` | no | none |
-| `lib/ingest-queue.js:190, 228, 251` | no | none |
-| `routes/projects.js:224`, `routes/samples.js:313`, `routes/runs.js:388` | no | none |
+| Call site                                                               | Reads the result?                                  | Action               |
+| ----------------------------------------------------------------------- | -------------------------------------------------- | -------------------- |
+| `lib/ingest-queue.js:327`                                               | yes — `result.nModified \|\| result.modifiedCount` | already handles both |
+| `routes/options.js:91`                                                  | yes — `result.deletedCount`                        | unchanged in both    |
+| `lib/file-utils.js:250, 272, 276`                                       | no                                                 | none                 |
+| `lib/ingest-queue.js:190, 228, 251`                                     | no                                                 | none                 |
+| `routes/projects.js:224`, `routes/samples.js:313`, `routes/runs.js:388` | no                                                 | none                 |
 
 Nothing here breaks. It is listed so the next person does not have to re-derive
 that.
@@ -195,20 +195,20 @@ hand ahead of the deploy and set `autoIndex: false` for the app connection.
 This is on the usual list of Mongoose 7 gotchas and it does not belong there.
 Neither the Mongoose 6 nor the Mongoose 7 migration guide changes which
 document `findOneAndUpdate()`/`findByIdAndUpdate()` returns: it is still the
-document *before* the update unless `new: true` (or `returnDocument: "after"`)
+document _before_ the update unless `new: true` (or `returnDocument: "after"`)
 is passed.
 
 Checked anyway, because getting it wrong silently corrupts a response body:
 
-| Call site | Uses the returned doc? | `new: true`? |
-| --- | --- | --- |
-| `routes/accessions.js:42` | yes | yes |
-| `routes/projects.js:128` | yes (null check only) | yes |
-| `lib/ingest-queue.js:106` | yes | yes |
-| `lib/ingest-queue.js:153` | yes | yes |
-| `lib/md5-verification.js` (9 sites) | no | n/a |
-| `lib/file-utils.js:368, 411, 424` | no | n/a |
-| `models/User.js:15` | no — and the `login` static is dead code, nothing calls it | n/a |
+| Call site                           | Uses the returned doc?                                     | `new: true`? |
+| ----------------------------------- | ---------------------------------------------------------- | ------------ |
+| `routes/accessions.js:42`           | yes                                                        | yes          |
+| `routes/projects.js:128`            | yes (null check only)                                      | yes          |
+| `lib/ingest-queue.js:106`           | yes                                                        | yes          |
+| `lib/ingest-queue.js:153`           | yes                                                        | yes          |
+| `lib/md5-verification.js` (9 sites) | no                                                         | n/a          |
+| `lib/file-utils.js:368, 411, 424`   | no                                                         | n/a          |
+| `models/User.js:15`                 | no — and the `login` static is dead code, nothing calls it | n/a          |
 
 No action. Do not "fix" these by removing `new: true`.
 

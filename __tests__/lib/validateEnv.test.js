@@ -67,6 +67,7 @@ const validEnv = (overrides = {}) => ({
   MONGODB_URI: "mongodb://localhost:27017/komondor",
   DATASTORE_ROOT: datastore,
   HPC_TRANSFER_DIRECTORY: transferDirectory,
+  READS_ROOT_PATH: "/tsl/data/reads",
   ...overrides,
 });
 
@@ -203,7 +204,8 @@ describe("MONGODB_URI", () => {
     // new URL() cannot parse this, which is why it is not used on its own.
     const result = await validateEnv(
       validEnv({
-        MONGODB_URI: "mongodb://a.example:27017,b.example:27017/komondor?replicaSet=rs0",
+        MONGODB_URI:
+          "mongodb://a.example:27017,b.example:27017/komondor?replicaSet=rs0",
       }),
     );
 
@@ -245,7 +247,10 @@ describe("resolveMongoUri", () => {
 
   test("prefers MONGODB_URI when it is set", () => {
     expect(
-      resolveMongoUri({ MONGODB_URI: "mongodb://elsewhere/db", MONGODB_PORT: "1" }),
+      resolveMongoUri({
+        MONGODB_URI: "mongodb://elsewhere/db",
+        MONGODB_PORT: "1",
+      }),
     ).toBe("mongodb://elsewhere/db");
   });
 });
@@ -272,7 +277,9 @@ describe("required settings", () => {
   });
 
   test("rejects a web app URL that is not a URL", async () => {
-    const result = await validateEnv(validEnv({ WEB_APP_URL: "komondor.example.org" }));
+    const result = await validateEnv(
+      validEnv({ WEB_APP_URL: "komondor.example.org" }),
+    );
 
     expect(result.ok).toBe(false);
     expect(errorFor(result, "WEB_APP_URL")).toMatch(/URL/);
@@ -471,16 +478,33 @@ describe("the ingest worker's tunables", () => {
   });
 });
 
+describe("display locations", () => {
+  test("warns, but does not fail, when READS_ROOT_PATH is unset", async () => {
+    const env = validEnv();
+    delete env.READS_ROOT_PATH;
+
+    const result = await validateEnv(env);
+
+    expect(result.ok).toBe(true);
+    expect(result.warnings.join("\n")).toMatch(/READS_ROOT_PATH/);
+    expect(result.warnings.join("\n")).toMatch(/\/tsl\/data\/reads/);
+  });
+});
+
 describe("TLS warnings", () => {
   test("warns that SMTP certificates are not verified", async () => {
-    const result = await validateEnv(validEnv({ SMTP_HOST: "smtp.example.org" }));
+    const result = await validateEnv(
+      validEnv({ SMTP_HOST: "smtp.example.org" }),
+    );
 
     expect(result.warnings.join("\n")).toMatch(/rejectUnauthorized/);
   });
 
   test("does not refuse to start over it", async () => {
     // Mail is not worth refusing to serve sequence data for.
-    const result = await validateEnv(validEnv({ SMTP_HOST: "smtp.example.org" }));
+    const result = await validateEnv(
+      validEnv({ SMTP_HOST: "smtp.example.org" }),
+    );
 
     expect(result.ok).toBe(true);
   });

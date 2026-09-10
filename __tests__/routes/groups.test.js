@@ -372,9 +372,7 @@ describe("POST /groups/new", () => {
     const save = jest.fn().mockRejectedValue(new Error("duplicate key"));
     Group.mockImplementation(() => ({ save }));
 
-    const errorSpy = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
+    const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     const response = await request(app)
       .post("/groups/new")
       .send({ name: "new-group", ldapGroups: ["CN=new-group"] });
@@ -391,10 +389,12 @@ describe("POST /groups/new", () => {
       isAdmin: false,
     };
 
-    const response = await request(app).post("/groups/new").send({
-      name: "new-group",
-      ldapGroups: ["CN=new-group"],
-    });
+    const response = await request(app)
+      .post("/groups/new")
+      .send({
+        name: "new-group",
+        ldapGroups: ["CN=new-group"],
+      });
 
     expect(response.status).toBe(403);
   });
@@ -511,11 +511,13 @@ describe("POST /groups/edit", () => {
     Group.findById.mockResolvedValue(mockGroup);
     memberOfTheGroup();
 
-    const response = await request(app).post("/groups/edit").send({
-      id: mockGroupId,
-      name: "updated-name",
-      ldapGroups: ["CN=updated"],
-    });
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({
+        id: mockGroupId,
+        name: "updated-name",
+        ldapGroups: ["CN=updated"],
+      });
 
     expect(response.status).toBe(200);
     expect(mockGroup.save).toHaveBeenCalled();
@@ -598,7 +600,9 @@ describe("POST /groups/edit", () => {
     expect(mockGroup.save).not.toHaveBeenCalled();
     expect(mockGroup.name).toBe("test-group");
     // The tree is still where it was.
-    expect(fs.existsSync(path.join(datastoreRoot, "test_group", "reads.fastq.gz"))).toBe(true);
+    expect(
+      fs.existsSync(path.join(datastoreRoot, "test_group", "reads.fastq.gz")),
+    ).toBe(true);
   });
 
   test("should allow an admin rename when the datastore holds nothing yet", async () => {
@@ -727,11 +731,13 @@ describe("POST /groups/edit", () => {
       { _id: { toString: () => "different-group" }, name: "other-group" },
     ]);
 
-    const response = await request(app).post("/groups/edit").send({
-      id: mockGroupId,
-      name: "updated-name",
-      ldapGroups: ["CN=updated"],
-    });
+    const response = await request(app)
+      .post("/groups/edit")
+      .send({
+        id: mockGroupId,
+        name: "updated-name",
+        ldapGroups: ["CN=updated"],
+      });
 
     expect(response.status).toBe(403);
   });
