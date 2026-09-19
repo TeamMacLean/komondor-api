@@ -89,6 +89,94 @@ tags:
   - name: Ops
 
 paths:
+  /internal/power/run-status:
+    post:
+      tags: [Runs]
+      summary: Read processing and checksum outcomes for a Power submission
+      description: |
+        Server-to-server, read-only endpoint using a dedicated credential.
+        POWER_STATUS_TOKEN must be configured with at least 32 characters.
+        Returns processing information for the requested run IDs, regardless
+        of owner, including pre-existing runs returned during submission.
+        The supplied API username identifies the submitting user for logging;
+        it does not filter ownership. This trusted service credential permits
+        querying all owners, but cannot log in,
+        create records or download files. Never expose it to a browser.
+        An empty runIds array checks availability and credentials. IDs
+        not found appear in missing.
+        A checksum mismatch is a failed outcome, including for historical
+        runs whose md5VerificationStatus was incorrectly marked complete.
+      security:
+        - powerStatusAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, runIds]
+              properties:
+                username:
+                  type: string
+                  minLength: 1
+                  maxLength: 200
+                runIds:
+                  type: array
+                  maxItems: 100
+                  items:
+                    type: string
+                    pattern: "^[a-fA-F0-9]{24}$"
+      responses:
+        "200":
+          description: Current processing state; no file contents or paths are returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  missing:
+                    type: array
+                    items:
+                      type: string
+                  runs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        runId:
+                          type: string
+                        status:
+                          $ref: "#/components/schemas/RunStatus"
+                        statusError:
+                          type: [string, "null"]
+                        ingest:
+                          type: [object, "null"]
+                          properties:
+                            status:
+                              enum: [pending, claimed, done, failed]
+                            lastError:
+                              type: [string, "null"]
+                            attempts:
+                              type: integer
+                        verification:
+                          type: object
+                          properties:
+                            state:
+                              enum: [pending, in_progress, passed, mismatch, failed, skipped]
+                            total:
+                              type: integer
+                            verified:
+                              type: integer
+                            mismatches:
+                              type: integer
+                            skipped:
+                              type: integer
+        "400":
+          description: Invalid username or run IDs
+        "401":
+          description: Missing or invalid monitoring credential
+        "503":
+          description: Monitoring is unconfigured or database status is unavailable
   /health:
     get:
       tags: [Ops]
@@ -2776,6 +2864,11 @@ paths:
 
 components:
   securitySchemes:
+    powerStatusAuth:
+      type: apiKey
+      in: header
+      name: X-Power-Status-Token
+      description: Dedicated read-only service credential for Power status monitoring.
     bearerAuth:
       type: http
       scheme: bearer
@@ -3476,6 +3569,26 @@ components:
         md5VerificationAttempts:
           type: integer
           default: 0
+        md5VerificationResult:
+          type: [object, "null"]
+          description: |
+            Final checksum counts. Absent on older runs and null while a new
+            verification attempt is running. Mismatches and read errors set
+            md5VerificationStatus to failed. A complete status alone is not
+            proof of verification when disabled is true or files were skipped.
+          properties:
+            verified:
+              type: integer
+            mismatches:
+              type: integer
+            errors:
+              type: integer
+            skipped:
+              type: integer
+            total:
+              type: integer
+            disabled:
+              type: boolean
         md5VerificationLastAttempt:
           type: string
           format: date-time

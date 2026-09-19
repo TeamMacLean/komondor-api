@@ -216,8 +216,18 @@ describe("MD5 Verification", () => {
 
       const result = await verifyRunMd5(mockRunId);
 
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
+      expect(result.filesVerified).toBe(0);
       expect(result.mismatches).toBe(1);
+      expect(Run.findByIdAndUpdate).toHaveBeenCalledWith(mockRunId, {
+        $set: expect.objectContaining({
+          md5VerificationStatus: "failed",
+          md5VerificationResult: expect.objectContaining({
+            verified: 0,
+            mismatches: 1,
+          }),
+        }),
+      });
       expect(Read.findByIdAndUpdate).toHaveBeenCalledWith(
         mockReadId,
         expect.objectContaining({

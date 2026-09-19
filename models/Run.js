@@ -44,6 +44,16 @@ const schema = new Schema(
     md5VerificationAttempts: { type: Number, default: 0 },
     md5VerificationLastAttempt: { type: Date },
     md5VerificationCompletedAt: { type: Date },
+    // A completed check is not necessarily a passing check. Preserve the
+    // outcome separately, including deliberately skipped verification.
+    md5VerificationResult: {
+      verified: Number,
+      mismatches: Number,
+      errors: Number,
+      skipped: Number,
+      total: Number,
+      disabled: Boolean,
+    },
 
     // Error details surfaced when status is 'error'
     statusError: { type: String },

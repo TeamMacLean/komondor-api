@@ -1,5 +1,21 @@
 # Breaking changes — hardening refactor
 
+## Background submission compatibility (September 2026)
+
+Checksum mismatches now set `md5VerificationStatus: "failed"`, rather than
+`"complete"`. The enum is unchanged. `md5VerificationResult` adds counts for
+verified, mismatched, errored and skipped reads, and an explicit disabled flag.
+Consumers must not label disabled/skipped checks as passed merely because the
+verification task finished. Komondor Web includes a corresponding badge fix.
+
+Power's durable monitor uses the additive read-only
+`POST /internal/power/run-status` endpoint, with a dedicated `POWER_STATUS_TOKEN`
+of at least 32 characters. Deploy/configure the API before the updated Power.
+Missing configuration disables this endpoint only. It does not disable the
+existing API or worker. Historical read mismatches are recognised without a
+MongoDB backfill. See Power's `docs/BACKGROUND_SUBMISSIONS.md` for the coordinated
+deployment, SQLite migration, optional summary email and rollback procedure.
+
 Read this before deploying. `komondor-api` is consumed by other services
 (komondor-web, komondor-power), and the changes below alter observable
 behaviour. Everything else in the refactor is additive or internal.

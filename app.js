@@ -270,6 +270,7 @@ app.use(authRoutes);
 app.use(projectsRoutes);
 app.use(samplesRoutes);
 app.use(runRoutes);
+app.use(require("./routes/power-status"));
 app.use(searchRoutes);
 app.use(groupRoutes);
 app.use(directoryFilesRoutes);

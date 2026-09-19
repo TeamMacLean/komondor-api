@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "entryId": 21,
+  "submittedAt": "2026-09-18T07:39:11.010000+00:00",
+  "owner": "gok24jef",
+  "projectId": "69ea171428866e6f1f6f3f29",
+  "csvSha256": "a1623020b076240fcedd223d2d05113d5fb3f9489071d188992940a9904c11f6",
+  "sourcePrefix": "/tsl/data/tempWebUploadToSequences",
+  "provenance": "Expected names, paths and checksums from Power entry 21 in the provided production SQLite copy; exact run IDs from the supplied API log dated 2026-09-18.",
+  "runs": [
+    {
+      "id": "6aaceaa21cd69d5d57b3c412",
+      "name": "col0_root_cs1_1",
+      "sampleName": "Col0 root cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_cs1/col0_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "d9b59c5119fb8fe9d084c252beb583aa"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_cs1/col0_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "974d1f0c63c91c5683bfc74d4e899cc4"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa21cd69d5d57b3c42a",
+      "name": "col0_root_cs2_1",
+      "sampleName": "Col0 root cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_cs2/col0_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "4ddf3c0d14f088ac4450bca050584107"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_cs2/col0_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "4fee0b406eafe16c97c4900ba0194b26"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa21cd69d5d57b3c442",
+      "name": "col0_root_in1_1",
+      "sampleName": "Col0 root in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_in1/col0_root_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "60472eef0148912b23342151e13c900f"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_in1/col0_root_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "54381dbce9af17c7178e2b91e668a4df"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c469",
+      "name": "col0_root_in2_1",
+      "sampleName": "Col0 root in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_in2/col0_root_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "42da6e1728acaa50f8165815d1c8d54d"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_root_in2/col0_root_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "d84f726ccab83a72260358c03ba36b55"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c481",
+      "name": "col0_shoot_cs1_1",
+      "sampleName": "Col0 shoot cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_cs1/col0_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "bd8e8a8a99b6549eaca7b057f1e62e73"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_cs1/col0_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "76e692a341a5ccf553a6dd77c8a0fa20"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c499",
+      "name": "col0_shoot_cs2_1",
+      "sampleName": "Col0 shoot cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_cs2/col0_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "d175c66348dac497849704f387b841b8"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_cs2/col0_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "f4579adef31e3f1165dc799daa256ea9"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c4b1",
+      "name": "col0_shoot_in1_1",
+      "sampleName": "Col0 shoot in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_in1/col0_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "3b76e1bf79feb99abb748db8d8a71ba1"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_in1/col0_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "863c5502585a07cbea6b83c063880e88"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c4c9",
+      "name": "col0_shoot_in2_1",
+      "sampleName": "Col0 shoot in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_in2/col0_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "4a5063aa724b3627a3c6505a8cf0bc93"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/col0_shoot_in2/col0_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "159ff3839831f218b82907aa44c1d95b"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c4e1",
+      "name": "hen2_root_cs1_1",
+      "sampleName": "hen2-4 root cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_cs1/hen2_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "4f290b8ed9c9d2dff31e9604dc94642d"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_cs1/hen2_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "b71e0718f9fde3f776593dc8726d0195"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c4f9",
+      "name": "hen2_root_cs2_1",
+      "sampleName": "hen2-4 root cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_cs2/hen2_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "7a917c96182c06e54758eb303fb01e90"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_cs2/hen2_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "bf979bbad0a1ca82eca234eda989804c"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c511",
+      "name": "hen2_root_in1_1",
+      "sampleName": "hen2-4 root in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_in1/hen2_root_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "559b78dfeabb43591e1b140f748e9b3b"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_in1/hen2_root_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "0af103ad811c183c5948199d95e1f961"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c529",
+      "name": "hen2_root_in2_1",
+      "sampleName": "hen2-4 root in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_in2/hen2_root_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "49c012b97fa0d1082c9383641e374de0"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_root_in2/hen2_root_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "7ae3d173b0c1845141923a71cc748c46"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c541",
+      "name": "hen2_shoot_cs1_1",
+      "sampleName": "hen2-4 shoot cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_cs1/hen2_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "0d15f65efad8635023f5c0dd80a17b0c"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_cs1/hen2_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "2c0e121105197856a059ce2748d00dc5"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c559",
+      "name": "hen2_shoot_cs2_1",
+      "sampleName": "hen2-4 shoot cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_cs2/hen2_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "bc57c2da7be281ce370c67dc757e24da"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_cs2/hen2_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "0fdb0bad24e6db0f229f64b9102b3f13"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa31cd69d5d57b3c571",
+      "name": "hen2_shoot_in1_1",
+      "sampleName": "hen2-4 shoot in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_in1/hen2_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "71a3ea4c6cfd4e791ea1d77d702955e5"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_in1/hen2_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "aa128460cb584724e37b523d5d965cad"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c589",
+      "name": "hen2_shoot_in2_1",
+      "sampleName": "hen2-4 shoot in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_in2/hen2_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "49c0416c4abaa18f91af162af03667d3"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/hen2_shoot_in2/hen2_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "dc874dab393b44a72e040530d9553248"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c5a1",
+      "name": "rrp4_root_cs1_1",
+      "sampleName": "rrp4-2 root cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_cs1/rrp4_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "5d315cb4e54468e06647507e3982bf91"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_cs1/rrp4_root_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "e87ea051ee9f77c4965ce7f156cf8d1b"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c5b9",
+      "name": "rrp4_root_cs2_1",
+      "sampleName": "rrp4-2 root cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_cs2/rrp4_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "df6ccb5f3016f82fb65523712a610821"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_cs2/rrp4_root_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "57f30a7fc9aeb9b035751b061919c263"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c5d1",
+      "name": "rrp4_root_in1_1",
+      "sampleName": "rrp4-2 root in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_in1/rrp4_root_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "1ae307ee5c2f387c48ccd8f229a9037f"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_in1/rrp4_root_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "47b2c38c0a8ad58326752567fc08fe0d"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c5e9",
+      "name": "rrp4_root_in2_1",
+      "sampleName": "rrp4-2 root in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_in2/rrp4_root_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "10cf7b7a869318f46f802345ee1e19a4"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_root_in2/rrp4_root_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "e5fe187860fb7643c726dcd860d2cace"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c601",
+      "name": "rrp4_shoot_cs1_1",
+      "sampleName": "rrp4-2 shoot cs1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_cs1/rrp4_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "cbb2db9be4250b06e0faf01d224f0cde"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_cs1/rrp4_shoot_cs1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "b673dde2bf0b0196444b6cebf445a7c3"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c619",
+      "name": "rrp4_shoot_cs2_1",
+      "sampleName": "rrp4-2 shoot cs2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_cs2/rrp4_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "4608417bd706117b78b2b47234eafefc"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_cs2/rrp4_shoot_cs2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "ded9ac0c4b3bddf4efec07fbcfae860d"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c631",
+      "name": "rrp4_shoot_in1_1",
+      "sampleName": "rrp4-2 shoot in1",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_in1/rrp4_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "5fcee312ca46be124c290e6bea168cde"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_02/01.RawData/rrp4_shoot_in1/rrp4_shoot_in1_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "e708a67b1488c00aaff45cd5ccf9aa6f"
+        }
+      ]
+    },
+    {
+      "id": "6aaceaa41cd69d5d57b3c649",
+      "name": "rrp4_shoot_in2_1",
+      "sampleName": "rrp4-2 shoot in2",
+      "reads": [
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/rrp4_shoot_in2/rrp4_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_1.fq.gz",
+          "md5": "bc6309be3e64f02a3eae260a540f76ad"
+        },
+        {
+          "sourcePath": "/tsl/data/tempWebUploadToSequences/btremblay/novogene2/X204SC26091224-Z01-F001_01/01.RawData/rrp4_shoot_in2/rrp4_shoot_in2_EKDL260008213-1A_23M7WKLT4_L8_2.fq.gz",
+          "md5": "c2efa1e9d1d84f9feb68da9d4c5223f8"
+        }
+      ]
+    }
+  ]
+}
