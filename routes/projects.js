@@ -8,7 +8,7 @@ const { isAuthenticated } = require("./middleware");
 const {
   canReadGroup,
   canWriteGroup,
-  groupsICanWrite,
+  groupsICanCreate,
 } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
@@ -282,9 +282,9 @@ router
         return handleError(res, new Error("Group ID is not a valid ID."), 400);
       }
 
-      // Write capability, not read: a cross-group reader must not create here.
-      const writableGroups = await groupsICanWrite(req.user);
-      const targetGroup = writableGroups.find(
+      // ENA admins may create across groups; read access alone is insufficient.
+      const creatableGroups = await groupsICanCreate(req.user);
+      const targetGroup = creatableGroups.find(
         (group) => group && group._id && group._id.toString() === groupId,
       );
 

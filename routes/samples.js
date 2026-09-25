@@ -6,7 +6,7 @@ const _path = require("path");
 const Sample = require("../models/Sample");
 const Project = require("../models/Project");
 const { isAuthenticated } = require("./middleware");
-const { canReadGroup, canWriteGroup } = require("../lib/utils/groupAccess");
+const { canReadGroup, canCreateInGroup } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
@@ -329,8 +329,8 @@ router
         );
       }
 
-      // Write capability, not read: a cross-group reader must not create here.
-      const canCreate = await canWriteGroup(req.user, groupId);
+      // ENA admins may create across groups; read access alone is insufficient.
+      const canCreate = await canCreateInGroup(req.user, groupId);
       if (!canCreate) {
         return handleError(
           res,

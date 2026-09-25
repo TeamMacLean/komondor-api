@@ -10,6 +10,7 @@ const Group = require("../../models/Group");
 const ingestQueue = require("../../lib/ingest-queue");
 const { enqueueRunIngest, IngestJob } = ingestQueue;
 const { compareFilesToDirectory } = require("../../routes/_utils");
+const { isAuthenticated } = require("../../routes/middleware");
 
 // Mock the middleware
 jest.mock("../../routes/middleware", () => ({
@@ -548,6 +549,127 @@ describe("Runs API Routes", () => {
       mockSampleLookup({ _id: mockSampleId, group: mockGroupId });
       mockLibraryTypeLookup({ value: "WGS", paired: false, indexed: false });
       enqueueRunIngest.mockResolvedValue({ _id: mockJobId });
+    });
+
+    describe("ENA administrators", () => {
+      const usernames = ["deeks", "macleand", "taz23vul", "admin", "kun24dup"];
+      const otherGroupId = new mongoose.Types.ObjectId();
+      let previousEnaAdmins;
+      let previousAuthentication;
+      let savedRun;
+
+      const authenticate = (username) => {
+        isAuthenticated.mockImplementation((req, res, next) => {
+          req.user = { username, groups: [], isAdmin: false };
+          next();
+        });
+      };
+
+      beforeEach(() => {
+        previousEnaAdmins = process.env.ENA_ADMINS;
+        previousAuthentication = isAuthenticated.getMockImplementation();
+        process.env.ENA_ADMINS = "['deeks', 'macleand', 'taz23vul', 'admin', 'kun24dup']";
+        authenticate("deeks");
+        setGroups({ read: [{ _id: otherGroupId }, { _id: mockGroupId }], write: [] });
+        Run.findOne = jest.fn().mockReturnValue({
+          populate: jest.fn().mockResolvedValue(null),
+        });
+        Run.mockImplementation((data) => {
+          savedRun = { _id: mockRunId, ...data };
+          return { save: jest.fn().mockResolvedValue(savedRun) };
+        });
+      });
+
+      afterEach(() => {
+        if (previousEnaAdmins === undefined) delete process.env.ENA_ADMINS;
+        else process.env.ENA_ADMINS = previousEnaAdmins;
+        isAuthenticated.mockImplementation(previousAuthentication);
+      });
+
+      test.each(usernames)(
+        "allows %s to create and queue ingest without group membership",
+        async (username) => {
+          authenticate(username);
+
+          const response = await request(app).post("/runs/new").send(requestBody());
+
+          expect(response.status).toBe(201);
+          expect(response.body.run).toMatchObject({
+            group: mockGroupId.toString(),
+            owner: username,
+          });
+          expect(response.body.jobId).toBe(mockJobId.toString());
+          expect(enqueueRunIngest).toHaveBeenCalledWith(
+            expect.objectContaining({
+              runId: mockRunId,
+              payload: expect.objectContaining({ username }),
+            }),
+          );
+          expect(Group.GroupsIAmIn).toHaveBeenCalledWith(
+            { username, groups: [], isAdmin: false },
+            { mode: "read" },
+          );
+        },
+      );
+
+      test("accepts a repeated submission and queues the same run's ingest", async () => {
+        const first = await request(app).post("/runs/new").send(requestBody());
+        expect(first.status).toBe(201);
+        Run.findOne.mockReturnValue({
+          populate: jest.fn().mockResolvedValue(savedRun),
+        });
+
+        const repeated = await request(app).post("/runs/new").send(requestBody());
+
+        expect(repeated.status).toBe(200);
+        expect(repeated.body).toMatchObject({
+          idempotent: true,
+          jobId: mockJobId.toString(),
+          run: { _id: mockRunId.toString(), owner: "deeks" },
+        });
+        expect(Run).toHaveBeenCalledTimes(1);
+        expect(enqueueRunIngest).toHaveBeenCalledTimes(2);
+        expect(enqueueRunIngest).toHaveBeenLastCalledWith(
+          expect.objectContaining({
+            runId: mockRunId,
+            payload: expect.objectContaining({ username: "deeks" }),
+          }),
+        );
+      });
+
+      test("still refuses a group that does not own the parent sample", async () => {
+        const response = await request(app)
+          .post("/runs/new")
+          .send(requestBody({ group: otherGroupId.toString() }));
+
+        expect(response.status).toBe(400);
+        expect(Run).not.toHaveBeenCalled();
+        expect(enqueueRunIngest).not.toHaveBeenCalled();
+      });
+
+      test("still refuses creation in an archived project", async () => {
+        const now = new Date();
+        Project.findById.mockReturnValue({
+          select: jest.fn().mockResolvedValue({
+            _id: DEFAULT_PROJECT_ID,
+            path: "/group/project",
+            storage: {
+              state: "aws",
+              s3Uri: "s3://archive/data/group/project",
+              s3VerifiedAt: now,
+              hpcVerifiedAbsentAt: now,
+              archivedAt: now,
+            },
+          }),
+        });
+
+        const response = await request(app).post("/runs/new").send(requestBody());
+
+        expect(response.status).toBe(409);
+        expect(response.body.code).toBe("PROJECT_STORAGE_READ_ONLY");
+        expect(Run.findOne).not.toHaveBeenCalled();
+        expect(enqueueRunIngest).not.toHaveBeenCalled();
+      });
     });
 
     describe("idempotency", () => {
@@ -2387,6 +2509,43 @@ describe("Runs API Routes", () => {
       expect(update.$set).toEqual(
         expect.objectContaining({ status: "pending", attempts: 0 }),
       );
+    });
+
+    test("allows an ENA administrator without membership to retry a failed ingest", async () => {
+      const previousEnaAdmins = process.env.ENA_ADMINS;
+      process.env.ENA_ADMINS = "['deeks', 'macleand', 'taz23vul', 'admin', 'kun24dup']";
+      isAuthenticated.mockImplementationOnce((req, res, next) => {
+        req.user = { username: "kun24dup", groups: [], isAdmin: false };
+        next();
+      });
+      setGroups({ read: [{ _id: mockGroupId }], write: [] });
+      IngestJob.findOneAndUpdate.mockResolvedValue({
+        _id: mockJobId,
+        runId: mockRunId,
+        status: "pending",
+        attempts: 0,
+      });
+
+      try {
+        const response = await request(app).post(`/runs/${mockRunId}/reingest`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.jobId).toBe(mockJobId.toString());
+        expect(response.body.ingest.status).toBe("pending");
+        expect(IngestJob.findOneAndUpdate).toHaveBeenCalledWith(
+          expect.objectContaining({
+            idempotencyKey: `run-ingest:${mockRunId}`,
+            status: "failed",
+          }),
+          expect.objectContaining({
+            $set: expect.objectContaining({ status: "pending", attempts: 0 }),
+          }),
+          expect.any(Object),
+        );
+      } finally {
+        if (previousEnaAdmins === undefined) delete process.env.ENA_ADMINS;
+        else process.env.ENA_ADMINS = previousEnaAdmins;
+      }
     });
 
     test("should reset the attempt count so the worker can claim the job", async () => {

@@ -9,7 +9,7 @@ const LibraryType = require("../models/options/LibraryType");
 const { isAuthenticated } = require("./middleware");
 const {
   canReadGroup,
-  canWriteGroup,
+  canCreateInGroup,
   groupsICanRead,
 } = require("../lib/utils/groupAccess");
 // Namespace as well as named: requeueFailedIngest below prefers the queue's own
@@ -475,8 +475,8 @@ router
 
       const group = parentSample.group;
 
-      // Write capability, not read: a cross-group reader must not create here.
-      const canCreate = await canWriteGroup(req.user, group);
+      // ENA admins may create across groups; read access alone is insufficient.
+      const canCreate = await canCreateInGroup(req.user, group);
       if (!canCreate) {
         return handleError(
           res,
@@ -555,8 +555,9 @@ router
       // save race, which are the same situation and must answer the same way.
       const respondWithExistingRun = async (existingRun) => {
         // Authorises the run that came back, whose group need not still match
-        // its sample's — and for write, since this enqueues an ingest.
-        if (!(await canWriteGroup(req.user, groupIdOf(existingRun)))) {
+        // its sample's. Apply the same creation capability for retries because
+        // this enqueues an ingest; a read-only user must still be refused.
+        if (!(await canCreateInGroup(req.user, groupIdOf(existingRun)))) {
           return handleError(
             res,
             new Error(
@@ -1011,9 +1012,9 @@ router
         );
       }
 
-      // Write access: an ingest moves files and writes Reads, unlike the read
-      // that GET /runs/:id/status performs.
-      if (!(await canWriteGroup(req.user, groupIdOf(run)))) {
+      // Creation access also covers ingest retries, so ENA admins can finish
+      // uploads submitted across groups. Read access alone is insufficient.
+      if (!(await canCreateInGroup(req.user, groupIdOf(run)))) {
         return handleError(
           res,
           new Error("Access denied"),

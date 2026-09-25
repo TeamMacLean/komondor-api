@@ -913,6 +913,65 @@ describe("POST /projects/new", () => {
 
     expect(response.status).toBe(403);
   });
+
+  describe("ENA administrators", () => {
+    const usernames = ["deeks", "macleand", "taz23vul", "admin", "kun24dup"];
+    let previousEnaAdmins;
+
+    beforeEach(() => {
+      previousEnaAdmins = process.env.ENA_ADMINS;
+      process.env.ENA_ADMINS = "['deeks', 'macleand', 'taz23vul', 'admin', 'kun24dup']";
+      // No group membership or general write access: only ENA creation authority.
+      Group.GroupsIAmIn.mockImplementation(async (user, options) =>
+        options.mode === "write"
+          ? []
+          : [
+              { _id: new mongoose.Types.ObjectId(), name: "another-group" },
+              { _id: mockGroupId, name: "selected-group", sendToEna: true },
+            ],
+      );
+      Project.mockImplementation((data) => {
+        const project = { _id: "new-project-id", ...data };
+        project.save = jest.fn().mockResolvedValue(project);
+        return project;
+      });
+    });
+
+    afterEach(() => {
+      if (previousEnaAdmins === undefined) delete process.env.ENA_ADMINS;
+      else process.env.ENA_ADMINS = previousEnaAdmins;
+    });
+
+    test.each(usernames)(
+      "allows %s to create in a selected group without membership",
+      async (username) => {
+        mockUser = { username, groups: [], isAdmin: false };
+
+        const response = await request(app)
+          .post("/projects/new")
+          .send(validProjectBody);
+
+        expect(response.status).toBe(201);
+        expect(response.body.project).toMatchObject({
+          group: mockGroupId,
+          owner: username,
+          nudgeable: true,
+        });
+        expect(Group.GroupsIAmIn).toHaveBeenCalledWith(mockUser, { mode: "read" });
+      },
+    );
+
+    test("refuses a selected group that is absent from the live groups", async () => {
+      mockUser = { username: "deeks", groups: [], isAdmin: false };
+
+      const response = await request(app)
+        .post("/projects/new")
+        .send({ ...validProjectBody, group: new mongoose.Types.ObjectId().toString() });
+
+      expect(response.status).toBe(403);
+      expect(Project).not.toHaveBeenCalled();
+    });
+  });
 });
 
 describe("PUT /project/toggle-nudgeable", () => {

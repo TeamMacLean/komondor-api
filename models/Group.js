@@ -3,6 +3,7 @@ const generateSafeName = require("../lib/utils/generateSafeName").default;
 const _path = require("path");
 const fs = require("fs");
 const { getFullAccessUsers } = require("../lib/utils/fullAccessUsers");
+const { isEnaAdmin } = require("../lib/utils/enaAdmins");
 
 const schema = new mongoose.Schema(
   {
@@ -56,7 +57,8 @@ schema.post("save", async function () {
 /**
  * All groups a user belongs to, for one capability.
  * Only `isAdmin` is broad enough to write everywhere; in "write" mode a
- * full-access user falls through to their real membership like anybody else.
+ * full-access user or ENA admin falls through to their real membership.
+ * ENA admins can read every group and create records through groupsICanCreate.
  * @param {Object} user - User object with authentication details
  * @param {Object} [options] - Lookup options
  * @param {"read"|"write"} [options.mode="read"] - Capability being authorised
@@ -102,7 +104,10 @@ schema.statics.GroupsIAmIn = async function GroupsIAmIn(user, options) {
 
   if (user.isAdmin) {
     groupFindCriteria = {};
-  } else if (mode === "read" && fullAccessUsers.includes(username)) {
+  } else if (
+    mode === "read" &&
+    (fullAccessUsers.includes(username) || isEnaAdmin(username))
+  ) {
     groupFindCriteria = {};
   } else if (user.groups && user.groups.length) {
     groupFindCriteria = {

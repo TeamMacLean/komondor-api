@@ -48,7 +48,7 @@ jest.mock("../../models/Project");
 jest.mock("../../models/options/LibraryType");
 jest.mock("../../lib/utils/groupAccess", () => ({
   canReadGroup: jest.fn().mockResolvedValue(true),
-  canWriteGroup: jest.fn().mockResolvedValue(true),
+  canCreateInGroup: jest.fn().mockResolvedValue(true),
   groupsICanRead: jest.fn().mockResolvedValue([]),
 }));
 jest.mock("../../lib/utils/fullAccessUsers", () => ({

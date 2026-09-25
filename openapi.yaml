@@ -561,8 +561,8 @@ paths:
       summary: The groups the caller belongs to.
       description: |
         Resolved by `Group.GroupsIAmIn` in READ mode. Admins and users named in
-        `FULL_RECORDS_ACCESS_USERS` get every group; everyone else gets the
-        groups named by their token's `groups` claim, falling back to matching
+        `FULL_RECORDS_ACCESS_USERS` or `ENA_ADMINS` get every group; everyone
+        else gets the groups named by their token's `groups` claim, falling back to matching
         their LDAP `memberOf` strings against `Group.ldapGroups`.
 
         **Soft-deleted groups are excluded by default**, for everybody
@@ -1002,9 +1002,10 @@ paths:
       tags: [Projects]
       summary: Create a project.
       description: |
-        Requires WRITE access to the target group. A cross-group *reader*
-        (`FULL_RECORDS_ACCESS_USERS`) cannot create a project in a group they
-        are not a member of.
+        Requires WRITE access to the target group or membership of the API's
+        `ENA_ADMINS` list. ENA admins can create in any active group, as can
+        full admins. `FULL_RECORDS_ACCESS_USERS` alone does not grant creation
+        outside the caller's own groups. Deleted groups are always excluded.
 
         `nudgeable` is HONOURED when the body carries a real JSON boolean, and
         otherwise DERIVED from the target group:
@@ -1225,8 +1226,9 @@ paths:
         from the body. `group` is still required and is cross-checked: a
         `group` that does not own the submitted `project` is a 400 ("The
         submitted group does not own the submitted project."), never a silently
-        mis-filed sample. Write access is authorised against the PROJECT's
-        group, and that check runs BEFORE the mismatch check so the status code
+        mis-filed sample. Creation access (group WRITE access or `ENA_ADMINS`)
+        is authorised against the PROJECT's group, and that check runs BEFORE
+        the mismatch check so the status code
         cannot be used to probe which group owns a project the caller cannot
         see.
 
@@ -1487,16 +1489,19 @@ paths:
         enqueue is `$setOnInsert`, so it finds the dead job and changes
         nothing. `POST /runs/{id}/reingest` is the only way to retry one.
 
-        **The idempotent branch requires WRITE access to the EXISTING RUN's
-        group**, not read access — see the paragraph below on the write access
+        **The idempotent branch requires creation/ingestion access to the
+        EXISTING RUN's group** (group WRITE access or `ENA_ADMINS`), not read
+        access — see below for the access
         a *new* run needs, which is about the sample's group. The two can
         disagree: a run predating the group remediation can carry a group that
         differs from its sample's, because the old code stored `req.body.group`
         unchecked. That branch is not a lookup — it enqueues an ingest carrying
         the caller's own `rawFiles` against the run that came back — so a
-        cross-group *reader* (`FULL_RECORDS_ACCESS_USERS`) who re-POSTs a run
+        cross-group *reader* (`FULL_RECORDS_ACCESS_USERS` alone) who re-POSTs a run
         living in a group they cannot write to now gets a **403** where they
-        previously got a 200 with the run.
+        previously got a 200 with the run. ENA admins may submit ingestion for
+        an existing run too; if its job is missing this creates a job, otherwise
+        the existing job is returned unchanged.
 
         Because `{ sample, name }` is now unique on `Run`, two concurrent
         retries of a lost 201 can both miss the lookup; whichever loses the
@@ -1505,8 +1510,8 @@ paths:
 
         **`group` must own `sample`.** The stored group is taken from the
         sample either way; a mismatched `group` in the body is a 400. Creating
-        a run requires WRITE access to the sample's group, so a cross-group
-        *reader* (`FULL_RECORDS_ACCESS_USERS`) can no longer create runs in
+        a run requires WRITE access to the sample's group or `ENA_ADMINS`, so a
+        cross-group *reader* (`FULL_RECORDS_ACCESS_USERS` alone) cannot create runs in
         groups they are not a member of.
 
         A `sample` that does not exist is a **400** ("The submitted sample does
@@ -1771,8 +1776,10 @@ paths:
         file moves over a run that is already healthy. A retry has to be asked
         for.
 
-        **Requires WRITE access to the run's group.** There is deliberately no
-        owner fallback of the kind `GET /runs/{id}/status` has — those answer a
+        **Requires WRITE access to the run's group or `ENA_ADMINS`.** ENA admins
+        may retry ingestion across active groups to finish their submissions.
+        There is deliberately no owner fallback of the kind
+        `GET /runs/{id}/status` has — those answer a
         question, this does work: it moves files into the run's datastore
         directory and writes `Read` documents against it.
 

@@ -1325,6 +1325,93 @@ describe("POST /samples/new - Standard Mode", () => {
   });
 });
 
+describe("POST /samples/new - ENA administrators", () => {
+  const usernames = ["deeks", "macleand", "taz23vul", "admin", "kun24dup"];
+  const projectId = new mongoose.Types.ObjectId().toString();
+  const groupId = new mongoose.Types.ObjectId().toString();
+  const otherGroupId = new mongoose.Types.ObjectId().toString();
+  const sampleBody = {
+    name: "Admin-created sample",
+    project: projectId,
+    group: groupId,
+    owner: "somebody-else",
+    scientificName: "Arabidopsis thaliana",
+  };
+  let previousEnaAdmins;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    previousEnaAdmins = process.env.ENA_ADMINS;
+    process.env.ENA_ADMINS = "['deeks', 'macleand', 'taz23vul', 'admin', 'kun24dup']";
+    mockUser = { username: "deeks", groups: [], isAdmin: false };
+    grantGroups({ read: [otherGroupId, groupId], write: [] });
+    Project.findById = jest.fn().mockResolvedValue({
+      _id: projectId,
+      group: groupId,
+    });
+    mockSampleFindOne(null);
+    Sample.mockImplementation((data) => {
+      const sample = { _id: "admin-sample-id", ...data };
+      sample.save = jest.fn().mockResolvedValue(sample);
+      return sample;
+    });
+  });
+
+  afterEach(() => {
+    if (previousEnaAdmins === undefined) delete process.env.ENA_ADMINS;
+    else process.env.ENA_ADMINS = previousEnaAdmins;
+    jest.clearAllMocks();
+  });
+
+  test.each(usernames)(
+    "allows %s to create in a parent project's group without membership",
+    async (username) => {
+      mockUser = { username, groups: [], isAdmin: false };
+
+      const response = await request(app).post("/samples/new").send(sampleBody);
+
+      expect(response.status).toBe(201);
+      expect(response.body.sample).toMatchObject({
+        project: projectId,
+        group: groupId,
+        owner: username,
+      });
+      expect(Group.GroupsIAmIn).toHaveBeenCalledWith(mockUser, { mode: "read" });
+    },
+  );
+
+  test("still refuses a group that does not own the parent project", async () => {
+    const response = await request(app)
+      .post("/samples/new")
+      .send({ ...sampleBody, group: otherGroupId });
+
+    expect(response.status).toBe(400);
+    expect(Sample).not.toHaveBeenCalled();
+  });
+
+  test("still refuses creation in an archived project", async () => {
+    const now = new Date();
+    Project.findById.mockResolvedValue({
+      _id: projectId,
+      group: groupId,
+      storage: {
+        state: "aws",
+        s3Uri: "s3://archive/data/group/project",
+        s3VerifiedAt: now,
+        hpcVerifiedAbsentAt: now,
+        archivedAt: now,
+      },
+    });
+
+    const response = await request(app).post("/samples/new").send(sampleBody);
+
+    expect(response.status).toBe(409);
+    expect(response.body.code).toBe("PROJECT_STORAGE_READ_ONLY");
+    expect(Sample.findOne).not.toHaveBeenCalled();
+    expect(Sample).not.toHaveBeenCalled();
+  });
+});
+
 describe("POST /samples/new - injection and authorisation", () => {
   const projectId = new mongoose.Types.ObjectId().toString();
   const groupId = new mongoose.Types.ObjectId().toString();

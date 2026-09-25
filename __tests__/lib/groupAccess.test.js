@@ -15,6 +15,8 @@ const Group = require("../../models/Group");
 const {
   groupsICanRead,
   groupsICanWrite,
+  groupsICanCreate,
+  canCreateInGroup,
   canReadGroup,
   canWriteGroup,
   requireGroupRead,
@@ -22,6 +24,7 @@ const {
 } = require("../../lib/utils/groupAccess");
 
 const ORIGINAL = process.env.FULL_RECORDS_ACCESS_USERS;
+const ORIGINAL_ENA_ADMINS = process.env.ENA_ADMINS;
 
 const GROUPS = [
   { _id: "g1", name: "alpha", deleted: false },
@@ -76,12 +79,18 @@ let findSpy;
 
 beforeEach(() => {
   process.env.FULL_RECORDS_ACCESS_USERS = '["alice"]';
+  process.env.ENA_ADMINS = "['deeks', 'macleand', 'taz23vul', 'admin', 'kun24dup']";
   findSpy = jest.spyOn(Group, "find").mockImplementation(fakeFind);
   jest.spyOn(console, "error").mockImplementation(() => {});
 });
 
 afterEach(() => {
   jest.restoreAllMocks();
+  if (ORIGINAL_ENA_ADMINS === undefined) {
+    delete process.env.ENA_ADMINS;
+  } else {
+    process.env.ENA_ADMINS = ORIGINAL_ENA_ADMINS;
+  }
 });
 
 afterAll(async () => {
@@ -144,6 +153,66 @@ describe("an ordinary member", () => {
   test("is refused a group they are not in", async () => {
     await expect(canReadGroup(EVE, "g2")).resolves.toBe(false);
     await expect(canWriteGroup(EVE, "g2")).resolves.toBe(false);
+  });
+});
+
+describe("record creation", () => {
+  test.each(["deeks", "macleand", "taz23vul", "admin", "kun24dup"])(
+    "%s can list and create in every live group without membership",
+    async (username) => {
+      const user = { username, isAdmin: false, groups: [] };
+      expect(names(await groupsICanRead(user))).toEqual(["alpha", "beta"]);
+      expect(names(await groupsICanCreate(user))).toEqual(["alpha", "beta"]);
+      await expect(canCreateInGroup(user, "g2")).resolves.toBe(true);
+      await expect(canCreateInGroup(user, "gone")).resolves.toBe(false);
+      await expect(canCreateInGroup(user, "missing")).resolves.toBe(false);
+      // Creation does not grant arbitrary group edits or rewrite membership.
+      await expect(canWriteGroup(user, "g2")).resolves.toBe(false);
+      expect(user.groups).toEqual([]);
+      expect(user.isAdmin).toBe(false);
+    },
+  );
+
+  test.each([ALICE, EVE])("members create only in their own groups: %j", async (user) => {
+    await expect(canCreateInGroup(user, "g1")).resolves.toBe(true);
+    await expect(canCreateInGroup(user, "g2")).resolves.toBe(false);
+  });
+
+  test("a full admin retains creation access without ENA_ADMINS", async () => {
+    delete process.env.ENA_ADMINS;
+    await expect(canCreateInGroup(ADMIN, "g2")).resolves.toBe(true);
+    await expect(canCreateInGroup(ADMIN, "gone")).resolves.toBe(false);
+  });
+
+  test("removing ENA access takes effect for an existing user object", async () => {
+    const user = { username: "deeks", groups: ["g1"] };
+    await expect(canCreateInGroup(user, "g2")).resolves.toBe(true);
+    process.env.ENA_ADMINS = "[]";
+    await expect(canCreateInGroup(user, "g2")).resolves.toBe(false);
+    await expect(canCreateInGroup(user, "g1")).resolves.toBe(true);
+  });
+
+  test("does not stamp the ENA admin's cross-group access into a login token", async () => {
+    const getUserForToken = require("../../lib/utils/getUserForToken");
+    jest.spyOn(console, "log").mockImplementation(() => {});
+    findSpy.mockImplementation(async (criteria) =>
+      (await fakeFind(criteria)).map((group) => ({ ...group, id: group._id })),
+    );
+    const token = await getUserForToken({ username: "deeks", groups: ["g1"] });
+    expect(token.groups).toEqual(["g1"]);
+    expect(token.isAdmin).toBe(false);
+  });
+
+  test("missing user or group is refused without a query", async () => {
+    await expect(groupsICanCreate(null)).resolves.toEqual([]);
+    await expect(canCreateInGroup(null, "g1")).resolves.toBe(false);
+    await expect(canCreateInGroup(ADMIN, null)).resolves.toBe(false);
+    expect(findSpy).not.toHaveBeenCalled();
+  });
+
+  test("propagates database errors rather than granting creation access", async () => {
+    findSpy.mockRejectedValue(new Error("db down"));
+    await expect(canCreateInGroup({ username: "deeks" }, "g1")).rejects.toThrow("db down");
   });
 });
 

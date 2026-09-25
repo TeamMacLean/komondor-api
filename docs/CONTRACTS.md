@@ -21,6 +21,28 @@ That third row is the one people forget. komondor-nudge is a consumer of the
 change that is invisible over HTTP can still break it. Its models file says so
 explicitly: the only field it writes is `Project.nudges`, via `$push`.
 
+## ENA administrator creation access
+
+The API's `ENA_ADMINS` grants cross-group reads and permission to create
+projects, samples and runs in any active group. It accepts JSON arrays,
+single-quoted arrays (as used by komondor-web), or comma-separated usernames;
+matching is by complete username. `/groups` returns all active groups for these
+users, which populates the existing New Project dropdown. Samples inherit the
+project's group and runs inherit the sample's group.
+
+This capability also permits run ingestion through duplicate `/runs/new`
+submissions and `/runs/{id}/reingest`, including adding staged files to an
+existing run when its ingest job is missing. Existing jobs retain the queue's
+idempotency and failed-job retry rules. Deleted groups and read-only project
+storage still reject creation/ingestion.
+
+`FULL_RECORDS_ACCESS_USERS` alone remains read-only across groups. Keep the
+ENA admins in that list as well for accessions export and HPC staging tools.
+ENA membership does not set `isAdmin`, expand the token's membership claims, or
+grant group administration and other general write permissions. Ordinary users
+still need membership of the target group. Restart the API after changing its
+environment; existing tokens need no new admin claim.
+
 ## The drift list
 
 Each of these is a place where a consumer's belief and this server's behaviour
@@ -193,14 +215,15 @@ arrived". Failures after that point can never reach the client; they land in
 
 **A failed ingest now has a retry.** `POST /runs/{id}/reingest` returns a job
 sitting at `failed` to the queue: `attempts` back to 0, no lease, and the run
-moved back to `pending` with `statusError` cleared. It requires WRITE access to
-the run's group and answers **409** if the job exists but has not failed, so a
+moved back to `pending` with `statusError` cleared. It requires creation/ingestion
+access (group WRITE access or `ENA_ADMINS`) to the run's group and answers
+**409** if the job exists but has not failed, so a
 retry can never clobber a healthy or in-flight run.
 
 Re-POSTing to `/runs/new` does **not** do this. The enqueue is keyed on the run
 id and uses `$setOnInsert`, so it finds the dead job and changes nothing —
 `/runs/{id}/reingest` is the only way to retry one. The idempotent branch of
-`/runs/new` also requires WRITE access to the **existing run's** group, which
+`/runs/new` also requires creation/ingestion access to the **existing run's** group, which
 can differ from its sample's group for runs predating the group remediation.
 
 A reingest body is a partial correction by default. `rawFiles` and
