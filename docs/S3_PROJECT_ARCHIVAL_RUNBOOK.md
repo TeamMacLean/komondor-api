@@ -4,6 +4,7 @@
 there is no scheduled job and no automatic HPC deletion.
 
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
+- Before every batch: [renew SSO login](#before-each-archive-batch).
 - Routine batch: [semi-annual procedure](#semi-annual-procedure).
 - Each selected project: [archive one project](#archive-one-project).
 - Interrupted or failed work: [recovery](#recovery).
@@ -15,6 +16,33 @@ canonical datastore mount. The tool archives `DATASTORE_ROOT`, never
 `HPC_TRANSFER_DIRECTORY`. Payload mirrors `GROUP/PROJECT/...` beneath the
 configured S3 root; manifests live in `_control/projects/ID/MIGRATION/` and
 stay in Standard. Payload defaults to Deep Archive.
+
+## Before each archive batch
+
+On the archive execution host (currently **v1333**), open the operator shell or
+tmux session as the **same Linux user that will run the archive commands**.
+Configure the named SSO profile once for each operator account using the
+[deployment instructions](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md#3-configure-sso-and-the-operator-shell).
+SSO configuration and cached login tokens normally belong to that user's home
+directory: a login on HPC or as `deeks` does not establish access on v1333 or as
+`tsldata`.
+
+Before starting each batch, renew the login and verify the identity:
+
+```bash
+export AWS_ARCHIVE_PROFILE=komondor-archive-mover
+aws sso login --profile "$AWS_ARCHIVE_PROFILE" --use-device-code --no-browser
+aws sts get-caller-identity --profile "$AWS_ARCHIVE_PROFILE" --output json --no-cli-pager
+```
+
+Open the displayed URL on the laptop and complete authorization as the archive
+SSO user. Check that the returned AWS account and assumed mover role match the
+deployment record. Raw `aws` commands do not read the repository `.env`, so the
+explicit profile above is required even when archive settings are saved there.
+Saved settings do not keep a login valid indefinitely. If it expires during a
+batch, log in again under the same Linux user and follow [recovery](#recovery)
+for the existing migration. A tmux session protects against SSH disconnects,
+not credential expiry.
 
 ## Semi-annual procedure
 
@@ -34,8 +62,9 @@ runbook does not create an automation.
    confirm the project is finished, no incoming sequencing/ingest/MD5 work is
    pending, no external jobs write its tree, and it is not under an operational
    hold. Select by ID. This tool does not infer a safe age cutoff.
-4. **Renew access and recheck infrastructure.** Log in to the named mover
-   profile, verify account/role, versioning, lifecycle, encryption-key access
+4. **Renew access and recheck infrastructure.** Complete the
+   [batch login check](#before-each-archive-batch), then verify account/role,
+   versioning, lifecycle, encryption-key access
    and the datastore mount. Every CLI invocation enforces the AWS checks; an
    infrastructure failure is a stop, never permission to bypass preflight.
    Confirm API/web/Power/Nudge releases still honour archived states. Repeat
@@ -79,9 +108,10 @@ A missing/old `createdAt` is not approval. Review the project with its owner.
 
 ### 1. Set identity and inspect the plan
 
-Use the exports and profile configured during deployment. The `.env` belongs to
-this exact checkout/database; raw `aws` calls require explicit profile arguments.
-In the operator shell, set real values:
+Use the exports and profile configured during deployment and renewed in the
+[batch login check](#before-each-archive-batch). The `.env` belongs to this exact
+checkout/database; raw `aws` calls require explicit profile arguments. In the
+operator shell, set real values:
 
 ```bash
 export ARCHIVE_PROJECT_ID='REPLACE_WITH_24_HEX_ID'
@@ -89,7 +119,6 @@ export ARCHIVE_OPERATOR='REPLACE_WITH_EXISTING_KOMONDOR_USERNAME'
 export ARCHIVE_RECORD='/REPLACE/WITH/DURABLE/BATCH/PROJECT_RECORD'
 mkdir -p "$ARCHIVE_RECORD"
 chmod 700 "$ARCHIVE_RECORD"
-aws sso login --profile "$AWS_ARCHIVE_PROFILE" --use-device-code
 aws sts get-caller-identity --profile "$AWS_ARCHIVE_PROFILE"
 node scripts/move-project-to-s3.js plan --project-id "$ARCHIVE_PROJECT_ID" > "$ARCHIVE_RECORD/plan.json"
 ```
