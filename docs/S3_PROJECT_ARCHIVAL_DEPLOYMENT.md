@@ -106,9 +106,9 @@ and stable bucket policy are operating requirements.
 
 Configure a modern `sso-session` profile with `aws configure sso --profile
 komondor-archive-mover`. Select the recorded account, mover permission set and
-bucket region. Use 12-hour mover role sessions and the agreed 48-hour SSO login
-window; the latter affects the Identity Center instance, so coordinate that
-change. See the [architecture's authentication decisions](S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md#4-authentication-sso-not-unattended-credentials).
+bucket region. Use 12-hour mover role sessions and the confirmed three-day
+(72-hour) SSO login window. The latter affects the Identity Center instance,
+so coordinate any future change. See the [architecture's session settings](S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md#5-long-transfers-renewable-credentials-not-a-12-hour-deadline).
 
 In a fresh restricted operator shell, fill in and export the approved values:
 

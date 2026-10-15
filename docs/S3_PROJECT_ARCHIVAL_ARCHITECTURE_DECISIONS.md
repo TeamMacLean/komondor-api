@@ -171,14 +171,21 @@ There are two separate session settings:
 | Setting | Console location in IAM Identity Center | Selected value |
 |---|---|---|
 | Mover role credentials | Permission sets → mover permission set → General settings → Edit → Session duration | 12 hours |
-| SSO login | Settings → Authentication → Session duration → Configure → User interactive sessions | 48 hours / 2,880 minutes |
+| SSO login | Settings → Authentication → Session duration → Configure → User interactive sessions | 3 days / 72 hours / 4,320 minutes |
+
+The operator confirmed both values in the AWS console on 2026-10-15 and chose
+to retain them. The Identity Center instance in `us-east-1` uses the Identity
+Center directory, with password authentication and direct provisioning.
 
 The role-session maximum is 12 hours; the SSO-login maximum is 90 days. A valid
 SSO login lets the CLI obtain fresh role credentials during a longer transfer.
-Forty-eight hours provides useful headroom for a manual few-TB job without
-choosing the longest possible login period. See the AWS instructions for
+Keep the confirmed three-day login window for manual archive batches. See the AWS instructions for
 [role sessions](https://docs.aws.amazon.com/singlesignon/latest/userguide/howtosessionduration.html)
 and [SSO login sessions](https://docs.aws.amazon.com/singlesignon/latest/userguide/user-interactive-sessions.html).
+
+The console also shows seven-day user background sessions. That setting is for
+[supported AWS managed applications](https://docs.aws.amazon.com/singlesignon/latest/userguide/user-background-sessions.html)
+and does not extend the archive CLI's login window.
 
 Important: the SSO-login setting applies across the Identity Center instance,
 not just the mover permission set. Review that wider effect before changing it.
