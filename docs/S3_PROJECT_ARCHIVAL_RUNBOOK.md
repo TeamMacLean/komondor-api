@@ -82,6 +82,148 @@ evidence before deleting the only HPC copy of real data. Deploy the
 storage-aware API, web app, Power and Nudge releases together before locking a
 production project.
 
+## First deployment: a phased bring-up
+
+The sections below describe routine operation. This is the one-time sequence
+that gets you there. The order is deliberate: the cheap, reversible checks come
+before the expensive, irreversible ones, and the first `lock` is not a real
+project.
+
+There is intentionally no local or staging AWS setup. The mover reads
+`DATASTORE_ROOT`, authenticates by SSO device-code login on a browserless host,
+and its interesting failures involve real tree sizes and transfers that run for
+hours. None of that reproduces off the production host, so a local rig would
+exercise fixtures rather than the parts that break. What makes working here
+acceptable is a property of the tool rather than a rule to remember: it never
+deletes HPC data, and before a manifest is sealed `abort-before-copy` returns a
+project to `hpc`.
+
+### Phase 0 — configure, run nothing
+
+Check the CLI first:
+
+```bash
+aws --version
+```
+
+The minimum is a v2 release exposing `--checksum-algorithm CRC64NVME`,
+`head-object --checksum-mode`, `put-object --if-none-match`, and
+`--storage-class` on `s3 cp`. An HPC login node can carry a far older v2 than a
+laptop. If it is too old, stop here; nothing later matters.
+
+Current limitation: the preflight verifies the first three of those flags but
+not `--storage-class`, which every upload now depends on. On too old a CLI the
+failure therefore appears during `copy` rather than at preflight. Check it by
+hand until that preflight check is added:
+
+```bash
+aws s3 cp help | grep -c -- --storage-class
+```
+
+Then apply the bucket, environment and SSO settings from the section above and
+log in with `aws sso login`.
+
+### Phase 1 — `plan` real projects, read-only
+
+`plan` writes nothing: no S3 object, no database change, no API downtime. It has
+no `--execute` mode at all — every invocation is read-only, and the flag is
+ignored if passed. It does still run the full AWS preflight, so it
+proves the SSO credentials, the account fence, bucket access and the prefix
+probe, and it walks the real tree and overlays the database against it.
+
+```bash
+npm run archive:s3 -- plan --project-id PROJECT_ID
+```
+
+Run it on several of the oldest candidates before doing anything else. It is
+free and it de-risks every later phase. Keep the reported file counts: Deep
+Archive adds roughly 40 KB of metadata overhead per object, so a project made of
+many small files costs more than its byte total suggests, and the file count is
+how you price that before committing.
+
+### Phase 2 — smoke test under `_smoke/`
+
+Section 16.4 of the specification lists the checks. Note that no command
+implements them: they are a manual checklist run with `aws` directly, against a
+disposable prefix below `_smoke/` and never against a project path.
+
+Cost note: Deep Archive bills a 180-day minimum per object, and deleting sooner
+still costs the remainder pro rata. Do not iterate the repeatable mechanics —
+multipart threshold, the `412` from `--if-none-match`, the abort after a killed
+upload — in the cold class. Pass `--storage-class STANDARD` by hand while
+working through those:
+
+```bash
+aws s3 cp FILE 's3://BUCKET/_smoke/TIMESTAMP/FILE' --storage-class STANDARD \
+  --checksum-algorithm CRC64NVME
+```
+
+Then upload one or two **small** objects in the cold class and inspect them:
+
+```bash
+aws s3 cp SMALL_FILE 's3://BUCKET/_smoke/TIMESTAMP/cold' \
+  --storage-class DEEP_ARCHIVE --checksum-algorithm CRC64NVME
+aws s3api head-object --bucket BUCKET --key '_smoke/TIMESTAMP/cold' \
+  --checksum-mode ENABLED
+```
+
+This settles the one unverified assumption in the design. Verification requires
+`ChecksumCRC64NVME` and `ChecksumType: FULL_OBJECT` from a HEAD, and payload now
+lands cold immediately instead of transitioning later, so a HEAD against a cold
+object is on the critical path from the very first migration. If those fields do
+not come back, every object fails verification and no migration can complete.
+Two small objects settle it for pennies.
+
+### Phase 3 — restore rehearsal
+
+The gate in section 7.3 of the decision record, required before deleting the
+only HPC copy of anything. Restore the Deep Archive smoke objects, download
+them, and compare their checksums with the originals. Standard retrieval takes
+around 12 hours and bulk up to 48, so start it as soon as Phase 2 has uploaded:
+it is waiting time rather than work, and it is otherwise what delays the first
+migration.
+
+### Phase 4 — full lifecycle on a disposable project
+
+This replaces the development environment that deliberately does not exist.
+Create a real Project record in the production database pointing at a small
+throwaway tree below `DATASTORE_ROOT`, then take it through the entire
+lifecycle: `lock`, `copy`, `deletion-command`, the manual removal, and
+`confirm-absent`.
+
+It is the only way to exercise the database state machine, the terminal 409
+`PROJECT_STORAGE_READ_ONLY` refusals, and how the website, Power and Nudge
+render a project that is `migrating` or `aws_pending_hpc_deletion`. Two
+constraints: `lock` requires the API stopped, so this costs a few minutes of
+downtime; and the storage-aware API, web, Power and Nudge releases must already
+be deployed, or the site will misreport the project.
+
+Run this phase in Standard, so that a rehearsal of throwaway data does not
+commit every object to a 180-day minimum:
+
+```bash
+AWS_ARCHIVE_STORAGE_CLASS=STANDARD npm run archive:s3 -- copy \
+  --project-id PROJECT_ID --moved-by USERNAME --execute
+```
+
+Keep the setting consistent across the whole attempt. The class is recorded in
+the source manifest when `copy --execute` seals it, and the verification report
+compares what S3 holds against that record, so a later `resume` run without the
+override would report a class mismatch against its own manifest. Phase 5 then
+runs with the default `DEEP_ARCHIVE`.
+
+Because this phase proves the lifecycle rather than the storage class, and
+Phase 2 already settled the cold-object HEAD question, nothing is lost.
+
+### Phase 5 — the first real project
+
+Choose the smallest real candidate. Take it to `aws_pending_hpc_deletion` and
+then stop. That is a stable resting state and a project can sit in it
+indefinitely, so there is no pressure to delete on the same day. Decide the
+grace period and who may run the deletion before you arrive there rather than in
+the moment (specification section 21.7). Verify the archive independently, then
+delete.
+
 ## Archive one project
 
 Always select a project by MongoDB ObjectId. Start with a read-only plan:
