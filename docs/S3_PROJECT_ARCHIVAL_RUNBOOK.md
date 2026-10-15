@@ -108,17 +108,14 @@ aws --version
 
 The minimum is a v2 release exposing `--checksum-algorithm CRC64NVME`,
 `head-object --checksum-mode`, `put-object --if-none-match`, and
-`--storage-class` on `s3 cp`. An HPC login node can carry a far older v2 than a
-laptop. If it is too old, stop here; nothing later matters.
+`--storage-class` on both `s3 cp` and `put-object`. An HPC login node can carry
+a far older v2 than a laptop. If it is too old, stop here; nothing later
+matters.
 
-Current limitation: the preflight verifies the first three of those flags but
-not `--storage-class`, which every upload now depends on. On too old a CLI the
-failure therefore appears during `copy` rather than at preflight. Check it by
-hand until that preflight check is added:
-
-```bash
-aws s3 cp help | grep -c -- --storage-class
-```
+You do not have to check those by hand. Every command runs the AWS preflight
+first, and it refuses a CLI missing any of them, naming the flag — so the
+cheapest way to find out is to run the `plan` of Phase 1 and read the error.
+The refusal happens before anything is locked or uploaded.
 
 Then apply the bucket, environment and SSO settings from the section above and
 log in with `aws sso login`.
