@@ -243,7 +243,7 @@ describe("GET /project?id=:id", () => {
         ...mockProject,
         storage: {
           state: "aws",
-          s3Uri: "s3://archive/data/bioinformatics/test-project",
+          s3Uri: "s3://archive/bioinformatics/test-project",
           s3VerifiedAt: now,
           hpcVerifiedAbsentAt: now,
           archivedAt: now,
@@ -269,7 +269,7 @@ describe("GET /project?id=:id", () => {
       expect(response.body.actualAdditionalFiles).toBeNull();
       expect(response.body.additionalFilesStatus.status).toBe("NOT_APPLICABLE");
       expect(response.body.location.baseUri).toBe(
-        "s3://archive/data/bioinformatics/test-project",
+        "s3://archive/bioinformatics/test-project",
       );
     });
   });

@@ -4,6 +4,31 @@ This is the operator checklist for the implementation described in
 `S3_PROJECT_ARCHIVAL_SPEC.md`. The mover copies only from `DATASTORE_ROOT`.
 It never reads `HPC_TRANSFER_DIRECTORY` and never deletes HPC data.
 
+## Bucket layout
+
+Research groups sit at the archive root, so an HPC path and its S3 key differ
+only by the configured prefix:
+
+```text
+s3://<archive-bucket>/<optional-base-prefix>/
+├── <group>/<project>/<sample>/<run>/...   # payload, in Deep Archive
+├── _control/projects/<project>/<migration>/   # manifests, in Standard
+└── _smoke/                                # disposable test data
+```
+
+`_control` and `_smoke` are reserved at the group level. The mover refuses a
+project whose first path segment is either name rather than writing payload
+into its own prefixes. Before the first archive, confirm no existing group
+would collide:
+
+```bash
+mongosh "$DB_CONNECTION_STRING" --quiet --eval \
+  'db.projects.find({path: /^_(control|smoke)\//}, {path: 1}).toArray()'
+```
+
+An empty result is what you want. If it returns anything, rename that group
+before archiving; the mover will refuse it until you do.
+
 ## One-time deployment setup
 
 Configure these on the production host:
@@ -11,20 +36,51 @@ Configure these on the production host:
 ```text
 AWS_ARCHIVE_S3_ROOT=s3://BUCKET/OPTIONAL_BASE_PREFIX
 AWS_ARCHIVE_EXPECTED_ACCOUNT_ID=123456789012
+# Defaults to DEEP_ARCHIVE; set it only to deviate deliberately:
+AWS_ARCHIVE_STORAGE_CLASS=DEEP_ARCHIVE
 # Optional for SSE-KMS:
 AWS_ARCHIVE_SSE=aws:kms
 AWS_ARCHIVE_SSE_KMS_KEY_ID=...
 ```
 
-The bucket must allow the mover role to list and upload below the configured
-prefix and to abort multipart uploads. Do not grant that role object deletion.
-Keep `<base>/control/` readable and out of cold-storage transition rules. Apply
-the chosen delayed archival lifecycle only to `<base>/data/`, and configure
-incomplete multipart uploads to expire after seven days.
+Project bytes are written **directly** into Glacier Deep Archive. There is no
+Standard grace period and **no lifecycle transition rule for payload**: do not
+add one. Control manifests are always written to Standard, because status,
+resume, deletion approval and audit must never need a restore. If you ever add
+a cold-storage transition to this bucket, scope it so it cannot reach
+`<base>/_control/`.
+
+On the bucket, enable versioning with no expiry for current or noncurrent
+versions, enforce HTTPS-only transport by policy, and expire incomplete
+multipart uploads after seven days. Object Lock stays off for now. Versioning
+retains a copy on overwrite and nothing expires it, so avoid needless
+re-uploads.
+
+The mover role must be able to list and upload below the configured prefix and
+to abort multipart uploads. Do not grant it deletion of objects or versions;
+reviewed cleanup uses a separate delete-capable role.
+
+Authenticate with IAM Identity Center SSO using the restricted mover profile,
+never an administrator profile and never long-lived access keys. On a
+browserless HPC:
+
+```bash
+aws sso login --profile komondor-archive-mover --use-device-code
+```
+
+A valid SSO login lets the CLI refresh role credentials during a transfer that
+outlives the 12-hour role session, so a multi-day copy does not need a second
+login. Use a current AWS CLI v2 with `sso-session` configuration; the legacy
+non-refreshable setup and manually exported temporary keys will strand a long
+copy.
 
 Before the first real project, run the disposable-prefix smoke test in section
-16.4 of the specification. Deploy the storage-aware API, web app, Power and
-Nudge releases together before locking a production project.
+16.4 of the specification **and complete the restore rehearsal**: upload
+representative files to Deep Archive, request a restore, download them and
+compare checksums against the originals. An upload-only test is not sufficient
+evidence before deleting the only HPC copy of real data. Deploy the
+storage-aware API, web app, Power and Nudge releases together before locking a
+production project.
 
 ## Archive one project
 

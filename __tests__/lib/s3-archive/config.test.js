@@ -1,7 +1,9 @@
 const {
+  RESERVED_TOP_LEVEL_SEGMENTS,
   joinKey,
   loadArchiveConfig,
   parseS3Uri,
+  reservedTopLevelSegment,
   s3Uri,
   stripLeadingSlash,
 } = require("../../../lib/s3-archive/config");
@@ -34,7 +36,7 @@ describe("S3 archive configuration", () => {
     expect(() => parseS3Uri(value)).toThrow(message);
   });
 
-  test("derives mirrored data and separate control prefixes", () => {
+  test("mirrors the datastore hierarchy with groups at the archive root", () => {
     const config = loadArchiveConfig(validEnv());
 
     expect(config).toMatchObject({
@@ -44,11 +46,64 @@ describe("S3 archive configuration", () => {
       datastoreRoot: "/srv/komondor/datastore",
       readyUrl: "http://127.0.0.1:3000/ready",
     });
+    // No intervening "data/" level: the payload key is the datastore-relative
+    // path, so HPC and S3 paths can be compared directly.
     expect(config.dataPrefixFor("group/project")).toBe(
-      "komondor/data/group/project",
+      "komondor/group/project",
     );
     expect(config.controlPrefixFor("project-id", "migration-id")).toBe(
-      "komondor/control/projects/project-id/migration-id",
+      "komondor/_control/projects/project-id/migration-id",
+    );
+    expect(config.controlProjectPrefixFor("project-id")).toBe(
+      "komondor/_control/projects/project-id",
+    );
+  });
+
+  test("writes payload to Deep Archive and control objects to Standard", () => {
+    const config = loadArchiveConfig(validEnv());
+
+    expect(config.dataStorageClass).toBe("DEEP_ARCHIVE");
+    expect(config.controlStorageClass).toBe("STANDARD");
+    expect(config.storageClassArgs).toEqual([
+      "--storage-class",
+      "DEEP_ARCHIVE",
+    ]);
+    expect(config.controlStorageClassArgs).toEqual([
+      "--storage-class",
+      "STANDARD",
+    ]);
+  });
+
+  test("accepts a different payload class and normalises its case", () => {
+    const config = loadArchiveConfig(
+      validEnv({ AWS_ARCHIVE_STORAGE_CLASS: "glacier_ir" }),
+    );
+
+    expect(config.dataStorageClass).toBe("GLACIER_IR");
+    expect(config.storageClassArgs).toEqual(["--storage-class", "GLACIER_IR"]);
+    // Control objects must stay immediately readable whatever the payload class.
+    expect(config.controlStorageClass).toBe("STANDARD");
+  });
+
+  test.each(RESERVED_TOP_LEVEL_SEGMENTS)(
+    "refuses to build a payload key under the reserved prefix %s",
+    (segment) => {
+      const config = loadArchiveConfig(validEnv());
+
+      expect(reservedTopLevelSegment(`${segment}/project`)).toBe(segment);
+      expect(() => config.dataPrefixFor(`${segment}/project`)).toThrow(
+        /reserved archive prefix/,
+      );
+    },
+  );
+
+  test("does not treat a reserved name below the group level as a collision", () => {
+    const config = loadArchiveConfig(validEnv());
+
+    // Only the first segment shares a namespace with the archive's prefixes.
+    expect(reservedTopLevelSegment("group/_control")).toBeNull();
+    expect(config.dataPrefixFor("group/_control")).toBe(
+      "komondor/group/_control",
     );
   });
 
@@ -85,16 +140,17 @@ describe("S3 archive configuration", () => {
       { AWS_ARCHIVE_SSE_KMS_KEY_ID: "alias/key" },
       /requires AWS_ARCHIVE_SSE=aws:kms/,
     ],
+    [{ AWS_ARCHIVE_STORAGE_CLASS: "DEEP_FREEZE" }, /must be one of/],
   ])("refuses incomplete safety configuration %#", (override, message) => {
     expect(() => loadArchiveConfig(validEnv(override))).toThrow(message);
   });
 
   test("joins keys without duplicate separators", () => {
-    expect(joinKey("/base/", "/data/", "group/project/")).toBe(
-      "base/data/group/project",
+    expect(joinKey("/base/", "/_control/", "group/project/")).toBe(
+      "base/_control/group/project",
     );
-    expect(s3Uri("bucket", "base/data/project")).toBe(
-      "s3://bucket/base/data/project",
+    expect(s3Uri("bucket", "base/group/project")).toBe(
+      "s3://bucket/base/group/project",
     );
     expect(stripLeadingSlash("///group/project")).toBe("group/project");
   });

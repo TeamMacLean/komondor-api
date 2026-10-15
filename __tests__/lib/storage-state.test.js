@@ -34,13 +34,13 @@ describe("Project storage lifecycle", () => {
   });
 
   test.each([
-    ["migrating", { s3Uri: "s3://archive/data/g/p" }, "hpc"],
+    ["migrating", { s3Uri: "s3://archive/g/p" }, "hpc"],
     [
       "aws_pending_hpc_deletion",
-      { s3Uri: "s3://archive/data/g/p", s3VerifiedAt: dates.s3VerifiedAt },
+      { s3Uri: "s3://archive/g/p", s3VerifiedAt: dates.s3VerifiedAt },
       "s3",
     ],
-    ["aws", { s3Uri: "s3://archive/data/g/p", ...dates }, "s3"],
+    ["aws", { s3Uri: "s3://archive/g/p", ...dates }, "s3"],
   ])("resolves %s as read-only", (state, evidence, authoritativeLocation) => {
     expect(
       resolveStorageState({ storage: { state, ...evidence } }),
@@ -56,7 +56,7 @@ describe("Project storage lifecycle", () => {
     null,
     { storage: { state: "unknown" } },
     { storage: { state: "hpc", s3Uri: "s3://should-not-exist" } },
-    { storage: { state: "aws", s3Uri: "s3://archive/data/g/p" } },
+    { storage: { state: "aws", s3Uri: "s3://archive/g/p" } },
     { storage: { s3VerifiedAt: dates.s3VerifiedAt } },
   ])("fails closed for invalid state %#", (project) => {
     expect(resolveStorageState(project)).toMatchObject({
@@ -69,7 +69,7 @@ describe("Project storage lifecycle", () => {
   test("throws a terminal machine-readable error on writes", () => {
     const project = {
       _id: "p1",
-      storage: { state: "migrating", s3Uri: "s3://archive/data/g/p" },
+      storage: { state: "migrating", s3Uri: "s3://archive/g/p" },
     };
     expect(() => assertProjectAcceptsHpcWrites(project)).toThrow(
       expect.objectContaining({
@@ -86,7 +86,7 @@ describe("Project storage lifecycle", () => {
       _id: "p1",
       storage: {
         state: "migrating",
-        s3Uri: "s3://archive/data/g/p",
+        s3Uri: "s3://archive/g/p",
       },
       archiveMigration: {
         phase: "copying",

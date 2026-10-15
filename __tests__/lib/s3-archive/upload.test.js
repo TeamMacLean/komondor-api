@@ -43,14 +43,15 @@ const manifest = {
   migrationId: "migration-2",
   restartedFrom: ["migration-1"],
   sourceManifestSha256: "source-manifest-digest",
-  dataKeyPrefix: "archive/data/group/project",
+  dataKeyPrefix: "archive/group/project",
+  dataStorageClass: "DEEP_ARCHIVE",
   entries: [],
 };
 
 const entry = {
   relPath: "sample/reads.fastq.gz",
   disposition: "copy",
-  s3Key: "archive/data/group/project/sample/reads.fastq.gz",
+  s3Key: "archive/group/project/sample/reads.fastq.gz",
   size: 42,
   sha256: "entry-digest",
   crc64nvme: "crc64-base64",
@@ -173,6 +174,76 @@ describe("uploaded-object ownership", () => {
       matches: false,
       missingKeys: [],
       extraKeys: [`${manifest.dataKeyPrefix}/unexpected`],
+    });
+  });
+
+  test("records the storage class each payload object actually landed in", async () => {
+    const aws = {
+      headObject: jest
+        .fn()
+        .mockResolvedValue(matchingHead({ StorageClass: "DEEP_ARCHIVE" })),
+      listObjectsAtOrBelow: jest.fn().mockResolvedValue([{ Key: entry.s3Key }]),
+    };
+
+    const result = await verifyManifestObjects(aws, {
+      ...manifest,
+      entries: [entry],
+    });
+
+    expect(result.verified).toBe(true);
+    expect(result.entries[0].storageClass).toBe("DEEP_ARCHIVE");
+    expect(result.storageClass).toEqual({
+      expected: "DEEP_ARCHIVE",
+      matches: true,
+      unexpected: [],
+    });
+  });
+
+  test("reports an object outside the intended class but still verifies it", async () => {
+    // A complete, checksum-verified copy in the wrong class is a cost and
+    // policy problem, not a reason to withhold the archive.
+    const aws = {
+      headObject: jest.fn().mockResolvedValue(matchingHead()),
+      listObjectsAtOrBelow: jest.fn().mockResolvedValue([{ Key: entry.s3Key }]),
+    };
+
+    const result = await verifyManifestObjects(aws, {
+      ...manifest,
+      entries: [entry],
+    });
+
+    expect(result.verified).toBe(true);
+    expect(result.storageClass).toEqual({
+      expected: "DEEP_ARCHIVE",
+      matches: false,
+      unexpected: [
+        {
+          relPath: entry.relPath,
+          s3Key: entry.s3Key,
+          // HEAD omits StorageClass for Standard objects.
+          storageClass: "STANDARD",
+        },
+      ],
+    });
+  });
+
+  test("reports no class mismatch when the manifest recorded no intent", async () => {
+    const { dataStorageClass, ...withoutIntent } = manifest;
+    const aws = {
+      headObject: jest.fn().mockResolvedValue(matchingHead()),
+      listObjectsAtOrBelow: jest.fn().mockResolvedValue([{ Key: entry.s3Key }]),
+    };
+
+    const result = await verifyManifestObjects(aws, {
+      ...withoutIntent,
+      entries: [entry],
+    });
+
+    expect(result.verified).toBe(true);
+    expect(result.storageClass).toEqual({
+      expected: null,
+      matches: true,
+      unexpected: [],
     });
   });
 });

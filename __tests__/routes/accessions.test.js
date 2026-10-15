@@ -547,7 +547,7 @@ describe("GET /accessions/csv", () => {
         path: "/group_a/project_1",
         storage: {
           state: "aws",
-          s3Uri: "s3://archive/data/group_a/project_1",
+          s3Uri: "s3://archive/group_a/project_1",
           s3VerifiedAt: now,
           hpcVerifiedAbsentAt: now,
           archivedAt: now,
@@ -564,7 +564,7 @@ describe("GET /accessions/csv", () => {
     const response = await request(app).get("/accessions/csv");
 
     expect(response.body.csv).toContain(
-      "s3://archive/data/group_a/project_1/sample_1/run_1/raw/r1.fq",
+      "s3://archive/group_a/project_1/sample_1/run_1/raw/r1.fq",
     );
     expect(response.body.csv).not.toContain("project_1/group_a/project_1");
   });
@@ -578,7 +578,7 @@ describe("GET /accessions/csv", () => {
         path: "/group_a/project_1",
         storage: {
           state: "aws",
-          s3Uri: "s3://archive/data/group_a/project_1",
+          s3Uri: "s3://archive/group_a/project_1",
           s3VerifiedAt: now,
           hpcVerifiedAbsentAt: now,
           archivedAt: now,

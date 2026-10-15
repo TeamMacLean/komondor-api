@@ -3,6 +3,16 @@
 Status: **proposed, implementation-ready**. Version 1 of the manually supervised
 workflow that archives one Komondor project from the HPC datastore to Amazon S3.
 
+> **Reconciled with the architecture decision record, 15 October 2026.**
+> `S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md` (10 September 2026) supersedes
+> this document on bucket layout, storage classes and authentication. Those
+> three areas have been updated in place below and the code now matches:
+> groups sit at the archive root with no `data/` level, manifests live under the
+> reserved `_control/` prefix, payload is written straight into Glacier Deep
+> Archive, and the mover authenticates with IAM Identity Center SSO. Where this
+> specification and the decision record still disagree on anything else, the
+> decision record wins.
+
 Every code citation below was verified against the working trees of
 `komondor-api`, `komondor-web`, `komondor-power` and `komondor-nudge` on
 2026-09-07. Line numbers are current as of that date; when they move, the
@@ -274,7 +284,7 @@ release.
 | **project root**          | `path.resolve(DATASTORE_ROOT, stripLeadingSlash(project.path))`, snapshotted at lock time as `archiveMigration.sourceRoot`.                |
 | **relative project root** | `project.path` without its leading slash, e.g. `tsl/wheat_blast`. Snapshotted as `archiveMigration.sourceRelativeRoot`.                    |
 | **archive root**          | `AWS_ARCHIVE_S3_ROOT`, `s3://bucket[/base]`.                                                                                               |
-| **data prefix**           | `<archive root>/data/<relative project root>`; stored immutably as `storage.s3Uri`.                                                        |
+| **data prefix**           | `<archive root>/<relative project root>`; stored immutably as `storage.s3Uri`.                                                             |
 | **control prefix**        | `<archive root>/control/projects/<projectId>/<migrationId>/`.                                                                              |
 | **storage-bearing write** | Any operation that creates directories, moves, copies, hashes-and-records, or lists files under the project root with intent to reconcile. |
 | **manifest**              | The versioned JSON inventory of the project tree (§9).                                                                                     |
@@ -309,28 +319,28 @@ release.
 
 ### 5.1 Decisions (settled)
 
-| #   | Decision                                                                                                                                                                                        | Rationale                                                                                                                        |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| D1  | Project-only granularity; Sample/Run carry no stored storage state.                                                                                                                             | Fixed by product. Children derive `projectStorage` at response time.                                                             |
-| D2  | Storage state is a **stored enum without a Mongoose default**; absent means `hpc` in both serialization and query predicates.                                                                   | A default hides absence from exact queries. Predicates use `$or: [{exists:false},{eq:"hpc"}]`.                                   |
-| D3  | The mover never calls `project.save()`; every transition is a fenced `findOneAndUpdate`.                                                                                                        | `save()` would run the mkdir `post("save")` hook (§2.1).                                                                         |
-| D4  | Lock transition requires the API and workers to be **stopped** (quiescence window). Copy runs with the guarded API live.                                                                        | "Check then later save" in the create routes is not atomic; a lease system is future work.                                       |
-| D5  | Lock is a separate CLI command from copy.                                                                                                                                                       | Keeps the maintenance window to minutes; copy can take hours. (Deviation, §22.)                                                  |
-| D6  | S3 layout is `<root>/data/<relative to DATASTORE_ROOT>` for bytes and `<root>/control/projects/<projectId>/<migrationId>/` for manifests.                                                       | Lifecycle rules filter by prefix; `data/` can go cold, `control/` stays readable. (Deviation, §22.)                              |
-| D7  | Full-object **CRC-64/NVME** is the upload-verification checksum; **SHA-256** is the manifest's cryptographic identity.                                                                          | CRC64NVME is the only algorithm S3 stores as `FULL_OBJECT` for every multipart upload; SHA-256 multipart is composite.           |
-| D8  | CRC-64/NVME is computed by a pure-JS table implementation in `lib/utils/crc64nvme.js`, verified by known vector and by the real-S3 smoke test. No new dependency.                               | `@aws-sdk/crc64-nvme-crt` pulls the AWS CRT; not worth it for one 40-line routine.                                               |
-| D9  | Uploads stream from a pinned descriptor into `aws s3 cp - <key>`. The CLI never receives a pathname.                                                                                            | Defeats path-swap races; matches `lib/utils/md5.js` `O_NOFOLLOW` practice.                                                       |
-| D10 | No API route or web control mutates storage state.                                                                                                                                              | Fixed by product.                                                                                                                |
-| D11 | One machine code `PROJECT_STORAGE_READ_ONLY` for every storage refusal, including an invalid stored state; envelope `{ error, detail, requestId, code, projectId, storageState }`.              | One thing for clients to key off. Invalid state is distinguishable by `storageState: "invalid"` and a server-side integrity log. |
-| D12 | Public storage summary is produced by a `toJSON` transform on the Project schema plus `select: false` on `archiveMigration`; children get `projectStorage` via one batched lookup per response. | Routes serialize documents directly (§2.5); a schema transform covers every path including populated `sample.project`.           |
-| D13 | Detail routes return `status: "NOT_APPLICABLE"` reconciliation objects and `null` disk listings for every non-`hpc` state, and always return DB-backed Reads/AdditionalFiles.                   | Reads must not report archived files as missing.                                                                                 |
-| D14 | Accessions CSV keeps its columns and emits the effective authoritative URI in `list_of_read_files`: HPC path for `hpc`/`migrating`, `s3://` for `aws_pending_hpc_deletion`/`aws`.               | **Needs product sign-off** (§21). No in-repo consumer requires POSIX paths; ENA tooling outside the repo may.                    |
-| D15 | The API provides ready-made display locations (`location` objects) for all states; the web appends only a filename.                                                                             | Removes the `/tsl/data/reads` literal and the `HPC_DATASTORE_ROOT` disagreement from Vue.                                        |
-| D16 | Symlinks are recorded and skipped, never followed. Hard links are uploaded under each key. Special files are recorded and skipped.                                                              | Fixed by product; `aws s3 cp` defaults to following symlinks, which is why the CLI never sees a path.                            |
-| D17 | Unreadable or unverifiable regular files block unless a per-entry operator exclusion with reason is sealed into the manifest. `--acknowledge-known-anomalies` covers only metadata anomalies.   | Bytes must never be silently omitted.                                                                                            |
-| D18 | Failed multipart uploads restart the file from byte zero. Resume is file-granular.                                                                                                              | Lean v1.                                                                                                                         |
-| D19 | The mover role has **no `s3:DeleteObject`**. Cleanup of a failed attempt is a separately reviewed manual action; `status` prints the exact inventory.                                           | Fixed by product.                                                                                                                |
-| D20 | Nudge keeps its existing eligibility rules; storage is declared read-only with no default and shown in the audit output.                                                                        | Archival ≠ ENA release.                                                                                                          |
+| #   | Decision                                                                                                                                                                                        | Rationale                                                                                                                                                                                               |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D1  | Project-only granularity; Sample/Run carry no stored storage state.                                                                                                                             | Fixed by product. Children derive `projectStorage` at response time.                                                                                                                                    |
+| D2  | Storage state is a **stored enum without a Mongoose default**; absent means `hpc` in both serialization and query predicates.                                                                   | A default hides absence from exact queries. Predicates use `$or: [{exists:false},{eq:"hpc"}]`.                                                                                                          |
+| D3  | The mover never calls `project.save()`; every transition is a fenced `findOneAndUpdate`.                                                                                                        | `save()` would run the mkdir `post("save")` hook (§2.1).                                                                                                                                                |
+| D4  | Lock transition requires the API and workers to be **stopped** (quiescence window). Copy runs with the guarded API live.                                                                        | "Check then later save" in the create routes is not atomic; a lease system is future work.                                                                                                              |
+| D5  | Lock is a separate CLI command from copy.                                                                                                                                                       | Keeps the maintenance window to minutes; copy can take hours. (Deviation, §22.)                                                                                                                         |
+| D6  | S3 layout is `<root>/<relative to DATASTORE_ROOT>` for bytes and `<root>/_control/projects/<projectId>/<migrationId>/` for manifests.                                                           | Groups at the root keep HPC and S3 paths directly comparable. Payload goes straight to Deep Archive, so no transition rule is needed; `_control/` stays in Standard and is reserved at the group level. |
+| D7  | Full-object **CRC-64/NVME** is the upload-verification checksum; **SHA-256** is the manifest's cryptographic identity.                                                                          | CRC64NVME is the only algorithm S3 stores as `FULL_OBJECT` for every multipart upload; SHA-256 multipart is composite.                                                                                  |
+| D8  | CRC-64/NVME is computed by a pure-JS table implementation in `lib/utils/crc64nvme.js`, verified by known vector and by the real-S3 smoke test. No new dependency.                               | `@aws-sdk/crc64-nvme-crt` pulls the AWS CRT; not worth it for one 40-line routine.                                                                                                                      |
+| D9  | Uploads stream from a pinned descriptor into `aws s3 cp - <key>`. The CLI never receives a pathname.                                                                                            | Defeats path-swap races; matches `lib/utils/md5.js` `O_NOFOLLOW` practice.                                                                                                                              |
+| D10 | No API route or web control mutates storage state.                                                                                                                                              | Fixed by product.                                                                                                                                                                                       |
+| D11 | One machine code `PROJECT_STORAGE_READ_ONLY` for every storage refusal, including an invalid stored state; envelope `{ error, detail, requestId, code, projectId, storageState }`.              | One thing for clients to key off. Invalid state is distinguishable by `storageState: "invalid"` and a server-side integrity log.                                                                        |
+| D12 | Public storage summary is produced by a `toJSON` transform on the Project schema plus `select: false` on `archiveMigration`; children get `projectStorage` via one batched lookup per response. | Routes serialize documents directly (§2.5); a schema transform covers every path including populated `sample.project`.                                                                                  |
+| D13 | Detail routes return `status: "NOT_APPLICABLE"` reconciliation objects and `null` disk listings for every non-`hpc` state, and always return DB-backed Reads/AdditionalFiles.                   | Reads must not report archived files as missing.                                                                                                                                                        |
+| D14 | Accessions CSV keeps its columns and emits the effective authoritative URI in `list_of_read_files`: HPC path for `hpc`/`migrating`, `s3://` for `aws_pending_hpc_deletion`/`aws`.               | **Needs product sign-off** (§21). No in-repo consumer requires POSIX paths; ENA tooling outside the repo may.                                                                                           |
+| D15 | The API provides ready-made display locations (`location` objects) for all states; the web appends only a filename.                                                                             | Removes the `/tsl/data/reads` literal and the `HPC_DATASTORE_ROOT` disagreement from Vue.                                                                                                               |
+| D16 | Symlinks are recorded and skipped, never followed. Hard links are uploaded under each key. Special files are recorded and skipped.                                                              | Fixed by product; `aws s3 cp` defaults to following symlinks, which is why the CLI never sees a path.                                                                                                   |
+| D17 | Unreadable or unverifiable regular files block unless a per-entry operator exclusion with reason is sealed into the manifest. `--acknowledge-known-anomalies` covers only metadata anomalies.   | Bytes must never be silently omitted.                                                                                                                                                                   |
+| D18 | Failed multipart uploads restart the file from byte zero. Resume is file-granular.                                                                                                              | Lean v1.                                                                                                                                                                                                |
+| D19 | The mover role has **no `s3:DeleteObject`**. Cleanup of a failed attempt is a separately reviewed manual action; `status` prints the exact inventory.                                           | Fixed by product.                                                                                                                                                                                       |
+| D20 | Nudge keeps its existing eligibility rules; storage is declared read-only with no default and shown in the audit output.                                                                        | Archival ≠ ENA release.                                                                                                                                                                                 |
 
 ### 5.2 Invariants
 
@@ -457,18 +467,18 @@ const NON_HPC_FILTER = { "storage.state": { $exists: true, $ne: "hpc" } };
 
 ### 6.3 State-transition table
 
-| From                                                                | To                                                                                            | Command                       | Fence (all must hold in the same `findOneAndUpdate` filter)          | Precondition evidence                                                                                                                                                       |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `hpc` (or absent)                                                   | `migrating` / phase `locked`                                                                  | `lock --execute`              | `_id`, `HPC_WRITABLE_FILTER`                                         | API quiesced (§8.3), preflight clean, AWS identity matches, destination prefix clean                                                                                        |
-| `migrating` / `locked`                                              | `migrating` / `inventoried`                                                                   | `copy` (phase 1)              | `_id`, state `migrating`, `archiveMigration.id`, phase `locked`      | Inventory sealed locally, stable across re-walk                                                                                                                             |
-| `migrating` / `inventoried`                                         | `migrating` / `source_sealed`                                                                 | `copy` (phase 2)              | as above, phase `inventoried`                                        | Source manifest PUT to control prefix with `--if-none-match "*"`, digest recorded                                                                                           |
-| `migrating` / `source_sealed`                                       | `migrating` / `copying`                                                                       | `copy` (phase 3)              | phase `source_sealed`                                                | first data upload about to start                                                                                                                                            |
-| `migrating` / `copying`                                             | `migrating` / `copied`                                                                        | `copy` (phase 3 end)          | phase `copying`                                                      | every manifest entry uploaded or verified-existing                                                                                                                          |
-| `migrating` / `copied`                                              | `aws_pending_hpc_deletion` / `verified`                                                       | `copy` (phase 4)              | phase `copied`                                                       | HEAD every key, key set equality, local re-walk equality, verification report sealed                                                                                        |
-| `migrating` / `locked` or `inventoried`                             | `hpc` (storage reset to `{ state: "hpc" }`; `archiveMigration` retained with phase `aborted`) | `abort-before-copy --execute` | state `migrating`, id, phase ∈ {`locked`,`inventoried`}              | Fresh S3 checks: zero objects under data prefix, zero control objects for this migration, zero incomplete multipart uploads                                                 |
-| `migrating` / any with `lastError`                                  | same phase, `lastError` cleared, `resumeCount+1`                                              | `resume --execute`            | state `migrating`, id, `manifests.sourceSha256`                      | Source manifest re-fetched and digest-verified                                                                                                                              |
-| `migrating` / failed after `source_sealed` and judged irrecoverable | `migrating` / `locked` with a **new** migration id, old id appended to `restartedFrom`        | `restart --execute`           | state `migrating`, old id                                            | Old migration's data prefix has zero objects, zero multipart uploads; old control manifests moved by operator to `control/projects/<projectId>/abandoned/<oldId>/` (manual) |
-| `aws_pending_hpc_deletion`                                          | `aws` / `completed`                                                                           | `confirm-absent --execute`    | state `aws_pending_hpc_deletion`, id, `manifests.verificationSha256` | `lstat(sourceRoot)` → `ENOENT`; verification report re-read and digest matches                                                                                              |
+| From                                                                | To                                                                                            | Command                       | Fence (all must hold in the same `findOneAndUpdate` filter)          | Precondition evidence                                                                                                                                                        |
+| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hpc` (or absent)                                                   | `migrating` / phase `locked`                                                                  | `lock --execute`              | `_id`, `HPC_WRITABLE_FILTER`                                         | API quiesced (§8.3), preflight clean, AWS identity matches, destination prefix clean                                                                                         |
+| `migrating` / `locked`                                              | `migrating` / `inventoried`                                                                   | `copy` (phase 1)              | `_id`, state `migrating`, `archiveMigration.id`, phase `locked`      | Inventory sealed locally, stable across re-walk                                                                                                                              |
+| `migrating` / `inventoried`                                         | `migrating` / `source_sealed`                                                                 | `copy` (phase 2)              | as above, phase `inventoried`                                        | Source manifest PUT to control prefix with `--if-none-match "*"`, digest recorded                                                                                            |
+| `migrating` / `source_sealed`                                       | `migrating` / `copying`                                                                       | `copy` (phase 3)              | phase `source_sealed`                                                | first data upload about to start                                                                                                                                             |
+| `migrating` / `copying`                                             | `migrating` / `copied`                                                                        | `copy` (phase 3 end)          | phase `copying`                                                      | every manifest entry uploaded or verified-existing                                                                                                                           |
+| `migrating` / `copied`                                              | `aws_pending_hpc_deletion` / `verified`                                                       | `copy` (phase 4)              | phase `copied`                                                       | HEAD every key, key set equality, local re-walk equality, verification report sealed                                                                                         |
+| `migrating` / `locked` or `inventoried`                             | `hpc` (storage reset to `{ state: "hpc" }`; `archiveMigration` retained with phase `aborted`) | `abort-before-copy --execute` | state `migrating`, id, phase ∈ {`locked`,`inventoried`}              | Fresh S3 checks: zero objects under data prefix, zero control objects for this migration, zero incomplete multipart uploads                                                  |
+| `migrating` / any with `lastError`                                  | same phase, `lastError` cleared, `resumeCount+1`                                              | `resume --execute`            | state `migrating`, id, `manifests.sourceSha256`                      | Source manifest re-fetched and digest-verified                                                                                                                               |
+| `migrating` / failed after `source_sealed` and judged irrecoverable | `migrating` / `locked` with a **new** migration id, old id appended to `restartedFrom`        | `restart --execute`           | state `migrating`, old id                                            | Old migration's data prefix has zero objects, zero multipart uploads; old control manifests moved by operator to `_control/projects/<projectId>/abandoned/<oldId>/` (manual) |
+| `aws_pending_hpc_deletion`                                          | `aws` / `completed`                                                                           | `confirm-absent --execute`    | state `aws_pending_hpc_deletion`, id, `manifests.verificationSha256` | `lstat(sourceRoot)` → `ENOENT`; verification report re-read and digest matches                                                                                               |
 
 There is no transition out of `aws_pending_hpc_deletion` other than to `aws`,
 and none out of `aws`. There is no generic "set state" command.
@@ -492,7 +502,7 @@ installed as the Project schema's `toJSON.transform` (which also deletes
   "state": "aws_pending_hpc_deletion",   // hpc | migrating | aws_pending_hpc_deletion | aws | invalid
   "acceptsHpcWrites": false,
   "authoritativeLocation": "s3",          // hpc | s3 | null
-  "s3Uri": "s3://tsl-archive/komondor/data/tsl/wheat_blast",  // null while hpc
+  "s3Uri": "s3://tsl-archive/komondor/tsl/wheat_blast",  // null while hpc
   "s3VerifiedAt": "2026-10-02T09:14:11.000Z",                  // null until verified
   "hpcVerifiedAbsentAt": null,
   "archivedAt": null,
@@ -526,7 +536,7 @@ Added to `GET /project`, `GET /sample`, `GET /run`:
 ```jsonc
 "location": {
   "authoritative": "s3",                    // mirrors storage.authoritativeLocation
-  "baseUri": "s3://tsl-archive/komondor/data/tsl/wheat_blast/isolate_a/run_1",
+  "baseUri": "s3://tsl-archive/komondor/tsl/wheat_blast/isolate_a/run_1",
   "rawUri": ".../run_1/raw",                // run only
   "additionalUri": ".../run_1/additional",
   "plannedS3Uri": null                      // set only while migrating: the immutable data prefix + relative path
@@ -782,11 +792,14 @@ as `--sse`/`--sse-kms-key-id` on uploads. With SSE-KMS the role also needs
 `head-object --checksum-mode ENABLED`).
 
 Bucket configuration the operator must confirm (deployment inputs, §21):
-Object Ownership bucket-owner-enforced; versioning recommended; a lifecycle
-rule `AbortIncompleteMultipartUpload` after 7 days on the whole archive root;
-a transition rule to the chosen cold class **scoped to `<base>/data/`** with a
-delay longer than the pilot's verification-plus-deletion window; **no
-transition rule** on `<base>/control/`.
+Object Ownership bucket-owner-enforced; versioning enabled with no expiry for
+current or noncurrent versions; HTTPS-only transport enforced by bucket policy;
+a lifecycle rule `AbortIncompleteMultipartUpload` after 7 days on the whole
+archive root. **No transition rule at all**: payload objects are written
+directly in the configured cold class (`AWS_ARCHIVE_STORAGE_CLASS`, default
+`DEEP_ARCHIVE`) and control objects are written in `STANDARD`. If a transition
+rule is ever added, it must be scoped so that it cannot reach
+`<base>/_control/`.
 
 IAM policy for the mover role (minimum): `sts:GetCallerIdentity`;
 `s3:ListBucket`, `s3:ListBucketMultipartUploads` on the bucket, condition
@@ -815,7 +828,7 @@ later save (§2.2), and because the ingest worker holds work in memory, the
      `anomalyAcknowledgement { by, at }` (manifest digest is filled in later
      by `copy` when the manifest is sealed).
    - Generates the migration id, snapshots `sourceRoot`,
-     `sourceRelativeRoot`, computes `s3Uri = <root>/data/<sourceRelativeRoot>`,
+     `sourceRelativeRoot`, computes `s3Uri = <root>/<sourceRelativeRoot>`,
      checks the data prefix and this migration's control prefix are empty
      (`list-objects-v2 --max-keys 1`) and that
      `list-multipart-uploads --prefix <data prefix>/` is empty.
@@ -1050,7 +1063,8 @@ ctimeMs` equal to pass 1, stream once computing **both** SHA-256 and
   "projectId": "…", "projectName": "…", "migrationId": "…",
   "sourceRoot": "/mnt/reads/tsl/wheat_blast",
   "sourceRelativeRoot": "tsl/wheat_blast",
-  "dataPrefix": "s3://…/data/tsl/wheat_blast",
+  "dataPrefix": "s3://…/tsl/wheat_blast",
+  "dataStorageClass": "DEEP_ARCHIVE",
   "createdBy": { "komondorUser": "…", "osUser": "…", "awsArn": "…" },
   "createdAt": "…",
   "anomalyAcknowledgement": { "by": "…", "at": "…" } | null,
@@ -1350,7 +1364,7 @@ preflight.
 - **Public projection**: `archiveMigration` is `select: false` and stripped
   by the transform; `storage` is rewritten to the summary. A test asserts that
   no response from any entity route contains the strings `archiveMigration`,
-  `sourceRoot`, `movedBy`, `control/`, or a manifest digest.
+  `sourceRoot`, `movedBy`, `_control/`, or a manifest digest.
 - **Path safety in the CLI**: source root and destination are derived, never
   accepted; containment via `resolveBelow`-style lexical check plus
   `realpath` equality; `lstat` everywhere; `O_NOFOLLOW` opens; descriptor
@@ -1535,14 +1549,15 @@ As listed in §12 and §13.
 
 ### 16.4 Real-S3 smoke test (before the first live migration; not part of this task)
 
-Runs on the production host with the mover role against a disposable prefix
-`<root>/smoke/<timestamp>/`:
+Runs on the production host with the mover role against the reserved disposable
+prefix `<root>/_smoke/<timestamp>/`:
 
 1. `aws --version`; record it in the runbook.
 2. Upload via the exact §9.4 code path: one 1 KiB file, one 100 MiB file
-   (> the CLI's default 8 MiB multipart threshold), one file > 5 GiB (forces
-   multipart regardless of configuration), and one 1 KiB file with
-   `--storage-class DEEP_ARCHIVE`.
+   (> the CLI's default 8 MiB multipart threshold), and one file > 5 GiB
+   (forces multipart regardless of configuration). The code path already
+   passes `--storage-class DEEP_ARCHIVE`, so every one of these lands in the
+   cold class; assert that `StorageClass` on each HEAD confirms it.
 3. For each: `head-object --checksum-mode ENABLED` must return
    `ChecksumCRC64NVME` equal to the locally computed value and
    `ChecksumType: "FULL_OBJECT"`; `ContentLength` equal; metadata present.
@@ -1631,18 +1646,18 @@ the controls.
 
 ## 19. Risks and mitigations
 
-| Risk                                                                              | Mitigation                                                                                                                                                |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The production AWS CLI predates full-object checksum support                      | Capability preflight (§8.3) and smoke test; deployment input.                                                                                             |
-| `aws s3 cp -` from stdin buffers or sizes parts unexpectedly for very large files | `--expected-size` always passed; > 5 GiB smoke test; 10,000-part limit implies ≥ 500 MiB parts near 5 TB, well within the CLI's automatic sizing.         |
-| Long copies of multi-TB projects fail midway                                      | File-granular resume; `updatedAt` heartbeat; `needs_attention` health.                                                                                    |
-| Historical DB/disk inconsistencies stall archiving                                | Anomalies are reported, not blockers; only byte loss blocks.                                                                                              |
-| Web shows stale state after the lock                                              | The site is restarted in the window; caches are per-request.                                                                                              |
-| Power validated before the lock                                                   | API 409 is terminal and handled (§12).                                                                                                                    |
-| Someone runs the deletion command on the wrong host/path                          | The command is only printed after fresh S3 + local verification, quoted, and targets the snapshot root; the runbook requires `status` first.              |
-| Cold-tier lifecycle moves control manifests                                       | Rule scoped to `data/`; smoke test confirms HEAD works on cold data objects anyway.                                                                       |
-| Operator role accidentally has delete                                             | IAM policy reviewed as a deployment input; `status` proves the role by attempting `get-caller-identity` and printing the ARN; no code path issues delete. |
-| CSV consumers outside the repo expect POSIX paths                                 | D14 sign-off; versioned `?locations=hpc-only` fallback designed.                                                                                          |
+| Risk                                                                              | Mitigation                                                                                                                                                    |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The production AWS CLI predates full-object checksum support                      | Capability preflight (§8.3) and smoke test; deployment input.                                                                                                 |
+| `aws s3 cp -` from stdin buffers or sizes parts unexpectedly for very large files | `--expected-size` always passed; > 5 GiB smoke test; 10,000-part limit implies ≥ 500 MiB parts near 5 TB, well within the CLI's automatic sizing.             |
+| Long copies of multi-TB projects fail midway                                      | File-granular resume; `updatedAt` heartbeat; `needs_attention` health.                                                                                        |
+| Historical DB/disk inconsistencies stall archiving                                | Anomalies are reported, not blockers; only byte loss blocks.                                                                                                  |
+| Web shows stale state after the lock                                              | The site is restarted in the window; caches are per-request.                                                                                                  |
+| Power validated before the lock                                                   | API 409 is terminal and handled (§12).                                                                                                                        |
+| Someone runs the deletion command on the wrong host/path                          | The command is only printed after fresh S3 + local verification, quoted, and targets the snapshot root; the runbook requires `status` first.                  |
+| Cold-tier lifecycle moves control manifests                                       | No transition rule exists; control objects are written in `STANDARD` and `_control/` is reserved. Smoke test confirms HEAD works on cold data objects anyway. |
+| Operator role accidentally has delete                                             | IAM policy reviewed as a deployment input; `status` proves the role by attempting `get-caller-identity` and printing the ARN; no code path issues delete.     |
+| CSV consumers outside the repo expect POSIX paths                                 | D14 sign-off; versioned `?locations=hpc-only` fallback designed.                                                                                              |
 
 ---
 
@@ -1662,9 +1677,10 @@ tooling; backfilling `storage.state: "hpc"` on legacy documents.
 1. `AWS_ARCHIVE_S3_ROOT` (bucket and base prefix) and the AWS region.
 2. `AWS_ARCHIVE_EXPECTED_ACCOUNT_ID`.
 3. Encryption choice: SSE-S3 or SSE-KMS with key ARN (affects IAM).
-4. Bucket setup: ownership, versioning, abort-incomplete-multipart rule,
-   cold-class transition rule and delay scoped to `data/`, chosen storage
-   class (operations decision; the application is class-agnostic).
+4. Bucket setup: ownership, versioning with no version expiry, HTTPS-only
+   policy, and the abort-incomplete-multipart rule. No transition rule: the
+   payload class is set at upload time by `AWS_ARCHIVE_STORAGE_CLASS`
+   (default `DEEP_ARCHIVE`), and control objects are always `STANDARD`.
 5. Mover IAM role/profile (no delete) and the separate delete-capable role
    for reviewed cleanup.
 6. Production host, its AWS CLI version (minimum: a v2 release exposing
@@ -1689,12 +1705,13 @@ tooling; backfilling `storage.state: "hpc"` on legacy documents.
    minutes and lets the multi-hour copy run with the guarded site live. All
    safety properties (atomic fence, post-lock preflight, quiescence) are
    preserved.
-2. **`data/` and `control/` sub-prefixes under the archive root.** The prompt
-   said data mirrors the `DATASTORE_ROOT`-relative path "under a configurable
-   bucket/base prefix" and separately required manifests excluded from cold
-   lifecycle. S3 lifecycle filters are prefix-based, so the exclusion is only
-   implementable if data and control are disjoint prefixes. The mirrored
-   hierarchy is intact beneath `data/`.
+2. ~~**`data/` and `control/` sub-prefixes under the archive root.**~~
+   **Withdrawn.** This deviation existed because a prefix-based lifecycle
+   filter was the only way to exempt manifests from a cold transition. Writing
+   payload directly into Deep Archive removes the transition rule, and with it
+   the reason for the extra level. The layout is now flat, with groups at the
+   archive root and manifests under the reserved `_control/` prefix, as
+   decided in `S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md` §1-2.
 3. **A `restart` command** is added for the post-seal irrecoverable case so
    that "never strand the Project with edit-Mongo-by-hand" holds; it is
    narrowly fenced and requires prior manual S3 cleanup with a different role.

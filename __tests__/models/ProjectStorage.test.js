@@ -33,7 +33,7 @@ describe("Project storage serialization", () => {
       path: "/group/archived",
       storage: {
         state: "aws",
-        s3Uri: "s3://archive/data/group/archived",
+        s3Uri: "s3://archive/group/archived",
         s3VerifiedAt: now,
         hpcVerifiedAbsentAt: now,
         archivedAt: now,

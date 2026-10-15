@@ -142,7 +142,7 @@ describe("storageReadOnlyResponse", () => {
         _id: "64f1c0000000000000000000",
         storage: {
           state: "aws",
-          s3Uri: "s3://archive/data/group/project",
+          s3Uri: "s3://archive/group/project",
           s3VerifiedAt: new Date("2026-09-01T00:00:00Z"),
           hpcVerifiedAbsentAt: new Date("2026-09-02T00:00:00Z"),
           archivedAt: new Date("2026-09-02T00:00:00Z"),

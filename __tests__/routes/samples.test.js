@@ -1113,7 +1113,7 @@ describe("POST /samples/new - Standard Mode", () => {
       group: groupId,
       storage: {
         state: "aws",
-        s3Uri: "s3://archive/data/group/project",
+        s3Uri: "s3://archive/group/project",
         s3VerifiedAt: now,
         hpcVerifiedAbsentAt: now,
         archivedAt: now,
@@ -1396,7 +1396,7 @@ describe("POST /samples/new - ENA administrators", () => {
       group: groupId,
       storage: {
         state: "aws",
-        s3Uri: "s3://archive/data/group/project",
+        s3Uri: "s3://archive/group/project",
         s3VerifiedAt: now,
         hpcVerifiedAbsentAt: now,
         archivedAt: now,

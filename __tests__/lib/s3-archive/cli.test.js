@@ -63,9 +63,13 @@ const baseConfig = {
   basePrefix: "komondor",
   datastoreRoot: "/srv/komondor/datastore",
   readyUrl: "http://127.0.0.1:3000/ready",
-  dataPrefixFor: (relative) => `komondor/data/${relative}`,
+  dataStorageClass: "DEEP_ARCHIVE",
+  controlStorageClass: "STANDARD",
+  dataPrefixFor: (relative) => `komondor/${relative}`,
   controlPrefixFor: (projectId, migrationId) =>
-    `komondor/control/projects/${projectId}/${migrationId}`,
+    `komondor/_control/projects/${projectId}/${migrationId}`,
+  controlProjectPrefixFor: (projectId) =>
+    `komondor/_control/projects/${projectId}`,
 };
 
 const makeAws = () => ({
@@ -299,8 +303,8 @@ describe("archive CLI operator flow", () => {
       { requireExists: true },
     );
     expect(dependencies.aws.hasObjectsAtOrBelow.mock.calls).toEqual([
-      ["komondor/data/group/project"],
-      [`komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}`],
+      ["komondor/group/project"],
+      [`komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}`],
     ]);
     expect(state.lockProject).not.toHaveBeenCalled();
 
@@ -309,7 +313,7 @@ describe("archive CLI operator flow", () => {
       command: "lock",
       execute: false,
       sourceRoot: "/srv/komondor/datastore/group/project",
-      destination: "s3://archive-bucket/komondor/data/group/project",
+      destination: "s3://archive-bucket/komondor/group/project",
       would: "lock project storage",
     });
     expect(result.identity).toMatchObject({
@@ -329,7 +333,7 @@ describe("archive CLI operator flow", () => {
       path: "group/project",
       storage: {
         state: "migrating",
-        s3Uri: "s3://archive-bucket/komondor/data/group/project",
+        s3Uri: "s3://archive-bucket/komondor/group/project",
       },
       archiveMigration: {
         id: MIGRATION_ID,
@@ -380,7 +384,7 @@ describe("archive CLI operator flow", () => {
       entries: [
         {
           relPath: fileEntry.relPath,
-          s3Key: "komondor/data/group/project/sample/reads.fastq",
+          s3Key: "komondor/group/project/sample/reads.fastq",
           verified: true,
         },
       ],
@@ -446,19 +450,19 @@ describe("archive CLI operator flow", () => {
         expect.objectContaining({
           relPath: fileEntry.relPath,
           disposition: "copy",
-          s3Key: "komondor/data/group/project/sample/reads.fastq",
+          s3Key: "komondor/group/project/sample/reads.fastq",
         }),
       ]),
     );
 
-    const sourceKey = `komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}/source-manifest.v1.json`;
-    const verificationKey = `komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}/verification-report.v1.json`;
+    const sourceKey = `komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}/source-manifest.v1.json`;
+    const verificationKey = `komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}/verification-report.v1.json`;
     expect([...controls.keys()]).toEqual([sourceKey, verificationKey]);
     expect(JSON.parse(controls.get(sourceKey).toString("utf8"))).toMatchObject({
       kind: "source",
       projectId: PROJECT_ID,
       migrationId: MIGRATION_ID,
-      dataPrefix: "s3://archive-bucket/komondor/data/group/project",
+      dataPrefix: "s3://archive-bucket/komondor/group/project",
     });
     expect(
       JSON.parse(controls.get(verificationKey).toString("utf8")),
@@ -507,7 +511,7 @@ describe("archive CLI operator flow", () => {
       path: "group/project",
       storage: {
         state: "migrating",
-        s3Uri: "s3://archive-bucket/komondor/data/group/project",
+        s3Uri: "s3://archive-bucket/komondor/group/project",
       },
       archiveMigration: {
         id: MIGRATION_ID,
@@ -562,11 +566,11 @@ describe("archive CLI operator flow", () => {
       "Abort fence failed",
     );
     expect(dependencies.aws.hasObjectsAtOrBelow.mock.calls).toEqual([
-      ["komondor/data/group/project"],
-      [`komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}`],
+      ["komondor/group/project"],
+      [`komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}`],
     ]);
     expect(dependencies.aws.listMultipartUploads).toHaveBeenCalledWith(
-      "komondor/data/group/project/",
+      "komondor/group/project/",
     );
     expect(JSON.parse(dependencies.stdout.mock.calls[0][0])).toMatchObject({
       command: "abort-before-copy",
@@ -577,7 +581,7 @@ describe("archive CLI operator flow", () => {
   });
 
   test("status shows the way out of an orphaned source manifest in phase inventoried", async () => {
-    const controlPrefix = `komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}`;
+    const controlPrefix = `komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}`;
     const orphanKey = `${controlPrefix}/source-manifest.v1.json`;
     const baseProject = {
       _id: PROJECT_ID,
@@ -585,7 +589,7 @@ describe("archive CLI operator flow", () => {
       path: "group/project",
       storage: {
         state: "migrating",
-        s3Uri: "s3://archive-bucket/komondor/data/group/project",
+        s3Uri: "s3://archive-bucket/komondor/group/project",
       },
       archiveMigration: {
         id: MIGRATION_ID,
@@ -648,7 +652,7 @@ describe("archive CLI operator flow", () => {
     ).toBe(0);
     result = JSON.parse(dependencies.stdout.mock.calls[0][0]);
     expect(result.cleanupCommands).toEqual([
-      `aws s3 mv 's3://archive-bucket/${orphanKey}' 's3://archive-bucket/komondor/control/projects/${PROJECT_ID}/abandoned/${MIGRATION_ID}/source-manifest.v1.json'`,
+      `aws s3 mv 's3://archive-bucket/${orphanKey}' 's3://archive-bucket/komondor/_control/projects/${PROJECT_ID}/abandoned/${MIGRATION_ID}/source-manifest.v1.json'`,
     ]);
     expect(result.cleanupWarning).toMatch(/abandoned\//);
     expect(dependencies.stderr).not.toHaveBeenCalled();
@@ -700,8 +704,8 @@ describe("archive CLI operator flow", () => {
       migrationId: MIGRATION_ID,
       sourceRoot,
       sourceRelativeRoot: "group/project",
-      dataPrefix: "s3://archive-bucket/komondor/data/group/project",
-      dataKeyPrefix: "komondor/data/group/project",
+      dataPrefix: "s3://archive-bucket/komondor/group/project",
+      dataKeyPrefix: "komondor/group/project",
       entries: [],
     });
     const project = {
@@ -710,7 +714,7 @@ describe("archive CLI operator flow", () => {
       path: "group/project",
       storage: {
         state: "migrating",
-        s3Uri: "s3://archive-bucket/komondor/data/group/project",
+        s3Uri: "s3://archive-bucket/komondor/group/project",
       },
       archiveMigration: {
         id: MIGRATION_ID,
@@ -745,7 +749,7 @@ describe("archive CLI operator flow", () => {
 
     expect(code).toBe(1);
     expect(aws.getObjectBuffer).toHaveBeenCalledWith(
-      `komondor/control/projects/${PROJECT_ID}/${MIGRATION_ID}/source-manifest.v1.json`,
+      `komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}/source-manifest.v1.json`,
     );
     expect(dependencies.stderr).toHaveBeenCalledWith(
       expect.stringMatching(/Control manifest SHA-256 mismatch/),

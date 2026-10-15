@@ -53,9 +53,14 @@ use. An underscore is a naming convention, not proof that collisions are
 impossible. Do not add a bucket-wide cold-storage transition that would also
 archive the control manifests.
 
-Implementation consequence: the current prefix builders explicitly add `data/`
-and `control/`, and recovery code also contains a `control/` assumption. Update
-these, tests and permission examples together, before the first real archive.
+Implementation consequence (**done, 15 October 2026**): the prefix builders no
+longer add a `data/` level, the control prefix is `_control/`, and the
+recovery path's hardcoded `control/` assumption is gone — the abandoned-manifest
+prefix is now derived from the same builder. `reservedTopLevelSegment` is the
+single source of truth for the reserved names: `lib/s3-archive/preflight.js`
+refuses a project whose group is one of them, and `dataPrefixFor` refuses to
+build such a key at all, so neither path can be bypassed by the other. Tests,
+the runbook, the specification and `.env.example` were updated with it.
 The current website reads records from the database; it does not depend on
 listing groups from the S3 bucket root.
 
@@ -223,15 +228,30 @@ potentially retained old object versions.
 
 Before production use:
 
-- Update prefix builders, recovery paths, reserved-name checks and tests for the
-  flat layout.
-- Update storage-class handling, bucket permissions and deployment documentation
-  to match these decisions, keeping control objects in Standard.
-- Configure the mover SSO profile and session settings, accounting for the
-  instance-wide login-duration effect.
-- Add the smoke checks and complete the restore rehearsal.
+- ~~Update prefix builders, recovery paths, reserved-name checks and tests for
+  the flat layout.~~ **Done, 15 October 2026.**
+- ~~Update storage-class handling and deployment documentation to match these
+  decisions, keeping control objects in Standard.~~ **Done, 15 October 2026:**
+  payload uploads pass `--storage-class` from `AWS_ARCHIVE_STORAGE_CLASS`
+  (default `DEEP_ARCHIVE`) and control objects are written `STANDARD`. The
+  sealed source manifest records the intended class, and the verification
+  report lists any object that landed outside it. A wrong class is reported,
+  not fatal: a complete, checksum-verified copy is still a valid archive, so it
+  must not block HPC deletion.
+- **Still outstanding — bucket permissions.** The IAM mover policy and bucket
+  policy in the specification have not been applied or reviewed against a real
+  account.
+- **Still outstanding — configure the mover SSO profile** and session settings,
+  accounting for the instance-wide login-duration effect.
+- **Still outstanding — the smoke checks and the restore rehearsal.** Neither
+  has been run. The restore rehearsal in §7.3 is the one that matters before
+  any HPC copy is deleted, and no automated test can substitute for it.
+- **Still outstanding — the targeted interruption and credential-renewal tests**
+  in §7.1 and §7.2. The unit suite covers resume logic with mocked AWS calls;
+  it does not prove the installed CLI refreshes real credentials mid-transfer.
 
-This decision record is not a production green light. Existing code already
-implements parts of the migration and resume workflow, but the older spec and
-runbook still contain superseded layout and delayed-transition instructions.
-They must be reconciled with this record before an operator follows them.
+This decision record is not a production green light. The code, tests and
+documentation now match it on layout, storage class and reserved names, and the
+specification and runbook have been reconciled, so an operator following them
+will configure the bucket as decided here. What remains is account setup and
+the real-AWS rehearsals above — none of which has been performed.

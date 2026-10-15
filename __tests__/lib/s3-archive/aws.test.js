@@ -15,6 +15,10 @@ const config = {
   basePrefix: "komondor",
   sseArgs: ["--sse", "AES256"],
   s3ApiSseArgs: ["--server-side-encryption", "AES256"],
+  dataStorageClass: "DEEP_ARCHIVE",
+  controlStorageClass: "STANDARD",
+  storageClassArgs: ["--storage-class", "DEEP_ARCHIVE"],
+  controlStorageClassArgs: ["--storage-class", "STANDARD"],
 };
 
 describe("AWS CLI archive wrapper", () => {
@@ -26,7 +30,7 @@ describe("AWS CLI archive wrapper", () => {
     const aws = new AwsCli(config, { execFile });
 
     const downloaded = await aws.getObjectBuffer(
-      "komondor/control/projects/p1/m1/source-manifest.v1.json",
+      "komondor/_control/projects/p1/m1/source-manifest.v1.json",
     );
 
     expect(downloaded.equals(exact)).toBe(true);
@@ -36,7 +40,7 @@ describe("AWS CLI archive wrapper", () => {
       [
         "s3",
         "cp",
-        "s3://archive-bucket/komondor/control/projects/p1/m1/source-manifest.v1.json",
+        "s3://archive-bucket/komondor/_control/projects/p1/m1/source-manifest.v1.json",
         "-",
         "--only-show-errors",
         "--no-cli-pager",
@@ -65,7 +69,7 @@ describe("AWS CLI archive wrapper", () => {
     const aws = new AwsCli(config, { execFile });
 
     await expect(
-      aws.headObject("komondor/data/group/project/read.fastq"),
+      aws.headObject("komondor/group/project/read.fastq"),
     ).resolves.toMatchObject({ ChecksumType: "FULL_OBJECT" });
     expect(execFile.mock.calls[0][1]).toEqual([
       "s3api",
@@ -73,7 +77,7 @@ describe("AWS CLI archive wrapper", () => {
       "--bucket",
       "archive-bucket",
       "--key",
-      "komondor/data/group/project/read.fastq",
+      "komondor/group/project/read.fastq",
       "--checksum-mode",
       "ENABLED",
       "--output",
@@ -95,7 +99,7 @@ describe("AWS CLI archive wrapper", () => {
     });
     const aws = new AwsCli(config, { execFile });
 
-    await aws.putControlObject("komondor/control/source.json", bytes, {
+    await aws.putControlObject("komondor/_control/source.json", bytes, {
       "komondor-project-id": "p1",
       "komondor-migration-id": "m1",
     });
@@ -109,7 +113,7 @@ describe("AWS CLI archive wrapper", () => {
       "--bucket",
       "archive-bucket",
       "--key",
-      "komondor/control/source.json",
+      "komondor/_control/source.json",
       "--body",
       bodyPath,
       "--content-type",
@@ -118,6 +122,8 @@ describe("AWS CLI archive wrapper", () => {
       "CRC64NVME",
       "--if-none-match",
       "*",
+      "--storage-class",
+      "STANDARD",
       "--metadata",
       "komondor-project-id=p1,komondor-migration-id=m1",
       "--server-side-encryption",
@@ -161,7 +167,7 @@ describe("AWS CLI archive wrapper", () => {
       await handle.read(prefix, 0, prefix.length, null);
 
       const result = await aws.uploadHandle(handle, {
-        key: "komondor/data/group/project/reads.fastq",
+        key: "komondor/group/project/reads.fastq",
         size: sourceBytes.length,
         metadata: { project: "p1", migration: "m1" },
       });
@@ -181,13 +187,15 @@ describe("AWS CLI archive wrapper", () => {
           "s3",
           "cp",
           "-",
-          "s3://archive-bucket/komondor/data/group/project/reads.fastq",
+          "s3://archive-bucket/komondor/group/project/reads.fastq",
           "--expected-size",
           String(sourceBytes.length),
           "--checksum-algorithm",
           "CRC64NVME",
           "--content-type",
           "application/octet-stream",
+          "--storage-class",
+          "DEEP_ARCHIVE",
           "--metadata",
           "project=p1,migration=m1",
           "--sse",
@@ -212,10 +220,10 @@ describe("AWS CLI archive wrapper", () => {
     jest.spyOn(aws, "hasObjects").mockResolvedValue(false);
 
     await expect(
-      aws.hasObjectsAtOrBelow("komondor/data/group/project"),
+      aws.hasObjectsAtOrBelow("komondor/group/project"),
     ).resolves.toBe(false);
 
-    expect(aws.headObject).toHaveBeenCalledWith("komondor/data/group/project");
-    expect(aws.hasObjects).toHaveBeenCalledWith("komondor/data/group/project/");
+    expect(aws.headObject).toHaveBeenCalledWith("komondor/group/project");
+    expect(aws.hasObjects).toHaveBeenCalledWith("komondor/group/project/");
   });
 });

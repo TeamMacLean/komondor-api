@@ -105,7 +105,7 @@ describe("MD5 Verification", () => {
                 _id: new mongoose.Types.ObjectId(),
                 storage: {
                   state: "aws",
-                  s3Uri: "s3://archive/data/group/project",
+                  s3Uri: "s3://archive/group/project",
                   s3VerifiedAt: now,
                   hpcVerifiedAbsentAt: now,
                   archivedAt: now,

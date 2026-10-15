@@ -448,7 +448,7 @@ describe("Runs API Routes", () => {
               path: "/group/project",
               storage: {
                 state: "aws",
-                s3Uri: "s3://archive/data/group/project",
+                s3Uri: "s3://archive/group/project",
                 s3VerifiedAt: now,
                 hpcVerifiedAbsentAt: now,
                 archivedAt: now,
@@ -465,7 +465,7 @@ describe("Runs API Routes", () => {
       expect(response.body.actualReads).toBeNull();
       expect(response.body.rawFilesStatus.status).toBe("NOT_APPLICABLE");
       expect(response.body.location.rawUri).toBe(
-        "s3://archive/data/group/project/sample/run/raw",
+        "s3://archive/group/project/sample/run/raw",
       );
     });
 
@@ -655,7 +655,7 @@ describe("Runs API Routes", () => {
             path: "/group/project",
             storage: {
               state: "aws",
-              s3Uri: "s3://archive/data/group/project",
+              s3Uri: "s3://archive/group/project",
               s3VerifiedAt: now,
               hpcVerifiedAbsentAt: now,
               archivedAt: now,
@@ -871,7 +871,7 @@ describe("Runs API Routes", () => {
             path: "/group/project",
             storage: {
               state: "aws",
-              s3Uri: "s3://archive/data/group/project",
+              s3Uri: "s3://archive/group/project",
               s3VerifiedAt: now,
               hpcVerifiedAbsentAt: now,
               archivedAt: now,
@@ -2465,7 +2465,7 @@ describe("Runs API Routes", () => {
           _id: DEFAULT_PROJECT_ID,
           storage: {
             state: "aws",
-            s3Uri: "s3://archive/data/group/project",
+            s3Uri: "s3://archive/group/project",
             s3VerifiedAt: now,
             hpcVerifiedAbsentAt: now,
             archivedAt: now,

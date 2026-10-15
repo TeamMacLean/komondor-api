@@ -1287,6 +1287,48 @@ or finish it; do not remove the storage-aware guards underneath it.
 
 ---
 
+## 40. Archive bucket layout is flat, and payload is written to Deep Archive
+
+**Where:** `lib/s3-archive/config.js`, `lib/s3-archive/aws.js`,
+`lib/s3-archive/preflight.js`, `.env.example`, and the archive specification,
+runbook and decision record.
+
+This is deployment configuration, not API surface: no HTTP response shape
+changes and no consumer needs a release. It is recorded because it invalidates
+bucket configuration prepared against the earlier specification.
+
+The archive layout no longer inserts a `data/` level. Research groups sit at
+the archive root, so an HPC path and its S3 key differ only by the configured
+base prefix. Sealed manifests moved from `<base>/control/projects/` to
+`<base>/_control/projects/`. `_control` and `_smoke` are now reserved at the
+group level: a project whose first path segment is either name is refused at
+preflight, and the key builder refuses to construct such a key at all, so
+neither guard depends on the other.
+
+Project bytes are uploaded directly in the class named by the new optional
+`AWS_ARCHIVE_STORAGE_CLASS` (default `DEEP_ARCHIVE`); control objects are
+always written `STANDARD`. **Delete any cold-class transition rule prepared for
+`<base>/data/`** — there is nothing to transition, and a bucket-wide rule would
+pull the manifests into cold storage, where status, resume and deletion
+approval would need a restore first. Keep the seven-day
+`AbortIncompleteMultipartUpload` rule.
+
+The sealed source manifest records `dataStorageClass`, and the verification
+report lists any object that landed outside it. A wrong class is reported, not
+fatal: a complete, checksum-verified copy is still a valid archive, so it does
+not withhold the archive or block HPC deletion.
+
+**Who is affected:** nobody who has not yet created the archive bucket. No
+project has been archived, so no stored `storage.s3Uri` changes meaning.
+
+**Rollback:** safe to revert while no migration has been locked, provided the
+bucket's lifecycle rules are reverted with it. After a project is locked, the
+sealed manifest pins the keys actually used; reverting the layout underneath it
+would make `copy`/`resume` look for objects that were never written. Finish or
+abort the migration first.
+
+---
+
 ## Known issues not addressed here
 
 - **`routes/auth.js` `DEV_USERS` is gated only on `NODE_ENV === "development"`.**

@@ -1022,7 +1022,7 @@ describe("runIngestJob", () => {
         _id: projectId,
         storage: {
           state: "migrating",
-          s3Uri: "s3://archive/data/group/project",
+          s3Uri: "s3://archive/group/project",
         },
       }),
     });
@@ -2068,7 +2068,7 @@ describe("startIngestWorker", () => {
         _id: projectId,
         storage: {
           state: "migrating",
-          s3Uri: "s3://archive/data/group/project",
+          s3Uri: "s3://archive/group/project",
         },
       }),
     });
