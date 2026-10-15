@@ -210,6 +210,11 @@ Add these targeted checks to the existing upload and verification tests:
    or deletion authorization. Resume and prove A is reused, B restarts and the
    final verification passes. Include the case where B's abandoned parts have
    already been removed; there is no need to wait a week.
+   **Done, 15 October 2026:** `__tests__/lib/s3-archive/upload.test.js`
+   ("interrupted copy and resume") covers the uploader, and
+   `__tests__/lib/s3-archive/cli.test.js` ("archive CLI interrupted copy and
+   resume") covers the recorded error, the withheld deletion command and the
+   resumed run that reaches `verified`.
 2. **Real credential renewal:** on the actual HPC, use a separate test permission
    set with a one-hour session and a throttled transfer lasting across renewal.
    Prove the installed CLI refreshes without another login. Do not shorten the

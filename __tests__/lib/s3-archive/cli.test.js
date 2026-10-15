@@ -801,3 +801,394 @@ describe("database migration fence", () => {
     expect(select).toHaveBeenCalledWith("+archiveMigration");
   });
 });
+
+// Decision record §7.1. A copy that dies part-way through a file must record
+// the failure, leave the project short of verification and offer the operator
+// no deletion command; resume must then carry the same sealed migration
+// through to the verified state that does authorise deletion.
+describe("archive CLI interrupted copy and resume", () => {
+  const sourceRoot = "/srv/komondor/datastore/group/project";
+  const dataKeyPrefix = "komondor/group/project";
+  const controlPrefix = `komondor/_control/projects/${PROJECT_ID}/${MIGRATION_ID}`;
+  const sourceKey = `${controlPrefix}/source-manifest.v1.json`;
+  const verificationKey = `${controlPrefix}/verification-report.v1.json`;
+  const copyEntry = (relPath, size) => ({
+    relPath,
+    type: "file",
+    disposition: "copy",
+    s3Key: `${dataKeyPrefix}/${relPath}`,
+    size,
+    sha256: `sha256-of-${relPath}`,
+    crc64nvme: `crc64-of-${relPath}`,
+  });
+  const entryA = copyEntry("a/reads.fastq", 1024);
+  const entryB = copyEntry("b/reads.fastq", 2048);
+  const sourceBytes = serializeManifest({
+    manifestVersion: 1,
+    kind: "source",
+    projectId: PROJECT_ID,
+    migrationId: MIGRATION_ID,
+    sourceRoot,
+    sourceRelativeRoot: "group/project",
+    dataPrefix: "s3://archive-bucket/komondor/group/project",
+    dataKeyPrefix,
+    dataStorageClass: "DEEP_ARCHIVE",
+    entries: [entryA, entryB],
+  });
+  const sourceDigest = sha256Bytes(sourceBytes);
+  const expiredToken = () =>
+    new Error(
+      `AWS upload failed for ${entryB.s3Key} (exit 1): An error occurred (ExpiredToken) when calling the UploadPart operation: The provided token has expired.`,
+    );
+
+  let controls;
+  let currentProject;
+  let Project;
+  let aws;
+
+  const projectAt = (phase, migration = {}) => ({
+    _id: PROJECT_ID,
+    name: "Project One",
+    path: "group/project",
+    storage: {
+      state: "migrating",
+      s3Uri: "s3://archive-bucket/komondor/group/project",
+    },
+    archiveMigration: {
+      id: MIGRATION_ID,
+      phase,
+      movedBy: "alice",
+      sourceRoot,
+      sourceRelativeRoot: "group/project",
+      resumeCount: 0,
+      restartedFrom: [],
+      manifests: {
+        sourceSha256: sourceDigest,
+        sourceS3Uri: `s3://archive-bucket/${sourceKey}`,
+        fileCount: 2,
+        totalBytes: entryA.size + entryB.size,
+      },
+      ...migration,
+    },
+  });
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+    preflight.validateAws.mockResolvedValue({
+      osUser: "hpc-operator",
+      arn: "arn:aws:iam::123456789012:user/archive",
+      accountId: "123456789012",
+    });
+    preflight.validateProjectRoot.mockResolvedValue({
+      sourceRoot,
+      sourceRelativeRoot: "group/project",
+      exists: true,
+    });
+    preflight.collectProjectDatabase.mockResolvedValue(emptyDatabase());
+    preflight.collectHardBlockers.mockReturnValue([]);
+    preflight.requireKomondorUser.mockResolvedValue({ username: "alice" });
+    inventory.compareTreeToManifest.mockResolvedValue({
+      matches: true,
+      differences: [],
+      snapshot: { dirCount: 3, entryCount: 2 },
+    });
+    state.ensureValidState.mockImplementation((project) =>
+      resolveStorageState(project),
+    );
+    state.loadProject.mockImplementation(async () => currentProject);
+    state.transitionPhase.mockImplementation(async (_Project, transition) => {
+      expect(currentProject.archiveMigration.phase).toBe(
+        transition.expectedPhase,
+      );
+      currentProject = applyMongoUpdate(currentProject, {
+        $set: transition.set,
+        $unset: transition.unset,
+      });
+      return currentProject;
+    });
+    state.fencedUpdate.mockImplementation(async (_Project, _filter, update) => {
+      currentProject = applyMongoUpdate(currentProject, update);
+      return currentProject;
+    });
+    state.recordMigrationError.mockImplementation(
+      async (_Project, { phase, error }) => {
+        currentProject = applyMongoUpdate(currentProject, {
+          $set: {
+            "archiveMigration.lastError": { phase, message: error.message },
+            "archiveMigration.failedAt": new Date(NOW),
+          },
+        });
+      },
+    );
+
+    controls = new Map([[sourceKey, sourceBytes]]);
+    Project = { updateOne: jest.fn().mockResolvedValue({}) };
+    aws = {
+      ...makeAws(),
+      headObject: jest.fn(async (key) => {
+        const bytes = controls.get(key);
+        return bytes
+          ? {
+              ContentLength: bytes.length,
+              ChecksumCRC64NVME: crc64Nvme(bytes),
+              ChecksumType: "FULL_OBJECT",
+            }
+          : null;
+      }),
+      getObjectBuffer: jest.fn(async (key) => {
+        if (!controls.has(key)) throw new Error(`No such object: ${key}`);
+        return Buffer.from(controls.get(key));
+      }),
+      putControlObject: jest.fn(async (key, bytes) => {
+        controls.set(key, Buffer.from(bytes));
+        return {};
+      }),
+    };
+  });
+
+  const dependencies = () =>
+    makeDependencies({ aws, models: { Project, User: {} } });
+
+  test("a copy that dies mid-file records the error and authorises no deletion", async () => {
+    currentProject = projectAt("source_sealed");
+    upload.copyManifestEntries.mockRejectedValue(expiredToken());
+
+    const copying = dependencies();
+    expect(
+      await runCli(
+        [
+          "copy",
+          "--project-id",
+          PROJECT_ID,
+          "--moved-by",
+          "alice",
+          "--execute",
+        ],
+        copying,
+      ),
+    ).toBe(3);
+    expect(copying.stderr).toHaveBeenCalledWith(
+      expect.stringMatching(/ExpiredToken/),
+    );
+
+    expect(state.recordMigrationError).toHaveBeenCalledTimes(1);
+    expect(state.recordMigrationError).toHaveBeenCalledWith(
+      Project,
+      expect.objectContaining({
+        projectId: PROJECT_ID,
+        migrationId: MIGRATION_ID,
+        phase: "copying",
+      }),
+    );
+    // Nothing verified the copy, so no verification report was sealed and the
+    // project never left the migrating state.
+    expect(upload.verifyManifestObjects).not.toHaveBeenCalled();
+    expect([...controls.keys()]).toEqual([sourceKey]);
+    expect(state.fencedUpdate).not.toHaveBeenCalled();
+    expect(resolveStorageState(currentProject).state).toBe("migrating");
+    expect(currentProject.archiveMigration).toMatchObject({
+      phase: "copying",
+      lastError: { phase: "copying" },
+    });
+    expect(currentProject.storage.s3VerifiedAt).toBeUndefined();
+
+    // A plain re-run must not quietly copy again around the recorded error.
+    const rerun = dependencies();
+    expect(
+      await runCli(
+        [
+          "copy",
+          "--project-id",
+          PROJECT_ID,
+          "--moved-by",
+          "alice",
+          "--execute",
+        ],
+        rerun,
+      ),
+    ).toBe(1);
+    expect(rerun.stderr).toHaveBeenCalledWith(
+      expect.stringMatching(/recorded error; use resume/),
+    );
+    expect(upload.copyManifestEntries).toHaveBeenCalledTimes(1);
+
+    // And the operator cannot obtain a deletion command for the HPC copy.
+    const deletion = dependencies();
+    expect(
+      await runCli(["deletion-command", "--project-id", PROJECT_ID], deletion),
+    ).toBe(1);
+    expect(deletion.stderr).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /not valid for storage state migrating; expected aws_pending_hpc_deletion/,
+      ),
+    );
+    expect(deletion.stdout).not.toHaveBeenCalled();
+  });
+
+  test("resume clears the error, keeps the sealed manifest and reaches verified", async () => {
+    currentProject = projectAt("copying", {
+      lastError: { phase: "copying", message: "ExpiredToken" },
+      failedAt: new Date(NOW - 60_000),
+    });
+    upload.copyManifestEntries.mockResolvedValue([
+      { relPath: entryA.relPath, action: "verified-existing" },
+      { relPath: entryB.relPath, action: "uploaded" },
+    ]);
+    upload.verifyManifestObjects.mockResolvedValue({
+      verified: true,
+      entries: [entryA, entryB].map((entry) => ({
+        relPath: entry.relPath,
+        s3Key: entry.s3Key,
+        verified: true,
+        contentLength: entry.size,
+      })),
+      keySet: { matches: true, missingKeys: [], extraKeys: [] },
+      storageClass: {
+        expected: "DEEP_ARCHIVE",
+        matches: true,
+        unexpected: [],
+      },
+    });
+
+    const resuming = dependencies();
+    expect(
+      await runCli(
+        [
+          "resume",
+          "--project-id",
+          PROJECT_ID,
+          "--migration-id",
+          MIGRATION_ID,
+          "--resumed-by",
+          "alice",
+          "--execute",
+        ],
+        resuming,
+      ),
+    ).toBe(0);
+    expect(resuming.stderr).not.toHaveBeenCalled();
+
+    // The resume fence clears the recorded failure against the sealed digest.
+    expect(state.fencedUpdate.mock.calls[0][1]).toEqual({
+      _id: PROJECT_ID,
+      "storage.state": "migrating",
+      "archiveMigration.id": MIGRATION_ID,
+      "archiveMigration.phase": "copying",
+      "archiveMigration.manifests.sourceSha256": sourceDigest,
+    });
+    expect(state.fencedUpdate.mock.calls[0][2]).toMatchObject({
+      $inc: { "archiveMigration.resumeCount": 1 },
+      $unset: {
+        "archiveMigration.lastError": "",
+        "archiveMigration.failedAt": "",
+      },
+    });
+
+    // The copy continues from the manifest sealed before the failure.
+    expect(inventory.createInventory).not.toHaveBeenCalled();
+    expect(aws.putControlObject).not.toHaveBeenCalledWith(
+      sourceKey,
+      expect.anything(),
+      expect.anything(),
+    );
+    expect(upload.copyManifestEntries).toHaveBeenCalledWith(
+      aws,
+      sourceRoot,
+      expect.objectContaining({ dataKeyPrefix, entries: [entryA, entryB] }),
+      expect.objectContaining({ onProgress: expect.any(Function) }),
+    );
+
+    const report = JSON.parse(controls.get(verificationKey).toString("utf8"));
+    expect(report).toMatchObject({
+      kind: "verification",
+      verified: true,
+      projectId: PROJECT_ID,
+      migrationId: MIGRATION_ID,
+      sourceManifestSha256: sourceDigest,
+    });
+    expect(report.entries.map((entry) => entry.relPath)).toEqual([
+      entryA.relPath,
+      entryB.relPath,
+    ]);
+    expect(currentProject.archiveMigration.lastError).toBeUndefined();
+    expect(currentProject.archiveMigration.failedAt).toBeUndefined();
+    expect(resolveStorageState(currentProject).state).toBe(
+      "aws_pending_hpc_deletion",
+    );
+    expect(currentProject.archiveMigration.phase).toBe("verified");
+    expect(JSON.parse(resuming.stdout.mock.calls.at(-1)[0])).toMatchObject({
+      command: "copy",
+      state: "aws_pending_hpc_deletion",
+      phase: "verified",
+    });
+
+    // Only now does the archive authorise removing the HPC copy.
+    const deletion = dependencies();
+    expect(
+      await runCli(["deletion-command", "--project-id", PROJECT_ID], deletion),
+    ).toBe(0);
+    expect(deletion.stdout).toHaveBeenCalledWith(`rm -rf -- '${sourceRoot}'\n`);
+  });
+
+  test("a payload object in the wrong storage class still authorises deletion", async () => {
+    // Commit 1381508: a complete, checksum-verified copy in the wrong class is
+    // a cost and policy problem, so it is reported in the verification report
+    // and must not withhold the archive or block HPC deletion.
+    currentProject = projectAt("copied");
+    upload.verifyManifestObjects.mockResolvedValue({
+      verified: true,
+      entries: [entryA, entryB].map((entry) => ({
+        relPath: entry.relPath,
+        s3Key: entry.s3Key,
+        verified: true,
+        storageClass:
+          entry.relPath === entryB.relPath ? "STANDARD" : "DEEP_ARCHIVE",
+      })),
+      keySet: { matches: true, missingKeys: [], extraKeys: [] },
+      storageClass: {
+        expected: "DEEP_ARCHIVE",
+        matches: false,
+        unexpected: [
+          {
+            relPath: entryB.relPath,
+            s3Key: entryB.s3Key,
+            storageClass: "STANDARD",
+          },
+        ],
+      },
+    });
+
+    const verifying = dependencies();
+    expect(
+      await runCli(
+        [
+          "copy",
+          "--project-id",
+          PROJECT_ID,
+          "--moved-by",
+          "alice",
+          "--execute",
+        ],
+        verifying,
+      ),
+    ).toBe(0);
+    expect(verifying.stderr).not.toHaveBeenCalled();
+
+    const report = JSON.parse(controls.get(verificationKey).toString("utf8"));
+    expect(report.verified).toBe(true);
+    expect(report.storageClass).toMatchObject({
+      expected: "DEEP_ARCHIVE",
+      matches: false,
+      unexpected: [{ relPath: entryB.relPath, storageClass: "STANDARD" }],
+    });
+    expect(resolveStorageState(currentProject).state).toBe(
+      "aws_pending_hpc_deletion",
+    );
+
+    const deletion = dependencies();
+    expect(
+      await runCli(["deletion-command", "--project-id", PROJECT_ID], deletion),
+    ).toBe(0);
+    expect(deletion.stdout).toHaveBeenCalledWith(`rm -rf -- '${sourceRoot}'\n`);
+  });
+});
