@@ -11,6 +11,12 @@ module.exports = {
   setupFiles: ["<rootDir>/__tests__/setup/httpAgent.js"],
   coveragePathIgnorePatterns: [
     "/node_modules/",
+    // The nested-checkout exclusion, repeated here for the same reason it is
+    // repeated in testPathIgnorePatterns below: `collectCoverageFrom` already
+    // drops these files, but a CLI --collectCoverageFrom would replace that
+    // glob array wholesale, and a worktree's files must never reach the
+    // ratchet's denominator. <rootDir>-anchored: see the note below.
+    "<rootDir>/.claude/",
     "/datastore/",
     "/files/",
     "/docs/",
@@ -36,6 +42,24 @@ module.exports = {
   // own invocation instead of relying on a narrower positive match).
   testPathIgnorePatterns: [
     "/node_modules/",
+    // Git worktrees live at <rootDir>/.claude/worktrees/<branch>/ — inside the
+    // repository — so the crawler would otherwise collect another branch's
+    // suites as this checkout's own: 69 suites here, 139 with one worktree
+    // present, and a haste-map name collision on the duplicate package.json.
+    //
+    // `modulePathIgnorePatterns` above is what keeps them out today (it drops
+    // them before discovery ever sees them), but that is a module-visibility
+    // setting doing test-discovery work by side effect. Stated here as well
+    // because this is the array a CLI --testPathIgnorePatterns replaces, and
+    // the CI/nightly integration jobs do exactly that — so the exclusion is
+    // named in both of those invocations too, or moving it here one day would
+    // silently hand the worktrees back to them.
+    //
+    // Anchored to <rootDir> deliberately. These patterns match against
+    // ABSOLUTE paths, and a worktree checkout is itself under a `.claude/`
+    // directory, so a bare "/.claude/" matches every test file in one and
+    // finds zero tests (measured: 0 of 69).
+    "<rootDir>/.claude/",
     "/__tests__/setup/",
     "/__tests__/integration/",
     "/datastore/",

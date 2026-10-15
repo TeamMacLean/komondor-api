@@ -228,6 +228,12 @@ jobs:
       # Same two modes as ci.yml: warn loudly while the directory is absent,
       # and become a real gate — no --passWithNoTests — the moment it exists,
       # so a directory that matches no test files fails instead of passing.
+      #
+      # And the same reason for naming <rootDir>/.claude/ in the override: a
+      # CLI --testPathIgnorePatterns replaces jest.config.js's array rather
+      # than merging with it, so listing only /node_modules/ would drop the
+      # config's exclusion of nested git worktrees. See ci.yml for why it is
+      # <rootDir>-anchored and never a bare "/.claude/".
       - name: Run integration tests
         run: |
           set -eu
@@ -237,4 +243,4 @@ jobs:
             exit 0
           fi
 
-          yarn test --testPathIgnorePatterns "/node_modules/" --testPathPattern "__tests__/integration/" --runInBand
+          yarn test --testPathIgnorePatterns "/node_modules/" "<rootDir>/.claude/" --testPathPattern "__tests__/integration/" --runInBand

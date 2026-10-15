@@ -21,3 +21,9 @@ GEORGE_CHECK_USERS_LDAP_GROUPS.txt
 
 # Written by the CI audit step; running that step locally leaves it behind.
 audit.json
+
+# Git worktrees created inside the repo by agent tooling: a whole second
+# checkout, which `git add -A` would otherwise commit. Deliberately narrow —
+# the rest of .claude/ (settings, launch config) is shareable project config,
+# and a blanket `.claude/` would silently need `git add -f` to commit it.
+.claude/worktrees/

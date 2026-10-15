@@ -489,6 +489,15 @@ jobs:
       # options replace the config value, they do not merge with it) —
       # without this, the default run's exclusion of __tests__/integration/
       # would apply here too and this step would match nothing.
+      #
+      # That same replacement is why <rootDir>/.claude/ has to be named again
+      # here: it is the config's exclusion of nested git worktrees, and an
+      # override that lists only /node_modules/ drops it. Harmless on a CI
+      # runner, which has no worktrees, and the point is that it stays correct
+      # if the config's modulePathIgnorePatterns ever stops being the thing
+      # holding that line. Anchored to <rootDir>, never bare "/.claude/":
+      # these patterns match absolute paths, and a bare one matches every test
+      # file in a checkout that itself sits under .claude/worktrees/.
       - name: Run integration tests
         run: |
           set -eu
@@ -499,6 +508,6 @@ jobs:
           fi
 
           yarn test \
-            --testPathIgnorePatterns "/node_modules/" \
+            --testPathIgnorePatterns "/node_modules/" "<rootDir>/.claude/" \
             --testPathPattern "__tests__/integration/" \
             --runInBand
