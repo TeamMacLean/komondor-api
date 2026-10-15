@@ -1,334 +1,322 @@
-# S3 project archival runbook
+# S3 archive operator runbook
 
-This is the operator checklist for the implementation described in
-`S3_PROJECT_ARCHIVAL_SPEC.md`. The mover copies only from `DATASTORE_ROOT`.
-It never reads `HPC_TRANSFER_DIRECTORY` and never deletes HPC data.
+**Start here every six months.** Projects are selected and archived manually;
+there is no scheduled job and no automatic HPC deletion.
 
-## Bucket layout
+- First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
+- Routine batch: [semi-annual procedure](#semi-annual-procedure).
+- Each selected project: [archive one project](#archive-one-project).
+- Interrupted or failed work: [recovery](#recovery).
+- Retrieve data: [restore a real archived file](#restore-a-real-archived-file).
+- Design and limits: [architecture decisions](S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md).
 
-Research groups sit at the archive root, so an HPC path and its S3 key differ
-only by the configured prefix:
+Run commands from the deployed `komondor-api` checkout on the host with the
+canonical datastore mount. The tool archives `DATASTORE_ROOT`, never
+`HPC_TRANSFER_DIRECTORY`. Payload mirrors `GROUP/PROJECT/...` beneath the
+configured S3 root; manifests live in `_control/projects/ID/MIGRATION/` and
+stay in Standard. Payload defaults to Deep Archive.
 
-```text
-s3://<archive-bucket>/<optional-base-prefix>/
-├── <group>/<project>/<sample>/<run>/...   # payload, in Deep Archive
-├── _control/projects/<project>/<migration>/   # manifests, in Standard
-└── _smoke/                                # disposable test data
+## Semi-annual procedure
+
+The administrator schedules two manual reviews per year, roughly six months
+apart. Record the next due date in the team's operational calendar; this
+runbook does not create an automation.
+
+1. **Open a batch record outside the datastore.** Record date, operator/reviewer,
+   deployed commits, AWS CLI version, account/role/bucket/base prefix, last
+   successful restore rehearsal and the approved selection/deletion policy.
+   Use the evidence template below. Confirm a current Mongo backup exists.
+2. **Review unfinished migrations first.** In an authenticated Mongo shell for
+   the intended database, list `migrating` and `aws_pending_hpc_deletion`
+   projects. Run `status` on each and resolve or explicitly carry it forward.
+   Never start a second attempt just because the last batch was months ago.
+3. **Select candidates with project owners.** Use age as a shortlist, then
+   confirm the project is finished, no incoming sequencing/ingest/MD5 work is
+   pending, no external jobs write its tree, and it is not under an operational
+   hold. Select by ID. This tool does not infer a safe age cutoff.
+4. **Renew access and recheck infrastructure.** Log in to the named mover
+   profile, verify account/role, versioning, lifecycle, encryption-key access
+   and the datastore mount. Every CLI invocation enforces the AWS checks; an
+   infrastructure failure is a stop, never permission to bypass preflight.
+   Confirm API/web/Power/Nudge releases still honour archived states. Repeat
+   the deployment rehearsal after relevant changes or when the last evidence
+   is no longer adequate; perform a representative restore check each batch.
+5. **Plan the batch.** Run `plan` for every selected ID and retain the output.
+   Review file counts, total bytes, largest file and anomalies. Estimate time
+   using measured host throughput, allowing for inventory hashing and HEAD
+   checks; a large file may restart from zero. There is no arbitrary TB cap.
+   Record owner approval and decisions about unexpected, missing or unreadable
+   data before execution. Start with one project; process projects sequentially.
+6. **Archive each project** using the next section. Keep its source frozen
+   from lock until deletion or an allowed abort. Other projects can keep using
+   the API after the short lock window. Save logs, IDs, digests and receipts.
+7. **Review pending archives separately.** Observe the recorded review interval,
+   inspect the evidence and obtain the designated deletion approval. Only then
+   obtain a fresh deletion command, review it and execute it manually. Record
+   `confirm-absent` afterwards. Leaving a project pending is valid.
+8. **Close the batch.** Reconcile selected IDs against outcomes: `aws`, pending
+   review, failed/resumable, or deferred with a reason. Account for any
+   exclusions, leftover multipart uploads, retained object versions and costs.
+   Check the archived projects in the UI. Save the batch record and next review
+   date; ensure a named person owns every unfinished migration.
+
+Useful read-only Mongo queries (the legacy missing state means HPC):
+
+```javascript
+db.projects.find(
+  { "storage.state": { $in: ["migrating", "aws_pending_hpc_deletion"] } },
+  { name: 1, path: 1, storage: 1, archiveMigration: 1 }
+)
+db.projects.find(
+  { $or: [{ "storage.state": "hpc" }, { "storage.state": { $exists: false } }] },
+  { name: 1, path: 1, createdAt: 1 }
+)
 ```
 
-`_control` and `_smoke` are reserved at the group level. The mover refuses a
-project whose first path segment is either name rather than writing payload
-into its own prefixes. Before the first archive, confirm no existing group
-would collide:
-
-```bash
-mongosh "$DB_CONNECTION_STRING" --quiet --eval \
-  'db.projects.find({path: /^_(control|smoke)\//}, {path: 1}).toArray()'
-```
-
-An empty result is what you want. If it returns anything, rename that group
-before archiving; the mover will refuse it until you do.
-
-## One-time deployment setup
-
-Configure these on the production host:
-
-```text
-AWS_ARCHIVE_S3_ROOT=s3://BUCKET/OPTIONAL_BASE_PREFIX
-AWS_ARCHIVE_EXPECTED_ACCOUNT_ID=123456789012
-# Defaults to DEEP_ARCHIVE; set it only to deviate deliberately:
-AWS_ARCHIVE_STORAGE_CLASS=DEEP_ARCHIVE
-# Optional for SSE-KMS:
-AWS_ARCHIVE_SSE=aws:kms
-AWS_ARCHIVE_SSE_KMS_KEY_ID=...
-```
-
-Project bytes are written **directly** into Glacier Deep Archive. There is no
-Standard grace period and **no lifecycle transition rule for payload**: do not
-add one. Control manifests are always written to Standard, because status,
-resume, deletion approval and audit must never need a restore. If you ever add
-a cold-storage transition to this bucket, scope it so it cannot reach
-`<base>/_control/`.
-
-On the bucket, enable versioning with no expiry for current or noncurrent
-versions, enforce HTTPS-only transport by policy, and expire incomplete
-multipart uploads after seven days. Object Lock stays off for now. Versioning
-retains a copy on overwrite and nothing expires it, so avoid needless
-re-uploads.
-
-The mover role must be able to list and upload below the configured prefix and
-to abort multipart uploads. Do not grant it deletion of objects or versions;
-reviewed cleanup uses a separate delete-capable role.
-
-Authenticate with IAM Identity Center SSO using the restricted mover profile,
-never an administrator profile and never long-lived access keys. On a
-browserless HPC:
-
-```bash
-aws sso login --profile komondor-archive-mover --use-device-code
-```
-
-A valid SSO login lets the CLI refresh role credentials during a transfer that
-outlives the 12-hour role session, so a multi-day copy does not need a second
-login. Use a current AWS CLI v2 with `sso-session` configuration; the legacy
-non-refreshable setup and manually exported temporary keys will strand a long
-copy.
-
-Before the first real project, run the disposable-prefix smoke test in section
-16.4 of the specification **and complete the restore rehearsal**: upload
-representative files to Deep Archive, request a restore, download them and
-compare checksums against the originals. An upload-only test is not sufficient
-evidence before deleting the only HPC copy of real data. Deploy the
-storage-aware API, web app, Power and Nudge releases together before locking a
-production project.
-
-## First deployment: a phased bring-up
-
-The sections below describe routine operation. This is the one-time sequence
-that gets you there. The order is deliberate: the cheap, reversible checks come
-before the expensive, irreversible ones, and the first `lock` is not a real
-project.
-
-There is intentionally no local or staging AWS setup. The mover reads
-`DATASTORE_ROOT`, authenticates by SSO device-code login on a browserless host,
-and its interesting failures involve real tree sizes and transfers that run for
-hours. None of that reproduces off the production host, so a local rig would
-exercise fixtures rather than the parts that break. What makes working here
-acceptable is a property of the tool rather than a rule to remember: it never
-deletes HPC data, and before a manifest is sealed `abort-before-copy` returns a
-project to `hpc`.
-
-### Phase 0 — configure, run nothing
-
-Check the CLI first:
-
-```bash
-aws --version
-```
-
-The minimum is a v2 release exposing `--checksum-algorithm CRC64NVME`,
-`head-object --checksum-mode`, `put-object --if-none-match`, and
-`--storage-class` on both `s3 cp` and `put-object`. An HPC login node can carry
-a far older v2 than a laptop. If it is too old, stop here; nothing later
-matters.
-
-You do not have to check those by hand. Every command runs the AWS preflight
-first, and it refuses a CLI missing any of them, naming the flag — so the
-cheapest way to find out is to run the `plan` of Phase 1 and read the error.
-The refusal happens before anything is locked or uploaded.
-
-Then apply the bucket, environment and SSO settings from the section above and
-log in with `aws sso login`.
-
-### Phase 1 — `plan` real projects, read-only
-
-`plan` writes nothing: no S3 object, no database change, no API downtime. It has
-no `--execute` mode at all — every invocation is read-only, and the flag is
-ignored if passed. It does still run the full AWS preflight, so it
-proves the SSO credentials, the account fence, bucket access and the prefix
-probe, and it walks the real tree and overlays the database against it.
-
-```bash
-npm run archive:s3 -- plan --project-id PROJECT_ID
-```
-
-Run it on several of the oldest candidates before doing anything else. It is
-free and it de-risks every later phase. Keep the reported file counts: Deep
-Archive adds roughly 40 KB of metadata overhead per object, so a project made of
-many small files costs more than its byte total suggests, and the file count is
-how you price that before committing.
-
-### Phase 2 — smoke test under `_smoke/`
-
-Section 16.4 of the specification lists the checks. Note that no command
-implements them: they are a manual checklist run with `aws` directly, against a
-disposable prefix below `_smoke/` and never against a project path.
-
-Cost note: Deep Archive bills a 180-day minimum per object, and deleting sooner
-still costs the remainder pro rata. Do not iterate the repeatable mechanics —
-multipart threshold, the `412` from `--if-none-match`, the abort after a killed
-upload — in the cold class. Pass `--storage-class STANDARD` by hand while
-working through those:
-
-```bash
-aws s3 cp FILE 's3://BUCKET/_smoke/TIMESTAMP/FILE' --storage-class STANDARD \
-  --checksum-algorithm CRC64NVME
-```
-
-Then upload one or two **small** objects in the cold class and inspect them:
-
-```bash
-aws s3 cp SMALL_FILE 's3://BUCKET/_smoke/TIMESTAMP/cold' \
-  --storage-class DEEP_ARCHIVE --checksum-algorithm CRC64NVME
-aws s3api head-object --bucket BUCKET --key '_smoke/TIMESTAMP/cold' \
-  --checksum-mode ENABLED
-```
-
-This settles the one unverified assumption in the design. Verification requires
-`ChecksumCRC64NVME` and `ChecksumType: FULL_OBJECT` from a HEAD, and payload now
-lands cold immediately instead of transitioning later, so a HEAD against a cold
-object is on the critical path from the very first migration. If those fields do
-not come back, every object fails verification and no migration can complete.
-Two small objects settle it for pennies.
-
-### Phase 3 — restore rehearsal
-
-The gate in section 7.3 of the decision record, required before deleting the
-only HPC copy of anything. Restore the Deep Archive smoke objects, download
-them, and compare their checksums with the originals. Standard retrieval takes
-around 12 hours and bulk up to 48, so start it as soon as Phase 2 has uploaded:
-it is waiting time rather than work, and it is otherwise what delays the first
-migration.
-
-### Phase 4 — full lifecycle on a disposable project
-
-This replaces the development environment that deliberately does not exist.
-Create a real Project record in the production database pointing at a small
-throwaway tree below `DATASTORE_ROOT`, then take it through the entire
-lifecycle: `lock`, `copy`, `deletion-command`, the manual removal, and
-`confirm-absent`.
-
-It is the only way to exercise the database state machine, the terminal 409
-`PROJECT_STORAGE_READ_ONLY` refusals, and how the website, Power and Nudge
-render a project that is `migrating` or `aws_pending_hpc_deletion`. Two
-constraints: `lock` requires the API stopped, so this costs a few minutes of
-downtime; and the storage-aware API, web, Power and Nudge releases must already
-be deployed, or the site will misreport the project.
-
-Run this phase in Standard, so that a rehearsal of throwaway data does not
-commit every object to a 180-day minimum:
-
-```bash
-AWS_ARCHIVE_STORAGE_CLASS=STANDARD npm run archive:s3 -- copy \
-  --project-id PROJECT_ID --moved-by USERNAME --execute
-```
-
-Keep the setting consistent across the whole attempt. The class is recorded in
-the source manifest when `copy --execute` seals it, and the verification report
-compares what S3 holds against that record, so a later `resume` run without the
-override would report a class mismatch against its own manifest. Phase 5 then
-runs with the default `DEEP_ARCHIVE`.
-
-Because this phase proves the lifecycle rather than the storage class, and
-Phase 2 already settled the cold-object HEAD question, nothing is lost.
-
-### Phase 5 — the first real project
-
-Choose the smallest real candidate. Take it to `aws_pending_hpc_deletion` and
-then stop. That is a stable resting state and a project can sit in it
-indefinitely, so there is no pressure to delete on the same day. Decide the
-grace period and who may run the deletion before you arrive there rather than in
-the moment (specification section 21.7). Verify the archive independently, then
-delete.
+A missing/old `createdAt` is not approval. Review the project with its owner.
 
 ## Archive one project
 
-Always select a project by MongoDB ObjectId. Start with a read-only plan:
+### 1. Set identity and inspect the plan
+
+Use the exports and profile configured during deployment. The `.env` belongs to
+this exact checkout/database; raw `aws` calls require explicit profile arguments.
+In the operator shell, set real values:
 
 ```bash
-npm run archive:s3 -- plan --project-id PROJECT_ID
+export ARCHIVE_PROJECT_ID='REPLACE_WITH_24_HEX_ID'
+export ARCHIVE_OPERATOR='REPLACE_WITH_EXISTING_KOMONDOR_USERNAME'
+export ARCHIVE_RECORD='/REPLACE/WITH/DURABLE/BATCH/PROJECT_RECORD'
+mkdir -p "$ARCHIVE_RECORD"
+chmod 700 "$ARCHIVE_RECORD"
+aws sso login --profile "$AWS_ARCHIVE_PROFILE" --use-device-code
+aws sts get-caller-identity --profile "$AWS_ARCHIVE_PROFILE"
+node scripts/move-project-to-s3.js plan --project-id "$ARCHIVE_PROJECT_ID" > "$ARCHIVE_RECORD/plan.json"
 ```
 
-Review every anomaly. Historical database/filesystem differences are reported
-but do not silently omit files: the filesystem inventory is the source of
-truth. Symlinks and special files are recorded and skipped; hard-linked files
-are copied once under each path. `plan` is a fast structural walk; the full
-SHA-256/CRC checksum pass is deliberately done once, by `copy --execute`, when
-the source manifest is sealed.
+Read the output and exit status. Confirm the exact source and S3 destination,
+counts, largest file and all anomalies. `plan` inventories structure without
+hashing file contents. Do not proceed because a JSON file exists: exit 1 may
+mean serious anomalies need review; exit 2 means configuration/preflight failed.
+Keep each attempt's evidence in a distinct record directory.
 
-For the short locking window, stop the API and wait for its clean shutdown:
+### 2. Quiesce and lock
+
+Stop all API instances and their workers using the recorded deployment service
+commands. Drain outstanding requests, ingest and MD5 work. Stop or freeze other
+writers to this project's tree (scheduled pipelines, users, manual copies).
+A failed readiness probe alone is not proof of quiescence: verify processes and
+queues as well. `KOMONDOR_READY_URL` must name the real local API, not an unused
+port. The CLI refuses lock if it receives any HTTP response.
+
+Preview the lock, then execute it:
 
 ```bash
-pm2 stop komondor-api
-npm run archive:s3 -- lock --project-id PROJECT_ID --moved-by USERNAME --execute
+node scripts/move-project-to-s3.js lock --project-id "$ARCHIVE_PROJECT_ID" --moved-by "$ARCHIVE_OPERATOR"
+node scripts/move-project-to-s3.js lock --project-id "$ARCHIVE_PROJECT_ID" --moved-by "$ARCHIVE_OPERATOR" --execute > "$ARCHIVE_RECORD/lock.json"
 ```
 
-If the plan showed serious known historical anomalies, add
-`--acknowledge-known-anomalies` to `lock`. Once lock succeeds, start only the
-guard-aware API release and confirm `/ready` is healthy:
+Pass: state `migrating`, phase `locked`, a new migration ID, expected source and
+destination. Record that ID as `ARCHIVE_MIGRATION_ID`:
 
 ```bash
-pm2 start komondor-api
+export ARCHIVE_MIGRATION_ID='REPLACE_WITH_ID_FROM_LOCK'
 ```
 
-Preview the copy, then run it. An unreadable regular file can be omitted only
-with an explicit path and reason; readable files cannot be excluded.
+For reviewed serious anomalies, append `--acknowledge-known-anomalies` to both
+commands and keep the written decision. Do not use it to bypass an unfinished
+job; hard blockers are not overrideable. If lock fails, inspect `status` before
+retrying. Restart the compatible API and verify readiness after a successful
+lock; this project must now reject writes. Keep external writers frozen.
+
+### 3. Seal, copy and verify
+
+Use a persistent terminal session for a long copy. It may run across renewed
+SSO role credentials; an expired login needs the recovery procedure.
 
 ```bash
-npm run archive:s3 -- copy --project-id PROJECT_ID --moved-by USERNAME
-npm run archive:s3 -- copy --project-id PROJECT_ID --moved-by USERNAME --execute
+node scripts/move-project-to-s3.js copy --project-id "$ARCHIVE_PROJECT_ID" --moved-by "$ARCHIVE_OPERATOR"
+node scripts/move-project-to-s3.js copy --project-id "$ARCHIVE_PROJECT_ID" --moved-by "$ARCHIVE_OPERATOR" --execute > "$ARCHIVE_RECORD/copy.log" 2> "$ARCHIVE_RECORD/copy.stderr"
+node scripts/move-project-to-s3.js status --project-id "$ARCHIVE_PROJECT_ID" --json > "$ARCHIVE_RECORD/status.json"
 ```
 
-For an approved unreadable entry, repeat paired options as needed:
+Read **both logs and exit status** before continuing. Add
+`--acknowledge-known-anomalies` to copy only after reviewing the actual inventory.
+The executing copy hashes all regular files, seals its manifest, streams files
+through the AWS CLI, verifies each object's full CRC64NVME/size/ownership and
+approved storage class, checks the exact key set, and compares the local tree
+again. It records a successful verification report before moving to
+`aws_pending_hpc_deletion` / `verified`.
+
+Existing complete files are reusable only when they match the sealed manifest.
+Resume uploads use the manifest's recorded storage class, even if the shell
+setting changed. A mismatch between approved multi-AZ classes is a visible
+warning to investigate; ONEZONE_IA, REDUCED_REDUNDANCY and unknown classes fail.
+Control manifests stay in Standard. Do not run raw `s3 sync` over this destination.
+
+If an unreadable regular file cannot be recovered, the named data owner must
+explicitly approve losing it before exclusion. For each exact relative path,
+pass a paired `--exclude-entry 'relative/path' --exclude-reason 'specific reason'`
+to copy. The tool only allows exclusions for its supported unreadable-file
+errors, records them in the manifest and warns at deletion. Excluded bytes are
+**not archived**; deletion removes any remaining local copy. Skipped symlinks
+and special files are also not recreated as S3 payload. Review their implications.
+
+Copy exit 3 means a mutation/copy failed; preserve the source and use recovery.
+A completed upload alone, a log saying "copied", or old evidence is insufficient
+for deletion. Required state is pending deletion with a passing sealed report.
+
+### 4. Review and delete manually
+
+Wait the agreed review interval. Save the source manifest and verification
+report using their **exact URIs from status**, with the mover profile. Compare
+their SHA-256 values with the digests recorded in status (Linux `sha256sum`, or
+macOS `shasum -a 256`). Store them outside the source root. Review exclusions,
+class warnings and the batch's restore evidence; for the first real pilot,
+verify a representative file's restored bytes before approval.
+
+Immediately before deletion, with the source still frozen:
 
 ```bash
-npm run archive:s3 -- copy --project-id PROJECT_ID --moved-by USERNAME \
-  --exclude-entry 'relative/path' --exclude-reason 'documented reason' --execute
+node scripts/move-project-to-s3.js deletion-command --project-id "$ARCHIVE_PROJECT_ID" > "$ARCHIVE_RECORD/deletion-command.txt" 2> "$ARCHIVE_RECORD/deletion.stderr"
 ```
 
-Inspect progress at any time:
+Require exit 0 and review stderr. This command rechecks AWS retention/identity,
+the sealed manifests, current object HEADs/key set and local tree. Read its
+comments and compare the quoted absolute path with the approved project root.
+Run the **single printed `rm -rf -- '…'` command manually**, only after the
+recorded approval. Never pipe the output to a shell, execute the output file as
+a script, or reuse a command generated days earlier. If source or destination
+access changes, preserve the data and recheck.
+
+The tool never removes HPC files. There is a human-controlled interval between
+checking and deletion; no writer may change either copy during that interval.
+Versioning does not substitute for that operating rule.
+
+### 5. Confirm absence and close this project
 
 ```bash
-npm run archive:s3 -- status --project-id PROJECT_ID
-npm run archive:s3 -- status --project-id PROJECT_ID --json
+node scripts/move-project-to-s3.js confirm-absent --project-id "$ARCHIVE_PROJECT_ID" --confirmed-by "$ARCHIVE_OPERATOR"
+node scripts/move-project-to-s3.js confirm-absent --project-id "$ARCHIVE_PROJECT_ID" --confirmed-by "$ARCHIVE_OPERATOR" --execute > "$ARCHIVE_RECORD/confirmed.json"
+node scripts/move-project-to-s3.js status --project-id "$ARCHIVE_PROJECT_ID" --json > "$ARCHIVE_RECORD/final-status.json"
 ```
 
-If a sealed copy fails, use the migration id printed by `status`:
+Pass: the exact root is absent (even an empty directory is not absent), state
+`aws`, phase `completed`. Check that the datastore mount is present: a missing
+mount is not proof of deletion. Verify the web display and S3 location. Record
+the confirming operator/time and leave the bucket data and manifests intact.
+`confirm-absent` records the absence and checks the sealed verification report;
+it does not repeat every payload HEAD, and it never restores files.
+
+## Recovery
+
+Start with `status --project-id ID --json` and retain its output. Keep the same
+bucket/base prefix and canonical source root used at lock. Every command,
+including status, requires working mover credentials and valid bucket retention;
+if preflight fails, resolve that before expecting a status report.
+
+| Situation | Action |
+| --- | --- |
+| Login/credentials expired | Log in to the same profile; then resume the same ID/manifest |
+| Source sealed, phase source_sealed/copying/copied | `resume` below; completed files are checked and reused, unfinished files restart at byte zero |
+| Locked/inventoried, no sealed manifest and empty destination | Fix the cause and retry copy, or use the allowed pre-copy abort |
+| Source changed after sealing | Stop; preserve changed data separately. Restore the original sealed tree if possible, otherwise reviewed cleanup/restart |
+| Foreign objects, extra keys or checksum mismatch | Preserve evidence and source; investigate ownership and unintended writers before cleanup |
+| Pending deletion but local tree changed | Preserve additions/changes; do not delete them just to make a check green |
+| HPC deleted but confirm-absent failed | Restore credentials/mount/database access, then confirm; do not relock or recopy |
+
+Resume:
 
 ```bash
-npm run archive:s3 -- resume --project-id PROJECT_ID \
-  --migration-id MIGRATION_ID --resumed-by USERNAME --execute
+node scripts/move-project-to-s3.js resume --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --resumed-by "$ARCHIVE_OPERATOR"
+node scripts/move-project-to-s3.js resume --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --resumed-by "$ARCHIVE_OPERATOR" --execute
 ```
 
-## Manual deletion boundary
-
-Only after the state is `aws_pending_hpc_deletion`, ask the tool to re-check
-all S3 objects and the unchanged HPC tree and print the deletion command:
+Before sealing only, abort:
 
 ```bash
-npm run archive:s3 -- deletion-command --project-id PROJECT_ID
+node scripts/move-project-to-s3.js abort-before-copy --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --aborted-by "$ARCHIVE_OPERATOR" --execute
 ```
 
-Read the comments and command carefully, independently check the S3 archive,
-then run the printed `rm -rf -- 'exact/path'` yourself. The mover does not run
-it. Finally, prove the exact project root is absent and finalize the state:
+The abort must see zero current destination/control objects and multipart
+uploads, and no recorded source digest. It returns the project to HPC. A source
+manifest PUT followed by a failed Mongo fence can leave an orphan: retry copy
+can adopt it only if the complete manifest bytes match. Otherwise, status shows
+the control object for reviewed cleanup; do not overwrite it.
+
+For an irrecoverable sealed attempt, retain its evidence and preserve the local
+data first. Status prints cleanup suggestions **only for eligible failed
+attempts**. Review every key and ownership classification. Use the separate
+cleanup role, adding `--profile YOUR_CLEANUP_PROFILE` explicitly to each raw
+AWS command; status deliberately does not choose that role. Never execute the
+whole output automatically, widen a prefix, or remove foreign objects merely
+to get an empty listing. Move current control records to
+`_control/projects/PROJECT_ID/abandoned/OLD_ID/`, hide the reviewed current
+payload keys, and abort the exact incomplete upload IDs. Retain versions.
+Switch back to the mover role, then:
 
 ```bash
-npm run archive:s3 -- confirm-absent --project-id PROJECT_ID \
-  --confirmed-by USERNAME --execute
+node scripts/move-project-to-s3.js restart --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --restarted-by "$ARCHIVE_OPERATOR"
+node scripts/move-project-to-s3.js restart --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --restarted-by "$ARCHIVE_OPERATOR" --execute
 ```
 
-An empty directory, file, or symlink at that path is not “absent”; finish the
-manual removal and retry.
+Restart requires an empty **current** payload/control prefix and no multipart
+uploads; it records a new migration ID and a link to the old attempt. Save the
+new ID and run copy. Noncurrent versions may remain in a versioned bucket.
+Do not reset storage fields manually or change the archive root to escape a
+refusal. The CLI cannot resume a migration sealed with the obsolete
+`data/`/`control/` layout under the new layout.
 
-## Recovery before any manifest is sealed
+## Restore a real archived file
 
-If the migration is only `locked` or `inventoried`, it can return to HPC after
-the tool proves that no destination/control objects or multipart uploads exist:
+Restore is a read/recovery activity; it does not return a project to writable
+HPC state. Obtain the sealed source manifest from the URI in status and verify
+its recorded SHA-256. Select one `disposition: "copy"` entry, copying its exact
+`s3Key`, `size` and `sha256`. For a Deep Archive object:
 
 ```bash
-npm run archive:s3 -- abort-before-copy --project-id PROJECT_ID \
-  --migration-id MIGRATION_ID --aborted-by USERNAME --execute
+export ARCHIVE_BUCKET='REPLACE_WITH_BUCKET'
+export ARCHIVE_KEY='REPLACE_WITH_EXACT_MANIFEST_KEY'
+export ARCHIVE_RESTORE_DIR='/REPLACE/WITH/NEW/RETRIEVAL/DIRECTORY'
+mkdir -m 700 "$ARCHIVE_RESTORE_DIR"
+aws s3api restore-object --profile "$AWS_ARCHIVE_PROFILE" --bucket "$ARCHIVE_BUCKET" --key "$ARCHIVE_KEY" --restore-request '{"Days":2,"GlacierJobParameters":{"Tier":"Standard"}}'
+# Check later; wait for Restore to contain ongoing-request="false":
+aws s3api head-object --profile "$AWS_ARCHIVE_PROFILE" --bucket "$ARCHIVE_BUCKET" --key "$ARCHIVE_KEY" --checksum-mode ENABLED
+aws s3 cp --profile "$AWS_ARCHIVE_PROFILE" "s3://$ARCHIVE_BUCKET/$ARCHIVE_KEY" "$ARCHIVE_RESTORE_DIR/restored-file" --only-show-errors
+sha256sum "$ARCHIVE_RESTORE_DIR/restored-file"
+wc -c < "$ARCHIVE_RESTORE_DIR/restored-file"
 ```
 
-After a manifest is sealed, use `resume`. For an irrecoverable sealed attempt,
-`status` prints the migration-owned cleanup commands for review: object
-deletions, multipart aborts, and one `aws s3 mv` per control object into the
-`abandoned/` prefix. A human with a separate delete-capable role runs them.
-Then start a new fenced attempt:
+Use `shasum -a 256` instead on macOS. Both hash and byte count must equal the
+sealed entry; save the result with the manifest digest and object key. Verify
+HEAD ownership metadata against the manifest too. Do not overwrite an existing
+source file or infer success from a completed restore request. If the current
+object is missing or suspect, stop and have an archive administrator inspect
+retained versions against the sealed manifest; never accept a different version
+without verifying its identity and bytes. A whole-project restore also needs
+path/metadata reconstruction from the manifest and is a separate recovery task.
 
-```bash
-npm run archive:s3 -- restart --project-id PROJECT_ID \
-  --migration-id OLD_MIGRATION_ID --restarted-by USERNAME --execute
+## Evidence template
+
+Copy into the batch record; fill every applicable field, mark others with a
+reason. Do not store secrets, access tokens or connection strings here.
+
+```text
+Batch date / next review due:
+Operator / reviewer:
+Release hashes / host / Node / AWS CLI:
+Account / role ARN / bucket / region / base prefix:
+Policy: candidate cutoff, owner approval, deletion review interval:
+Mongo backup reference / freeze and service commands:
+Restore rehearsal date / receipt reference:
+
+Project ID / name / source root / destination:
+Owner approval / holds checked:
+Plan file count / bytes / largest file / anomalies and decisions:
+Migration ID / sealed source SHA-256 / verification SHA-256:
+Copy logs / status / class warnings / exclusions:
+Restore sample key / SHA-256 / byte count / evidence:
+Deletion approval / fresh check time / operator / deletion time:
+Confirm-absent result / final state / UI check:
+Deferred or failed work / owner / next action:
 ```
-
-One narrower case sits before sealing: the source manifest was written to S3
-but the database update after it failed, and the tree then changed, so a
-re-run of `copy` refuses to adopt the object. `status` reports the orphaned
-control object and prints the `aws s3 mv` to move it aside. Once it is moved,
-re-run `copy` (a fresh manifest is sealed under the same migration id) or use
-`abort-before-copy`; `restart` is not needed.
-
-Identity across time: the sealed manifest pins each file by inode, size and
-timestamps, not by device number. A remount or reboot of the datastore mount
-between sealing, copying and deletion does not invalidate a migration.

@@ -1,6 +1,6 @@
 # S3 project archival specification
 
-Status: **proposed, implementation-ready**. Version 1 of the manually supervised
+Status: **implemented reference; production acceptance outstanding**. Version 1 of the manually supervised
 workflow that archives one Komondor project from the HPC datastore to Amazon S3.
 
 > **Reconciled with the architecture decision record, 15 October 2026.**
@@ -11,7 +11,9 @@ workflow that archives one Komondor project from the HPC datastore to Amazon S3.
 > reserved `_control/` prefix, payload is written straight into Glacier Deep
 > Archive, and the mover authenticates with IAM Identity Center SSO. Where this
 > specification and the decision record still disagree on anything else, the
-> decision record wins.
+> decision record wins. The current executable deployment procedure is in
+> [S3_PROJECT_ARCHIVAL_DEPLOYMENT.md](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md); the
+> [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) owns semi-annual operation.
 
 Every code citation below was verified against the working trees of
 `komondor-api`, `komondor-web`, `komondor-power` and `komondor-nudge` on
@@ -285,7 +287,7 @@ release.
 | **relative project root** | `project.path` without its leading slash, e.g. `tsl/wheat_blast`. Snapshotted as `archiveMigration.sourceRelativeRoot`.                    |
 | **archive root**          | `AWS_ARCHIVE_S3_ROOT`, `s3://bucket[/base]`.                                                                                               |
 | **data prefix**           | `<archive root>/<relative project root>`; stored immutably as `storage.s3Uri`.                                                             |
-| **control prefix**        | `<archive root>/control/projects/<projectId>/<migrationId>/`.                                                                              |
+| **control prefix**        | `<archive root>/_control/projects/<projectId>/<migrationId>/`.                                                                              |
 | **storage-bearing write** | Any operation that creates directories, moves, copies, hashes-and-records, or lists files under the project root with intent to reconcile. |
 | **manifest**              | The versioned JSON inventory of the project tree (§9).                                                                                     |
 
@@ -327,7 +329,7 @@ release.
 | D4  | Lock transition requires the API and workers to be **stopped** (quiescence window). Copy runs with the guarded API live.                                                                        | "Check then later save" in the create routes is not atomic; a lease system is future work.                                                                                                              |
 | D5  | Lock is a separate CLI command from copy.                                                                                                                                                       | Keeps the maintenance window to minutes; copy can take hours. (Deviation, §22.)                                                                                                                         |
 | D6  | S3 layout is `<root>/<relative to DATASTORE_ROOT>` for bytes and `<root>/_control/projects/<projectId>/<migrationId>/` for manifests.                                                           | Groups at the root keep HPC and S3 paths directly comparable. Payload goes straight to Deep Archive, so no transition rule is needed; `_control/` stays in Standard and is reserved at the group level. |
-| D7  | Full-object **CRC-64/NVME** is the upload-verification checksum; **SHA-256** is the manifest's cryptographic identity.                                                                          | CRC64NVME is the only algorithm S3 stores as `FULL_OBJECT` for every multipart upload; SHA-256 multipart is composite.                                                                                  |
+| D7  | Full-object **CRC-64/NVME** is the upload-verification checksum; **SHA-256** is the manifest's cryptographic identity.                                                                          | CRC64NVME supports full-object verification for single- and multipart uploads; SHA-256 multipart is composite.                                                                                  |
 | D8  | CRC-64/NVME is computed by a pure-JS table implementation in `lib/utils/crc64nvme.js`, verified by known vector and by the real-S3 smoke test. No new dependency.                               | `@aws-sdk/crc64-nvme-crt` pulls the AWS CRT; not worth it for one 40-line routine.                                                                                                                      |
 | D9  | Uploads stream from a pinned descriptor into `aws s3 cp - <key>`. The CLI never receives a pathname.                                                                                            | Defeats path-swap races; matches `lib/utils/md5.js` `O_NOFOLLOW` practice.                                                                                                                              |
 | D10 | No API route or web control mutates storage state.                                                                                                                                              | Fixed by product.                                                                                                                                                                                       |
@@ -774,40 +776,35 @@ every mutating command.
 
 ### 8.3 Configuration and preflight (every command)
 
-| Check                                                                                                                                                                                                                             | Failure                                                    |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `AWS_ARCHIVE_S3_ROOT` matches `^s3://[a-z0-9][a-z0-9.-]{1,61}[a-z0-9](/[^/].*)?$` and has no trailing slash                                                                                                                       | exit 2                                                     |
-| `AWS_ARCHIVE_EXPECTED_ACCOUNT_ID` is 12 digits                                                                                                                                                                                    | exit 2                                                     |
-| `aws --version` parses as v2 and `aws s3 cp help` mentions `--checksum-algorithm`, `aws s3api head-object help` mentions `--checksum-mode`, `aws s3api put-object help` mentions `--if-none-match`                                | exit 2, prints the installed version and the minimum (§21) |
-| `aws sts get-caller-identity` account equals expected                                                                                                                                                                             | exit 2                                                     |
-| `aws s3api head-bucket` succeeds; `list-objects-v2 --max-keys 1` on the archive root succeeds                                                                                                                                     | exit 2                                                     |
-| `DATASTORE_ROOT` set, is a directory (reuse `validateEnv`'s `checkMount`, read-only mode)                                                                                                                                         | exit 2                                                     |
-| MongoDB reachable; `projects` collection exists                                                                                                                                                                                   | exit 2                                                     |
-| Project exists; `resolveStorageState` is not `invalid` (mutating commands)                                                                                                                                                        | exit 1 with the integrity detail                           |
-| Project root = `path.resolve(DATASTORE_ROOT, stripLeadingSlash(project.path))` is strictly below `DATASTORE_ROOT` by ≥ 2 segments, `realpath` of it equals its lexical path (no symlinked ancestor), it is a directory by `lstat` | exit 1                                                     |
+Every command requires `AWS_ARCHIVE_S3_ROOT` (no trailing slash), a 12-digit
+`AWS_ARCHIVE_EXPECTED_ACCOUNT_ID`, a named `AWS_ARCHIVE_PROFILE`, and
+`AWS_ARCHIVE_EXPECTED_ROLE_ARN` for a role in that account. STS must identify
+that assumed role. The wrapper passes the profile to every AWS process and
+removes ambient static credentials.
 
-Optional: `AWS_ARCHIVE_SSE=aws:kms` + `AWS_ARCHIVE_SSE_KMS_KEY_ID` are passed
-as `--sse`/`--sse-kms-key-id` on uploads. With SSE-KMS the role also needs
-`kms:GenerateDataKey` and `kms:Decrypt` (the latter to read checksums back via
-`head-object --checksum-mode ENABLED`).
+Preflight checks AWS CLI v2.23.0 or later (the documented CRC64NVME boundary),
+`put-object` CRC64NVME support and upload flags;
+`head-object --checksum-mode`; conditional PUT and storage-class options;
+bucket ownership/reachability/list access; versioning Enabled; and no enabled
+lifecycle expiration or transition rules. AWS failures exit 2 before project
+operations. Mongo must be reachable and contain the projects collection.
+`DATASTORE_ROOT` must be absolute/canonical; the project must resolve to a real
+directory at least two safe segments below it, without symlinked ancestors or
+reserved group names. Invalid project state or unsafe source paths are refused.
 
-Bucket configuration the operator must confirm (deployment inputs, §21):
-Object Ownership bucket-owner-enforced; versioning enabled with no expiry for
-current or noncurrent versions; HTTPS-only transport enforced by bucket policy;
-a lifecycle rule `AbortIncompleteMultipartUpload` after 7 days on the whole
-archive root. **No transition rule at all**: payload objects are written
-directly in the configured cold class (`AWS_ARCHIVE_STORAGE_CLASS`, default
-`DEEP_ARCHIVE`) and control objects are written in `STANDARD`. If a transition
-rule is ever added, it must be scoped so that it cannot reach
-`<base>/_control/`.
+Payload defaults to `DEEP_ARCHIVE`; approved alternatives are `GLACIER`,
+`GLACIER_IR`, `INTELLIGENT_TIERING`, `STANDARD`, `STANDARD_IA`. A sealed manifest
+pins the class used by resume. Unsafe/unknown **actual** object classes fail
+verification, including for v1 manifests with no intended class. Safe class
+mismatches are recorded and warned. Control objects are always Standard.
 
-IAM policy for the mover role (minimum): `sts:GetCallerIdentity`;
-`s3:ListBucket`, `s3:ListBucketMultipartUploads` on the bucket, condition
-`s3:prefix` under `<base>/`; `s3:PutObject`, `s3:GetObject`,
-`s3:GetObjectAttributes`, `s3:AbortMultipartUpload`, `s3:ListMultipartUploadParts`
-on `<base>/*`. **No `s3:DeleteObject`, `s3:DeleteObjectVersion`, or
-`s3:PutLifecycleConfiguration`.** (`AbortMultipartUpload` lets the CLI clean up
-its own failed upload; it cannot remove completed objects.)
+Optional `AWS_ARCHIVE_SSE=aws:kms` and `AWS_ARCHIVE_SSE_KMS_KEY_ID` require
+`kms:GenerateDataKey` and `kms:Decrypt` on the approved key. The authoritative
+bucket configuration, scoped mover policy, restore permission and separate
+cleanup-role procedure are in [deployment](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md#2-provision-the-dedicated-bucket-and-roles).
+In particular, `HeadBucket` requires unconditioned `s3:ListBucket` on this
+dedicated bucket; a prefix condition alone will not authorize it. No completed
+object deletion or bucket administration is allowed to the mover.
 
 ### 8.4 Quiescence window and `lock`
 
@@ -1011,7 +1008,7 @@ proves ownership):
    heading "REVIEW BEFORE RUNNING WITH A ROLE THAT HAS DELETE".
 2. A human, using a **different** role that has delete, removes the migration's
    data objects and aborts its uploads, and moves the old control objects to
-   `<root>/control/projects/<projectId>/abandoned/<oldId>/` (copy + delete).
+   `<root>/_control/projects/<projectId>/abandoned/<oldId>/` (copy + delete).
 3. `restart --migration-id <old> --restarted-by … --execute` proves the data
    prefix has zero objects and zero uploads, proves the old control prefix is
    empty, then fences on the old id and sets a new id, phase `locked`,
@@ -1151,6 +1148,8 @@ digests, counts and timestamps.
 ### 9.5 Verification phase
 
 1. For every `disposition: "copy"` entry: HEAD as in step 9.4.5. Record.
+   Reject missing/different CRC64NVME, non-FULL_OBJECT checksums, size/ownership
+   mismatch, and unsafe/unknown storage classes. Safe class mismatches warn.
 2. Paginated `list-objects-v2 --prefix "<data prefix>/"`: the key set must
    equal the manifest's copy-key set exactly. Extra keys or missing keys fail.
    Every listed object must be owned.
@@ -1370,14 +1369,13 @@ preflight.
   `realpath` equality; `lstat` everywhere; `O_NOFOLLOW` opens; descriptor
   identity before and after; no pathname is ever passed to `aws`. Shell
   quoting only in the printed deletion command, from one tested function.
-- **AWS**: account-id preflight, least-privilege role without delete, SSE
+- **AWS**: account-and-role preflight, explicit profile, versioning/lifecycle checks, least-privilege role without delete, SSE
   per configuration, no credentials logged, `--if-none-match "*"` on control
   writes, no `sync --delete`.
 - **Process**: mutating commands require `--execute` and an audit identity;
   identities are recorded on the Project and in every manifest.
 - **Failure handling**: every mutation is a fenced update; every failure
-  leaves `lastError` and a stable phase; `status` is always able to describe
-  the situation; recovery paths are `resume`, `abort-before-copy` (pre-seal
+  leaves `lastError` and a stable phase; `status` describes the situation once AWS preflight succeeds; recovery paths are `resume`, `abort-before-copy` (pre-seal
   only) and `restart` (post-cleanup). No path requires manual MongoDB edits.
 - **Web/Power**: they never see internals; they key off `code` and
   `acceptsHpcWrites`.
@@ -1547,31 +1545,20 @@ button.
 
 As listed in §12 and §13.
 
-### 16.4 Real-S3 smoke test (before the first live migration; not part of this task)
+### 16.4 Real-S3 acceptance rehearsal (required before first live deletion)
 
-Runs on the production host with the mover role against the reserved disposable
-prefix `<root>/_smoke/<timestamp>/`:
+Use `scripts/archive-s3-smoke.js` and the exact commands in
+[deployment](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md#5-rehearse-cold-upload-and-full-restore-on-the-actual-host).
+It creates isolated disposable fixtures of 1 KiB, 16 MiB and 6 GiB, uses the
+production pinned-descriptor/stdin uploader under `_smoke/<UUID>/`, verifies
+cold HEAD checksums/metadata/key set, requests restore, and independently
+compares the fully downloaded bytes against the source SHA-256/CRC64NVME.
+A passing restore receipt is required evidence, not merely a successful upload.
 
-1. `aws --version`; record it in the runbook.
-2. Upload via the exact §9.4 code path: one 1 KiB file, one 100 MiB file
-   (> the CLI's default 8 MiB multipart threshold), and one file > 5 GiB
-   (forces multipart regardless of configuration). The code path already
-   passes `--storage-class DEEP_ARCHIVE`, so every one of these lands in the
-   cold class; assert that `StorageClass` on each HEAD confirms it.
-3. For each: `head-object --checksum-mode ENABLED` must return
-   `ChecksumCRC64NVME` equal to the locally computed value and
-   `ChecksumType: "FULL_OBJECT"`; `ContentLength` equal; metadata present.
-   The `DEEP_ARCHIVE` object confirms HEAD checksum retrieval on a cold class.
-4. Conditional PUT with `--if-none-match "*"` on an existing key must fail
-   with `412`.
-5. `list-multipart-uploads` shows nothing after a deliberately killed upload
-   (kill the child mid-stream, then assert the CLI aborted it; if it did not,
-   the bucket's abort-incomplete lifecycle rule is the backstop and the
-   runbook must say so).
-6. Cleanup is done by a human with a delete-capable role; the mover role has
-   none.
-
-The smoke test is a checklist script in the runbook, not a Jest test.
+Also record real conditional-PUT 412 refusal, interrupted multipart behaviour,
+renewal across role expiry, and the disposable project's complete application
+lifecycle. Simulated service-boundary tests cannot establish these AWS properties.
+Cleanup uses a separate reviewed role and retains historical versions by default.
 
 ---
 
@@ -1683,9 +1670,8 @@ tooling; backfilling `storage.state: "hpc"` on legacy documents.
    (default `DEEP_ARCHIVE`), and control objects are always `STANDARD`.
 5. Mover IAM role/profile (no delete) and the separate delete-capable role
    for reviewed cleanup.
-6. Production host, its AWS CLI version (minimum: a v2 release exposing
-   `--checksum-algorithm CRC64NVME`, `head-object --checksum-mode`, and
-   `put-object --if-none-match`; the dev machine's 2.34.1 does), and the
+6. Production host, its AWS CLI version (minimum v2.23.0, with the
+   capability checks and real cold multipart rehearsal in the deployment guide), and the
    `KOMONDOR_READY_URL`/`PORT` for the quiescence check.
 7. Grace-period policy between `aws_pending_hpc_deletion` and manual deletion,
    and who may run the deletion.

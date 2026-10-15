@@ -77,7 +77,8 @@ describe("archive AWS preflight", () => {
   const HELP = {
     "s3 cp": "--checksum-algorithm --expected-size --sse --storage-class",
     "s3api head-object": "--checksum-mode",
-    "s3api put-object": "--if-none-match --storage-class",
+    "s3api put-object":
+      "--if-none-match --storage-class --checksum-algorithm CRC64NVME",
   };
 
   const makeAws = (help = {}) => {
@@ -91,12 +92,111 @@ describe("archive AWS preflight", () => {
         Account: "123456789012",
         Arn: "arn:aws:sts::123456789012:assumed-role/archive-mover/operator",
       }),
+      getBucketVersioning: jest.fn().mockResolvedValue({ Status: "Enabled" }),
+      getBucketLifecycle: jest.fn().mockResolvedValue({ Rules: [] }),
       headBucket: jest.fn().mockResolvedValue({}),
       listRootProbe: jest.fn().mockResolvedValue({}),
     };
   };
 
-  const config = { expectedAccountId: "123456789012" };
+  const config = {
+    expectedAccountId: "123456789012",
+    expectedRoleArn: "arn:aws:iam::123456789012:role/archive-mover",
+    expectedAssumedRolePrefix:
+      "arn:aws:sts::123456789012:assumed-role/archive-mover/",
+  };
+
+  test.each(["s3api put-object"])(
+    "refuses old %s with flags but no CRC64NVME",
+    async (command) => {
+      const aws = makeAws({
+        [command]: HELP[command].replace(
+          "CRC64NVME",
+          "CRC32 SHA256 SHA1 CRC32C",
+        ),
+      });
+      await expect(validateAws(aws, config)).rejects.toThrow(/lacks CRC64NVME/);
+      expect(aws.getCallerIdentity).not.toHaveBeenCalled();
+    },
+  );
+
+  test.each(["2.20.0", "2.22.99"])(
+    "refuses %s even when its help has checksum flags",
+    async (version) => {
+      const aws = makeAws();
+      aws.version.mockResolvedValue(`aws-cli/${version}`);
+      await expect(validateAws(aws, config)).rejects.toThrow(
+        /v2.23.0 or later/,
+      );
+      expect(aws.getCallerIdentity).not.toHaveBeenCalled();
+    },
+  );
+
+  test("accepts the supported version floor without algorithm names in cp help", async () => {
+    const aws = makeAws();
+    aws.version.mockResolvedValue("aws-cli/2.23.0");
+    await expect(validateAws(aws, config)).resolves.toBeDefined();
+  });
+
+  test("accepts overstrike-formatted capability help", async () => {
+    const aws = makeAws({
+      "s3api put-object": HELP["s3api put-object"].replace(
+        "CRC64NVME",
+        [..."CRC64NVME"].map((c) => `${c}\b${c}`).join(""),
+      ),
+    });
+    await expect(validateAws(aws, config)).resolves.toBeDefined();
+  });
+
+  test("refuses an administrator session in the correct account", async () => {
+    const aws = makeAws();
+    aws.getCallerIdentity.mockResolvedValue({
+      Account: config.expectedAccountId,
+      Arn: "arn:aws:sts::123456789012:assumed-role/admin/operator",
+    });
+    await expect(validateAws(aws, config)).rejects.toThrow(/EXPECTED_ROLE_ARN/);
+    expect(aws.headBucket).not.toHaveBeenCalled();
+  });
+
+  test.each([undefined, "Suspended"])(
+    "refuses bucket versioning %s",
+    async (Status) => {
+      const aws = makeAws();
+      aws.getBucketVersioning.mockResolvedValue({ Status });
+      await expect(validateAws(aws, config)).rejects.toThrow(
+        /versioning must be Enabled/,
+      );
+    },
+  );
+
+  test.each([
+    "Expiration",
+    "NoncurrentVersionExpiration",
+    "Transitions",
+    "NoncurrentVersionTransitions",
+  ])("refuses enabled lifecycle %s", async (field) => {
+    const aws = makeAws();
+    aws.getBucketLifecycle.mockResolvedValue({
+      Rules: [{ Status: "Enabled", [field]: {} }],
+    });
+    await expect(validateAws(aws, config)).rejects.toThrow(
+      /lifecycle expiration or transition/,
+    );
+  });
+
+  test("allows incomplete multipart cleanup and disabled old rules", async () => {
+    const aws = makeAws();
+    aws.getBucketLifecycle.mockResolvedValue({
+      Rules: [
+        {
+          Status: "Enabled",
+          AbortIncompleteMultipartUpload: { DaysAfterInitiation: 7 },
+        },
+        { Status: "Disabled", Expiration: { Days: 1 } },
+      ],
+    });
+    await expect(validateAws(aws, config)).resolves.toBeDefined();
+  });
 
   test("accepts a CLI exposing every flag the uploader passes", async () => {
     const aws = makeAws();

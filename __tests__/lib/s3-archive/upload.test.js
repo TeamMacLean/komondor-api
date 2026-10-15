@@ -81,6 +81,56 @@ const matchingHead = (overrides = {}) => ({
 });
 
 describe("uploaded-object ownership", () => {
+  test.each([
+    ["missing object", null, /missing/],
+    ["size", { ContentLength: 41 }, /size/],
+    ["missing CRC", { ChecksumCRC64NVME: undefined }, /CRC64NVME/],
+    ["different CRC", { ChecksumCRC64NVME: "wrong" }, /CRC64NVME/],
+    ["missing checksum type", { ChecksumType: undefined }, /FULL_OBJECT/],
+    ["composite checksum", { ChecksumType: "COMPOSITE" }, /FULL_OBJECT/],
+    ["one AZ", { StorageClass: "ONEZONE_IA" }, /not approved/],
+    [
+      "reduced redundancy",
+      { StorageClass: "REDUCED_REDUNDANCY" },
+      /not approved/,
+    ],
+    ["unknown class", { StorageClass: "FUTURE_CLASS" }, /not approved/],
+  ])(
+    "independently refuses %s with every other field valid",
+    async (_label, override, error) => {
+      const head = override === null ? null : matchingHead(override);
+      const aws = {
+        headObject: jest.fn().mockResolvedValue(head),
+        listObjectsAtOrBelow: jest
+          .fn()
+          .mockResolvedValue([{ Key: entry.s3Key }]),
+      };
+      // Legacy manifests must not bypass durability checks either.
+      const result = await verifyManifestObjects(aws, {
+        ...manifest,
+        dataStorageClass: undefined,
+        entries: [entry],
+      });
+      expect(result.verified).toBe(false);
+      expect(result.entries[0].error).toMatch(error);
+    },
+  );
+
+  test.each(Object.keys(matchingHead().Metadata))(
+    "refuses missing or foreign %s despite matching bytes",
+    (field) => {
+      for (const value of [undefined, "other"]) {
+        const head = matchingHead();
+        if (value === undefined) delete head.Metadata[field];
+        else head.Metadata[field] = value;
+        expect(verifyHead(head, manifest, entry)).toEqual({
+          ok: false,
+          errors: ["ownership metadata does not match this migration"],
+        });
+      }
+    },
+  );
+
   test("reads metadata names case-insensitively", () => {
     expect(
       metadataValue(
@@ -210,8 +260,7 @@ describe("uploaded-object ownership", () => {
   });
 
   test("reports an object outside the intended class but still verifies it", async () => {
-    // A complete, checksum-verified copy in the wrong class is a cost and
-    // policy problem, not a reason to withhold the archive.
+    // Standard still meets the multi-AZ requirement; this mismatch warns.
     const aws = {
       headObject: jest.fn().mockResolvedValue(matchingHead()),
       listObjectsAtOrBelow: jest.fn().mockResolvedValue([{ Key: entry.s3Key }]),

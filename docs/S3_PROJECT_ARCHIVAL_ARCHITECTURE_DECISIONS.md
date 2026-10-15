@@ -1,13 +1,17 @@
 # Komondor S3 archive — architecture decisions
 
-Status: Accepted design; implementation and deployment checks still required.
-Date: 10 September 2026.
+Status: Accepted design; repository safeguards implemented; real deployment acceptance outstanding.
+Date: 10 September 2026; implementation review updated 15 October 2026.
 Decider: George Deeks.
 
 This is a standalone record of what we agreed and why. It supersedes earlier
 choices about bucket layout, storage classes and authentication in the archive
 specification and runbook. It does not replace their detailed migration workflow
 or certify that the implementation is ready for production.
+
+Operational entry points: [first deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md)
+and [semi-annual operator runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md). Neither the
+architecture nor a passing unit suite authorizes deletion without those checks.
 
 ## Context and priorities
 
@@ -81,9 +85,31 @@ retrieval procedure matter more here than minimizing every storage charge.
 Versioning can retain additional copies after overwrites, so avoid unnecessary
 re-uploads. No automatic expiry also means those copies can accumulate.
 
+The mover permits only multi-AZ payload classes: `DEEP_ARCHIVE`, `GLACIER`,
+`GLACIER_IR`, `INTELLIGENT_TIERING`, `STANDARD` and `STANDARD_IA`. Verification
+rejects `ONEZONE_IA`, `REDUCED_REDUNDANCY` and unknown classes even if their bytes
+match. That is a deletion safeguard for irreplaceable data: byte equality does
+not establish resilience against losing a storage location. A mismatch between
+two approved classes is reported in the sealed report and warned in copy and
+deletion output; investigate its cause and cost before approval.
+
+Every new upload uses the class recorded in its source manifest. Changing
+`AWS_ARCHIVE_STORAGE_CLASS` after sealing does not redirect resumed files to a
+different class. Legacy v1 manifests without this optional field retain their
+original bytes/digest and use the configured class for new uploads; actual
+object durability is still checked. Adding the field did not change the
+manifest serialization contract. The separate old-layout change is **not**
+resume-compatible: stored destination/control URI mismatches fail closed.
+
+Every command checks versioning is Enabled and rejects enabled lifecycle
+expiration or transition rules anywhere in the dedicated bucket. Seven-day
+multipart cleanup is allowed; other retention changes require a new reviewed
+design. The mover role has read access to this configuration, never permission
+to change it.
+
 ## 3. Operation: manually selected batches, manually deleted HPC data
 
-A few times a year, the administrator identifies old, unarchived projects,
+At a semi-annual review (approximately every six months), the administrator identifies old, unarchived projects,
 reviews a batch and starts the archive commands. Age helps identify candidates;
 it is not permission to archive or delete them automatically.
 
@@ -117,7 +143,13 @@ decision; do not silently treat it as successfully copied.
 
 Use AWS IAM Identity Center SSO and a dedicated archive-mover permission set.
 Allow the listing, upload, verification and incomplete-upload-abort operations
-the mover needs. Do not allow deletion of completed S3 objects or their versions.
+the mover needs, including `s3:RestoreObject` for rehearsals and retrieval. Do not allow deletion of completed S3 objects or their versions.
+
+`AWS_ARCHIVE_PROFILE` and `AWS_ARCHIVE_EXPECTED_ROLE_ARN` are required alongside
+the account fence. All AWS subprocesses receive the explicit profile; ambient
+static access keys are removed from their environment. STS must identify the
+configured assumed role, not merely someone in the right account. Keep
+cleanup/administration in a separate profile and role.
 
 Roles Anywhere is **not needed**, not a deferred implementation task. Do not
 build certificate management or unattended authentication now. Revisit the
@@ -224,39 +256,40 @@ Add these targeted checks to the existing upload and verification tests:
    with the originals. An upload-only test is not sufficient evidence before
    deleting the only HPC copy of real data.
 
-## Consequences and remaining work
+## Verification boundaries and acceptance evidence
 
-The result is a manually operated, recoverable archive with familiar paths and
-an explicit deletion boundary. The accepted costs are occasional human login,
-restarting an interrupted individual file, per-file storage overhead and
-potentially retained old object versions.
+A source manifest seals bytes (SHA-256 and CRC64NVME), file identity and intent.
+The uploader opens the sealed file without following its final symlink, checks
+identity, hashes the stream actually sent, and verifies S3 HEAD metadata and
+full-object CRC64NVME. A successful project requires the exact payload key set,
+matching local tree, passing immutable report and a fenced Mongo transition.
+`deletion-command` repeats object and local-tree checks before printing anything
+destructive. It never deletes. `confirm-absent` verifies absence of the original
+root and records completion; it is not another full payload verification.
 
-Before production use:
+The local comparison uses inode/size/timestamps and other manifest metadata;
+it does not hash all source bytes a second time at deletion. The datastore mount
+must remain available, external writers must remain frozen, and no other actor
+may overwrite the destination during verification/deletion. There is no atomic
+transaction between Mongo, the HPC filesystem and S3. Versioning retains a
+recovery path but is not Object Lock or protection from a privileged operator.
+Treat any disagreement as a refusal, not grounds to edit the state manually.
 
-- ~~Update prefix builders, recovery paths, reserved-name checks and tests for
-  the flat layout.~~ **Done, 15 October 2026.**
-- ~~Update storage-class handling and deployment documentation to match these
-  decisions, keeping control objects in Standard.~~ **Done, 15 October 2026:**
-  payload uploads pass `--storage-class` from `AWS_ARCHIVE_STORAGE_CLASS`
-  (default `DEEP_ARCHIVE`) and control objects are written `STANDARD`. The
-  sealed source manifest records the intended class, and the verification
-  report lists any object that landed outside it. A wrong class is reported,
-  not fatal: a complete, checksum-verified copy is still a valid archive, so it
-  must not block HPC deletion.
-- **Still outstanding — bucket permissions.** The IAM mover policy and bucket
-  policy in the specification have not been applied or reviewed against a real
-  account.
-- **Still outstanding — configure the mover SSO profile** and session settings,
-  accounting for the instance-wide login-duration effect.
-- **Still outstanding — the smoke checks and the restore rehearsal.** Neither
-  has been run. The restore rehearsal in §7.3 is the one that matters before
-  any HPC copy is deleted, and no automated test can substitute for it.
-- **Still outstanding — the targeted interruption and credential-renewal tests**
-  in §7.1 and §7.2. The unit suite covers resume logic with mocked AWS calls;
-  it does not prove the installed CLI refreshes real credentials mid-transfer.
+Automated coverage now includes independent negative tests for each checksum,
+ownership and durability check, both verification/deletion refusal gates, and
+real CLI subprocesses using a temporary Mongo database and filesystem with only
+the S3 service boundary simulated. The latter exercises plan → lock → copy →
+verified → manual fixture removal → confirm-absent, and failed transfer/resume.
+The smoke helper uses the production uploader for a mandatory >5 GiB cold object
+and streams restored bytes through SHA-256/CRC64NVME before issuing a receipt.
 
-This decision record is not a production green light. The code, tests and
-documentation now match it on layout, storage class and reserved names, and the
-specification and runbook have been reconciled, so an operator following them
-will configure the bucket as decided here. What remains is account setup and
-the real-AWS rehearsals above — none of which has been performed.
+The [deployment checklist](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md) still requires real
+account policy validation, real cold single/multipart HEAD checks, conditional
+PUT refusal, interruption handling, an actual restore/download comparison,
+credential renewal across expiry, and API/web/Power/Nudge acceptance on the
+installed versions. None of those real-environment results is asserted here.
+
+The accepted operational costs are human login, restarting an interrupted
+individual file, per-file overhead, restoration latency and retained versions.
+Use the [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) for selection, evidence,
+review intervals, separate deletion approval and the twice-yearly audit trail.

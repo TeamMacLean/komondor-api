@@ -15,6 +15,8 @@ module.exports = {
     "/files/",
     "/docs/",
   ],
+  // A nested checkout is another repository, not additional tests/coverage.
+  modulePathIgnorePatterns: ["<rootDir>/.claude/worktrees/"],
   testMatch: [
     "**/__tests__/**/*.js",
     "!**/__tests__/setup/**",
@@ -44,18 +46,16 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.js",
     "!**/node_modules/**",
+    "!**/.claude/worktrees/**",
+    // Suites excluded from this run (notably integration) otherwise enter the
+    // coverage denominator as unexecuted application code. Measure production
+    // code, never test bodies or their fixtures.
+    "!**/__tests__/**",
     "!**/datastore/**",
     "!**/files/**",
     "!**/docs/**",
     "!coverage/**",
     "!jest.config.js",
-    // Test-support helpers, not application code: unlike a *.test.js file,
-    // these are not automatically excluded by jest's own "don't pad coverage
-    // with test files" rule, so without this they would count as 0%-covered
-    // additions to the default run's coverage denominator despite never
-    // being reachable from it (they exist only for __tests__/integration/,
-    // which that run does not execute).
-    "!**/__tests__/integration/support/**",
     // CLI entrypoints, not application code. Their exported logic
     // (findIndexConflicts, validateStoredJob, ...) is unit-tested and counts
     // above; their main() bodies are exercised end to end by

@@ -1130,10 +1130,8 @@ describe("archive CLI interrupted copy and resume", () => {
     expect(deletion.stdout).toHaveBeenCalledWith(`rm -rf -- '${sourceRoot}'\n`);
   });
 
-  test("a payload object in the wrong storage class still authorises deletion", async () => {
-    // Commit 1381508: a complete, checksum-verified copy in the wrong class is
-    // a cost and policy problem, so it is reported in the verification report
-    // and must not withhold the archive or block HPC deletion.
+  test("a safe storage class mismatch warns before copy completion and deletion", async () => {
+    // Standard remains durable enough; report this safe mismatch prominently.
     currentProject = projectAt("copied");
     upload.verifyManifestObjects.mockResolvedValue({
       verified: true,
@@ -1172,7 +1170,9 @@ describe("archive CLI interrupted copy and resume", () => {
         verifying,
       ),
     ).toBe(0);
-    expect(verifying.stderr).not.toHaveBeenCalled();
+    expect(verifying.stderr).toHaveBeenCalledWith(
+      expect.stringMatching(/WARNING:.*storage classes/),
+    );
 
     const report = JSON.parse(controls.get(verificationKey).toString("utf8"));
     expect(report.verified).toBe(true);
@@ -1190,5 +1190,91 @@ describe("archive CLI interrupted copy and resume", () => {
       await runCli(["deletion-command", "--project-id", PROJECT_ID], deletion),
     ).toBe(0);
     expect(deletion.stdout).toHaveBeenCalledWith(`rm -rf -- '${sourceRoot}'\n`);
+    expect(deletion.stderr).toHaveBeenCalledWith(
+      expect.stringMatching(/WARNING:.*storage classes/),
+    );
   });
+  test.each(["objects", "local"])(
+    "refuses sealing verification when %s fail",
+    async (failure) => {
+      currentProject = projectAt("copied");
+      upload.verifyManifestObjects.mockResolvedValue({
+        verified: failure !== "objects",
+        entries: [],
+        keySet: { matches: true },
+      });
+      inventory.compareTreeToManifest.mockResolvedValue({
+        matches: failure !== "local",
+        differences: ["drift"],
+      });
+      const context = dependencies();
+      expect(
+        await runCli(
+          [
+            "copy",
+            "--project-id",
+            PROJECT_ID,
+            "--moved-by",
+            "alice",
+            "--execute",
+          ],
+          context,
+        ),
+      ).toBe(3);
+      expect(currentProject.storage.state).toBe("migrating");
+      expect(currentProject.archiveMigration.phase).toBe("copied");
+      expect(controls.has(verificationKey)).toBe(false);
+      expect(
+        [...controls.values()].some(
+          (bytes) => JSON.parse(bytes).verified === false,
+        ),
+      ).toBe(true);
+      expect(state.fencedUpdate).not.toHaveBeenCalled();
+    },
+  );
+
+  test.each(["objects", "local"])(
+    "withholds deletion after verified %s drift",
+    async (failure) => {
+      currentProject = projectAt("copied");
+      upload.verifyManifestObjects.mockResolvedValue({
+        verified: true,
+        entries: [],
+        keySet: { matches: true },
+      });
+      expect(
+        await runCli(
+          [
+            "copy",
+            "--project-id",
+            PROJECT_ID,
+            "--moved-by",
+            "alice",
+            "--execute",
+          ],
+          dependencies(),
+        ),
+      ).toBe(0);
+      expect(currentProject.storage.state).toBe("aws_pending_hpc_deletion");
+      if (failure === "objects")
+        upload.verifyManifestObjects.mockResolvedValue({ verified: false });
+      else
+        inventory.compareTreeToManifest.mockResolvedValue({
+          matches: false,
+          differences: ["added file"],
+        });
+      const context = dependencies();
+      expect(
+        await runCli(["deletion-command", "--project-id", PROJECT_ID], context),
+      ).toBe(1);
+      expect(context.stdout).not.toHaveBeenCalled();
+      expect(context.stderr).toHaveBeenCalledWith(
+        expect.stringMatching(
+          failure === "objects"
+            ? /S3 objects no longer match/
+            : /HPC tree drifted/,
+        ),
+      );
+    },
+  );
 });

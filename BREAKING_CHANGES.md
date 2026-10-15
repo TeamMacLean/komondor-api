@@ -1314,9 +1314,9 @@ approval would need a restore first. Keep the seven-day
 `AbortIncompleteMultipartUpload` rule.
 
 The sealed source manifest records `dataStorageClass`, and the verification
-report lists any object that landed outside it. A wrong class is reported, not
-fatal: a complete, checksum-verified copy is still a valid archive, so it does
-not withhold the archive or block HPC deletion.
+report lists any object that landed outside it. **Updated by §41 below:** only
+mismatches between approved multi-AZ classes remain nonfatal; unsafe classes
+block verification and deletion.
 
 **Who is affected:** nobody who has not yet created the archive bucket. No
 project has been archived, so no stored `storage.s3Uri` changes meaning.
@@ -1326,6 +1326,36 @@ bucket's lifecycle rules are reverted with it. After a project is locked, the
 sealed manifest pins the keys actually used; reverting the layout underneath it
 would make `copy`/`resume` look for objects that were never written. Finish or
 abort the migration first.
+
+---
+
+## 41. Archive mover requires an explicit profile, role and durable retention
+
+**Where:** `lib/s3-archive/`, `.env.example`, archive deployment/runbook, and
+`scripts/archive-s3-smoke.js`. No public API response shape changes.
+
+All archive commands now require `AWS_ARCHIVE_PROFILE` and
+`AWS_ARCHIVE_EXPECTED_ROLE_ARN` as well as the account fence. Every AWS child
+uses the profile and ignores ambient static access keys; an administrator role
+in the same account fails preflight. Grant the mover `s3:GetBucketVersioning`
+and `s3:GetLifecycleConfiguration`; versioning must be Enabled and enabled
+expiration/transition rules are refused. The documented policy also includes
+`s3:RestoreObject` for the mandatory restore rehearsal and subsequent retrieval.
+
+ONEZONE_IA, REDUCED_REDUNDANCY and unknown classes cannot authorize deletion.
+Safe multi-AZ class mismatches warn visibly. Resume uses the class sealed in the
+manifest, rather than a changed shell setting. Preflight requires actual
+CRC64NVME support in both upload paths. Configure the new variables/permissions
+before upgrading the mover; keep the original root and sealed manifests.
+Legacy v1 manifests without `dataStorageClass` retain their byte/digest identity,
+but still receive actual-class safety checks. Old `data/`/`control/` layout
+migrations cannot be silently resumed under the new layout.
+
+Follow [first deployment](docs/S3_PROJECT_ARCHIVAL_DEPLOYMENT.md), including the
+new cold multipart upload/restore helper, before any first real deletion. The
+[runbook](docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md) documents the six-monthly process,
+operator evidence, review, manual deletion and recovery. Real AWS acceptance is
+still an operator gate; automated tests do not claim it has happened.
 
 ---
 

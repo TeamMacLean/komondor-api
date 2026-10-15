@@ -11,12 +11,27 @@ const {
 const validEnv = (overrides = {}) => ({
   AWS_ARCHIVE_S3_ROOT: "s3://archive-bucket/komondor",
   AWS_ARCHIVE_EXPECTED_ACCOUNT_ID: "123456789012",
+  AWS_ARCHIVE_PROFILE: "archive-mover",
+  AWS_ARCHIVE_EXPECTED_ROLE_ARN: "arn:aws:iam::123456789012:role/archive-mover",
   DATASTORE_ROOT: "/srv/komondor/datastore",
   HPC_TRANSFER_DIRECTORY: "this-value-is-deliberately-irrelevant",
   ...overrides,
 });
 
 describe("S3 archive configuration", () => {
+  test("matches an Identity Center role path to its pathless STS assumed-role name", () => {
+    const config = loadArchiveConfig(
+      validEnv({
+        AWS_ARCHIVE_EXPECTED_ROLE_ARN:
+          "arn:aws:iam::123456789012:role/aws-reserved/sso.amazonaws.com/eu-west-2/AWSReservedSSO_archive_0123456789abcdef",
+      }),
+    );
+    expect(config.expectedAssumedRolePrefix).toBe(
+      "arn:aws:sts::123456789012:assumed-role/AWSReservedSSO_archive_0123456789abcdef/",
+    );
+    expect(config.profile).toBe("archive-mover");
+  });
+
   test.each([
     ["s3://archive-bucket", { bucket: "archive-bucket", prefix: "" }],
     [
@@ -141,6 +156,14 @@ describe("S3 archive configuration", () => {
       /requires AWS_ARCHIVE_SSE=aws:kms/,
     ],
     [{ AWS_ARCHIVE_STORAGE_CLASS: "DEEP_FREEZE" }, /must be one of/],
+    [{ AWS_ARCHIVE_STORAGE_CLASS: "ONEZONE_IA" }, /must be one of/],
+    [{ AWS_ARCHIVE_STORAGE_CLASS: "REDUCED_REDUNDANCY" }, /must be one of/],
+    [{ AWS_ARCHIVE_PROFILE: "" }, /must name/],
+    [{ AWS_ARCHIVE_EXPECTED_ROLE_ARN: "" }, /IAM role ARN/],
+    [
+      { AWS_ARCHIVE_EXPECTED_ROLE_ARN: "arn:aws:iam::999999999999:role/admin" },
+      /expected account/,
+    ],
   ])("refuses incomplete safety configuration %#", (override, message) => {
     expect(() => loadArchiveConfig(validEnv(override))).toThrow(message);
   });

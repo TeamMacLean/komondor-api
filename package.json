@@ -10,6 +10,8 @@
     "dev:no-email": "NODE_ENV=development nodemon --ignore docs/ --ignore datastore/ --ignore files/ server.js",
     "start": "NODE_ENV=production node server.js",
     "archive:s3": "node scripts/move-project-to-s3.js",
+    "archive:s3:smoke": "node scripts/archive-s3-smoke.js",
+    "test:archive": "jest __tests__/lib/s3-archive/ --runInBand",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:contract": "jest __tests__/contract/",

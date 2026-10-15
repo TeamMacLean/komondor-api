@@ -11,6 +11,8 @@ const { crc64Nvme } = require("../../../lib/utils/crc64nvme");
 const fsp = fs.promises;
 
 const config = {
+  profile: "archive-mover",
+  expectedAccountId: "123456789012",
   bucket: "archive-bucket",
   basePrefix: "komondor",
   sseArgs: ["--sse", "AES256"],
@@ -22,6 +24,102 @@ const config = {
 };
 
 describe("AWS CLI archive wrapper", () => {
+  test("pins the profile and strips ambient static credentials from child environments", async () => {
+    const previous = process.env.AWS_ACCESS_KEY_ID;
+    process.env.AWS_ACCESS_KEY_ID = "test-ambient-key";
+    try {
+      const execFile = jest.fn((_cmd, _args, _opts, done) =>
+        done(null, "{}", ""),
+      );
+      const aws = new AwsCli(config, { execFile });
+      await aws.getCallerIdentity();
+      expect(execFile.mock.calls[0][1]).toEqual(
+        expect.arrayContaining(["--profile", "archive-mover"]),
+      );
+      expect(execFile.mock.calls[0][2].env.AWS_ACCESS_KEY_ID).toBeUndefined();
+    } finally {
+      if (previous === undefined) delete process.env.AWS_ACCESS_KEY_ID;
+      else process.env.AWS_ACCESS_KEY_ID = previous;
+    }
+  });
+
+  test("manually follows each listing page with AWS automatic pagination disabled", async () => {
+    const execFile = jest.fn((_cmd, args, _opts, done) =>
+      done(
+        null,
+        JSON.stringify(
+          args.includes("--continuation-token")
+            ? { Contents: [{ Key: "last" }], IsTruncated: false }
+            : {
+                Contents: [{ Key: "first" }],
+                IsTruncated: true,
+                NextContinuationToken: "next",
+              },
+        ),
+        "",
+      ),
+    );
+    const aws = new AwsCli(config, { execFile });
+    await expect(aws.listObjects("prefix/")).resolves.toEqual([
+      { Key: "first" },
+      { Key: "last" },
+    ]);
+    expect(execFile).toHaveBeenCalledTimes(2);
+    expect(
+      execFile.mock.calls.every((call) => call[1].includes("--no-paginate")),
+    ).toBe(true);
+    expect(execFile.mock.calls[1][1]).toEqual(
+      expect.arrayContaining(["--continuation-token", "next"]),
+    );
+  });
+
+  test("only treats missing lifecycle configuration as empty, never access denial", async () => {
+    const execFile = jest.fn((_cmd, _args, _opts, done) =>
+      done(new Error("failed"), "", "NoSuchLifecycleConfiguration"),
+    );
+    const aws = new AwsCli(config, { execFile });
+    await expect(aws.getBucketLifecycle()).resolves.toEqual({ Rules: [] });
+    execFile.mockImplementation((_cmd, _args, _opts, done) =>
+      done(new Error("failed"), "", "AccessDenied"),
+    );
+    await expect(aws.getBucketLifecycle()).rejects.toThrow(/AccessDenied/);
+  });
+
+  test.each([0, 1])(
+    "streams restored bytes and respects download exit %s",
+    async (exitCode) => {
+      const bytes = Buffer.from("restored sequencing data");
+      const child = new EventEmitter();
+      child.stdout = new PassThrough();
+      child.stderr = new PassThrough();
+      child.kill = jest.fn();
+      const spawn = jest.fn(() => {
+        setImmediate(() => {
+          child.stdout.end(bytes);
+          child.stderr.end(exitCode ? "download failed" : "");
+          child.emit("close", exitCode);
+        });
+        return child;
+      });
+      const aws = new AwsCli(config, { spawn });
+      const result = aws.downloadObjectDigest("cold/key");
+      if (exitCode) await expect(result).rejects.toThrow(/download failed/);
+      else
+        await expect(result).resolves.toEqual({
+          bytes: bytes.length,
+          sha256: crypto.createHash("sha256").update(bytes).digest("hex"),
+          crc64nvme: crc64Nvme(bytes),
+        });
+      expect(spawn.mock.calls[0][1]).toEqual(
+        expect.arrayContaining([
+          "s3://archive-bucket/cold/key",
+          "--profile",
+          "archive-mover",
+        ]),
+      );
+    },
+  );
+
   test("downloads a control object as exact bytes without trimming", async () => {
     const exact = Buffer.from('{"kind":"source"}\n \n', "utf8");
     const execFile = jest.fn((_command, _args, _options, callback) => {
@@ -44,6 +142,8 @@ describe("AWS CLI archive wrapper", () => {
         "-",
         "--only-show-errors",
         "--no-cli-pager",
+        "--profile",
+        "archive-mover",
       ],
       expect.objectContaining({
         encoding: "buffer",
@@ -80,6 +180,8 @@ describe("AWS CLI archive wrapper", () => {
       "komondor/group/project/read.fastq",
       "--checksum-mode",
       "ENABLED",
+      "--profile",
+      "archive-mover",
       "--output",
       "json",
       "--no-cli-pager",
@@ -128,6 +230,8 @@ describe("AWS CLI archive wrapper", () => {
       "komondor-project-id=p1,komondor-migration-id=m1",
       "--server-side-encryption",
       "AES256",
+      "--profile",
+      "archive-mover",
       "--output",
       "json",
       "--no-cli-pager",
@@ -202,6 +306,8 @@ describe("AWS CLI archive wrapper", () => {
           "AES256",
           "--only-show-errors",
           "--no-cli-pager",
+          "--profile",
+          "archive-mover",
         ],
         expect.objectContaining({
           env: expect.objectContaining({ AWS_PAGER: "" }),

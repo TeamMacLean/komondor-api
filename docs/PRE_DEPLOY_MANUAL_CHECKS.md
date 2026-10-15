@@ -1,5 +1,9 @@
 # Manual checks before deploying `security/gates-1-2-3`
 
+**S3 archival:** also complete [first deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md)
+before using the mover. Its [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) covers the
+semi-annual batch, recovery and separate manual deletion boundary.
+
 This is the release-operator checklist. The automated Linux and real-Mongo checks have now been
 run in development; the production database, real HPC mount, real browser, and final deployment
 still need the checks below. Work through them in order. Each step says what "pass" looks like
