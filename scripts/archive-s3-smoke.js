@@ -35,18 +35,27 @@ const restored = (head) => {
   );
 };
 
+// A usage mistake is the operator's, not a fault to debug, so it is reported
+// as the invocation alone. Everything else keeps its stack trace.
+class UsageError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "UsageError";
+  }
+}
+
 const parseArgs = (argv) => {
   const [command, ...flags] = argv;
   if (!["prepare", "upload", "restore", "verify-restore"].includes(command))
-    throw new Error(usage);
+    throw new UsageError(usage);
   let workDir,
     execute = false;
   for (let i = 0; i < flags.length; i += 1) {
     if (flags[i] === "--work-dir" && !workDir) workDir = flags[++i];
     else if (flags[i] === "--execute" && !execute) execute = true;
-    else throw new Error(usage);
+    else throw new UsageError(usage);
   }
-  if (!workDir || !path.isAbsolute(workDir)) throw new Error(usage);
+  if (!workDir || !path.isAbsolute(workDir)) throw new UsageError(usage);
   return { command, workDir: path.resolve(workDir), execute };
 };
 
@@ -281,7 +290,11 @@ if (require.main === module)
       process.exitCode = code;
     })
     .catch((error) => {
-      process.stderr.write(`${error.stack || error.message}\n`);
+      process.stderr.write(
+        error instanceof UsageError
+          ? `${error.message}\n`
+          : `${error.stack || error.message}\n`,
+      );
       process.exitCode = 2;
     });
-module.exports = { parseArgs, runSmoke, SIZES };
+module.exports = { UsageError, parseArgs, runSmoke, SIZES };

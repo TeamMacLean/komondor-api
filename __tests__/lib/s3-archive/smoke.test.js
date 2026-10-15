@@ -8,6 +8,7 @@ const crypto = require("crypto");
 const { crc64Nvme } = require("../../../lib/utils/crc64nvme");
 const {
   runSmoke,
+  UsageError,
   parseArgs,
   SIZES,
 } = require("../../../scripts/archive-s3-smoke");
@@ -57,11 +58,10 @@ beforeEach(async () => {
       return digest(bytes);
     }),
     restoreObject: jest.fn(async (key) => {
-      objects.get(
-        key,
-      ).head.Restore = `ongoing-request="false", expiry-date="${new Date(
-        Date.now() + 86400000,
-      ).toUTCString()}"`;
+      objects.get(key).head.Restore =
+        `ongoing-request="false", expiry-date="${new Date(
+          Date.now() + 86400000,
+        ).toUTCString()}"`;
     }),
     downloadObjectDigest: jest.fn(async (key) =>
       digest(objects.get(key).bytes),
@@ -132,8 +132,15 @@ test("refuses re-preparation and a changed destination", async () => {
   expect(aws.putControlObject).not.toHaveBeenCalled();
 });
 test("requires an explicit absolute scratch directory and recognises no deletion command", () => {
-  expect(() => parseArgs(["delete", "--work-dir", workDir])).toThrow();
-  expect(() => parseArgs(["prepare", "--work-dir", "relative"])).toThrow();
+  // UsageError specifically: the entry point prints these without a stack
+  // trace, so an operator who mistypes a flag sees the invocation, not a crash.
+  expect(() => parseArgs(["delete", "--work-dir", workDir])).toThrow(
+    UsageError,
+  );
+  expect(() => parseArgs(["prepare", "--work-dir", "relative"])).toThrow(
+    UsageError,
+  );
+  expect(() => parseArgs(["prepare"])).toThrow(UsageError);
   expect(parseArgs(["upload", "--work-dir", workDir])).toMatchObject({
     execute: false,
   });

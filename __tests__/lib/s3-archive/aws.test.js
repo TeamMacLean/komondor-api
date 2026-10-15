@@ -320,6 +320,23 @@ describe("AWS CLI archive wrapper", () => {
     }
   });
 
+  test.each(["ONEZONE_IA", "REDUCED_REDUNDANCY", "FUTURE_CLASS"])(
+    "refuses to upload payload in unapproved class %s, with the refusal exit code",
+    async (storageClass) => {
+      // The class reaching here comes from a sealed manifest, so this is a
+      // refusal to continue that migration, not an internal crash: it has to
+      // carry the taxonomy's exit code like every other refusal.
+      const spawn = jest.fn();
+      const aws = new AwsCli(config, { spawn });
+
+      await expect(
+        aws.uploadHandle({}, { key: "k", size: 1, metadata: {}, storageClass }),
+      ).rejects.toMatchObject({ name: "ArchiveRefusalError", exitCode: 1 });
+      // Refused before any process was started.
+      expect(spawn).not.toHaveBeenCalled();
+    },
+  );
+
   test("checks an exact prefix key separately from slash-delimited children", async () => {
     const aws = new AwsCli(config);
     jest.spyOn(aws, "headObject").mockResolvedValue(null);

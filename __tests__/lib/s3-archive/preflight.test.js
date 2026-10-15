@@ -251,9 +251,24 @@ describe("archive AWS preflight", () => {
     const aws = makeAws();
     aws.version.mockResolvedValue("aws-cli/1.42.0 Python/3.9.0");
 
-    await expect(validateAws(aws, config)).rejects.toThrow(/v2 is required/);
+    await expect(validateAws(aws, config)).rejects.toThrow(
+      /v2 or later is required/,
+    );
     expect(aws.run).not.toHaveBeenCalled();
   });
+
+  test.each(["3.0.0", "3.1.4", "10.0.0"])(
+    "accepts a later major %s rather than refusing it for a small minor",
+    async (version) => {
+      // The 2.23.0 floor exists for CRC64NVME inside the v2 line. Applying it
+      // across majors would strand the tool on a CLI newer than this check,
+      // and the capability assertions are what actually prove the support.
+      const aws = makeAws();
+      aws.version.mockResolvedValue(`aws-cli/${version}`);
+
+      await expect(validateAws(aws, config)).resolves.toBeDefined();
+    },
+  );
 
   test("refuses an account other than the configured fence", async () => {
     const aws = makeAws();

@@ -10,6 +10,11 @@ module.exports = {
   // "socket hang up" transport failures, and what else was ruled out.
   setupFiles: ["<rootDir>/__tests__/setup/httpAgent.js"],
 
+  // Runs after the framework is installed, so it can call jest.setTimeout.
+  // See the file: it raises the per-test deadline for __tests__/integration/
+  // only, and explains why that cannot live on the command line.
+  setupFilesAfterEnv: ["<rootDir>/__tests__/setup/integrationTimeout.js"],
+
   // A fraction, not a worker count. jest's default is cores-1, which on an
   // 8-core dev box means 7 workers each independently requiring mongoose: a
   // 450-module graph, reached transitively by most of the 67 suites, and
