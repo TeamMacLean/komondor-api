@@ -40,6 +40,11 @@ runtime), the lockfile's package manager and a current AWS CLI v2 (minimum
 so its flags alone cannot prove support. AWS documents the version boundary in
 [CLI v2 checksum changes](https://docs.aws.amazon.com/cli/latest/userguide/cliv2-migration-changes.html).
 
+On AlmaLinux, AWS CLI help can contain ANSI bold escapes. Preflight normalizes
+these as well as groff overstrikes before checking capability tokens. If an older
+checkout reports missing CRC64NVME despite the algorithm appearing in CLI help,
+deploy the formatting fix; do not bypass the checksum check or upgrade blindly.
+
 ## 2. Provision the dedicated bucket and roles
 
 Use an infrastructure administrator for this section. The mover must not have

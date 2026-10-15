@@ -148,6 +148,26 @@ describe("archive AWS preflight", () => {
     await expect(validateAws(aws, config)).resolves.toBeDefined();
   });
 
+  test("accepts ANSI bold capability help from AlmaLinux AWS CLI", async () => {
+    const aws = makeAws(Object.fromEntries(Object.entries(HELP).map(
+      ([command, text]) => [command, text.replace(/\S+/g, "\x1b[1m$&\x1b[0m")],
+    )));
+    await expect(validateAws(aws, config)).resolves.toBeDefined();
+  });
+
+  test.each(["CRC32", "ChecksumCRC64NVME", "CRC64NVME_UNSUPPORTED"])(
+    "still refuses ANSI formatted %s without the exact algorithm token",
+    async (token) => {
+      const aws = makeAws({
+        "s3api put-object": HELP["s3api put-object"].replace(
+          "CRC64NVME", `\x1b[1m${token}\x1b[0m`,
+        ),
+      });
+      await expect(validateAws(aws, config)).rejects.toThrow(/lacks CRC64NVME/);
+      expect(aws.getCallerIdentity).not.toHaveBeenCalled();
+    },
+  );
+
   test("refuses an administrator session in the correct account", async () => {
     const aws = makeAws();
     aws.getCallerIdentity.mockResolvedValue({
