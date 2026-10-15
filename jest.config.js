@@ -9,6 +9,44 @@ module.exports = {
   // records the measurements that show it does NOT fix the intermittent
   // "socket hang up" transport failures, and what else was ruled out.
   setupFiles: ["<rootDir>/__tests__/setup/httpAgent.js"],
+
+  // A fraction, not a worker count. jest's default is cores-1, which on an
+  // 8-core dev box means 7 workers each independently requiring mongoose: a
+  // 450-module graph, reached transitively by most of the 67 suites, and
+  // I/O-bound rather than CPU-bound. Several copies of it in flight on a
+  // memory-constrained machine become a page-fault storm -- `sys` time
+  // overtakes `user`, wall-clock inflates 5-18x, and tests needing
+  // milliseconds of CPU blow jest's 5s *wall-clock* deadline. The symptom is
+  // always "Exceeded timeout of 5000 ms", never an assertion, and it lands on
+  // an arbitrary suite. Distinct from the transport flake documented in
+  // __tests__/setup/httpAgent.js ("socket hang up"), which is still open.
+  //
+  // Nothing is given up by capping it. The whole suite is ~31s of single-core
+  // work (--maxWorkers=1), so the extra workers were never buying throughput:
+  // 2 workers finish a full run in 13-34s, i.e. at parity with the *best*
+  // 7-worker run and ahead of its typical one. The starved tests are not slow
+  // -- the two that failed a 16s run were a POST asserting a 400 and one
+  // mocked update, and both passed 20 consecutive isolated runs with zero
+  // timeouts.
+  //
+  // Timeout failures observed here, by setting, on an 8-core/8GB box:
+  // 7 workers 1 run in 4; 4 workers 1 in 3; 3 workers 2 in 12; 2 workers 0 in
+  // 6. Tuned on a machine often at load 20-60 with no free RAM, so the margin
+  // matters more than the last few seconds. Raising testTimeout was rejected:
+  // these tests need milliseconds, so a higher deadline would only hide a
+  // genuine hang. Reducing per-suite setup was rejected too -- the cost is
+  // mongoose itself, and dropping it means weakening the ~60 suites that need
+  // real schemas and ObjectIds.
+  //
+  // Expressed as a percentage so it tracks the machine rather than this one:
+  // 25% is 2 workers on an 8-core box and clamps to 1 on the 2-core
+  // ubuntu-latest runners, which is already where cores-1 put CI -- so CI
+  // behaviour is unchanged, and CI never saw this flake.
+  //
+  // Do NOT pair this with workerIdleMemoryLimit. Recycling a worker makes it
+  // re-require that same graph from cold, which is the expensive thing here:
+  // 50% + a 512MB limit failed 3 of 3 runs at 53-118s, against 16-21s without.
+  maxWorkers: "25%",
   coveragePathIgnorePatterns: [
     "/node_modules/",
     // The nested-checkout exclusion, repeated here for the same reason it is
