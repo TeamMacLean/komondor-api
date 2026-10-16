@@ -5,6 +5,13 @@ dump. Local automated checks passed. Production checks were read-only. This is
 evidence for proceeding to the next approved rehearsal stage, not completed
 production acceptance or permission to delete source data.
 
+**Later update:** this document preserves Stage 1's original evidence and
+limitations. [Stage 3](STAGE3_APPLICATION_REHEARSAL_2026-10-16.md) subsequently
+deployed Nudge `a311f29`, resolved the Power source-access gap, and passed the
+disposable project's live checks across all four storage states. Its narrower
+project-only fixture and remaining pilot checks are recorded there. No real
+project has been archived by this deployment rehearsal.
+
 ## Versions and results
 
 All local checks used Node `v24.11.1`, matching v1333. No production database,
@@ -17,7 +24,8 @@ live email delivery or S3 transfer was used by the tests.
 | Power | `d98fab1` | `d98fab1`, unchanged | 118 tests, 5 suites |
 | Nudge | `944868b` | `a311f29` | 114 tests, 7 suites |
 
-The web and Nudge commits are local on `master`; neither was pushed or deployed.
+At the end of Stage 1, the web and Nudge commits were local on `master`; neither
+had been pushed or deployed.
 Power remains unchanged on `main`. API changes in this stage are documentation.
 The Nudge checkout was cloned from v1333 because no local copy existed. Its
 `origin` is the production checkout, not GitHub; do not push to it.
@@ -149,15 +157,15 @@ Nudge:
 MONGOMS_VERSION=5.0.19 node_modules/.bin/jest --runInBand --silent
 ```
 
-## Next approval boundary
+## Approval boundary at the end of Stage 1
 
-The operator asked for a green light before each new stage. Stop after these
-checks. The Nudge audit improvement awaits an explicitly approved deployment.
-The next separate rehearsal is real S3 conditional-write refusal, interrupted
+The operator asked for a green light before each new stage. At this point the
+Nudge audit improvement awaited an explicitly approved deployment.
+The next separate rehearsal was real S3 conditional-write refusal, interrupted
 transfer/resume and credential renewal across expiry (allow roughly two to
 three hours, mostly unattended, subject to obtaining a separate test profile).
 Do not shorten the production role's session duration for that test.
 
-Live checks through every storage state belong to a newly created disposable
-project with an agreed writer pause. See the
+Those later stages have since been separately approved and completed within
+their recorded scope. The real-project pilot remains unapproved. See the
 [remaining production acceptance gates](PRODUCTION_ACCEPTANCE_2026-10-16.md#still-required).

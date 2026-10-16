@@ -4,6 +4,10 @@ This records observed deployment evidence, not approval to delete production
 sources. Continue with [first deployment and acceptance](../S3_PROJECT_ARCHIVAL_DEPLOYMENT.md)
 and use the [operator runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for each batch.
 
+**Stages 1–3 have passed within their recorded scope.** Cold restore, interrupted
+transfer/resume, credential renewal and the disposable-project application
+rehearsal are complete. No real-project pilot has been approved or started.
+
 ## Environment and release
 
 - Host: `v1333.nbi.ac.uk`; archive operator: `deeks`.
@@ -17,15 +21,16 @@ and use the [operator runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for each batch
   mount and inspect the three project trees below. This does not establish
   access to every project or permission to delete files.
 - Production API checkout is clean at `c6b9d77`; the CLI fixes were transferred
-  as Git bundles and fast-forwarded without pushing to GitHub. Services were
-  not restarted. API readiness returned HTTP 200 with all checks passing at
-  `http://127.0.0.1:3061/ready` before the CLI-only updates.
-- Observed consumer checkout commits: web `beb0b95`, Power `d98fab1`,
-  Nudge `944868b`. All four service processes run as `tsldata`. Some Power files
-  are unreadable to `deeks`, so its working-tree cleanliness and deployed build
-  contents have not been fully verified. Selected compiled archive guards were
-  subsequently confirmed during the app checks below. Noninteractive sudo is
-  unavailable.
+  as Git bundles and fast-forwarded without pushing to GitHub. The initial
+  CLI-only updates required no service restart. Stage 3 later paused/restarted
+  API and Power for the approved lock test; final API readiness passed at
+  `http://127.0.0.1:3061/ready`.
+- Final consumer checkout commits: web `beb0b95`, Power `d98fab1`,
+  Nudge `a311f29`. All four service processes run as `tsldata`. Its operator
+  inspector confirmed clean checkouts and matched the previously unreadable
+  Power sources to the tested versions. Live checks subsequently verified the
+  tested archive guards. Direct `tsldata` terminal commands worked; sudo from
+  `deeks` was unreliable. Preserve `deeks` for SSO/archive operations.
 
 ## Passed smoke recovery
 
@@ -72,7 +77,9 @@ on completion and has since been repurposed for the Stage 2 renewal test below.
 
 Plans and initial diagnostic failures are saved as `plan-*.log` in
 `/storage/komondor-archive-rehearsals-deeks/`. Successful populated-project plan
-logs have the `-20261016-c6b9d77.log` suffix. No project was locked, moved or deleted.
+logs have the `-20261016-c6b9d77.log` suffix. No project was locked, moved or deleted
+by these read-only checks. Later Stage 3 mutations concerned only the newly
+created synthetic fixture.
 
 ## CLI fixes discovered during deployment
 
@@ -95,7 +102,9 @@ Stage 1 code checks passed on 16 October: API 436 tests, web 74, Power 118 and
 Nudge 114. See the [application compatibility evidence](APP_COMPATIBILITY_2026-10-16.md)
 for exact versions, scope, commands and limitations. The additional web tests
 are committed locally at `d1b96a0`; Nudge's archive audit visibility and tests
-are committed locally at `a311f29`. Neither commit has been pushed or deployed.
+are committed locally at `a311f29`. Neither commit has been pushed. Nudge was
+subsequently deployed by verified Git bundle and restarted during Stage 3;
+the web commit adds tests only and was not deployed.
 
 The deployed API readiness and Nudge health endpoints returned HTTP 200. The ten
 selected web source files match the tested sources, and compiled web/Power
@@ -124,29 +133,47 @@ copies were independently checked locally, including the sealed manifest digest
 and every entry's checksum and length. The completed runner has exited and the
 follow-up is paused. The production mover role duration is unchanged.
 
-## Still required
+## Stage 3 disposable-project checks
 
-Stage 3 is explicitly approved and underway; see its
+Stage 3 passed; see its
 [application rehearsal record](STAGE3_APPLICATION_REHEARSAL_2026-10-16.md).
 The isolated renewal-test assignment has been removed and the empty assignment
 listing verified. Production mover access and retained test objects remain.
 
-1. Activate and verify the reviewed Nudge audit improvement,
-   then verify API/web/Power/Nudge through every state of a fresh disposable
-   project. Local code checks have passed; live authenticated application
-   acceptance remains outstanding. The previously unreadable Power sources
-   now match the tested versions and all four production checkouts were clean.
-   Archival must not suppress publication nudges.
-2. A newly created disposable project exercised through the application's full
-   archive workflow. Establish exact writer stop/start commands and a maintenance
-   window before lock; preserve the `deeks` SSO identity for archive commands.
-3. Record database backup/recovery, evidence retention, cost ownership, project
-   selection ownership and the deletion review interval. Then obtain owner
-   agreement on one small real pilot and retain its HPC originals through review.
+The synthetic project `6ad24adfe34eae4923a3cda4` passed plan, lock, pre-copy abort,
+relock, interrupted multipart copy/resume, deletion refusal on local drift, the
+operator's manual root deletion and `confirm-absent`. Its three additional files
+total 83,887,104 bytes; final state is `aws` / `completed` at 16:18:07 UTC. All
+four apps passed the recorded project-level checks across all four storage
+states. Nudge's eligibility was unchanged by archival; dry runs sent no emails.
+The single authorized creation notice was addressed only to `deeks@nbi.ac.uk`
+and SMTP accepted it. The fixture's future reminders are now disabled.
+
+API and Power were paused for 75 seconds, then restarted successfully. Final
+API/Nudge health and Web/Power HTTP checks passed at 16:18:55 UTC. The fixture
+has no samples/runs; Power checks stopped at validation/review. Live inherited
+sample/run screens and representative Read trees remain pilot checks, and Web
+clipboard contents could not be independently read back. These limits are
+recorded explicitly rather than counted as passed.
+
+## Still required
+
+1. Record database backup/recovery, durable evidence retention, cost ownership,
+   project selection ownership and the deletion review interval. The operator
+   reported the database dumps complete before Stage 2; recovery has not been
+   rehearsed by this work.
+2. Obtain a separate green light and project-owner agreement for one small real
+   pilot. Recheck its plan and active work, agree a writer pause, and retain HPC
+   originals through review. Inspect its existing sample/run/read views and S3
+   locations in addition to the project-level checks already exercised.
+3. Restore and verify a representative file from that real pilot, then review
+   its sealed evidence and agreed retention interval before any separately
+   approved manual source deletion. Complete the operational handover before
+   scheduling semi-annual batches.
 
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
 database dumps completed. All three Stage 2 transfer checks have passed. Stage 3
-application deployment and disposable-project work are approved but not complete;
-a real-project pilot still requires its own green light.
+application deployment and disposable-project work are complete within the
+scope above; a real-project pilot still requires its own green light.

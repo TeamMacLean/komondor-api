@@ -261,6 +261,15 @@ node scripts/move-project-to-s3.js resume --project-id "$ARCHIVE_PROJECT_ID" --m
 node scripts/move-project-to-s3.js resume --project-id "$ARCHIVE_PROJECT_ID" --migration-id "$ARCHIVE_MIGRATION_ID" --resumed-by "$ARCHIVE_OPERATOR" --execute
 ```
 
+A process killed outright, or a host crash, can leave an incomplete multipart
+upload because its error cleanup never runs. A successful `resume` verifies the
+completed objects; it does not necessarily remove that earlier unfinished
+upload. Check `status` and retain its listed upload IDs in the batch record.
+The seven-day lifecycle rule cleans abandoned parts. If cleaning sooner, abort
+only an exact upload ID whose ownership and stopped writer you have established
+from the original job evidence. Do not delete completed objects or another
+operator's active upload to tidy a successful migration.
+
 Before sealing only, abort:
 
 ```bash

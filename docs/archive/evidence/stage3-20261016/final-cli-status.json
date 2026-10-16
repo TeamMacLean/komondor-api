@@ -1,0 +1,76 @@
+{
+  "command": "status",
+  "identity": {
+    "projectId": "6ad24adfe34eae4923a3cda4",
+    "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+    "migrationId": "6ad24c613e5ebe6183c4895f",
+    "osUser": "deeks",
+    "awsArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+    "awsAccountId": "958120753368",
+    "bucket": "tsl-hpc-reads",
+    "basePrefix": ""
+  },
+  "state": "aws",
+  "phase": "completed",
+  "migration": {
+    "id": "6ad24c613e5ebe6183c4895f",
+    "movedBy": "admin",
+    "startedAt": "2026-10-16T16:10:11.430Z",
+    "updatedAt": "2026-10-16T16:18:07.457Z",
+    "lastError": null,
+    "resumeCount": 1,
+    "restartedFrom": [],
+    "manifests": {
+      "fileCount": 3,
+      "skippedEntries": 0,
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ad24adfe34eae4923a3cda4/6ad24c613e5ebe6183c4895f/source-manifest.v1.json",
+      "sourceSealedAt": "2026-10-16T16:12:43.313Z",
+      "sourceSha256": "3fab9573837769006615b7f6a8b56b7996043d8794555430468d9af76962e07c",
+      "totalBytes": 83887104,
+      "version": 1,
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ad24adfe34eae4923a3cda4/6ad24c613e5ebe6183c4895f/verification-report.v1.json",
+      "verificationSealedAt": "2026-10-16T16:13:44.355Z",
+      "verificationSha256": "4e68e7e0abc9f1297d4b7f34a2223b03710d9cbb0929350fec36616b58391847"
+    }
+  },
+  "sourceManifest": {
+    "exists": true,
+    "digestMatches": true
+  },
+  "objects": {
+    "total": 3,
+    "owned": [
+      {
+        "key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-large.bin",
+        "size": 67108864,
+        "migrationId": "6ad24c613e5ebe6183c4895f"
+      },
+      {
+        "key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-medium.bin",
+        "size": 16777216,
+        "migrationId": "6ad24c613e5ebe6183c4895f"
+      },
+      {
+        "key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-small.txt",
+        "size": 1024,
+        "migrationId": "6ad24c613e5ebe6183c4895f"
+      }
+    ],
+    "prior": [],
+    "foreign": []
+  },
+  "multipartUploads": [],
+  "controlObjects": [
+    {
+      "key": "_control/projects/6ad24adfe34eae4923a3cda4/6ad24c613e5ebe6183c4895f/source-manifest.v1.json",
+      "size": 4940
+    },
+    {
+      "key": "_control/projects/6ad24adfe34eae4923a3cda4/6ad24c613e5ebe6183c4895f/verification-report.v1.json",
+      "size": 2760
+    }
+  ],
+  "hpcExists": false,
+  "cleanupWarning": null,
+  "cleanupCommands": []
+}

@@ -1,0 +1,291 @@
+{
+  "kind": "operator-acceptance-summary",
+  "date": "2026-10-16",
+  "scope": "Approved Stage 3 synthetic project only; real-project pilot not approved.",
+  "projectId": "6ad24adfe34eae4923a3cda4",
+  "migrationId": "6ad24c613e5ebe6183c4895f",
+  "finalArchivedAt": "2026-10-16T16:18:07.457Z",
+  "lockAbortRelock": {
+    "at": "2026-10-16T16:10:11.454Z",
+    "runId": "6a061f95-2e86-42e1-93f0-40f645c64db9",
+    "projectId": "6ad24adfe34eae4923a3cda4",
+    "abortedMigrationId": "6ad24c4836ea8d5fefe06f38",
+    "activeMigrationId": "6ad24c613e5ebe6183c4895f",
+    "state": "migrating",
+    "phase": "locked"
+  },
+  "copyRecovery": {
+    "at": "2026-10-16T16:15:21.969135+00:00",
+    "projectId": "6ad24adfe34eae4923a3cda4",
+    "migrationId": "6ad24c613e5ebe6183c4895f",
+    "state": "aws_pending_hpc_deletion",
+    "phase": "verified",
+    "partialBytes": 8388608,
+    "resumeCount": 1,
+    "abortedOwnInterruptedUploadId": "usXjbsVmtw9DxwkYfS3iVGsJxaFPTlXYi.KQrBmYVaE9xR4w8Nf2uPIVG_3xEV1GB33mjFseoQntv7B9hhrEacegSUMejgr74v2q4axsxHoeMYHJj.HrdzuGv_gQ26uy2mQlSZkggUM0QYNecBhh9g--",
+    "remainingMultipartUploads": 0,
+    "runnerNote": "Resume exited zero and verified all three files. Wrapper parsing was corrected for progress lines before JSON; no copy/resume was repeated. SIGKILL bypassed normal upload-error cleanup. Only the exact interrupted UploadId recorded by this test was aborted; complete objects remain untouched."
+  },
+  "deletionRefusal": {
+    "at": "2026-10-16T16:16:16.914299+00:00",
+    "projectId": "6ad24adfe34eae4923a3cda4",
+    "refusedAddedFile": true,
+    "probeRemoved": true,
+    "freshDeletionCommandPassed": true,
+    "hpcOriginalsStillPresent": true,
+    "command": "rm -rf -- '/mnt/reads/archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016'"
+  },
+  "manualDeletionConfirmation": {
+    "at": "2026-10-16T16:18:16.502263+00:00",
+    "reportedBy": "human operator in chat",
+    "checkedBy": "deeks",
+    "projectId": "6ad24adfe34eae4923a3cda4",
+    "source": "/mnt/reads/archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016",
+    "hpcExists": false,
+    "state": "aws",
+    "phase": "completed"
+  },
+  "applicationChecks": [
+    {
+      "state": "hpc",
+      "apiStatus": 200,
+      "apiWriteRefusal": null,
+      "nudgeAudit": {
+        "at": "2026-10-16T16:04:54.937Z",
+        "projectId": "6ad24adfe34eae4923a3cda4",
+        "state": "hpc",
+        "runId": "6ad24b2629cae84d1cf47c11",
+        "status": "success",
+        "dryRun": true,
+        "asOf": "2028-11-16T12:00:00.000Z",
+        "decision": {
+          "emailSent": false,
+          "nudgeRecorded": false,
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+          "owner": "admin",
+          "groupLeaderUsername": "archive_rehearsal_20261016",
+          "storageState": "hpc",
+          "outcome": "nudged",
+          "reason": "NUDGED_FIRST",
+          "detail": "created 2026-10-16, at least 24 months ago, never nudged [dry run: no email sent, no nudge recorded]"
+        },
+        "projectUnchanged": true
+      },
+      "webObserved": "HPC paths and new-sample link visible",
+      "powerObserved": "Validate and review passed; not submitted"
+    },
+    {
+      "state": "migrating",
+      "apiStatus": 200,
+      "apiWriteRefusal": {
+        "status": 409,
+        "body": {
+          "error": "This project's data storage is being moved to AWS S3; new data cannot be added to it.",
+          "detail": "Project storage is read-only (migrating)",
+          "requestId": "1792167027953-dysx2u5gi",
+          "code": "PROJECT_STORAGE_READ_ONLY",
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "storageState": "migrating"
+        }
+      },
+      "nudgeAudit": {
+        "at": "2026-10-16T16:10:28.340Z",
+        "projectId": "6ad24adfe34eae4923a3cda4",
+        "state": "migrating",
+        "runId": "6ad24c74b1427462fc316143",
+        "status": "success",
+        "dryRun": true,
+        "asOf": "2028-11-16T12:00:00.000Z",
+        "decision": {
+          "emailSent": false,
+          "nudgeRecorded": false,
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+          "owner": "admin",
+          "groupLeaderUsername": "archive_rehearsal_20261016",
+          "storageState": "migrating",
+          "outcome": "nudged",
+          "reason": "NUDGED_FIRST",
+          "detail": "created 2026-10-16, at least 24 months ago, never nudged [dry run: no email sent, no nudge recorded]"
+        },
+        "projectUnchanged": true
+      },
+      "webObserved": "Moving to AWS; planned S3 not yet verified; new-sample link absent",
+      "powerObserved": "Validation rejected CSV specifically for storage state migrating"
+    },
+    {
+      "state": "aws_pending_hpc_deletion",
+      "apiStatus": 200,
+      "apiWriteRefusal": {
+        "status": 409,
+        "body": {
+          "error": "This project's data storage is copied to AWS S3 and awaiting HPC cleanup; new data cannot be added to it.",
+          "detail": "Project storage is read-only (aws_pending_hpc_deletion)",
+          "requestId": "1792167322053-xl0608dhi",
+          "code": "PROJECT_STORAGE_READ_ONLY",
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "storageState": "aws_pending_hpc_deletion"
+        }
+      },
+      "nudgeAudit": {
+        "at": "2026-10-16T16:15:22.452Z",
+        "projectId": "6ad24adfe34eae4923a3cda4",
+        "state": "aws_pending_hpc_deletion",
+        "runId": "6ad24d9a683a51703fabdac7",
+        "status": "success",
+        "dryRun": true,
+        "asOf": "2028-11-16T12:00:00.000Z",
+        "decision": {
+          "emailSent": false,
+          "nudgeRecorded": false,
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+          "owner": "admin",
+          "groupLeaderUsername": "archive_rehearsal_20261016",
+          "storageState": "aws_pending_hpc_deletion",
+          "outcome": "nudged",
+          "reason": "NUDGED_FIRST",
+          "detail": "created 2026-10-16, at least 24 months ago, never nudged [dry run: no email sent, no nudge recorded]"
+        },
+        "projectUnchanged": true
+      },
+      "webObserved": "Copied to AWS, HPC cleanup pending; S3 locations; new-sample link absent",
+      "powerObserved": "Validation rejected CSV specifically for storage state aws_pending_hpc_deletion"
+    },
+    {
+      "state": "aws",
+      "apiStatus": 200,
+      "apiWriteRefusal": {
+        "status": 409,
+        "body": {
+          "error": "This project's data storage is archived in AWS S3; new data cannot be added to it.",
+          "detail": "Project storage is read-only (aws)",
+          "requestId": "1792167496584-wdfuda777",
+          "code": "PROJECT_STORAGE_READ_ONLY",
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "storageState": "aws"
+        }
+      },
+      "nudgeAudit": {
+        "at": "2026-10-16T16:18:16.989Z",
+        "projectId": "6ad24adfe34eae4923a3cda4",
+        "state": "aws",
+        "runId": "6ad24e489eb23280a4df9e7d",
+        "status": "success",
+        "dryRun": true,
+        "asOf": "2028-11-16T12:00:00.000Z",
+        "decision": {
+          "emailSent": false,
+          "nudgeRecorded": false,
+          "projectId": "6ad24adfe34eae4923a3cda4",
+          "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+          "owner": "admin",
+          "groupLeaderUsername": "archive_rehearsal_20261016",
+          "storageState": "aws",
+          "outcome": "nudged",
+          "reason": "NUDGED_FIRST",
+          "detail": "created 2026-10-16, at least 24 months ago, never nudged [dry run: no email sent, no nudge recorded]"
+        },
+        "projectUnchanged": true
+      },
+      "webObserved": "Archived in AWS; S3 locations; new-sample link absent",
+      "powerObserved": "Validation rejected CSV specifically for storage state aws"
+    }
+  ],
+  "limits": [
+    "Fixture has three project additional files, zero samples and zero runs.",
+    "Power CSV was validated/reviewed only; final submission was never pressed.",
+    "Web clipboard success toast observed, but clipboard contents could not be independently read back.",
+    "Cold restore passed on earlier smoke fixtures; this Stage 3 project was not restored again."
+  ],
+  "supportingEvidenceLocalRoot": "/Users/deeks/.codex/artifacts/archive-stage3-20261016",
+  "supportingEvidenceServerRoot": "/storage/komondor-archive-rehearsals-deeks/stage3-20261016",
+  "supportingFileSha256": {
+    "lock-abort-relock-passed.json": "7c4ac4d6c605d2f5f6d65869a6ad74f1db69b3399f746db419f40d38ce6b5756",
+    "copy-recovery-passed.json": "3f82c6b179c8de3d68e23fdc893175b79f04e30df9588831cb418223abf58641",
+    "deletion-guard-passed.json": "ffed12f345898cef2c77d9744d2b5f58a082203473d80554322c03921ea1e9d4",
+    "manual-deletion-confirmed.json": "2bd8313c65504ba118c8047960790a43a6151b44f4fd54212d084d878f6b1da2",
+    "project-notification-sent.json": "7c8bd4c623c40a715c0e8813122c2e6d4b62a31dc9d2466a5539c7252ccbfc74",
+    "power-validate-only.csv": "ea00fc8995ac7a87dda66ff1aa5f7238d504f284f26fac176cfc4723a3e2d6a6",
+    "api-hpc.json": "e9306cb4e78df2d414ab18179f7a2f39dfcbef63c5b7cde9aff58ce330a6f9c9",
+    "api-migrating.json": "c3c31d29521c82fb2dc64982486416438f59f9255885318712c1b405afffee7f",
+    "api-aws_pending_hpc_deletion.json": "d5692498598c7e1f1bc303a37b52ec248a0a2a4ed081f83ffc799df2b9e5df4b",
+    "api-aws.json": "ab5fbaa4a59a95932b0a5983a25037fd4320b96904c5f082817bbf91d0084b33",
+    "nudge-hpc.json": "a7f3aac4159f0ba8a950eb85119b6bd4e214dac1d79b69ca23ac0bdf76985f9b",
+    "nudge-migrating.json": "3fe07354d1312f3143709d352914f14f2d29de4230c7373949ee3f8ee4f0250f",
+    "nudge-aws_pending_hpc_deletion.json": "bab3098c23f0f296a8236e1b3ff70cf83f6d68c3ec9bae113bfc4472142ff94d",
+    "nudge-aws.json": "7ddf9a454f5136719f2063680e604bcf51daf2eec1d47a3e73e8a03c9e1bc1ac",
+    "web-hpc-project.png": "2dccce68e4ed3b65a34fbfa7ed96d4c2b7e8e4cc4e34a75028a0fc8bb6e90191",
+    "web-migrating-project.png": "521826de5028f3346b37f94569a5ec48b103d564bddff391d6f169c7e7d8139d",
+    "web-pending-deletion-project.png": "ecc16e9741c16c7da40b84cf7e1c59f8edab9edb35c81fe546e8af8749821981",
+    "web-aws-project.png": "d4581ad217ef35cb5d1dba1cd1bb5e9290b353d06b28f0c9798874559adbd715",
+    "power-hpc-validation-passed.png": "2f909cbe5d370520782f0b76110dbc5a45af31e9f4de6ec758f350a16ae59f7f",
+    "power-migrating-refused.png": "6178750ceb2fc4e047b53ec7dc2fcd52e2e3d4af63dddc70ebac81384815b92a",
+    "power-pending-deletion-refused.png": "a2582b4d483d2491280f93e711442a9cfda189acaef6f73cf2b3b66662ab6b8a",
+    "power-aws-refused.png": "4eb9d1bde179477fb364f4f36a4dfe6afba7215db808f7e99216adaee2e93cbf",
+    "maintenance-window.json": "3f64fc04011e971229a0b992c139f6f7b39303100e8e829d65c79b930130ed20"
+  },
+  "retainedFileSha256": {
+    "source-manifest.v1.json": "3fab9573837769006615b7f6a8b56b7996043d8794555430468d9af76962e07c",
+    "final-health.json": "0195858cca6b2a60ceb3ddbbbf71d2c38353c08f0a5776740a2a6a9b8a95c1db",
+    "final-cli-status.json": "474db65ee1608cc4a16b2e1602b74cde85998c051a2f31f4f4686be7fb67c729",
+    "verification-report.v1.json": "4e68e7e0abc9f1297d4b7f34a2223b03710d9cbb0929350fec36616b58391847"
+  },
+  "serviceWindow": {
+    "preflight.json": {
+      "at": "2026-10-16T16:08:59.579Z",
+      "runId": "6a061f95-2e86-42e1-93f0-40f645c64db9",
+      "api": {
+        "unfinishedIngest": 0,
+        "unfinishedRuns": 0,
+        "activeMd5": 0
+      },
+      "power": {
+        "entries": 0,
+        "tracking": 0
+      },
+      "services": [
+        {
+          "name": "komondor-power",
+          "id": 8,
+          "pid": 826467
+        },
+        {
+          "name": "komondor-api",
+          "id": 9,
+          "pid": 1345537
+        }
+      ]
+    },
+    "paused.json": {
+      "at": "2026-10-16T16:09:00.680Z",
+      "runId": "6a061f95-2e86-42e1-93f0-40f645c64db9",
+      "projectId": "6ad24adfe34eae4923a3cda4",
+      "restartDeadline": "2026-10-16T16:19:00.680Z"
+    },
+    "restart-reason.json": {
+      "at": "2026-10-16T16:10:12.734Z",
+      "runId": "6a061f95-2e86-42e1-93f0-40f645c64db9",
+      "reason": "operator-lock-complete"
+    },
+    "restored.json": {
+      "at": "2026-10-16T16:10:15.172Z",
+      "runId": "6a061f95-2e86-42e1-93f0-40f645c64db9",
+      "apiReady": true,
+      "services": [
+        {
+          "name": "komondor-power",
+          "pid": 1663466,
+          "status": "online"
+        },
+        {
+          "name": "komondor-api",
+          "pid": 1663437,
+          "status": "online"
+        }
+      ],
+      "failures": []
+    }
+  }
+}

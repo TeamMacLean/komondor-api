@@ -1,0 +1,76 @@
+{
+  "createdAt": "2026-10-16T16:13:44.355Z",
+  "createdBy": {
+    "awsArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+    "komondorUser": "admin",
+    "osUser": "deeks"
+  },
+  "dataPrefix": "s3://tsl-hpc-reads/archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016",
+  "entries": [
+    {
+      "checksumCRC64NVME": "hNEai0e81bc=",
+      "checksumType": "FULL_OBJECT",
+      "contentLength": 67108864,
+      "error": null,
+      "headAt": "2026-10-16T16:13:41.114Z",
+      "metadataMigrationId": "6ad24c613e5ebe6183c4895f",
+      "relPath": "additional/rehearsal-large.bin",
+      "s3Key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-large.bin",
+      "storageClass": "DEEP_ARCHIVE",
+      "verified": true
+    },
+    {
+      "checksumCRC64NVME": "OS4b4gqdgPM=",
+      "checksumType": "FULL_OBJECT",
+      "contentLength": 16777216,
+      "error": null,
+      "headAt": "2026-10-16T16:13:41.838Z",
+      "metadataMigrationId": "6ad24c613e5ebe6183c4895f",
+      "relPath": "additional/rehearsal-medium.bin",
+      "s3Key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-medium.bin",
+      "storageClass": "DEEP_ARCHIVE",
+      "verified": true
+    },
+    {
+      "checksumCRC64NVME": "Qeh8oXvGiSo=",
+      "checksumType": "FULL_OBJECT",
+      "contentLength": 1024,
+      "error": null,
+      "headAt": "2026-10-16T16:13:42.557Z",
+      "metadataMigrationId": "6ad24c613e5ebe6183c4895f",
+      "relPath": "additional/rehearsal-small.txt",
+      "s3Key": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016/additional/rehearsal-small.txt",
+      "storageClass": "DEEP_ARCHIVE",
+      "verified": true
+    }
+  ],
+  "exclusions": [],
+  "keySet": {
+    "extraKeys": [],
+    "matches": true,
+    "missingKeys": []
+  },
+  "kind": "verification",
+  "localTree": {
+    "differences": [],
+    "matches": true,
+    "snapshot": {
+      "dirCount": 2,
+      "entryCount": 4
+    }
+  },
+  "manifestVersion": 1,
+  "migrationId": "6ad24c613e5ebe6183c4895f",
+  "projectId": "6ad24adfe34eae4923a3cda4",
+  "projectName": "DISPOSABLE archive deployment rehearsal 20261016",
+  "sourceManifestSha256": "3fab9573837769006615b7f6a8b56b7996043d8794555430468d9af76962e07c",
+  "sourceRelativeRoot": "archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016",
+  "sourceRoot": "/mnt/reads/archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016",
+  "storageClass": {
+    "expected": "DEEP_ARCHIVE",
+    "matches": true,
+    "unexpected": []
+  },
+  "toolVersion": "c6b9d77db069fa6dd808367086ff358302565b2f",
+  "verified": true
+}

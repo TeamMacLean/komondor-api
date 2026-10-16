@@ -1,0 +1,86 @@
+{
+  "at": "2026-10-16T16:18:55.141Z",
+  "projectId": "6ad24adfe34eae4923a3cda4",
+  "storage": {
+    "state": "aws",
+    "acceptsHpcWrites": false,
+    "authoritativeLocation": "s3",
+    "s3Uri": "s3://tsl-hpc-reads/archive_rehearsal_20261016/disposable_archive_deployment_rehearsal_20261016",
+    "s3VerifiedAt": "2026-10-16T16:13:44.355Z",
+    "hpcVerifiedAbsentAt": "2026-10-16T16:18:07.457Z",
+    "archivedAt": "2026-10-16T16:18:07.457Z",
+    "migrationHealth": null
+  },
+  "nudgeable": false,
+  "doNotSendToEna": true,
+  "samples": 0,
+  "additionalFiles": 3,
+  "health": {
+    "api": {
+      "status": 200,
+      "body": {
+        "status": "ready",
+        "failed": [],
+        "checks": [
+          {
+            "name": "mongodb",
+            "ok": true,
+            "detail": "connected"
+          },
+          {
+            "name": "DATASTORE_ROOT",
+            "ok": true,
+            "detail": "accessible"
+          },
+          {
+            "name": "HPC_TRANSFER_DIRECTORY",
+            "ok": true,
+            "detail": "accessible"
+          },
+          {
+            "name": "UPLOAD_DIRECTORY",
+            "ok": true,
+            "detail": "accessible"
+          },
+          {
+            "name": "ingest-worker",
+            "ok": true,
+            "detail": "last tick 1s ago"
+          }
+        ]
+      }
+    },
+    "nudge": {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "checks": {
+          "mongo": {
+            "ok": true,
+            "state": "connected"
+          },
+          "lastSuccessfulRun": {
+            "ok": true,
+            "at": "2026-10-16T16:18:16.853Z",
+            "ageHours": 0,
+            "maxAgeHours": 72,
+            "runId": "6ad24e489eb23280a4df9e7d"
+          },
+          "stuckRuns": {
+            "ok": true,
+            "count": 0
+          }
+        },
+        "dryRun": true,
+        "now": "2026-10-16T16:18:55.146Z",
+        "lastAttemptThisProcess": null
+      }
+    },
+    "power": {
+      "status": 200
+    },
+    "web": {
+      "status": 200
+    }
+  }
+}

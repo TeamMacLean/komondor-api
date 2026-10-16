@@ -9,7 +9,9 @@ the design; this document owns the deployment procedure.
 **Repository tests do not constitute production acceptance.** The real AWS,
 HPC mount, credential-renewal and consumer checks below must have dated evidence
 before deleting the first real project's source. No production AWS rehearsal is
-claimed by this repository change.
+implied by passing those tests. The
+[16 October 2026 acceptance record](archive/PRODUCTION_ACCEPTANCE_2026-10-16.md)
+records completed live rehearsals and the remaining pilot/handover requirements.
 
 ## 1. Record the deployment inputs
 
@@ -280,6 +282,11 @@ Exercise dry runs, lock, pre-copy abort, lock again, copy, an interruption/resum
 delete-command refusal on a deliberately added file, manual deletion of **only
 that disposable root**, and `confirm-absent`. Check API/web/Power/Nudge in all
 four storage states. Save logs and Mongo/S3 evidence.
+
+On v1333, the [Stage 3 service-control record](archive/STAGE3_APPLICATION_REHEARSAL_2026-10-16.md#readiness-and-service-control)
+identifies the verified PM2 names, `tsldata` service shell and `deeks` archive
+shell. Recheck current work before each pause; historical empty queues are not
+permission to interrupt newly accepted work.
 
 Only after sections 1–6 pass, select one small real project with its owner. Run
 the same procedure; leave it pending for the agreed review interval. Inspect the
