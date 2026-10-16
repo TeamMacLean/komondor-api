@@ -118,6 +118,40 @@ test("plan leaves database collections and indexes unchanged", async () => {
   expect(await snapshot()).toEqual(before);
 });
 
+test("plan resolves tracked read and additional-file references", async () => {
+  const oid = () => new mongo.mongoose.Types.ObjectId();
+  const sampleId = oid(), runId = oid(), readFileId = oid(), extraFileId = oid();
+  const runPath = "/group/project/sample/run";
+  const body = "tracked sequencing bytes\n";
+  await fs.mkdir(`${source}/sample/run/raw`, { recursive: true });
+  await fs.mkdir(`${source}/additional`);
+  await fs.writeFile(`${source}/sample/run/raw/read.fastq`, body);
+  await fs.writeFile(`${source}/additional/notes.txt`, "test notes\n");
+  await db().collection("samples").insertOne({ _id: sampleId, project: id });
+  await db().collection("runs").insertOne({
+    _id: runId, sample: sampleId, path: runPath, status: "complete",
+  });
+  await db().collection("files").insertMany([
+    { _id: readFileId, originalName: "read.fastq", path: `${runPath}/raw/read.fastq` },
+    { _id: extraFileId, originalName: "notes.txt", path: "/group/project/additional/notes.txt" },
+  ]);
+  await db().collection("reads").insertOne({
+    _id: oid(), run: runId, file: readFileId,
+    destinationMd5: require("crypto").createHash("md5").update(body).digest("hex"),
+    md5Mismatch: false,
+  });
+  await db().collection("additionalfiles").insertOne({
+    _id: oid(), project: id, file: extraFileId,
+  });
+  const result = await cli("plan");
+  expectSuccess(result);
+  const plan = JSON.parse(result.stdout);
+  expect(plan.seriousAnomalies).toEqual([]);
+  expect(plan.summary).toMatchObject({
+    regularFiles: 4, dbExpectedMissing: 0, diskUntracked: 2,
+  });
+});
+
 test("full lifecycle validates exact bytes and refuses each independent deletion hazard", async () => {
   const planned = await cli("plan");
   expect(JSON.parse(planned.stdout).destination).toBe(

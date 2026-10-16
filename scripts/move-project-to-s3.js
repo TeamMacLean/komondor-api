@@ -7,6 +7,9 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const mongoose = require("mongoose");
 
+// Read and AdditionalFile populate their file reference during preflight.
+// The standalone CLI does not load the API routes that normally register File.
+require("../models/File");
 const AdditionalFile = require("../models/AdditionalFile");
 const IngestJob = require("../models/IngestJob");
 const Project = require("../models/Project");
