@@ -76,7 +76,7 @@ After explicit operator approval, the separate permission set
 `KomondorArchiveRenewalTest` was created at `2026-10-16T13:00:21Z` with session
 duration `PT1H`. Its ARN is
 `arn:aws:sso:::permissionSet/ssoins-7223af30a9102cc1/ps-7223ea4e40678341`.
-The only assignment is the existing `georgedeeks-archive` user in account
+The only assignment during the test was the existing `georgedeeks-archive` user in account
 `958120753368`. Read-back checks confirmed the exact approved inline policy,
 one-hour duration and absence of AWS/customer managed policies. The policy allows
 bucket inspection and object upload/read/multipart operations only under
@@ -143,17 +143,17 @@ observation count, PID, renewal timestamps and successful exit. The result is
 saved as `evidence-validation.json` beside those copies.
 
 The test assignment does not expire after one hour; each issued role session
-does. Remove the isolated
-test assignment after acceptance and retain the evidence; this cleanup is still
-outstanding. Do not change the production mover assignment or delete retained
-smoke objects during that cleanup.
+does. During approved Stage 3, the isolated assignment was removed: AWS request
+`0bfa79ce-cf85-452b-af5a-accd51cfd8e2` returned `SUCCEEDED`, followed by an empty
+assignment listing. The production mover assignment and retained smoke objects
+were preserved. See the [Stage 3 record](STAGE3_APPLICATION_REHEARSAL_2026-10-16.md#completed-aws-test-access-cleanup).
 
 ## Remaining approval boundary
 
-After this stage completes, obtain another operator green light for the next
-deployment or disposable-project stage. Do not deploy the pending Nudge change,
-restart services, run a production nudge, create/archive a real project, remove
-HPC originals or delete completed S3 smoke objects as part of these tests.
+The operator subsequently approved Stage 3 application deployment and the
+disposable-project rehearsal; its progress is recorded separately. That approval
+does not authorize real-project archival/deletion, bulk nudge email or S3 smoke
+object deletion. Those actions are not part of these transfer tests.
 
 Smoke data is retained; this test incurs upload/request and archive storage
 charges. It does not request another restore. Account for retained versions and

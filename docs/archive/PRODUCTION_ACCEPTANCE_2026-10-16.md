@@ -126,24 +126,27 @@ follow-up is paused. The production mover role duration is unchanged.
 
 ## Still required
 
-1. Deploy the reviewed Nudge audit improvement with explicit operator approval,
+Stage 3 is explicitly approved and underway; see its
+[application rehearsal record](STAGE3_APPLICATION_REHEARSAL_2026-10-16.md).
+The isolated renewal-test assignment has been removed and the empty assignment
+listing verified. Production mover access and retained test objects remain.
+
+1. Activate and verify the reviewed Nudge audit improvement,
    then verify API/web/Power/Nudge through every state of a fresh disposable
    project. Local code checks have passed; live authenticated application
-   acceptance and complete Power deployment provenance remain outstanding.
+   acceptance remains outstanding. The previously unreadable Power sources
+   now match the tested versions and all four production checkouts were clean.
    Archival must not suppress publication nudges.
-2. Remove the isolated renewal-test assignment after acceptance; its one-hour
-   session duration does not expire the assignment. Retain the test evidence and
-   smoke objects, and preserve the production mover assignment.
-3. A newly created disposable project exercised through the application's full
+2. A newly created disposable project exercised through the application's full
    archive workflow. Establish exact writer stop/start commands and a maintenance
    window before lock; preserve the `deeks` SSO identity for archive commands.
-4. Record database backup/recovery, evidence retention, cost ownership, project
+3. Record database backup/recovery, evidence retention, cost ownership, project
    selection ownership and the deletion review interval. Then obtain owner
    agreement on one small real pilot and retain its HPC originals through review.
 
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
-database dumps completed. All three Stage 2 transfer checks have passed; later
-application deployment and disposable-project work still need their own green
-light.
+database dumps completed. All three Stage 2 transfer checks have passed. Stage 3
+application deployment and disposable-project work are approved but not complete;
+a real-project pilot still requires its own green light.
