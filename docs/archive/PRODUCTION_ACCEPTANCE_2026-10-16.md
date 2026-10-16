@@ -113,9 +113,16 @@ The operator approved creating `KomondorArchiveRenewalTest`, restricted to
 smoke object access and bucket inspection, with one-hour role credentials.
 Its assignment and exact policy were verified. The detached renewal test started
 at **13:01 UTC (14:01 UK time)**, using a private test profile throttled to
-`1MB/s`. Its result is pending; startup does not establish credential renewal.
-The four-hour follow-up now watches this runner and quietly skips ordinary
-network/VPN failures. The production mover role duration is unchanged.
+`1MB/s`, and **passed at 14:49:52 UTC (15:49 UK time)**. The same 6 GiB upload
+process ran for 105.9 minutes, observed two credential renewals and finished
+after the original credentials expired. All three fixtures passed final
+full-object checksum, length, metadata, storage-class and key-set verification.
+
+The passing receipt is `renewal-verified.json` under
+`/storage/komondor-archive-rehearsals-deeks/stage2-20261016T120802Z/`. Evidence
+copies were independently checked locally, including the sealed manifest digest
+and every entry's checksum and length. The completed runner has exited and the
+follow-up is paused. The production mover role duration is unchanged.
 
 ## Still required
 
@@ -124,11 +131,9 @@ network/VPN failures. The production mover role duration is unchanged.
    project. Local code checks have passed; live authenticated application
    acceptance and complete Power deployment provenance remain outstanding.
    Archival must not suppress publication nudges.
-2. Obtain the passing receipt from the running renewal test. It must demonstrate
-   newly issued credentials during one continuous upload that finishes after the
-   initial credentials expire, with final checksums verified. Overnight restore
-   completion does not prove this. Remove the isolated test assignment after
-   acceptance; its one-hour session duration does not expire the assignment.
+2. Remove the isolated renewal-test assignment after acceptance; its one-hour
+   session duration does not expire the assignment. Retain the test evidence and
+   smoke objects, and preserve the production mover assignment.
 3. A newly created disposable project exercised through the application's full
    archive workflow. Establish exact writer stop/start commands and a maintenance
    window before lock; preserve the `deeks` SSO identity for archive commands.
@@ -139,6 +144,6 @@ network/VPN failures. The production mover role duration is unchanged.
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
-database dumps completed. The credential-renewal test is running; later
+database dumps completed. All three Stage 2 transfer checks have passed; later
 application deployment and disposable-project work still need their own green
 light.

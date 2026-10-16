@@ -70,7 +70,7 @@ Evidence: `interruption-trigger.json`, `interruption-passed.json`,
 successfully. This is file-level recovery: the interrupted file was uploaded
 again from byte zero, while completed files were verified and reused.
 
-## Credential renewal: running, result pending
+## Credential renewal: passed
 
 After explicit operator approval, the separate permission set
 `KomondorArchiveRenewalTest` was created at `2026-10-16T13:00:21Z` with session
@@ -98,38 +98,55 @@ No administrator credentials were copied to v1333. The normal configuration,
 `stage2-renewal.cjs` was launched at `2026-10-16T13:01:43Z` in detached process
 session `1635527`, with a three-hour timeout, exclusive lock and file log. The
 test profile uses the classic transfer client, two concurrent requests and
-`max_bandwidth = 1MB/s`. Preparation hashes fresh 1 KiB, 16 MiB and 6 GiB fixtures;
-the upload is expected to take about two hours. Launching is not a passing result.
+`max_bandwidth = 1MB/s`. Preparation hashed fresh 1 KiB, 16 MiB and 6 GiB fixtures.
 Preparation completed under `_smoke/e19b44f4-bfc2-4d65-9e40-e0e4a19b045f/`,
 and the runner entered its upload phase at `13:03:24Z`. The initial credentials
-expire at `14:01:02Z` (15:01 UK time), before the expected upload completion.
+expired at `14:01:02Z` (15:01 UK time).
 
-The renewal runner uses another smoke UUID and a transfer throttled to
-last beyond the actual initial credential expiration. It observes the
-private CLI credential cache without logging credentials or making refresh
-requests during the upload. Passing requires newly issued role credentials to
-be observed while one continuous AWS upload process is alive, that process
-finishing after the original credentials expire, and final checksum verification.
-Time elapsed alone, or a fresh login after an interrupted transfer, is not proof.
+The single 6 GiB AWS upload process, PID `1636395`, ran continuously from
+`13:03:55.742Z` to `14:49:49.204Z` (105.9 minutes), exiting with code zero.
+Read-only cache observations captured two credential renewals during that process:
+
+| First observed (UTC) | New credential expiration (UTC) |
+| --- | --- |
+| `13:46:27.276Z` | `14:46:08Z` |
+| `14:31:29.019Z` | `15:31:19Z` |
+
+Each renewal had a different access-key fingerprint and a later expiration.
+The harness and monitoring made no separate AWS calls to refresh this profile
+during the continuous upload. All 212 observations identified the same running upload PID. The
+transfer ended after the original credentials expired and before the final
+observed credentials expired.
+
+Final verification passed at **`2026-10-16T14:49:52.940Z` (15:49 UK time)**:
+all three objects had the expected lengths, FULL_OBJECT CRC64NVME checksums,
+migration metadata, Deep Archive class and exact key set. The runner exited;
+no upload remained running when inspected at `15:15Z`.
 
 Inspect `renewal-status.json`, `renewal.log` and `renewal-launch.json` in the
-evidence directory. A passing run must produce `renewal-verified.json`, which
-references the final upload receipt. `renewal-cache-observations.jsonl` records
-only expiration times and one-way access-key fingerprints, never credentials.
-Do not run AWS commands with this test profile during the upload: a separate
-process refreshing its credential cache would compromise the renewal evidence.
+evidence directory. The passing receipt is `renewal-verified.json`, referencing
+`renewal/upload-verified-1792162192938.json` and the sealed manifest.
+`renewal-cache-observations.jsonl` records only expiration times and one-way
+access-key fingerprints, never credentials. For any repeat test, do not run AWS
+commands with its profile during the upload: a separate process refreshing the
+credential cache would compromise the renewal evidence.
 
-The existing chat follow-up now checks this runner every four hours, quietly
-skipping ordinary laptop/VPN disconnections. It reports a verified result,
-actual runner failure/timeout or required authentication, then pauses when
-complete or blocked on authentication. It cannot run while the local app is
-unavailable; the server job continues independently.
+The chat follow-up was paused after confirming success. Its four-hour schedule
+quietly skipped ordinary laptop/VPN disconnections; those did not interrupt the
+server job. The operator reconnected to retrieve the completed result.
 
-Local runner sources and evidence copies are retained in
-`/Users/deeks/.codex/artifacts/archive-stage2-20261016/`. The test assignment does
-not expire after one hour; each issued role session does. Remove the isolated
-test assignment after acceptance and retain the evidence. Do not change the
-production mover assignment or delete retained smoke objects during that cleanup.
+Nine evidence files were copied locally to
+`/Users/deeks/.codex/artifacts/archive-stage2-20261016/renewal/`. Independent
+checks matched the upload receipt's manifest digest to the exact saved manifest,
+compared every object's checksum and length to that manifest, and checked the
+observation count, PID, renewal timestamps and successful exit. The result is
+saved as `evidence-validation.json` beside those copies.
+
+The test assignment does not expire after one hour; each issued role session
+does. Remove the isolated
+test assignment after acceptance and retain the evidence; this cleanup is still
+outstanding. Do not change the production mover assignment or delete retained
+smoke objects during that cleanup.
 
 ## Remaining approval boundary
 
