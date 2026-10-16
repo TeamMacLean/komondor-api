@@ -6,7 +6,8 @@ and use the [operator runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for each batch
 
 **Stages 1–3 have passed within their recorded scope.** Cold restore, interrupted
 transfer/resume, credential renewal and the disposable-project application
-rehearsal are complete. No real-project pilot has been approved or started.
+rehearsal are complete. The operator approved proceeding to the real-project
+pilot, but no eligible project has yet been selected, locked or uploaded.
 
 ## Environment and release
 
@@ -70,7 +71,10 @@ on completion and has since been repurposed for the Stage 2 renewal test below.
   untracked in MongoDB. An existing test-named project is not presumed disposable.
 - `6a561a8428866e6f1f712f0c` (TPX0036): plan succeeded; two tracked files,
   718,491,200 bytes, no missing files, untracked files or checksum anomalies.
-  This is a structural plan, not a new byte-integrity check or owner approval.
+  This was a structural plan, not owner approval. It was created on 14 July
+  2026 and is **ineligible for the old-project pilot**. Later read-only checks
+  also passed, but technical suitability does not override the age policy.
+  It remains unchanged in HPC storage.
 - `689c922c08b2f88cfa735818` (TPX0014): plan returned 1 because three Read records
   lack destination MD5 values. Do not infer corruption, waive these anomalies,
   or select this project for the first pilot without investigation.
@@ -162,9 +166,11 @@ recorded explicitly rather than counted as passed.
    project selection ownership and the deletion review interval. The operator
    reported the database dumps complete before Stage 2; recovery has not been
    rehearsed by this work.
-2. Obtain a separate green light and project-owner agreement for one small real
-   pilot. Recheck its plan and active work, agree a writer pause, and retain HPC
-   originals through review. Inspect its existing sample/run/read views and S3
+2. The operator has given the pilot-stage green light. Record the actual
+   multi-year age threshold/date basis, select one qualifying old project and
+   establish project-owner agreement. Recheck its plan and active work, agree a
+   writer pause, and retain HPC originals through review. Inspect its existing
+   sample/run/read views and S3
    locations in addition to the project-level checks already exercised.
 3. Restore and verify a representative file from that real pilot, then review
    its sealed evidence and agreed retention interval before any separately
@@ -176,4 +182,6 @@ The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
 database dumps completed. All three Stage 2 transfer checks have passed. Stage 3
 application deployment and disposable-project work are complete within the
-scope above; a real-project pilot still requires its own green light.
+scope above. The real-project pilot stage now has its green light, but project
+eligibility/selection remains unresolved. Test email is restricted to
+`deeks@nbi.ac.uk`. No real-project lock, upload or deletion has occurred.

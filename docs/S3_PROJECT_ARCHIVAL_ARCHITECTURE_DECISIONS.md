@@ -1,7 +1,8 @@
 # Komondor S3 archive — architecture decisions
 
 Status: Accepted design; repository safeguards implemented; real deployment acceptance outstanding.
-Date: 10 September 2026; implementation review updated 15 October 2026.
+Date: 10 September 2026; implementation review updated 15 October 2026;
+age-eligibility policy clarified by the operator on 16 October 2026.
 Decider: George Deeks.
 
 This is a standalone record of what we agreed and why. It supersedes earlier
@@ -109,9 +110,19 @@ to change it.
 
 ## 3. Operation: manually selected batches, manually deleted HPC data
 
-At a semi-annual review (approximately every six months), the administrator identifies old, unarchived projects,
-reviews a batch and starts the archive commands. Age helps identify candidates;
-it is not permission to archive or delete them automatically.
+At a semi-annual review (approximately every six months), the administrator
+identifies old, unarchived projects, reviews a batch and starts the archive
+commands. **Only projects meeting the agreed multi-year age cutoff are eligible
+for selection, including the first real pilot.** Record the numerical threshold
+and the date evidence used before building the shortlist; this decision record
+does not establish a particular number of years. Small size, completed runs or
+convenient test coverage do not override age eligibility. A newly created,
+explicitly disposable synthetic fixture is a rehearsal, not a real-project
+exception to that policy.
+
+Age eligibility is necessary but does not authorize archival or deletion by
+itself. Confirm that the project is finished, has no continuing writers or hold,
+and has the required owner/operator agreement.
 
 The project lifecycle remains:
 

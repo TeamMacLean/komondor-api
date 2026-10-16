@@ -25,7 +25,7 @@ Create an access-controlled release record outside `DATASTORE_ROOT`. Record:
 | Host | Canonical datastore mount, operator OS identity, Node and AWS CLI versions |
 | Services | Exact commands to stop/start **all** API instances and other writers; real readiness URL |
 | Database | Confirm the intended MongoDB database; current backup and restore procedure |
-| Data policy | Who may select projects, approve anomalies/exclusions and delete sources; chosen review interval before deletion |
+| Data policy | Minimum project age/cutoff and date basis; who may select projects, approve anomalies/exclusions and delete sources; review interval before deletion |
 | Evidence | Durable location for plans, command logs, manifests/digests, restore receipts and approvals |
 | Retention/cost | No completed-object expiry; restore/storage/transfer budget and cost owner |
 
@@ -288,8 +288,11 @@ identifies the verified PM2 names, `tsldata` service shell and `deeks` archive
 shell. Recheck current work before each pause; historical empty queues are not
 permission to interrupt newly accepted work.
 
-Only after sections 1–6 pass, select one small real project with its owner. Run
-the same procedure; leave it pending for the agreed review interval. Inspect the
+Only after sections 1–6 pass, apply the agreed multi-year age cutoff and select
+one small, eligible old project with its owner. Small size or completed runs
+must not make a recent project eligible. The disposable synthetic rehearsal
+above does not waive this requirement for real data. Run the same procedure;
+leave it pending for the agreed review interval. Inspect the
 manifest and any exclusions. Request and verify a representative real file's
 restore using the runbook. Have the named reviewer approve the evidence before
 manually deleting that first real source. Expand to batches only after the pilot

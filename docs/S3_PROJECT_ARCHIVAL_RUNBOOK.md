@@ -58,10 +58,15 @@ runbook does not create an automation.
    the intended database, list `migrating` and `aws_pending_hpc_deletion`
    projects. Run `status` on each and resolve or explicitly carry it forward.
    Never start a second attempt just because the last batch was months ago.
-3. **Select candidates with project owners.** Use age as a shortlist, then
-   confirm the project is finished, no incoming sequencing/ingest/MD5 work is
-   pending, no external jobs write its tree, and it is not under an operational
-   hold. Select by ID. This tool does not infer a safe age cutoff.
+3. **Apply the age policy before selecting candidates.** Record the agreed
+   minimum age in years (or exact cutoff date) and what date evidence establishes
+   that age. Only qualifying old projects enter the shortlist, including the
+   first real pilot. A small, recently completed project is not a substitute.
+   If the threshold is not recorded, obtain it before selecting a real project;
+   neither the CLI nor a clean plan establishes policy eligibility. Then confirm
+   with the project owner that it is finished, no incoming sequencing/ingest/MD5
+   work is pending, no external jobs write its tree, and it is not under a hold.
+   Select by ID.
 4. **Renew access and recheck infrastructure.** Complete the
    [batch login check](#before-each-archive-batch), then verify account/role,
    versioning, lifecycle, encryption-key access
@@ -102,7 +107,10 @@ db.projects.find(
 )
 ```
 
-A missing/old `createdAt` is not approval. Review the project with its owner.
+A missing/old `createdAt` is not approval. Import/backfill timestamps may differ
+from the age of the original data, and an old project may contain recent runs.
+Record the evidence and review continuing activity with its owner. Do not infer
+eligibility from a project name, ObjectId, or Nudge's publication-reminder age.
 
 ## Archive one project
 
@@ -344,7 +352,7 @@ Batch date / next review due:
 Operator / reviewer:
 Release hashes / host / Node / AWS CLI:
 Account / role ARN / bucket / region / base prefix:
-Policy: candidate cutoff, owner approval, deletion review interval:
+Policy: minimum age/cutoff, date basis/evidence, owner approval, deletion review interval:
 Mongo backup reference / freeze and service commands:
 Restore rehearsal date / receipt reference:
 
