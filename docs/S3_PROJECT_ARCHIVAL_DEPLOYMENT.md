@@ -192,6 +192,9 @@ real candidates while the API is running. Read-only: inspect source/destination,
 file count, total bytes, largest file and anomalies. Exit 1 may mean serious
 anomalies to review; it is not a completed plan approval. Confirm the canonical
 mount and that all existing data is reachable with the operator's identity.
+The archive CLI disables automatic MongoDB collection and index creation for
+every command. Index maintenance remains part of application deployment, not
+planning or an archive transfer.
 
 ## 5. Rehearse cold upload and full restore on the actual host
 

@@ -106,6 +106,18 @@ beforeEach(async () => {
   await writeStore({ objects: {}, uploads: [] });
 });
 
+test("plan leaves database collections and indexes unchanged", async () => {
+  const snapshot = async () => {
+    const collections = await db().listCollections().toArray();
+    return Promise.all(collections.sort((a, b) => a.name.localeCompare(b.name)).map(
+      async ({ name }) => ({ name, indexes: await db().collection(name).indexes() }),
+    ));
+  };
+  const before = await snapshot();
+  expectSuccess(await cli("plan"));
+  expect(await snapshot()).toEqual(before);
+});
+
 test("full lifecycle validates exact bytes and refuses each independent deletion hazard", async () => {
   const planned = await cli("plan");
   expect(JSON.parse(planned.stdout).destination).toBe(

@@ -47,6 +47,10 @@ const main = async () => {
 
   try {
     await mongoose.connect(resolveMongoUri(process.env), {
+      // Schema maintenance belongs to application deployment. Even read-only
+      // archive commands load models, so disable their implicit database writes.
+      autoIndex: false,
+      autoCreate: false,
       useNewUrlParser: true,
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 10_000,
