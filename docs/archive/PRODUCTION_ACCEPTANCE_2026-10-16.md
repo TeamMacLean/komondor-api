@@ -110,7 +110,10 @@ changed, email triggered or service restarted by this stage.
    project. Local code checks have passed; live authenticated application
    acceptance and complete Power deployment provenance remain outstanding.
    Archival must not suppress publication nudges.
-2. Real conditional control-write refusal and interrupted multipart/resume checks.
+2. Real conditional control-write refusal and interrupted multipart/resume checks
+   **passed at 12:17 UTC on 16 October**; see the
+   [transfer resilience evidence](TRANSFER_RESILIENCE_2026-10-16.md). These checks
+   do not establish credential renewal, which remains the next gate.
 3. A separate test role/profile with one-hour credentials and a throttled transfer
    crossing expiry. Overnight restore completion does not prove renewal within a
    continuously running upload. Do not shorten the production role session.
@@ -123,4 +126,7 @@ changed, email triggered or service restarted by this stage.
 
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
-rehearsal stage. Stage 1 approval does not authorize the live transfer tests.
+rehearsal stage. Stage 2 transfer tests were explicitly approved after the
+database dumps completed. The credential-renewal test awaits administrator SSO
+authentication to create the separate test access; later application deployment
+and disposable-project work still need their own green light.
