@@ -52,8 +52,8 @@ Evidence in that directory:
 
 Copies of the three JSON files are retained on the operator Mac under
 `/Users/deeks/.codex/artifacts/archive-rehearsal-20261015T182516Z/`.
-The detached runner exited after success. The chat follow-up is paused; its
-configured four-hour cadence quietly retries ordinary network/VPN failures.
+The detached restore runner exited after success. The chat follow-up was paused
+on completion and has since been repurposed for the Stage 2 renewal test below.
 
 ## Production read-only checks
 
@@ -103,6 +103,20 @@ bundles contain archive handling. These read-only checks do not replace a live
 disposable project's end-to-end acceptance. No production project state was
 changed, email triggered or service restarted by this stage.
 
+## Stage 2 transfer checks
+
+Real conditional control-write refusal and interrupted multipart/resume checks
+**passed at 12:17 UTC on 16 October**; see the
+[transfer resilience evidence](TRANSFER_RESILIENCE_2026-10-16.md).
+
+The operator approved creating `KomondorArchiveRenewalTest`, restricted to
+smoke object access and bucket inspection, with one-hour role credentials.
+Its assignment and exact policy were verified. The detached renewal test started
+at **13:01 UTC (14:01 UK time)**, using a private test profile throttled to
+`1MB/s`. Its result is pending; startup does not establish credential renewal.
+The four-hour follow-up now watches this runner and quietly skips ordinary
+network/VPN failures. The production mover role duration is unchanged.
+
 ## Still required
 
 1. Deploy the reviewed Nudge audit improvement with explicit operator approval,
@@ -110,23 +124,21 @@ changed, email triggered or service restarted by this stage.
    project. Local code checks have passed; live authenticated application
    acceptance and complete Power deployment provenance remain outstanding.
    Archival must not suppress publication nudges.
-2. Real conditional control-write refusal and interrupted multipart/resume checks
-   **passed at 12:17 UTC on 16 October**; see the
-   [transfer resilience evidence](TRANSFER_RESILIENCE_2026-10-16.md). These checks
-   do not establish credential renewal, which remains the next gate.
-3. A separate test role/profile with one-hour credentials and a throttled transfer
-   crossing expiry. Overnight restore completion does not prove renewal within a
-   continuously running upload. Do not shorten the production role session.
-4. A newly created disposable project exercised through the application's full
+2. Obtain the passing receipt from the running renewal test. It must demonstrate
+   newly issued credentials during one continuous upload that finishes after the
+   initial credentials expire, with final checksums verified. Overnight restore
+   completion does not prove this. Remove the isolated test assignment after
+   acceptance; its one-hour session duration does not expire the assignment.
+3. A newly created disposable project exercised through the application's full
    archive workflow. Establish exact writer stop/start commands and a maintenance
    window before lock; preserve the `deeks` SSO identity for archive commands.
-5. Record database backup/recovery, evidence retention, cost ownership, project
+4. Record database backup/recovery, evidence retention, cost ownership, project
    selection ownership and the deletion review interval. Then obtain owner
    agreement on one small real pilot and retain its HPC originals through review.
 
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
-database dumps completed. The credential-renewal test awaits administrator SSO
-authentication to create the separate test access; later application deployment
-and disposable-project work still need their own green light.
+database dumps completed. The credential-renewal test is running; later
+application deployment and disposable-project work still need their own green
+light.

@@ -70,26 +70,66 @@ Evidence: `interruption-trigger.json`, `interruption-passed.json`,
 successfully. This is file-level recovery: the interrupted file was uploaded
 again from byte zero, while completed files were verified and reused.
 
-## Credential renewal: setup pending
+## Credential renewal: running, result pending
 
-Only the normal 12-hour `komondor-archive-mover` role is configured on v1333.
-A separate one-hour permission set/profile is required for the planned test.
-Administrator SSO login is pending; no test permission set has been created yet.
-The prepared policy limits object access to `_smoke/*` and explicitly denies
-deleting completed objects, versions and the bucket.
+After explicit operator approval, the separate permission set
+`KomondorArchiveRenewalTest` was created at `2026-10-16T13:00:21Z` with session
+duration `PT1H`. Its ARN is
+`arn:aws:sso:::permissionSet/ssoins-7223af30a9102cc1/ps-7223ea4e40678341`.
+The only assignment is the existing `georgedeeks-archive` user in account
+`958120753368`. Read-back checks confirmed the exact approved inline policy,
+one-hour duration and absence of AWS/customer managed policies. The policy allows
+bucket inspection and object upload/read/multipart operations only under
+`tsl-hpc-reads/_smoke/*`, and explicitly denies deleting completed objects,
+versions and the bucket.
 
-The prepared renewal runner uses another smoke UUID and a transfer throttled to
-last beyond the actual initial credential expiration. It will observe the
+The generated role ARN is:
+
+```text
+arn:aws:iam::958120753368:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_KomondorArchiveRenewalTest_7fbed92445ebec4b
+```
+
+On v1333, `komondor-archive-renewal-test` references the existing renewable
+`komondor-archive` SSO session in the private `aws-renewal-config` file under
+the evidence directory. STS confirmed the expected test role and archive user.
+No administrator credentials were copied to v1333. The normal configuration,
+12-hour production role and SSO session settings remain unchanged.
+
+`stage2-renewal.cjs` was launched at `2026-10-16T13:01:43Z` in detached process
+session `1635527`, with a three-hour timeout, exclusive lock and file log. The
+test profile uses the classic transfer client, two concurrent requests and
+`max_bandwidth = 1MB/s`. Preparation hashes fresh 1 KiB, 16 MiB and 6 GiB fixtures;
+the upload is expected to take about two hours. Launching is not a passing result.
+Preparation completed under `_smoke/e19b44f4-bfc2-4d65-9e40-e0e4a19b045f/`,
+and the runner entered its upload phase at `13:03:24Z`. The initial credentials
+expire at `14:01:02Z` (15:01 UK time), before the expected upload completion.
+
+The renewal runner uses another smoke UUID and a transfer throttled to
+last beyond the actual initial credential expiration. It observes the
 private CLI credential cache without logging credentials or making refresh
 requests during the upload. Passing requires newly issued role credentials to
 be observed while one continuous AWS upload process is alive, that process
 finishing after the original credentials expire, and final checksum verification.
 Time elapsed alone, or a fresh login after an interrupted transfer, is not proof.
 
+Inspect `renewal-status.json`, `renewal.log` and `renewal-launch.json` in the
+evidence directory. A passing run must produce `renewal-verified.json`, which
+references the final upload receipt. `renewal-cache-observations.jsonl` records
+only expiration times and one-way access-key fingerprints, never credentials.
+Do not run AWS commands with this test profile during the upload: a separate
+process refreshing its credential cache would compromise the renewal evidence.
+
+The existing chat follow-up now checks this runner every four hours, quietly
+skipping ordinary laptop/VPN disconnections. It reports a verified result,
+actual runner failure/timeout or required authentication, then pauses when
+complete or blocked on authentication. It cannot run while the local app is
+unavailable; the server job continues independently.
+
 Local runner sources and evidence copies are retained in
-`/Users/deeks/.codex/artifacts/archive-stage2-20261016/`. The prepared renewal
-runner has not yet been launched. Existing production role duration and SSO
-session settings remain unchanged.
+`/Users/deeks/.codex/artifacts/archive-stage2-20261016/`. The test assignment does
+not expire after one hour; each issued role session does. Remove the isolated
+test assignment after acceptance and retain the evidence. Do not change the
+production mover assignment or delete retained smoke objects during that cleanup.
 
 ## Remaining approval boundary
 
