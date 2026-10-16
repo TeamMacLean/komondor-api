@@ -168,9 +168,14 @@ release procedure. Before any lock, prove on staging/disposable data that:
   ingest, MD5 and reconciliation workers do not alter their trees.
 - Pending/deleted archives remain readable through API/web, display S3
   locations and no longer expose active HPC download/write actions.
-- Power and Nudge respect `acceptsHpcWrites` and the archived states. Record
-  their exact versions and observed behaviour; this API checkout cannot prove
-  that the installed copies are compatible.
+- Power rejects new uploads/creates when `acceptsHpcWrites` is false, including
+  a project locked after initial validation, and stops polling that project.
+- Nudge preserves archive metadata and continues publication reminders under
+  the existing eligibility rules: S3 archival is independent of ENA publication.
+  `nudgeable: false` still suppresses reminders. Its audit should show the
+  observed storage state without writing defaults to Project storage fields.
+  Record exact consumer versions and observed behaviour; this API checkout
+  cannot prove that the installed copies are compatible.
 
 Audit **stored project paths**, not just group display names. The API normally
 stores a leading slash; this query handles both forms. In an authenticated

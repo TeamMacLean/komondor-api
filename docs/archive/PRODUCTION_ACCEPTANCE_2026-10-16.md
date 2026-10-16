@@ -23,7 +23,9 @@ and use the [operator runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for each batch
 - Observed consumer checkout commits: web `beb0b95`, Power `d98fab1`,
   Nudge `944868b`. All four service processes run as `tsldata`. Some Power files
   are unreadable to `deeks`, so its working-tree cleanliness and deployed build
-  contents have not been fully verified. Noninteractive sudo is unavailable.
+  contents have not been fully verified. Selected compiled archive guards were
+  subsequently confirmed during the app checks below. Noninteractive sudo is
+  unavailable.
 
 ## Passed smoke recovery
 
@@ -87,12 +89,27 @@ unchanged collections/indexes during planning, tracked file references, the
 archive lifecycle and interrupted-transfer recovery. Integration tests used a
 disposable local MongoDB, never the production database.
 
+## Application compatibility checks
+
+Stage 1 code checks passed on 16 October: API 436 tests, web 74, Power 118 and
+Nudge 114. See the [application compatibility evidence](APP_COMPATIBILITY_2026-10-16.md)
+for exact versions, scope, commands and limitations. The additional web tests
+are committed locally at `d1b96a0`; Nudge's archive audit visibility and tests
+are committed locally at `a311f29`. Neither commit has been pushed or deployed.
+
+The deployed API readiness and Nudge health endpoints returned HTTP 200. The ten
+selected web source files match the tested sources, and compiled web/Power
+bundles contain archive handling. These read-only checks do not replace a live
+disposable project's end-to-end acceptance. No production project state was
+changed, email triggered or service restarted by this stage.
+
 ## Still required
 
-1. Explicit API/web/Power/Nudge behaviour checks through every storage state.
-   Nudge's deployed code retains publication/nudgeable eligibility independently
-   of storage state, but explicit storage compatibility tests/schema declarations
-   were not found in that checkout. Archival must not suppress publication nudges.
+1. Deploy the reviewed Nudge audit improvement with explicit operator approval,
+   then verify API/web/Power/Nudge through every state of a fresh disposable
+   project. Local code checks have passed; live authenticated application
+   acceptance and complete Power deployment provenance remain outstanding.
+   Archival must not suppress publication nudges.
 2. Real conditional control-write refusal and interrupted multipart/resume checks.
 3. A separate test role/profile with one-hour credentials and a throttled transfer
    crossing expiry. Overnight restore completion does not prove renewal within a
@@ -105,3 +122,5 @@ disposable local MongoDB, never the production database.
    agreement on one small real pilot and retain its HPC originals through review.
 
 Passing this smoke restore alone does not authorize production source deletion.
+The operator requires a separate green light before each further deployment or
+rehearsal stage. Stage 1 approval does not authorize the live transfer tests.
