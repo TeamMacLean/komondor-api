@@ -2,7 +2,7 @@
 
 Status: Accepted design; repository safeguards implemented; real deployment acceptance outstanding.
 Date: 10 September 2026; implementation review updated 15 October 2026;
-age-eligibility policy clarified by the operator on 16 October 2026.
+current batch scope and future age-policy proposal recorded on 16 October 2026.
 Decider: George Deeks.
 
 This is a standalone record of what we agreed and why. It supersedes earlier
@@ -112,17 +112,25 @@ to change it.
 
 At a semi-annual review (approximately every six months), the administrator
 identifies old, unarchived projects, reviews a batch and starts the archive
-commands. **Only projects meeting the agreed multi-year age cutoff are eligible
-for selection, including the first real pilot.** Record the numerical threshold
-and the date evidence used before building the shortlist; this decision record
-does not establish a particular number of years. Small size, completed runs or
-convenient test coverage do not override age eligibility. A newly created,
+commands. **The initial batch is the operator's explicit
+[16 October 2026 disposition register](archive/batches/2026-10-16/README.md).**
+Its supplied lists and per-project decisions define the current scope, including
+the first real pilot. Keep entries are excluded; unaudited entries and requests
+to delete without archiving are recorded separately. Do not reinterpret every
+workbook row as an archive request or re-filter this batch by a new age cutoff.
+
+For future batches, the operator has proposed **ten years**, tentatively; this
+is not yet an adopted rule. Agree the numerical threshold and the date evidence
+used before building a new shortlist. Small size, completed runs or convenient
+test coverage do not override the agreed selection scope. A newly created,
 explicitly disposable synthetic fixture is a rehearsal, not a real-project
 exception to that policy.
 
-Age eligibility is necessary but does not authorize archival or deletion by
-itself. Confirm that the project is finished, has no continuing writers or hold,
-and has the required owner/operator agreement.
+Being listed does not establish technical readiness or authorize immediate
+deletion. Confirm that the project is finished, has no continuing writers or
+hold, and has the required owner/operator decision. The six Kamoun requests
+marked `archive? = no` and `notes = delete` are not part of the archive lifecycle
+below; their disposal procedure and execution approval remain outstanding.
 
 The project lifecycle remains:
 

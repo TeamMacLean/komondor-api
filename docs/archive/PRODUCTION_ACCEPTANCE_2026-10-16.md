@@ -8,6 +8,9 @@ and use the [operator runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for each batch
 transfer/resume, credential renewal and the disposable-project application
 rehearsal are complete. The operator approved proceeding to the real-project
 pilot, but no eligible project has yet been selected, locked or uploaded.
+The operator has now supplied the initial batch scope, recorded in the
+[project disposition register](batches/2026-10-16/README.md). Registering these
+decisions made no production changes.
 
 ## Environment and release
 
@@ -166,9 +169,10 @@ recorded explicitly rather than counted as passed.
    project selection ownership and the deletion review interval. The operator
    reported the database dumps complete before Stage 2; recovery has not been
    rehearsed by this work.
-2. The operator has given the pilot-stage green light. Record the actual
-   multi-year age threshold/date basis, select one qualifying old project and
-   establish project-owner agreement. Recheck its plan and active work, agree a
+2. The operator has given the pilot-stage green light and supplied the initial
+   batch list. Select from the 19 audited Kamoun archive entries in the
+   [register](batches/2026-10-16/README.md), reconcile its live identity and
+   confirm the decision still applies. Recheck its plan and active work, agree a
    writer pause, and retain HPC originals through review. Inspect its existing
    sample/run/read views and S3
    locations in addition to the project-level checks already exercised.
@@ -176,12 +180,20 @@ recorded explicitly rather than counted as passed.
    its sealed evidence and agreed retention interval before any separately
    approved manual source deletion. Complete the operational handover before
    scheduling semi-annual batches.
+4. Account for the whole supplied batch: 156 entries earmarked with group audit
+   pending, 19 audited archive requests, six distinct delete-without-archive
+   requests and 11 KEEP decisions (including both operator clarifications).
+   Record audit outcomes and execution evidence separately. Agree a procedure
+   and separate execution approval for direct disposal. Ten years is tentative
+   future policy; confirm its date basis before selecting subsequent batches,
+   without re-filtering the current explicit list.
 
 Passing this smoke restore alone does not authorize production source deletion.
 The operator requires a separate green light before each further deployment or
 rehearsal stage. Stage 2 transfer tests were explicitly approved after the
 database dumps completed. All three Stage 2 transfer checks have passed. Stage 3
 application deployment and disposable-project work are complete within the
-scope above. The real-project pilot stage now has its green light, but project
-eligibility/selection remains unresolved. Test email is restricted to
+scope above. The real-project pilot stage now has its green light and a recorded
+candidate scope, but selection and live identity checks remain outstanding.
+Test email is restricted to
 `deeks@nbi.ac.uk`. No real-project lock, upload or deletion has occurred.

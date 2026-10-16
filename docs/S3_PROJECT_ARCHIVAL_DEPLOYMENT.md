@@ -25,13 +25,18 @@ Create an access-controlled release record outside `DATASTORE_ROOT`. Record:
 | Host | Canonical datastore mount, operator OS identity, Node and AWS CLI versions |
 | Services | Exact commands to stop/start **all** API instances and other writers; real readiness URL |
 | Database | Confirm the intended MongoDB database; current backup and restore procedure |
-| Data policy | Minimum project age/cutoff and date basis; who may select projects, approve anomalies/exclusions and delete sources; review interval before deletion |
+| Data policy | Explicit batch register or agreed age/cutoff and date basis; who may select projects, approve anomalies/exclusions and delete sources; review interval before deletion |
 | Evidence | Durable location for plans, command logs, manifests/digests, restore receipts and approvals |
 | Retention/cost | No completed-object expiry; restore/storage/transfer budget and cost owner |
 
 Do not invent a project age cutoff or deletion grace period at execution time.
-Agree and record these before the pilot. An unexpired review interval is a
-reason to leave the project in `aws_pending_hpc_deletion`.
+The initial selection scope is the operator's
+[16 October supplied-list register](archive/batches/2026-10-16/README.md), with
+KEEP decisions and audit status preserved. Ten years is only a proposed policy
+for future batches; settling it does not block recording or assessing this
+explicit initial list. Agree and record the deletion review interval before
+the pilot. An unexpired interval is a reason to leave the project in
+`aws_pending_hpc_deletion`.
 
 Use the repository's [general deployment checks](PRE_DEPLOY_MANUAL_CHECKS.md)
 as well. They cover database indexes and ingest compatibility that this archive
@@ -288,10 +293,14 @@ identifies the verified PM2 names, `tsldata` service shell and `deeks` archive
 shell. Recheck current work before each pause; historical empty queues are not
 permission to interrupt newly accepted work.
 
-Only after sections 1–6 pass, apply the agreed multi-year age cutoff and select
-one small, eligible old project with its owner. Small size or completed runs
-must not make a recent project eligible. The disposable synthetic rehearsal
-above does not waive this requirement for real data. Run the same procedure;
+Only after sections 1–6 pass, select one small project from the recorded batch
+scope with an archive decision. For the initial batch, shortlist from the 19
+audited Kamoun archive entries in the [register](archive/batches/2026-10-16/README.md),
+then verify identity, current activity and the plan. Exclude KEEP entries and
+requests to delete without archive; resolve group audit decisions before using
+other entries. Small size or completed runs must not make an unlisted recent
+project eligible. The synthetic rehearsal does not waive this selection
+requirement for real data. Run the same procedure;
 leave it pending for the agreed review interval. Inspect the
 manifest and any exclusions. Request and verify a representative real file's
 restore using the runbook. Have the named reviewer approve the evidence before

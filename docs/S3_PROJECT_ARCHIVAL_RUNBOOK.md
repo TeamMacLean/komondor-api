@@ -6,6 +6,7 @@ there is no scheduled job and no automatic HPC deletion.
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
 - Before every batch: [renew SSO login](#before-each-archive-batch).
 - Routine batch: [semi-annual procedure](#semi-annual-procedure).
+- Current scope and KEEP decisions: [16 October 2026 register](archive/batches/2026-10-16/README.md).
 - Each selected project: [archive one project](#archive-one-project).
 - Interrupted or failed work: [recovery](#recovery).
 - Retrieve data: [restore a real archived file](#restore-a-real-archived-file).
@@ -58,15 +59,22 @@ runbook does not create an automation.
    the intended database, list `migrating` and `aws_pending_hpc_deletion`
    projects. Run `status` on each and resolve or explicitly carry it forward.
    Never start a second attempt just because the last batch was months ago.
-3. **Apply the age policy before selecting candidates.** Record the agreed
-   minimum age in years (or exact cutoff date) and what date evidence establishes
-   that age. Only qualifying old projects enter the shortlist, including the
-   first real pilot. A small, recently completed project is not a substitute.
-   If the threshold is not recorded, obtain it before selecting a real project;
-   neither the CLI nor a clean plan establishes policy eligibility. Then confirm
-   with the project owner that it is finished, no incoming sequencing/ingest/MD5
-   work is pending, no external jobs write its tree, and it is not under a hold.
-   Select by ID.
+3. **Apply the recorded selection scope before selecting candidates.** For the
+   initial batch, use the [supplied-list register](archive/batches/2026-10-16/README.md):
+   156 entries await group audit, 19 Kamoun entries request archive, six request
+   deletion without archive, and 11 are KEEP. Preserve those distinctions.
+   Shortlist the first archive pilot from the audited archive entries. Resolve
+   pending group decisions before treating an earmarked entry as archive-approved.
+   Direct-disposal requests need their own agreed procedure; this archive runbook
+   does not execute them. KEEP entries must remain excluded.
+   For later batches, agree and record the minimum age/cutoff and date evidence
+   before building a shortlist. Ten years is currently a proposal, not a settled
+   rule, and must not be applied retroactively to the initial supplied list.
+   A small recent project is not a substitute for an in-scope project; neither
+   the CLI nor a clean plan establishes policy eligibility. Reconcile each source
+   row with its live project ID and canonical path. Then confirm that it is
+   finished, no incoming sequencing/ingest/MD5 work is pending, no external jobs
+   write its tree, and it is not under a hold. Select by verified ID.
 4. **Renew access and recheck infrastructure.** Complete the
    [batch login check](#before-each-archive-batch), then verify account/role,
    versioning, lifecycle, encryption-key access
@@ -352,7 +360,9 @@ Batch date / next review due:
 Operator / reviewer:
 Release hashes / host / Node / AWS CLI:
 Account / role ARN / bucket / region / base prefix:
-Policy: minimum age/cutoff, date basis/evidence, owner approval, deletion review interval:
+Selection: batch register and entry ID, or agreed age/cutoff and date evidence:
+Decision: archive / keep / audit pending / separate disposal; reviewer and date:
+Policy: owner approval, deletion review interval:
 Mongo backup reference / freeze and service commands:
 Restore rehearsal date / receipt reference:
 
