@@ -238,7 +238,7 @@ const runSmoke = async (
     }
     const receiptPath = path.join(
       workDir,
-      `restore-verified-${Date.now()}.json`,
+      `restore-verified-${Date.now()}-${crypto.randomUUID()}.json`,
     );
     await fs.writeFile(
       receiptPath,
@@ -255,7 +255,10 @@ const runSmoke = async (
     log(JSON.stringify({ verified: true, receiptPath }));
     return 0;
   }
-  const reportPath = path.join(workDir, `upload-verified-${Date.now()}.json`);
+  const reportPath = path.join(
+    workDir,
+    `upload-verified-${Date.now()}-${crypto.randomUUID()}.json`,
+  );
   await fs.writeFile(
     reportPath,
     serializeManifest({

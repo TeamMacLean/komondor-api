@@ -105,6 +105,29 @@ test("a corrupt restored download cannot produce a passing receipt", async () =>
     ),
   ).toEqual([]);
 });
+test("repeated verification in the same millisecond preserves separate receipts", async () => {
+  const clock = jest.spyOn(Date, "now").mockReturnValue(1792180800000);
+  try {
+    await run("prepare");
+    await run("upload");
+    await run("upload");
+    await run("restore");
+    await run("verify-restore");
+    await run("verify-restore");
+    const files = await fs.readdir(workDir);
+    for (const prefix of ["upload-verified-", "restore-verified-"]) {
+      const receipts = files.filter((file) => file.startsWith(prefix));
+      expect(receipts).toHaveLength(2);
+      for (const receipt of receipts) {
+        const report = JSON.parse(await fs.readFile(path.join(workDir, receipt)));
+        expect(report.sourceManifestSha256).toMatch(/^[a-f0-9]{64}$/);
+      }
+    }
+    expect(aws.uploadHandle).toHaveBeenCalledTimes(2);
+  } finally {
+    clock.mockRestore();
+  }
+});
 test("expired restores are requested again", async () => {
   await run("prepare");
   await run("upload");

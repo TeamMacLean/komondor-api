@@ -12,16 +12,13 @@ const db = () => mongo.mongoose.connection.db;
 const project = () => db().collection("projects").findOne({ _id: id });
 const readStore = async () => JSON.parse(await fs.readFile(storePath, "utf8"));
 const writeStore = (store) => fs.writeFile(storePath, JSON.stringify(store));
-const cli = (command, ...flags) =>
+const invoke = (script, args) =>
   new Promise((resolve, reject) => {
     const child = spawn(
       process.execPath,
       [
-        path.resolve("scripts/move-project-to-s3.js"),
-        command,
-        "--project-id",
-        String(id),
-        ...flags,
+        path.resolve(`scripts/${script}`),
+        ...args,
       ],
       { env, stdio: ["ignore", "pipe", "pipe"] },
     );
@@ -36,6 +33,17 @@ const cli = (command, ...flags) =>
     child.on("error", reject);
     child.on("close", (code) => resolve({ code, stdout, stderr }));
   });
+const cli = (command, ...flags) => invoke("move-project-to-s3.js", [
+  command, "--project-id", String(id), ...flags,
+]);
+const shortlist = (...args) => invoke("archive-shortlist-verify.js", args);
+const snapshotDatabase = async () => {
+  const collections = await db().listCollections().toArray();
+  return Promise.all(collections.sort((a, b) => a.name.localeCompare(b.name)).map(
+    async ({ name }) => ({ name, indexes: await db().collection(name).indexes(),
+      documents: await db().collection(name).find({}).sort({ _id: 1 }).toArray() }),
+  ));
+};
 const expectSuccess = (result) => {
   expect({
     code: result.code,
@@ -143,6 +151,7 @@ test("plan resolves tracked read and additional-file references", async () => {
   await db().collection("additionalfiles").insertOne({
     _id: oid(), project: id, file: extraFileId,
   });
+  const before = await snapshotDatabase();
   const result = await cli("plan");
   expectSuccess(result);
   const plan = JSON.parse(result.stdout);
@@ -150,6 +159,52 @@ test("plan resolves tracked read and additional-file references", async () => {
   expect(plan.summary).toMatchObject({
     regularFiles: 4, dbExpectedMissing: 0, diskUntracked: 2,
   });
+  const csv = path.join(scratch, "populated-shortlist.csv");
+  const json = path.join(scratch, "populated-shortlist.json");
+  await fs.writeFile(csv, 'entry_id,group,project,hpc_path,decision\ntest-1,group,Archive test,/tsl/data/reads/group/project,ARCHIVE_PI_APPROVED\n');
+  expectSuccess(await shortlist("--csv", csv, "--json", json));
+  const report = JSON.parse(await fs.readFile(json, "utf8"));
+  expect(report.results[0]).toMatchObject({
+    projectId: String(id), shortlist: { entryId: "test-1" }, dbReads: 1,
+    dbAdditionalFiles: 1, hardBlockers: [], inventoryChecksumsVerified: false,
+    summary: { diskRegularFiles: 4, dbRecordsMissingOnDisk: 0,
+      diskFilesNotInDb: 2, seriousAnomalies: 0 },
+  });
+  expect(await snapshotDatabase()).toEqual(before);
+});
+
+test("shortlist refuses overwriting reports and datastore output", async () => {
+  const csv = path.join(scratch, "report-safety.csv");
+  await fs.writeFile(csv, 'hpc_path\n/group/project\n');
+  const sourceBytes = await fs.readFile(`${source}/a.fastq`);
+  const refused = await shortlist("--csv", csv, "--json", `${source}/a.fastq`);
+  expect(refused.code).toBe(2);
+  expect(refused.stderr).toContain("outside DATASTORE_ROOT");
+  expect(await fs.readFile(`${source}/a.fastq`)).toEqual(sourceBytes);
+  const existing = await shortlist("--csv", csv, "--json", csv);
+  expect(existing.code).toBe(2);
+  expect(existing.stderr).toContain("new report");
+});
+
+test("shortlist reports ambiguous database paths instead of picking a project", async () => {
+  await db().collection("projects").insertOne({ name: "Duplicate path", path: "/group/project" });
+  const csv = path.join(scratch, "duplicate-shortlist.csv");
+  const json = path.join(scratch, "duplicate-shortlist.json");
+  await fs.writeFile(csv, 'hpc_path\n/group/project\n');
+  expectSuccess(await shortlist("--csv", csv, "--json", json));
+  const report = JSON.parse(await fs.readFile(json, "utf8"));
+  expect(report.results[0].status).toBe("AMBIGUOUS_DB_PROJECT");
+  expect(report.results[0].matchingProjectIds).toHaveLength(2);
+});
+
+test("group inspection refuses a symlinked group even without projects", async () => {
+  const outside = path.join(scratch, "outside-group");
+  await fs.mkdir(outside);
+  await fs.symlink(outside, path.join(env.DATASTORE_ROOT, "linked"));
+  await db().collection("groups").insertOne({ name: "Linked group", safeName: "linked" });
+  const result = await shortlist("--group", "linked");
+  expect(result.code).toBe(2);
+  expect(result.stderr).toContain("non-symlink");
 });
 
 test("full lifecycle validates exact bytes and refuses each independent deletion hazard", async () => {

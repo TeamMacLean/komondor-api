@@ -6,6 +6,9 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const mongoose = require("mongoose");
+// Disable schema maintenance before compiling any model, as well as at connect.
+mongoose.set("autoIndex", false);
+mongoose.set("autoCreate", false);
 
 // Read and AdditionalFile populate their file reference during preflight.
 // The standalone CLI does not load the API routes that normally register File.
