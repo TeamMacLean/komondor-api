@@ -63,6 +63,18 @@ runbook does not create an automation.
    initial batch, use the [supplied-list register](archive/batches/2026-10-16/README.md):
    156 entries await group audit, 19 Kamoun entries request archive, six request
    deletion without archive, and 11 are KEEP. Preserve those distinctions.
+   **First run the read-only shortlist verifier**, using the reconciled CSV:
+   `node scripts/archive-shortlist-verify.js --csv docs/hpc-archive-candidates-2026-10-16.csv`.
+   For a new batch, prepare the same CSV columns with exact `hpc_path` values.
+   Save an optional `--json` report to a new file outside `DATASTORE_ROOT`.
+   Use `--group <safeName>` separately to find directories with no Project record.
+   Read the [production discrepancies](HPC_ARCHIVE_CANDIDATES_2026-10-16.md)
+   before choosing a pilot. Exit 0 means the inspection ran; it does not mean
+   the data passed archive verification. This check does not hash file contents
+   or check AWS. Review missing paths, serious anomalies and active work.
+   **Unregistered directories cannot be archived by the CLI**: it requires a
+   Project ID. Resolve identity/registration through a reviewed procedure;
+   do not substitute a nearby empty project or silently change path case.
    Shortlist the first archive pilot from the audited archive entries. Resolve
    pending group decisions before treating an earmarked entry as archive-approved.
    Direct-disposal requests need their own agreed procedure; this archive runbook

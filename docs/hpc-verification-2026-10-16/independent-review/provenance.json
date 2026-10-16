@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-10-16T20:30:26.719Z",
+  "finishedAt": "2026-10-16T20:31:11.362Z",
+  "host": "v1333",
+  "operator": "deeks",
+  "datastoreRoot": "/mnt/reads",
+  "verifierSha256": "9cf6ba0140d2e1de2fc95e63a9fc36ba9e4072278acd41757dae60a27da322b4",
+  "archiveModulesCommit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "checksumsVerified": false,
+  "imported_branch_commit": "cd4b6cc35b9864f611bed4168c6c203b9b300023",
+  "local_master_base": "f1a477e07cf1f5f5bec6d174cd98f8c6b7eb4960",
+  "method": "Reviewed shortlist verifier executed in memory over SSH with production master modules; Mongo queries and filesystem metadata only. No source hashing, service changes or data writes.",
+  "historical_report_detail_limit": "Imported JSON retains at most 20 missing and 20 untracked paths per project. The independent reports retain full lists.",
+  "source_script": "scripts/archive-shortlist-verify.js",
+  "module_sha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "module_hashes_match_production": true,
+  "report_sha256": {
+    "contact-lookups.json": "6f212f5fabb06d8865d1d8bb0d3b4aec5648f1cefef62249fed59543b1fdc611",
+    "relocated-file-candidates.json": "12250e47d854120cdb7bf34939ec4f64ca287f6c606037fc1534774cfd34f0f8",
+    "verify-jjones.json": "8edc71716d3882ff3dd3fbb8f50c52587555a66e82562d52d405b9f2d5ce961c",
+    "verify-ntalbot.json": "f24ef6cf1345b950ef23310c781719dd8019ad6b46d74998cfc173c9c67c83b3",
+    "verify-skamoun.json": "d886d12950e5609b6d7bd74840c410c52656945a979293b5624c7e0f02b51f77",
+    "verify-two_blades.json": "5b1b65e8c2ccb23ef878552c8a14b9a72421e8d3e63273bc2b87753aed8b1f53"
+  }
+}

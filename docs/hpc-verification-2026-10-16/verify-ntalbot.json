@@ -1,0 +1,2464 @@
+{
+  "mode": "group",
+  "generatedAt": "2026-10-16T20:12:35.368Z",
+  "group": "ntalbot",
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "name": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+      "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 23621445468,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 8,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 8,
+          "empty-directory-skipped": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asCR1_1.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asCR1_2.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asCR2_1.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asCR2_2.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R1_1.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R1_2.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R2_1.fq.gz",
+        "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R2_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfa",
+      "name": "Sequencing of Sub-Saharan Africa Magnaporthe oryzae isolates",
+      "path": "/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "dbSamples": 16,
+      "dbRuns": 16,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 97,
+        "diskBytes": 34152118080,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 97,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 97,
+          "empty-directory-skipped": 32
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "bf17/additional/Project_2236_assembly_stats.xlsx",
+        "bf17/bf17/processed/BF17_contigs.all.maker.proteins.fasta",
+        "bf17/bf17/processed/BF17_contigs.all.maker.transcripts.fasta",
+        "bf17/bf17/processed/BF17_contigs.fa.gz",
+        "bf17/bf17/processed/BF17_contigs.fa.gz.tmp",
+        "bf17/bf17/processed/BF17_contigs.gff",
+        "bf17/bf17/processed/BF17_out.sorted.rmdup.bam",
+        "bf32/bf32/processed/BF32_contigs.all.maker.proteins.fasta",
+        "bf32/bf32/processed/BF32_contigs.all.maker.transcripts.fasta",
+        "bf32/bf32/processed/BF32_contigs.fa.gz",
+        "bf32/bf32/processed/BF32_contigs.fa.gz.tmp",
+        "bf32/bf32/processed/BF32_contigs.gff",
+        "bf32/bf32/processed/BF32_out.sorted.rmdup.bam",
+        "bf48/bf48/processed/BF48_contigs.all.maker.proteins.fasta",
+        "bf48/bf48/processed/BF48_contigs.all.maker.transcripts.fasta",
+        "bf48/bf48/processed/BF48_contigs.fa.gz",
+        "bf48/bf48/processed/BF48_contigs.fa.gz.tmp",
+        "bf48/bf48/processed/BF48_contigs.gff",
+        "bf48/bf48/processed/BF48_out.sorted.rmdup.bam",
+        "bf5/bf5/processed/BF5_contigs.all.maker.proteins.fasta"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d02",
+      "name": "WT_Guy11 and Guy11_PWL2_mutant infection on Eragrostis curvula RNA-seq timecourse",
+      "path": "/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 18,
+        "diskBytes": 141690619948,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 18,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 18,
+          "empty-directory-skipped": 7
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "experiment_control_gelatin/gelatin/raw/Gel_1_1.fq.gz",
+        "experiment_control_gelatin/gelatin/raw/Gel_1_2.fq.gz",
+        "experiment_control_gelatin/gelatin/raw/Gel_2_1.fq.gz",
+        "experiment_control_gelatin/gelatin/raw/Gel_2_2.fq.gz",
+        "experiment_control_gelatin/gelatin/raw/Gel_3_1.fq.gz",
+        "experiment_control_gelatin/gelatin/raw/Gel_3_2.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_1_1.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_1_2.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_2_1.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_2_2.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_3_1.fq.gz",
+        "experiment_guy11/guy11/raw/Guy11_3_2.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_1_1.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_1_2.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_2_1.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_2_2.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_3_1.fq.gz",
+        "experiment_pwl2_mutant/t5/raw/T5_3_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d03",
+      "name": "Sequencing PWL2 mutants in Guy11 background",
+      "path": "/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 7545919237,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 2,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 2,
+          "empty-directory-skipped": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "t12_2/t12/processed/Sample_mut12_out.sorted.rmdup.bam",
+        "t5_2/t5/processed/Sample_Mut5_out.sorted.rmdup.bam"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d04",
+      "name": "UV_mutagenesis",
+      "path": "/ntalbot/uv_mutagenesis",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/uv_mutagenesis",
+      "dbSamples": 17,
+      "dbRuns": 28,
+      "dbReads": 0,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 267,
+        "diskBytes": 184379087191,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 265,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 265,
+          "empty-directory-skipped": 30
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "bas1p_hph_guy11_sur/bas1p_hph_guy11_sur_mutant_5_1/raw/B1_5_5_1_1.fq.gz",
+        "bas1p_hph_guy11_sur/bas1p_hph_guy11_sur_mutant_5_1/raw/B1_5_5_1_2.fq.gz",
+        "bas1p_hph_guy11_sur/bas1p_hph_guy11_sur/raw/B1_5_O_1.fq.gz",
+        "bas1p_hph_guy11_sur/bas1p_hph_guy11_sur/raw/B1_5_O_2.fq.gz",
+        "bsa_genome/bsa_cer7/processed/Sample_CER7P_out.sorted.rmdup.bam",
+        "bsa_genome/bsa_cer7/raw/CER7P_S6_R1_001.fastq.gz",
+        "bsa_genome/bsa_cer7/raw/CER7P_S6_R2_001.fastq.gz",
+        "cer1_genome/additional/TDS1_deletion.xlsx",
+        "cer1_genome/additional/TDS1_SNPs.xlsx",
+        "cer1_genome/cer1/processed/Sample_TDS1_out.sorted.rmdup.bam",
+        "cer1_genome/cer1/processed/TDS1_contigs.fasta",
+        "cer2_genome/additional/TDS2_deletion.xlsx",
+        "cer2_genome/additional/TDS2_SNPs.xlsx",
+        "cer2_genome/cer2/processed/Sample_TDS2_out.sorted.rmdup.bam",
+        "cer2_genome/cer2/processed/TDS2_contigs.fasta",
+        "cer3_genome/additional/TDS3_deletion.xlsx",
+        "cer3_genome/additional/TDS3_SNPs.xlsx",
+        "cer3_genome/cer3/processed/Sample_TDS3_out.sorted.rmdup.bam",
+        "cer3_genome/cer3/processed/TDS3_contigs.fasta",
+        "cer4_genome/additional/TDS4_deletion.xlsx"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d06",
+      "name": "Sequencing melanin biosynthesis pathway CRISPR mutants in Guy11 background",
+      "path": "/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 24,
+        "diskBytes": 19142588085,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 24,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 24,
+          "empty-directory-skipped": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "alb1_3/additional/alb1.docx",
+        "alb1_3/alb1_3/processed/ALB1_3_specific_SNPs_Guy11.xlsx",
+        "alb1_3/alb1_3/processed/ALB1_3_specific_SNPs.xlsx",
+        "alb1_3/alb1_3/processed/Sample_alb1_3_out.sorted.rmdup.bam",
+        "alb1_3/alb1_3/processed/Sample_alb1_3_scaffolds.fasta",
+        "alb1_6/alb1_6/processed/ALB1_6_specific_SNPs_Guy11.xlsx",
+        "alb1_6/alb1_6/processed/ALB1_6_specific_SNPs.xlsx",
+        "alb1_6/alb1_6/processed/Sample_alb1_6_out.sorted.rmdup.bam",
+        "alb1_6/alb1_6/processed/Sample_alb1_6_scaffolds.fasta",
+        "r1/r1/processed/R1_specifc_SNPs.xlsx",
+        "r1/r1/processed/Sample_R1_out.sorted.rmdup.bam",
+        "r1/r1/processed/Sample_R1_scaffolds.fasta",
+        "r2_2/r2/processed/R2_specific_SNPs.xlsx",
+        "r2_2/r2/processed/Sample_R2_out.sorted.rmdup.bam",
+        "r2_2/r2/processed/Sample_R2_scaffolds.fasta",
+        "rsy1_12/rsy1_12/processed/RSY1_12_specific_SNPs.xlsx",
+        "rsy1_12/rsy1_12/processed/Sample_rsy1_12_out.sorted.rmdup.bam",
+        "rsy1_12/rsy1_12/processed/Sample_rsy1_12_scaffolds.fasta",
+        "rsy1_3/additional/CRISPR genomic target sequences.docx",
+        "rsy1_3/additional/CRISPR_Sequencing_stats.docx"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d09",
+      "name": "RNA-seq of various mutants",
+      "path": "/ntalbot/rna_seq_of_various_mutants",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/rna_seq_of_various_mutants",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 50,
+        "diskBytes": 58826618808,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 50,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 50,
+          "empty-directory-skipped": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "dbuf1/318829/processed/buf1_16h_1_accepted_hits.bam",
+        "dbuf1/318829/processed/buf1_16h_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "dbuf1/318829/processed/buf1_16h_2_accepted_hits.bam",
+        "dbuf1/318829/processed/buf1_16h_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "dbuf1/318829/processed/buf1_down_regulated_padj_0_01_mod_lfc_-1.xlsx",
+        "dbuf1/318829/processed/buf1_up_regulated_padj_0_01_mod_lfc_1.xlsx",
+        "dbuf1/318829/raw/95-buf1_16h_1_CAGATC_L006_R1_001.fastq.gz",
+        "dbuf1/318829/raw/95-buf1_16h_1_CAGATC_L006_R2_001.fastq.gz",
+        "dbuf1/318829/raw/96-buf1_16h_2_CTTGTA_L006_R1_001.fastq.gz",
+        "dbuf1/318829/raw/96-buf1_16h_2_CTTGTA_L006_R2_001.fastq.gz",
+        "dbuf1/additional/buf1_down_regulated_padj_0_01_mod_lfc_-1.xlsx",
+        "dbuf1/additional/buf1_up_regulated_padj_0_01_mod_lfc_1.xlsx",
+        "dcdc42_gtpase/additional/cdc42_down_regulated_padj_0_01_mod_lfc_-1.xlsx",
+        "dcdc42_gtpase/additional/cdc42_up_regulated_padj_0_01_mod_lfc_1.xlsx",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_down_regulated_padj_0_01_mod_lfc_-1.xlsx",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_t16_1_accepted_hits.bam",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_t16_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_t16_2_accepted_hits.bam",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_t16_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "dcdc42_gtpase/pmk1_mapkinase_pathway_appressorium_development_/processed/cdc42_up_regulated_padj_0_01_mod_lfc_1.xlsx"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1d",
+      "name": "Sequencing of Magnaporthe oryzae isolates from Kenya",
+      "path": "/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "dbSamples": 7,
+      "dbRuns": 7,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 42,
+        "diskBytes": 16867382244,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 42,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 42,
+          "empty-directory-skipped": 15
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "eg308/eg308/processed/EG308Y1_contigs.all.maker.proteins.fasta",
+        "eg308/eg308/processed/EG308Y1_contigs.all.maker.transcripts.fasta",
+        "eg308/eg308/processed/EG308Y1_contigs.fa.gz",
+        "eg308/eg308/processed/EG308Y1_contigs.fa.gz.tmp",
+        "eg308/eg308/processed/EG308Y1_contigs.gff",
+        "eg308/eg308/processed/Sample_2059-EG308Y1_out.sorted.rmdup.bam",
+        "ke002/ke002/processed/KE002_contigs.all.maker.proteins.fasta",
+        "ke002/ke002/processed/KE002_contigs.all.maker.transcripts.fasta",
+        "ke002/ke002/processed/KE002_contigs.gff",
+        "ke002/ke002/processed/KE002Y1_contigs.fa.gz",
+        "ke002/ke002/processed/KE002Y1_contigs.fa.gz.tmp",
+        "ke002/ke002/processed/Sample_2059-KE002Y1_out.sorted.rmdup.bam",
+        "ke016/ke016/processed/KE016Y1_contigs.all.maker.proteins.fasta",
+        "ke016/ke016/processed/KE016Y1_contigs.all.maker.transcripts.fasta",
+        "ke016/ke016/processed/KE016Y1_contigs.fa.gz",
+        "ke016/ke016/processed/KE016Y1_contigs.fa.gz.tmp",
+        "ke016/ke016/processed/KE016Y1_contigs.gff",
+        "ke016/ke016/processed/Sample_2059-KE016Y1_out.sorted.rmdup.bam",
+        "ke017/ke017/processed/KE017Y1_contigs.all.maker.proteins.fasta",
+        "ke017/ke017/processed/KE017Y1_contigs.all.maker.transcripts.fasta"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d21",
+      "name": "Wsc1 project",
+      "path": "/ntalbot/wsc1_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wsc1_project",
+      "dbSamples": 5,
+      "dbRuns": 5,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 15,
+        "diskBytes": 3744179136,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 15,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 15,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "sample_a/additional/Sample_A_mutant_10_95.xlsx",
+        "sample_a/additional/Sample_A_mutant_5_90.xlsx",
+        "sample_a/sample_a/processed/Sample_A_out.sorted.rmdup.bam",
+        "sample_c/additional/Sample_C_mutant_10_95.xlsx",
+        "sample_c/additional/Sample_C_mutant_5_90.xlsx",
+        "sample_c/sample_c/processed/Sample_C_out.sorted.rmdup.bam",
+        "sample_d/additional/Sample_D_mutant_10_95.xlsx",
+        "sample_d/additional/Sample_D_mutant_5_90.xlsx",
+        "sample_d/sample_d/processed/Sample_D_out.sorted.rmdup.bam",
+        "sample_i/additional/Sample_I_mutant_10_95.xlsx",
+        "sample_i/additional/Sample_I_mutant_5_90.xlsx",
+        "sample_i/sample_i/processed/Sample_I_out.sorted.rmdup.bam",
+        "sample_wsc1/additional/WSC1_mutants_5_90.xls",
+        "sample_wsc1/additional/WSC1_mutants.xlsx",
+        "sample_wsc1/sample_wsc1/processed/Sample_WSC1_out.sorted.rmdup.bam"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d25",
+      "name": "Sequencing of Magnaporthe oryzae KE002",
+      "path": "/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 57901188,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 2,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 2,
+          "empty-directory-skipped": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "sample1_rsii/rsii_data/processed/KE002_smartdenovo_polished.fasta",
+        "sample2_sequel/sequel_data/processed/KE002_Pacbio_42_contigs.fa.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2f",
+      "name": "Global transcriptional analysis of surface perception",
+      "path": "/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "dbSamples": 9,
+      "dbRuns": 9,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 28,
+        "diskBytes": 35075963678,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 28,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 28,
+          "empty-directory-skipped": 21
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "guy11_14h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_14h_1_accepted_hits.bam",
+        "guy11_14h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_14h_2_accepted_hits.bam",
+        "guy11_14h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t14_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_14h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t14_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_16h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_16h_1_accepted_hits.bam",
+        "guy11_16h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_16h_2_accepted_hits.bam",
+        "guy11_16h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t16_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_16h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t16_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_24h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_24h_1_accepted_hits.bam",
+        "guy11_24h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_24h_2_accepted_hits.bam",
+        "guy11_24h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t24_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_24h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t24_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_2h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_2h_1_accepted_hits.bam",
+        "guy11_2h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_2h_2_accepted_hits.bam",
+        "guy11_2h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t02_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_2h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t02_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_4h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_4h_1_accepted_hits.bam",
+        "guy11_4h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_4h_2_accepted_hits.bam",
+        "guy11_4h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t04_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "guy11_4h_hydrophilic/global_transcriptional_analysis_of_surface_perception/processed/guy11_hydrophilic_t04_2_accepted_hits.bam.read_sorted.bam.sam.count.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d33",
+      "name": "NADPH oxidase project",
+      "path": "/ntalbot/nadph_oxidase_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/nadph_oxidase_project",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 75,
+        "diskBytes": 52231000289,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 75,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 75,
+          "empty-directory-skipped": 8
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "project_1571__lr_mmu/additional/Dnox2_2_reps_data.xlsx",
+        "project_1571__lr_mmu/additional/Dnox2_2_reps_RNA-seq.mdb",
+        "project_1571__lr_mmu/additional/Dnox2_3rep_baseMean_all.xlsx",
+        "project_1571__lr_mmu/additional/Dnox2_3rep_mod_lfc_all.xlsx",
+        "project_1571__lr_mmu/additional/Dnox2_3rep_rna-seq.mdb",
+        "project_1571__lr_mmu/additional/Dnox2_Sln1_down-regulated_16h_overlap.xlsx",
+        "project_1571__lr_mmu/additional/Dnox2_Sln1_up-regulated_16h_overlap.xlsx",
+        "project_1571__lr_mmu/additional/Outlying Dnox2 replicates.docx",
+        "project_1571__lr_mmu/additional/Project_1571_t_countsTable.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_00h_1st_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_00h_2nd_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_00h_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_02h_1st_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_02h_2nd_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_02h_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_04h_1st_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_04h_2nd_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_04h_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_06h_1st_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_1571__lr_mmu/project_1571__lr_mmu/processed/Dnox2_06h_2nd_replicate_accepted_hits.bam.read_sorted.bam.sam.count.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3e",
+      "name": "Pmk1 MAPKinase pathway appressorium development ",
+      "path": "/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "dbSamples": 31,
+      "dbRuns": 31,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 269,
+        "diskBytes": 423593913251,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 269,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 269,
+          "empty-directory-skipped": 43
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/Project_1595_samples.xlsx",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR1_6_hisat_remapping.sorted.bam",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR1_6_hisat_remapping.sorted.bam.read_sorted.bam.sam.count.txt",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR2_8_hisat_remapping.sorted.bam",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR2_8_hisat_remapping.sorted.bam.read_sorted.bam.sam.count.txt",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR3_10_hisat_remapping.sorted.bam",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/Sample_Hox7_14hR3_10_hisat_remapping.sorted.bam.read_sorted.bam.sam.count.txt",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR1_6_S99_R1_001.fastq.gz",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR1_6_S99_R2_001.fastq.gz",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR2_8_S99_R1_001.fastq.gz",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR2_8_S99_R2_001.fastq.gz",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR3_10_S99_R1_001.fastq.gz",
+        "dhox7_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/raw/Hox7_14hR3_10_S99_R2_001.fastq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R1_1.fq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R1_2.fq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R2_1.fq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R2_2.fq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R3_1.fq.gz",
+        "dhox7_6h_hydrophobic/dhox7/raw/Hox7R3_2.fq.gz",
+        "dmst12_14h_hydrophobic/pmk1_mapkinase_pathway_appressorium_development_/processed/mst12_t14_1_accepted_hits_read_sorted.bam.sam.count.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d41",
+      "name": "Wheat blast project",
+      "path": "/ntalbot/wheat_blast_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wheat_blast_project",
+      "dbSamples": 24,
+      "dbRuns": 24,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 95,
+        "diskBytes": 106623504945,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 95,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 95,
+          "empty-directory-skipped": 49
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/Bangladesh_sequenced_strains.xlsx",
+        "additional/Genome assemblies of Magnaporthe oryzae isolated from Bangladesh in 2016 and 2017.pdf",
+        "additional/Sequencing of Bangladeshi Wheat Blast Isolates.pdf",
+        "btar_a1/btar_a1/processed/BTAR_A1_contigs.fasta",
+        "btar_a1/btar_a1/processed/BTAR_A1_out.sorted.rmdup.bam",
+        "btar_a1/btar_a1/processed/BTAR_A1_scaffolds.fasta.gz",
+        "btar_a1/btar_a1/processed/BTAR_A1_scaffolds.fasta.gz.tmp",
+        "btba_b1/btba_b1/processed/BTBaB1_contigs.fasta",
+        "btba_b1/btba_b1/processed/BTBaB1_out.sorted.rmdup.bam",
+        "btba_b1/btba_b1/processed/BTBaB1_scaffolds.fasta.gz",
+        "btba_b1/btba_b1/processed/BTBaB1_scaffolds.fasta.gz.tmp",
+        "btba_b2/btba_b2/processed/BTBa_2_contigs.fasta",
+        "btba_b2/btba_b2/processed/BTBa_2_out.sorted.rmdup.bam",
+        "btba_b2/btba_b2/processed/BTBa_2_scaffolds.fasta.gz",
+        "btba_b2/btba_b2/processed/BTBa_2_scaffolds.fasta.gz.tmp",
+        "btgp_1_b_/btgp_1_b_/processed/BTGP1_b_contigs.fasta",
+        "btgp_1_b_/btgp_1_b_/processed/BTGP1_b_out.sorted.rmdup.bam",
+        "btgp_1_b_/btgp_1_b_/processed/BTGP1_b_scaffolds.fasta.gz",
+        "btgp_1_b_/btgp_1_b_/processed/BTGP1_b_scaffolds.fasta.gz.tmp",
+        "btgp_6_e_/btgp_6_e_/processed/BTG_S6e_contigs.fasta"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d43",
+      "name": "Transcriptional regulation of melanin in Magnaporthe oryzae",
+      "path": "/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 14,
+        "diskBytes": 32153599360,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 12,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 12,
+          "empty-directory-skipped": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "kv50/kv50/raw/Kv50R1_1.fq.gz",
+        "kv50/kv50/raw/Kv50R1_2.fq.gz",
+        "kv50/kv50/raw/Kv50R2_1.fq.gz",
+        "kv50/kv50/raw/Kv50R2_2.fq.gz",
+        "kv50/kv50/raw/Kv50R3_1.fq.gz",
+        "kv50/kv50/raw/Kv50R3_2.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R1_1.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R1_2.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R2_1.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R2_2.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R3_1.fq.gz",
+        "kv50pig1/kv50pig1/raw/Kv50Pig1R3_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d46",
+      "name": "Transcription profiling during rice plant infection",
+      "path": "/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "dbSamples": 4,
+      "dbRuns": 7,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 657,
+        "diskBytes": 457914621055,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 657,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 657,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/Project_1120 XIA RNA-Seq A1-24.xlsx",
+        "co39_leaf_drop/additional/all_up-regulated_KEGG_maps.docx",
+        "co39_leaf_drop/additional/all_up-regulated_KEGG.docx",
+        "co39_leaf_drop/additional/Comparison of potential effectors.docx",
+        "co39_leaf_drop/additional/GO categories up-regulated infection.docx",
+        "co39_leaf_drop/additional/GO_0005975_carbohydrate_up-regulated_heatmap.docx",
+        "co39_leaf_drop/additional/GO_0005975_carbohydrate_up-regulated_KEGG_maps.docx",
+        "co39_leaf_drop/additional/GO_0005975_carbohydrate_up-regulated_KEGG.docx",
+        "co39_leaf_drop/additional/GO_0016798_hydrolase_glycosyl_up-regulated_summary.docx",
+        "co39_leaf_drop/additional/MD5.txt",
+        "co39_leaf_drop/additional/RNA-Seq B1-24 XIA 2014.xlsx",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B01_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B02_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B03_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B04_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B05_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B06_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B07_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B08_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "co39_leaf_drop/co39_leaf_drop_magnaporthe_oryzae/processed/B09_unmapped.bam.accepted_hits.bam.read_sorted.bam.sam.count.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4c",
+      "name": "Lichen Tissue RNA1",
+      "path": "/ntalbot/lichen_tissue_rna1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/lichen_tissue_rna1",
+      "dbSamples": 19,
+      "dbRuns": 19,
+      "dbReads": 0,
+      "dbAdditionalFiles": 20,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 58,
+        "diskBytes": 65384995837,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 38,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 38,
+          "empty-directory-skipped": 19
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "mp_i/mp_i/raw/MP_I_1.fq.gz",
+        "mp_i/mp_i/raw/MP_I_2.fq.gz",
+        "mp_ii/mp_ii/raw/MP_II_1.fq.gz",
+        "mp_ii/mp_ii/raw/MP_II_2.fq.gz",
+        "xba1/xba1/raw/XBA1_1.fq.gz",
+        "xba1/xba1/raw/XBA1_2.fq.gz",
+        "xba2/xba2/raw/XBA2_1.fq.gz",
+        "xba2/xba2/raw/XBA2_2.fq.gz",
+        "xbc1/xbc1/raw/XBC1_1.fq.gz",
+        "xbc1/xbc1/raw/XBC1_2.fq.gz",
+        "xbc2/xbc2/raw/XBC2_1.fq.gz",
+        "xbc2/xbc2/raw/XBC2_2.fq.gz",
+        "xbe1/xbe1/raw/XBE1_1.fq.gz",
+        "xbe1/xbe1/raw/XBE1_2.fq.gz",
+        "xbe2/xbe2/raw/XBE2_1.fq.gz",
+        "xbe2/xbe2/raw/XBE2_2.fq.gz",
+        "xmc2/xmc2/raw/XMC2_1.fq.gz",
+        "xmc2/xmc2/raw/XMC2_2.fq.gz",
+        "xsa1/xsa1/raw/XSA1_1.fq.gz",
+        "xsa1/xsa1/raw/XSA1_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4d",
+      "name": "Long Read Assembly of African Yam Bean",
+      "path": "/ntalbot/long_read_assembly_of_african_yam_bean",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/long_read_assembly_of_african_yam_bean",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 0,
+        "diskBytes": 0,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "empty-directory-skipped": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d50",
+      "name": "Sequencing Magnaporthe oryzae Guy11 ",
+      "path": "/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 51087911,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 2,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 2,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "guy11_pacbio/guy11_pacbio/processed/guy11_pacbio_5_run_3.all.maker.proteins.fasta",
+        "guy11_pacbio/guy11_pacbio/processed/guy11_v5_smartdenovo_polished.fasta"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d57",
+      "name": "Cell cycle",
+      "path": "/ntalbot/cell_cycle",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/cell_cycle",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 12,
+        "diskBytes": 12147621942,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 12,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 12,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_1_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_2_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_3_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t2_3_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_1_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_2_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_3_accepted_hits.bam",
+        "hu_2h_and_4h/cell_cycle/processed/Guy11_HU_t4_3_accepted_hits.bam.read_sorted.bam.sam.count.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d79",
+      "name": "Sequencing of 5 strains of Kenyan Magnaporthe oryzae ",
+      "path": "/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "dbSamples": 5,
+      "dbRuns": 5,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 30,
+        "diskBytes": 23114728859,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 30,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 30,
+          "empty-directory-skipped": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ke332/ke332/processed/KE332_contigs.fasta.gz",
+        "ke332/ke332/processed/KE332_contigs.fasta.gz.tmp",
+        "ke332/ke332/processed/KE332_scaffolds.all.maker.proteins.fasta",
+        "ke332/ke332/processed/KE332_scaffolds.all.maker.transcripts.fasta",
+        "ke332/ke332/processed/KE332_scaffolds.gff",
+        "ke332/ke332/processed/Sample_KE332_out.sorted.rmdup.bam",
+        "ke415/ke415/processed/KE415_contigs.fasta.gz",
+        "ke415/ke415/processed/KE415_contigs.fasta.gz.tmp",
+        "ke415/ke415/processed/KE415_scaffolds.all.maker.proteins.fasta",
+        "ke415/ke415/processed/KE415_scaffolds.all.maker.transcripts.fasta",
+        "ke415/ke415/processed/KE415_scaffolds.gff",
+        "ke415/ke415/processed/Sample_KE415_out.sorted.rmdup.bam",
+        "ke443/ke443/processed/KE443_contigs.fasta.gz",
+        "ke443/ke443/processed/KE443_contigs.fasta.gz.tmp",
+        "ke443/ke443/processed/KE443_scaffolds.all.maker.proteins.fasta",
+        "ke443/ke443/processed/KE443_scaffolds.all.maker.transcripts.fasta",
+        "ke443/ke443/processed/KE443_scaffolds.gff",
+        "ke443/ke443/processed/Sample_KE443_out.sorted.rmdup.bam",
+        "ke473/ke473/processed/KE473_contigs.fasta.gz",
+        "ke473/ke473/processed/KE473_contigs.fasta.gz.tmp"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7b",
+      "name": "KE002 infection on rice RNA-seq timecourse",
+      "path": "/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "dbSamples": 2,
+      "dbRuns": 6,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 128,
+        "diskBytes": 85999414527,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 128,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 128,
+          "empty-directory-skipped": 10
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MOUKOTO_36H_S1_R1_001.fastq.gz",
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MOUKOTO_36H_S1_R2_001.fastq.gz",
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MOUKOTO_48H_S2_R1_001.fastq.gz",
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MOUKOTO_48H_S2_R2_001.fastq.gz",
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MYCELIA_RNA_S3_R1_001.fastq.gz",
+        "experiment_1_36_48h/experiment_1_36_48h/raw/KE002_MYCELIA_RNA_S3_R2_001.fastq.gz",
+        "experiment_1_36_48h/moryzae_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_36H.accepted_hits.bam",
+        "experiment_1_36_48h/moryzae_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_48H.accepted_hits.bam",
+        "experiment_1_36_48h/moryzae_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MYCELIA_RNA.accepted_hits.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_36H.accepted_hits.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_36H.unmapped.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_48H.accepted_hits.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MOUKOTO_48H.unmapped.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MYCELIA_RNA.accepted_hits.bam",
+        "experiment_1_36_48h/rice_data_from_ke002_infection_on_rice_rna_seq/processed/Sample_KE002_MYCELIA_RNA.unmapped.bam",
+        "experiment_2_24_36_48_59_72h/magnaporthe_oryzae_samples/processed/KE002_pacbio_3_test_12_cuffdiff_expression_all.xlsx",
+        "experiment_2_24_36_48_59_72h/magnaporthe_oryzae_samples/processed/KE002_pacbio_3_test_12_cuffdiff.accdb",
+        "experiment_2_24_36_48_59_72h/magnaporthe_oryzae_samples/processed/KE002_pacbio_3_test12_expression_all.xlsx",
+        "experiment_2_24_36_48_59_72h/magnaporthe_oryzae_samples/processed/KE002_pacbio_3_test12.accdb",
+        "experiment_2_24_36_48_59_72h/magnaporthe_oryzae_samples/processed/KE002Mycelia1.counts.txt"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7f",
+      "name": "Turgor project",
+      "path": "/ntalbot/turgor_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/turgor_project",
+      "dbSamples": 1,
+      "dbRuns": 5,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 3039086281,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 8,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 8,
+          "empty-directory-skipped": 10
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/16h_comparison.mdb",
+        "additional/Project_925_t_countsTable2.txt",
+        "project_925/sln1_16h/processed/sln1_16h_1_accepted_hits.bam",
+        "project_925/sln1_16h/processed/sln1_16h_1_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_925/sln1_16h/processed/sln1_16h_2_accepted_hits.bam",
+        "project_925/sln1_16h/processed/sln1_16h_2_accepted_hits.bam.read_sorted.bam.sam.count.txt",
+        "project_925/sln1_16h/processed/sln1_down_regulated_padj_0_01_mod_lfc_-1.xlsx",
+        "project_925/sln1_16h/processed/sln1_up_regulated_padj_0_01_mod_lfc_1.xlsx"
+      ]
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "path": "/ntalbot/lichen_coculture_i_21_days",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+      "dbSamples": 35,
+      "dbRuns": 35,
+      "dbReads": 73,
+      "dbAdditionalFiles": 69,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 142,
+        "diskBytes": 173734125362,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 73,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 73
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "path": "/ntalbot/lichen_coculture_i_42_days",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+      "dbSamples": 29,
+      "dbRuns": 29,
+      "dbReads": 58,
+      "dbAdditionalFiles": 31,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 89,
+        "diskBytes": 99954671448,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 58,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 58
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6017e292d7661b6ec22a06aa",
+      "name": "Whole genome sequencing of Bas1-8mut1, Bas1-8mut2 and Mep2-4mut1",
+      "path": "/ntalbot/whole_genome_sequencing_of_bas1_8mut1__bas1_8mut2_and_mep2_4mut1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/whole_genome_sequencing_of_bas1_8mut1__bas1_8mut2_and_mep2_4mut1",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 14,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 14,
+        "diskBytes": 11284504496,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 14,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 14
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "605b441ad7661b6ec22a076a",
+      "name": "ChIP-seq data Mst12-GFP mycelium",
+      "path": "/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "dbSamples": 2,
+      "dbRuns": 4,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 4808078917,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 2,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "disk-file-untracked": 2,
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "mst12_gfp_chip_mycelium_biorep1/additional/MD5.txt",
+        "mst12_gfp_chip_mycelium_biorep2/additional/MD5.txt"
+      ]
+    },
+    {
+      "projectId": "60619edfd7661b6ec22a076e",
+      "name": "DAP-seq Mst12 and Hox7 ",
+      "path": "/ntalbot/dap_seq_mst12_and_hox7_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "dbSamples": 3,
+      "dbRuns": 4,
+      "dbReads": 8,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 9,
+        "diskBytes": 4448038873,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 8,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 8
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "606c3308d7661b6ec22a0793",
+      "name": "ChIP-seq data Hox7-3XFlag mycelium",
+      "path": "/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "dbSamples": 4,
+      "dbRuns": 8,
+      "dbReads": 8,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 13,
+        "diskBytes": 9339040375,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 8,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "read-destination-md5-missing": 8
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "chip_seq_experiment_hox7_3xflag_mycelium_biorep1/additional/MD5.txt",
+        "chip_seq_experiment_hox7_3xflag_mycelium_biorep2/additional/MD5.txt",
+        "chip_seq_experiment_hox7_3xflag_mycelium_biorep3/additional/MD5.txt",
+        "chip_seq_experiment_hox7_3xflag_mycelium_biorep4/additional/MD5.txt"
+      ]
+    },
+    {
+      "projectId": "60804e0b837a8a261f0133ee",
+      "name": "RNA-seq Mycelium cultures Guy11, Dhox7 and Dmst12",
+      "path": "/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "dbSamples": 3,
+      "dbRuns": 9,
+      "dbReads": 18,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 18,
+        "diskBytes": 35736656386,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 18,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 18
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6116bf17e788b405b6ce69e8",
+      "name": "Transcriptomics Appressorial Assay Dznf1 TF",
+      "path": "/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "dbSamples": 4,
+      "dbRuns": 7,
+      "dbReads": 21,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 21,
+        "diskBytes": 42891475718,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 21,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 21
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6116c220e788b405b6ce69f2",
+      "name": "Transcriptomics Appressorial Assay Dhox7 TF",
+      "path": "/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 6209130977,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6116c323e788b405b6ce69f6",
+      "name": "Generational Experiment ",
+      "path": "/ntalbot/generational_experiment_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/generational_experiment_",
+      "dbSamples": 2,
+      "dbRuns": 6,
+      "dbReads": 18,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 18,
+        "diskBytes": 36630086564,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 18,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 18
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "path": "/ntalbot/lichen_coculture_i_9_days",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+      "dbSamples": 30,
+      "dbRuns": 30,
+      "dbReads": 90,
+      "dbAdditionalFiles": 32,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 122,
+        "diskBytes": 103438441044,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 90,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 90
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "path": "/ntalbot/lichen_coculture_i_2_days",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+      "dbSamples": 31,
+      "dbRuns": 31,
+      "dbReads": 93,
+      "dbAdditionalFiles": 6,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 99,
+        "diskBytes": 105611175618,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 93,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 93
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6131ea39e788b405b6ce6da1",
+      "name": "ChIP-seq data Rpp3-GFP mycelium",
+      "path": "/ntalbot/chip_seq_data_rpp3_gfp_mycelium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/chip_seq_data_rpp3_gfp_mycelium",
+      "dbSamples": 2,
+      "dbRuns": 4,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 4221292509,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6143207730cbdb047de01202",
+      "name": "ChIP-seq data Znf1-GFP mycelium",
+      "path": "/ntalbot/chip_seq_data_znf1_gfp_mycelium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/chip_seq_data_znf1_gfp_mycelium",
+      "dbSamples": 3,
+      "dbRuns": 6,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 6552386513,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61701dd536105e13c15d5920",
+      "name": "Sequencing of DVts1 in Guy11 background",
+      "path": "/ntalbot/sequencing_of_dvts1_in_guy11_background",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_dvts1_in_guy11_background",
+      "dbSamples": 2,
+      "dbRuns": 1,
+      "dbReads": 5,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 1686664902,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 5,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61701e3436105e13c15d5922",
+      "name": "Sequencing of DATG5 in Guy11 background",
+      "path": "/ntalbot/sequencing_of_datg5_in_guy11_background",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_datg5_in_guy11_background",
+      "dbSamples": 2,
+      "dbRuns": 1,
+      "dbReads": 5,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 1605219367,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 5,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61701e8936105e13c15d5924",
+      "name": "Sequencing of ZNF1 in Guy11 background",
+      "path": "/ntalbot/sequencing_of_znf1_in_guy11_background",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_znf1_in_guy11_background",
+      "dbSamples": 2,
+      "dbRuns": 1,
+      "dbReads": 5,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 1709588334,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 5,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61dff7ac1cf18a5296a13212",
+      "name": "Project_2324_KE002_Moukoto_RNA-seq ",
+      "path": "/ntalbot/project_2324_ke002_moukoto_rna_seq_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2324_ke002_moukoto_rna_seq_",
+      "dbSamples": 6,
+      "dbRuns": 18,
+      "dbReads": 70,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 70,
+        "diskBytes": 530165157686,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 70,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 70
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63764d92ee09804cf4979990",
+      "name": "Long-read assembly of lichen symbionts' genomes",
+      "path": "/ntalbot/long_read_assembly_of_lichen_symbionts__genomes",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/long_read_assembly_of_lichen_symbionts__genomes",
+      "dbSamples": 2,
+      "dbRuns": 1,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 1952844241,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63f8bc16ee09804cf4979a69",
+      "name": "WGS_Mep3GFP_UVmutants",
+      "path": "/ntalbot/wgs_mep3gfp_uvmutants",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wgs_mep3gfp_uvmutants",
+      "dbSamples": 5,
+      "dbRuns": 4,
+      "dbReads": 10,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 7918795812,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 10,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 10
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63ff6a87ee09804cf4979a89",
+      "name": "Metagenomes of Xanthoria parietina lichens",
+      "path": "/ntalbot/metagenomes_of_xanthoria_parietina_lichens",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens",
+      "dbSamples": 9,
+      "dbRuns": 9,
+      "dbReads": 41,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 41,
+        "diskBytes": 145573581503,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 41,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 41
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "641da93aee09804cf4979b29",
+      "name": "Arabidopsis thaliana RNA sequencing after PSK treatment",
+      "path": "/ntalbot/arabidopsis_thaliana_rna_sequencing_after_psk_treatment",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/arabidopsis_thaliana_rna_sequencing_after_psk_treatment",
+      "dbSamples": 30,
+      "dbRuns": 30,
+      "dbReads": 92,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 92,
+        "diskBytes": 65208143123,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 92,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 92
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "64e5e0b8d32c7a7e4b174fd3",
+      "name": "Genomic analysis of Coccomyxa viridis alga",
+      "path": "/ntalbot/genomic_analysis_of_coccomyxa_viridis_alga",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/genomic_analysis_of_coccomyxa_viridis_alga",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 3644047429,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "660d28e4e372f7554d754a21",
+      "name": "RNAseq conidia CER mutants ",
+      "path": "/ntalbot/rnaseq_conidia_cer_mutants_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/rnaseq_conidia_cer_mutants_",
+      "dbSamples": 4,
+      "dbRuns": 12,
+      "dbReads": 24,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 24,
+        "diskBytes": 91916393424,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 24,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 24
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6613c0e4e372f7554d754a7b",
+      "name": "WGS MGG_06465_KO transformant_n25",
+      "path": "/ntalbot/wgs_mgg_06465_ko_transformant_n25",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wgs_mgg_06465_ko_transformant_n25",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 2039078598,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "665f19980e8763bcf615e2df",
+      "name": "WGS_PDS5_MGG06465_KO",
+      "path": "/ntalbot/wgs_pds5_mgg06465_ko",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wgs_pds5_mgg06465_ko",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 5123838025,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "665f20c30e8763bcf615e2ef",
+      "name": "WGS_BIP1_KO_MGG_08118_Guy11",
+      "path": "/ntalbot/wgs_bip1_ko_mgg_08118_guy11",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wgs_bip1_ko_mgg_08118_guy11",
+      "dbSamples": 1,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 9169994360,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "66aa4f936e49ef189bd2ea9d",
+      "name": "Whole genome assembly of Xanthoria parietina",
+      "path": "/ntalbot/whole_genome_assembly_of_xanthoria_parietina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/whole_genome_assembly_of_xanthoria_parietina",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 1,
+        "diskBytes": 1208546561,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 1,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "66f554296e49ef189bd2eae4",
+      "name": "Guy11 RNAseq Appressorium",
+      "path": "/ntalbot/guy11_rnaseq_appressorium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/guy11_rnaseq_appressorium",
+      "dbSamples": 4,
+      "dbRuns": 12,
+      "dbReads": 37,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 37,
+        "diskBytes": 41741009798,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 3,
+        "seriousAnomalies": 40,
+        "anomalyKinds": {
+          "db-expected-path-unresolved": 3,
+          "db-path-outside-project": 3,
+          "disk-file-untracked": 3,
+          "read-destination-md5-missing": 34
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "guy11_4h/guy11_4h_R2_updated/raw/Dvts1_4h_R2_EKRN240051834-1A_22GY3HLT4_L5_1.fq.gz",
+        "guy11_4h/guy11_4h_R2_updated/raw/Dvts1_4h_R2_EKRN240051834-1A_22GY3HLT4_L5_2.fq.gz",
+        "guy11_4h/guy11_4h_R2_updated/raw/MD5.txt"
+      ]
+    },
+    {
+      "projectId": "66f59c736e49ef189bd2eb50",
+      "name": "Dvts1 RNAseq Appressorium",
+      "path": "/ntalbot/dvts1_rnaseq_appressorium",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/dvts1_rnaseq_appressorium",
+      "dbSamples": 4,
+      "dbRuns": 13,
+      "dbReads": 38,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 38,
+        "diskBytes": 48595471524,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 3,
+        "seriousAnomalies": 41,
+        "anomalyKinds": {
+          "db-expected-path-unresolved": 3,
+          "db-path-outside-project": 3,
+          "disk-file-untracked": 3,
+          "read-destination-md5-missing": 35
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "dvts1_4h/Dvts1_4h_R2_updated/raw/Guy11_4h_R2_EKRN240051822-1A_22GY3HLT4_L5_1.fq.gz",
+        "dvts1_4h/Dvts1_4h_R2_updated/raw/Guy11_4h_R2_EKRN240051822-1A_22GY3HLT4_L5_2.fq.gz",
+        "dvts1_4h/Dvts1_4h_R2_updated/raw/MD5.txt"
+      ]
+    },
+    {
+      "projectId": "6784ee376e49ef189bd2ed15",
+      "name": "Sequencing of additional SSA isolates for Popgenetics",
+      "path": "/ntalbot/sequencing_of_additional_ssa_isolates_for_popgenetics",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/sequencing_of_additional_ssa_isolates_for_popgenetics",
+      "dbSamples": 15,
+      "dbRuns": 15,
+      "dbReads": 53,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 53,
+        "diskBytes": 28726118391,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 53,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 53
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "678ed55d6e49ef189bd2edbe",
+      "name": "RNA immunoprecipitation Vts1 mycelia",
+      "path": "/ntalbot/rna_immunoprecipitation_vts1_mycelia",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/rna_immunoprecipitation_vts1_mycelia",
+      "dbSamples": 9,
+      "dbRuns": 24,
+      "dbReads": 70,
+      "dbAdditionalFiles": 13,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 81,
+        "diskBytes": 41989981611,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 72,
+        "anomalyKinds": {
+          "duplicate-db-path": 2,
+          "read-destination-md5-missing": 70
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "67aa326a6e49ef189bd2ee74",
+      "name": "Timecourse RNAseq BIP1-MST12",
+      "path": "/ntalbot/timecourse_rnaseq_bip1_mst12",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/timecourse_rnaseq_bip1_mst12",
+      "dbSamples": 9,
+      "dbRuns": 27,
+      "dbReads": 79,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 79,
+        "diskBytes": 88704664647,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 79,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 79
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "684170e164451dc012a80fbc",
+      "name": "Trebouxia aggregata SAG 219-d genome",
+      "path": "/ntalbot/trebouxia_aggregata_sag_219_d_genome",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/trebouxia_aggregata_sag_219_d_genome",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 15488374279,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68417b2664451dc012a80fca",
+      "name": "Whole genome assembly of Xanthoria calcicola",
+      "path": "/ntalbot/whole_genome_assembly_of_xanthoria_calcicola",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/whole_genome_assembly_of_xanthoria_calcicola",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 1,
+        "diskBytes": 1916575444,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 1,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "684955ce64451dc012a80fd3",
+      "name": "Trebouxia sp. A48 isolate GTP0183 genome",
+      "path": "/ntalbot/trebouxia_sp__a48_isolate_gtp0183_genome",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/trebouxia_sp__a48_isolate_gtp0183_genome",
+      "dbSamples": 2,
+      "dbRuns": 5,
+      "dbReads": 14,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 14,
+        "diskBytes": 37159736687,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 14,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 14
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68628caadc823951803ac396",
+      "name": "TPLEX rice blast calibration curve (TPX0009)",
+      "path": "/ntalbot/tplex_rice_blast_calibration_curve__tpx0009_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tplex_rice_blast_calibration_curve__tpx0009_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 2586613010,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "689091ca017c2104003eaeb6",
+      "name": "double_knockout_sep5_sep6",
+      "path": "/ntalbot/double_knockout_sep5_sep6",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/double_knockout_sep5_sep6",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 3277223107,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68f0d2a27f1130c7a5228cbf",
+      "name": "WGS MGG_17301_KO transformant_n26",
+      "path": "/ntalbot/wgs_mgg_17301_ko_transformant_n26",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/wgs_mgg_17301_ko_transformant_n26",
+      "dbSamples": 0,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 998633901,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68fb4ce89fb9bbefcb69686e",
+      "name": "TPLEX rice blast 3-strain calibration curve (TPX0015)",
+      "path": "/ntalbot/tplex_rice_blast_3_strain_calibration_curve__tpx0015_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tplex_rice_blast_3_strain_calibration_curve__tpx0015_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 2152555440,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "692d86bcaeb7e7fd45211ebb",
+      "name": "Double deletion Eisosomes Marisela",
+      "path": "/ntalbot/double_deletion_eisosomes_marisela",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/double_deletion_eisosomes_marisela",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 14,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 14,
+        "diskBytes": 6573394988,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69ae99db20a8c93a2306f836",
+      "name": "RNA-Seq Mycelium of dosm1dsln1",
+      "path": "/ntalbot/rna_seq_mycelium_of_dosm1dsln1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/rna_seq_mycelium_of_dosm1dsln1",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 5575180792,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69e5f5d828866e6f1f6f3b1d",
+      "name": "TPLEX Magnaporthe mixed fungal infection (TPX0033)",
+      "path": "/ntalbot/tplex_magnaporthe_mixed_fungal_infection__tpx0033_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tplex_magnaporthe_mixed_fungal_infection__tpx0033_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 6521851235,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a201f9528866e6f1f70bd01",
+      "name": "Whole genome assemblies of Magnaporthe oryzae MEP26 knockout strains",
+      "path": "/ntalbot/whole_genome_assemblies_of_magnaporthe_oryzae_mep26_knockout_strains",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/whole_genome_assemblies_of_magnaporthe_oryzae_mep26_knockout_strains",
+      "dbSamples": 1,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 0,
+        "diskBytes": 0,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a352ed028866e6f1f70d295",
+      "name": "TPLEX Magnaporthe mixed fungal infection (TPX0035)",
+      "path": "/ntalbot/tplex_magnaporthe_mixed_fungal_infection__tpx0035_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tplex_magnaporthe_mixed_fungal_infection__tpx0035_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 540260127,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a561a8428866e6f1f712f0c",
+      "name": "TPLEX Magnaporthe DPI test experiment (TPX0036)",
+      "path": "/ntalbot/tplex_magnaporthe_dpi_test_experiment__tpx0036_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tplex_magnaporthe_dpi_test_experiment__tpx0036_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 718491200,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a68b3304702a7661accaf31",
+      "name": "Kex2 mutant analysis",
+      "path": "/ntalbot/kex2_mutant_analysis",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/kex2_mutant_analysis",
+      "dbSamples": 6,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 13,
+        "diskBytes": 4444402170,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a7486f94702a7661accd51f",
+      "name": "Magnaporthe pre4 mutants",
+      "path": "/ntalbot/magnaporthe_pre4_mutants",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/magnaporthe_pre4_mutants",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 2231872596,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a8dcb153c09c026f67d74cd",
+      "name": "Gastby_Aegilops_genomes",
+      "path": "/ntalbot/gastby_aegilops_genomes",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/gastby_aegilops_genomes",
+      "dbSamples": 4,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 13,
+        "diskBytes": 354950003594,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a9fee13f8601f2567e36ead",
+      "name": "Phytase-like effector KOs",
+      "path": "/ntalbot/phytase_like_effector_kos",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/phytase_like_effector_kos",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 1864812053,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6aaa7bae1e89123e38a40a3d",
+      "name": "trebouxiaA48_snRNAseq_lib",
+      "path": "/ntalbot/trebouxiaa48_snrnaseq_lib",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/trebouxiaa48_snrnaseq_lib",
+      "dbSamples": 1,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 4,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 93800478460,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6ab2657250bdd9a6cc9915d1",
+      "name": "PRE4 Project: Host Transcriptomics",
+      "path": "/ntalbot/pre4_project__host_transcriptomics",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/pre4_project__host_transcriptomics",
+      "dbSamples": 24,
+      "dbRuns": 24,
+      "dbReads": 96,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 96,
+        "diskBytes": 65162173465,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6abd098983b8a5a075c0e6af",
+      "name": "Whole genome sequencing_KT",
+      "path": "/ntalbot/whole_genome_sequencing_kt",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/whole_genome_sequencing_kt",
+      "dbSamples": 5,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 9544776659,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6abf6ce883b8a5a075c16aef",
+      "name": "TPX0039: Mixed fungal infection T-PLEX assay",
+      "path": "/ntalbot/tpx0039__mixed_fungal_infection_t_plex_assay",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tpx0039__mixed_fungal_infection_t_plex_assay",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 1052954527,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6abf718483b8a5a075c16cc2",
+      "name": "TPX0040: Mixed fungal infection T-PLEX assay",
+      "path": "/ntalbot/tpx0040__mixed_fungal_infection_t_plex_assay",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/tpx0040__mixed_fungal_infection_t_plex_assay",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 181366541,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6ad0fd1e83b8a5a075c53029",
+      "name": "xantoria_lifestages_rnaseq",
+      "path": "/ntalbot/xantoria_lifestages_rnaseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/ntalbot/xantoria_lifestages_rnaseq",
+      "dbSamples": 0,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 0,
+        "diskBytes": 0,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    }
+  ],
+  "directoriesWithoutProject": [
+    "/mnt/reads/ntalbot/project_1566",
+    "/mnt/reads/ntalbot/project_1622",
+    "/mnt/reads/ntalbot/project_2009",
+    "/mnt/reads/ntalbot/project_2012",
+    "/mnt/reads/ntalbot/project_2035",
+    "/mnt/reads/ntalbot/project_2171",
+    "/mnt/reads/ntalbot/project_2178",
+    "/mnt/reads/ntalbot/project_230",
+    "/mnt/reads/ntalbot/project_2323",
+    "/mnt/reads/ntalbot/project_2370",
+    "/mnt/reads/ntalbot/project_2561",
+    "/mnt/reads/ntalbot/project_539",
+    "/mnt/reads/ntalbot/project_592_593",
+    "/mnt/reads/ntalbot/project_758",
+    "/mnt/reads/ntalbot/project_809",
+    "/mnt/reads/ntalbot/project_930",
+    "/mnt/reads/ntalbot/project_945",
+    "/mnt/reads/ntalbot/project_946"
+  ]
+}

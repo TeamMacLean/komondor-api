@@ -11,6 +11,11 @@ pilot, but no eligible project has yet been selected, locked or uploaded.
 The operator has now supplied the initial batch scope, recorded in the
 [project disposition register](batches/2026-10-16/README.md). Registering these
 decisions made no production changes.
+The later [independent reconciliation](../HPC_ARCHIVE_CANDIDATES_2026-10-16.md)
+records live IDs, directory discrepancies and owner contacts against every
+original entry. It found serious preflight anomalies in 17 of the 19 Kamoun
+archive requests. The two other entries still require full plan/restore and
+execution checks; no real pilot has been selected by that inspection.
 
 ## Environment and release
 

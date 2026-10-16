@@ -1,0 +1,145 @@
+{
+  "node_version": "v24.11.1",
+  "completed_full_runs": 3,
+  "full_runs_passed": 2,
+  "full_runs_failed": 1,
+  "interrupted_attempts": 1,
+  "overall_full_suite_gate": "not_green",
+  "source_sha256": {
+    "scripts/archive-shortlist-verify.js": "9cf6ba0140d2e1de2fc95e63a9fc36ba9e4072278acd41757dae60a27da322b4",
+    "scripts/move-project-to-s3.js": "1c4c43d7b1b2aa8ab561b1e78f8bac2944d36b5c49cf25f2b5d92efb280237bf",
+    "scripts/archive-s3-smoke.js": "94a017d4c26522e037edcd6bf8c5d84827caf31d480bc015d7ef687bfd171fac",
+    "__tests__/integration/archive-cli.test.js": "fb6987a9cbbf53ed4a4cf9400f8e25c78337d7af3aee8a39f7714f30ccd8a77d",
+    "__tests__/lib/s3-archive/smoke.test.js": "bf999cacfe9d4836130bb2999ce293b2e13bc446fdefa01135ab72661e00ffe7",
+    "__tests__/scripts/model-registration.test.js": "8485b3f142e095e7381936a3a2e14960f620d73ba4ce3e75c5a855d3f08be9a4",
+    "__tests__/scripts/archive-shortlist-verify.test.js": "6d9e315ad319e36d07397f7752c7aaab8d61ed0e3fd5cdfd2b3fe46106a8022c"
+  },
+  "runs": [
+    {
+      "name": "full-run-1",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-16T20:31:18.983883+00:00",
+      "finished_at": "2026-10-16T20:31:33.727247+00:00",
+      "summary": [
+        "Test Suites: 71 passed, 71 total",
+        "Tests:       2058 passed, 2058 total",
+        "Time:        13.862 s, estimated 49 s"
+      ],
+      "smoke_pass": true,
+      "model_registration_pass": true,
+      "original_log": "full-1.log",
+      "log_file": "full-run-1.log.gz",
+      "log_uncompressed_sha256": "0ff5cbe959be4083f242bbd017cc0be9346604527497f888f01c845806b33c35"
+    },
+    {
+      "name": "interrupted-attempt",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand"
+      ],
+      "exit_code": -11,
+      "started_at": "2026-10-16T20:31:33.728513+00:00",
+      "finished_at": "2026-10-16T20:31:37.758745+00:00",
+      "summary": [],
+      "smoke_pass": false,
+      "model_registration_pass": false,
+      "original_log": "full-2.log",
+      "log_file": "interrupted-attempt.log.gz",
+      "log_uncompressed_sha256": "48c587be2c9399c6e10897d629b165fd11a23018d17bbc9e62f7929ee071aa82"
+    },
+    {
+      "name": "full-run-2",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-10-16T20:32:03.535787+00:00",
+      "finished_at": "2026-10-16T20:32:18.492050+00:00",
+      "summary": [
+        "Test Suites: 1 failed, 70 passed, 71 total",
+        "Tests:       1 failed, 2057 passed, 2058 total",
+        "Time:        14.181 s"
+      ],
+      "smoke_pass": true,
+      "model_registration_pass": true,
+      "original_log": "validation-full-1.log",
+      "log_file": "full-run-2.log.gz",
+      "log_uncompressed_sha256": "875508c11d481ec3839f5f602e0804dea76540f3e0ff170b8fcb4dc6ce8d587d"
+    },
+    {
+      "name": "full-run-3",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-16T20:34:51.449535+00:00",
+      "finished_at": "2026-10-16T20:35:06.287632+00:00",
+      "summary": [
+        "Test Suites: 71 passed, 71 total",
+        "Tests:       2058 passed, 2058 total",
+        "Time:        13.784 s, estimated 14 s"
+      ],
+      "smoke_pass": true,
+      "model_registration_pass": true,
+      "original_log": "full-3.log",
+      "log_file": "full-run-3.log.gz",
+      "log_uncompressed_sha256": "0ac80a8a1550b27b373070c98889a46d22a19fe1600f6d30122d946f83a3043e"
+    },
+    {
+      "name": "archive",
+      "command": [
+        "npm",
+        "run",
+        "test:archive"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-16T20:35:06.288583+00:00",
+      "finished_at": "2026-10-16T20:35:07.796063+00:00",
+      "summary": [
+        "Test Suites: 9 passed, 9 total",
+        "Tests:       165 passed, 165 total",
+        "Time:        0.786 s, estimated 1 s"
+      ],
+      "smoke_pass": true,
+      "model_registration_pass": false,
+      "original_log": "archive.log",
+      "log_file": "archive.log.gz",
+      "log_uncompressed_sha256": "3e88d74d05a078b3067139e4c2fa32b0d3d3d3bd24615433fd04fab5640d3b82"
+    },
+    {
+      "name": "integration",
+      "command": [
+        "npm",
+        "run",
+        "test:integration"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-16T20:35:07.796486+00:00",
+      "finished_at": "2026-10-16T20:36:02.324134+00:00",
+      "summary": [
+        "Test Suites: 9 passed, 9 total",
+        "Tests:       55 passed, 55 total",
+        "Time:        53.23 s, estimated 56 s"
+      ],
+      "smoke_pass": false,
+      "model_registration_pass": false,
+      "original_log": "integration.log",
+      "log_file": "integration.log.gz",
+      "log_uncompressed_sha256": "fcc373f2073fb36d4e3136d9c15ddfdd362afa1cc7a54e8a20c8886b744cc3d2"
+    }
+  ]
+}

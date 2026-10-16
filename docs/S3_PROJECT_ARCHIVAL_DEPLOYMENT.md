@@ -296,7 +296,10 @@ permission to interrupt newly accepted work.
 Only after sections 1–6 pass, select one small project from the recorded batch
 scope with an archive decision. For the initial batch, shortlist from the 19
 audited Kamoun archive entries in the [register](archive/batches/2026-10-16/README.md),
-then verify identity, current activity and the plan. Exclude KEEP entries and
+first running the [shortlist verifier and reviewing production discrepancies](HPC_ARCHIVE_CANDIDATES_2026-10-16.md#verify-before-selecting-a-pilot-or-batch).
+An archive decision does not clear technical findings: 17 of those 19 entries
+had serious preflight anomalies in the 16 October inspection. Verify identity,
+current activity and the full plan. Exclude KEEP entries and
 requests to delete without archive; resolve group audit decisions before using
 other entries. Small size or completed runs must not make an unlisted recent
 project eligible. The synthetic rehearsal does not waive this selection

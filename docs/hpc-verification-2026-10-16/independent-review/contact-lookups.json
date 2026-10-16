@@ -1,0 +1,97 @@
+{
+  "observed_at": "2026-10-16T20:31:11.362Z",
+  "source": "Mongo users selected by exact username from project owner/secondaryOwner; no inferred addresses",
+  "current_responsibility_confirmed": false,
+  "users": [
+    {
+      "username": "barragan",
+      "name": "Cristina Barragan",
+      "email": "cristina.barragan@tsl.ac.uk"
+    },
+    {
+      "username": "bon23vap",
+      "name": "Jose Salguero-Linares",
+      "email": "jose.salguero-linares@tsl.ac.uk"
+    },
+    {
+      "username": "dingp",
+      "name": "Pingtao Ding",
+      "email": "pingtao.ding@tsl.ac.uk"
+    },
+    {
+      "username": "fairheas",
+      "name": "Sebastian Fairhead",
+      "email": "sebastian.fairhead@tsl.ac.uk"
+    },
+    {
+      "username": "guptay",
+      "name": "Yogesh Gupta",
+      "email": "yogesh.gupta@tsl.ac.uk"
+    },
+    {
+      "username": "heal",
+      "name": "Robert Heal",
+      "email": "robert.heal@tsl.ac.uk"
+    },
+    {
+      "username": "linx",
+      "name": "Xiao Lin",
+      "email": "xiao.lin@tsl.ac.uk"
+    },
+    {
+      "username": "navarrim",
+      "name": "Marion Navarri",
+      "email": "marion.navarri@tsl.ac.uk"
+    },
+    {
+      "username": "osesrum",
+      "name": "Miriam Oses-Ruiz",
+      "email": "miriam.oses-ruiz@tsl.ac.uk"
+    },
+    {
+      "username": "romeroc",
+      "name": "Cynara Romero",
+      "email": "cynara.romero@tsl.ac.uk"
+    },
+    {
+      "username": "scharnag",
+      "name": "Klara Scharnagl",
+      "email": "klara.scharnagl@tsl.ac.uk"
+    },
+    {
+      "username": "strachan",
+      "name": "Shona Strachan",
+      "email": "shona.strachan@tsl.ac.uk"
+    },
+    {
+      "username": "sugihara",
+      "name": "Yu Sugihara",
+      "email": "yu.sugihara@tsl.ac.uk"
+    },
+    {
+      "username": "tangb",
+      "name": "Bozeng Tang",
+      "email": "bozeng.tang@tsl.ac.uk"
+    },
+    {
+      "username": "werev",
+      "name": "Vincent Were",
+      "email": "vincent.were@tsl.ac.uk"
+    },
+    {
+      "username": "winj",
+      "name": "Joe Win",
+      "email": "joe.win@tsl.ac.uk"
+    },
+    {
+      "username": "witekk",
+      "name": "Kamil Witek",
+      "email": "kamil.witek@tsl.ac.uk"
+    },
+    {
+      "username": "yan",
+      "name": "Xia Yan",
+      "email": "xia.yan@tsl.ac.uk"
+    }
+  ]
+}

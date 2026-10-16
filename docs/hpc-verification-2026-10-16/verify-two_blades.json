@@ -1,0 +1,3210 @@
+{
+  "mode": "group",
+  "generatedAt": "2026-10-16T20:08:09.411Z",
+  "group": "two_blades",
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cfd",
+      "name": "ppufv02_transcriptome",
+      "path": "/two_blades/ppufv02_transcriptome",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ppufv02_transcriptome",
+      "dbSamples": 24,
+      "dbRuns": 24,
+      "dbReads": 288,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 867,
+        "diskBytes": 298625577302,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 579,
+        "seriousAnomalies": 288,
+        "anomalyKinds": {
+          "disk-file-untracked": 579,
+          "empty-directory-skipped": 3,
+          "read-destination-md5-missing": 288
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "0h_1/1/additional/1752_LIB20649_LDI18216_ATCACG_L001_R1.fastq.gz.md5",
+        "0h_1/1/additional/1752_LIB20649_LDI18216_ATCACG_L001_R2.fastq.gz.md5",
+        "0h_1/1/additional/1752_LIB20649_LDI18216_ATCACG_L002_R1.fastq.gz.md5",
+        "0h_1/1/additional/1752_LIB20649_LDI18216_ATCACG_L002_R2.fastq.gz.md5",
+        "0h_1/1/additional/1760_LIB20649_LDI18216_ATCACG_L001_R1.fastq.gz.md5",
+        "0h_1/1/additional/1760_LIB20649_LDI18216_ATCACG_L001_R2.fastq.gz.md5",
+        "0h_1/1/additional/1760_LIB20649_LDI18216_ATCACG_L002_R1.fastq.gz.md5",
+        "0h_1/1/additional/1760_LIB20649_LDI18216_ATCACG_L002_R2.fastq.gz.md5",
+        "0h_1/1/additional/1766_LIB20649_LDI18216_ATCACG_L001_R1.fastq.gz.md5",
+        "0h_1/1/additional/1766_LIB20649_LDI18216_ATCACG_L001_R2.fastq.gz.md5",
+        "0h_1/1/additional/1766_LIB20649_LDI18216_ATCACG_L002_R1.fastq.gz.md5",
+        "0h_1/1/additional/1766_LIB20649_LDI18216_ATCACG_L002_R2.fastq.gz.md5",
+        "0h_1/1/raw/.1752_LIB20649_LDI18216_ATCACG_L001_R1.fastq.gz.md5",
+        "0h_1/1/raw/.1752_LIB20649_LDI18216_ATCACG_L001_R2.fastq.gz.md5",
+        "0h_1/1/raw/.1752_LIB20649_LDI18216_ATCACG_L002_R1.fastq.gz.md5",
+        "0h_1/1/raw/.1752_LIB20649_LDI18216_ATCACG_L002_R2.fastq.gz.md5",
+        "0h_1/1/raw/.1760_LIB20649_LDI18216_ATCACG_L001_R1.fastq.gz.md5",
+        "0h_1/1/raw/.1760_LIB20649_LDI18216_ATCACG_L001_R2.fastq.gz.md5",
+        "0h_1/1/raw/.1760_LIB20649_LDI18216_ATCACG_L002_R1.fastq.gz.md5",
+        "0h_1/1/raw/.1760_LIB20649_LDI18216_ATCACG_L002_R2.fastq.gz.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfe",
+      "name": "Sequencing and de novo assembly of Glycine latifolia ",
+      "path": "/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "dbSamples": 1,
+      "dbRuns": 3,
+      "dbReads": 0,
+      "dbAdditionalFiles": 4,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 30,
+        "diskBytes": 219297530739,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 26,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 26,
+          "empty-directory-skipped": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/190802_pad34982/processed/19-PSC-GLM-1.0.fasta",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/190802_pad34982/processed/19-WGS-GLM-1.0.fasta",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/190802_pad34982/raw/190802_PAD34982.validated.fastq.gz",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/190806_pad33929/raw/190806_PAD33929.validated.fastq.gz",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr1.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr10.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr11.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr12.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr13.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr14.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr15.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr16.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr17.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr18.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr19.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr2.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr20.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr3.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr4.png",
+        "glycine_latifolia_resistant_glat08_ref_genome_from_keygene/additional/Glat_chr5.png"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d00",
+      "name": "Pacbio_genome_sequencing_PPUFV02",
+      "path": "/two_blades/pacbio_genome_sequencing_ppufv02",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 374,
+        "diskBytes": 521252084820,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 374,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 374,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170816_085929.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170816_085929.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170818_160947.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170818_160947.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170819_021636.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170819_021636.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170913_215158.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170913_215158.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170916_004641.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170916_004641.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170922_154406.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170922_154406.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170923_015058.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170923_015058.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170925_150932.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170925_150932.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170926_175451.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170926_175451.run.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170927_040051.metadata.xml.md5",
+        "ppufv02/pacbio_ppufv02/raw/..m54031_170927_040051.run.metadata.xml.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d05",
+      "name": "Dovetail_Re-sequencing of Gargy_11_parent of 2BL-NI-Gargy_Fam1",
+      "path": "/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 41,
+        "diskBytes": 271991566056,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 40,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 40,
+          "empty-directory-skipped": 12
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail/falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail_2/raw/DTG_DNA_328_a_ctg.fasta.gz",
+        "falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail/falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail_2/raw/DTG_DNA_328_p_ctg.arrow_alternative.fasta.gz",
+        "falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail/falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail_2/raw/DTG_DNA_328_p_ctg.arrow_primary.fasta.gz",
+        "falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail/falcon_assembly_of_gargy_11_for_hic_and_chicago_of_dovetail_2/raw/DTG_DNA_328_p_ctg.fasta.gz",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/final.assemblySummary.txt",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/gap_stats.json",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/input.assemblySummary.txt",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/jelly.input_breaks.txt",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/jelly.out.fasta",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/jelly.table.txt",
+        "finalscaffold_gapfill_dovetail1/finalscaffold_gapfill_dovetail1/processed/readSummary.txt",
+        "gargy_11_chicago_001/gargy_11_chicago_001/raw/glycine_argyrea_06Oct2018_E41WX.fasta.gz",
+        "hic_001_of_gargy_11/hic_001_of_gargy_11/processed/lib_001.sorted.md.bam",
+        "hic_001_of_gargy_11/hic_001_of_gargy_11/processed/lib_002.sorted.md.bam",
+        "hic_001_of_gargy_11/hic_001_of_gargy_11/processed/manifest.txt",
+        "hic_001_of_gargy_11/hic_001_of_gargy_11/processed/md5sums.txt",
+        "pacbio_raw_reads_of_gargy_11_with_dovetail/pacbio_raw_reads_of_gargy_11_single_cells/processed/DTG-DNA-328_cell1_m54278_180709_012653.scraps.bam",
+        "pacbio_raw_reads_of_gargy_11_with_dovetail/pacbio_raw_reads_of_gargy_11_single_cells/processed/DTG-DNA-328_cell10_m54071_180717_195817.scraps.bam",
+        "pacbio_raw_reads_of_gargy_11_with_dovetail/pacbio_raw_reads_of_gargy_11_single_cells/processed/DTG-DNA-328_cell11_m54071_180718_061938.scraps.bam",
+        "pacbio_raw_reads_of_gargy_11_with_dovetail/pacbio_raw_reads_of_gargy_11_single_cells/processed/DTG-DNA-328_cell12_m54071_180718_164203.scraps.bam"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d07",
+      "name": "Gargy-2019_IsoSeq",
+      "path": "/two_blades/gargy_2019_isoseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gargy_2019_isoseq",
+      "dbSamples": 3,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 11,
+        "diskBytes": 123255416179,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 10,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 10,
+          "empty-directory-skipped": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "gargy_04/gargy_04/raw/m54222_191228_040755.scraps.bam",
+        "gargy_04/gargy_04/raw/m54222_191228_040755.scraps.bam.pbi",
+        "gargy_04/gargy_04/raw/m54222_191228_040755.subreads.bam",
+        "gargy_04/gargy_04/raw/m54222_191228_040755.subreads.bam.pbi",
+        "gargy_04/gargy_04/raw/m54222_191228_040755.subreadset.xml",
+        "gargy_11/gargy_11/raw/m54222_191227_072835.scraps.bam",
+        "gargy_11/gargy_11/raw/m54222_191227_072835.scraps.bam.pbi",
+        "gargy_11/gargy_11/raw/m54222_191227_072835.subreads.bam",
+        "gargy_11/gargy_11/raw/m54222_191227_072835.subreads.bam.pbi",
+        "gargy_11/gargy_11/raw/m54222_191227_072835.subreadset.xml"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d08",
+      "name": "RNAseq of differential isolates of ASR",
+      "path": "/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "dbSamples": 10,
+      "dbRuns": 9,
+      "dbReads": 6,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 22,
+        "diskBytes": 103376057393,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 15,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "disk-file-untracked": 15,
+          "empty-directory-skipped": 25,
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "slurm-10969524.out",
+        "t01/t01_ke_17_3/raw/T01_1.clean.fastq.gz",
+        "t01/t01_ke_17_3/raw/T01_2.clean.fastq.gz",
+        "t05/t05_ke_17_37/raw/T05_1.clean.fastq.gz",
+        "t05/t05_ke_17_37/raw/T05_2.clean.fastq.gz",
+        "t06/t06_tz_15_36/raw/T06_1.clean.fastq.gz",
+        "t06/t06_tz_15_36/raw/T06_2.clean.fastq.gz",
+        "t07/t07_tz_15_88/raw/T07_1.clean.fastq.gz",
+        "t07/t07_tz_15_88/raw/T07_2.clean.fastq.gz",
+        "t08/t08_ke_17_9/raw/T08_1.clean.fastq.gz",
+        "t08/t08_ke_17_9/raw/T08_2.clean.fastq.gz",
+        "t09/t09_t1_4/raw/T09_1.clean.fastq.gz",
+        "t09/t09_t1_4/raw/T09_2.clean.fastq.gz",
+        "t10/t10_k1_2/raw/T10_1.clean.fastq.gz",
+        "t10/t10_k1_2/raw/T10_2.clean.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0b",
+      "name": " Re-sequencing genomic DNA BGI",
+      "path": "/two_blades/_re_sequencing_genomic_dna_bgi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "dbSamples": 8,
+      "dbRuns": 8,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 87,
+        "diskBytes": 139553461709,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 87,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 87,
+          "empty-directory-skipped": 12
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "g108_99__rd_/genomic_g108_34_93/raw/.Rd_FCC31HPACXX-SZAIPI035821-93_L2_1.fq.gz.md5",
+        "g108_99__rd_/genomic_g108_34_93/raw/.Rd_FCC31HPACXX-SZAIPI035821-93_L2_2.fq.gz.md5",
+        "g108_99__rd_/genomic_g108_34_93/raw/.Rd_FCC31HPACXX-SZAIPI035822-34_L2_1.fq.gz.md5",
+        "g108_99__rd_/genomic_g108_34_93/raw/.Rd_FCC31HPACXX-SZAIPI035822-34_L2_2.fq.gz.md5",
+        "g108_99__rd_/genomic_g108_34_93/raw/Rd_FCC31HPACXX-SZAIPI035821-93_L2_1.fq.gz",
+        "g108_99__rd_/genomic_g108_34_93/raw/Rd_FCC31HPACXX-SZAIPI035821-93_L2_2.fq.gz",
+        "g108_99__rd_/genomic_g108_34_93/raw/Rd_FCC31HPACXX-SZAIPI035822-34_L2_1.fq.gz",
+        "g108_99__rd_/genomic_g108_34_93/raw/Rd_FCC31HPACXX-SZAIPI035822-34_L2_2.fq.gz",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L6_SZAXPI013845-133_1.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L6_SZAXPI013845-133_2.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L6_SZAXPI013846-136_1.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L6_SZAXPI013846-136_2.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L7_SZAXPI013845-133_1.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L7_SZAXPI013845-133_2.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L7_SZAXPI013846-136_1.CROPPED.fq.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L7_SZAXPI013846-136_1.fq.gz.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/.120910_I232_FCD1790ACXX_L7_SZAXPI013846-136_2.CROPPED.fq.md5",
+        "g127_97__re_/genomic_g127_133_136/raw/120910_I232_FCD1790ACXX_L6_SZAXPI013845-133_1.fq.gz",
+        "g127_97__re_/genomic_g127_133_136/raw/120910_I232_FCD1790ACXX_L6_SZAXPI013845-133_2.fq.gz",
+        "g127_97__re_/genomic_g127_133_136/raw/120910_I232_FCD1790ACXX_L6_SZAXPI013846-136_1.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d15",
+      "name": "soybean_rust_dovetail_hic",
+      "path": "/two_blades/soybean_rust_dovetail_hic",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/soybean_rust_dovetail_hic",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 2,
+      "dbAdditionalFiles": 9,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 11,
+        "diskBytes": 44801395583,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "empty-directory-skipped": 5,
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d16",
+      "name": "Phakopsora pachyrhizi GA05-1 complete infection transcriptome",
+      "path": "/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "dbSamples": 12,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 266,
+        "diskBytes": 249579426855,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 266,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 266,
+          "empty-directory-skipped": 48
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/.proj_B799_B800_metadata.xlsb.md5",
+        "additional/proj_B799_B800_metadata.xlsb",
+        "b8000001/paired/..DS_Store.md5",
+        "b8000001/paired/.DS_Store",
+        "b8000001/paired/1/..DS_Store.md5",
+        "b8000001/paired/1/.DS_Store",
+        "b8000001/paired/1/processed/.B8000001_read_r1.paired.fq.md5",
+        "b8000001/paired/1/processed/.B8000001_read_r2.paired.fq.md5",
+        "b8000001/paired/1/processed/B8000001_read_r1.paired.fq",
+        "b8000001/paired/1/processed/B8000001_read_r2.paired.fq",
+        "b8000001/single/..DS_Store.md5",
+        "b8000001/single/.DS_Store",
+        "b8000001/single/1/..DS_Store.md5",
+        "b8000001/single/1/.DS_Store",
+        "b8000001/single/1/processed/.B8000001_read_single.fq.md5",
+        "b8000001/single/1/processed/B8000001_read_single.fq",
+        "b8000001/unpaired/..DS_Store.md5",
+        "b8000001/unpaired/.DS_Store",
+        "b8000001/unpaired/1/..DS_Store.md5",
+        "b8000001/unpaired/1/.DS_Store"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d18",
+      "name": "exome_capture_field_samples_jan2018",
+      "path": "/two_blades/exome_capture_field_samples_jan2018",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/exome_capture_field_samples_jan2018",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 5,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 345,
+        "diskBytes": 49872696933,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 340,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 340,
+          "empty-directory-skipped": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "exome_capture/samples/raw/AL07_2_NKD171200111-A21-AK357_H5WKJDMXX_L1_1.fq.gz",
+        "exome_capture/samples/raw/AL07_2_NKD171200111-A21-AK357_H5WKJDMXX_L1_2.fq.gz",
+        "exome_capture/samples/raw/AL07_2_NKD171200111-A21-AK357_H5WKJDMXX_L2_1.fq.gz",
+        "exome_capture/samples/raw/AL07_2_NKD171200111-A21-AK357_H5WKJDMXX_L2_2.fq.gz",
+        "exome_capture/samples/raw/AR08_19_NKD171200111-A37-AK3458_H5WKJDMXX_L1_1.fq.gz",
+        "exome_capture/samples/raw/AR08_19_NKD171200111-A37-AK3458_H5WKJDMXX_L1_2.fq.gz",
+        "exome_capture/samples/raw/AR08_19_NKD171200111-A37-AK3458_H5WKJDMXX_L2_1.fq.gz",
+        "exome_capture/samples/raw/AR08_19_NKD171200111-A37-AK3458_H5WKJDMXX_L2_2.fq.gz",
+        "exome_capture/samples/raw/AR08_20_NKD171200111-A60-AK672_H5WKJDMXX_L1_1.fq.gz",
+        "exome_capture/samples/raw/AR08_20_NKD171200111-A60-AK672_H5WKJDMXX_L1_2.fq.gz",
+        "exome_capture/samples/raw/AR08_20_NKD171200111-A60-AK672_H5WKJDMXX_L2_1.fq.gz",
+        "exome_capture/samples/raw/AR08_20_NKD171200111-A60-AK672_H5WKJDMXX_L2_2.fq.gz",
+        "exome_capture/samples/raw/AR08_21_NKD171200111-AK2487-AK2925_H5WKJDMXX_L1_1.fq.gz",
+        "exome_capture/samples/raw/AR08_21_NKD171200111-AK2487-AK2925_H5WKJDMXX_L1_2.fq.gz",
+        "exome_capture/samples/raw/AR08_21_NKD171200111-AK2487-AK2925_H5WKJDMXX_L2_1.fq.gz",
+        "exome_capture/samples/raw/AR08_21_NKD171200111-AK2487-AK2925_H5WKJDMXX_L2_2.fq.gz",
+        "exome_capture/samples/raw/Arg_1_NKD171200111-A76-AK3456_H5WKJDMXX_L1_1.fq.gz",
+        "exome_capture/samples/raw/Arg_1_NKD171200111-A76-AK3456_H5WKJDMXX_L1_2.fq.gz",
+        "exome_capture/samples/raw/Arg_1_NKD171200111-A76-AK3456_H5WKJDMXX_L2_1.fq.gz",
+        "exome_capture/samples/raw/Arg_1_NKD171200111-A76-AK3456_H5WKJDMXX_L2_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d19",
+      "name": "Bulks ASR_3 screen",
+      "path": "/two_blades/bulks_asr_3_screen",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/bulks_asr_3_screen",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 33872870524,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 8,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 8,
+          "empty-directory-skipped": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "asr_3_bulk_screen/asr_3_non_responsive_bulk/raw/Non_responsive_EDHG192005894-1a_HYG25DSXX_L3_1.fq.gz",
+        "asr_3_bulk_screen/asr_3_non_responsive_bulk/raw/Non_responsive_EDHG192005894-1a_HYG25DSXX_L3_2.fq.gz",
+        "asr_3_bulk_screen/asr_3_non_responsive_bulk/raw/Non_responsive_EDHG192005894-1a_HYGCWDSXX_L2_1.fq.gz",
+        "asr_3_bulk_screen/asr_3_non_responsive_bulk/raw/Non_responsive_EDHG192005894-1a_HYGCWDSXX_L2_2.fq.gz",
+        "asr_3_bulk_screen/asr_3_responsive_bulk/raw/Responsive_EDHG192005895-1a_HYG25DSXX_L3_1.fq.gz",
+        "asr_3_bulk_screen/asr_3_responsive_bulk/raw/Responsive_EDHG192005895-1a_HYG25DSXX_L3_2.fq.gz",
+        "asr_3_bulk_screen/asr_3_responsive_bulk/raw/Responsive_EDHG192005895-1a_HYGCWDSXX_L2_1.fq.gz",
+        "asr_3_bulk_screen/asr_3_responsive_bulk/raw/Responsive_EDHG192005895-1a_HYGCWDSXX_L2_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1c",
+      "name": "Mtruncatula_BGI_RNAseq_parents",
+      "path": "/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 51726945153,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 9,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 9,
+          "empty-directory-skipped": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/.readme_Mtrun_RNASeqdata.txt.md5",
+        "mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/raw/.FCHF73GBBXX-HKRDMEDmegTAABRAAPEI-202_L1_1.fq.gz.md5",
+        "mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/raw/.FCHF73GBBXX-HKRDMEDmegTAABRAAPEI-202_L1_2.fq.gz.md5",
+        "mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/raw/FCHF73GBBXX-HKRDMEDmegTAABRAAPEI-202_L1_1.fq.gz",
+        "mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/mtruncatula_bgi_rnaseq_parentmtrun00614_id660366/raw/FCHF73GBBXX-HKRDMEDmegTAABRAAPEI-202_L1_2.fq.gz",
+        "mtruncatula_bgi_rnaseq_parentr108/mtruncatula_bgi_rnaseq_parentr108/raw/.FCHF73GBBXX-HKRDMEDmegTAAARAAPEI-201_L1_1.fq.gz.md5",
+        "mtruncatula_bgi_rnaseq_parentr108/mtruncatula_bgi_rnaseq_parentr108/raw/.FCHF73GBBXX-HKRDMEDmegTAAARAAPEI-201_L1_2.fq.gz.md5",
+        "mtruncatula_bgi_rnaseq_parentr108/mtruncatula_bgi_rnaseq_parentr108/raw/FCHF73GBBXX-HKRDMEDmegTAAARAAPEI-201_L1_1.fq.gz",
+        "mtruncatula_bgi_rnaseq_parentr108/mtruncatula_bgi_rnaseq_parentr108/raw/FCHF73GBBXX-HKRDMEDmegTAAARAAPEI-201_L1_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1f",
+      "name": "Whole-Genome-Shotgun Illumina sequencing of Gargy_11, Gargy_04 and bulk susecptibles",
+      "path": "/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 19,
+        "diskBytes": 100282185901,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 18,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 18,
+          "empty-directory-skipped": 12
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "bulk_susceptibles_renseq_illumina_2bl_ni_gargy_fam1/bulk_susceptibles_renseq_illumina_2bl_ni_gargy_fam1/raw/N_12_DO16087511-9_HYCT3CCXX_L1_1.fq.gz",
+        "bulk_susceptibles_renseq_illumina_2bl_ni_gargy_fam1/bulk_susceptibles_renseq_illumina_2bl_ni_gargy_fam1/raw/N_12_DO16087511-9_HYCT3CCXX_L1_2.fq.gz",
+        "gargy_04_renseq_illumina/gargy_04_renseq_illumina/raw/N_8_DO16087511-7_HYCT3CCXX_L1_1.fq.gz",
+        "gargy_04_renseq_illumina/gargy_04_renseq_illumina/raw/N_8_DO16087511-7_HYCT3CCXX_L1_2.fq.gz",
+        "gargy_04_whole_genome_shotgun/gargy_04_whole_genome_shotgun/raw/N_18_DO16087511-10_HYCT3CCXX_L1_1.fq.gz",
+        "gargy_04_whole_genome_shotgun/gargy_04_whole_genome_shotgun/raw/N_18_DO16087511-10_HYCT3CCXX_L1_2.fq.gz",
+        "gargy_11_renseq_illumina/gargy_11_renseq_illumina/raw/N_9_DO16087511-8_HYCT3CCXX_L1_1.fq.gz",
+        "gargy_11_renseq_illumina/gargy_11_renseq_illumina/raw/N_9_DO16087511-8_HYCT3CCXX_L1_2.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_H2HJTBCXY_L2_1.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_H2HJTBCXY_L2_2.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNTL7BCXX_L2_1.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNTL7BCXX_L2_2.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNVMTBCXX_L1_1.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNVMTBCXX_L1_2.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNVV5BCXX_L2_1.fq.gz",
+        "gargy_11_whole_genome_shotgun/gargy_11_whole_genome_shotgun/raw/R3_DMP03277_HNVV5BCXX_L2_2.fq.gz",
+        "whole_genome_shotgun_of_bulk_susceptibles_of_2bl_ni_gargy_fam1/whole_genome_shotgun_of_bulk_susceptibles_of_2bl_ni_gargy_fam1/raw/N_25_DO16087511-11_HYCT3CCXX_L1_1.fq.gz",
+        "whole_genome_shotgun_of_bulk_susceptibles_of_2bl_ni_gargy_fam1/whole_genome_shotgun_of_bulk_susceptibles_of_2bl_ni_gargy_fam1/raw/N_25_DO16087511-11_HYCT3CCXX_L1_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d20",
+      "name": "RNAseqP.sa",
+      "path": "/two_blades/rnaseqp_sa",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseqp_sa",
+      "dbSamples": 0,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 70,
+        "diskBytes": 166467707030,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 70,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 70,
+          "empty-directory-skipped": 9
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.BGI-NI-1B_Type4_R1.fastq.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.BGI-NI-1B_Type4_R2.fastq.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L3_1.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L3_2.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L4_1.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/.FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L4_2.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/BGI-NI-1B_Type4_R1.fastq",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/BGI-NI-1B_Type4_R2.fastq",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L3_1.fq.gz",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L3_2.fq.gz",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L4_1.fq.gz",
+        "pkg_enq_698nadineilk/bgi_ni_1b_psa_type4/raw/FCC7B4MACXX-HKPISfrfTAACRAAPEI-219_L4_2.fq.gz",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.BGI-NI-2BA_JI-399_R1.fastq.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.BGI-NI-2BA_JI-399_R2.fastq.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.FCC7B4MACXX-HKPISfrfTAAARAAPEI-216_L3_1.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.FCC7B4MACXX-HKPISfrfTAAARAAPEI-216_L3_2.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.FCC7B4MACXX-HKPISfrfTAAARAAPEI-216_L4_1.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/.FCC7B4MACXX-HKPISfrfTAAARAAPEI-216_L4_2.fq.gz.md5",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/BGI-NI-2BA_JI-399_R1.fastq",
+        "pkg_enq_698nadineilk/bgi_ni_2ba_psa_ji_399/raw/BGI-NI-2BA_JI-399_R2.fastq"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d22",
+      "name": "LegumeEnrichmentCapture_Rd",
+      "path": "/two_blades/legumeenrichmentcapture_rd",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_rd",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 9850699379,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "896_lib7279_ldi6117_rd/legumeenrichmentcapture_rd/raw/.896_LIB7279_LDI6117_NoIndex_L001_R1.fastq.gz.md5",
+        "896_lib7279_ldi6117_rd/legumeenrichmentcapture_rd/raw/.896_LIB7279_LDI6117_NoIndex_L001_R2.fastq.gz.md5",
+        "896_lib7279_ldi6117_rd/legumeenrichmentcapture_rd/raw/896_LIB7279_LDI6117_NoIndex_L001_R1.fastq.gz",
+        "896_lib7279_ldi6117_rd/legumeenrichmentcapture_rd/raw/896_LIB7279_LDI6117_NoIndex_L001_R2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2c",
+      "name": "FOC_ST4",
+      "path": "/two_blades/foc_st4",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/foc_st4",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 50,
+        "diskBytes": 89668270245,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 50,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 50,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "foc_st4_kg170/foc_st4/raw/.m170815_095336_42179_c101232482550000001823281811021773_s1_p0.1.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170815_095336_42179_c101232482550000001823281811021773_s1_p0.2.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170815_095336_42179_c101232482550000001823281811021773_s1_p0.3.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170815_095336_42179_c101232482550000001823281811021773_s1_p0.bas.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170815_095336_42179_c101232482550000001823281811021773_s1_p0.metadata.xml.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170825_232309_42179_c101241202550000001823295712071772_s1_p0.1.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170825_232309_42179_c101241202550000001823295712071772_s1_p0.2.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170825_232309_42179_c101241202550000001823295712071772_s1_p0.3.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170825_232309_42179_c101241202550000001823295712071772_s1_p0.bas.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170825_232309_42179_c101241202550000001823295712071772_s1_p0.metadata.xml.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_054655_42179_c101241202550000001823295712071773_s1_p0.1.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_054655_42179_c101241202550000001823295712071773_s1_p0.2.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_054655_42179_c101241202550000001823295712071773_s1_p0.3.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_054655_42179_c101241202550000001823295712071773_s1_p0.bas.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_054655_42179_c101241202550000001823295712071773_s1_p0.metadata.xml.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_120319_42179_c101241202550000001823295712071774_s1_p0.1.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_120319_42179_c101241202550000001823295712071774_s1_p0.2.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_120319_42179_c101241202550000001823295712071774_s1_p0.3.bax.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_120319_42179_c101241202550000001823295712071774_s1_p0.bas.h5.md5",
+        "foc_st4_kg170/foc_st4/raw/.m170826_120319_42179_c101241202550000001823295712071774_s1_p0.metadata.xml.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2d",
+      "name": "GLTp-WGS-CintiaKawashima",
+      "path": "/two_blades/gltp_wgs_cintiakawashima",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gltp_wgs_cintiakawashima",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 11,
+        "diskBytes": 40690750463,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 11,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 11,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/md5.txt",
+        "glycine_latifolia_genome_resequencing_parental_glat_5_2_/glycine_latifolia_genome_resequencing_parental_glat_5_2/raw/FCH5223CCXY_L8_wHAXPI062892-93_1.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_5_2_/glycine_latifolia_genome_resequencing_parental_glat_5_2/raw/FCH5223CCXY_L8_wHAXPI062892-93_2.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_8_2_/glycine_latifolia_genome_resequencing_parental_glat_8_2/raw/FCH3YHGCCXY_L3_wHAXPI062891-92_1.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_8_2_/glycine_latifolia_genome_resequencing_parental_glat_8_2/raw/FCH3YHGCCXY_L3_wHAXPI062891-92_2.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_8_2_/glycine_latifolia_genome_resequencing_parental_glat_8_2/raw/FCH3YHGCCXY_L4_wHAXPI062891-92_1.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_8_2_/glycine_latifolia_genome_resequencing_parental_glat_8_2/raw/FCH3YHGCCXY_L4_wHAXPI062891-92_2.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_9_1_/glycine_latifolia_genome_resequencing_parental_glat_9_1/raw/FCH3YHGCCXY_L3_wHAXPI062890-90_1.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_9_1_/glycine_latifolia_genome_resequencing_parental_glat_9_1/raw/FCH3YHGCCXY_L3_wHAXPI062890-90_2.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_9_1_/glycine_latifolia_genome_resequencing_parental_glat_9_1/raw/FCH3YHGCCXY_L4_wHAXPI062890-90_1.fastq.gz",
+        "glycine_latifolia_genome_resequencing_parental_glat_9_1_/glycine_latifolia_genome_resequencing_parental_glat_9_1/raw/FCH3YHGCCXY_L4_wHAXPI062890-90_2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3b",
+      "name": "LegumeEnrichmentCapture_S48",
+      "path": "/two_blades/legumeenrichmentcapture_s48",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_s48",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 9238905532,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "902_lib7280_ldi6118_s48/legumeenrichmentcapture_s48/raw/.902_LIB7280_LDI6118_NoIndex_L001_R1.fastq.gz.md5",
+        "902_lib7280_ldi6118_s48/legumeenrichmentcapture_s48/raw/.902_LIB7280_LDI6118_NoIndex_L001_R2.fastq.gz.md5",
+        "902_lib7280_ldi6118_s48/legumeenrichmentcapture_s48/raw/902_LIB7280_LDI6118_NoIndex_L001_R1.fastq.gz",
+        "902_lib7280_ldi6118_s48/legumeenrichmentcapture_s48/raw/902_LIB7280_LDI6118_NoIndex_L001_R2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3f",
+      "name": "GLTp-RNASeq-CintiaKawashima",
+      "path": "/two_blades/gltp_rnaseq_cintiakawashima",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 37991753431,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 10,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 10,
+          "empty-directory-skipped": 9
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "glat_nanopore_cdna/nano_cdna/raw/all_reads_1.fq.gz",
+        "glat_nanopore_cdna/nano_cdna/raw/all_reads_2.fq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_8_2_/glycine_latifolia_rnaseq_sequencing_parental_glat_8_2/raw/FCHFJ77CCXY_L1_HKGLYlhiTAABRACPEI-221_1.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_8_2_/glycine_latifolia_rnaseq_sequencing_parental_glat_8_2/raw/FCHFJ77CCXY_L1_HKGLYlhiTAABRACPEI-221_2.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/raw/FCHFJ77CCXY_L1_HKGLYlhiTAAARBAPEI-220_1.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/raw/FCHFJ77CCXY_L1_HKGLYlhiTAAARBAPEI-220_2.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/raw/FCHNFCNBBXX_L7_HKGLYlhiTAAARBAPEI-220_1.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/glycine_latifolia_rnaseq_sequencing_parental_glat_9_1/raw/FCHNFCNBBXX_L7_HKGLYlhiTAAARBAPEI-220_2.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parentals_glat_5_2_/glycine_latifolia_rnaseq_sequencing_parentals_glat_5_2/raw/FCHFHYMCCXY_L5_HKGLYlhiTAACRACPEI-222_1.fastq.gz",
+        "glycine_latifolia_rnaseq_sequencing_parentals_glat_5_2_/glycine_latifolia_rnaseq_sequencing_parentals_glat_5_2/raw/FCHFHYMCCXY_L5_HKGLYlhiTAACRACPEI-222_2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d45",
+      "name": "LegumeEnrichmentCapture_SBulk_CcRpp2",
+      "path": "/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 23555304813,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "1091_lib9456_ldi7794_bulksusceptiblerd/legumeenrichmentcapture_sbulk_ccrpp2_rd/raw/.1091_LIB9456_LDI7794_NoIndex_L001_R1.fastq.gz.md5",
+        "1091_lib9456_ldi7794_bulksusceptiblerd/legumeenrichmentcapture_sbulk_ccrpp2_rd/raw/.1091_LIB9456_LDI7794_NoIndex_L001_R2.fastq.gz.md5",
+        "1091_lib9456_ldi7794_bulksusceptiblerd/legumeenrichmentcapture_sbulk_ccrpp2_rd/raw/1091_LIB9456_LDI7794_NoIndex_L001_R1.fastq.gz",
+        "1091_lib9456_ldi7794_bulksusceptiblerd/legumeenrichmentcapture_sbulk_ccrpp2_rd/raw/1091_LIB9456_LDI7794_NoIndex_L001_R2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d48",
+      "name": "sequencing_field_isolates_of_phakopsora",
+      "path": "/two_blades/sequencing_field_isolates_of_phakopsora",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "dbSamples": 6,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 44,
+        "diskBytes": 102821725130,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 34,
+        "seriousAnomalies": 10,
+        "anomalyKinds": {
+          "disk-file-untracked": 34,
+          "empty-directory-skipped": 2,
+          "read-destination-md5-missing": 10
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional_raw_reads/raw/.1732_LIB20238_LDI18064_GCCAAT_L001_R1.fastq.gz.md5",
+        "additional_raw_reads/raw/.1732_LIB20302_LDI18067_TAGCTT_L001_R1.fastq.gz.md5",
+        "additional_raw_reads/raw/.1732_LIB20507_LDI18063_ACAGTG_L001_R1.fastq.gz.md5",
+        "additional_raw_reads/raw/.1732_LIB20509_LDI18065_GTGAAA_L001_R1.fastq.gz.md5",
+        "additional_raw_reads/raw/1732_LIB20238_LDI18064_GCCAAT_L001_R1.fastq.gz",
+        "additional_raw_reads/raw/1732_LIB20302_LDI18067_TAGCTT_L001_R1.fastq.gz",
+        "additional_raw_reads/raw/1732_LIB20507_LDI18063_ACAGTG_L001_R1.fastq.gz",
+        "additional_raw_reads/raw/1732_LIB20509_LDI18065_GTGAAA_L001_R1.fastq.gz",
+        "additional/.5field_sample_Failed_sequecing_data.xlsx.md5",
+        "additional/.5field_sample_sequecing_data.xlsx.md5",
+        "additional/5field_sample_Failed_sequecing_data.xlsx",
+        "additional/5field_sample_sequecing_data.xlsx",
+        "mt013/1/additional/1740_LIB20302_LDI18067_TAGCTT_L001_R1.fastq.gz.md5",
+        "mt013/1/additional/1740_LIB20302_LDI18067_TAGCTT_L001_R2.fastq.gz.md5",
+        "mt013/1/raw/.1740_LIB20302_LDI18067_TAGCTT_L001_R1.fastq.gz.md5",
+        "mt013/1/raw/.1740_LIB20302_LDI18067_TAGCTT_L001_R2.fastq.gz.md5",
+        "pr06/1/additional/1740_LIB20509_LDI18065_GTGAAA_L001_R1.fastq.gz.md5",
+        "pr06/1/additional/1740_LIB20509_LDI18065_GTGAAA_L001_R2.fastq.gz.md5",
+        "pr06/1/raw/.1740_LIB20509_LDI18065_GTGAAA_L001_R1.fastq.gz.md5",
+        "pr06/1/raw/.1740_LIB20509_LDI18065_GTGAAA_L001_R2.fastq.gz.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d51",
+      "name": "ASR_sequencing_illumina",
+      "path": "/two_blades/asr_sequencing_illumina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/asr_sequencing_illumina",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 7,
+        "diskBytes": 72453177309,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 6,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 6,
+          "empty-directory-skipped": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL55GCCXY_L4_1.fq.gz",
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL55GCCXY_L4_2.fq.gz",
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL5J2CCXY_L7_1.fq.gz",
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL5J2CCXY_L7_2.fq.gz",
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL72NCCXY_L1_1.fq.gz",
+        "ppufv02/ppufv02/raw/PP_illu_DDP02635-W_HL72NCCXY_L1_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d52",
+      "name": "ASR_sequencing_10xgenomics",
+      "path": "/two_blades/asr_sequencing_10xgenomics",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/asr_sequencing_10xgenomics",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 4,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 16,
+        "diskBytes": 77051692759,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 12,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 12,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ppufvo2/ppufv02/raw/PP-10X-AK946_S1_L001_I1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK946_S1_L001_R1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK946_S1_L001_R2_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK947_S2_L001_I1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK947_S2_L001_R1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK947_S2_L001_R2_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK948_S3_L001_I1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK948_S3_L001_R1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK948_S3_L001_R2_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK949_S4_L001_I1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK949_S4_L001_R1_001.fastq.gz",
+        "ppufvo2/ppufv02/raw/PP-10X-AK949_S4_L001_R2_001.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d54",
+      "name": "RNASeq BGI Cajanus cajan inf",
+      "path": "/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "dbSamples": 5,
+      "dbRuns": 5,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 60,
+        "diskBytes": 85588402376,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 60,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 60,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "g108_99__rd_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1_fastqc.html.md5",
+        "g108_99__rd_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1_fastqc.zip.md5",
+        "g108_99__rd_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2_fastqc.html.md5",
+        "g108_99__rd_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2_fastqc.zip.md5",
+        "g108_99__rd_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1_fastqc.html",
+        "g108_99__rd_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1_fastqc.zip",
+        "g108_99__rd_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2_fastqc.html",
+        "g108_99__rd_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2_fastqc.zip",
+        "g108_99__rd_inf_/g108__rd_inf_/raw/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1.fq.md5",
+        "g108_99__rd_inf_/g108__rd_inf_/raw/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2.fq.md5",
+        "g108_99__rd_inf_/g108__rd_inf_/raw/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_1.fq",
+        "g108_99__rd_inf_/g108__rd_inf_/raw/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAADRAAPEI-213_2.fq",
+        "g119_99__ra_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_1_fastqc.html.md5",
+        "g119_99__ra_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_1_fastqc.zip.md5",
+        "g119_99__ra_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_2_fastqc.html.md5",
+        "g119_99__ra_inf_/additional/.150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_2_fastqc.zip.md5",
+        "g119_99__ra_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_1_fastqc.html",
+        "g119_99__ra_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_1_fastqc.zip",
+        "g119_99__ra_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_2_fastqc.html",
+        "g119_99__ra_inf_/additional/150614_I114_FCH2NMLBBXX_L5_HKCAJfnuTAAARAAPEI-210_2_fastqc.zip"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d55",
+      "name": "ppufv02_nanopore_sequencing",
+      "path": "/two_blades/ppufv02_nanopore_sequencing",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ppufv02_nanopore_sequencing",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 106000044545,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ppufv02/ppufv02/raw/PAC16726.fastq.gz",
+        "ppufv02/ppufv02/raw/PAC20169.fastq.gz",
+        "ppufv02/ppufv02/raw/PAC20739.fastq.gz",
+        "ppufv02/ppufv02/raw/PAC20921.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "name": "Gargy-2019_RNAseq",
+      "path": "/two_blades/gargy_2019_rnaseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gargy_2019_rnaseq",
+      "dbSamples": 5,
+      "dbRuns": 4,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 59,
+        "diskBytes": 274802985983,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 58,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 58,
+          "empty-directory-skipped": 9
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_1_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_1_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_2_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_2_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_3_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I36_3_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_1_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_1_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_2_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_2_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_3_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/G04I8d_3_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/resequenced_G04I36_1_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/resequenced_G04I36_1_2.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/resequenced_G04I8d_3_1.fq.gz",
+        "gargy_04_inoc/gargy_04_inoc/raw/resequenced_G04I8d_3_2.fq.gz",
+        "gargy_04_mock/gargy_04_mock/raw/G04M36_1_1.fq.gz",
+        "gargy_04_mock/gargy_04_mock/raw/G04M36_1_2.fq.gz",
+        "gargy_04_mock/gargy_04_mock/raw/G04M36_2_1.fq.gz",
+        "gargy_04_mock/gargy_04_mock/raw/G04M36_2_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5d",
+      "name": "Medicago Trucatala  genome sequences",
+      "path": "/two_blades/medicago_trucatala__genome_sequences",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/medicago_trucatala__genome_sequences",
+      "dbSamples": 8,
+      "dbRuns": 7,
+      "dbReads": 18,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 20,
+        "diskBytes": 133328625562,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 1,
+        "seriousAnomalies": 18,
+        "anomalyKinds": {
+          "disk-file-untracked": 1,
+          "empty-directory-skipped": 10,
+          "read-destination-md5-missing": 18
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "m_trun_19_genome/medicago_reference_genome/raw/PAD05982.dedup.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5e",
+      "name": "PKG-ENQ-698NadineIlk",
+      "path": "/two_blades/pkg_enq_698nadineilk",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/pkg_enq_698nadineilk",
+      "dbSamples": 11,
+      "dbRuns": 11,
+      "dbReads": 11,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 74,
+        "diskBytes": 168220436830,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 63,
+        "seriousAnomalies": 11,
+        "anomalyKinds": {
+          "disk-file-untracked": 63,
+          "empty-directory-skipped": 24,
+          "read-destination-md5-missing": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/.scythe_cDNA_JI-399_R1_clipped.fastq.md5",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/.scythe_cDNA_JI-399_R2_clipped.fastq.md5",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/.scythe_cDNA_JI-399_rest.fastq.md5",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/scythe_cDNA_JI-399_R1_clipped.fastq",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/scythe_cDNA_JI-399_R2_clipped.fastq",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/processed/scythe_cDNA_JI-399_rest.fastq",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/raw/.cDNA_JI-399_NEB7_CAGATC_L001_R1.fastq.gz.md5",
+        "sample_cdna_ji_399_neb7/sample_cdna_ji_399_neb7/raw/.cDNA_JI-399_NEB7_CAGATC_L001_R2.fastq.gz.md5",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/.scythe_cDNA_Psa58_R1_clipped.fastq.md5",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/.scythe_cDNA_Psa58_R2_clipped.fastq.md5",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/.scythe_cDNA_Psa58_rest.fastq.md5",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/scythe_cDNA_Psa58_R1_clipped.fastq",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/scythe_cDNA_Psa58_R2_clipped.fastq",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/processed/scythe_cDNA_Psa58_rest.fastq",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/raw/.cDNA_Psa58_NEB8_ACTTGA_L001_R1.fastq.gz.md5",
+        "sample_cdna_psa58_neb8/sample_cdna_psa58_neb8/raw/.cDNA_Psa58_NEB8_ACTTGA_L001_R2.fastq.gz.md5",
+        "sample_cdna_type2_neb9/sample_cdna_type2_neb9/processed/.scythe_cDNA_Type2_R1_clipped.fastq.md5",
+        "sample_cdna_type2_neb9/sample_cdna_type2_neb9/processed/.scythe_cDNA_Type2_R2_clipped.fastq.md5",
+        "sample_cdna_type2_neb9/sample_cdna_type2_neb9/processed/.scythe_cDNA_Type2_Rest_clipped.fastq.md5",
+        "sample_cdna_type2_neb9/sample_cdna_type2_neb9/processed/scythe_cDNA_Type2_R1_clipped.fastq"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5f",
+      "name": "PhilMacCLean_EnrichedPacBio_EarlhamInstitute",
+      "path": "/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "dbSamples": 5,
+      "dbRuns": 5,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 239,
+        "diskBytes": 214088937044,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 239,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 239,
+          "empty-directory-skipped": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.1.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.1.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.2.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.2.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.3.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.3.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.mcd.h5",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/A05_1/m160905_180617_42165_c101102652550000001823258304261795_s1_p0.sts.csv",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.1.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.1.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.2.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.2.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.3.log",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.3.xfer.xml",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.mcd.h5",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/additional/B02_1/m160901_094001_42165_c101060732550000001823251101061771_s1_p0.sts.csv",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/s1_belmineb_rr_2/processed/ENQ-1953.A.01_CintiaKawashima_S1_MinFullPasses0_Accuracy80.tar.gz",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/s1_belmineb_rr_2/processed/ENQ-1953.A.01_CintiaKawashima_S1_MinFullPasses1_Accuracy90.tar.gz",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/s1_belmineb_rr_2/processed/ENQ-1953.A.01_CintiaKawashima_S1_MinFullPasses2_Accuracy90.tar.gz",
+        "philmacclean_enrichedpacbionblrr_ei_s1_belmineb_rr_2/s1_belmineb_rr_2/processed/ENQ-1953.A.01_CintiaKawashima_S1_MinFullPasses3_Accuracy90.tar.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d62",
+      "name": "FOC_CR1.",
+      "path": "/two_blades/foc_cr1_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/foc_cr1_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 50,
+        "diskBytes": 100272415170,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 50,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 50,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "isolate_cr1/foc_cr1_17060121/raw/.m170815_030929_42179_c101232482550000001823281811021772_s1_p0.1.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170815_030929_42179_c101232482550000001823281811021772_s1_p0.2.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170815_030929_42179_c101232482550000001823281811021772_s1_p0.3.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170815_030929_42179_c101232482550000001823281811021772_s1_p0.bas.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170815_030929_42179_c101232482550000001823281811021772_s1_p0.metadata.xml.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_042546_42179_c101232482550000001823281811021777_s1_p0.1.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_042546_42179_c101232482550000001823281811021777_s1_p0.2.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_042546_42179_c101232482550000001823281811021777_s1_p0.3.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_042546_42179_c101232482550000001823281811021777_s1_p0.bas.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_042546_42179_c101232482550000001823281811021777_s1_p0.metadata.xml.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_104453_42179_c101241202550000001823295712071770_s1_p0.1.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_104453_42179_c101241202550000001823295712071770_s1_p0.2.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_104453_42179_c101241202550000001823295712071770_s1_p0.3.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_104453_42179_c101241202550000001823295712071770_s1_p0.bas.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_104453_42179_c101241202550000001823295712071770_s1_p0.metadata.xml.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_170356_42179_c101241202550000001823295712071771_s1_p0.1.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_170356_42179_c101241202550000001823295712071771_s1_p0.2.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_170356_42179_c101241202550000001823295712071771_s1_p0.3.bax.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_170356_42179_c101241202550000001823295712071771_s1_p0.bas.h5.md5",
+        "isolate_cr1/foc_cr1_17060121/raw/.m170825_170356_42179_c101241202550000001823295712071771_s1_p0.metadata.xml.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d63",
+      "name": "LegumeEnrichmentCapture_RaParent",
+      "path": "/two_blades/legumeenrichmentcapture_raparent",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_raparent",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 8833478265,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "908_lib7278_ldi6116_ra/legumeenrichmentcapture_raparent/raw/.908_LIB7278_LDI6116_NoIndex_L001_R1.fastq.gz.md5",
+        "908_lib7278_ldi6116_ra/legumeenrichmentcapture_raparent/raw/.908_LIB7278_LDI6116_NoIndex_L001_R2.fastq.gz.md5",
+        "908_lib7278_ldi6116_ra/legumeenrichmentcapture_raparent/raw/908_LIB7278_LDI6116_NoIndex_L001_R1.fastq.gz",
+        "908_lib7278_ldi6116_ra/legumeenrichmentcapture_raparent/raw/908_LIB7278_LDI6116_NoIndex_L001_R2.fastq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d65",
+      "name": "Rnaseq M.trun",
+      "path": "/two_blades/rnaseq_m_trun",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_m_trun",
+      "dbSamples": 1,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 12,
+        "diskBytes": 8236352627,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 6,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "disk-file-untracked": 6,
+          "empty-directory-skipped": 8,
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_ni_mtrun_19a/raw/.FCH52MMBBXX_L5_HKMEDphcTAACRAAPEI-212_1.fq.gz.md5",
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_ni_mtrun_19a/raw/.FCH52MMBBXX_L5_HKMEDphcTAACRAAPEI-212_2.fq.gz.md5",
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_ni_mtrun_34a/raw/.FCH52MMBBXX_L5_HKMEDphcTAAARAAPEI-210_1.fq.gz.md5",
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_ni_mtrun_34a/raw/.FCH52MMBBXX_L5_HKMEDphcTAAARAAPEI-210_2.fq.gz.md5",
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_rnaseq_cleanreadsnadineilk_bgi_ni_mtrun_23a/raw/.FCH52MMBBXX_L5_HKMEDphcTAABRAAPEI-211_1.fq.gz.md5",
+        "bgi_rnaseq_cleanreadsnadineilk/bgi_rnaseq_cleanreadsnadineilk_bgi_ni_mtrun_23a/raw/.FCH52MMBBXX_L5_HKMEDphcTAABRAAPEI-211_2.fq.gz.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "name": "japanse_isolate_timecourse",
+      "path": "/two_blades/japanse_isolate_timecourse",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+      "dbSamples": 6,
+      "dbRuns": 12,
+      "dbReads": 25,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 50,
+        "diskBytes": 145459637100,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 13,
+        "diskFilesNotInDb": 38,
+        "seriousAnomalies": 38,
+        "anomalyKinds": {
+          "disk-file-untracked": 38,
+          "empty-directory-skipped": 24,
+          "read-destination-md5-missing": 25,
+          "read": 13
+        }
+      },
+      "dbRecordsMissingOnDisk": [
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e70",
+          "expectedRelPath": "0h/0h/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9889",
+          "expectedRelPath": "0h/0h/raw/JISO_0h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9be4",
+          "expectedRelPath": "0h/0h/raw/JISO_0h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9ccf",
+          "expectedRelPath": "12h/12h/raw/JISO_12h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9fae",
+          "expectedRelPath": "12h/12h/raw/JISO_12h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9c8f",
+          "expectedRelPath": "168h/168h/raw/JISO_168h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b975f",
+          "expectedRelPath": "168h/168h/raw/JISO_168h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9e4e",
+          "expectedRelPath": "24h/24h/raw/JISO_24h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9ef5",
+          "expectedRelPath": "24h/24h/raw/JISO_24h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012caa3efcb29338b95a5",
+          "expectedRelPath": "36h/36/raw/JISO_36h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9da6",
+          "expectedRelPath": "36h/36/raw/JISO_36h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b982d",
+          "expectedRelPath": "72h/72h/raw/JISO_72h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e89",
+          "expectedRelPath": "72h/72h/raw/JISO_72h_R2.clean.paired.fq"
+        }
+      ],
+      "diskFilesNotInDb": [
+        "0h/0_hour/raw/.1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz.md5",
+        "0h/0_hour/raw/.1312_LIB14323_LDI11928_NoIndex_L001_R2.fastq.gz.md5",
+        "0h/0h/processed/.1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz.md5",
+        "0h/0h/processed/.JISO_0h_R1.clean.paired.fq.md5",
+        "0h/0h/processed/.JISO_0h_R2.clean.paired.fq.md5",
+        "0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+        "0h/0h/processed/JISO_0h_R1.clean.paired.fq",
+        "0h/0h/processed/JISO_0h_R2.clean.paired.fq",
+        "12h/12_hour/raw/.1313_LIB14324_LDI11929_NoIndex_L001_R1.fastq.gz.md5",
+        "12h/12_hour/raw/.1313_LIB14324_LDI11929_NoIndex_L001_R2.fastq.gz.md5",
+        "12h/12h/processed/.JISO_12h_R1.clean.paired.fq.md5",
+        "12h/12h/processed/.JISO_12h_R2.clean.paired.fq.md5",
+        "12h/12h/processed/JISO_12h_R1.clean.paired.fq",
+        "12h/12h/processed/JISO_12h_R2.clean.paired.fq",
+        "168h/168_hour/raw/.1319_LIB14328_LDI11933_NoIndex_L001_R1.fastq.gz.md5",
+        "168h/168_hour/raw/.1319_LIB14328_LDI11933_NoIndex_L001_R2.fastq.gz.md5",
+        "168h/168h/processed/.JISO_168h_R1.clean.paired.fq.md5",
+        "168h/168h/processed/.JISO_168h_R2.clean.paired.fq.md5",
+        "168h/168h/processed/JISO_168h_R1.clean.paired.fq",
+        "168h/168h/processed/JISO_168h_R2.clean.paired.fq"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6c",
+      "name": "ppufv02_timecourse",
+      "path": "/two_blades/ppufv02_timecourse",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ppufv02_timecourse",
+      "dbSamples": 8,
+      "dbRuns": 8,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 64,
+        "diskBytes": 148918476355,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 64,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 64,
+          "empty-directory-skipped": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "0h/0h/processed/.PPUFV02-0_HPI-R1.clean.paired.fq.md5",
+        "0h/0h/processed/.PPUFV02-0_HPI-R2.clean.paired.fq.md5",
+        "0h/0h/processed/PPUFV02-0_HPI-R1.clean.paired.fq",
+        "0h/0h/processed/PPUFV02-0_HPI-R2.clean.paired.fq",
+        "0h/0h/raw/.886_LIB7104_LDI5912_ACAGTG_L001_R1.fastq.gz.md5",
+        "0h/0h/raw/.886_LIB7104_LDI5912_ACAGTG_L001_R2.fastq.gz.md5",
+        "0h/0h/raw/.949_LIB7881_LDI6514_NoIndex_L001_R1.fastq.gz.md5",
+        "0h/0h/raw/.949_LIB7881_LDI6514_NoIndex_L001_R2.fastq.gz.md5",
+        "0h/0h/raw/886_LIB7104_LDI5912_ACAGTG_L001_R1.fastq.gz",
+        "0h/0h/raw/886_LIB7104_LDI5912_ACAGTG_L001_R2.fastq.gz",
+        "0h/0h/raw/949_LIB7881_LDI6514_NoIndex_L001_R1.fastq.gz",
+        "0h/0h/raw/949_LIB7881_LDI6514_NoIndex_L001_R2.fastq.gz",
+        "120h/120h/raw/.886_LIB7105_LDI5913_GCCAAT_L001_R1.fastq.gz.md5",
+        "120h/120h/raw/.886_LIB7105_LDI5913_GCCAAT_L001_R2.fastq.gz.md5",
+        "120h/120h/raw/886_LIB7105_LDI5913_GCCAAT_L001_R1.fastq.gz",
+        "120h/120h/raw/886_LIB7105_LDI5913_GCCAAT_L001_R2.fastq.gz",
+        "12h/12h/processed/.PPUFV02-12_HPI-R1.clean.paired.fq.md5",
+        "12h/12h/processed/.PPUFV02-12_HPI-R2.clean.paired.fq.md5",
+        "12h/12h/processed/PPUFV02-12_HPI-R1.clean.paired.fq",
+        "12h/12h/processed/PPUFV02-12_HPI-R2.clean.paired.fq"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6f",
+      "name": "Mtruncatula_BGI_gDNA_parents_TwoF2susceptiblebulks",
+      "path": "/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 56,
+        "diskBytes": 89741146441,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 55,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 55,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "additional/.readme_Mtrun_gDNAdata.txt.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHF75NBBXX_L8_wHAXPI041250-57_1.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHF75NBBXX_L8_wHAXPI041250-57_2.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHF75NBBXX_L8_wHAXPI041251-54_1.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHF75NBBXX_L8_wHAXPI041251-54_2.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHFLMFBBXX_L2_wHAXPI041250-57_1.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHFLMFBBXX_L2_wHAXPI041250-57_2.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHFLMFBBXX_L2_wHAXPI041251-54_1.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/.FCHFLMFBBXX_L2_wHAXPI041251-54_2.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHF75NBBXX_L8_wHAXPI041250-57_1.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHF75NBBXX_L8_wHAXPI041250-57_2.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHF75NBBXX_L8_wHAXPI041251-54_1.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHF75NBBXX_L8_wHAXPI041251-54_2.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHFLMFBBXX_L2_wHAXPI041250-57_1.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHFLMFBBXX_L2_wHAXPI041250-57_2.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHFLMFBBXX_L2_wHAXPI041251-54_1.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/mtruncatula_bgi_gdna_f2susceptiblebulk_9_2/raw/FCHFLMFBBXX_L2_wHAXPI041251-54_2.fq.gz",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/raw/.FCHF75NBBXX_L8_wHAXPI041252-59_1.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/raw/.FCHF75NBBXX_L8_wHAXPI041252-59_2.fq.gz.md5",
+        "mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/mtruncatula_bgi_gdna_f2susceptiblebulk_9_3/raw/.FCHF75NBBXX_L8_wHAXPI041253-58_1.fq.gz.md5"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d74",
+      "name": "RNAseq_2BL-NI-Gargy_Fam1",
+      "path": "/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 7270673459,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 4,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 4,
+          "empty-directory-skipped": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "gargy_04b_susceptibleparent_2bl_ni_gargy_fam1/gargy_04b_susceptibleparent_2bl_ni_gargy_fam1/raw/FCHFMJ5ALXX_L3_WHGLYabbTAABRAAPEI-220_1.fq.gz",
+        "gargy_04b_susceptibleparent_2bl_ni_gargy_fam1/gargy_04b_susceptibleparent_2bl_ni_gargy_fam1/raw/FCHFMJ5ALXX_L3_WHGLYabbTAABRAAPEI-220_2.fq.gz",
+        "gargy_11b_resistantparent_2bl_ni_gargy_fam1/gargy_11b_resistantparent_2bl_ni_gargy_fam1/raw/FCHFMJ5ALXX_L3_WHGLYabbTAAARAAPEI-219_1.fq.gz",
+        "gargy_11b_resistantparent_2bl_ni_gargy_fam1/gargy_11b_resistantparent_2bl_ni_gargy_fam1/raw/FCHFMJ5ALXX_L3_WHGLYabbTAAARAAPEI-219_2.fq.gz"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7d",
+      "name": "ppufv02_gDNA_bgi",
+      "path": "/two_blades/ppufv02_gdna_bgi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ppufv02_gdna_bgi",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 7,
+        "diskBytes": 49736660585,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "empty-directory-skipped": 6,
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7e",
+      "name": "Cajanus_70x_genomicData_reads_Illumina",
+      "path": "/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "dbSamples": 1,
+      "dbRuns": 21,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 84,
+        "diskBytes": 150156064373,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 80,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "disk-file-untracked": 80,
+          "empty-directory-skipped": 25,
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane1/raw/.s_1_1_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane1/raw/.s_1_2_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane1/raw/s_1_1_sequence_filt.fastq.gz",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane1/raw/s_1_2_sequence_filt.fastq.gz",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane2/raw/.s_2_1_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane2/raw/.s_2_2_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane2/raw/s_2_1_sequence_filt.fastq.gz",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane2/raw/s_2_2_sequence_filt.fastq.gz",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane3/raw/.s_3_1_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane3/raw/.s_3_2_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane5/raw/.s_5_1_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane5/raw/.s_5_2_sequence_filt.fastq.gz.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane6/raw/.s_6_1_sequence_filt.fastq.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane6/raw/.s_6_2_sequence_filt.fastq.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane6/raw/s_6_1_sequence_filt.fastq",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane6/raw/s_6_2_sequence_filt.fastq",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane7/raw/.s_7_1_sequence_filt.fastq.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane7/raw/.s_7_2_sequence_filt.fastq.md5",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane7/raw/s_7_1_sequence_filt.fastq",
+        "cajanus_70x_genomicdata_reads_illumina/cajanus_70x_genomicdata_reads_illumina_set01_lane7/raw/s_7_2_sequence_filt.fastq"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d80",
+      "name": "PKG-ENQ-832.01NadineIlk",
+      "path": "/two_blades/pkg_enq_832_01nadineilk",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/pkg_enq_832_01nadineilk",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 0,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 1,
+        "diskBytes": 75672305,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 1,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {
+          "disk-file-untracked": 1,
+          "empty-directory-skipped": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": [
+        "ipo2258_gargy_11_geneious_fasta/gargy_11_renseq_pacbio_tgac_geneiousassembly/processed/2258_Gargy_11-2.geneious.fasta"
+      ]
+    },
+    {
+      "projectId": "604f7072d7661b6ec22a06cf",
+      "name": "AdvPop7_cDNA_Nanopore",
+      "path": "/two_blades/advpop7_cdna_nanopore",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/advpop7_cdna_nanopore",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 20841174602,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6051c37ad7661b6ec22a06e3",
+      "name": "AdPop7_Parents_WGS_Illumina",
+      "path": "/two_blades/adpop7_parents_wgs_illumina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/adpop7_parents_wgs_illumina",
+      "dbSamples": 2,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 77132674232,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "606d815ed7661b6ec22a0799",
+      "name": "AdPop7_Progeny_BSA_Illumina",
+      "path": "/two_blades/adpop7_progeny_bsa_illumina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/adpop7_progeny_bsa_illumina",
+      "dbSamples": 2,
+      "dbRuns": 4,
+      "dbReads": 8,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 97868724548,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 8,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 8
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "606eb043d7661b6ec22a07a3",
+      "name": "AdPop7_RefAssembly_HiFi",
+      "path": "/two_blades/adpop7_refassembly_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/adpop7_refassembly_hifi",
+      "dbSamples": 2,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 46103572077,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "60be4bafe788b405b6ce6726",
+      "name": "2021_Gargy_accessions_WGS",
+      "path": "/two_blades/2021_gargy_accessions_wgs",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/2021_gargy_accessions_wgs",
+      "dbSamples": 8,
+      "dbRuns": 7,
+      "dbReads": 56,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 59,
+        "diskBytes": 225146340583,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 56,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 56
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "60bf4a7be788b405b6ce6763",
+      "name": "Ant_Project_RNAseq data",
+      "path": "/two_blades/ant_project_rnaseq_data",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ant_project_rnaseq_data",
+      "dbSamples": 8,
+      "dbRuns": 8,
+      "dbReads": 16,
+      "dbAdditionalFiles": 5,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 21,
+        "diskBytes": 31061957907,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 16,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 16
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6130d23de788b405b6ce6d93",
+      "name": "Genotyping by Sequencing Advanced Population 8",
+      "path": "/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 4,
+      "dbAdditionalFiles": 10,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 14,
+        "diskBytes": 81147190680,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6156f86236105e13c15d588c",
+      "name": "HiFi sequencing data of PPUFV02 P. pachyrhizi isolate",
+      "path": "/two_blades/hifi_sequencing_data_of_ppufv02_p__pachyrhizi_isolate",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/hifi_sequencing_data_of_ppufv02_p__pachyrhizi_isolate",
+      "dbSamples": 0,
+      "dbRuns": 0,
+      "dbReads": 0,
+      "dbAdditionalFiles": 10,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 10,
+        "diskBytes": 48664164792,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "615afaad36105e13c15d58e0",
+      "name": "ASR_SEQUENCING_PACBIO_HIFI",
+      "path": "/two_blades/asr_sequencing_pacbio_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/asr_sequencing_pacbio_hifi",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 5,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 79626361339,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 5,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6160287b36105e13c15d58f2",
+      "name": "S_americanum_NLRseek",
+      "path": "/two_blades/s_americanum_nlrseek",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/s_americanum_nlrseek",
+      "dbSamples": 8,
+      "dbRuns": 14,
+      "dbReads": 38,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 40,
+        "diskBytes": 500537057282,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 38,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 38
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6177b9ea3545d74de71ebb81",
+      "name": "RNAseq of Cajanus cajan",
+      "path": "/two_blades/rnaseq_of_cajanus_cajan",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_of_cajanus_cajan",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 7,
+        "diskBytes": 16102669220,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6177bbae3545d74de71ebb85",
+      "name": "RNAseq_Arabidopsis_thaliana_NLRseek",
+      "path": "/two_blades/rnaseq_arabidopsis_thaliana_nlrseek",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_arabidopsis_thaliana_nlrseek",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 17,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 17,
+        "diskBytes": 20864748754,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 17,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 17
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61e6a060decd27242ab8ad97",
+      "name": "Nic_ben_Iso_seq_RNA_project",
+      "path": "/two_blades/nic_ben_iso_seq_rna_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/nic_ben_iso_seq_rna_project",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 259742173,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "61e949fcdecd27242ab8ada7",
+      "name": "Lot_jap_Iso_seq_RNA_project",
+      "path": "/two_blades/lot_jap_iso_seq_rna_project",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/lot_jap_iso_seq_rna_project",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 201852734,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6241ebb64162ad060c6a332f",
+      "name": "RNAseq_Solanum_lycopersicum_NLRseek",
+      "path": "/two_blades/rnaseq_solanum_lycopersicum_nlrseek",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_solanum_lycopersicum_nlrseek",
+      "dbSamples": 5,
+      "dbRuns": 4,
+      "dbReads": 11,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 12,
+        "diskBytes": 28802469821,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 11,
+        "anomalyKinds": {
+          "empty-directory-skipped": 1,
+          "read-destination-md5-missing": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "624594d04162ad060c6a333f",
+      "name": "AP3_G.latifolia_F4Progeny_BSA",
+      "path": "/two_blades/ap3_g_latifolia_f4progeny_bsa",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ap3_g_latifolia_f4progeny_bsa",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 100041561868,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "624dc200033907738de9e101",
+      "name": "RNAseq_Triticum_aestivum_Foc",
+      "path": "/two_blades/rnaseq_triticum_aestivum_foc",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_triticum_aestivum_foc",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 33212339981,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "62fa40f5033907738de9e1a5",
+      "name": "Gargy_0004-PacBio_HiFi",
+      "path": "/two_blades/gargy_0004_pacbio_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gargy_0004_pacbio_hifi",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 43007376237,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "630dd224033907738de9e1b1",
+      "name": "Field pathogenomics of Brazilian soybean rust populations",
+      "path": "/two_blades/field_pathogenomics_of_brazilian_soybean_rust_populations",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/field_pathogenomics_of_brazilian_soybean_rust_populations",
+      "dbSamples": 163,
+      "dbRuns": 163,
+      "dbReads": 326,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 326,
+        "diskBytes": 1575319471212,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 326,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 326
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "631a0207033907738de9e6fb",
+      "name": "Field pathogenomics of Brazilian soybean rust populations - Second Round ",
+      "path": "/two_blades/field_pathogenomics_of_brazilian_soybean_rust_populations___second_round_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/field_pathogenomics_of_brazilian_soybean_rust_populations___second_round_",
+      "dbSamples": 44,
+      "dbRuns": 44,
+      "dbReads": 88,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 88,
+        "diskBytes": 507928229752,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 88,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 88
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "631afaaf033907738de9e85d",
+      "name": "Sequencing of Soybean Rust Isolated from Herbarium Specimens",
+      "path": "/two_blades/sequencing_of_soybean_rust_isolated_from_herbarium_specimens",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/sequencing_of_soybean_rust_isolated_from_herbarium_specimens",
+      "dbSamples": 13,
+      "dbRuns": 13,
+      "dbReads": 50,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 50,
+        "diskBytes": 116261753258,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 50,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 50
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "633572e659448306cadd0a07",
+      "name": "AP3_latifolia_F2_GBS",
+      "path": "/two_blades/ap3_latifolia_f2_gbs",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/ap3_latifolia_f2_gbs",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 45665325908,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "633adc8059448306cadd0a09",
+      "name": "Solanum hougasii RNAseq",
+      "path": "/two_blades/solanum_hougasii_rnaseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/solanum_hougasii_rnaseq",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 96627253493,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "633d764f59448306cadd0a19",
+      "name": "Lupinus_ssp_RNA-Seq_unchallenged",
+      "path": "/two_blades/lupinus_ssp_rna_seq_unchallenged",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/lupinus_ssp_rna_seq_unchallenged",
+      "dbSamples": 2,
+      "dbRuns": 8,
+      "dbReads": 16,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 16,
+        "diskBytes": 85027328046,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 16,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 16
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6352b755ee09804cf4979892",
+      "name": "RNAseq_NLRseek_Triticum_aestivum_TAJT_transgenic",
+      "path": "/two_blades/rnaseq_nlrseek_triticum_aestivum_tajt_transgenic",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_nlrseek_triticum_aestivum_tajt_transgenic",
+      "dbSamples": 12,
+      "dbRuns": 12,
+      "dbReads": 48,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 48,
+        "diskBytes": 46365245638,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 48,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 48
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63d7b208ee09804cf49799f9",
+      "name": "Mtrun_RNASeq_20220810",
+      "path": "/two_blades/mtrun_rnaseq_20220810",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/mtrun_rnaseq_20220810",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 14,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 20,
+        "diskBytes": 34547111893,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63d803a0ee09804cf4979a2f",
+      "name": "2022_11_10_GBS_data_AP1_F2_Mt19n34",
+      "path": "/two_blades/2022_11_10_gbs_data_ap1_f2_mt19n34",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/2022_11_10_gbs_data_ap1_f2_mt19n34",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 6,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 12,
+        "diskBytes": 301805655369,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "63d80a5aee09804cf4979a3d",
+      "name": "2022_11_10_GBS_data_GWAS_Mtrun",
+      "path": "/two_blades/2022_11_10_gbs_data_gwas_mtrun",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/2022_11_10_gbs_data_gwas_mtrun",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 5,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 72689977856,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 5,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 5
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6439478cde31f67a1e8724cb",
+      "name": "Mtrun_19_Mtrun_R108_RNA-Seq",
+      "path": "/two_blades/mtrun_19_mtrun_r108_rna_seq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/mtrun_19_mtrun_r108_rna_seq",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 22581943445,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "652d6a83de98207ba8447f1f",
+      "name": "RNAseq_T_aestivum_Fo",
+      "path": "/two_blades/rnaseq_t_aestivum_fo",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_t_aestivum_fo",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 30,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 30,
+        "diskBytes": 83305723220,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 30,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 30
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "65b7b2906a887d2209f9af58",
+      "name": "RenSeq and RNAseq data for mapping potato wart resistance in the parent DG-264",
+      "path": "/two_blades/renseq_and_rnaseq_data_for_mapping_potato_wart_resistance_in_the_parent_dg_264",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/renseq_and_rnaseq_data_for_mapping_potato_wart_resistance_in_the_parent_dg_264",
+      "dbSamples": 3,
+      "dbRuns": 8,
+      "dbReads": 16,
+      "dbAdditionalFiles": 4,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 20,
+        "diskBytes": 39172741236,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 16,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 16
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "65b7ce9f6a887d2209f9af84",
+      "name": "PVY_Rywal_Romula_RenSeq_RNAseq",
+      "path": "/two_blades/pvy_rywal_romula_renseq_rnaseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/pvy_rywal_romula_renseq_rnaseq",
+      "dbSamples": 3,
+      "dbRuns": 10,
+      "dbReads": 20,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 22,
+        "diskBytes": 6687972683,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 20,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 20
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "65b8fd7a6a887d2209f9afcc",
+      "name": "Potato_R5_Pinfestans_RNAseq_RenSeq",
+      "path": "/two_blades/potato_r5_pinfestans_rnaseq_renseq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/potato_r5_pinfestans_rnaseq_renseq",
+      "dbSamples": 4,
+      "dbRuns": 5,
+      "dbReads": 10,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 13,
+        "diskBytes": 18008919758,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 10,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 10
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "660c1437e372f7554d75495b",
+      "name": "NLRseek for Rpp genes in Soybean ",
+      "path": "/two_blades/nlrseek_for_rpp_genes_in_soybean_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/nlrseek_for_rpp_genes_in_soybean_",
+      "dbSamples": 20,
+      "dbRuns": 20,
+      "dbReads": 72,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 72,
+        "diskBytes": 605233272315,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 72,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 72
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "661fe3f0745ccb3c643357e2",
+      "name": "G. canescens mapping pop BSA",
+      "path": "/two_blades/g__canescens_mapping_pop_bsa",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/g__canescens_mapping_pop_bsa",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 16,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 16,
+        "diskBytes": 91597119706,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 16,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 16
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "663b5679745ccb3c64335860",
+      "name": "RNAseq_T_aestivum_Foc_10dpi",
+      "path": "/two_blades/rnaseq_t_aestivum_foc_10dpi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_t_aestivum_foc_10dpi",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 18,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 18,
+        "diskBytes": 85717206909,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 18,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 18
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6650bdeb0e8763bcf615e2b5",
+      "name": "RNAseq_T_aestivum_MoT",
+      "path": "/two_blades/rnaseq_t_aestivum_mot",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_t_aestivum_mot",
+      "dbSamples": 4,
+      "dbRuns": 4,
+      "dbReads": 12,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 12,
+        "diskBytes": 65734115433,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 12,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 12
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "66c762076e49ef189bd2eaaf",
+      "name": "WGS_Soybean_Accessions",
+      "path": "/two_blades/wgs_soybean_accessions",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/wgs_soybean_accessions",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 37621699527,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "66cde08a6e49ef189bd2eabf",
+      "name": "HiFi reads of the Gmax_0010 ",
+      "path": "/two_blades/hifi_reads_of_the_gmax_0010_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/hifi_reads_of_the_gmax_0010_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 35697058691,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "66e9546a6e49ef189bd2eaca",
+      "name": "Medicago_GWAS_GBS_Panel",
+      "path": "/two_blades/medicago_gwas_gbs_panel",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/medicago_gwas_gbs_panel",
+      "dbSamples": 1,
+      "dbRuns": 2,
+      "dbReads": 8,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 9,
+        "diskBytes": 183834945644,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 8,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 8
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "670fb5fd6e49ef189bd2ebc0",
+      "name": "Transcriptome Study of Soybean infected with UFV02 and MHB1",
+      "path": "/two_blades/transcriptome_study_of_soybean_infected_with_ufv02_and_mhb1",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/transcriptome_study_of_soybean_infected_with_ufv02_and_mhb1",
+      "dbSamples": 20,
+      "dbRuns": 38,
+      "dbReads": 76,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 76,
+        "diskBytes": 587571918140,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 76,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 76
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "672893d26e49ef189bd2ec9b",
+      "name": "GBS for the IITA lines",
+      "path": "/two_blades/gbs_for_the_iita_lines",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/gbs_for_the_iita_lines",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 3,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 95164894997,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 3,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 3
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "67926e8a6e49ef189bd2ee66",
+      "name": "IsoSeq_Glycines_Lupin_Medicago",
+      "path": "/two_blades/isoseq_glycines_lupin_medicago",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/isoseq_glycines_lupin_medicago",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 2,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 2,
+        "diskBytes": 17432796836,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "686be071cbe7220ab920bf7d",
+      "name": "RNAseq_TAJT_leaf_spike",
+      "path": "/two_blades/rnaseq_tajt_leaf_spike",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_tajt_leaf_spike",
+      "dbSamples": 12,
+      "dbRuns": 12,
+      "dbReads": 42,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 42,
+        "diskBytes": 98939977249,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 42,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 42
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "686c02c3cbe7220ab920c003",
+      "name": "RNAseq_MoT_infected_spike_HB0582",
+      "path": "/two_blades/rnaseq_mot_infected_spike_hb0582",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_mot_infected_spike_hb0582",
+      "dbSamples": 9,
+      "dbRuns": 9,
+      "dbReads": 41,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 41,
+        "diskBytes": 106901545966,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 41,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 41
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "686d2b38cbe7220ab920c07b",
+      "name": "RNAseq_TAJT_spike_Pgt_HB0583",
+      "path": "/two_blades/rnaseq_tajt_spike_pgt_hb0583",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rnaseq_tajt_spike_pgt_hb0583",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 11,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 11,
+        "diskBytes": 22953519131,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 11,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 11
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "689dd8fe08b2f88cfa735824",
+      "name": "F3-Recombinant-Plants-Rpp1-a_Rpp1-b_cross-WGS",
+      "path": "/two_blades/f3_recombinant_plants_rpp1_a_rpp1_b_cross_wgs",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/f3_recombinant_plants_rpp1_a_rpp1_b_cross_wgs",
+      "dbSamples": 9,
+      "dbRuns": 8,
+      "dbReads": 24,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 25,
+        "diskBytes": 100236604786,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 24,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 24
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68c291bae12a30b045eff97b",
+      "name": "DG_264 PacBio HiFi (Tetraploid)",
+      "path": "/two_blades/dg_264_pacbio_hifi__tetraploid_",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/dg_264_pacbio_hifi__tetraploid_",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 43539184962,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 1,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68e391c1b4f1c7501d7d03f7",
+      "name": "Lupinus_albus_Illumina",
+      "path": "/two_blades/lupinus_albus_illumina",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/lupinus_albus_illumina",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 4,
+      "dbAdditionalFiles": 1,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 24835130988,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 4,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 4
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "68fb4abc9fb9bbefcb69686a",
+      "name": "Glycine_microphylla_LowPass_WGS",
+      "path": "/two_blades/glycine_microphylla_lowpass_wgs",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/glycine_microphylla_lowpass_wgs",
+      "dbSamples": 3,
+      "dbRuns": 3,
+      "dbReads": 6,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 6,
+        "diskBytes": 20893167013,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 6,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 6
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "690364bcb7276cc9ffc83d3e",
+      "name": "Americanum_ssp_RNA-Seq",
+      "path": "/two_blades/americanum_ssp_rna_seq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/americanum_ssp_rna_seq",
+      "dbSamples": 37,
+      "dbRuns": 37,
+      "dbReads": 146,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 146,
+        "diskBytes": 610825034132,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 146,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 146
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69131853bac031ddd15a2f58",
+      "name": "G.canescens_WGS_HiFi",
+      "path": "/two_blades/g_canescens_wgs_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/g_canescens_wgs_hifi",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 23043385737,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 1,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 1
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6913460ebac031ddd15a2f66",
+      "name": "Lalb01_WholeGenome_HiFi",
+      "path": "/two_blades/lalb01_wholegenome_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/lalb01_wholegenome_hifi",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 2,
+      "dbAdditionalFiles": 3,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 5,
+        "diskBytes": 29117159516,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 2,
+        "anomalyKinds": {
+          "read-destination-md5-missing": 2
+        }
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69271529aeb7e7fd4521170d",
+      "name": "SP2299_Samr_WGS_HiFi",
+      "path": "/two_blades/sp2299_samr_wgs_hifi",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/sp2299_samr_wgs_hifi",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 2,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 3,
+        "diskBytes": 50709317955,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "697a19587346a73160616e08",
+      "name": "Expression of g5515 from Baidou in co-infiltrated Nicotiana benthamiana",
+      "path": "/two_blades/expression_of_g5515_from_baidou_in_co_infiltrated_nicotiana_benthamiana",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/expression_of_g5515_from_baidou_in_co_infiltrated_nicotiana_benthamiana",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 8,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 18157759792,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69d503dd28866e6f1f6f2764",
+      "name": "G.canescens_Parental_RNA-seq",
+      "path": "/two_blades/g_canescens_parental_rna_seq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/g_canescens_parental_rna_seq",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 8,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 15027206206,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "69d6066628866e6f1f6f2969",
+      "name": "Soy_Protoplast_RNA-seq",
+      "path": "/two_blades/soy_protoplast_rna_seq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/soy_protoplast_rna_seq",
+      "dbSamples": 2,
+      "dbRuns": 2,
+      "dbReads": 4,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 4,
+        "diskBytes": 55717673256,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a69b73a4702a7661accb151",
+      "name": "M.tru time-course UFV02 RNA-seq",
+      "path": "/two_blades/m_tru_time_course_ufv02_rna_seq",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/m_tru_time_course_ufv02_rna_seq",
+      "dbSamples": 6,
+      "dbRuns": 6,
+      "dbReads": 36,
+      "dbAdditionalFiles": 0,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 36,
+        "diskBytes": 27153017405,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    },
+    {
+      "projectId": "6a8d98323c09c026f67d547e",
+      "name": "Rpp5-Kinoshita_HiFi_data",
+      "path": "/two_blades/rpp5_kinoshita_hifi_data",
+      "storageState": "hpc",
+      "status": "ok",
+      "sourceRoot": "/mnt/reads/two_blades/rpp5_kinoshita_hifi_data",
+      "dbSamples": 1,
+      "dbRuns": 1,
+      "dbReads": 1,
+      "dbAdditionalFiles": 7,
+      "unfinishedIngestJobs": 0,
+      "summary": {
+        "diskRegularFiles": 8,
+        "diskBytes": 56892668437,
+        "diskSymlinks": 0,
+        "dbRecordsMissingOnDisk": 0,
+        "diskFilesNotInDb": 0,
+        "seriousAnomalies": 0,
+        "anomalyKinds": {}
+      },
+      "dbRecordsMissingOnDisk": [],
+      "diskFilesNotInDb": []
+    }
+  ],
+  "directoriesWithoutProject": [
+    "/mnt/reads/two_blades/Courville",
+    "/mnt/reads/two_blades/medicago_trucatala___19__pacbio"
+  ]
+}
