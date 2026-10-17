@@ -7,7 +7,23 @@ Use the [filterable decision CSV](../../../hpc-archive-candidates-2026-10-16.csv
 the [structured register](register.json) for exact source paths and evidence, and
 the [findings report](../../../HPC_ARCHIVE_CANDIDATES_2026-10-16.md) for discrepancies and handling limits.
 
-## Decisions
+## Current execution decisions supersede the historical labels below
+
+Use [ACTION_PLAN.md](ACTION_PLAN.md) and [action-plan.csv](action-plan.csv) for the
+current proposed actions. George's settled silence-consent decision supersedes
+`AWAITING_GROUP_DECISION` for the three exports (156 entries); only discrepancies
+receive outreach with a deadline. No age cutoff applies to this batch. Kamoun's
+19 archive / 6 direct-delete / 11 KEEP decisions stand. Manual deletion remains a
+separate checkpoint and nothing is deleted on silence.
+
+This README and `register.json` retain original entries, source decisions and the
+October 16 observations as history. The action plan supersedes their old waiting/
+age labels and path-repair assumptions; it does not supersede exact source identity,
+KEEP decisions, the independent production findings or later evidence. Read the
+linked resolution and cleanup records before acting. A historical missing-path
+finding remains evidence even when a later hash comparison resolves its handling.
+
+## Historical imported decisions
 
 | Group | Original entries | Awaiting group decision | Archive requested | Delete without archive requested | KEEP |
 | --- | ---: | ---: | ---: | ---: | ---: |
