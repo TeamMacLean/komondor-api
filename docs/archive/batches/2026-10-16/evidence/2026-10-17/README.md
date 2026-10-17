@@ -8,8 +8,24 @@ on v1333. The runners do not modify MongoDB, S3, project trees or production cod
 - `relations-20261017T064145Z.*`: authoritative refreshed export, including legacy
   string/ObjectId File-reference checks. All 48 documents are byte-identical to the
   first BSON snapshots and all blocker lists remain empty.
+- `candidate-size-estimate.*`: metadata-only estimate of candidate counts/bytes,
+  including stored File paths whose basenames differ from the expected name. This
+  is a runtime estimate, not checksum verification or a file-identity decision.
+- `flagged-path-metadata.*`: focused Read/File/Run metadata for the 26 gzip
+  checksum discrepancies in three Jones projects.
+- `gzip-diagnostics-20261017T072328Z.*`: failed auxiliary attempt; the diagnostic
+  closed its file descriptor before the final stat check. No checksum result was
+  accepted. The exact failed source is retained as `collect-gzip-diagnostics-v1.cjs`.
+- `gzip-diagnostics-20261017T072649Z.*`: successful corrected diagnostic, supported
+  by four unit tests (including corrupt trailer and symlink refusal). All 26 decoded
+  streams match the recorded original MD5; their compressed-byte checksums differ.
+  This does not claim that the compressed bytes match the historical checksum.
 - `registration-groups.*`: the two group IDs/safe names used in the placeholder
   proposals; this did not create projects or send notifications.
+- `extension-paths-20261017T070916Z.*`: three explicitly observed `.fastq`
+  alternatives for the missing `.fastq.txt` names in jjones-008, hashed with
+  `collect-extension-candidates.cjs`. This supplements, not duplicates, the primary
+  job, which has no candidates for these three records.
 - `paths-20261017T063123Z.*`: file-location evidence collected by the original
   collector version. Treat this as complete only when its command receipt reports
   exit code 0 and its JSON contains all eight projects/110 records.

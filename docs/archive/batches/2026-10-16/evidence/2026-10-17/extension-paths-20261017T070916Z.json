@@ -1,0 +1,114 @@
+{
+  "startedAt": "2026-10-17T07:09:17.896Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "jjones-008",
+      "projectId": "5fc012bda3efcb29338b7d3a",
+      "projectPath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "sourceRoot": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "inventoryRegularFiles": 56,
+      "inventoryBytes": 154231387866,
+      "records": [
+        {
+          "readId": "5fcba83ed8dd4a63058cc19d",
+          "fileId": "5fcba83ed8dd4a63058cc19c",
+          "runId": "5fcba83ed8dd4a63058cc19a",
+          "runPath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2271",
+          "expectedRelPath": "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq.txt",
+          "storedFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq.txt",
+          "recordedOriginalMD5": null,
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq",
+              "bytes": 1549507435,
+              "md5": "4cb59eeaf66da8753f0bb64e26e85ff2",
+              "sha256": "32ed012f5da91d960e9b6b68a0d09961f2890cb63ce3a34cccb179da34ceae70",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fcba8c9d8dd4a63058cc1a1",
+          "fileId": "5fcba8c9d8dd4a63058cc1a0",
+          "runId": "5fcba8c9d8dd4a63058cc19e",
+          "runPath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2273",
+          "expectedRelPath": "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq.txt",
+          "storedFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq.txt",
+          "recordedOriginalMD5": null,
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq",
+              "bytes": 1563167052,
+              "md5": "8f23d45f3b924cc8d17383b0785b0a40",
+              "sha256": "bcf05e89f3b5ca08c1942b46816db153a48cb40bc7cc14d0d9a3d0f933b2031e",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fcba9fdd8dd4a63058cc1a5",
+          "fileId": "5fcba9fdd8dd4a63058cc1a4",
+          "runId": "5fcba9fdd8dd4a63058cc1a2",
+          "runPath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_bs_all",
+          "expectedRelPath": "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq.txt",
+          "storedFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq.txt",
+          "recordedOriginalMD5": null,
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq",
+              "bytes": 2936919484,
+              "md5": "2d6d9eec238c10426b271d3c338d910a",
+              "sha256": "09f250d151b55913bde44c64e44f5fb73506ad84ad24b99f88267d574d071c07",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 3,
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T07:11:54.088Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

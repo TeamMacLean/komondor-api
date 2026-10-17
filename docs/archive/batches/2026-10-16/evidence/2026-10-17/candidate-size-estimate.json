@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-17T06:59:04.562Z",
+  "metadataEstimateOnly": true,
+  "projects": [
+    {
+      "entryId": "two_blades-015",
+      "files": 14,
+      "bytes": 103454971890
+    },
+    {
+      "entryId": "jjones-004",
+      "files": 4,
+      "bytes": 51046417722
+    },
+    {
+      "entryId": "jjones-005",
+      "files": 2,
+      "bytes": 12816204386
+    },
+    {
+      "entryId": "jjones-008",
+      "files": 0,
+      "bytes": 0
+    },
+    {
+      "entryId": "jjones-012",
+      "files": 51,
+      "bytes": 9503149329
+    },
+    {
+      "entryId": "jjones-041",
+      "files": 2,
+      "bytes": 108827530
+    },
+    {
+      "entryId": "jjones-047",
+      "files": 20,
+      "bytes": 951836724
+    },
+    {
+      "entryId": "skamoun-014",
+      "files": 16,
+      "bytes": 113476593240
+    }
+  ]
+}

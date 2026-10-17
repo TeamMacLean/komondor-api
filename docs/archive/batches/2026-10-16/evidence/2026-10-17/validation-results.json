@@ -1,0 +1,149 @@
+{
+  "testedCodeBase": "e98b9d221ccf38f4bfadcb1ff67810cf90305223",
+  "testedWorkingTreeIncludesNewGzipHelperAndTests": true,
+  "codeSha256": {
+    "lib/s3-archive/preflight.js": "2af98a9ca0fb5c434f0b8723830c3115dd60a13e0aebdc3dc6bf317ae6119637",
+    "__tests__/lib/s3-archive/preflight.test.js": "049fdb379c100b107b19dd22cefb485e68578ce882642a40731e65a883590cdf",
+    "__tests__/scripts/archive-batch-evidence.test.js": "7e202b0e7f8b15c057c9749d35928937a5e2c598524c46ec3d23c3436793d52b",
+    "__tests__/scripts/archive-gzip-evidence.test.js": "537628781b948e762f39e033a92d5dc5c1e3fffe580ba4afa201809b1bb0a68f",
+    "__tests__/integration/archive-batch-evidence.test.js": "6b172cea5ea1877521541d7e22630f66e8566b8636652f7ae32d1224e8368876",
+    "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-readonly.cjs": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+    "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-gzip-diagnostics.cjs": "1544238733bd4a85c29a295ce5c9291191906a3e726628146446a03bbda96004"
+  },
+  "node": "v24.11.1",
+  "productionTestsRun": false,
+  "database": "local disposable MongoDB, port 55459, komondor-batch-review-test; stopped after integration testing",
+  "results": [
+    {
+      "command": "npm test -- --runInBand",
+      "logFile": "full-with-gzip-evidence-1.log",
+      "logSha256": "1262a38b4b881a881001ce7b22ec53dbae0eb88d4359f755bfcf73dd749095b5",
+      "counts": {
+        "Test Suites": {
+          "passed": 73,
+          "total": 73
+        },
+        "Tests": {
+          "passed": 2084,
+          "total": 2084
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": false
+    },
+    {
+      "command": "npm test -- --runInBand",
+      "logFile": "full-with-gzip-evidence-2.log",
+      "logSha256": "2c8f2a6b57081a99c58289213e567b44c485ee96389cbf702a7cee2f077cdb03",
+      "counts": {
+        "Test Suites": {
+          "failed": 1,
+          "passed": 72,
+          "total": 73
+        },
+        "Tests": {
+          "failed": 1,
+          "passed": 2083,
+          "total": 2084
+        }
+      },
+      "exitCode": 1,
+      "openHandleWarning": false
+    },
+    {
+      "command": "npm test -- --runInBand",
+      "logFile": "full-with-gzip-evidence-3.log",
+      "logSha256": "6ab2919059521d7cb05de3c0aa192a2daa4b9d0c54502246e04bb5b23524dd50",
+      "counts": {
+        "Test Suites": {
+          "passed": 73,
+          "total": 73
+        },
+        "Tests": {
+          "passed": 2084,
+          "total": 2084
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": false
+    },
+    {
+      "command": "npm run test:archive",
+      "logFile": "archive-tests-final.log",
+      "logSha256": "edd382ea3fde42d92e33d41615c34133cd3d44d0db3f28b8c55ee4ce0723360a",
+      "counts": {
+        "Test Suites": {
+          "passed": 9,
+          "total": 9
+        },
+        "Tests": {
+          "passed": 167,
+          "total": 167
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": false
+    },
+    {
+      "command": "MONGODB_URI=mongodb://127.0.0.1:55459/komondor-batch-review-test npm run test:integration",
+      "logFile": "integration-final.log",
+      "logSha256": "8052f7fb8799607e86f947cf43753726462d979c6f0e3168ca43140177c29720",
+      "counts": {
+        "Test Suites": {
+          "passed": 10,
+          "total": 10
+        },
+        "Tests": {
+          "passed": 58,
+          "total": 58
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": true
+    },
+    {
+      "command": "npm test -- --runInBand __tests__/scripts/archive-gzip-evidence.test.js",
+      "logFile": "gzip-evidence-tests.log",
+      "logSha256": "75a1f419be7a11a99e1d69754bd7cf618213bf30cc31980ae8eca6cb19abfdb7",
+      "counts": {
+        "Test Suites": {
+          "passed": 1,
+          "total": 1
+        },
+        "Tests": {
+          "passed": 4,
+          "total": 4
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": false
+    },
+    {
+      "command": "npm test -- --runInBand __tests__/routes/uploads.test.js",
+      "logFile": "uploads-isolated-after-http-failure.log",
+      "logSha256": "a61dfb3506b6729996fb5fe147ff17b854c7a76119b357f7d77853eec76199d0",
+      "counts": {
+        "Test Suites": {
+          "passed": 1,
+          "total": 1
+        },
+        "Tests": {
+          "passed": 39,
+          "total": 39
+        }
+      },
+      "exitCode": 0,
+      "openHandleWarning": false
+    }
+  ],
+  "modelRegistrationBothScriptsPassed": true,
+  "smokePassedAllThreeFullRuns": true,
+  "notes": [
+    "The three final full runs passed 2084, failed one unrelated upload HTTP parser test (2083 passed), then passed 2084. The upload suite isolated rerun passed 39 tests. This resembles the documented intermittent HTTP transport failure; its cause was not established or fixed here.",
+    "Earlier full runs before adding the four gzip diagnostic tests passed 2080 tests each. They are not substituted for the three final runs above.",
+    "The initial mixed-pattern command ran 77 tests including 20 unit tests; the integration-only suite passed 58.",
+    "A targeted evidence test initially encountered leftover scratch unique indexes while seeding deliberate legacy duplicates. The suite now resets its explicit scratch database before each case; targeted and full integration reruns passed.",
+    "The integration suite emitted an open-handle warning and then exited successfully.",
+    "The first auxiliary gzip attempt failed its descriptor check and accepted no result. The fixed helper passed four tests, including damaged-trailer and symlink rejection, before successful production read-only diagnostics."
+  ]
+}

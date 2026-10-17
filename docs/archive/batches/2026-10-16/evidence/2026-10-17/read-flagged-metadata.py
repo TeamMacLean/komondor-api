@@ -1,0 +1,11 @@
+import pathlib,re,json,subprocess,shlex,hashlib
+f=pathlib.Path('docs/archive/batches/2026-10-16/evidence/2026-10-17')
+if (f/'flagged-path-metadata.json').exists(): raise SystemExit('Evidence already exists; use a separately reviewed output name for a fresh capture')
+log=(f/'paths-20261017T063123Z.stderr.log').read_text();ids=[id for project,id in re.findall(r'(\S+): read (\S+): category c',log) if project in {'jjones-012','jjones-041','jjones-047'}]
+source="""const fs=require('fs');require('dotenv').config();const m=require('mongoose');m.set('autoIndex',false);m.set('autoCreate',false);const {resolveMongoUri}=require('./lib/utils/validateEnv');(async()=>{const ids=JSON.parse(fs.readFileSync(0,'utf8'));await m.connect(resolveMongoUri(process.env),{autoIndex:false,autoCreate:false,useNewUrlParser:true,useUnifiedTopology:true});try{const db=m.connection.db,out=[];for(const id of ids){const r=await db.collection('reads').findOne({_id:new m.Types.ObjectId(id)});const f=await db.collection('files').findOne({_id:r.file});const run=await db.collection('runs').findOne({_id:r.run});const s=await db.collection('samples').findOne({_id:run.sample});out.push({readId:id,originalMD5:r.MD5??null,fileId:String(f._id),originalName:f.originalName,storedFilePath:f.path,runId:String(run._id),runPath:run.path,runName:run.name,runSafeName:run.safeName,samplePath:s.path,projectId:String(s.project)});}console.log(JSON.stringify({at:new Date().toISOString(),records:out},null,2));}finally{await m.disconnect();}})().catch(e=>{console.error(e.stack);process.exitCode=1});"""
+cmd=['ssh','-S',str(pathlib.Path.home()/'.ssh/v1333-codex-stage2.sock'),'-o','BatchMode=yes','-o','ConnectTimeout=15','deeks@v1333.nbi.ac.uk','cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '+shlex.quote(source)]
+r=subprocess.run(cmd,input=json.dumps(ids),capture_output=True,text=True)
+if r.returncode:print(r.stderr);raise SystemExit(r.returncode)
+(f/'flagged-path-metadata.json').write_text(r.stdout)
+(f/'flagged-path-metadata.command.json').write_text(json.dumps({'command':shlex.join(cmd),'stdinReadIds':ids,'productionWrites':False,'exitCode':r.returncode,'outputSha256':hashlib.sha256(r.stdout.encode()).hexdigest()},indent=2)+'\n')
+for x in json.loads(r.stdout)['records']: print(json.dumps(x))

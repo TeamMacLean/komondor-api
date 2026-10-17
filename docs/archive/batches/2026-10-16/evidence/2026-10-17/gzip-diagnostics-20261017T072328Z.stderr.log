@@ -1,0 +1,6 @@
+5fc012cba3efcb29338b9926: read-only gzip diagnostic rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz
+Error: file closed
+    at fsCall (node:internal/fs/promises:461:17)
+    at FileHandle.stat (node:internal/fs/promises:219:12)
+    at Object.run (/storage/www/komondor-api/scripts/_review_gzip.cjs:31:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)

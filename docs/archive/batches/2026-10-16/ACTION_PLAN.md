@@ -10,6 +10,8 @@ supersedes `FIX_PATHS_THEN_ARCHIVE` with the per-project evidence-based handling
 once recorded. It does not override KEEP or observed production facts. The technical
 procedures linked here govern execution; earlier labels are not commands.
 
+**Review checkpoint: BLOCKED pending complete primary hash evidence.** See [PATH_REVIEW_STATUS.md](PATH_REVIEW_STATUS.md). The old `FIX_PATHS_THEN_ARCHIVE` instructions below are superseded by a hold; do not move files or edit File.path from those lines.
+
 ## Policy decisions that change the register
 
 1. **Silence is consent.** Dan MacLean emailed every group leader months before this batch. Only the Kamoun group replied, which is why they have a dedicated spreadsheet. The operator's decision is that every project on the three PowerScale exports is approved for archiving. The register's `AWAITING_GROUP_DECISION` is therefore replaced by a technical classification of what the archive step needs.
