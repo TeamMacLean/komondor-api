@@ -1,7 +1,14 @@
 # Archive batch 2026-10-16: action plan
 
-Status: proposed by George Deeks, 2026-10-17, for review before execution. Nothing here has been run.
+Status: revised proposal, 2026-10-17, for review before execution. Only read-only evidence collection has run; no proposed disposal, registration or archival action has run.
 Inputs: `../../../hpc-archive-candidates-2026-10-16.csv` (the reconciled register with production verification columns) and the four `verify-*.json` reports. Output: `action-plan.csv`, one row per original entry, 192 rows.
+
+The [batch README](README.md) and `register.json` retain immutable entry identities,
+source decisions and historical findings. This plan supersedes their
+`AWAITING_GROUP_DECISION` and age-based labels with the settled policy below, and
+supersedes `FIX_PATHS_THEN_ARCHIVE` with the per-project evidence-based handling
+once recorded. It does not override KEEP or observed production facts. The technical
+procedures linked here govern execution; earlier labels are not commands.
 
 ## Policy decisions that change the register
 
@@ -34,10 +41,24 @@ Inputs: `../../../hpc-archive-candidates-2026-10-16.csv` (the reconciled registe
 
 1. **Quiet fixes, no contact.** Rename `jjones/witekk_s_americanum_gDNA_bgi` to the lowercase registered path. Repair `File.path` for the 8 projects whose registered reads sit under `processed/` rather than `raw/`, using `../../../hpc-verification-2026-10-16/independent-review/relocated-file-candidates.json` as the candidate list and confirming each by size before writing. Delete the 2 empty project records. Remove the 2 empty unregistered directories.
 2. **Emails, two-week deadline.** One per group below, listing exact directory names and sizes. Wording: "reply by DATE with keep, archive or delete; after that we archive them under a placeholder project in your group". Archiving on silence is chosen over deleting on silence because it is reversible and costs under a pound per terabyte per month in Deep Archive. Kamoun also gets the five Saunders directories not on their sheet, with the question whether they join the delete list.
-3. **Wave 1**, 33 fully registered projects, smallest first, each through `plan`, `lock`, `copy`, `deletion-command`, manual deletion, `confirm-absent` per the runbook. The first three are done with a second person watching.
+3. **Wave 1**, 33 fully registered projects. The first three, in order, are the pilots below, with a second person watching. Continue with the remaining wave-1 projects smallest first. Each goes through the runbook's `plan`, `lock`, `copy`, `deletion-command`, manual deletion and `confirm-absent` checkpoints. **A fresh live `plan` is required before each lock**, including all three pilots; the shortlist evidence is not that plan.
 4. **Wave 2**, 50 partly registered. **Wave 3**, 43 with no file records plus the repaired-path projects. **Wave 4**, Kamoun's 19.
 5. **After the deadline:** register-and-archive or delete the unregistered directories per replies. Use the [exact placeholder payloads and manual Courville procedure](PLACEHOLDER_REGISTRATION.md); George must supply both group-administrator addresses. Kamoun direct disposal follows [the exact target ledger](KAMOUN_DELETE_TARGETS.md): five associated Saunders directories and the separate populated `xiao_scr74` project. The five additional directories remain pending. Dependent records are exported and handled together under the [exact cleanup proposal](DEPENDENT_RECORD_CLEANUP.md); never delete only a Project shell.
 6. **Audit follow-up, not blocking:** a tool to backfill Read and AdditionalFile records from a sealed manifest, so archived projects stop showing an empty file list on the website.
+
+## Wave 1 first three projects
+
+| Order | Entry | Project | Project ID | Observed bytes |
+|---:|---|---|---|---:|
+| 1 | `jjones-056` | `plant_capture_enhancer` | `5fc012bda3efcb29338b7d4b` | 34,647,343 |
+| 2 | `jjones-054` | `lop_868_pacbio_renseq` | `5fc012bda3efcb29338b7d35` | 285,483,141 |
+| 3 | `jjones-052` | `white_rust_resistance_gene_cloning_using_renseq` | `5fc012bda3efcb29338b7d42` | 336,972,337 |
+
+These candidates had no missing expected paths, untracked files or active-work
+blockers in the October 16 observations. Legacy destination-MD5 warnings remain:
+2, 1 and 4 respectively. A new plan may reveal changes. Review and record the
+actual anomalies before acknowledging them; neither this table nor the CSV
+pre-authorizes a lock or HPC deletion.
 
 ## Contact list
 
