@@ -1185,6 +1185,19 @@
         "decision": "ARCHIVE_ELIGIBLE_10Y",
         "basis": "dir mtime 2016-03-17 (newest file 2017-10-17)",
         "readiness": "READY with a note: the 13 registered reads Komondor cannot find are under processed/ rather than raw/; the archive copies the whole tree, nothing is lost"
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 12,
+          "b": 0,
+          "cResolved": 1,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -4036,6 +4049,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 4,
+          "b": 0,
+          "cResolved": 0,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -4118,6 +4144,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 2,
+          "b": 0,
+          "cResolved": 0,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -4344,6 +4383,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 3,
+          "b": 0,
+          "cResolved": 0,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -4660,6 +4712,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 46,
+          "b": 0,
+          "cResolved": 4,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -6925,6 +6990,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 0,
+          "b": 0,
+          "cResolved": 2,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -7394,6 +7472,19 @@
         "decision": "NOT_YET",
         "basis": "dir mtime 2021-05-21",
         "readiness": ""
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 0,
+          "b": 0,
+          "cResolved": 20,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -12980,6 +13071,19 @@
         "decision": "ARCHIVE_PI_APPROVED",
         "basis": "Kamoun sheet archive?=yes",
         "readiness": "READY with a note: the 16 registered reads Komondor cannot find are under processed/ rather than raw/; the archive copies the whole tree, nothing is lost"
+      },
+      "path_resolution_review": {
+        "observed_at": "2026-10-17T13:39:46.104Z",
+        "record": "path-resolutions.json",
+        "counts": {
+          "a": 16,
+          "b": 0,
+          "cResolved": 0,
+          "cHold": 0
+        },
+        "action": "ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES",
+        "proposed_file_moves": [],
+        "proposed_database_writes": []
       }
     },
     {
@@ -14685,5 +14789,16 @@
     ],
     "original_observations_retained": true,
     "dispositions_and_numeric_totals_unchanged": true
+  },
+  "current_action_plan": {
+    "recorded_on": "2026-10-17",
+    "document": "ACTION_PLAN.md",
+    "csv": "action-plan.csv",
+    "supersedes": [
+      "AWAITING_GROUP_DECISION for the three exports",
+      "age cutoff labels for this batch",
+      "FIX_PATHS_THEN_ARCHIVE"
+    ],
+    "retains": "Original entries/source decisions and October 16 production observations remain historical evidence; KEEP and manual deletion gates stand."
   }
 }

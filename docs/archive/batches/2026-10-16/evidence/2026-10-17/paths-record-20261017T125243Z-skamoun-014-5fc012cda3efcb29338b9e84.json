@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-10-17T13:23:31.778Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "skamoun-014",
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "projectPath": "/skamoun/janderso_rsolani",
+      "sourceRoot": "/mnt/reads/skamoun/janderso_rsolani",
+      "inventoryRegularFiles": 40,
+      "inventoryBytes": 161890791630,
+      "records": [
+        {
+          "readId": "5fc012cda3efcb29338b9e84",
+          "fileId": "5fc012c9a3efcb29338b9336",
+          "runId": "5fc012c3a3efcb29338b8532",
+          "runPath": "/skamoun/janderso_rsolani/sample1/run1",
+          "expectedRelPath": "sample1/run1/raw/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+          "storedFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+          "recordedOriginalMD5": "unknown",
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+              "bytes": 7419270322,
+              "md5": "d20e3a96a312459263a1ed0ee6f1ec58",
+              "sha256": "48272da9e3870b576a4fc878918f14be71496a1bed57339a2566135152bebd02",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 1,
+      "inventorySha256": "aad58b691e37c8c1dd985c7ea62e6c04a6450109b7986ac7f6584bbfcbba53a5",
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T13:26:37.449Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

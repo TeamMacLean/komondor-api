@@ -41,6 +41,13 @@ no date basis or cutoff has been agreed. The imported `ARCHIVE_ELIGIBLE_10Y`, `N
 `NOT_YET` and `EMPTY_DIR_CLEANUP` classifications are preserved as superseded history in JSON,
 not applied as owner decisions. An empty directory is a technical finding, not disposal permission.
 
+## October 17 content-resolution evidence
+
+[PATH_RESOLUTIONS.md](PATH_RESOLUTIONS.md) and [path-resolutions.json](path-resolutions.json)
+record the eight-project, 110-path content review and explicitly identify any holds.
+They supersede size-only relocation suggestions. The October 16 findings below remain
+historical metadata observations, not checksum evidence. Nothing was moved or deleted.
+
 ## What the production review establishes
 
 The independent read-only inspection finished at **2026-10-16T20:31:11.362Z** on `v1333` as `deeks`.
@@ -70,9 +77,11 @@ The JSON preserves each source value and the original decision separately from l
 | [reads_talbot_plus5years_export_directory_260914_112004.csv](sources/reads_talbot_plus5years_export_directory_260914_112004.csv) | 52 | `d5d537e658216f3d63c06fb8b2e4a28cf8f9772bca14f65fda1a3bf6d2bcdd6e` |
 | [TSL_sequence_archiv-skamoun.xlsx](sources/TSL_sequence_archiv-skamoun.xlsx) | 36 | `c98c1f6b39d959d9fd2b8569e434cce0d4e0ad30b39d9145ebf6c1f73b985f30` |
 
-## Decision table
+## Historical source decision table
 
-Each row below corresponds to one original entry. “Archive requested” still requires the normal
+Each row below corresponds to one original entry. Imported waiting labels below are
+superseded by [the current action CSV](action-plan.csv); use that CSV for execution
+and discrepancy outreach. “Archive requested” still requires the normal
 plan, freeze, checksum verification, restore/review and separate manual deletion checkpoints.
 KEEP entries remain on HPC. Outstanding owner decisions, identity repairs and deferrals remain unfinished work.
 See CSV/JSON for full paths, separate registered/observed counts, detailed questions and evidence.

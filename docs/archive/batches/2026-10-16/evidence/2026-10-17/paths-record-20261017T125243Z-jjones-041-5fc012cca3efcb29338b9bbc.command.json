@@ -1,0 +1,27 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');m._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-path-record.cjs",
+  "collectorSha256": "ed5518ad2aa727a30cb201847691bb156b93f70e58b6443c45133d83e39c0b14",
+  "targets": [
+    {
+      "entryId": "jjones-041",
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "projectPath": "/jjones/solynta_sequencing",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9bbc",
+          "expectedRelPath": "solynta_b98/solynta_b98_smrt_renseq/raw/B98.fastq.gz"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-record-20261017T125243Z-jjones-041-5fc012cca3efcb29338b9bbc.json",
+  "stderr": "paths-record-20261017T125243Z-jjones-041-5fc012cca3efcb29338b9bbc.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T13:13:55.488622+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T13:13:59.084502+00:00",
+  "outputSha256": "45162444873eb414e1a0ae9d247fce5ddc4bf298eaeab82c90cfa3b765a2df7a"
+}

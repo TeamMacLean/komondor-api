@@ -1,0 +1,27 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');m._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-path-record.cjs",
+  "collectorSha256": "ed5518ad2aa727a30cb201847691bb156b93f70e58b6443c45133d83e39c0b14",
+  "targets": [
+    {
+      "entryId": "jjones-047",
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "projectPath": "/jjones/arabidopsis_pacbio_renseq",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b999f",
+          "expectedRelPath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/raw/Wil-2_ROI.fastq.gz"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-record-20261017T125243Z-jjones-047-5fc012cba3efcb29338b999f.json",
+  "stderr": "paths-record-20261017T125243Z-jjones-047-5fc012cba3efcb29338b999f.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T13:15:00.975585+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T13:15:05.150673+00:00",
+  "outputSha256": "59757c8ac471c0a595755f153c122f1bed8653b062e6b07376ac7225c4a6e98f"
+}

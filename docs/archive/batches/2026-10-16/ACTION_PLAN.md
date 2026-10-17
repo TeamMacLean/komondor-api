@@ -6,11 +6,8 @@ Inputs: `../../../hpc-archive-candidates-2026-10-16.csv` (the reconciled registe
 The [batch README](README.md) and `register.json` retain immutable entry identities,
 source decisions and historical findings. This plan supersedes their
 `AWAITING_GROUP_DECISION` and age-based labels with the settled policy below, and
-supersedes `FIX_PATHS_THEN_ARCHIVE` with the per-project evidence-based handling
-once recorded. It does not override KEEP or observed production facts. The technical
+supersedes `FIX_PATHS_THEN_ARCHIVE` with [the completed per-project content review](PATH_RESOLUTIONS.md). It does not override KEEP or observed production facts. The technical
 procedures linked here govern execution; earlier labels are not commands.
-
-**Review checkpoint: BLOCKED pending complete primary hash evidence.** See [PATH_REVIEW_STATUS.md](PATH_REVIEW_STATUS.md). All eight former `FIX_PATHS_THEN_ARCHIVE` rows are now `HOLD_PATH_REVIEW`; do not move files or edit File.path.
 
 ## Policy decisions that change the register
 
@@ -20,6 +17,16 @@ procedures linked here govern execution; earlier labels are not commands.
 4. **Kamoun decisions are unchanged.** 19 archive, 6 delete without S3 copy, 11 keep, including the two operator-confirmed keeps.
 5. The 10-year rule is not applied to this batch and is not needed for it.
 
+The CSV's `hpc_path` preserves the original PowerScale export path. It is not a
+shell deletion argument on v1333. Derive and freshly verify the canonical mounted
+root from the registered Project or the explicit target ledger before any operation.
+
+Before executing the archive waves, deploy the separately reviewed release that
+includes the corrected `db-file-missing` / `recordKind` diagnostic. The read-only
+evidence was collected against production `c6b9d77`; this review has not deployed
+the branch or changed the production checkout. Do not expect the old release to
+emit the corrected manifest anomaly labels.
+
 ## Classification of the 192 entries
 
 | Action | Wave | Rows | On disk | Meaning |
@@ -28,8 +35,8 @@ procedures linked here govern execution; earlier labels are not commands.
 | ARCHIVE | 2 | 50 | 3.89 TB | partly registered, unregistered files archived from inventory |
 | ARCHIVE | 3 | 43 | 4.19 TB | no file records, manifest is the inventory |
 | ARCHIVE | 4 | 18 | 1.24 TB | Kamoun PI approved |
-| HOLD_PATH_REVIEW | 3 | 7 | 1.15 TB | Content review incomplete; preserve tree and records |
-| HOLD_PATH_REVIEW | 4 | 1 | 0.16 TB | Content review incomplete; preserve tree and records |
+| ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES | 3 | 7 | 1.15 TB | Preserve tree; seal missing-path facts; retain content review |
+| ARCHIVE_WITH_DOCUMENTED_DISCREPANCIES | 4 | 1 | 0.16 TB | Preserve tree; seal missing-path facts; retain content review |
 | FIX_RENAME_THEN_ARCHIVE | 1 | 1 | 0.32 TB | rename directory to lowercase registered path, then archive |
 | CONTACT_DEADLINE |  | 18 | 0.66 TB | unregistered directory; one email, short deadline, then placeholder-project archive or delete |
 | DELETE_MANUAL_AFTER_DIR_CONFIRM |  | 6 | 0.79 TB | Kamoun delete; confirm exact mixed-case directory names first, no S3 copy |
@@ -37,15 +44,15 @@ procedures linked here govern execution; earlier labels are not commands.
 | TIDY_RMDIR |  | 2 | 0.00 TB | empty unregistered directory |
 | KEEP |  | 11 | 1.46 TB | stays on HPC |
 
-145 entries have proposed archive-wave assignments; eight more are held pending content review. These are proposed dispositions, not completed archives. Where `needs_acknowledge_known_anomalies` is `yes`, the preflight will report serious anomalies (typically legacy reads with no stored destination MD5, run status `error`, or MD5 `failed`) and `lock` needs `--acknowledge-known-anomalies`. Those are recorded facts about the upload era, not reasons to stop; they are sealed into the manifest.
+153 entries are assigned to four archive waves without new owner outreach; 0 additional entries are held for unresolved content identity. These are proposed dispositions, not completed archives. Where `needs_acknowledge_known_anomalies` is `yes`, the preflight will report serious anomalies (typically legacy reads with no stored destination MD5, run status `error`, or MD5 `failed`) and `lock` needs `--acknowledge-known-anomalies`. Documented historical metadata anomalies can be acknowledged and sealed into the manifest. Unresolved content identity, active work, changed source trees or unverifiable bytes still stop the affected project; acknowledgement does not waive them.
 
 ## Order of work
 
-1. **Content review and manual cleanup.** Keep the eight missing-path projects on `HOLD_PATH_REVIEW` until the per-project evidence is complete. Preserve their files and historical database records: no File.path repair or raw/ move is proposed. The separate Jones case correction follows [the manual canonical-root procedure](PLACEHOLDER_REGISTRATION.md). The two empty project cleanups and five Saunders shells use [the scoped dependent-record procedure](DEPENDENT_RECORD_CLEANUP.md), with a fresh frozen export and exact filters. George executes reviewed manual steps. The two empty unregistered directories require fresh mounted-root inspection and empty-only `rmdir`.
-2. **Emails, two-week deadline.** One per group below, listing exact directory names and sizes. Wording: "reply by DATE with keep, archive or delete; after that we archive them under a placeholder project in your group". Archiving on silence is chosen over deleting on silence because it is reversible and costs under a pound per terabyte per month in Deep Archive. Kamoun also gets the five Saunders directories not on their sheet, with the question whether they join the delete list.
+1. **Review discrepancies and prepare manual cleanup.** Use [PATH_RESOLUTIONS.md](PATH_RESOLUTIONS.md) for all eight projects/110 missing expected paths: preserve the tree and database history, record the observed discrepancies and resolved copies, and hold any unresolved content identity. No File.path repair or raw/ relocation is proposed. The separate Jones root case correction follows the [manual canonical-root procedure](PLACEHOLDER_REGISTRATION.md) and needs its literal command reviewed against fresh evidence. The two empty project cleanups and five Saunders shells use [the exact dependent-record procedure](DEPENDENT_RECORD_CLEANUP.md); George executes only after fresh exports/checks. The two empty unregistered directories (`two_blades/medicago_trucatala___19__pacbio` and `ntalbot/project_946`) require fresh mounted-root inspection and empty-only `rmdir`, never recursive force-deletion.
+2. **Emails, two-week deadline.** One per group below, listing exact directory names and sizes. Wording: "reply by DATE with keep, archive or delete; after that we archive them under a placeholder project in your group". Archiving on silence is chosen over deleting on silence because it is reversible and preserves recoverability. Kamoun also gets the five Saunders directories not on their sheet, with the question whether they join the delete list.
 3. **Wave 1**, 33 fully registered projects. The first three, in order, are the pilots below, with a second person watching. Continue with the remaining wave-1 projects smallest first. Each goes through the runbook's `plan`, `lock`, `copy`, `deletion-command`, manual deletion and `confirm-absent` checkpoints. **A fresh live `plan` is required before each lock**, including all three pilots; the shortlist evidence is not that plan.
-4. **Wave 2**, 50 partly registered. **Wave 3**, 43 with no file records; missing-path projects remain held pending the content review. **Wave 4**, Kamoun's 19.
-5. **After the deadline:** register-and-archive or delete the unregistered directories per replies. Use the [exact placeholder payloads and manual Courville procedure](PLACEHOLDER_REGISTRATION.md); George must supply both group-administrator addresses. Kamoun direct disposal follows [the exact target ledger](KAMOUN_DELETE_TARGETS.md): five associated Saunders directories and the separate populated `xiao_scr74` project. The five additional directories remain pending. Dependent records are exported and handled together under the [exact cleanup proposal](DEPENDENT_RECORD_CLEANUP.md); never delete only a Project shell.
+4. **Wave 2**, 50 partly registered. **Wave 3**, 43 with no file records plus the discrepancy projects released by their content review; held projects remain out of execution. **Wave 4**, Kamoun's 19.
+5. **After the deadline:** register-and-archive or delete the unregistered directories per replies. Use the [exact placeholder payloads and manual Courville procedure](PLACEHOLDER_REGISTRATION.md); George must supply both group-administrator addresses. Kamoun direct disposal follows [the exact target ledger](KAMOUN_DELETE_TARGETS.md): five associated Saunders directories and the separate populated `xiao_scr74` project. The six existing sheet deletion decisions do not depend on a new reply. The five additional directories remain pending. Dependent records are exported and handled together under the [exact cleanup proposal](DEPENDENT_RECORD_CLEANUP.md); never delete only a Project shell.
 6. **Audit follow-up, not blocking:** a tool to backfill Read and AdditionalFile records from a sealed manifest, so archived projects stop showing an empty file list on the website.
 
 ## Wave 1 first three projects
