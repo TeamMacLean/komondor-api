@@ -6,10 +6,10 @@ projects, five Saunders shells and the populated Xiao project. The
 
 ## Read-only baseline
 
-Observed on v1333 as deeks, 17 October 2026, 06:31:16 UTC, production commit
+Observed on v1333 as deeks, 17 October 2026, 06:41:46 UTC, production commit
 `c6b9d77db069fa6dd808367086ff358302565b2f`, clean before and after.
-[Raw export](evidence/2026-10-17/relations-20261017T063115Z.json),
-[exact command and output hash](evidence/2026-10-17/relations-20261017T063115Z.command.json),
+[Raw export](evidence/2026-10-17/relations-20261017T064145Z.json),
+[exact command and output hash](evidence/2026-10-17/relations-20261017T064145Z.command.json),
 and [collector](evidence/2026-10-17/collect-readonly.cjs) are retained.
 [dependent-records.json](dependent-records.json) lists every document and the
 **exact deletion filter for every collection, per project**, including empty lists.
