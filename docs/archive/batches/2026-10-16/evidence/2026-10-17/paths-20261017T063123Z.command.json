@@ -610,12 +610,15 @@
       ]
     }
   ],
-  "output": "paths-20261017T063123Z.json",
+  "output": "paths-20261017T063123Z.stdout.txt",
   "stderr": "paths-20261017T063123Z.stderr.log",
   "startedAt": "20261017T063123Z",
   "mode": "paths",
   "productionWrites": false,
   "exitCode": 255,
   "finishedAt": "2026-10-17T11:47:19.128593+00:00",
-  "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outputNameAtExecution": "paths-20261017T063123Z.json",
+  "acceptedAsEvidence": false,
+  "failure": "SSH connection ended with exit 255 before returning any JSON result; progress alone is not checksum evidence."
 }

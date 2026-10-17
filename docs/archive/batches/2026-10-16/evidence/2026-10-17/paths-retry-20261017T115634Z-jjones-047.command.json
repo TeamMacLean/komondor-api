@@ -1,0 +1,127 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');\nm._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-readonly.cjs",
+  "collectorSha256": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+  "targets": [
+    {
+      "entryId": "jjones-047",
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "projectPath": "/jjones/arabidopsis_pacbio_renseq",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9a9b",
+          "expectedRelPath": "bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/raw/Bur-0_ROI_2.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9818",
+          "expectedRelPath": "ct_1_pacbio_renseq/ct_1_pacbio_renseq/raw/Ct-1_ROI_2.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9be0",
+          "expectedRelPath": "edi_0_pacbio_renseq/edi_0_pacbio_renseq/raw/Edi-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b98a7",
+          "expectedRelPath": "hi_0_pacbio_renseq/hi_0_pacbio_renseq/raw/Hi-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9b48",
+          "expectedRelPath": "hr_5_pacbio_renseq/hr_5_pacbio_renseq/raw/HR-5_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9f6f",
+          "expectedRelPath": "kn_0_pacbio_renseq/kn_0_pacbio_renseq/raw/Kn-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338ba057",
+          "expectedRelPath": "ler_0_pacbio_renseq/ler_0_pacbio_renseq/raw/Ler-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338ba088",
+          "expectedRelPath": "mt_0_pacbio_renseq/mt_0_pacbio_renseq/raw/Mt-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9841",
+          "expectedRelPath": "no_0_pacbio_renseq/no_0_pacbio_renseq/raw/No-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9c45",
+          "expectedRelPath": "oy_0_pacbio_renseq/oy_0_pacbio_renseq/raw/Oy-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b99dc",
+          "expectedRelPath": "po_0_pacbio_renseq/po_0_pacbio_renseq/raw/Po-0_ROI_2.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9cb2",
+          "expectedRelPath": "rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/raw/Rsch-4_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9de3",
+          "expectedRelPath": "sf_2_pacbio_renseq/sf_2_pacbio_renseq/raw/Sf-2_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9956",
+          "expectedRelPath": "tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/raw/Tsu-0_ROI_2.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b999f",
+          "expectedRelPath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/raw/Wil-2_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9e16",
+          "expectedRelPath": "ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/raw/Ws-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9d78",
+          "expectedRelPath": "ws_2_pacbio_renseq/ws_2_pacbio_renseq/raw/Ws-2_ROI_2.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9967",
+          "expectedRelPath": "wu_0_pacbio_renseq/wu_0_pacbio_renseq/raw/Wu-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9f01",
+          "expectedRelPath": "yo_0_pacbio_renseq/yo_0_pacbio_renseq/raw/Yo-0_ROI.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9dd1",
+          "expectedRelPath": "zu_0_pacbio_renseq/zu_0_pacbio_renseq/raw/Zu-0_ROI_2.fastq.gz"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-retry-20261017T115634Z-jjones-047.stdout.txt",
+  "stderr": "paths-retry-20261017T115634Z-jjones-047.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T12:32:34.935781+00:00",
+  "exitCode": 255,
+  "finishedAt": "2026-10-17T12:32:35.706426+00:00",
+  "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outputNameAtExecution": "paths-retry-20261017T115634Z-jjones-047.json",
+  "acceptedAsEvidence": false,
+  "stderrOriginalBase64": "ZGVla3NAdjEzMzMubmJpLmFjLnVrOiBQZXJtaXNzaW9uIGRlbmllZCAocHVibGlja2V5LGdzc2FwaS1rZXlleCxnc3NhcGktd2l0aC1taWMscGFzc3dvcmQpLg0K",
+  "stderrOriginalSha256": "fa95094f525c46e1458cabf8e49c89b6728ca2e351bc26c96797a1d86eb05852",
+  "stderrNormalization": "CRLF converted to LF in the readable log; exact captured bytes retained in stderrOriginalBase64."
+}

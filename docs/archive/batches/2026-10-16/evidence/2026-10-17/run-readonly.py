@@ -4,7 +4,7 @@ Usage: python3 <this-file> relations|paths
 Requires the operator's authenticated SSH control socket and VPN.
 Never sends a database/SSH credential to stdout or the evidence folder.
 """
-import datetime, hashlib, json, pathlib, shlex, subprocess, sys
+import datetime, hashlib, json, os, pathlib, shlex, subprocess, sys
 
 folder = pathlib.Path(__file__).resolve().parent
 root = folder.parents[5]
@@ -27,7 +27,8 @@ source=(folder/'collect-readonly.cjs').read_text()
 payload={'repositoryRoot':'/storage/www/komondor-api','mode':mode,'targets':targets,'source':source}
 loader="const fs=require('fs'),Module=require('module'); const p=JSON.parse(fs.readFileSync(0,'utf8')); const m=new Module('/storage/www/komondor-api/scripts/_review_collect.cjs'); m.filename='/storage/www/komondor-api/scripts/_review_collect.cjs'; m.paths=Module._nodeModulePaths('/storage/www/komondor-api/scripts'); m._compile(p.source,m.filename); m.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\\n')).catch(e=>{process.stderr.write(e.stack+'\\n');process.exitCode=1;});"
 remote='cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '+shlex.quote(loader)
-command=['ssh','-S',str(pathlib.Path.home()/'.ssh/v1333-codex-stage2.sock'),'-o','BatchMode=yes','-o','ConnectTimeout=15','deeks@v1333.nbi.ac.uk',remote]
+socket=os.environ.get('ARCHIVE_REVIEW_SSH_SOCKET',str(pathlib.Path.home()/'.ssh/v1333-codex-stage2.sock'))
+command=['ssh','-S',socket,'-o','BatchMode=yes','-o','ConnectTimeout=15','deeks@v1333.nbi.ac.uk',remote]
 stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
 output=folder/f'{mode}-{stamp}.json'
 log=folder/f'{mode}-{stamp}.stderr.log'

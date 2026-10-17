@@ -1,0 +1,87 @@
+{
+  "startedAt": "2026-10-17T12:19:46.607Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "jjones-005",
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "projectPath": "/jjones/albugo_candida",
+      "sourceRoot": "/mnt/reads/jjones/albugo_candida",
+      "inventoryRegularFiles": 525,
+      "inventoryBytes": 359930630710,
+      "records": [
+        {
+          "readId": "5fc012cca3efcb29338b9da3",
+          "fileId": "5fc012c9a3efcb29338b9255",
+          "runId": "5fc012c4a3efcb29338b875d",
+          "runPath": "/jjones/albugo_candida/acem2_solexa/run1",
+          "expectedRelPath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R1.fq",
+          "storedFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq",
+          "recordedOriginalMD5": "unknown",
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq",
+              "bytes": 6414854399,
+              "md5": "e56f2291cdb52fca719212447cc82966",
+              "sha256": "d47c334e1df07c403f410d8f04368e384e3437e824fd74dae9749a83a9f1fc49",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9e80",
+          "fileId": "5fc012c9a3efcb29338b9332",
+          "runId": "5fc012c4a3efcb29338b875d",
+          "runPath": "/jjones/albugo_candida/acem2_solexa/run1",
+          "expectedRelPath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R2.fq",
+          "storedFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq",
+          "recordedOriginalMD5": "unknown",
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq",
+              "bytes": 6401349987,
+              "md5": "624adcfa43908e0806b86ba7b4280399",
+              "sha256": "54dd6d0c5b6128dc595712a99f1a44e65c3dd45b37bf18240b8b9e55d33597a3",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 2,
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T12:25:21.687Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

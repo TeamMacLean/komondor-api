@@ -1,0 +1,42 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');\nm._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-readonly.cjs",
+  "collectorSha256": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+  "targets": [
+    {
+      "entryId": "jjones-004",
+      "projectId": "5fc012bda3efcb29338b7d0a",
+      "projectPath": "/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9fbb",
+          "expectedRelPath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9f6c",
+          "expectedRelPath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e7a",
+          "expectedRelPath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9fe7",
+          "expectedRelPath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-retry-20261017T115634Z-jjones-004.json",
+  "stderr": "paths-retry-20261017T115634Z-jjones-004.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T11:56:34.967498+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T12:19:45.722037+00:00",
+  "outputSha256": "f84e6c14574e6643d64f001d0f48e8aac8e8a4a2e5d75e55254309790be2e64b"
+}
