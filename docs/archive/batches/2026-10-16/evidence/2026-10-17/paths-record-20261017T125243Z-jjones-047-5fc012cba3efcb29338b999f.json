@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-10-17T13:15:01.703Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "jjones-047",
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "projectPath": "/jjones/arabidopsis_pacbio_renseq",
+      "sourceRoot": "/mnt/reads/jjones/arabidopsis_pacbio_renseq",
+      "inventoryRegularFiles": 51,
+      "inventoryBytes": 1215896390,
+      "records": [
+        {
+          "readId": "5fc012cba3efcb29338b999f",
+          "fileId": "5fc012c7a3efcb29338b8e51",
+          "runId": "5fc012c4a3efcb29338b86b8",
+          "runPath": "/jjones/arabidopsis_pacbio_renseq/wil_2_pacbio_renseq/wil_2_pacbio_renseq",
+          "expectedRelPath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/raw/Wil-2_ROI.fastq.gz",
+          "storedFilePath": "/jjones/arabidopsis_pacbio_renseq/wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz",
+          "recordedOriginalMD5": "4335afabbc22059c06c6386893153449",
+          "validOriginalMD5": "4335afabbc22059c06c6386893153449",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz",
+              "bytes": 38568434,
+              "md5": "4671d995fc4644d6bb3018fa5485e250",
+              "sha256": "65662c6a1227d92fdfc058208b811efe572cf80d9c6dfbbef0db463681a71f61",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 1,
+      "inventorySha256": "0deff4d1e6b1bdb6a0c2c04a169f390da525f1a706ca8c5fb1a514a80139fe62",
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T13:15:04.881Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');m._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-path-record.cjs",
+  "collectorSha256": "ed5518ad2aa727a30cb201847691bb156b93f70e58b6443c45133d83e39c0b14",
+  "targets": [
+    {
+      "entryId": "skamoun-014",
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "projectPath": "/skamoun/janderso_rsolani",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338ba00d",
+          "expectedRelPath": "sample1/run1/raw/AG8_2_200_2.fastq.trim.paired"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-record-20261017T125243Z-skamoun-014-5fc012cda3efcb29338ba00d.json",
+  "stderr": "paths-record-20261017T125243Z-skamoun-014-5fc012cda3efcb29338ba00d.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T13:15:25.597040+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T13:19:04.884884+00:00",
+  "outputSha256": "04894cc94ef64b43b0f2b74683d10dd5aac01e8c305280af41599dff665eb3cb"
+}

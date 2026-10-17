@@ -43,7 +43,26 @@ the originals’ first-20 samples. The originals are summaries with sampled path
   This is a name association, not authority to delete their contents.
 - File counts, bytes, IDs and path discrepancies take precedence over estimates. Owner intent and the two KEEP clarifications remain authoritative.
 
-## Specific directories requiring decisions
+## Later evidence and current handling
+
+[The October 17 content review](archive/batches/2026-10-16/PATH_RESOLUTIONS.md)
+supersedes size-only relocation suggestions for all eight projects / 110 expected paths.
+Preserve the trees and historical records; do not repair File.path or move files into raw/.
+Its per-record decisions state original-checksum matches, missing-checksum limitations,
+duplicate comparisons and gzip payload evidence. A fresh live plan is still required.
+
+[Corrected diagnostic reports](hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json)
+and the other three group files in that directory derive `db-file-missing` plus `recordKind`
+from the original observations. The 110 corrected labels change no numeric totals or
+source decisions. The raw October 16 reports remain untouched.
+
+The current [Kamoun target ledger](archive/batches/2026-10-16/KAMOUN_DELETE_TARGETS.md),
+[dependent-record proposal](archive/batches/2026-10-16/DEPENDENT_RECORD_CLEANUP.md) and
+[placeholder procedure](archive/batches/2026-10-16/PLACEHOLDER_REGISTRATION.md) govern
+the manual follow-up below. Six sheet delete decisions stand; five extra Saunders
+directories await answers. Fresh exact-target checks remain necessary before deletion.
+
+## Historical directory findings and follow-up identified on October 16
 
 | Finding | Observed evidence | Next action |
 | --- | --- | --- |
@@ -69,7 +88,7 @@ All ten unregistered Saunders directories (whole-directory inventory, not proof 
 | `saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105` | 34 | 41,786,044,848 | Outside original list; decision needed |
 | `saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144` | 64 | 27,554,681,601 | Outside original list; decision needed |
 
-## Missing registered paths
+## Missing registered paths observed on October 16
 
 | Registered project | Missing paths | Serious anomalies | Follow-up |
 | --- | ---: | ---: | --- |

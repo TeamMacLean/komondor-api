@@ -1,0 +1,73 @@
+{
+  "startedAt": "2026-10-17T12:52:45.355Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "two_blades-015",
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "projectPath": "/two_blades/japanse_isolate_timecourse",
+      "sourceRoot": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+      "inventoryRegularFiles": 50,
+      "inventoryBytes": 145459637100,
+      "records": [
+        {
+          "readId": "5fc012cda3efcb29338b9e70",
+          "fileId": "5fc012c9a3efcb29338b9322",
+          "runId": "5fc012c4a3efcb29338b86b6",
+          "runPath": "/two_blades/japanse_isolate_timecourse/0h/0h",
+          "expectedRelPath": "0h/0h/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+          "storedFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+          "recordedOriginalMD5": "ace2cdb67a2b71bf9c64b3de111612fa",
+          "validOriginalMD5": "ace2cdb67a2b71bf9c64b3de111612fa",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "0h/0_hour/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+              "bytes": 3858761752,
+              "md5": "ace2cdb67a2b71bf9c64b3de111612fa",
+              "sha256": "ec68c87a536897fcad2d35789715dd4d6bee224713011b2f598d86fa8a8c8205",
+              "stable": true
+            },
+            {
+              "relPath": "0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+              "bytes": 3858761752,
+              "md5": "ace2cdb67a2b71bf9c64b3de111612fa",
+              "sha256": "ec68c87a536897fcad2d35789715dd4d6bee224713011b2f598d86fa8a8c8205",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": true,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [
+              "0h/0_hour/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+              "0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz"
+            ],
+            "resolution": "Candidates compared. Preserve every copy in place; record matching/duplicate paths without moving bytes or changing Read/File history."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 2,
+      "inventorySha256": "02c378d5646330b7e2d80e7293dba1dfe66f1a5dbff04dfc310420f413f4e8f7",
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T12:55:43.600Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

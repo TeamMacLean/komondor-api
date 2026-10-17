@@ -1,0 +1,27 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');m._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-path-record.cjs",
+  "collectorSha256": "ed5518ad2aa727a30cb201847691bb156b93f70e58b6443c45133d83e39c0b14",
+  "targets": [
+    {
+      "entryId": "two_blades-015",
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "projectPath": "/two_blades/japanse_isolate_timecourse",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b975f",
+          "expectedRelPath": "168h/168h/raw/JISO_168h_R2.clean.paired.fq"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-record-20261017T125243Z-two_blades-015-5fc012cba3efcb29338b975f.json",
+  "stderr": "paths-record-20261017T125243Z-two_blades-015-5fc012cba3efcb29338b975f.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T13:01:48.597928+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T13:05:25.473240+00:00",
+  "outputSha256": "cc4cfb57be4d51ba68426817a3ae44ddc24a1389593acaba51f1c2e4c61bea65"
+}

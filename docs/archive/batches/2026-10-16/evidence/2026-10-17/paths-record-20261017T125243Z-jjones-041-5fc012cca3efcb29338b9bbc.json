@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-10-17T13:13:56.259Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "jjones-041",
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "projectPath": "/jjones/solynta_sequencing",
+      "sourceRoot": "/mnt/reads/jjones/solynta_sequencing",
+      "inventoryRegularFiles": 15,
+      "inventoryBytes": 4044941281,
+      "records": [
+        {
+          "readId": "5fc012cca3efcb29338b9bbc",
+          "fileId": "5fc012c8a3efcb29338b906e",
+          "runId": "5fc012c4a3efcb29338b8706",
+          "runPath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq",
+          "expectedRelPath": "solynta_b98/solynta_b98_smrt_renseq/raw/B98.fastq.gz",
+          "storedFilePath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz",
+          "recordedOriginalMD5": "a75faa2ffa94085c241716110ebf2599",
+          "validOriginalMD5": "a75faa2ffa94085c241716110ebf2599",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz",
+              "bytes": 54413765,
+              "md5": "f7b946f6fa6948019ad101b07cf094a2",
+              "sha256": "8c6eef7c7670519db2ea1bcf357c89d195191e8e6076523261e544d385ab0be4",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 1,
+      "inventorySha256": "e93c68a96db89b53b9bff96ed7b134a7c317fed5431f20f64abe1a1ed1cd2220",
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T13:13:58.971Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

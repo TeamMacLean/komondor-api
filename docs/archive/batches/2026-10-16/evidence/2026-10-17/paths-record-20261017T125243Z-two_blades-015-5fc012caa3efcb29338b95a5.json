@@ -1,0 +1,61 @@
+{
+  "startedAt": "2026-10-17T13:06:37.136Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "two_blades-015",
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "projectPath": "/two_blades/japanse_isolate_timecourse",
+      "sourceRoot": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+      "inventoryRegularFiles": 50,
+      "inventoryBytes": 145459637100,
+      "records": [
+        {
+          "readId": "5fc012caa3efcb29338b95a5",
+          "fileId": "5fc012c6a3efcb29338b8a57",
+          "runId": "5fc012c2a3efcb29338b830b",
+          "runPath": "/two_blades/japanse_isolate_timecourse/36h/36",
+          "expectedRelPath": "36h/36/raw/JISO_36h_R1.clean.paired.fq",
+          "storedFilePath": "/two_blades/japanse_isolate_timecourse/36h/36/processed/JISO_36h_R1.clean.paired.fq",
+          "recordedOriginalMD5": "unknown",
+          "validOriginalMD5": null,
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "36h/36/processed/JISO_36h_R1.clean.paired.fq",
+              "bytes": 9450463717,
+              "md5": "591b95bbb49103e23cfc07354179afde",
+              "sha256": "55ffc6a8a8159867298438140658e8399c18438dbd0173341595afe2b620a87b",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": null
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 1,
+      "inventorySha256": "02c378d5646330b7e2d80e7293dba1dfe66f1a5dbff04dfc310420f413f4e8f7",
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T13:10:46.414Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

@@ -72,3 +72,24 @@ Eight local synthetic aggregation tests cover missing/duplicate records, changed
 inventories, conflicting file hashes, changed module code and reuse of complete
 project evidence. The test command is
 `python3 __tests__/scripts/archive-path-resume.test.py`.
+
+## Completed aggregate and decisions
+
+`paths-record-20261017T125243Z-*` contains the 51 successful resumed record observations.
+Together with the four earlier complete project reports (59 records), these form
+[the 110-record aggregate](paths-complete-20261017T125243Z.json) and
+[its provenance receipt](paths-complete-20261017T125243Z.command.json).
+All per-record whole-tree fingerprints agree within each project; duplicate candidate
+hashes, source modules and clean production Git identities also agree.
+
+The successful local derivation command was:
+
+```bash
+node docs/archive/batches/2026-10-16/evidence/2026-10-17/summarize-paths.cjs paths-complete-20261017T125243Z.json
+```
+
+It binds the three extension alternatives and all 26 gzip diagnostics to the primary
+observations. [The derived report](../../PATH_RESOLUTIONS.md) distinguishes 51 physical
+original-MD5 matches, 26 decoded-payload matches and 33 records without a valid original
+MD5. No file move or database repair is proposed. The finalized action table was
+produced by the one-time `finalize-path-actions.py` against the `e0b5e03` checkpoint.
