@@ -7,7 +7,8 @@ const id = () => new mongo.mongoose.Types.ObjectId();
 
 describe('batch dependent-record evidence against scratch MongoDB', () => {
   beforeAll(mongo.connect);
-  beforeEach(mongo.resetCollections);
+  // Deliberately seed legacy duplicates; indexes from other suites must not mask them.
+  beforeEach(mongo.dropDatabase);
   afterAll(mongo.disconnect);
   async function fixture() {
     const p = { _id: id(), path: '/group/project.with.dots', createdAt: new Date() };
@@ -39,6 +40,18 @@ describe('batch dependent-record evidence against scratch MongoDB', () => {
     }
     expect(bson.deserialize(Buffer.from(result.snapshots.projects.bsonBase64,'base64')).documents[0].createdAt).toBeInstanceOf(Date);
     expect(result.cleanupExecuted).toBe(false);
+  });
+  test('includes legacy string File references and blocks outside string references', async () => {
+    const {p,read,f} = await fixture();
+    const db=mongo.mongoose.connection.db;
+    await db.collection('reads').updateOne({_id:read._id},{$set:{file:String(f._id)}});
+    await db.collection('reads').insertOne({_id:id(),run:id(),file:String(f._id)});
+    await db.collection('additionalfiles').insertOne({_id:id(),project:id(),file:String(f._id)});
+    const result=await collectRelations(db,p,bson);
+    expect(result.snapshots.files.count).toBe(5);
+    expect(result.blockers.missingFileReferences).toEqual([]);
+    expect(result.blockers.foreignReads).toHaveLength(1);
+    expect(result.blockers.foreignAdditionalFiles).toHaveLength(1);
   });
   test('blocks shared files, cross-parent additional files, active work and missing/outside File records', async () => {
     const {p,r,f,read,af} = await fixture();

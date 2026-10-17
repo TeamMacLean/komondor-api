@@ -41,19 +41,24 @@ function classify(candidates, originalMd5, sameRunPaths) {
 
 async function collectRelations(db, project, bson) {
   const get = (name,filter) => db.collection(name).find(filter).sort({_id:1}).toArray();
-  const idVariants = values => [...values,...values.map(String)];
+  // Historical raw documents may store reference IDs as strings, not ObjectIds.
+  const ObjectId = require('bson').ObjectID;
+  const idVariants = values => values.flatMap(value => {
+    const text = String(value);
+    return /^[a-f0-9]{24}$/i.test(text) ? [value, text, new ObjectId(text)] : [value, text];
+  });
   const samples=await get('samples',{project:{$in:idVariants([project._id])}});
   const runs=await get('runs',{sample:{$in:idVariants(ids(samples))}});
   const reads=await get('reads',{run:{$in:idVariants(ids(runs))}});
   const additionalfiles=await get('additionalfiles',{$or:[{project:{$in:idVariants([project._id])}},{sample:{$in:idVariants(ids(samples))}},{run:{$in:idVariants(ids(runs))}}]});
   const referencedFileIds=[...reads,...additionalfiles].map(d=>d.file).filter(Boolean);
   const prefix=String(project.path).replace(/^\/+|\/+$/g,'');
-  const files=await get('files',{$or:[{_id:{$in:referencedFileIds}},{path:{$regex:`^/?${escapeRegex(prefix)}/`}}]});
+  const files=await get('files',{$or:[{_id:{$in:idVariants(referencedFileIds)}},{path:{$regex:`^/?${escapeRegex(prefix)}/`}}]});
   const ingestjobs=await get('ingestjobs',{runId:{$in:idVariants(ids(runs))}});
   const typeIds=[project._id,...ids(samples),...ids(runs)];
   const newsitems=await get('newsitems',{typeId:{$in:idVariants(typeIds)}});
-  const foreignReads=await get('reads',{$or:[{file:{$in:ids(files)},_id:{$nin:ids(reads)}},{sibling:{$in:idVariants(ids(reads))},_id:{$nin:ids(reads)}}]});
-  const foreignAdditional=await get('additionalfiles',{file:{$in:ids(files)},_id:{$nin:ids(additionalfiles)}});
+  const foreignReads=await get('reads',{$or:[{file:{$in:idVariants(ids(files))},_id:{$nin:ids(reads)}},{sibling:{$in:idVariants(ids(reads))},_id:{$nin:ids(reads)}}]});
+  const foreignAdditional=await get('additionalfiles',{file:{$in:idVariants(ids(files))},_id:{$nin:ids(additionalfiles)}});
   const allowed={project:new Set([String(project._id)]),sample:new Set(ids(samples).map(String)),run:new Set(ids(runs).map(String))};
   const crossParentAdditional=additionalfiles.filter(d=>Object.keys(allowed).some(k=>d[k] && !allowed[k].has(String(d[k]))));
   const documents={projects:[project],samples,runs,reads,additionalfiles,files,ingestjobs,newsitems};
