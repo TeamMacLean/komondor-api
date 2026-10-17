@@ -60,6 +60,65 @@ blockers in the October 16 observations. Legacy destination-MD5 warnings remain:
 actual anomalies before acknowledging them; neither this table nor the CSV
 pre-authorizes a lock or HPC deletion.
 
+## Writer freeze and batch lock windows
+
+Apply the [runbook](../../../S3_PROJECT_ARCHIVAL_RUNBOOK.md) for every wave. The
+three pilots use individual supervised windows. Later waves may lock a small,
+reviewed list **sequentially in one maintenance window**; this saves repeated
+interruptions without turning the locks into one all-or-nothing transaction.
+No window or lock is executed by this action-plan review.
+
+Before each window:
+
+1. Record the exact Project IDs, expected canonical roots, reviewed fresh live plans,
+   actual anomalies and any acknowledgement decision. Confirm the deployed API/worker
+   release enforces non-HPC write guards. Have the service operator's exact stop/start
+   commands and the real readiness address available; do not assume one local PM2
+   process is the whole deployment.
+2. Pause Power's entry creation/monitoring and prevent new submissions. Freeze external
+   HPC jobs and manual uploads that could write to any selected tree. **External writers
+   remain frozen for that project from before lock through copy and manual HPC deletion.**
+   API guards cannot constrain arbitrary HPC writers.
+3. Drain active requests and all ingest/MD5 work before stopping every API instance and
+   every separate ingest/MD5 worker on every host. Include synchronous AdditionalFile
+   moves embedded in project/sample/run create requests, run reingest and accepted queued
+   jobs; checking the ingest collection alone does not cover these in-flight requests.
+   Wait for graceful drain. Do not kill an active transfer merely to make the check pass.
+4. Confirm no `pending`/`claimed` IngestJobs, no pending/processing Runs or in-progress
+   MD5 checks for the targets. Record process/service state and drain evidence.
+   Verify **all** API listeners are stopped. The CLI readiness check must target the
+   real listener and receive connection refusal; a draining HTTP 503, a wrong port,
+   a failed proxy/DNS connection or an unreachable host does not prove quiescence.
+
+Within the window, for each listed Project ID in order:
+
+1. Run the fresh live `plan` again if anything changed after review; no stale plan may
+   justify a new lock. Run the lock preview, review its actual anomalies and then the
+   approved `lock --execute`. Use `--acknowledge-known-anomalies` only for the facts
+   reviewed for that project. It cannot waive unreadable bytes or active writers.
+2. Save that command's exit status and full output to a **separate per-project file**.
+   Read back `status --project-id ID --json`. Record entry ID, Project ID, generated
+   migration ID, canonical source root, S3 URI, state/phase, operator and UTC time.
+   Mark success only when the lock succeeded and the read-back matches that identity.
+3. Do not start the next lock on a failure or unknown result. A command can fail after
+   setting `migrating`; inspect status before deciding what remains. Keep successfully
+   locked projects recorded individually. Never reset their state or unlock the whole
+   batch automatically. Pre-copy abort is a separate runbook procedure with its own
+   migration fence and proof that no archive writes exist.
+
+Once every selected lock has a recorded outcome and post-lock checks are understood,
+the service operator may restart only the guard-aware API/workers, verify readiness,
+and resume Power under its read-only project handling. Retain the earlier disposable
+409 acceptance evidence; do not send a destructive test write to a real project.
+Locked projects must remain storage-read-only. If a failure leaves safety uncertain,
+keep the affected writer paths frozen and resolve it before reopening them.
+
+Copy/verify each successfully locked project using its recorded migration. The long
+copy can run with guarded applications available; it does not require keeping the
+whole API down. Each project still has its own verification receipt, deletion-command
+review, manual deletion and confirm-absent checkpoint. Successful locks or uploads for
+other projects cannot substitute for that project's receipt. No automatic deletion loop.
+
 ## Contact list
 
 ### ntalbot: 17 directories, 0.36 TB
