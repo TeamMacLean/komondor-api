@@ -32,8 +32,8 @@ checkpoints are still required. No production writes or owner contact occurred.
 | 3. Dependent records | `aca906d`, `e98b9d2`, snapshot limitation clarified in `b1006b9` | Eight projects including Xiao; 48 documents exported; exact collection ID filters/order; fresh frozen export required before George executes |
 | 4. Kamoun targets | `cdc4df2` | Five sheet Saunders targets, Xiao, five pending supplementary targets; corrected exact totals and fresh canonical-inventory checkpoint |
 | 5. Placeholders | `93a0160` | 17 Talbot payloads, exact generated-path checks and separate manual Courville procedure; missing group-administrator addresses explicitly assigned to George |
-| 6. Housekeeping/pilots | `e33c3a3` | LF CSV, cross-linked historical/current labels, three named pilots first; fresh plan required before each lock |
-| 7. Batch locking | `8095765` | All writers drained/stopped, Power paused, external writers frozen; later sequential locks in one window with per-lock outcome records |
+| 6. Housekeeping/pilots | `e33c3a3`, `e0b5e03` | LF CSV, cross-linked historical/current labels, three named pilots first; fresh plan required before each lock |
+| 7. Batch locking | `8095765` | Requires all writers drained/stopped, Power paused and external writers frozen; permits later sequential locks with per-lock outcome records; no lock executed |
 
 ## Content evidence and limitations
 
@@ -63,7 +63,7 @@ to this audit record. External resolution prose is not automatically embedded by
 The original primary SSH job ended with exit 255 and returned no JSON. Its progress
 log was not accepted as checksum evidence. A second disconnect left four complete project reports saved. The resumable
 checker retained those reports and saved remaining comparisons individually; matching
-whole-tree fingerprints and complete record coverage underpin the aggregate. No production files were used for those checkpoints.
+whole-tree fingerprints and complete record coverage underpin the aggregate. Checkpoint outputs were saved only on the Mac.
 
 The gzip diagnostic initially closed its descriptor before its final stability
 check and failed without accepting any result. The corrected helper is covered by

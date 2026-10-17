@@ -1,5 +1,7 @@
 # Archive batch 2026-10-16: action plan
 
+[Completed blocker-resolution review](BLOCKER_RESOLUTION_REVIEW_2026-10-17.md) records the verdict, commits and validation caveats.
+
 Status: revised proposal, 2026-10-17, for review before execution. Only read-only evidence collection has run; no proposed disposal, registration or archival action has run.
 Inputs: `../../../hpc-archive-candidates-2026-10-16.csv` (the reconciled register with production verification columns) and the four `verify-*.json` reports. Output: `action-plan.csv`, one row per original entry, 192 rows.
 
