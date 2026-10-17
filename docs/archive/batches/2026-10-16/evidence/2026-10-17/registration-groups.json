@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-17T06:37:37.219Z",
+  "groups": [
+    {
+      "_id": "5fc012bda3efcb29338b7cf2",
+      "sendToEna": true,
+      "name": "ntalbot",
+      "safeName": "ntalbot"
+    },
+    {
+      "_id": "5fc012bda3efcb29338b7cf3",
+      "sendToEna": false,
+      "name": "two_blades",
+      "safeName": "two_blades"
+    }
+  ]
+}
