@@ -1,0 +1,104 @@
+{
+  "batch_id": "2026-10-16",
+  "inventory_observed_at": "2026-10-16T20:31:11.362Z",
+  "status": "proposal_not_executed",
+  "approved_saunders": [
+    {
+      "entry_id": "skamoun-002",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+      "files": 260,
+      "bytes": 48614994012,
+      "registered_shell_id": "5fc012bda3efcb29338b7cf9",
+      "registered_shell_path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+      "decision": "delete_without_archive_after_identity_check"
+    },
+    {
+      "entry_id": "skamoun-003",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_South_African_isolates",
+      "files": 24,
+      "bytes": 109802811903,
+      "registered_shell_id": "5fc012bda3efcb29338b7cf5",
+      "registered_shell_path": "/skamoun/saunderd_pstriiformis_south_african_isolates",
+      "decision": "delete_without_archive_after_identity_check"
+    },
+    {
+      "entry_id": "skamoun-005",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+      "files": 106,
+      "bytes": 72013629033,
+      "registered_shell_id": "5fc012bda3efcb29338b7d5c",
+      "registered_shell_path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+      "decision": "delete_without_archive_after_identity_check"
+    },
+    {
+      "entry_id": "skamoun-015",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+      "files": 641,
+      "bytes": 239985996303,
+      "registered_shell_id": "5fc012bda3efcb29338b7d0d",
+      "registered_shell_path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+      "decision": "delete_without_archive_after_identity_check"
+    },
+    {
+      "entry_id": "skamoun-016",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+      "files": 124,
+      "bytes": 158139688071,
+      "registered_shell_id": "5fc012bda3efcb29338b7cf8",
+      "registered_shell_path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+      "decision": "delete_without_archive_after_identity_check"
+    }
+  ],
+  "approved_xiao": {
+    "entry_id": "skamoun-013",
+    "canonical_target": "/mnt/reads/skamoun/xiao_scr74",
+    "files": 62,
+    "bytes": 161447455740,
+    "project_id": "5fc012bda3efcb29338b7d7a",
+    "decision": "delete_without_archive_after_identity_check"
+  },
+  "additional_pending": [
+    {
+      "entry_id": "skamoun-extra-001",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "files": 268,
+      "bytes": 65286846255,
+      "decision": "await_reply_archive_on_silence_never_delete_on_silence"
+    },
+    {
+      "entry_id": "skamoun-extra-002",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "files": 38,
+      "bytes": 32165487135,
+      "decision": "await_reply_archive_on_silence_never_delete_on_silence"
+    },
+    {
+      "entry_id": "skamoun-extra-003",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "files": 16,
+      "bytes": 6156498502,
+      "decision": "await_reply_archive_on_silence_never_delete_on_silence"
+    },
+    {
+      "entry_id": "skamoun-extra-004",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "files": 34,
+      "bytes": 41786044848,
+      "decision": "await_reply_archive_on_silence_never_delete_on_silence"
+    },
+    {
+      "entry_id": "skamoun-extra-005",
+      "canonical_target": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "files": 64,
+      "bytes": 27554681601,
+      "decision": "await_reply_archive_on_silence_never_delete_on_silence"
+    }
+  ],
+  "totals": {
+    "five_sheet_saunders": 628557119322,
+    "six_sheet_deletes": 790004575062,
+    "five_additional": 172949558341,
+    "all_ten_saunders": 801506677663,
+    "six_sheet_plus_five_additional": 962954133403
+  }
+}
