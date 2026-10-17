@@ -22,7 +22,7 @@ is a different directory. Do not substitute that shell for the data target.
 
 Total: **628,557,119,322 bytes**. The ledger also records each associated shell's
 Project ID and exact lowercase path. Removing the Project alone is prohibited:
-each has a Sample and at least one Run. Use the dependent-record proposal and
+each has a Sample and at least one Run. Use the [dependent-record proposal](DEPENDENT_RECORD_CLEANUP.md) and
 retain the complete pre-deletion document export before database cleanup.
 
 ## 2. Xiao_SCR74 is a separate populated project
@@ -33,7 +33,7 @@ retain the complete pre-deletion document export before database cleanup.
 
 Project ID: `5fc012bda3efcb29338b7d7a`. The observation includes **4 Samples,
 4 Runs, 8 Reads and 1 AdditionalFile**. This is a lowercase registered project,
-not a Saunders shell. Its Files, IngestJobs and NewsItems must also be enumerated.
+not a Saunders shell. The 17 October export also found **9 Files, 0 IngestJobs and 0 NewsItems**; see [the exact record filters and retained export](DEPENDENT_RECORD_CLEANUP.md).
 After the approved physical deletion, use the reviewed dependent-record procedure
 to remove the exact associated records, with the exported documents and disposal
 receipt retained outside the project. Do not set `storage.state=aws` or invent an

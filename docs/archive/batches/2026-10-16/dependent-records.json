@@ -1,0 +1,1878 @@
+{
+  "source": "relations-20261017T063115Z.json",
+  "observedAt": "2026-10-17T06:31:16.617Z",
+  "proposalOnly": true,
+  "projects": [
+    {
+      "entryId": "jjones-057",
+      "projectId": "5fc012bda3efcb29338b7d6a",
+      "projectPath": "/jjones/dingp_ath_atacseq_2019_optimization",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7d6a"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7d6a",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "dingp_Ath_ATACseq_2019_optimization",
+              "owner": "dingp",
+              "shortDesc": "optimizing nuclei input for FANS-ATACseq",
+              "longDesc": "By using different input numbers after FANS with 5-week-old short-day-growing Arabidopsis leaves, we found using 0.1uL Nextera Tn5 within 5uL reactions, 10k, 20k, 50k and 80k nuclei input can all give good peaks for open chromatin signatures. Finally we chose 10k for the following up experiments.",
+              "group": "5fc012bda3efcb29338b7ced",
+              "oldId": "da1a2702-d71a-4826-b199-dd1324287c6e",
+              "oldSafeName": "dingp_ath_atacseq_2019_optimization",
+              "path": "/jjones/dingp_ath_atacseq_2019_optimization",
+              "secondaryOwner": "jonesj",
+              "safeName": "dingp_ath_atacseq_2019_optimization",
+              "createdAt": "2020-11-26T20:40:30.200Z",
+              "updatedAt": "2020-11-26T20:40:30.200Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b8059"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b8059",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d6a",
+              "name": "10k",
+              "ncbi": "3701",
+              "commonName": "Arabidopsis",
+              "scientificName": "Arabidopsis",
+              "conditions": "22 C, shortday, 70% humidity. JIC B5108 CER room. 5 week old. 2 fully expanded leaves per plant. Freshly collected and chopped with chopping buffer, then stained with DAPI for FANS (BD-FACSmelody sorting) into PBS buffer. Spun down and removal supernatant then add 5 uL tagmentation reaction mix. 37 C incubation for 30min before following-up library prep.",
+              "group": "5fc012bda3efcb29338b7ced",
+              "owner": "dingp",
+              "oldId": "9ad3d159-766e-49d1-bd93-88130008fae3",
+              "oldSafeName": "10k",
+              "path": "/jjones/dingp_ath_atacseq_2019_optimization/10k",
+              "sampleGroup": "dingp_ath_atacseq_2019_optimization_10k",
+              "safeName": "10k",
+              "createdAt": "2020-11-26T20:40:33.781Z",
+              "updatedAt": "2020-11-26T20:40:33.781Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "ntalbot-052",
+      "projectId": "5fc012bda3efcb29338b7d4d",
+      "projectPath": "/ntalbot/long_read_assembly_of_african_yam_bean",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7d4d"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7d4d",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "Long Read Assembly of African Yam Bean",
+              "owner": "talbotn",
+              "shortDesc": "Assembly of oxford namopore reads of african yam bean",
+              "longDesc": "Genomic DNA of African yam bean (Sphenostylis stenocarpa) sequenced on oxford nanopore from lab grown plants.",
+              "group": "5fc012bda3efcb29338b7cf2",
+              "oldId": "b0c2e72c-21ca-4a14-951e-1edcabaa0f22",
+              "oldSafeName": "long_read_assembly_of_african_yam_bean",
+              "path": "/ntalbot/long_read_assembly_of_african_yam_bean",
+              "secondaryOwner": "talbotn",
+              "safeName": "long_read_assembly_of_african_yam_bean",
+              "createdAt": "2020-11-26T20:40:30.159Z",
+              "updatedAt": "2020-11-26T20:40:30.159Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b81a7"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b81a7",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d4d",
+              "name": "Combined read african yam bean",
+              "ncbi": "92480",
+              "commonName": "Sphenostylis",
+              "scientificName": "Sphenostylis stenocarpa",
+              "conditions": "Crop grown under optimum conditions of 12h dark",
+              "group": "5fc012bda3efcb29338b7cf2",
+              "owner": "talbotn",
+              "oldId": "d8bb7501-eae2-4dde-9bb5-94699b59ba68",
+              "oldSafeName": "combined_read_african_yam_bean",
+              "path": "/ntalbot/long_read_assembly_of_african_yam_bean/combined_read_african_yam_bean",
+              "sampleGroup": "long_read_assembly_of_african_yam_bean_combined_read_african_yam_bean",
+              "safeName": "combined_read_african_yam_bean",
+              "createdAt": "2020-11-26T20:40:34.153Z",
+              "updatedAt": "2020-11-26T20:40:34.153Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c4a3efcb29338b86d3"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c4a3efcb29338b86d3",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b81a7",
+              "safeName": "combined_read_african_yam_bean",
+              "name": "Combined read african yam bean",
+              "sequencingProvider": "Biosciences eastern and central Africa",
+              "sequencingTechnology": "Nanopore",
+              "librarySource": "GENOMIC",
+              "libraryType": "nanopore",
+              "librarySelection": "other",
+              "insertSize": "500",
+              "libraryStrategy": "OTHER",
+              "owner": "talbotn",
+              "group": "5fc012bda3efcb29338b7cf2",
+              "oldId": "b79d37c8-17a7-4d5b-a63c-7da942bcf3f1",
+              "oldSafeName": "combined_read_african_yam_bean",
+              "path": "/ntalbot/long_read_assembly_of_african_yam_bean/combined_read_african_yam_bean/combined_read_african_yam_bean",
+              "createdAt": "2020-11-26T20:40:36.840Z",
+              "updatedAt": "2020-11-26T20:40:36.840Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-002",
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "projectPath": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7cf9"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7cf9",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+              "owner": "winj",
+              "shortDesc": "none",
+              "longDesc": "none",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "0b0fc864-267f-405b-9268-ae1727228683",
+              "oldSafeName": "saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+              "path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+              "secondaryOwner": "kamouns",
+              "safeName": "saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+              "createdAt": "2020-11-26T20:40:30.012Z",
+              "updatedAt": "2020-11-26T20:40:30.012Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b81a1"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b81a1",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7cf9",
+              "name": "Sample_647_LIB3542_LDI2991",
+              "ncbi": "unknown",
+              "commonName": "unknown",
+              "scientificName": "unknown",
+              "conditions": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "winj",
+              "oldId": "d8489b65-10f8-43d3-b6cb-845c14274d3d",
+              "oldSafeName": "sample_647_lib3542_ldi2991",
+              "path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01/sample_647_lib3542_ldi2991",
+              "sampleGroup": "saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01_sample_647_lib3542_ldi2991",
+              "safeName": "sample_647_lib3542_ldi2991",
+              "createdAt": "2020-11-26T20:40:34.147Z",
+              "updatedAt": "2020-11-26T20:40:34.147Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c3a3efcb29338b8425"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c3a3efcb29338b8425",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b81a1",
+              "safeName": "run116",
+              "name": "run1",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "476b6b3f-1b38-4f12-a377-20ad8a2b5f1a",
+              "oldSafeName": "run116",
+              "path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01/sample_647_lib3542_ldi2991/run1",
+              "createdAt": "2020-11-26T20:40:36.819Z",
+              "updatedAt": "2020-11-26T20:40:36.819Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-003",
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "projectPath": "/skamoun/saunderd_pstriiformis_south_african_isolates",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7cf5"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7cf5",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "saunderd_pstriiformis_South_African_isolates",
+              "owner": "winj",
+              "shortDesc": "none",
+              "longDesc": "none",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "00a42081-35c8-4944-a311-b5c6a23b4af9",
+              "oldSafeName": "saunderd_pstriiformis_south_african_isolates",
+              "path": "/skamoun/saunderd_pstriiformis_south_african_isolates",
+              "secondaryOwner": "kamouns",
+              "safeName": "saunderd_pstriiformis_south_african_isolates",
+              "createdAt": "2020-11-26T20:40:30.007Z",
+              "updatedAt": "2020-11-26T20:40:30.007Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b8193"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b8193",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7cf5",
+              "name": "Isolate1",
+              "ncbi": "unknown",
+              "commonName": "unknown",
+              "scientificName": "unknown",
+              "conditions": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "winj",
+              "oldId": "d5b013bc-f76a-4b46-9153-4e2c190b2211",
+              "oldSafeName": "isolate1",
+              "path": "/skamoun/saunderd_pstriiformis_south_african_isolates/isolate1",
+              "sampleGroup": "saunderd_pstriiformis_south_african_isolates_isolate1",
+              "safeName": "isolate1",
+              "createdAt": "2020-11-26T20:40:34.133Z",
+              "updatedAt": "2020-11-26T20:40:34.133Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c3a3efcb29338b8341"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c3a3efcb29338b8341",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b8193",
+              "safeName": "run1_7",
+              "name": "run1",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "212f0a20-0083-4924-a98e-b155c01a7d26",
+              "oldSafeName": "run1_7",
+              "path": "/skamoun/saunderd_pstriiformis_south_african_isolates/isolate1/run1",
+              "createdAt": "2020-11-26T20:40:36.810Z",
+              "updatedAt": "2020-11-26T20:40:36.810Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-005",
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "projectPath": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7d5c"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7d5c",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+              "owner": "winj",
+              "shortDesc": "none",
+              "longDesc": "none",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "caa13a2c-11be-4dba-a2f4-f1a03e6da273",
+              "oldSafeName": "saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+              "secondaryOwner": "kamouns",
+              "safeName": "saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+              "createdAt": "2020-11-26T20:40:30.181Z",
+              "updatedAt": "2020-11-26T20:40:30.181Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b8253"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b8253",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d5c",
+              "name": "sample1",
+              "ncbi": "unknown",
+              "commonName": "unknown",
+              "scientificName": "unknown",
+              "conditions": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "winj",
+              "oldId": "fa93bea3-7a45-4d2a-8d71-c894c970a181",
+              "oldSafeName": "sample1",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68/sample1",
+              "sampleGroup": "saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68_sample1",
+              "safeName": "sample1",
+              "createdAt": "2020-11-26T20:40:34.338Z",
+              "updatedAt": "2020-11-26T20:40:34.338Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 2,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c3a3efcb29338b83bb"
+                },
+                {
+                  "$oid": "5fc012c3a3efcb29338b850e"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c3a3efcb29338b83bb",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b8253",
+              "safeName": "run2_1",
+              "name": "run2",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "362619df-ae45-4755-9f79-d18a4d13556f",
+              "oldSafeName": "run2_1",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68/sample1/run2",
+              "createdAt": "2020-11-26T20:40:36.814Z",
+              "updatedAt": "2020-11-26T20:40:36.814Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c3a3efcb29338b850e",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b8253",
+              "safeName": "run132",
+              "name": "run1",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "6e6aadaf-043c-4e39-a175-fa222d11b6d0",
+              "oldSafeName": "run132",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68/sample1/run1",
+              "createdAt": "2020-11-26T20:40:36.827Z",
+              "updatedAt": "2020-11-26T20:40:36.827Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-013",
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "projectPath": "/skamoun/xiao_scr74",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7d7a"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7d7a",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [
+                "5fc012c6a3efcb29338b89c9"
+              ],
+              "doNotSendToEna": false,
+              "name": "Xiao_SCR74",
+              "owner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+              "shortDesc": "RNAseq on total RNA extracted two lines of potato (GIG362-6 and MCD360-1) 48h after being infected with P. infestans blue13 or treated with water",
+              "longDesc": "RNAseq on total RNA extracted two lines of potato (GIG362-6 and MCD360-1) 48h after being infected with P. infestans blue13 or treated with water. GIG362-6 is the SCR74-response wild potato accession, Solanum microdontum Subsp. Gigantophyllum. MCD360-1 is the SCR74-no response wild potato accession, Solanum microdontum 360-1",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "f76c327c-368c-425d-9e60-0aeefdf7dbe8",
+              "oldSafeName": "xiao_scr74",
+              "path": "/skamoun/xiao_scr74",
+              "secondaryOwner": "winj",
+              "safeName": "xiao_scr74",
+              "createdAt": "2020-11-26T20:40:30.226Z",
+              "updatedAt": "2021-10-19T10:19:28.353Z",
+              "__v": 1,
+              "accessions": [
+                "ERP117927"
+              ],
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 4,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bea3efcb29338b7e4d"
+                },
+                {
+                  "$oid": "5fc012bfa3efcb29338b80c0"
+                },
+                {
+                  "$oid": "5fc012bfa3efcb29338b81c3"
+                },
+                {
+                  "$oid": "5fc012bfa3efcb29338b8210"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bea3efcb29338b7e4d",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d7a",
+              "name": "GIG362_blue13",
+              "ncbi": "4113",
+              "commonName": "Solanum",
+              "scientificName": "Solanum tuberosum",
+              "conditions": "GIG362-6, blue13, 48h (library Name: LIB23142)",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "unknown",
+              "oldId": "2b7adfad-43db-415d-b636-4580a8f1e14a",
+              "oldSafeName": "gig362_blue13",
+              "path": "/skamoun/xiao_scr74/gig362_blue13",
+              "sampleGroup": "xiao_scr74_gig362_blue13",
+              "safeName": "gig362_blue13",
+              "createdAt": "2020-11-26T20:40:33.161Z",
+              "updatedAt": "2021-10-19T10:19:28.864Z",
+              "__v": 1,
+              "accessions": [
+                "SAMEA6099887"
+              ]
+            },
+            {
+              "_id": "5fc012bfa3efcb29338b80c0",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d7a",
+              "name": "MCD360_blue13",
+              "ncbi": "4113",
+              "commonName": "Solanum",
+              "scientificName": "Solanum tuberosum",
+              "conditions": "MCD360-1, blue13, 48h (library Name: LIB23144)",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "unknown",
+              "oldId": "b0381b0b-0504-46cd-b354-b8bb0bb76264",
+              "oldSafeName": "mcd360_blue13",
+              "path": "/skamoun/xiao_scr74/mcd360_blue13",
+              "sampleGroup": "xiao_scr74_mcd360_blue13",
+              "safeName": "mcd360_blue13",
+              "createdAt": "2020-11-26T20:40:33.896Z",
+              "updatedAt": "2021-10-19T10:19:28.861Z",
+              "__v": 1,
+              "accessions": [
+                "SAMEA6099889"
+              ]
+            },
+            {
+              "_id": "5fc012bfa3efcb29338b81c3",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d7a",
+              "name": "GIG362_H20",
+              "ncbi": "4113",
+              "commonName": "Solanum",
+              "scientificName": "Solanum tuberosum",
+              "conditions": "GIG362-6, H20, 48h (library Name: LIB23141)",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "unknown",
+              "oldId": "de2f75dd-f465-43f9-9be8-05de74a97a8b",
+              "oldSafeName": "gig362_h20",
+              "path": "/skamoun/xiao_scr74/gig362_h20",
+              "sampleGroup": "xiao_scr74_gig362_h20",
+              "safeName": "gig362_h20",
+              "createdAt": "2020-11-26T20:40:34.182Z",
+              "updatedAt": "2021-10-19T10:19:28.860Z",
+              "__v": 1,
+              "accessions": [
+                "SAMEA6099888"
+              ]
+            },
+            {
+              "_id": "5fc012bfa3efcb29338b8210",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d7a",
+              "name": "MCD360_H20",
+              "ncbi": "4113",
+              "commonName": "Solanum",
+              "scientificName": "Solanum tuberosum",
+              "conditions": "MCD360-1, H20, 48h (library Name: LIB23143)",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "unknown",
+              "oldId": "ec49f440-8d3d-4bda-9442-a72f802538e9",
+              "oldSafeName": "mcd360_h20",
+              "path": "/skamoun/xiao_scr74/mcd360_h20",
+              "sampleGroup": "xiao_scr74_mcd360_h20",
+              "safeName": "mcd360_h20",
+              "createdAt": "2020-11-26T20:40:34.267Z",
+              "updatedAt": "2021-10-19T10:19:28.862Z",
+              "__v": 1,
+              "accessions": [
+                "SAMEA6099890"
+              ]
+            }
+          ]
+        },
+        "runs": {
+          "count": 4,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c3a3efcb29338b83b8"
+                },
+                {
+                  "$oid": "5fc012c3a3efcb29338b8495"
+                },
+                {
+                  "$oid": "5fc012c3a3efcb29338b84b6"
+                },
+                {
+                  "$oid": "5fc012c4a3efcb29338b8839"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c3a3efcb29338b83b8",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b81c3",
+              "safeName": "run115",
+              "name": "run1",
+              "sequencingProvider": "TGAC",
+              "sequencingTechnology": "Illumina HiSeq 2000",
+              "librarySource": "TRANSCRIPTOMIC",
+              "libraryType": "paired",
+              "librarySelection": "unspecified",
+              "insertSize": "300",
+              "libraryStrategy": "RNA-Seq",
+              "owner": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "358a26b2-8229-4147-96f9-21fc7e8aa895",
+              "oldSafeName": "run115",
+              "path": "/skamoun/xiao_scr74/gig362_h20/run1",
+              "createdAt": "2020-11-26T20:40:36.814Z",
+              "updatedAt": "2020-11-26T20:40:36.814Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c3a3efcb29338b8495",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b80c0",
+              "safeName": "run124",
+              "name": "run1",
+              "sequencingProvider": "TGAC",
+              "sequencingTechnology": "Illumina HiSeq 2000",
+              "librarySource": "TRANSCRIPTOMIC",
+              "libraryType": "paired",
+              "librarySelection": "unspecified",
+              "insertSize": "300",
+              "libraryStrategy": "RNA-Seq",
+              "owner": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "5aa6cee4-53ca-411c-acb9-d5f0ce40c0ef",
+              "oldSafeName": "run124",
+              "path": "/skamoun/xiao_scr74/mcd360_blue13/run1",
+              "createdAt": "2020-11-26T20:40:36.823Z",
+              "updatedAt": "2020-11-26T20:40:36.823Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c3a3efcb29338b84b6",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bea3efcb29338b7e4d",
+              "safeName": "run125",
+              "name": "run1",
+              "sequencingProvider": "TGAC",
+              "sequencingTechnology": "Illumina HiSeq 2000",
+              "librarySource": "TRANSCRIPTOMIC",
+              "libraryType": "paired",
+              "librarySelection": "unspecified",
+              "insertSize": "300",
+              "libraryStrategy": "RNA-Seq",
+              "owner": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "5f29d688-6e86-49ba-af88-d0b522e91a03",
+              "oldSafeName": "run125",
+              "path": "/skamoun/xiao_scr74/gig362_blue13/run1",
+              "createdAt": "2020-11-26T20:40:36.824Z",
+              "updatedAt": "2020-11-26T20:40:36.824Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c4a3efcb29338b8839",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b8210",
+              "safeName": "run178",
+              "name": "run1",
+              "sequencingProvider": "TGAC",
+              "sequencingTechnology": "Illumina HiSeq 2000",
+              "librarySource": "TRANSCRIPTOMIC",
+              "libraryType": "paired",
+              "librarySelection": "unspecified",
+              "insertSize": "300",
+              "libraryStrategy": "RNA-Seq",
+              "owner": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "f27a9d7e-a8e9-4b9b-87c9-18166f2a2e1b",
+              "oldSafeName": "run178",
+              "path": "/skamoun/xiao_scr74/mcd360_h20/run1",
+              "createdAt": "2020-11-26T20:40:36.852Z",
+              "updatedAt": "2020-11-26T20:40:36.852Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 8,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012cba3efcb29338b970e"
+                },
+                {
+                  "$oid": "5fc012cca3efcb29338b9b43"
+                },
+                {
+                  "$oid": "5fc012cca3efcb29338b9c8a"
+                },
+                {
+                  "$oid": "5fc012cca3efcb29338b9e3e"
+                },
+                {
+                  "$oid": "5fc012cca3efcb29338b9e40"
+                },
+                {
+                  "$oid": "5fc012cda3efcb29338b9e6f"
+                },
+                {
+                  "$oid": "5fc012cda3efcb29338b9eb1"
+                },
+                {
+                  "$oid": "5fc012cda3efcb29338b9eec"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012cba3efcb29338b970e",
+              "file": "5fc012c6a3efcb29338b8bc0",
+              "MD5": "fd403e012227f2ba433e5cb421fc6f32",
+              "oldRunID": "358a26b2-8229-4147-96f9-21fc7e8aa895",
+              "run": "5fc012c3a3efcb29338b83b8",
+              "oldReadId": "29980ffc-c4f1-4481-b2ee-4658a26d24af",
+              "oldSiblingID": "d8a8c5c7-faf3-486f-9ecb-5350c1c8a079",
+              "createdAt": "2020-11-26T20:40:43.299Z",
+              "updatedAt": "2020-11-26T20:40:46.321Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cda3efcb29338b9eec"
+            },
+            {
+              "_id": "5fc012cca3efcb29338b9b43",
+              "file": "5fc012c8a3efcb29338b8ff5",
+              "MD5": "0547bc568bdca47303b6a0bf4b9abdc8",
+              "oldRunID": "5f29d688-6e86-49ba-af88-d0b522e91a03",
+              "run": "5fc012c3a3efcb29338b84b6",
+              "oldReadId": "8907b412-c562-48d4-b281-d5aac4c074a8",
+              "oldSiblingID": "cb128765-6ce4-40ed-bb99-c63e4080c832",
+              "createdAt": "2020-11-26T20:40:44.309Z",
+              "updatedAt": "2020-11-26T20:40:46.333Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cca3efcb29338b9e3e"
+            },
+            {
+              "_id": "5fc012cca3efcb29338b9c8a",
+              "file": "5fc012c8a3efcb29338b913c",
+              "MD5": "2fc0e33da42a5fe895967a1f501c91d7",
+              "oldRunID": "f27a9d7e-a8e9-4b9b-87c9-18166f2a2e1b",
+              "run": "5fc012c4a3efcb29338b8839",
+              "oldReadId": "a6cd19bc-7e10-4bbe-8069-eb112a5738fc",
+              "oldSiblingID": "cf4352ab-0547-45d3-911e-714676000908",
+              "createdAt": "2020-11-26T20:40:44.586Z",
+              "updatedAt": "2020-11-26T20:40:46.338Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cda3efcb29338b9e6f"
+            },
+            {
+              "_id": "5fc012cca3efcb29338b9e3e",
+              "file": "5fc012c9a3efcb29338b92f0",
+              "MD5": "62e019f285883f9ca9eebcc0a2e9f623",
+              "oldRunID": "5f29d688-6e86-49ba-af88-d0b522e91a03",
+              "run": "5fc012c3a3efcb29338b84b6",
+              "oldReadId": "cb128765-6ce4-40ed-bb99-c63e4080c832",
+              "oldSiblingID": "8907b412-c562-48d4-b281-d5aac4c074a8",
+              "createdAt": "2020-11-26T20:40:44.959Z",
+              "updatedAt": "2020-11-26T20:40:46.340Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cca3efcb29338b9b43"
+            },
+            {
+              "_id": "5fc012cca3efcb29338b9e40",
+              "file": "5fc012c9a3efcb29338b92f2",
+              "MD5": "3384765e65783b35a37c7c238466521a",
+              "oldRunID": "5aa6cee4-53ca-411c-acb9-d5f0ce40c0ef",
+              "run": "5fc012c3a3efcb29338b8495",
+              "oldReadId": "cb475e9f-3c74-4a0b-9994-17e9adf19158",
+              "oldSiblingID": "d468c701-8769-4930-ac70-5adc28beaa7f",
+              "createdAt": "2020-11-26T20:40:44.960Z",
+              "updatedAt": "2020-11-26T20:40:46.340Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cda3efcb29338b9eb1"
+            },
+            {
+              "_id": "5fc012cda3efcb29338b9e6f",
+              "file": "5fc012c9a3efcb29338b9321",
+              "MD5": "4fa0d8660f4a01b7bba71dd41c908e4b",
+              "oldRunID": "f27a9d7e-a8e9-4b9b-87c9-18166f2a2e1b",
+              "run": "5fc012c4a3efcb29338b8839",
+              "oldReadId": "cf4352ab-0547-45d3-911e-714676000908",
+              "oldSiblingID": "a6cd19bc-7e10-4bbe-8069-eb112a5738fc",
+              "createdAt": "2020-11-26T20:40:45.000Z",
+              "updatedAt": "2020-11-26T20:40:46.341Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cca3efcb29338b9c8a"
+            },
+            {
+              "_id": "5fc012cda3efcb29338b9eb1",
+              "file": "5fc012c9a3efcb29338b9363",
+              "MD5": "d0716c70ba70bc2c4119c30a091d8abe",
+              "oldRunID": "5aa6cee4-53ca-411c-acb9-d5f0ce40c0ef",
+              "run": "5fc012c3a3efcb29338b8495",
+              "oldReadId": "d468c701-8769-4930-ac70-5adc28beaa7f",
+              "oldSiblingID": "cb475e9f-3c74-4a0b-9994-17e9adf19158",
+              "createdAt": "2020-11-26T20:40:45.064Z",
+              "updatedAt": "2020-11-26T20:40:46.341Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cca3efcb29338b9e40"
+            },
+            {
+              "_id": "5fc012cda3efcb29338b9eec",
+              "file": "5fc012c9a3efcb29338b939e",
+              "MD5": "04b605efb311b1c6f9a0b0973d76fbc4",
+              "oldRunID": "358a26b2-8229-4147-96f9-21fc7e8aa895",
+              "run": "5fc012c3a3efcb29338b83b8",
+              "oldReadId": "d8a8c5c7-faf3-486f-9ecb-5350c1c8a079",
+              "oldSiblingID": "29980ffc-c4f1-4481-b2ee-4658a26d24af",
+              "createdAt": "2020-11-26T20:40:45.116Z",
+              "updatedAt": "2020-11-26T20:40:46.341Z",
+              "__v": 0,
+              "paired": true,
+              "sibling": "5fc012cba3efcb29338b970e"
+            }
+          ]
+        },
+        "additionalfiles": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c6a3efcb29338b89c9"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c6a3efcb29338b89c9",
+              "MD5": "c6fad461705a162b05d0160bdfd16599",
+              "oldAdditionalFileId": "8dad3fdc-a604-40ba-824b-01c9d35f6cb6",
+              "file": "5fc012c5a3efcb29338b8900",
+              "project": "5fc012bda3efcb29338b7d7a",
+              "createdAt": "2020-11-26T20:40:38.173Z",
+              "updatedAt": "2020-11-26T20:40:38.173Z",
+              "__v": 0
+            }
+          ]
+        },
+        "files": {
+          "count": 9,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c5a3efcb29338b8900"
+                },
+                {
+                  "$oid": "5fc012c6a3efcb29338b8bc0"
+                },
+                {
+                  "$oid": "5fc012c8a3efcb29338b8ff5"
+                },
+                {
+                  "$oid": "5fc012c8a3efcb29338b913c"
+                },
+                {
+                  "$oid": "5fc012c9a3efcb29338b92f0"
+                },
+                {
+                  "$oid": "5fc012c9a3efcb29338b92f2"
+                },
+                {
+                  "$oid": "5fc012c9a3efcb29338b9321"
+                },
+                {
+                  "$oid": "5fc012c9a3efcb29338b9363"
+                },
+                {
+                  "$oid": "5fc012c9a3efcb29338b939e"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c5a3efcb29338b8900",
+              "type": "project",
+              "name": "Copy of ENQ-1724_PIP-1215_PSEQ-1126_datasum_25.07.16(1).xlsx",
+              "path": "/skamoun/xiao_scr74/additional/Copy of ENQ-1724_PIP-1215_PSEQ-1126_datasum_25.07.16(1).xlsx",
+              "uploadName": "Copy of ENQ-1724_PIP-1215_PSEQ-1126_datasum_25.07.16(1).xlsx",
+              "originalName": "Copy of ENQ-1724_PIP-1215_PSEQ-1126_datasum_25.07.16(1).xlsx",
+              "tempUploadPath": "/skamoun/xiao_scr74/additional/Copy of ENQ-1724_PIP-1215_PSEQ-1126_datasum_25.07.16(1).xlsx",
+              "createdAt": "2020-11-26T20:40:38.007Z",
+              "updatedAt": "2020-11-26T20:40:38.007Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c6a3efcb29338b8bc0",
+              "type": "run",
+              "name": "1977_LIB23141_LDI20480_TGACCA_L001_R2.fastq.gz",
+              "path": "/skamoun/xiao_scr74/gig362_h20/run1/raw/1977_LIB23141_LDI20480_TGACCA_L001_R2.fastq.gz",
+              "uploadName": "1977_LIB23141_LDI20480_TGACCA_L001_R2.fastq.gz",
+              "originalName": "1977_LIB23141_LDI20480_TGACCA_L001_R2.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/gig362_h20/run1/raw/1977_LIB23141_LDI20480_TGACCA_L001_R2.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.260Z",
+              "updatedAt": "2020-11-26T20:40:42.260Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c8a3efcb29338b8ff5",
+              "type": "run",
+              "name": "1977_LIB23142_LDI20481_ACAGTG_L001_R1.fastq.gz",
+              "path": "/skamoun/xiao_scr74/gig362_blue13/run1/raw/1977_LIB23142_LDI20481_ACAGTG_L001_R1.fastq.gz",
+              "uploadName": "1977_LIB23142_LDI20481_ACAGTG_L001_R1.fastq.gz",
+              "originalName": "1977_LIB23142_LDI20481_ACAGTG_L001_R1.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/gig362_blue13/run1/raw/1977_LIB23142_LDI20481_ACAGTG_L001_R1.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.292Z",
+              "updatedAt": "2020-11-26T20:40:42.292Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c8a3efcb29338b913c",
+              "type": "run",
+              "name": "1977_LIB23143_LDI20482_CAGATC_L001_R2.fastq.gz",
+              "path": "/skamoun/xiao_scr74/mcd360_h20/run1/raw/1977_LIB23143_LDI20482_CAGATC_L001_R2.fastq.gz",
+              "uploadName": "1977_LIB23143_LDI20482_CAGATC_L001_R2.fastq.gz",
+              "originalName": "1977_LIB23143_LDI20482_CAGATC_L001_R2.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/mcd360_h20/run1/raw/1977_LIB23143_LDI20482_CAGATC_L001_R2.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.300Z",
+              "updatedAt": "2020-11-26T20:40:42.300Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c9a3efcb29338b92f0",
+              "type": "run",
+              "name": "1977_LIB23142_LDI20481_ACAGTG_L001_R2.fastq.gz",
+              "path": "/skamoun/xiao_scr74/gig362_blue13/run1/raw/1977_LIB23142_LDI20481_ACAGTG_L001_R2.fastq.gz",
+              "uploadName": "1977_LIB23142_LDI20481_ACAGTG_L001_R2.fastq.gz",
+              "originalName": "1977_LIB23142_LDI20481_ACAGTG_L001_R2.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/gig362_blue13/run1/raw/1977_LIB23142_LDI20481_ACAGTG_L001_R2.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.309Z",
+              "updatedAt": "2020-11-26T20:40:42.309Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c9a3efcb29338b92f2",
+              "type": "run",
+              "name": "1977_LIB23144_LDI20483_GTTTCG_L001_R1.fastq.gz",
+              "path": "/skamoun/xiao_scr74/mcd360_blue13/run1/raw/1977_LIB23144_LDI20483_GTTTCG_L001_R1.fastq.gz",
+              "uploadName": "1977_LIB23144_LDI20483_GTTTCG_L001_R1.fastq.gz",
+              "originalName": "1977_LIB23144_LDI20483_GTTTCG_L001_R1.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/mcd360_blue13/run1/raw/1977_LIB23144_LDI20483_GTTTCG_L001_R1.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.310Z",
+              "updatedAt": "2020-11-26T20:40:42.310Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c9a3efcb29338b9321",
+              "type": "run",
+              "name": "1977_LIB23143_LDI20482_CAGATC_L001_R1.fastq.gz",
+              "path": "/skamoun/xiao_scr74/mcd360_h20/run1/raw/1977_LIB23143_LDI20482_CAGATC_L001_R1.fastq.gz",
+              "uploadName": "1977_LIB23143_LDI20482_CAGATC_L001_R1.fastq.gz",
+              "originalName": "1977_LIB23143_LDI20482_CAGATC_L001_R1.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/mcd360_h20/run1/raw/1977_LIB23143_LDI20482_CAGATC_L001_R1.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.311Z",
+              "updatedAt": "2020-11-26T20:40:42.311Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c9a3efcb29338b9363",
+              "type": "run",
+              "name": "1977_LIB23144_LDI20483_GTTTCG_L001_R2.fastq.gz",
+              "path": "/skamoun/xiao_scr74/mcd360_blue13/run1/raw/1977_LIB23144_LDI20483_GTTTCG_L001_R2.fastq.gz",
+              "uploadName": "1977_LIB23144_LDI20483_GTTTCG_L001_R2.fastq.gz",
+              "originalName": "1977_LIB23144_LDI20483_GTTTCG_L001_R2.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/mcd360_blue13/run1/raw/1977_LIB23144_LDI20483_GTTTCG_L001_R2.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.312Z",
+              "updatedAt": "2020-11-26T20:40:42.312Z",
+              "__v": 0
+            },
+            {
+              "_id": "5fc012c9a3efcb29338b939e",
+              "type": "run",
+              "name": "1977_LIB23141_LDI20480_TGACCA_L001_R1.fastq.gz",
+              "path": "/skamoun/xiao_scr74/gig362_h20/run1/raw/1977_LIB23141_LDI20480_TGACCA_L001_R1.fastq.gz",
+              "uploadName": "1977_LIB23141_LDI20480_TGACCA_L001_R1.fastq.gz",
+              "originalName": "1977_LIB23141_LDI20480_TGACCA_L001_R1.fastq.gz",
+              "tempUploadPath": "/skamoun/xiao_scr74/gig362_h20/run1/raw/1977_LIB23141_LDI20480_TGACCA_L001_R1.fastq.gz",
+              "createdAt": "2020-11-26T20:40:42.313Z",
+              "updatedAt": "2020-11-26T20:40:42.313Z",
+              "__v": 0
+            }
+          ]
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-015",
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "projectPath": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7d0d"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7d0d",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+              "owner": "winj",
+              "shortDesc": "none",
+              "longDesc": "none",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "24312ee9-fd70-4e0c-b5db-1d14c028dfd5",
+              "oldSafeName": "saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+              "path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+              "secondaryOwner": "kamouns",
+              "safeName": "saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+              "createdAt": "2020-11-26T20:40:30.044Z",
+              "updatedAt": "2020-11-26T20:40:30.044Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bfa3efcb29338b8217"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bfa3efcb29338b8217",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7d0d",
+              "name": "Sample_LIB2414",
+              "ncbi": "unknown",
+              "commonName": "unknown",
+              "scientificName": "unknown",
+              "conditions": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "winj",
+              "oldId": "ee0ad763-30ea-42f2-9de6-3d459a8fc8c4",
+              "oldSafeName": "sample_lib2414",
+              "path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01/sample_lib2414",
+              "sampleGroup": "saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01_sample_lib2414",
+              "safeName": "sample_lib2414",
+              "createdAt": "2020-11-26T20:40:34.283Z",
+              "updatedAt": "2020-11-26T20:40:34.283Z",
+              "__v": 0
+            }
+          ]
+        },
+        "runs": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c4a3efcb29338b887b"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c4a3efcb29338b887b",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bfa3efcb29338b8217",
+              "safeName": "run184",
+              "name": "run1",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "fd01e8e3-2145-49f5-af6e-cf31efdb8f45",
+              "oldSafeName": "run184",
+              "path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01/sample_lib2414/run1",
+              "createdAt": "2020-11-26T20:40:36.854Z",
+              "updatedAt": "2020-11-26T20:40:36.854Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    },
+    {
+      "entryId": "skamoun-016",
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "projectPath": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+      "deletionOrder": [
+        "ingestjobs",
+        "reads",
+        "additionalfiles",
+        "files",
+        "newsitems",
+        "runs",
+        "samples",
+        "projects"
+      ],
+      "blockers": {
+        "foreignReads": [],
+        "foreignAdditionalFiles": [],
+        "crossParentAdditionalFiles": [],
+        "missingFileReferences": [],
+        "filePathsOutsideProject": [],
+        "activeIngestJobs": [],
+        "activeRuns": []
+      },
+      "collections": {
+        "projects": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bda3efcb29338b7cf8"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bda3efcb29338b7cf8",
+              "isPublic": false,
+              "additionalFilesUploadIDs": [],
+              "doNotSendToEna": false,
+              "name": "saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+              "owner": "winj",
+              "shortDesc": "none",
+              "longDesc": "none",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "094cbd67-47c0-4234-8729-9fb6f2968c74",
+              "oldSafeName": "saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+              "secondaryOwner": "kamouns",
+              "safeName": "saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+              "createdAt": "2020-11-26T20:40:30.000Z",
+              "updatedAt": "2020-11-26T20:40:30.000Z",
+              "__v": 0,
+              "nudgeable": false,
+              "nudges": []
+            }
+          ]
+        },
+        "samples": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012bea3efcb29338b7df9"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012bea3efcb29338b7df9",
+              "additionalFilesUploadIDs": [],
+              "project": "5fc012bda3efcb29338b7cf8",
+              "name": "sample1",
+              "ncbi": "unknown",
+              "commonName": "unknown",
+              "scientificName": "unknown",
+              "conditions": "unknown",
+              "group": "5fc012bda3efcb29338b7cef",
+              "owner": "winj",
+              "oldId": "1c68c2a3-ec3c-48f6-ad0a-c5d58ea6a85f",
+              "oldSafeName": "sample1",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83/sample1",
+              "sampleGroup": "saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83_sample1",
+              "safeName": "sample1",
+              "createdAt": "2020-11-26T20:40:33.051Z",
+              "updatedAt": "2021-10-19T10:19:28.866Z",
+              "__v": 1,
+              "accessions": [
+                "SAMEA6102995"
+              ]
+            }
+          ]
+        },
+        "runs": {
+          "count": 1,
+          "filter": {
+            "_id": {
+              "$in": [
+                {
+                  "$oid": "5fc012c2a3efcb29338b82f9"
+                }
+              ]
+            }
+          },
+          "documents": [
+            {
+              "_id": "5fc012c2a3efcb29338b82f9",
+              "forceSafeName": true,
+              "additionalFilesUploadIDs": [],
+              "sample": "5fc012bea3efcb29338b7df9",
+              "safeName": "run1_3",
+              "name": "run1",
+              "sequencingProvider": "unknown",
+              "sequencingTechnology": "unknown",
+              "librarySource": "unknown",
+              "libraryType": "unknown",
+              "librarySelection": "unknown",
+              "insertSize": "unknown",
+              "libraryStrategy": "unknown",
+              "owner": "winj",
+              "group": "5fc012bda3efcb29338b7cef",
+              "oldId": "15b073ae-1e25-4c2e-b70d-4f8b91c45c71",
+              "oldSafeName": "run1_3",
+              "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83/sample1/run1",
+              "createdAt": "2020-11-26T20:40:36.808Z",
+              "updatedAt": "2020-11-26T20:40:36.808Z",
+              "__v": 0
+            }
+          ]
+        },
+        "reads": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "additionalfiles": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "files": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "ingestjobs": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        },
+        "newsitems": {
+          "count": 0,
+          "filter": {
+            "_id": {
+              "$in": []
+            }
+          },
+          "documents": []
+        }
+      }
+    }
+  ]
+}

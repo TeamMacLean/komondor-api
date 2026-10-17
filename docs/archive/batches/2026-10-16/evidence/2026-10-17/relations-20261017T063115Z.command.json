@@ -1,0 +1,55 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-stage2.sock -o BatchMode=yes -o ConnectTimeout=15 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"'); const p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"')); const m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"'); m.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"'; m.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"'); m._compile(p.source,m.filename); m.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"')).catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "operatorCommand": "python3 docs/archive/batches/2026-10-16/evidence/2026-10-17/run-readonly.py relations",
+  "collectorSha256": "4fa4fcb33b53ba612e44233d82e1e91b5c37f0420c87b1d2bf1e2a3d7e1c9eba",
+  "targets": [
+    {
+      "entryId": "jjones-057",
+      "projectId": "5fc012bda3efcb29338b7d6a",
+      "projectPath": "/jjones/dingp_ath_atacseq_2019_optimization"
+    },
+    {
+      "entryId": "ntalbot-052",
+      "projectId": "5fc012bda3efcb29338b7d4d",
+      "projectPath": "/ntalbot/long_read_assembly_of_african_yam_bean"
+    },
+    {
+      "entryId": "skamoun-002",
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "projectPath": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01"
+    },
+    {
+      "entryId": "skamoun-003",
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "projectPath": "/skamoun/saunderd_pstriiformis_south_african_isolates"
+    },
+    {
+      "entryId": "skamoun-005",
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "projectPath": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68"
+    },
+    {
+      "entryId": "skamoun-013",
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "projectPath": "/skamoun/xiao_scr74"
+    },
+    {
+      "entryId": "skamoun-015",
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "projectPath": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01"
+    },
+    {
+      "entryId": "skamoun-016",
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "projectPath": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83"
+    }
+  ],
+  "output": "relations-20261017T063115Z.json",
+  "stderr": "relations-20261017T063115Z.stderr.log",
+  "startedAt": "20261017T063115Z",
+  "mode": "relations",
+  "productionWrites": false,
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T06:31:16.829903+00:00",
+  "outputSha256": "4cda65fa643d8e4271c99f2b8e67186d446e1e044e110beb8cfa3f82b1b4e721"
+}
