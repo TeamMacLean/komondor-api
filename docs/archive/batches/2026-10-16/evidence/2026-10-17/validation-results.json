@@ -8,7 +8,10 @@
     "__tests__/scripts/archive-gzip-evidence.test.js": "537628781b948e762f39e033a92d5dc5c1e3fffe580ba4afa201809b1bb0a68f",
     "__tests__/integration/archive-batch-evidence.test.js": "6b172cea5ea1877521541d7e22630f66e8566b8636652f7ae32d1224e8368876",
     "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-readonly.cjs": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
-    "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-gzip-diagnostics.cjs": "1544238733bd4a85c29a295ce5c9291191906a3e726628146446a03bbda96004"
+    "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-gzip-diagnostics.cjs": "1544238733bd4a85c29a295ce5c9291191906a3e726628146446a03bbda96004",
+    "docs/archive/batches/2026-10-16/evidence/2026-10-17/resume-path-review.py": "b053c41f0e9be4be743ac83e0860a25bed7d5770e28a59095a24fb49a9b88a36",
+    "docs/archive/batches/2026-10-16/evidence/2026-10-17/collect-path-record.cjs": "ed5518ad2aa727a30cb201847691bb156b93f70e58b6443c45133d83e39c0b14",
+    "__tests__/scripts/archive-path-resume.test.py": "297d19752e6b395f0055405c62886d6ad863c7e630f6c3a37900d4947308d1a5"
   },
   "node": "v24.11.1",
   "productionTestsRun": false,
@@ -145,5 +148,14 @@
     "A targeted evidence test initially encountered leftover scratch unique indexes while seeding deliberate legacy duplicates. The suite now resets its explicit scratch database before each case; targeted and full integration reruns passed.",
     "The integration suite emitted an open-handle warning and then exited successfully.",
     "The first auxiliary gzip attempt failed its descriptor check and accepted no result. The fixed helper passed four tests, including damaged-trailer and symlink rejection, before successful production read-only diagnostics."
+  ],
+  "additionalLocalValidation": [
+    {
+      "command": "python3 __tests__/scripts/archive-path-resume.test.py",
+      "tests": 8,
+      "passed": 8,
+      "exitCode": 0,
+      "scope": "Synthetic evidence aggregation only; no SSH/database calls"
+    }
   ]
 }

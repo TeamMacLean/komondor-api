@@ -1,0 +1,89 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');\nm._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-readonly.cjs",
+  "collectorSha256": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+  "targets": [
+    {
+      "entryId": "two_blades-015",
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "projectPath": "/two_blades/japanse_isolate_timecourse",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e70",
+          "expectedRelPath": "0h/0h/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9889",
+          "expectedRelPath": "0h/0h/raw/JISO_0h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9be4",
+          "expectedRelPath": "0h/0h/raw/JISO_0h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9ccf",
+          "expectedRelPath": "12h/12h/raw/JISO_12h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9fae",
+          "expectedRelPath": "12h/12h/raw/JISO_12h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9c8f",
+          "expectedRelPath": "168h/168h/raw/JISO_168h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b975f",
+          "expectedRelPath": "168h/168h/raw/JISO_168h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9e4e",
+          "expectedRelPath": "24h/24h/raw/JISO_24h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9ef5",
+          "expectedRelPath": "24h/24h/raw/JISO_24h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012caa3efcb29338b95a5",
+          "expectedRelPath": "36h/36/raw/JISO_36h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9da6",
+          "expectedRelPath": "36h/36/raw/JISO_36h_R2.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b982d",
+          "expectedRelPath": "72h/72h/raw/JISO_72h_R1.clean.paired.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e89",
+          "expectedRelPath": "72h/72h/raw/JISO_72h_R2.clean.paired.fq"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-retry-20261017T115634Z-two_blades-015.stdout.txt",
+  "stderr": "paths-retry-20261017T115634Z-two_blades-015.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T11:56:34.967244+00:00",
+  "exitCode": 255,
+  "finishedAt": "2026-10-17T12:32:34.927363+00:00",
+  "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outputNameAtExecution": "paths-retry-20261017T115634Z-two_blades-015.json",
+  "acceptedAsEvidence": false
+}

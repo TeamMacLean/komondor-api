@@ -10,13 +10,13 @@ supersedes `FIX_PATHS_THEN_ARCHIVE` with the per-project evidence-based handling
 once recorded. It does not override KEEP or observed production facts. The technical
 procedures linked here govern execution; earlier labels are not commands.
 
-**Review checkpoint: BLOCKED pending complete primary hash evidence.** See [PATH_REVIEW_STATUS.md](PATH_REVIEW_STATUS.md). The old `FIX_PATHS_THEN_ARCHIVE` instructions below are superseded by a hold; do not move files or edit File.path from those lines.
+**Review checkpoint: BLOCKED pending complete primary hash evidence.** See [PATH_REVIEW_STATUS.md](PATH_REVIEW_STATUS.md). All eight former `FIX_PATHS_THEN_ARCHIVE` rows are now `HOLD_PATH_REVIEW`; do not move files or edit File.path.
 
 ## Policy decisions that change the register
 
 1. **Silence is consent.** Dan MacLean emailed every group leader months before this batch. Only the Kamoun group replied, which is why they have a dedicated spreadsheet. The operator's decision is that every project on the three PowerScale exports is approved for archiving. The register's `AWAITING_GROUP_DECISION` is therefore replaced by a technical classification of what the archive step needs.
 2. **Contact owners only for discrepancies.** The only rows that go back to a group are directories with no Komondor project record, where the CLI cannot act and the ownership is unknown. The email names the directories, gives a short deadline, and states what happens on silence.
-3. **Archival doubles as a data audit.** Historical uploads were often buggy and never repaired. Each archived project is inventoried against the database and sealed in a manifest; path repairs and empty-record cleanup are done where found; backfilling file records from manifests is a planned follow-up.
+3. **Archival doubles as a data audit.** Historical uploads were often buggy and never repaired. Each archived project is inventoried against the database and sealed in a manifest; location discrepancies are documented without automatic path repairs; empty-record cleanup follows the scoped proposal; backfilling file records from manifests is a planned follow-up.
 4. **Kamoun decisions are unchanged.** 19 archive, 6 delete without S3 copy, 11 keep, including the two operator-confirmed keeps.
 5. The 10-year rule is not applied to this batch and is not needed for it.
 
@@ -28,8 +28,8 @@ procedures linked here govern execution; earlier labels are not commands.
 | ARCHIVE | 2 | 50 | 3.89 TB | partly registered, unregistered files archived from inventory |
 | ARCHIVE | 3 | 43 | 4.19 TB | no file records, manifest is the inventory |
 | ARCHIVE | 4 | 18 | 1.24 TB | Kamoun PI approved |
-| FIX_PATHS_THEN_ARCHIVE | 3 | 7 | 1.15 TB | repair File.path for reads found under processed/, then archive |
-| FIX_PATHS_THEN_ARCHIVE | 4 | 1 | 0.16 TB | same, Kamoun |
+| HOLD_PATH_REVIEW | 3 | 7 | 1.15 TB | Content review incomplete; preserve tree and records |
+| HOLD_PATH_REVIEW | 4 | 1 | 0.16 TB | Content review incomplete; preserve tree and records |
 | FIX_RENAME_THEN_ARCHIVE | 1 | 1 | 0.32 TB | rename directory to lowercase registered path, then archive |
 | CONTACT_DEADLINE |  | 18 | 0.66 TB | unregistered directory; one email, short deadline, then placeholder-project archive or delete |
 | DELETE_MANUAL_AFTER_DIR_CONFIRM |  | 6 | 0.79 TB | Kamoun delete; confirm exact mixed-case directory names first, no S3 copy |
@@ -37,14 +37,14 @@ procedures linked here govern execution; earlier labels are not commands.
 | TIDY_RMDIR |  | 2 | 0.00 TB | empty unregistered directory |
 | KEEP |  | 11 | 1.46 TB | stays on HPC |
 
-153 entries are archived in four waves without contacting anyone. Where `needs_acknowledge_known_anomalies` is `yes`, the preflight will report serious anomalies (typically legacy reads with no stored destination MD5, run status `error`, or MD5 `failed`) and `lock` needs `--acknowledge-known-anomalies`. Those are recorded facts about the upload era, not reasons to stop; they are sealed into the manifest.
+145 entries have proposed archive-wave assignments; eight more are held pending content review. These are proposed dispositions, not completed archives. Where `needs_acknowledge_known_anomalies` is `yes`, the preflight will report serious anomalies (typically legacy reads with no stored destination MD5, run status `error`, or MD5 `failed`) and `lock` needs `--acknowledge-known-anomalies`. Those are recorded facts about the upload era, not reasons to stop; they are sealed into the manifest.
 
 ## Order of work
 
-1. **Quiet fixes, no contact.** Rename `jjones/witekk_s_americanum_gDNA_bgi` to the lowercase registered path. Repair `File.path` for the 8 projects whose registered reads sit under `processed/` rather than `raw/`, using `../../../hpc-verification-2026-10-16/independent-review/relocated-file-candidates.json` as the candidate list and confirming each by size before writing. Delete the 2 empty project records. Remove the 2 empty unregistered directories.
+1. **Content review and manual cleanup.** Keep the eight missing-path projects on `HOLD_PATH_REVIEW` until the per-project evidence is complete. Preserve their files and historical database records: no File.path repair or raw/ move is proposed. The separate Jones case correction follows [the manual canonical-root procedure](PLACEHOLDER_REGISTRATION.md). The two empty project cleanups and five Saunders shells use [the scoped dependent-record procedure](DEPENDENT_RECORD_CLEANUP.md), with a fresh frozen export and exact filters. George executes reviewed manual steps. The two empty unregistered directories require fresh mounted-root inspection and empty-only `rmdir`.
 2. **Emails, two-week deadline.** One per group below, listing exact directory names and sizes. Wording: "reply by DATE with keep, archive or delete; after that we archive them under a placeholder project in your group". Archiving on silence is chosen over deleting on silence because it is reversible and costs under a pound per terabyte per month in Deep Archive. Kamoun also gets the five Saunders directories not on their sheet, with the question whether they join the delete list.
 3. **Wave 1**, 33 fully registered projects. The first three, in order, are the pilots below, with a second person watching. Continue with the remaining wave-1 projects smallest first. Each goes through the runbook's `plan`, `lock`, `copy`, `deletion-command`, manual deletion and `confirm-absent` checkpoints. **A fresh live `plan` is required before each lock**, including all three pilots; the shortlist evidence is not that plan.
-4. **Wave 2**, 50 partly registered. **Wave 3**, 43 with no file records plus the repaired-path projects. **Wave 4**, Kamoun's 19.
+4. **Wave 2**, 50 partly registered. **Wave 3**, 43 with no file records; missing-path projects remain held pending the content review. **Wave 4**, Kamoun's 19.
 5. **After the deadline:** register-and-archive or delete the unregistered directories per replies. Use the [exact placeholder payloads and manual Courville procedure](PLACEHOLDER_REGISTRATION.md); George must supply both group-administrator addresses. Kamoun direct disposal follows [the exact target ledger](KAMOUN_DELETE_TARGETS.md): five associated Saunders directories and the separate populated `xiao_scr74` project. The five additional directories remain pending. Dependent records are exported and handled together under the [exact cleanup proposal](DEPENDENT_RECORD_CLEANUP.md); never delete only a Project shell.
 6. **Audit follow-up, not blocking:** a tool to backfill Read and AdditionalFile records from a sealed manifest, so archived projects stop showing an empty file list on the website.
 

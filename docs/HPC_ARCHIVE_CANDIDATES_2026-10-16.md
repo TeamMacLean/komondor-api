@@ -1,14 +1,19 @@
 # HPC archive candidates and discrepancies — 16 October 2026
 
-**Current decision table:** [192 original entries with owner/contact, decision and finding](archive/batches/2026-10-16/README.md).
+**Current execution proposal (17 October):** [ACTION_PLAN.md](archive/batches/2026-10-16/ACTION_PLAN.md)
+and its [192-row decision CSV](archive/batches/2026-10-16/action-plan.csv).
+The [original source decision table](archive/batches/2026-10-16/README.md) remains historical evidence;
+its waiting/age labels do not override the settled policy or later content review.
 The [CSV](hpc-archive-candidates-2026-10-16.csv) is the filterable follow-up list. The
 [JSON register](archive/batches/2026-10-16/register.json) preserves exact source rows, original values,
 historical classifications, contacts and technical follow-up. No production mutations or owner outreach were performed.
 
 ## Policy and source decisions
 
-Dan’s three exports contain 156 entries: Two Blades 48, Jones 56 and Talbot 52. All remain earmarked,
-awaiting group decisions. Kamoun’s workbook has 19 archive requests, six delete-without-archive requests
+Dan’s three exports contain 156 entries: Two Blades 48, Jones 56 and Talbot 52.
+George has settled archive consent for those exports by the prior notice/silence policy.
+Only discrepancies receive new outreach with a deadline; no age cutoff applies to this batch.
+The older CSV's `AWAITING_GROUP_DECISION` labels are preserved import history, not current holds. Kamoun’s workbook has 19 archive requests, six delete-without-archive requests
 and 11 KEEP entries after the operator’s two explicit clarifications. Do not treat every row as a deletion instruction.
 
 The current batch is the explicit supplied list. **Ten years is only a proposed future rule.**
@@ -121,13 +126,16 @@ A CSV path case mismatch may appear as `NO_DB_PROJECT`; the group report exposes
 Then follow the [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) for a full plan, hashes, owner/current-work checks,
 freeze, copy, restore/review and separately approved manual source deletion. Keep all 11 KEEP entries excluded.
 
-## Owner follow-up
+## Current discrepancy follow-up
 
-Filter the CSV by `AWAITING_GROUP_DECISION` for the 156 unaudited entries. Each row includes the source owner,
-database owner, available contact email, a specific owner question and technical follow-up.
-Group administrators must confirm contacts for missing/outdated owner records. No addresses were guessed
-from usernames. Also ask Kamoun about exact Saunders directory identities and the five additional directories.
-Existing KEEP decisions need no archival outreach. Technical findings on KEEP entries are retained for completeness.
+Use the action plan's `CONTACT_DEADLINE` rows: 17 Talbot directories and Courville,
+plus the separate five pending Saunders directories in the Kamoun ledger. Do not
+send a new approval request for every `AWAITING_GROUP_DECISION` row in the historical
+CSV. George must supply the Talbot and Two Blades group-administrator addresses;
+available source/database contacts are not proof of current responsibility.
+Six existing Kamoun delete decisions do not depend on a new reply. Nothing is
+deleted on silence, and all later deletion remains a separate manual checkpoint.
+KEEP decisions need no archival outreach. No owner messages were sent by this review.
 
 The batch is complete only when each original entry has a recorded decision and the agreed action is evidenced;
 a pending decision, failed migration or deferred action remains outstanding. Future semi-annual selection requires

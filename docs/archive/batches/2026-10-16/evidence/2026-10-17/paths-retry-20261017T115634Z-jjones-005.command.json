@@ -1,0 +1,32 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');\nm._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-readonly.cjs",
+  "collectorSha256": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+  "targets": [
+    {
+      "entryId": "jjones-005",
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "projectPath": "/jjones/albugo_candida",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9da3",
+          "expectedRelPath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R1.fq"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e80",
+          "expectedRelPath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R2.fq"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-retry-20261017T115634Z-jjones-005.json",
+  "stderr": "paths-retry-20261017T115634Z-jjones-005.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T12:19:45.747034+00:00",
+  "exitCode": 0,
+  "finishedAt": "2026-10-17T12:25:21.745247+00:00",
+  "outputSha256": "d0b66b2cd73c13071f9aa711461a3ae4830a59e08109c6d026311538dc2eb0ec"
+}

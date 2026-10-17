@@ -1,0 +1,1398 @@
+{
+  "startedAt": "2026-10-17T12:25:24.368Z",
+  "operator": "deeks",
+  "host": "v1333",
+  "mode": "paths",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projects": [
+    {
+      "entryId": "jjones-012",
+      "projectId": "5fc012bda3efcb29338b7d2b",
+      "projectPath": "/jjones/rice_renseq",
+      "sourceRoot": "/mnt/reads/jjones/rice_renseq",
+      "inventoryRegularFiles": 432,
+      "inventoryBytes": 108509578131,
+      "records": [
+        {
+          "readId": "5fc012cba3efcb29338b968e",
+          "fileId": "5fc012c6a3efcb29338b8b40",
+          "runId": "5fc012c4a3efcb29338b87a1",
+          "runPath": "/jjones/rice_renseq/os_1/os_1",
+          "expectedRelPath": "os_1/os_1/raw/Os_1_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "8fba126f2c68a17a679a1522710bfd1b",
+          "validOriginalMD5": "8fba126f2c68a17a679a1522710bfd1b",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz",
+              "bytes": 204154209,
+              "md5": "8fba126f2c68a17a679a1522710bfd1b",
+              "sha256": "b27a48c422503539bfa519c0bab8b326e2fc7babc2ff623f1723d4b529fe66f4",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9f9a",
+          "fileId": "5fc012c9a3efcb29338b944c",
+          "runId": "5fc012c3a3efcb29338b84e1",
+          "runPath": "/jjones/rice_renseq/os_10/os_10",
+          "expectedRelPath": "os_10/os_10/raw/Os_10_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "3d96aaf8bba1fa2eab14bc99f1754c7e",
+          "validOriginalMD5": "3d96aaf8bba1fa2eab14bc99f1754c7e",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz",
+              "bytes": 189889111,
+              "md5": "3d96aaf8bba1fa2eab14bc99f1754c7e",
+              "sha256": "dce7a69d11706b42b5bfbc4a7fe40a63c14a21506d19afbe5284be528a455d64",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b96f1",
+          "fileId": "5fc012c6a3efcb29338b8ba3",
+          "runId": "5fc012c3a3efcb29338b84e1",
+          "runPath": "/jjones/rice_renseq/os_10/os_10",
+          "expectedRelPath": "os_10/os_10/raw/Os_10_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "0ebf18f508be94a32d6a227222d4715e",
+          "validOriginalMD5": "0ebf18f508be94a32d6a227222d4715e",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz",
+              "bytes": 198063925,
+              "md5": "0ebf18f508be94a32d6a227222d4715e",
+              "sha256": "c3fa6cba4f045edfeef430113bbef98586977afe163eb8a297625e056ca64742",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b996a",
+          "fileId": "5fc012c7a3efcb29338b8e1c",
+          "runId": "5fc012c3a3efcb29338b84b4",
+          "runPath": "/jjones/rice_renseq/os_11/os_11",
+          "expectedRelPath": "os_11/os_11/raw/Os_11_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "b38c2aaf411eba80af90baa73193f4d3",
+          "validOriginalMD5": "b38c2aaf411eba80af90baa73193f4d3",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz",
+              "bytes": 187751670,
+              "md5": "b38c2aaf411eba80af90baa73193f4d3",
+              "sha256": "dd17b2e284b3381d52a3975fa549c86e2498659e7536397ecf896c6188e1c520",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9a46",
+          "fileId": "5fc012c8a3efcb29338b8ef8",
+          "runId": "5fc012c3a3efcb29338b84b4",
+          "runPath": "/jjones/rice_renseq/os_11/os_11",
+          "expectedRelPath": "os_11/os_11/raw/Os_11_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "8e46d65cefbc172a9c35c83d3c77d69e",
+          "validOriginalMD5": "8e46d65cefbc172a9c35c83d3c77d69e",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz",
+              "bytes": 195706880,
+              "md5": "8e46d65cefbc172a9c35c83d3c77d69e",
+              "sha256": "f5f1308084b8bc06f80ffb7f7a9d7344bdbbdfe415bf993252451a7ca59f52c0",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9ffc",
+          "fileId": "5fc012c9a3efcb29338b94ae",
+          "runId": "5fc012c3a3efcb29338b862c",
+          "runPath": "/jjones/rice_renseq/os_12/os_12",
+          "expectedRelPath": "os_12/os_12/raw/Os_12_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "283723b3a21c71c995a9f6d9adc9ae95",
+          "validOriginalMD5": "283723b3a21c71c995a9f6d9adc9ae95",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz",
+              "bytes": 189387383,
+              "md5": "283723b3a21c71c995a9f6d9adc9ae95",
+              "sha256": "443bb8ecec595661cb4a7a8c6a232ee0e466d56ff8ab0ff013aa1c7b2ba61e7c",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9d20",
+          "fileId": "5fc012c8a3efcb29338b91d2",
+          "runId": "5fc012c3a3efcb29338b862c",
+          "runPath": "/jjones/rice_renseq/os_12/os_12",
+          "expectedRelPath": "os_12/os_12/raw/Os_12_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "5cc18f304822dd3912b1473f3baa5016",
+          "validOriginalMD5": "5cc18f304822dd3912b1473f3baa5016",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz",
+              "bytes": 196886765,
+              "md5": "5cc18f304822dd3912b1473f3baa5016",
+              "sha256": "6190863b7cc351cd381f4b56b5425e82c1f03f99477d034ff089c33f6d422d57",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9f06",
+          "fileId": "5fc012c9a3efcb29338b93b8",
+          "runId": "5fc012c3a3efcb29338b8400",
+          "runPath": "/jjones/rice_renseq/os_13/os_13",
+          "expectedRelPath": "os_13/os_13/raw/Os_13_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "3bf57fedd02c5456e8019cd8c95d7aca",
+          "validOriginalMD5": "3bf57fedd02c5456e8019cd8c95d7aca",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz",
+              "bytes": 238343811,
+              "md5": "3bf57fedd02c5456e8019cd8c95d7aca",
+              "sha256": "260be0fdec560ced6596ef0ff577278dabbd85d67889a5059141c1464c1cce97",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b96c0",
+          "fileId": "5fc012c6a3efcb29338b8b72",
+          "runId": "5fc012c3a3efcb29338b8400",
+          "runPath": "/jjones/rice_renseq/os_13/os_13",
+          "expectedRelPath": "os_13/os_13/raw/Os_13_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "14ad25c9e94e54694b294c3ca1137d41",
+          "validOriginalMD5": "14ad25c9e94e54694b294c3ca1137d41",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz",
+              "bytes": 249511936,
+              "md5": "14ad25c9e94e54694b294c3ca1137d41",
+              "sha256": "2e2c86548b93cec3e98b52247b2093d5f8f0508ac8a954f21a7cf324e334d7e3",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b990e",
+          "fileId": "5fc012c7a3efcb29338b8dc0",
+          "runId": "5fc012c4a3efcb29338b874e",
+          "runPath": "/jjones/rice_renseq/os_14/os_14",
+          "expectedRelPath": "os_14/os_14/raw/Os_14_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "0affbf6ce342033a2279eeaf336b2d5d",
+          "validOriginalMD5": "0affbf6ce342033a2279eeaf336b2d5d",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz",
+              "bytes": 198941270,
+              "md5": "0affbf6ce342033a2279eeaf336b2d5d",
+              "sha256": "4c65fa3242775e1fe419e520b7809cb61ef4799d70b6ee214cccc2e1e87fbd48",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9cc2",
+          "fileId": "5fc012c8a3efcb29338b9174",
+          "runId": "5fc012c4a3efcb29338b874e",
+          "runPath": "/jjones/rice_renseq/os_14/os_14",
+          "expectedRelPath": "os_14/os_14/raw/Os_14_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "d4461bd5039dc1a446de4912e5cc38b1",
+          "validOriginalMD5": "d4461bd5039dc1a446de4912e5cc38b1",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz",
+              "bytes": 206667776,
+              "md5": "d4461bd5039dc1a446de4912e5cc38b1",
+              "sha256": "8c3647b7d70fff7568979d7266fc26a163858111003f17fc70df5d2d412eeeb3",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b98c2",
+          "fileId": "5fc012c7a3efcb29338b8d74",
+          "runId": "5fc012c3a3efcb29338b869c",
+          "runPath": "/jjones/rice_renseq/os_15/os_15",
+          "expectedRelPath": "os_15/os_15/raw/Os_15_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "cbb51193697e35fc3d84ddc2415f8438",
+          "validOriginalMD5": "cbb51193697e35fc3d84ddc2415f8438",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz",
+              "bytes": 202751900,
+              "md5": "cbb51193697e35fc3d84ddc2415f8438",
+              "sha256": "39f47cb73949097ba824f90ae68f3188dd163b383ac96e8d935ab84d48c71ccf",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9ccc",
+          "fileId": "5fc012c8a3efcb29338b917e",
+          "runId": "5fc012c3a3efcb29338b869c",
+          "runPath": "/jjones/rice_renseq/os_15/os_15",
+          "expectedRelPath": "os_15/os_15/raw/Os_15_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "7d90f652ebac72daeefe65a3cbebf6b9",
+          "validOriginalMD5": "7d90f652ebac72daeefe65a3cbebf6b9",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz",
+              "bytes": 210671345,
+              "md5": "7d90f652ebac72daeefe65a3cbebf6b9",
+              "sha256": "bc84807b413eac75b519dcbb70778bc6d7e0fa339e1971ac773bd034564d0588",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9f3b",
+          "fileId": "5fc012c9a3efcb29338b93ed",
+          "runId": "5fc012c3a3efcb29338b8386",
+          "runPath": "/jjones/rice_renseq/os_17/os_17",
+          "expectedRelPath": "os_17/os_17/raw/Os_17_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "e6cb1cccb561fa1f5733052e49fb7f20",
+          "validOriginalMD5": "e6cb1cccb561fa1f5733052e49fb7f20",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz",
+              "bytes": 262228428,
+              "md5": "e6cb1cccb561fa1f5733052e49fb7f20",
+              "sha256": "cbeba6b4c9dff97dcb78ee0ab9b7bfb33789edd14e8e1ad01d9ebca6c72df90c",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9b0e",
+          "fileId": "5fc012c8a3efcb29338b8fc0",
+          "runId": "5fc012c3a3efcb29338b8386",
+          "runPath": "/jjones/rice_renseq/os_17/os_17",
+          "expectedRelPath": "os_17/os_17/raw/Os_17_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "bf513212fa718484f872338e56575a4b",
+          "validOriginalMD5": "bf513212fa718484f872338e56575a4b",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz",
+              "bytes": 271950311,
+              "md5": "bf513212fa718484f872338e56575a4b",
+              "sha256": "c96cd4b545d9a04db3798fc55d5d15d8b3316d70bec96dd18be36d7e7741c0f5",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9f7d",
+          "fileId": "5fc012c9a3efcb29338b942f",
+          "runId": "5fc012c3a3efcb29338b85a9",
+          "runPath": "/jjones/rice_renseq/os_18/os_18",
+          "expectedRelPath": "os_18/os_18/raw/Os_18_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "46c4cf1aeb347991f13cedbd4dde2fa5",
+          "validOriginalMD5": "46c4cf1aeb347991f13cedbd4dde2fa5",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz",
+              "bytes": 189150877,
+              "md5": "46c4cf1aeb347991f13cedbd4dde2fa5",
+              "sha256": "af8c11a6bffb269d09414442149f812db637b6aac0438b3a2e1c1af7fc6d2b9d",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b971a",
+          "fileId": "5fc012c6a3efcb29338b8bcc",
+          "runId": "5fc012c3a3efcb29338b85a9",
+          "runPath": "/jjones/rice_renseq/os_18/os_18",
+          "expectedRelPath": "os_18/os_18/raw/Os_18_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "3da600475791289b76367648a8323041",
+          "validOriginalMD5": "3da600475791289b76367648a8323041",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz",
+              "bytes": 197268201,
+              "md5": "3da600475791289b76367648a8323041",
+              "sha256": "0aca98eaef36288c3873d2cf34d7af92f932d97b056cc5d3af3436337bd432c9",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b971f",
+          "fileId": "5fc012c6a3efcb29338b8bd1",
+          "runId": "5fc012c4a3efcb29338b87de",
+          "runPath": "/jjones/rice_renseq/os_19/os_19",
+          "expectedRelPath": "os_19/os_19/raw/Os_19_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "9ac130eae59a18a760ee2b04f99608a1",
+          "validOriginalMD5": "9ac130eae59a18a760ee2b04f99608a1",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz",
+              "bytes": 161611776,
+              "md5": "9ac130eae59a18a760ee2b04f99608a1",
+              "sha256": "c4d690e465acd763c4ed9ae479071a67f45af782132230d08d2f128047f90e5c",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9670",
+          "fileId": "5fc012c6a3efcb29338b8b22",
+          "runId": "5fc012c4a3efcb29338b87de",
+          "runPath": "/jjones/rice_renseq/os_19/os_19",
+          "expectedRelPath": "os_19/os_19/raw/Os_19_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "d588da630ce7d4bf9b0ddec915ad4061",
+          "validOriginalMD5": "d588da630ce7d4bf9b0ddec915ad4061",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz",
+              "bytes": 169500154,
+              "md5": "d588da630ce7d4bf9b0ddec915ad4061",
+              "sha256": "9d781092b82a4088e6ee0cfafd18376af133df738953137d53328ae9084727a6",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b995c",
+          "fileId": "5fc012c7a3efcb29338b8e0e",
+          "runId": "5fc012c3a3efcb29338b8620",
+          "runPath": "/jjones/rice_renseq/os_2_2/os_3",
+          "expectedRelPath": "os_2_2/os_3/raw/Os_3_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "25f9e968390e1b1e45610042ddae5af5",
+          "validOriginalMD5": "25f9e968390e1b1e45610042ddae5af5",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz",
+              "bytes": 126376859,
+              "md5": "25f9e968390e1b1e45610042ddae5af5",
+              "sha256": "0a8c2ff56995998a54b754bee19b1a1123c56a4261749169f16afcf8ad0eb048",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9df5",
+          "fileId": "5fc012c9a3efcb29338b92a7",
+          "runId": "5fc012c3a3efcb29338b8620",
+          "runPath": "/jjones/rice_renseq/os_2_2/os_3",
+          "expectedRelPath": "os_2_2/os_3/raw/Os_3_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "2f567fc0973786c2431a583443be23db",
+          "validOriginalMD5": "2f567fc0973786c2431a583443be23db",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz",
+              "bytes": 131028699,
+              "md5": "2f567fc0973786c2431a583443be23db",
+              "sha256": "7b5ac40e33fe86e2e59e2fc241c29b8d59843b489b9e4a55d6f33c06d2e0b983",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b99fb",
+          "fileId": "5fc012c7a3efcb29338b8ead",
+          "runId": "5fc012c4a3efcb29338b87b5",
+          "runPath": "/jjones/rice_renseq/os_2/os_2",
+          "expectedRelPath": "os_2/os_2/raw/Os_2_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "afb0d5b2cfbffc0fcb0b8abf3a508e18",
+          "validOriginalMD5": "afb0d5b2cfbffc0fcb0b8abf3a508e18",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz",
+              "bytes": 191251634,
+              "md5": "afb0d5b2cfbffc0fcb0b8abf3a508e18",
+              "sha256": "b122596c85eb774eef6b7f241785a44f5495a1778707a27def3e579ade897a44",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9d4e",
+          "fileId": "5fc012c8a3efcb29338b9200",
+          "runId": "5fc012c4a3efcb29338b87b5",
+          "runPath": "/jjones/rice_renseq/os_2/os_2",
+          "expectedRelPath": "os_2/os_2/raw/Os_2_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "a04af517c68f60b98715ffec11340f4c",
+          "validOriginalMD5": "a04af517c68f60b98715ffec11340f4c",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz",
+              "bytes": 199148889,
+              "md5": "a04af517c68f60b98715ffec11340f4c",
+              "sha256": "9d099a0f47d5331a0e6b6e9d768403388df7eb532b361c36e7e526036df370b2",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b985f",
+          "fileId": "5fc012c7a3efcb29338b8d11",
+          "runId": "5fc012c3a3efcb29338b8603",
+          "runPath": "/jjones/rice_renseq/os_20/os_20",
+          "expectedRelPath": "os_20/os_20/raw/Os_20_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "53c0333d3bc7a057756f4548a1feac21",
+          "validOriginalMD5": "53c0333d3bc7a057756f4548a1feac21",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz",
+              "bytes": 160120832,
+              "md5": "53c0333d3bc7a057756f4548a1feac21",
+              "sha256": "7950f6b51a7ebcbea9b71962c0ccba25b30d997b00f33e8dec0ba1ff08bed2c4",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9d45",
+          "fileId": "5fc012c8a3efcb29338b91f7",
+          "runId": "5fc012c3a3efcb29338b8603",
+          "runPath": "/jjones/rice_renseq/os_20/os_20",
+          "expectedRelPath": "os_20/os_20/raw/Os_20_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "681fda1ac59294e7048fa58ef4f8f5a0",
+          "validOriginalMD5": "681fda1ac59294e7048fa58ef4f8f5a0",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz",
+              "bytes": 166735253,
+              "md5": "681fda1ac59294e7048fa58ef4f8f5a0",
+              "sha256": "724a37c220c3983c61030131150e8f11a8cb274b56dd48acbc95791868936c8b",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9a7e",
+          "fileId": "5fc012c8a3efcb29338b8f30",
+          "runId": "5fc012c4a3efcb29338b87a0",
+          "runPath": "/jjones/rice_renseq/os_21/os_21",
+          "expectedRelPath": "os_21/os_21/raw/Os_21_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "6429657085d9108066c0e179fd2d90eb",
+          "validOriginalMD5": "6429657085d9108066c0e179fd2d90eb",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz",
+              "bytes": 168017920,
+              "md5": "6429657085d9108066c0e179fd2d90eb",
+              "sha256": "98e018be5b4ea0a0f1a7f4730ac52a362f3906a122b49313cca6000f2660536f",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9a0d",
+          "fileId": "5fc012c7a3efcb29338b8ebf",
+          "runId": "5fc012c4a3efcb29338b87a0",
+          "runPath": "/jjones/rice_renseq/os_21/os_21",
+          "expectedRelPath": "os_21/os_21/raw/Os_21_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "6c0b469ee897e698d130b56f40116dde",
+          "validOriginalMD5": "6c0b469ee897e698d130b56f40116dde",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz",
+              "bytes": 174524442,
+              "md5": "6c0b469ee897e698d130b56f40116dde",
+              "sha256": "78bb43531cdae6b0fcc6b4444998c35775df8c3e3941dd0931855098460383d9",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9cd3",
+          "fileId": "5fc012c8a3efcb29338b9185",
+          "runId": "5fc012c3a3efcb29338b8411",
+          "runPath": "/jjones/rice_renseq/os_22/os_22",
+          "expectedRelPath": "os_22/os_22/raw/Os_22_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "d6f63dd41cd439e9bad838b9084cd78d",
+          "validOriginalMD5": "d6f63dd41cd439e9bad838b9084cd78d",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz",
+              "bytes": 233439232,
+              "md5": "d6f63dd41cd439e9bad838b9084cd78d",
+              "sha256": "15f322eec5f0edce5ab2b31585f5e8418998a04f8c8361a5ea86d3adf9649e28",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9ba2",
+          "fileId": "5fc012c8a3efcb29338b9054",
+          "runId": "5fc012c3a3efcb29338b8411",
+          "runPath": "/jjones/rice_renseq/os_22/os_22",
+          "expectedRelPath": "os_22/os_22/raw/Os_22_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "8251c158217ba24fc23396eedbacbb20",
+          "validOriginalMD5": "8251c158217ba24fc23396eedbacbb20",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz",
+              "bytes": 242809892,
+              "md5": "8251c158217ba24fc23396eedbacbb20",
+              "sha256": "fbb7a8117fb6037398f66679a720b062d17a632ca938646fa24c06a7628c3c46",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9a2b",
+          "fileId": "5fc012c7a3efcb29338b8edd",
+          "runId": "5fc012c3a3efcb29338b864a",
+          "runPath": "/jjones/rice_renseq/os_23/os_23",
+          "expectedRelPath": "os_23/os_23/raw/Os_23_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "d6acb72c585db5aeb3c748a1149625df",
+          "validOriginalMD5": "d6acb72c585db5aeb3c748a1149625df",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz",
+              "bytes": 152403968,
+              "md5": "d6acb72c585db5aeb3c748a1149625df",
+              "sha256": "cceb23888c2afe5ab9aba51cfb456ecc3f80fdcb1964f333e34b04d9142a1ee3",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9f28",
+          "fileId": "5fc012c9a3efcb29338b93da",
+          "runId": "5fc012c3a3efcb29338b864a",
+          "runPath": "/jjones/rice_renseq/os_23/os_23",
+          "expectedRelPath": "os_23/os_23/raw/Os_23_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "1df2d7501891cc9bcf51b6ccfe734b55",
+          "validOriginalMD5": "1df2d7501891cc9bcf51b6ccfe734b55",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz",
+              "bytes": 158761296,
+              "md5": "1df2d7501891cc9bcf51b6ccfe734b55",
+              "sha256": "0f67c0c3cf52eb100d54cd747e61b80dfa61ad615c3b2aa4f4f1eca815720730",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9ad5",
+          "fileId": "5fc012c8a3efcb29338b8f87",
+          "runId": "5fc012c4a3efcb29338b8826",
+          "runPath": "/jjones/rice_renseq/os_24/os_24",
+          "expectedRelPath": "os_24/os_24/raw/Os_24_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "b1c96124301ff4ef3674dd39bdfa716e",
+          "validOriginalMD5": "b1c96124301ff4ef3674dd39bdfa716e",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz",
+              "bytes": 200294400,
+              "md5": "b1c96124301ff4ef3674dd39bdfa716e",
+              "sha256": "bfac6f58d684244573d4742c5af080ed99311d741a147a834bf0ec9ce545f35d",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9a33",
+          "fileId": "5fc012c8a3efcb29338b8ee5",
+          "runId": "5fc012c4a3efcb29338b8826",
+          "runPath": "/jjones/rice_renseq/os_24/os_24",
+          "expectedRelPath": "os_24/os_24/raw/Os_24_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "2c27981b32ce09ea63a98587ca881f4a",
+          "validOriginalMD5": "2c27981b32ce09ea63a98587ca881f4a",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz",
+              "bytes": 207977145,
+              "md5": "2c27981b32ce09ea63a98587ca881f4a",
+              "sha256": "d6f9b8de60a39d138b87fc65398394fc4c373dd1a2452f26d95609cacd8b40cc",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b982e",
+          "fileId": "5fc012c7a3efcb29338b8ce0",
+          "runId": "5fc012c3a3efcb29338b8396",
+          "runPath": "/jjones/rice_renseq/os_4/os_4",
+          "expectedRelPath": "os_4/os_4/raw/Os_4_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "f373eff1fad3d3d9794aad7d3e5e1305",
+          "validOriginalMD5": "f373eff1fad3d3d9794aad7d3e5e1305",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz",
+              "bytes": 219097486,
+              "md5": "f373eff1fad3d3d9794aad7d3e5e1305",
+              "sha256": "539b69fc13e601e68941e399dc98ab22897f459ffe3c07ca4500ee008c4d525d",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9b88",
+          "fileId": "5fc012c8a3efcb29338b903a",
+          "runId": "5fc012c3a3efcb29338b8396",
+          "runPath": "/jjones/rice_renseq/os_4/os_4",
+          "expectedRelPath": "os_4/os_4/raw/Os_4_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "7df2cabd0d3eb1856b8e30a600cf366e",
+          "validOriginalMD5": "7df2cabd0d3eb1856b8e30a600cf366e",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz",
+              "bytes": 226827948,
+              "md5": "7df2cabd0d3eb1856b8e30a600cf366e",
+              "sha256": "0d84cab96288a6d237fcec9099d4e38350d1d8a2cf8cbd1fd1bf544d1b33607c",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9774",
+          "fileId": "5fc012c7a3efcb29338b8c26",
+          "runId": "5fc012c4a3efcb29338b871a",
+          "runPath": "/jjones/rice_renseq/os_5/os_5",
+          "expectedRelPath": "os_5/os_5/raw/Os_5_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "ff4a2fdc09576d536b92aa09dd9d6a13",
+          "validOriginalMD5": "ff4a2fdc09576d536b92aa09dd9d6a13",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz",
+              "bytes": 117767925,
+              "md5": "ff4a2fdc09576d536b92aa09dd9d6a13",
+              "sha256": "70e4d3b16865d6e0f9dd5adeb13d85b02bd5462db780cc9c21d2872ee58c7326",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9fca",
+          "fileId": "5fc012c9a3efcb29338b947c",
+          "runId": "5fc012c4a3efcb29338b871a",
+          "runPath": "/jjones/rice_renseq/os_5/os_5",
+          "expectedRelPath": "os_5/os_5/raw/Os_5_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "791c0210336c679c0021718568e41279",
+          "validOriginalMD5": "791c0210336c679c0021718568e41279",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz",
+              "bytes": 123369199,
+              "md5": "791c0210336c679c0021718568e41279",
+              "sha256": "51bc9304205a23a8f0a4ef15d5f317b30389041ffc2041c40ad769f7b6bd9031",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9882",
+          "fileId": "5fc012c7a3efcb29338b8d34",
+          "runId": "5fc012c4a3efcb29338b87fa",
+          "runPath": "/jjones/rice_renseq/os_6/os_6",
+          "expectedRelPath": "os_6/os_6/raw/Os_6_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "eb0d54a91a2eccedb8f81187412ae26b",
+          "validOriginalMD5": "eb0d54a91a2eccedb8f81187412ae26b",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz",
+              "bytes": 207700458,
+              "md5": "eb0d54a91a2eccedb8f81187412ae26b",
+              "sha256": "25da59dd9afcbe9abf3ae039f5d885f6d0aed31e8532b190374ced5d1d4756fc",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9d70",
+          "fileId": "5fc012c9a3efcb29338b9222",
+          "runId": "5fc012c4a3efcb29338b87fa",
+          "runPath": "/jjones/rice_renseq/os_6/os_6",
+          "expectedRelPath": "os_6/os_6/raw/Os_6_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "61d285ae7f00dbb47668b4fa71157326",
+          "validOriginalMD5": "61d285ae7f00dbb47668b4fa71157326",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz",
+              "bytes": 216508162,
+              "md5": "61d285ae7f00dbb47668b4fa71157326",
+              "sha256": "b692354c5fcd2f0a71ab9623ebe596e18f054e8133da267155fa642f6e37386c",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b98da",
+          "fileId": "5fc012c7a3efcb29338b8d8c",
+          "runId": "5fc012c4a3efcb29338b87b9",
+          "runPath": "/jjones/rice_renseq/os_7/os_7",
+          "expectedRelPath": "os_7/os_7/raw/Os_7_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "92aab72dadc9477531b6c46244560d13",
+          "validOriginalMD5": "92aab72dadc9477531b6c46244560d13",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz",
+              "bytes": 225486696,
+              "md5": "92aab72dadc9477531b6c46244560d13",
+              "sha256": "e16b69e2daab9c2978071db4a69992ac60788313dc9d163634281b92ebbbcdc3",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9aab",
+          "fileId": "5fc012c8a3efcb29338b8f5d",
+          "runId": "5fc012c4a3efcb29338b87b9",
+          "runPath": "/jjones/rice_renseq/os_7/os_7",
+          "expectedRelPath": "os_7/os_7/raw/Os_7_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "1350e5f24e0d326db09cd5fa031c485a",
+          "validOriginalMD5": "1350e5f24e0d326db09cd5fa031c485a",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz",
+              "bytes": 234924343,
+              "md5": "1350e5f24e0d326db09cd5fa031c485a",
+              "sha256": "1279d2acdcb99134c871b3ca7bc00df1a861fa5ea2b9eab35ae95b248f114208",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9792",
+          "fileId": "5fc012c7a3efcb29338b8c44",
+          "runId": "5fc012c3a3efcb29338b836a",
+          "runPath": "/jjones/rice_renseq/os_8/os_8",
+          "expectedRelPath": "os_8/os_8/raw/Os_8_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "1545a3b8daec380a4d8c0726ff5918ae",
+          "validOriginalMD5": "1545a3b8daec380a4d8c0726ff5918ae",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz",
+              "bytes": 137687451,
+              "md5": "1545a3b8daec380a4d8c0726ff5918ae",
+              "sha256": "dbd54410d7d5e2f37eb288f5df7c29828e45e2222bbbfabebd8cb34237543886",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b96c9",
+          "fileId": "5fc012c6a3efcb29338b8b7b",
+          "runId": "5fc012c3a3efcb29338b836a",
+          "runPath": "/jjones/rice_renseq/os_8/os_8",
+          "expectedRelPath": "os_8/os_8/raw/Os_8_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "f4886c15c6346f6e470b5a53137e73fa",
+          "validOriginalMD5": "f4886c15c6346f6e470b5a53137e73fa",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz",
+              "bytes": 143570988,
+              "md5": "f4886c15c6346f6e470b5a53137e73fa",
+              "sha256": "ff32cfce3fde2a6bddfdf5fba3b5ec8840b04495ef3675a3e0b390491342cabf",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9917",
+          "fileId": "5fc012c7a3efcb29338b8dc9",
+          "runId": "5fc012c3a3efcb29338b8524",
+          "runPath": "/jjones/rice_renseq/os_9/os_9",
+          "expectedRelPath": "os_9/os_9/raw/Os_9_mixed_L3_1_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz",
+          "recordedOriginalMD5": "3887cc02c5794778a0fddd6ba06e2d1a",
+          "validOriginalMD5": "3887cc02c5794778a0fddd6ba06e2d1a",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz",
+              "bytes": 177441760,
+              "md5": "3887cc02c5794778a0fddd6ba06e2d1a",
+              "sha256": "05df158233b932330b7d1505bdbf0ea3ed55815ec9743ce407dc70992ea593f5",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cca3efcb29338b9ceb",
+          "fileId": "5fc012c8a3efcb29338b919d",
+          "runId": "5fc012c3a3efcb29338b8524",
+          "runPath": "/jjones/rice_renseq/os_9/os_9",
+          "expectedRelPath": "os_9/os_9/raw/Os_9_mixed_L3_2_l170.fq.gz",
+          "storedFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz",
+          "recordedOriginalMD5": "7793280dbfb01089ac8d90b38cb5c970",
+          "validOriginalMD5": "7793280dbfb01089ac8d90b38cb5c970",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz",
+              "bytes": 185741646,
+              "md5": "7793280dbfb01089ac8d90b38cb5c970",
+              "sha256": "b9869242cc1cd47fe063ff635b5f0b181d8ac8b4a6afed676e367d8bfa289158",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9926",
+          "fileId": "5fc012c7a3efcb29338b8dd8",
+          "runId": "5fc012c3a3efcb29338b8693",
+          "runPath": "/jjones/rice_renseq/rice_pacbio_1/pacbio_1",
+          "expectedRelPath": "rice_pacbio_1/pacbio_1/raw/rice_pacbio_ccs_sample_1.fastq.gz",
+          "storedFilePath": "/jjones/rice_renseq/rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz",
+          "recordedOriginalMD5": "f42e1b40be9df3f11c12be106da10467",
+          "validOriginalMD5": "f42e1b40be9df3f11c12be106da10467",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz",
+              "bytes": 99277506,
+              "md5": "ce09bc709db7eb917b79c1b4a8723d8c",
+              "sha256": "4bc862e8eb5af5a8c667b951537706c77ba72f80f792171c0713a8146e289f4b",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b9753",
+          "fileId": "5fc012c7a3efcb29338b8c05",
+          "runId": "5fc012c3a3efcb29338b8334",
+          "runPath": "/jjones/rice_renseq/rice_pacbio_16/rice_pacbio_16",
+          "expectedRelPath": "rice_pacbio_16/rice_pacbio_16/raw/AJI_2.fastq.gz",
+          "storedFilePath": "/jjones/rice_renseq/rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz",
+          "recordedOriginalMD5": "310ce6ec56f6a3552aff2dd75d1dd05d",
+          "validOriginalMD5": "310ce6ec56f6a3552aff2dd75d1dd05d",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz",
+              "bytes": 160603892,
+              "md5": "310ce6ec56f6a3552aff2dd75d1dd05d",
+              "sha256": "650566927d746e6816941673b2368e6a232bb505909ba897bda6cacfcc436cfe",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "a",
+            "resolution": "Leave the tree as it is; seal the location discrepancy and checksum evidence in the archive audit.",
+            "originalMd5Match": true
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b981f",
+          "fileId": "5fc012c7a3efcb29338b8cd1",
+          "runId": "5fc012c3a3efcb29338b8670",
+          "runPath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2",
+          "expectedRelPath": "rice_pacbio_2/pacbio_2/raw/rice_pacbio_ccs_sample_2.fastq.gz",
+          "storedFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz",
+          "recordedOriginalMD5": "496a8aacde9368f7158cead24044fd5b",
+          "validOriginalMD5": "496a8aacde9368f7158cead24044fd5b",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz",
+              "bytes": 88795398,
+              "md5": "414cd05dba2e0b14ef198691d0e87e95",
+              "sha256": "7db074a69348090408e6521db7f0de1e679267dee06149d68603cf5163584555",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cba3efcb29338b97b2",
+          "fileId": "5fc012c7a3efcb29338b8c64",
+          "runId": "5fc012c3a3efcb29338b8670",
+          "runPath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2",
+          "expectedRelPath": "rice_pacbio_2/pacbio_2/raw/rice_pacbio_ccs_sample_3.fastq.gz",
+          "storedFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+          "recordedOriginalMD5": "51132b7a78aae271222336f64d368f04",
+          "validOriginalMD5": "51132b7a78aae271222336f64d368f04",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+              "bytes": 189528284,
+              "md5": "dd4c1db277756bd15cf6abb510a31049",
+              "sha256": "5b453a79e6420bc2a762d194d634a68f9eb462b429cce3319da39f56b390d748",
+              "stable": true
+            },
+            {
+              "relPath": "rice_pacbio_3/pacbio_3/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+              "bytes": 189528284,
+              "md5": "dd4c1db277756bd15cf6abb510a31049",
+              "sha256": "5b453a79e6420bc2a762d194d634a68f9eb462b429cce3319da39f56b390d748",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        },
+        {
+          "readId": "5fc012cda3efcb29338b9e7b",
+          "fileId": "5fc012c9a3efcb29338b932d",
+          "runId": "5fc012c3a3efcb29338b862e",
+          "runPath": "/jjones/rice_renseq/rice_pacbio_4/pacbio_4",
+          "expectedRelPath": "rice_pacbio_4/pacbio_4/raw/rice_pacbio_ccs_sample_4.fastq.gz",
+          "storedFilePath": "/jjones/rice_renseq/rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz",
+          "recordedOriginalMD5": "5b2ecfee51c53970046029ab21293dab",
+          "validOriginalMD5": "5b2ecfee51c53970046029ab21293dab",
+          "destinationMd5": null,
+          "candidates": [
+            {
+              "relPath": "rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz",
+              "bytes": 125963714,
+              "md5": "125e284b2ad3bd947434c1137102c9f8",
+              "sha256": "5ea761455b92db3a4fe5a10f2838cbe99470cd6f187328036561f758b5dcff9b",
+              "stable": true
+            }
+          ],
+          "resolution": {
+            "category": "c",
+            "resolved": false,
+            "allCandidateBytesEqual": true,
+            "originalMd5MatchingPaths": [],
+            "resolution": "HOLD: checksum mismatch, cross-run location, or distinct ambiguous candidates require a separate decision; no automatic file move or database repair."
+          },
+          "proposedFileMoves": [],
+          "proposedDatabaseWrites": []
+        }
+      ],
+      "uniqueFilesHashed": 51,
+      "treeUnchangedDuringAudit": true
+    }
+  ],
+  "moduleSha256": {
+    "lib/s3-archive/preflight.js": "5a3a80e951ae121eced87932911d6998de42ac7063a9ee664d78d3631a179c43",
+    "lib/s3-archive/inventory.js": "90e95a8847c49639e3d83874701b4e12d6d7ea743ffe1b11b3262e36d14aa18f"
+  },
+  "finishedAt": "2026-10-17T12:30:22.529Z",
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  }
+}

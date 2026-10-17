@@ -26,9 +26,15 @@ on v1333. The runners do not modify MongoDB, S3, project trees or production cod
   alternatives for the missing `.fastq.txt` names in jjones-008, hashed with
   `collect-extension-candidates.cjs`. This supplements, not duplicates, the primary
   job, which has no candidates for these three records.
-- `paths-20261017T063123Z.*`: file-location evidence collected by the original
-  collector version. Treat this as complete only when its command receipt reports
-  exit code 0 and its JSON contains all eight projects/110 records.
+- `paths-20261017T063123Z.*`: interrupted original attempt, exit 255, no JSON
+  result returned. Empty stdout is retained as `.stdout.txt`, with its original
+  name recorded in the command receipt. Its progress is not checksum evidence.
+- `paths-retry-20261017T115634Z*`: repeated read-only comparison using the same
+  hashing/classification implementation. `run-path-retry.py` saves each project's
+  output and command receipt separately on the Mac, with at most two concurrent
+  readers. Four complete reports (59 records) were saved; the connection ended at 12:32 UTC
+  before the other four projects completed. No aggregate was accepted. Failed empty
+  outputs are retained as `.stdout.txt`, with their execution names in the receipts.
 
 Every command receipt records the exact SSH invocation and output SHA-256. The
 relations/paths receipts also record target IDs/paths and collector SHA-256.
@@ -47,3 +53,22 @@ in this private repository for the scoped disposal audit.
 
 `correct-diagnostics.cjs` produces derived diagnostic reports from the immutable
 October 16 observations. Those corrected labels are not fresh production observations.
+
+
+## Resumable record observations
+
+`resume-path-review.py` validates/reuses the four complete project reports and,
+with `--execute`, observes only remaining records. No flag means local validation
+only. It checks for surviving old collectors before launching at most two readers.
+`collect-path-record.cjs` differs from `collect-readonly.cjs` only by including the
+SHA-256 of the complete inventory in its result; hashing and classification are
+unchanged. Each record job still checks its whole project tree before/after.
+Aggregation requires identical whole-tree fingerprints across record jobs, exact
+record coverage, consistent code/Git identity and consistent duplicate candidate
+hashes. Per-observation timestamps and source receipts are retained. It does not
+claim a database snapshot transaction or a freeze for a future archive.
+
+Eight local synthetic aggregation tests cover missing/duplicate records, changed
+inventories, conflicting file hashes, changed module code and reuse of complete
+project evidence. The test command is
+`python3 __tests__/scripts/archive-path-resume.test.py`.

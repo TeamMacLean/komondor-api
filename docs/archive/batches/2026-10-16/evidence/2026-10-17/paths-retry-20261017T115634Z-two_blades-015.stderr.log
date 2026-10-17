@@ -1,0 +1,21 @@
+two_blades-015: collecting paths
+two_blades-015: hashing 0h/0_hour/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz (3858761752 bytes)
+two_blades-015: hashing 0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz (3858761752 bytes)
+two_blades-015: read 5fc012cda3efcb29338b9e70: category c
+two_blades-015: hashing 0h/0h/processed/JISO_0h_R1.clean.paired.fq (7743640103 bytes)
+two_blades-015: read 5fc012cba3efcb29338b9889: category a
+two_blades-015: hashing 0h/0h/processed/JISO_0h_R2.clean.paired.fq (7457629045 bytes)
+two_blades-015: read 5fc012cca3efcb29338b9be4: category a
+two_blades-015: hashing 12h/12h/processed/JISO_12h_R1.clean.paired.fq (6950288318 bytes)
+two_blades-015: read 5fc012cca3efcb29338b9ccf: category a
+two_blades-015: hashing 12h/12h/processed/JISO_12h_R2.clean.paired.fq (6758483904 bytes)
+two_blades-015: read 5fc012cda3efcb29338b9fae: category a
+two_blades-015: hashing 168h/168h/processed/JISO_168h_R1.clean.paired.fq (8726826923 bytes)
+two_blades-015: read 5fc012cca3efcb29338b9c8f: category a
+two_blades-015: hashing 168h/168h/processed/JISO_168h_R2.clean.paired.fq (8356869313 bytes)
+two_blades-015: read 5fc012cba3efcb29338b975f: category a
+two_blades-015: hashing 24h/24h/processed/JISO_24h_R1.clean.paired.fq (8787402489 bytes)
+two_blades-015: read 5fc012cca3efcb29338b9e4e: category a
+two_blades-015: hashing 24h/24h/processed/JISO_24h_R2.clean.paired.fq (8369993609 bytes)
+two_blades-015: read 5fc012cda3efcb29338b9ef5: category a
+two_blades-015: hashing 36h/36/processed/JISO_36h_R1.clean.paired.fq (9450463717 bytes)

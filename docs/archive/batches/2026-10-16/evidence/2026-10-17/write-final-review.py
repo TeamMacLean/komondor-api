@@ -29,7 +29,7 @@ checkpoints are still required. No production writes or owner contact occurred.
 |---|---|---|
 | 1. Diagnostic kind | `47f6957` | `db-file-missing` and `recordKind` both retained; Read/AdditionalFile regression tests; 110 derived anomaly labels corrected without altering raw observations |
 | 2. Per-project path resolution | `{head[:7]}` | All 110 records reviewed; complete hashes and preserved-tree decisions; no File.path edits or raw/ moves |
-| 3. Dependent records | `aca906d`, `e98b9d2`, final clarification in `{head[:7]}` | Eight projects including Xiao; 48 documents exported; exact collection ID filters/order; fresh frozen export required before George executes |
+| 3. Dependent records | `aca906d`, `e98b9d2`, snapshot limitation clarified in `b1006b9` | Eight projects including Xiao; 48 documents exported; exact collection ID filters/order; fresh frozen export required before George executes |
 | 4. Kamoun targets | `cdc4df2` | Five sheet Saunders targets, Xiao, five pending supplementary targets; corrected exact totals and fresh canonical-inventory checkpoint |
 | 5. Placeholders | `93a0160` | 17 Talbot payloads, exact generated-path checks and separate manual Courville procedure; missing group-administrator addresses explicitly assigned to George |
 | 6. Housekeeping/pilots | `e33c3a3` | LF CSV, cross-linked historical/current labels, three named pilots first; fresh plan required before each lock |
@@ -59,6 +59,11 @@ under [evidence/2026-10-17](evidence/2026-10-17/README.md). No archive manifest 
 by this review. The procedure requires later verification of missing-record anomalies
 and physical file SHA-256 values in the actual sealed manifest, with its digest linked
 to this audit record. External resolution prose is not automatically embedded by the CLI.
+
+The original primary SSH job ended with exit 255 and returned no JSON. Its progress
+log was not accepted as checksum evidence. A second disconnect left four complete project reports saved. The resumable
+checker retained those reports and saved remaining comparisons individually; matching
+whole-tree fingerprints and complete record coverage underpin the aggregate. No production files were used for those checkpoints.
 
 The gzip diagnostic initially closed its descriptor before its final stability
 check and failed without accepting any result. The corrected helper is covered by
@@ -97,8 +102,10 @@ Both standalone scripts passed the model-registration/autoIndex/autoCreate test;
 smoke tests passed in all three runs. Archive suite: **9 suites / 167 tests**.
 Integration-only suite against a local disposable database: **10 suites / 58 tests**,
 including three real-database evidence tests. The 20 evidence unit tests and four gzip diagnostic tests are included
-in the full suite. `git diff --check` passed, and the action CSV contains LF only.
-[Validation summary and log hashes](evidence/2026-10-17/validation-results.json).
+in the full suite. Eight additional Python tests validate resumable evidence aggregation.
+`git diff --check` passed, and the action CSV contains LF only.
+[Validation summary and log hashes](evidence/2026-10-17/validation-results.json);
+[Git-readable result/failure excerpts](evidence/2026-10-17/VALIDATION_EXCERPTS.md).
 
 The integration suite emitted an open-handle warning and then exited successfully.
 An earlier targeted evidence test encountered leftover unique indexes in the scratch

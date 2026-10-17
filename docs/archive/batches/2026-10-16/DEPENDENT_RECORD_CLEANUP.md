@@ -53,6 +53,11 @@ This procedure follows the current schemas; re-review if those change.
    through physical disposal and metadata cleanup. Do not trust an earlier empty snapshot.
 3. Repeat the read-only collector from this checkout:
    `python3 docs/archive/batches/2026-10-16/evidence/2026-10-17/run-readonly.py relations`.
+   This command runs from the repository on the operator's workstation, with VPN
+   and an authenticated SSH connection. Set `ARCHIVE_REVIEW_SSH_SOCKET` to that
+   connection's absolute control-socket path if it is not the original
+   `$HOME/.ssh/v1333-codex-stage2.sock`. It uses `BatchMode=yes` and cannot prompt
+   for a password. Authentication failure stops the export; it is not an empty result.
    It runs in memory over SSH and writes the export on the operator's workstation,
    outside the disposable roots. It does not write production files, documents or S3.
    Save a second copy with the database backup.

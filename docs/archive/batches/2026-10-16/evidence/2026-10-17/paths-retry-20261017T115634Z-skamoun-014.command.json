@@ -1,0 +1,107 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-review-20261017.sock -o BatchMode=yes -o ConnectTimeout=15 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'const fs=require('\"'\"'\"'\"'\"'\"'\"'\"'fs'\"'\"'\"'\"'\"'\"'\"'\"'),Module=require('\"'\"'\"'\"'\"'\"'\"'\"'module'\"'\"'\"'\"'\"'\"'\"'\"');\nconst p=JSON.parse(fs.readFileSync(0,'\"'\"'\"'\"'\"'\"'\"'\"'utf8'\"'\"'\"'\"'\"'\"'\"'\"'));\nconst m=new Module('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"');\nm.filename='\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts/_review_collect.cjs'\"'\"'\"'\"'\"'\"'\"'\"';\nm.paths=Module._nodeModulePaths('\"'\"'\"'\"'\"'\"'\"'\"'/storage/www/komondor-api/scripts'\"'\"'\"'\"'\"'\"'\"'\"');\nm._compile(p.source,m.filename);\nm.exports.run(p).then(r=>process.stdout.write(JSON.stringify(r,null,2)+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"'))\n.catch(e=>{process.stderr.write(e.stack+'\"'\"'\"'\"'\"'\"'\"'\"'\\n'\"'\"'\"'\"'\"'\"'\"'\"');process.exitCode=1;});'\"'\"''",
+  "collectorFile": "collect-readonly.cjs",
+  "collectorSha256": "6167301cf68a987ac65da7157dcc5ead7b5a8a41c42186fba213372d41d23f3d",
+  "targets": [
+    {
+      "entryId": "skamoun-014",
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "projectPath": "/skamoun/janderso_rsolani",
+      "missing": [
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9a85",
+          "expectedRelPath": "sample1/run1/raw/AG8_2_200_1.fastq.trim.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338ba00d",
+          "expectedRelPath": "sample1/run1/raw/AG8_2_200_2.fastq.trim.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338ba0b7",
+          "expectedRelPath": "sample1/run1/raw/AG8_2_500_1.fastq.trim.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9ac4",
+          "expectedRelPath": "sample1/run1/raw/AG8_2_500_2.fastq.trim.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9786",
+          "expectedRelPath": "sample1/run1/raw/ja4_tgacca_l002_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9af0",
+          "expectedRelPath": "sample1/run1/raw/ja4_tgacca_l002_r2_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b97ea",
+          "expectedRelPath": "sample1/run1/raw/ja5_acagtg_l002_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9e84",
+          "expectedRelPath": "sample1/run1/raw/ja5_acagtg_l002_r2_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9a31",
+          "expectedRelPath": "sample1/run1/raw/ja6_gccaat_l002_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9b1a",
+          "expectedRelPath": "sample1/run1/raw/ja6_gccaat_l002_r2_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9b4e",
+          "expectedRelPath": "sample1/run1/raw/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cca3efcb29338b9e64",
+          "expectedRelPath": "sample1/run1/raw/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b95f0",
+          "expectedRelPath": "sample1/run1/raw/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cba3efcb29338b9773",
+          "expectedRelPath": "sample1/run1/raw/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9edc",
+          "expectedRelPath": "sample1/run1/raw/jar15z_acttga_l005_r1_001.fastq.trimmed.paired"
+        },
+        {
+          "kind": "read",
+          "id": "5fc012cda3efcb29338b9f24",
+          "expectedRelPath": "sample1/run1/raw/jar15z_acttga_l005_r2_001.fastq.trimmed.paired"
+        }
+      ]
+    }
+  ],
+  "mode": "paths",
+  "output": "paths-retry-20261017T115634Z-skamoun-014.stdout.txt",
+  "stderr": "paths-retry-20261017T115634Z-skamoun-014.stderr.log",
+  "productionWrites": false,
+  "startedAt": "2026-10-17T12:32:34.936132+00:00",
+  "exitCode": 255,
+  "finishedAt": "2026-10-17T12:32:35.811481+00:00",
+  "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "outputNameAtExecution": "paths-retry-20261017T115634Z-skamoun-014.json",
+  "acceptedAsEvidence": false,
+  "stderrOriginalBase64": "ZGVla3NAdjEzMzMubmJpLmFjLnVrOiBQZXJtaXNzaW9uIGRlbmllZCAocHVibGlja2V5LGdzc2FwaS1rZXlleCxnc3NhcGktd2l0aC1taWMscGFzc3dvcmQpLg0K",
+  "stderrOriginalSha256": "fa95094f525c46e1458cabf8e49c89b6728ca2e351bc26c96797a1d86eb05852",
+  "stderrNormalization": "CRLF converted to LF in the readable log; exact captured bytes retained in stderrOriginalBase64."
+}
