@@ -8,9 +8,37 @@ const {
 const {
   validateAws,
   validateProjectRoot,
+  overlayDatabase,
 } = require("../../../lib/s3-archive/preflight");
 
 const fsp = fs.promises;
+
+describe("missing database file diagnostics", () => {
+  test.each(["read", "additionalFile"])(
+    "keeps the anomaly kind and the %s record kind separately",
+    (recordKind) => {
+      const file = {
+        _id: "file-id",
+        originalName: "missing.fastq",
+        path: `/group/project/run/${recordKind === "read" ? "raw" : "additional"}/missing.fastq`,
+      };
+      const record = { _id: "record-id", run: "run-id", file, destinationMd5: "legacy-md5" };
+      const result = overlayDatabase({ entries: [] }, {
+        samples: [], runs: [{ _id: "run-id", path: "/group/project/run", status: "complete" }],
+        reads: recordKind === "read" ? [record] : [],
+        additionalFiles: recordKind === "additionalFile" ? [record] : [],
+      }, "group/project");
+      expect(result.dbExpectedMissing).toEqual([{
+        kind: recordKind, id: "record-id",
+        expectedRelPath: `run/${recordKind === "read" ? "raw" : "additional"}/missing.fastq`,
+      }]);
+      expect(result.anomalies).toEqual([{
+        serious: true, kind: "db-file-missing", recordKind,
+        id: "record-id", expectedRelPath: result.dbExpectedMissing[0].expectedRelPath,
+      }]);
+    },
+  );
+});
 
 describe("archive source-root validation", () => {
   let datastoreRoot;

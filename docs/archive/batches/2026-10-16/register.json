@@ -142,7 +142,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/pacbio_genome_sequencing_ppufv02",
         "registered_source_root": "/mnt/reads/two_blades/pacbio_genome_sequencing_ppufv02",
@@ -219,7 +219,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -288,7 +288,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/ppufv02_transcriptome",
         "registered_source_root": "/mnt/reads/two_blades/ppufv02_transcriptome",
@@ -367,7 +367,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/gargy_2019_rnaseq",
         "registered_source_root": "/mnt/reads/two_blades/gargy_2019_rnaseq",
@@ -444,7 +444,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
         "registered_source_root": "/mnt/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
@@ -521,7 +521,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
         "registered_source_root": "/mnt/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
@@ -598,7 +598,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/2021_gargy_accessions_wgs",
         "registered_source_root": "/mnt/reads/two_blades/2021_gargy_accessions_wgs",
@@ -675,7 +675,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
         "registered_source_root": "/mnt/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
@@ -752,7 +752,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
         "registered_source_root": "/mnt/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
@@ -829,7 +829,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/pkg_enq_698nadineilk",
         "registered_source_root": "/mnt/reads/two_blades/pkg_enq_698nadineilk",
@@ -908,7 +908,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/rnaseqp_sa",
         "registered_source_root": "/mnt/reads/two_blades/rnaseqp_sa",
@@ -985,7 +985,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/cajanus_70x_genomicdata_reads_illumina",
         "registered_source_root": "/mnt/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
@@ -1064,7 +1064,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/ppufv02_timecourse",
         "registered_source_root": "/mnt/reads/two_blades/ppufv02_timecourse",
@@ -1141,7 +1141,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/two_blades/japanse_isolate_timecourse",
         "registered_source_root": "/mnt/reads/two_blades/japanse_isolate_timecourse",
@@ -1162,7 +1162,7 @@
             "disk-file-untracked": 38,
             "empty-directory-skipped": 24,
             "read-destination-md5-missing": 25,
-            "read": 13
+            "db-file-missing": 13
           }
         },
         "checksum_verification_performed": false,
@@ -1222,7 +1222,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/_re_sequencing_genomic_dna_bgi",
         "registered_source_root": "/mnt/reads/two_blades/_re_sequencing_genomic_dna_bgi",
@@ -1299,7 +1299,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/medicago_trucatala__genome_sequences",
         "registered_source_root": "/mnt/reads/two_blades/medicago_trucatala__genome_sequences",
@@ -1378,7 +1378,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/gargy_2019_isoseq",
         "registered_source_root": "/mnt/reads/two_blades/gargy_2019_isoseq",
@@ -1455,7 +1455,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/ppufv02_nanopore_sequencing",
         "registered_source_root": "/mnt/reads/two_blades/ppufv02_nanopore_sequencing",
@@ -1532,7 +1532,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/rnaseq_of_differential_isolates_of_asr",
         "registered_source_root": "/mnt/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
@@ -1611,7 +1611,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/sequencing_field_isolates_of_phakopsora",
         "registered_source_root": "/mnt/reads/two_blades/sequencing_field_isolates_of_phakopsora",
@@ -1690,7 +1690,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
         "registered_source_root": "/mnt/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
@@ -1767,7 +1767,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/foc_cr1_",
         "registered_source_root": "/mnt/reads/two_blades/foc_cr1_",
@@ -1844,7 +1844,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/adpop7_progeny_bsa_illumina",
         "registered_source_root": "/mnt/reads/two_blades/adpop7_progeny_bsa_illumina",
@@ -1920,7 +1920,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
         "registered_source_root": "/mnt/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
@@ -1997,7 +1997,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/foc_st4",
         "registered_source_root": "/mnt/reads/two_blades/foc_st4",
@@ -2074,7 +2074,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/rnaseq_bgi_cajanus_cajan_inf",
         "registered_source_root": "/mnt/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
@@ -2151,7 +2151,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/genotyping_by_sequencing_advanced_population_8",
         "registered_source_root": "/mnt/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
@@ -2227,7 +2227,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/adpop7_parents_wgs_illumina",
         "registered_source_root": "/mnt/reads/two_blades/adpop7_parents_wgs_illumina",
@@ -2303,7 +2303,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/asr_sequencing_10xgenomics",
         "registered_source_root": "/mnt/reads/two_blades/asr_sequencing_10xgenomics",
@@ -2380,7 +2380,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/asr_sequencing_illumina",
         "registered_source_root": "/mnt/reads/two_blades/asr_sequencing_illumina",
@@ -2457,7 +2457,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/mtruncatula_bgi_rnaseq_parents",
         "registered_source_root": "/mnt/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
@@ -2534,7 +2534,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/exome_capture_field_samples_jan2018",
         "registered_source_root": "/mnt/reads/two_blades/exome_capture_field_samples_jan2018",
@@ -2611,7 +2611,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/ppufv02_gdna_bgi",
         "registered_source_root": "/mnt/reads/two_blades/ppufv02_gdna_bgi",
@@ -2688,7 +2688,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/adpop7_refassembly_hifi",
         "registered_source_root": "/mnt/reads/two_blades/adpop7_refassembly_hifi",
@@ -2765,7 +2765,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/soybean_rust_dovetail_hic",
         "registered_source_root": "/mnt/reads/two_blades/soybean_rust_dovetail_hic",
@@ -2842,7 +2842,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/gltp_wgs_cintiakawashima",
         "registered_source_root": "/mnt/reads/two_blades/gltp_wgs_cintiakawashima",
@@ -2919,7 +2919,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/gltp_rnaseq_cintiakawashima",
         "registered_source_root": "/mnt/reads/two_blades/gltp_rnaseq_cintiakawashima",
@@ -2996,7 +2996,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/bulks_asr_3_screen",
         "registered_source_root": "/mnt/reads/two_blades/bulks_asr_3_screen",
@@ -3073,7 +3073,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/ant_project_rnaseq_data",
         "registered_source_root": "/mnt/reads/two_blades/ant_project_rnaseq_data",
@@ -3149,7 +3149,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
         "registered_source_root": "/mnt/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
@@ -3226,7 +3226,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/advpop7_cdna_nanopore",
         "registered_source_root": "/mnt/reads/two_blades/advpop7_cdna_nanopore",
@@ -3302,7 +3302,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/legumeenrichmentcapture_rd",
         "registered_source_root": "/mnt/reads/two_blades/legumeenrichmentcapture_rd",
@@ -3379,7 +3379,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/legumeenrichmentcapture_s48",
         "registered_source_root": "/mnt/reads/two_blades/legumeenrichmentcapture_s48",
@@ -3456,7 +3456,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/legumeenrichmentcapture_raparent",
         "registered_source_root": "/mnt/reads/two_blades/legumeenrichmentcapture_raparent",
@@ -3533,7 +3533,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/two_blades/rnaseq_m_trun",
         "registered_source_root": "/mnt/reads/two_blades/rnaseq_m_trun",
@@ -3612,7 +3612,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/two_blades/rnaseq_2bl_ni_gargy_fam1",
         "registered_source_root": "/mnt/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
@@ -3689,7 +3689,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/two_blades/pkg_enq_832_01nadineilk",
         "registered_source_root": "/mnt/reads/two_blades/pkg_enq_832_01nadineilk",
@@ -3766,7 +3766,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-two_blades.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
         "verdict": "UNREGISTERED_EMPTY",
         "registered_path": null,
         "registered_source_root": null,
@@ -3836,7 +3836,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
         "registered_source_root": "/mnt/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
@@ -3913,7 +3913,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hk_pacbio",
         "registered_source_root": "/mnt/reads/jjones/hk_pacbio",
@@ -3992,7 +3992,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/whole_genome_shotgun_of_solanum_americanum",
         "registered_source_root": "/mnt/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
@@ -4013,7 +4013,7 @@
             "disk-file-untracked": 186,
             "empty-directory-skipped": 108,
             "read-destination-md5-missing": 4,
-            "read": 4
+            "db-file-missing": 4
           }
         },
         "checksum_verification_performed": false,
@@ -4073,7 +4073,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/albugo_candida",
         "registered_source_root": "/mnt/reads/jjones/albugo_candida",
@@ -4095,7 +4095,7 @@
             "duplicate-db-path": 32,
             "empty-directory-skipped": 76,
             "read-destination-md5-missing": 74,
-            "read": 2
+            "db-file-missing": 2
           }
         },
         "checksum_verification_performed": false,
@@ -4155,7 +4155,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "CASE_MISMATCH",
         "registered_path": "/jjones/witekk_s_americanum_gdna_bgi",
         "registered_source_root": "/mnt/reads/jjones/witekk_s_americanum_gdna_bgi",
@@ -4224,7 +4224,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/s__americanum_nanopore_cdna_renseq",
         "registered_source_root": "/mnt/reads/jjones/s__americanum_nanopore_cdna_renseq",
@@ -4300,7 +4300,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
@@ -4321,7 +4321,7 @@
             "disk-file-untracked": 47,
             "empty-directory-skipped": 24,
             "read-destination-md5-missing": 9,
-            "read": 3
+            "db-file-missing": 3
           }
         },
         "checksum_verification_performed": false,
@@ -4381,7 +4381,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/s__americanum_sp1102_cdna_nanopore",
         "registered_source_root": "/mnt/reads/jjones/s__americanum_sp1102_cdna_nanopore",
@@ -4457,7 +4457,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/aj_pathseq",
         "registered_source_root": "/mnt/reads/jjones/aj_pathseq",
@@ -4536,7 +4536,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_ath_atacseq_2019_1",
         "registered_source_root": "/mnt/reads/jjones/dingp_ath_atacseq_2019_1",
@@ -4615,7 +4615,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/rice_renseq",
         "registered_source_root": "/mnt/reads/jjones/rice_renseq",
@@ -4637,7 +4637,7 @@
             "duplicate-db-path": 1,
             "empty-directory-skipped": 255,
             "read-destination-md5-missing": 239,
-            "read": 50
+            "db-file-missing": 50
           }
         },
         "checksum_verification_performed": false,
@@ -4697,7 +4697,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/witekk_s_pimpinellifolium_qcdata",
         "registered_source_root": "/mnt/reads/jjones/witekk_s_pimpinellifolium_qcdata",
@@ -4776,7 +4776,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/jjones/xl_pacbio_rlp_k_seq_2019",
         "registered_source_root": "/mnt/reads/jjones/xl_pacbio_rlp_k_seq_2019",
@@ -4853,7 +4853,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/ccg_expression",
         "registered_source_root": "/mnt/reads/jjones/ccg_expression",
@@ -4930,7 +4930,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hk_amr5",
         "registered_source_root": "/mnt/reads/jjones/hk_amr5",
@@ -5009,7 +5009,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/witekk_jupef_solanum",
         "registered_source_root": "/mnt/reads/jjones/witekk_jupef_solanum",
@@ -5088,7 +5088,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/solanum_americanum_nanopore_sequencing",
         "registered_source_root": "/mnt/reads/jjones/solanum_americanum_nanopore_sequencing",
@@ -5165,7 +5165,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
@@ -5244,7 +5244,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
         "registered_source_root": "/mnt/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
@@ -5321,7 +5321,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
         "registered_source_root": "/mnt/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
@@ -5400,7 +5400,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hk_renseq",
         "registered_source_root": "/mnt/reads/jjones/hk_renseq",
@@ -5479,7 +5479,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/genetic_variation_in_albugo_laibachii",
         "registered_source_root": "/mnt/reads/jjones/genetic_variation_in_albugo_laibachii",
@@ -5556,7 +5556,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "OK",
         "registered_path": "/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
         "registered_source_root": "/mnt/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
@@ -5630,7 +5630,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
         "registered_source_root": "/mnt/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
@@ -5709,7 +5709,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/renseq_on_s__americanum_populations_2021",
         "registered_source_root": "/mnt/reads/jjones/renseq_on_s__americanum_populations_2021",
@@ -5785,7 +5785,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hk_amr10",
         "registered_source_root": "/mnt/reads/jjones/hk_amr10",
@@ -5864,7 +5864,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
         "registered_source_root": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
@@ -5943,7 +5943,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/witekk_tomato_renseq_miseq",
         "registered_source_root": "/mnt/reads/jjones/witekk_tomato_renseq_miseq",
@@ -6022,7 +6022,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
@@ -6099,7 +6099,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
         "registered_source_root": "/mnt/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
@@ -6178,7 +6178,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
         "registered_source_root": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
@@ -6255,7 +6255,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/witekk_s_tuberosum_dm_ber2",
         "registered_source_root": "/mnt/reads/jjones/witekk_s_tuberosum_dm_ber2",
@@ -6334,7 +6334,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
         "registered_source_root": "/mnt/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
@@ -6413,7 +6413,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
@@ -6492,7 +6492,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_albugo_laibachii_in_hr_5",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
@@ -6571,7 +6571,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/amr4_mapping",
         "registered_source_root": "/mnt/reads/jjones/amr4_mapping",
@@ -6648,7 +6648,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/non_host_resistance_to_ac2v_in_wu_0",
         "registered_source_root": "/mnt/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
@@ -6725,7 +6725,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/witekk_s_pimpinellifolium_cf_ecp2",
         "registered_source_root": "/mnt/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
@@ -6804,7 +6804,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/hiseq_on_solanum_cdna",
         "registered_source_root": "/mnt/reads/jjones/hiseq_on_solanum_cdna",
@@ -6881,7 +6881,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/solynta_sequencing",
         "registered_source_root": "/mnt/reads/jjones/solynta_sequencing",
@@ -6902,7 +6902,7 @@
             "disk-file-untracked": 2,
             "empty-directory-skipped": 21,
             "read-destination-md5-missing": 15,
-            "read": 2
+            "db-file-missing": 2
           }
         },
         "checksum_verification_performed": false,
@@ -6962,7 +6962,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/furzero_hpa_emwa1_illumina",
         "registered_source_root": "/mnt/reads/jjones/furzero_hpa_emwa1_illumina",
@@ -7039,7 +7039,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
         "registered_source_root": "/mnt/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
@@ -7116,7 +7116,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/miseq_renseq_on_various_solanum_",
         "registered_source_root": "/mnt/reads/jjones/miseq_renseq_on_various_solanum_",
@@ -7193,7 +7193,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
         "registered_source_root": "/mnt/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
@@ -7270,7 +7270,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
@@ -7349,7 +7349,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/jjones/arabidopsis_pacbio_renseq",
         "registered_source_root": "/mnt/reads/jjones/arabidopsis_pacbio_renseq",
@@ -7371,7 +7371,7 @@
             "duplicate-db-path": 2,
             "empty-directory-skipped": 66,
             "read-destination-md5-missing": 24,
-            "read": 20
+            "db-file-missing": 20
           }
         },
         "checksum_verification_performed": false,
@@ -7431,7 +7431,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/jjones/pacbio_penseq_on_phytophthora_infestans",
         "registered_source_root": "/mnt/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
@@ -7508,7 +7508,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/atac_cseq",
         "registered_source_root": "/mnt/reads/jjones/atac_cseq",
@@ -7587,7 +7587,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
@@ -7666,7 +7666,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
         "registered_source_root": "/mnt/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
@@ -7745,7 +7745,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/white_rust_resistance_gene_cloning_using_renseq",
         "registered_source_root": "/mnt/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
@@ -7822,7 +7822,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/miseq_renseq_of_brassica_accessions_",
         "registered_source_root": "/mnt/reads/jjones/miseq_renseq_of_brassica_accessions_",
@@ -7901,7 +7901,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/lop_868_pacbio_renseq",
         "registered_source_root": "/mnt/reads/jjones/lop_868_pacbio_renseq",
@@ -7978,7 +7978,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/resistance_to_albugo_laibachii_in_sf_2",
         "registered_source_root": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
@@ -8057,7 +8057,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/jjones/plant_capture_enhancer",
         "registered_source_root": "/mnt/reads/jjones/plant_capture_enhancer",
@@ -8134,7 +8134,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-jjones.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
         "verdict": "EMPTY",
         "registered_path": "/jjones/dingp_ath_atacseq_2019_optimization",
         "registered_source_root": "/mnt/reads/jjones/dingp_ath_atacseq_2019_optimization",
@@ -8210,7 +8210,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/transcription_profiling_during_rice_plant_infection",
         "registered_source_root": "/mnt/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
@@ -8287,7 +8287,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
         "registered_source_root": "/mnt/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
@@ -8364,7 +8364,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/ntalbot/uv_mutagenesis",
         "registered_source_root": "/mnt/reads/ntalbot/uv_mutagenesis",
@@ -8441,7 +8441,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/lichen_coculture_i_21_days",
         "registered_source_root": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
@@ -8517,7 +8517,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
         "registered_source_root": "/mnt/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
@@ -8594,7 +8594,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/wheat_blast_project",
         "registered_source_root": "/mnt/reads/ntalbot/wheat_blast_project",
@@ -8671,7 +8671,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/lichen_coculture_i_2_days",
         "registered_source_root": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
@@ -8747,7 +8747,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/lichen_coculture_i_9_days",
         "registered_source_root": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
@@ -8823,7 +8823,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/lichen_coculture_i_42_days",
         "registered_source_root": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
@@ -8899,7 +8899,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
         "registered_source_root": "/mnt/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
@@ -8976,7 +8976,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -9045,7 +9045,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -9114,7 +9114,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/ntalbot/lichen_tissue_rna1",
         "registered_source_root": "/mnt/reads/ntalbot/lichen_tissue_rna1",
@@ -9191,7 +9191,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/rna_seq_of_various_mutants",
         "registered_source_root": "/mnt/reads/ntalbot/rna_seq_of_various_mutants",
@@ -9268,7 +9268,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/nadph_oxidase_project",
         "registered_source_root": "/mnt/reads/ntalbot/nadph_oxidase_project",
@@ -9345,7 +9345,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
         "registered_source_root": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
@@ -9421,7 +9421,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -9490,7 +9490,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/generational_experiment_",
         "registered_source_root": "/mnt/reads/ntalbot/generational_experiment_",
@@ -9566,7 +9566,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
         "registered_source_root": "/mnt/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
@@ -9642,7 +9642,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/global_transcriptional_analysis_of_surface_perception",
         "registered_source_root": "/mnt/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
@@ -9719,7 +9719,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
@@ -9796,7 +9796,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
         "registered_source_root": "/mnt/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
@@ -9873,7 +9873,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -9942,7 +9942,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10011,7 +10011,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
         "registered_source_root": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
@@ -10088,7 +10088,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
@@ -10165,7 +10165,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10234,7 +10234,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10303,7 +10303,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
@@ -10380,7 +10380,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10449,7 +10449,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
@@ -10526,7 +10526,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10595,7 +10595,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/cell_cycle",
         "registered_source_root": "/mnt/reads/ntalbot/cell_cycle",
@@ -10672,7 +10672,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10741,7 +10741,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
         "registered_source_root": "/mnt/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
@@ -10819,7 +10819,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -10888,7 +10888,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
@@ -10965,7 +10965,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
         "registered_source_root": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
@@ -11041,7 +11041,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11110,7 +11110,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/chip_seq_data_mst12_gfp_mycelium",
         "registered_source_root": "/mnt/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
@@ -11188,7 +11188,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/ntalbot/dap_seq_mst12_and_hox7_",
         "registered_source_root": "/mnt/reads/ntalbot/dap_seq_mst12_and_hox7_",
@@ -11264,7 +11264,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/wsc1_project",
         "registered_source_root": "/mnt/reads/ntalbot/wsc1_project",
@@ -11341,7 +11341,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11410,7 +11410,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/turgor_project",
         "registered_source_root": "/mnt/reads/ntalbot/turgor_project",
@@ -11487,7 +11487,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11556,7 +11556,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11625,7 +11625,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
@@ -11702,7 +11702,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
         "registered_source_root": "/mnt/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
@@ -11779,7 +11779,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11848,7 +11848,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_DIRECTORY",
         "registered_path": null,
         "registered_source_root": null,
@@ -11917,7 +11917,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "EMPTY",
         "registered_path": "/ntalbot/long_read_assembly_of_african_yam_bean",
         "registered_source_root": "/mnt/reads/ntalbot/long_read_assembly_of_african_yam_bean",
@@ -11993,7 +11993,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-ntalbot.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
         "verdict": "UNREGISTERED_EMPTY",
         "registered_path": null,
         "registered_source_root": null,
@@ -12058,7 +12058,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA",
         "registered_path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
         "registered_source_root": "/mnt/reads/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
@@ -12131,7 +12131,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA",
         "registered_path": "/skamoun/saunderd_pstriiformis_south_african_isolates",
         "registered_source_root": "/mnt/reads/skamoun/saunderd_pstriiformis_south_african_isolates",
@@ -12204,7 +12204,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "DISK_FILES_NO_DB_RECORDS",
         "registered_path": "/skamoun/rice_blast",
         "registered_source_root": "/mnt/reads/skamoun/rice_blast",
@@ -12276,7 +12276,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA",
         "registered_path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
         "registered_source_root": "/mnt/reads/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
@@ -12349,7 +12349,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
         "registered_source_root": "/mnt/reads/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
@@ -12423,7 +12423,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast___zambia_2018_2020",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast___zambia_2018_2020",
@@ -12494,7 +12494,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
         "registered_source_root": "/mnt/reads/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
@@ -12568,7 +12568,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast_2017",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast_2017",
@@ -12642,7 +12642,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
         "registered_source_root": "/mnt/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
@@ -12714,7 +12714,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast",
@@ -12788,7 +12788,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/halioticida_haliphthoros",
         "registered_source_root": "/mnt/reads/skamoun/halioticida_haliphthoros",
@@ -12862,7 +12862,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/xiao_scr74",
         "registered_source_root": "/mnt/reads/skamoun/xiao_scr74",
@@ -12936,7 +12936,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "DB_RECORDS_MISSING_ON_DISK",
         "registered_path": "/skamoun/janderso_rsolani",
         "registered_source_root": "/mnt/reads/skamoun/janderso_rsolani",
@@ -12957,7 +12957,7 @@
             "disk-file-untracked": 38,
             "empty-directory-skipped": 3,
             "read-destination-md5-missing": 18,
-            "read": 16
+            "db-file-missing": 16
           }
         },
         "checksum_verification_performed": false,
@@ -13012,7 +13012,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA",
         "registered_path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
         "registered_source_root": "/mnt/reads/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
@@ -13085,7 +13085,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA",
         "registered_path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
         "registered_source_root": "/mnt/reads/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
@@ -13158,7 +13158,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "OK_WITH_UNTRACKED_FILES",
         "registered_path": "/skamoun/halioticida_haliocrustida",
         "registered_source_root": "/mnt/reads/skamoun/halioticida_haliocrustida",
@@ -13229,7 +13229,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
@@ -13300,7 +13300,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
@@ -13371,7 +13371,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
@@ -13442,7 +13442,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
@@ -13513,7 +13513,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
@@ -13584,7 +13584,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
@@ -13655,7 +13655,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
@@ -13726,7 +13726,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
@@ -13797,7 +13797,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
         "registered_source_root": "/mnt/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
@@ -13869,7 +13869,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
         "registered_source_root": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
@@ -13941,7 +13941,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
         "registered_source_root": "/mnt/reads/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
@@ -14012,7 +14012,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
         "registered_source_root": "/mnt/reads/skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
@@ -14083,7 +14083,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
         "registered_source_root": "/mnt/reads/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
@@ -14154,7 +14154,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
         "registered_source_root": "/mnt/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
@@ -14225,7 +14225,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/rnaseq_pikobodiesmada",
         "registered_source_root": "/mnt/reads/skamoun/rnaseq_pikobodiesmada",
@@ -14297,7 +14297,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/italian_blast_fungus_isolates_from_wild_grasses",
         "registered_source_root": "/mnt/reads/skamoun/italian_blast_fungus_isolates_from_wild_grasses",
@@ -14368,7 +14368,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast___bolivia_2023_24",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast___bolivia_2023_24",
@@ -14439,7 +14439,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast___zambia_2023",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast___zambia_2023",
@@ -14510,7 +14510,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "ANOMALIES_REQUIRE_REVIEW",
         "registered_path": "/skamoun/wheat_blast___paraguay_2023",
         "registered_source_root": "/mnt/reads/skamoun/wheat_blast___paraguay_2023",
@@ -14581,7 +14581,7 @@
       "execution_evidence": null,
       "production_review": {
         "observed_at": "2026-10-16T20:31:11.362Z",
-        "report": "hpc-verification-2026-10-16/independent-review/verify-skamoun.json",
+        "report": "hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
         "verdict": "OK",
         "registered_path": "/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
         "registered_source_root": "/mnt/reads/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
@@ -14637,5 +14637,53 @@
       "EMPTY": 2,
       "EMPTY_REGISTERED_ROOT_RELATED_UNREGISTERED_DATA": 5
     }
+  },
+  "diagnostic_correction": {
+    "applied_on": "2026-10-17",
+    "report_directory": "hpc-verification-2026-10-16/corrected-diagnostics/",
+    "changes": [
+      {
+        "projectId": "5fc012bda3efcb29338b7d67",
+        "path": "/two_blades/japanse_isolate_timecourse",
+        "correctedMissingAnomalies": 13
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d0a",
+        "path": "/jjones/whole_genome_shotgun_of_solanum_americanum",
+        "correctedMissingAnomalies": 4
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d28",
+        "path": "/jjones/solynta_sequencing",
+        "correctedMissingAnomalies": 2
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d29",
+        "path": "/jjones/albugo_candida",
+        "correctedMissingAnomalies": 2
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d2b",
+        "path": "/jjones/rice_renseq",
+        "correctedMissingAnomalies": 50
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d3a",
+        "path": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+        "correctedMissingAnomalies": 3
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d60",
+        "path": "/jjones/arabidopsis_pacbio_renseq",
+        "correctedMissingAnomalies": 20
+      },
+      {
+        "projectId": "5fc012bda3efcb29338b7d3d",
+        "path": "/skamoun/janderso_rsolani",
+        "correctedMissingAnomalies": 16
+      }
+    ],
+    "original_observations_retained": true,
+    "dispositions_and_numeric_totals_unchanged": true
   }
 }
