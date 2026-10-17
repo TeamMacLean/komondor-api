@@ -1,5 +1,7 @@
 # Path review complete — 17 October 2026
 
+[Completed blocker-resolution review](BLOCKER_RESOLUTION_REVIEW_2026-10-17.md) records the verdict, commits and validation caveats.
+
 The earlier authentication/incomplete-evidence checkpoint is superseded. All eight
 projects and **110 records** have completed read-only comparisons. The aggregate
 passed complete-record, source-code, Git-identity, duplicate-candidate and whole-tree

@@ -1,5 +1,7 @@
 # Project decisions and production findings — 16 October 2026
 
+[Completed blocker-resolution review](BLOCKER_RESOLUTION_REVIEW_2026-10-17.md) records the verdict, commits and validation caveats.
+
 **192 original source entries, each retained exactly once.** Decisions and technical findings are separate.
 No real project has been archived or deleted by this reconciliation. No owners have been contacted.
 
