@@ -29,7 +29,9 @@ It is a proposal, not an executable deletion script.
 Each row also has one Project. Total: **48 documents**. All current shared-reference,
 missing-File, outside-project File-path, cross-parent AdditionalFile, active-ingest
 and active-Run blocker lists are empty. This observation expires when data or
-writers change; it is not a future execution permit.
+writers change; it is not a future execution permit. The collector makes sequential
+read-only queries, not a database snapshot transaction. The final pre-deletion
+export must be repeated under the writer freeze below.
 
 The collection closure is: Samples by project; Runs by those Samples; Reads by those
 Runs; AdditionalFiles at project, sample **or** run level; Files referenced by those
