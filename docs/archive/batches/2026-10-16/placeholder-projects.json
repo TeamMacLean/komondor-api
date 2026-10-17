@@ -1,0 +1,277 @@
+{
+  "proposalOnly": true,
+  "method": "POST",
+  "route": "/projects/new",
+  "projects": [
+    {
+      "entryId": "ntalbot-037",
+      "sourceRoot": "/mnt/reads/ntalbot/project_1566",
+      "expectedProjectPath": "/ntalbot/project_1566",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_1566",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_1566",
+        "longDesc": "Placeholder for the existing ntalbot/project_1566 tree; source entry ntalbot-037. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-035",
+      "sourceRoot": "/mnt/reads/ntalbot/project_1622",
+      "expectedProjectPath": "/ntalbot/project_1622",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_1622",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_1622",
+        "longDesc": "Placeholder for the existing ntalbot/project_1622 tree; source entry ntalbot-035. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-033",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2009",
+      "expectedProjectPath": "/ntalbot/project_2009",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2009",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2009",
+        "longDesc": "Placeholder for the existing ntalbot/project_2009 tree; source entry ntalbot-033. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-024",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2012",
+      "expectedProjectPath": "/ntalbot/project_2012",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2012",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2012",
+        "longDesc": "Placeholder for the existing ntalbot/project_2012 tree; source entry ntalbot-024. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-013",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2035",
+      "expectedProjectPath": "/ntalbot/project_2035",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2035",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2035",
+        "longDesc": "Placeholder for the existing ntalbot/project_2035 tree; source entry ntalbot-013. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-044",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2171",
+      "expectedProjectPath": "/ntalbot/project_2171",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2171",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2171",
+        "longDesc": "Placeholder for the existing ntalbot/project_2171 tree; source entry ntalbot-044. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-031",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2178",
+      "expectedProjectPath": "/ntalbot/project_2178",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2178",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2178",
+        "longDesc": "Placeholder for the existing ntalbot/project_2178 tree; source entry ntalbot-031. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-050",
+      "sourceRoot": "/mnt/reads/ntalbot/project_230",
+      "expectedProjectPath": "/ntalbot/project_230",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_230",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_230",
+        "longDesc": "Placeholder for the existing ntalbot/project_230 tree; source entry ntalbot-050. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-029",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2323",
+      "expectedProjectPath": "/ntalbot/project_2323",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2323",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2323",
+        "longDesc": "Placeholder for the existing ntalbot/project_2323 tree; source entry ntalbot-029. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-012",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2370",
+      "expectedProjectPath": "/ntalbot/project_2370",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2370",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2370",
+        "longDesc": "Placeholder for the existing ntalbot/project_2370 tree; source entry ntalbot-012. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-047",
+      "sourceRoot": "/mnt/reads/ntalbot/project_2561",
+      "expectedProjectPath": "/ntalbot/project_2561",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_2561",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_2561",
+        "longDesc": "Placeholder for the existing ntalbot/project_2561 tree; source entry ntalbot-047. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-046",
+      "sourceRoot": "/mnt/reads/ntalbot/project_539",
+      "expectedProjectPath": "/ntalbot/project_539",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_539",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_539",
+        "longDesc": "Placeholder for the existing ntalbot/project_539 tree; source entry ntalbot-046. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-040",
+      "sourceRoot": "/mnt/reads/ntalbot/project_592_593",
+      "expectedProjectPath": "/ntalbot/project_592_593",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_592_593",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_592_593",
+        "longDesc": "Placeholder for the existing ntalbot/project_592_593 tree; source entry ntalbot-040. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-051",
+      "sourceRoot": "/mnt/reads/ntalbot/project_758",
+      "expectedProjectPath": "/ntalbot/project_758",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_758",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_758",
+        "longDesc": "Placeholder for the existing ntalbot/project_758 tree; source entry ntalbot-051. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-025",
+      "sourceRoot": "/mnt/reads/ntalbot/project_809",
+      "expectedProjectPath": "/ntalbot/project_809",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_809",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_809",
+        "longDesc": "Placeholder for the existing ntalbot/project_809 tree; source entry ntalbot-025. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-028",
+      "sourceRoot": "/mnt/reads/ntalbot/project_930",
+      "expectedProjectPath": "/ntalbot/project_930",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_930",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_930",
+        "longDesc": "Placeholder for the existing ntalbot/project_930 tree; source entry ntalbot-028. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "ntalbot-018",
+      "sourceRoot": "/mnt/reads/ntalbot/project_945",
+      "expectedProjectPath": "/ntalbot/project_945",
+      "requiresManualRootRename": false,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf2",
+        "name": "project_945",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory project_945",
+        "longDesc": "Placeholder for the existing ntalbot/project_945 tree; source entry ntalbot-018. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    },
+    {
+      "entryId": "two_blades-003",
+      "sourceRoot": "/mnt/reads/two_blades/Courville",
+      "expectedProjectPath": "/two_blades/courville",
+      "requiresManualRootRename": true,
+      "payload": {
+        "group": "5fc012bda3efcb29338b7cf3",
+        "name": "Courville",
+        "shortDesc": "Archive batch 2026-10-16: existing unregistered directory Courville",
+        "longDesc": "Placeholder for the existing two_blades/Courville tree; source entry two_blades-003. Original data ownership is not established by this administrative registration. Preserve the batch decision, inventory and correspondence as provenance.",
+        "nudgeable": false,
+        "doNotSendToEna": true,
+        "doNotSendToEnaReason": "Administrative archive placeholder; no ENA submission is authorized by this registration."
+      }
+    }
+  ]
+}

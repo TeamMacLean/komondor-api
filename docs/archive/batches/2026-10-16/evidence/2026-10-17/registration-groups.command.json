@@ -1,0 +1,6 @@
+{
+  "command": "ssh -S /Users/deeks/.ssh/v1333-codex-stage2.sock -o BatchMode=yes -o ConnectTimeout=15 deeks@v1333.nbi.ac.uk 'cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '\"'\"'require('\"'\"'\"'\"'\"'\"'\"'\"'dotenv'\"'\"'\"'\"'\"'\"'\"'\"').config(); const m=require('\"'\"'\"'\"'\"'\"'\"'\"'mongoose'\"'\"'\"'\"'\"'\"'\"'\"');m.set('\"'\"'\"'\"'\"'\"'\"'\"'autoIndex'\"'\"'\"'\"'\"'\"'\"'\"',false);m.set('\"'\"'\"'\"'\"'\"'\"'\"'autoCreate'\"'\"'\"'\"'\"'\"'\"'\"',false); const {resolveMongoUri}=require('\"'\"'\"'\"'\"'\"'\"'\"'./lib/utils/validateEnv'\"'\"'\"'\"'\"'\"'\"'\"');(async()=>{await m.connect(resolveMongoUri(process.env),{autoIndex:false,autoCreate:false,useNewUrlParser:true,useUnifiedTopology:true});try{const groups=await m.connection.db.collection('\"'\"'\"'\"'\"'\"'\"'\"'groups'\"'\"'\"'\"'\"'\"'\"'\"').find({safeName:{$in:['\"'\"'\"'\"'\"'\"'\"'\"'ntalbot'\"'\"'\"'\"'\"'\"'\"'\"','\"'\"'\"'\"'\"'\"'\"'\"'two_blades'\"'\"'\"'\"'\"'\"'\"'\"']}},{projection:{_id:1,name:1,safeName:1,sendToEna:1}}).toArray();console.log(JSON.stringify({at:new Date().toISOString(),groups},null,2));}finally{await m.disconnect();}})().catch(e=>{console.error(e);process.exitCode=1});'\"'\"''",
+  "productionWrites": false,
+  "exitCode": 0,
+  "outputSha256": "e000d07a04bdb54565610fc75275ed12d14852bc606456bfaa35bcb6cd019b87"
+}
