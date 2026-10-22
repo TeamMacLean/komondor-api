@@ -2,9 +2,10 @@
 
 **Applied to production and independently verified.** The final known database
 association hold is resolved. API, Web, Power and Nudge are online. The full
-AWS-backed read-only archive plan is pending SSO renewal; the live structural
-archive checks already passed. This is database reconciliation, not an S3 transfer
-or permission to delete either dataset.
+AWS-backed read-only archive plan also passed at **23:04 BST on 22 October**,
+with 39 files, zero missing or untracked files and zero serious anomalies.
+This is database reconciliation and archive preparation, not an S3 transfer or
+permission to delete either dataset.
 
 George approved the proposed consolidation of both datasets under their existing
 Project, retaining the owner and original values. That approval covers the single
@@ -97,8 +98,26 @@ Do not rerun the one-off launchers as a routine follow-up.
 
 The first full AWS-backed archive plan [stopped at expired SSO authentication](archive-plan.stderr),
 before its AWS preflight could complete. Its [attempt receipt](archive-plan-attempt.json)
-is retained separately. Structural checks do not substitute for a successful full
-live plan before the next archive lock.
+is retained separately. After George renewed the existing SSO login, the [full live
+archive plan passed](archive-plan-final.json) with exit code 0 at
+`2026-10-22T22:04:53.149Z` (23:04 BST), using the fenced KomondorArchiveMover role
+in account `958120753368` and bucket `tsl-hpc-reads`.
+
+The plan found all 39 files / 41,849,908,492 bytes, with no missing expected files,
+no uncatalogued files, and no serious anomalies. It retained **26 non-blocking
+stored-location notes**: the files remain at their actual `raw/` or `processed/`
+paths rather than the generic AdditionalFile-derived `additional/` location.
+It also recorded five empty directories that the archive will skip. These notes
+are expected consequences of preserving the real layout and provisional catalogue
+classification; they are not missing data. The proposed destination is
+`s3://tsl-hpc-reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor`.
+
+This read-only plan did not hash payloads, lock the Project or write to MongoDB/S3.
+Its zero checksum-anomaly count is not a new content-checksum proof. Normal sealed
+checksums and transfer verification remain part of archive execution. Repeat the
+live plan immediately before any later lock, since the Project remains writable.
+The API checkout remained clean at the release above and its readiness endpoint
+passed after this check. The AWS login issue is resolved.
 
 ## Remaining work
 

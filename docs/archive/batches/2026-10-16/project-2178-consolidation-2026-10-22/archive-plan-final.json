@@ -1,0 +1,279 @@
+{
+  "startedAt": "2026-10-22T22:04:46.623Z",
+  "completedAt": "2026-10-22T22:04:53.149Z",
+  "command": "plan",
+  "projectId": "5fc012bda3efcb29338b7cf7",
+  "exitCode": 0,
+  "error": null,
+  "signal": null,
+  "mutates": false,
+  "plan": {
+    "command": "plan",
+    "identity": {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "projectName": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+      "migrationId": null,
+      "osUser": "deeks",
+      "awsArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+      "awsAccountId": "958120753368",
+      "bucket": "tsl-hpc-reads",
+      "basePrefix": ""
+    },
+    "sourceRoot": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+    "destination": "s3://tsl-hpc-reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+    "summary": {
+      "regularFiles": 39,
+      "totalBytes": 41849908492,
+      "largestFile": {
+        "relPath": "legacy_project_2178/rice/rice/processed/Sample_minus1.accepted_hits.bam",
+        "size": 4624436772
+      },
+      "symlinks": 0,
+      "hardLinkGroups": 0,
+      "special": 0,
+      "emptyDirs": 5,
+      "excluded": 0,
+      "dbExpectedMissing": 0,
+      "diskUntracked": 0,
+      "checksumAnomalies": 0
+    },
+    "checksumInventory": "deferred to copy --execute",
+    "anomalies": [
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865df",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asCR1_1.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asCR1_1.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865e1",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asCR1_2.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asCR1_2.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865e3",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asCR2_1.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asCR2_1.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865e5",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asCR2_2.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asCR2_2.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865e7",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R1_1.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asPP1R1_1.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865e9",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R1_2.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asPP1R1_2.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865eb",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R2_1.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asPP1R2_1.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada77f9d21dd41b805865ed",
+        "storedRelPath": "appressorium_development/pmk1as__pp1/raw/Pmk1asPP1R2_2.fq.gz",
+        "previousDerivedRelPath": "appressorium_development/pmk1as__pp1/additional/Pmk1asPP1R2_2.fq.gz"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e45",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_minus1.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_minus1.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e47",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_minus2.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_minus2.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e49",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_minus3.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_minus3.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e4b",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_plus1.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_plus1.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e4d",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_plus2.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_plus2.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e4f",
+        "storedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/processed/Sample_plus3.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/additional/Sample_plus3.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e67",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus1.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus1.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e69",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus1.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus1.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e6b",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus2.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus2.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e6d",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus2.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus2.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e6f",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus3.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus3.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e71",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_minus3.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_minus3.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e73",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus1.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus1.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e75",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus1.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus1.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e77",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus2.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus2.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e79",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus2.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus2.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e7b",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus3.accepted_hits.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus3.accepted_hits.bam"
+      },
+      {
+        "serious": false,
+        "kind": "db-stored-path-differs-from-derived",
+        "recordKind": "additionalFile",
+        "id": "6ada80d69fd8ad50cd313e7d",
+        "storedRelPath": "legacy_project_2178/rice/rice/processed/Sample_plus3.unmapped.bam",
+        "previousDerivedRelPath": "legacy_project_2178/rice/rice/additional/Sample_plus3.unmapped.bam"
+      },
+      {
+        "serious": false,
+        "kind": "empty-directory-skipped",
+        "relPath": "appressorium_development/additional"
+      },
+      {
+        "serious": false,
+        "kind": "empty-directory-skipped",
+        "relPath": "appressorium_development/pmk1as__pp1/processed"
+      },
+      {
+        "serious": false,
+        "kind": "empty-directory-skipped",
+        "relPath": "legacy_project_2178/additional"
+      },
+      {
+        "serious": false,
+        "kind": "empty-directory-skipped",
+        "relPath": "legacy_project_2178/magnaporthe_oryzae/magnaporthe_oryzae/raw"
+      },
+      {
+        "serious": false,
+        "kind": "empty-directory-skipped",
+        "relPath": "legacy_project_2178/rice/rice/raw"
+      }
+    ],
+    "seriousAnomalies": [],
+    "mutates": false
+  }
+}
