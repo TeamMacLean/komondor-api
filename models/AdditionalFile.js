@@ -33,6 +33,8 @@ const schema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } },
 );
 
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.pre("save", function (next) {
   this.wasNew = this.isNew;
   next();
@@ -46,7 +48,7 @@ schema.pre("save", function (next) {
 const movePostSave = async function (doc) {
   // lib/file-utils.js moves the file before writing the row; moving again here
   // would look for a source that is no longer in staging.
-  if (doc.skipPostSave) {
+  if (doc.skipPostSave || doc.reconciliation) {
     return;
   }
 

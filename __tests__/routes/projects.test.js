@@ -79,6 +79,28 @@ jest.mock("../../routes/middleware", () => ({
 
 app.use("/", projectsRouter);
 
+describe("administrative retained-record inspection", () => {
+  let previousDb;
+  beforeEach(() => { previousDb=mongoose.connection.db; });
+  afterEach(() => { mongoose.connection.db=previousDb;mockUser={username:"testuser",groups:["group-123"],isAdmin:false}; });
+  test("requires authentication and administration",async()=>{
+    mockUser=null;expect((await request(app).get("/admin/reconciliation-record")).status).toBe(401);
+    mockUser={username:"testuser",isAdmin:false};expect((await request(app).get("/admin/reconciliation-record")).status).toBe(403);
+  });
+  test("rejects injected collection/ID queries before touching the database",async()=>{
+    mockUser={username:"deeks",isAdmin:true};
+    expect((await request(app).get("/admin/reconciliation-record?collection=users&id=aaaaaaaaaaaaaaaaaaaaaaaa")).status).toBe(400);
+    expect((await request(app).get("/admin/reconciliation-record?collection=files&id[$ne]=null")).status).toBe(400);
+  });
+  test("administrators can retrieve a retired record with its original values and history",async()=>{
+    mockUser={username:"deeks",isAdmin:true};const record={_id:"aaaaaaaaaaaaaaaaaaaaaaaa",owner:"legacy",reconciliation:{retiredAt:"2026-10-22"},reconciliationHistory:[{beforeExists:true}]};
+    const findOne=jest.fn().mockResolvedValue(record),collection=jest.fn().mockReturnValue({findOne});mongoose.connection.db={collection};
+    const response=await request(app).get("/admin/reconciliation-record?collection=projects&id=aaaaaaaaaaaaaaaaaaaaaaaa");
+    expect(response.status).toBe(200);expect(response.body.record).toEqual(record);expect(collection).toHaveBeenCalledWith("projects");
+    expect(String(findOne.mock.calls[0][0]._id)).toBe(record._id);
+  });
+});
+
 describe("GET /project/reconciliation-history", () => {
   afterEach(() => { mockUser = { username: "testuser", groups: ["group-123"], isAdmin: false }; });
   test("requires authentication and an administrator", async () => {

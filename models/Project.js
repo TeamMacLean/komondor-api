@@ -128,8 +128,13 @@ const schema = new mongoose.Schema(
 
 schema.index({ "storage.state": 1 });
 installRegistrationGuards(schema);
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
 
 schema.pre("validate", async function () {
+  if (this.reconciliation?.identity) {
+    require("../lib/reconciliation-state").assertPinned(this);
+    return;
+  }
   if (this.registrationProvenance) {
     assertRegistrationIdentity(this);
     return;
@@ -175,7 +180,7 @@ schema.post("save", async function (next) {
   const doc = this;
   // Retrospective registration must never manufacture a new directory/news item
   // when an unrelated later save occurs.
-  if (doc.registrationProvenance) return;
+  if (doc.registrationProvenance || doc.reconciliation) return;
 
   const alreadyMadeArray = await NewsItem.find({ typeId: doc._id });
   const alreadyMade = !!alreadyMadeArray.length;
@@ -244,6 +249,10 @@ schema.virtual("additionalFiles", {
 
 schema.methods.getRelativePath = function () {
   const doc = this;
+  if (doc.reconciliation?.identity) {
+    require("../lib/reconciliation-state").assertPinned(doc);
+    return Promise.resolve(doc.path.slice(1));
+  }
   if (doc.registrationProvenance) {
     assertRegistrationIdentity(doc);
     return Promise.resolve(doc.path.slice(1));

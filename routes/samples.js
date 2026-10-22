@@ -242,11 +242,13 @@ router
         const comparison = await compareFilesToDirectory(
           sample.additionalFiles,
           additionalDir,
+          project,
         );
         actualAdditionalFiles = comparison.actualFiles;
         additionalFilesStatus = comparison.status;
       }
 
+      require("../lib/physical-file-path").attachFileLocations(sample.additionalFiles, project);
       res.status(200).send({
         sample,
         location: locationFor(project, sample.path),

@@ -72,6 +72,20 @@ router.get("/project/reconciliation-history", isAuthenticated, async (req, res) 
   } catch (error) { return handleError(res, error, 500, "Failed to retrieve reconciliation history."); }
 });
 
+// Explicit admin retrieval includes retired documents. Normal model queries hide
+// them; this fixed collection allowlist never accepts a caller-supplied filter.
+router.get("/admin/reconciliation-record", isAuthenticated, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).send({ error: "Admin access required" });
+  const collections = ["projects", "samples", "runs", "reads", "additionalfiles", "files", "ingestjobs", "newsitems", "archiveReconciliations"];
+  const id = asObjectId(req.query.id);
+  if (!id || !collections.includes(req.query.collection)) return res.status(400).send({ error: "Valid collection and ID required" });
+  try {
+    const record = await mongoose.connection.db.collection(req.query.collection).findOne({ _id: new mongoose.Types.ObjectId(id) });
+    if (!record) return res.status(404).send({ error: "Record not found" });
+    return res.send({ collection: req.query.collection, record });
+  } catch (error) { return handleError(res, error, 500, "Could not retrieve administrative record"); }
+});
+
 /**
  * GET /projects
  * Fetches all projects visible to the authenticated user, sorted by most recent.
@@ -169,11 +183,13 @@ router
         const comparison = await compareFilesToDirectory(
           project.additionalFiles,
           additionalDir,
+          project,
         );
         actualAdditionalFiles = comparison.actualFiles;
         additionalFilesStatus = comparison.status;
       }
 
+      require("../lib/physical-file-path").attachFileLocations(project.additionalFiles, project);
       res.status(200).send({
         project,
         location: locationFor(project, project.path),

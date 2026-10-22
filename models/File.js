@@ -431,6 +431,8 @@ const schema = new mongoose.Schema(
 );
 
 // create a unique combo of name and path (and when uploaded)
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.index({ name: 1, path: 1, createFileDocumentId: 1 }, { unique: true });
 
 // i converted to async function, check this still works
