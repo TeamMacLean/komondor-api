@@ -1,0 +1,81 @@
+{
+  "at": "2026-10-22T18:08:06.295Z",
+  "scope": "Local step 1 implementation; no production execution",
+  "node": "v24.11.1",
+  "scratchDatabase": "Disposable loopback MongoDB on port 55811; database komondor-registration-test",
+  "newRegistrationCount": 23,
+  "custodians": {
+    "shrestha": 18,
+    "winj": 5
+  },
+  "existingSaundersOwnerPairsUnchanged": 5,
+  "productionWrites": false,
+  "productionSsh": false,
+  "extraPayloadChecksumSweep": false,
+  "runs": [
+    {
+      "command": "npm test -- --runInBand --coverage --detectOpenHandles",
+      "log": "full-coverage-diagnostic.log",
+      "exitCode": 0,
+      "suites": 74,
+      "tests": 2094,
+      "logSha256": "b004c18f6edfe686908c14744b8d34ac1641393b64a5015f27fa00c72432937a"
+    },
+    {
+      "command": "npm run test:integration",
+      "log": "full-integration-final.log",
+      "exitCode": 0,
+      "suites": 11,
+      "tests": 82,
+      "note": "Delayed-exit warning; exited successfully without forced termination.",
+      "logSha256": "8c71e8bcc1ce8b70fef58492d169b9a3b24fffad3a07a167cdf706b619be5a95"
+    },
+    {
+      "command": "node node_modules/jest/bin/jest.js --runInBand --testPathIgnorePatterns /node_modules/ --runTestsByPath __tests__/integration/archive-registration.test.js",
+      "log": "registration-integration-fixed.log",
+      "exitCode": 0,
+      "suites": 1,
+      "tests": 24,
+      "logSha256": "1893158b74a9d035b67722792defb7ded3e14d2590724fec7c892363cc0d2860"
+    },
+    {
+      "command": "node node_modules/jest/bin/jest.js --runInBand --runTestsByPath __tests__/routes/news.test.js",
+      "log": "news-isolated.log",
+      "exitCode": 0,
+      "suites": 1,
+      "tests": 13,
+      "logSha256": "47c5f1a21ed4ef25c187743ed5ee0d2b5fe6e4284ab184178481c33530b9b146"
+    }
+  ],
+  "earlierFailure": {
+    "log": "full-coverage-final.log",
+    "logSha256": "dc163ae5c2433218338e8b1e3e0c9b1425d595426c4e543889bb4820277ee5f2",
+    "testsPassed": 2093,
+    "testsFailed": 1,
+    "reason": "Unchanged GET /news sorting test exceeded 5s; process retained a handle and was terminated after tests ended. Isolated suite and full diagnostic rerun passed. Root cause not established; no test timeout or retry policy was relaxed."
+  },
+  "coveragePercent": {
+    "statements": 80.42,
+    "branches": 72.59,
+    "functions": 74.74,
+    "lines": 81.58
+  },
+  "checks": {
+    "sourceSyntax": true,
+    "gitDiffCheck": true,
+    "generatorProvenance": true,
+    "all23TargetsMatchSavedLiveRootsCountsBytes": true
+  },
+  "sourceSha256": {
+    "lib/archive-registration.js": "21877ad62da0b379c603f25c24c3d4e9c600fdf5377ae2c5e94ee2853a2b96c6",
+    "lib/project-registration-history.js": "76b6ccb029e57b7e65e769aa24e9f854feb0b51b0a0a32fe48ba0f66c59d005b",
+    "scripts/register-archive-projects.js": "cbb863c94f6ab9e853d57b5b87e7e1d1dda1a6d6c188e38db2a4cb6006809c74",
+    "models/Project.js": "2a9da398d2a2f883df5d8c80ccbf06752fde22f4f6ee696409278333118f4219",
+    "routes/projects.js": "227058e00332128ca1453dd614b0d10475dad177f592d8aa455eb2eb4ef648b9",
+    "__tests__/integration/archive-registration.test.js": "5066d72e62e429586ea066d90249a0092865dabd758243185c03aa025686bee0",
+    "__tests__/scripts/archive-registration-targets.test.js": "b1e158aad61a34dfa428d111600b8962a304ef941df39bde801dfa0f2acc8b0d",
+    "__tests__/routes/projects.test.js": "28bf79c20319c23683a95aa382d69fb63ca3bc00bfb2421314766aae298d5edc"
+  },
+  "logLocation": "/Users/deeks/.codex/artifacts/archive-registration-20261022",
+  "remaining": "Independent review and production deployment/execution; path corrections, classification, retirement and archive pilots are separate stages."
+}

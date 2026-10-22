@@ -59,6 +59,19 @@ const asBoolean = (value) => (typeof value === "boolean" ? value : undefined);
 const groupIdOf = (project) =>
   project && project.group ? project.group._id || project.group : undefined;
 
+// Operational provenance is intentionally absent from ordinary project JSON.
+router.get("/project/reconciliation-history", isAuthenticated, async (req, res) => {
+  if (!req.user.isAdmin) return res.status(403).send({ error: "Admin access required" });
+  const id = asObjectId(req.query.id);
+  if (!id) return res.status(400).send({ error: "Valid project ID required" });
+  try {
+    const project = await Project.findById(id).select("registrationProvenance +reconciliationHistory").lean();
+    if (!project) return res.status(404).send({ error: "Project not found" });
+    return res.send({ projectId: project._id, registration: project.registrationProvenance || null,
+      history: project.reconciliationHistory || [] });
+  } catch (error) { return handleError(res, error, 500, "Failed to retrieve reconciliation history."); }
+});
+
 /**
  * GET /projects
  * Fetches all projects visible to the authenticated user, sorted by most recent.

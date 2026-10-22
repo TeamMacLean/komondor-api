@@ -4,6 +4,7 @@ const generateSafeName = require("../lib/utils/generateSafeName").default;
 const fs = require("fs");
 const NewsItem = require("./NewsItem");
 const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { assertRegistrationIdentity, installRegistrationGuards } = require("../lib/project-registration-history");
 const {
   STORAGE_STATES,
   MIGRATION_PHASES,
@@ -60,6 +61,8 @@ const projectToJson = (_doc, ret) => {
   ret.storage = publicStorageSummary(ret);
   // This is operational audit state, not part of the public API contract.
   delete ret.archiveMigration;
+  delete ret.registrationProvenance;
+  delete ret.reconciliationHistory;
   return ret;
 };
 
@@ -82,6 +85,10 @@ const schema = new mongoose.Schema(
     oldSafeName: { type: String, unique: false, required: false }, // temp?
     secondaryOwner: { type: String, required: false },
     path: { type: String, required: false, unique: true }, // George add unique: true; surely required is true also?
+    // Pinned identities of retrospectively registered trees. Selected so save
+    // hooks cannot lowercase their real directory names; stripped from public JSON.
+    registrationProvenance: { type: mongoose.Schema.Types.Mixed },
+    reconciliationHistory: { type: [mongoose.Schema.Types.Mixed], default: undefined, select: false },
 
     accessions: [{ type: String, unique: false }], // unique except null TODO
     releaseDate: { type: String, unique: false }, // 'DD-MM-YYYY' format; ENA
@@ -120,8 +127,13 @@ const schema = new mongoose.Schema(
 );
 
 schema.index({ "storage.state": 1 });
+installRegistrationGuards(schema);
 
 schema.pre("validate", async function () {
+  if (this.registrationProvenance) {
+    assertRegistrationIdentity(this);
+    return;
+  }
   // Runs before required-field validation, so guard: .replace() on a missing
   // name throws a TypeError the client sees as a 500, not a validation error.
   if (typeof this.name !== "string" || !this.name) {
@@ -161,6 +173,9 @@ schema.pre("save", function (next) {
 
 schema.post("save", async function (next) {
   const doc = this;
+  // Retrospective registration must never manufacture a new directory/news item
+  // when an unrelated later save occurs.
+  if (doc.registrationProvenance) return;
 
   const alreadyMadeArray = await NewsItem.find({ typeId: doc._id });
   const alreadyMade = !!alreadyMadeArray.length;
@@ -229,6 +244,10 @@ schema.virtual("additionalFiles", {
 
 schema.methods.getRelativePath = function () {
   const doc = this;
+  if (doc.registrationProvenance) {
+    assertRegistrationIdentity(doc);
+    return Promise.resolve(doc.path.slice(1));
+  }
   return doc
     .populate({
       path: "group",

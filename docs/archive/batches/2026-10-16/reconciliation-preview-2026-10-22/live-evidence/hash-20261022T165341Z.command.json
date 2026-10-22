@@ -1,0 +1,28 @@
+{
+  "mode": "hash",
+  "startedAt": "2026-10-22T16:53:41.321Z",
+  "finishedAt": "2026-10-22T16:55:13.799Z",
+  "exitCode": 0,
+  "command": [
+    "ssh",
+    "-S",
+    "/Users/deeks/.ssh/v1333-codex-reconcile.sock",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "-o",
+    "ServerAliveInterval=30",
+    "-o",
+    "ServerAliveCountMax=3",
+    "deeks@v1333.nbi.ac.uk",
+    "cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e 'const fs=require('\\''fs'\\''),Module=require('\\''module'\\'');const p=JSON.parse(fs.readFileSync(0,'\\''utf8'\\''));const m=new Module('\\''/storage/www/komondor-api/scripts/_readonly_reconcile.cjs'\\'');m.filename='\\''/storage/www/komondor-api/scripts/_readonly_reconcile.cjs'\\'';m.paths=Module._nodeModulePaths('\\''/storage/www/komondor-api/scripts'\\'');m._compile(p.source,m.filename);m.exports.run(p).catch(e=>{process.stderr.write((e.name+'\\'': '\\''+e.message).replace(/mongodb(?:\\+srv)?:\\/\\/[^\\s]+/g,'\\''[redacted Mongo URI]'\\'')+'\\''\\n'\\'');process.exitCode=1;});'"
+  ],
+  "collectorSha256": "c3b7449e9bfe00abd67d672516a24befc3f4c149d6172248be5098cb33f249ce",
+  "targetCount": 1,
+  "targetsSha256": "88d867fa38c1ee58d7447b6ae1e44f21a318d6b96fdee03042fdd37dbe2b0e4a",
+  "output": "hash-20261022T165341Z.jsonl",
+  "outputSha256": "087a1a198cc3bcb25913f56cc07f6179b1ac643d7d73f162510f02c9e77de129",
+  "stderr": "hash-20261022T165341Z.stderr.log",
+  "productionWrites": false
+}

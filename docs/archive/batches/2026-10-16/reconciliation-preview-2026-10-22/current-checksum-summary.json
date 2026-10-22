@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-22T17:19:05.679Z",
+  "status": "partial-current-observations-retained; separate-bulk-audit-sweep-cancelled",
+  "separateBulkSweep": false,
+  "remainingMeasurementRoute": "normal-per-project-archive-manifest-and-upload-verification",
+  "archiveFileCount": 15397,
+  "archiveBytes": 13448802534476,
+  "completedFiles": 6771,
+  "completedBytes": 6961044378,
+  "pendingFiles": 8626,
+  "pendingBytes": 13441841490098,
+  "errors": 0,
+  "legacyFieldsChanged": 0,
+  "databaseWrites": 0,
+  "productionFilesystemWrites": 0,
+  "receipts": [
+    {
+      "file": "live-evidence/hash-20261022T165213Z.command.json",
+      "sha256": "02e60ba186a3791853eb832733758269d2076a3113c9161dd12047c184e83830",
+      "completed": 6768,
+      "bytes": 911450407,
+      "startedAt": "2026-10-22T16:52:14.456Z",
+      "finishedAt": "2026-10-22T16:52:46.762Z"
+    },
+    {
+      "file": "live-evidence/hash-20261022T165341Z.command.json",
+      "sha256": "7e1c632e4bd6c93077ad2e22d3f79d5422b8b3e28462588d48e6b6369046abaf",
+      "completed": 3,
+      "bytes": 6049593971,
+      "startedAt": "2026-10-22T16:53:42.111Z",
+      "finishedAt": "2026-10-22T16:55:13.917Z"
+    }
+  ],
+  "note": "Initial pass covers files <=1 MiB, all three pilot projects, and the three proposed filename corrections. pendingFiles/pendingBytes and current-checksum-pending.json describe audit coverage only: no queued or required audit sweep. Normal archive copy still hashes each project before transfer and checks streamed bytes and S3. Preserve legacy verification gaps."
+}

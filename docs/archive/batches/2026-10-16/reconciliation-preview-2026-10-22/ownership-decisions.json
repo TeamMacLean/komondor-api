@@ -1,0 +1,395 @@
+{
+  "decidedOn": "2026-10-22",
+  "authority": "George: all Saunders projects use winj as reliable group contact; retain shrestha for Talbot and Courville. Unix ownership unchanged. Registration/path correction approach accepted; production execution remains a separate checkpoint.",
+  "accountEvidence": {
+    "_id": "5fbf86b6eaff7d6cffce08f7",
+    "groups": [],
+    "username": "shrestha",
+    "name": "Ram-Krishna Shrestha"
+  },
+  "databaseEvidence": "live-evidence/ownership-20261022T171418Z.json",
+  "documentEvidence": "live-evidence/ownership-notes.json",
+  "limits": "117 relevant Project records and selected User records read; 17 small notes from 10 of the 17 Talbot directories inspected. No exhaustive historic external-system search. Authors, subjects and directory names do not establish project ownership. No notifications or permissions changes.",
+  "existingSaundersOwnership": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "path": "/skamoun/saunderd_pstriiformis_south_african_isolates",
+      "owner": "winj",
+      "secondaryOwner": "kamouns",
+      "action": "retain-existing-record-ownership"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+      "owner": "winj",
+      "secondaryOwner": "kamouns",
+      "action": "retain-existing-record-ownership"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+      "owner": "winj",
+      "secondaryOwner": "kamouns",
+      "action": "retain-existing-record-ownership"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+      "owner": "winj",
+      "secondaryOwner": "kamouns",
+      "action": "retain-existing-record-ownership"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+      "owner": "winj",
+      "secondaryOwner": "kamouns",
+      "action": "retain-existing-record-ownership"
+    }
+  ],
+  "registrations": [
+    {
+      "entryId": "two_blades-003",
+      "physicalRoot": "/mnt/reads/two_blades/Courville",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "shrestha",
+      "researchClues": [],
+      "reason": "George-selected administrative custodian; also matches the observed Unix owner. Scientific ownership is not inferred from that match.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-012",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2370",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Oses Ruiz, Miriam",
+        "Soanes, Darren"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-013",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2035",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-018",
+      "physicalRoot": "/mnt/reads/ntalbot/project_945",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-024",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2012",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-025",
+      "physicalRoot": "/mnt/reads/ntalbot/project_809",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-028",
+      "physicalRoot": "/mnt/reads/ntalbot/project_930",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-029",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2323",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-031",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2178",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-033",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2009",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Soanes, Darren"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-035",
+      "physicalRoot": "/mnt/reads/ntalbot/project_1622",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-037",
+      "physicalRoot": "/mnt/reads/ntalbot/project_1566",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-040",
+      "physicalRoot": "/mnt/reads/ntalbot/project_592_593",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-044",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2171",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-046",
+      "physicalRoot": "/mnt/reads/ntalbot/project_539",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Darren Soanes"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-047",
+      "physicalRoot": "/mnt/reads/ntalbot/project_2561",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Soanes, Darren"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-050",
+      "physicalRoot": "/mnt/reads/ntalbot/project_230",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "ntalbot-051",
+      "physicalRoot": "/mnt/reads/ntalbot/project_758",
+      "proposedCatalogueOwner": "shrestha",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-selected-fallback-after-bounded-read-only-investigation",
+      "observedUnixOwner": "tsldata",
+      "researchClues": [
+        "Biosciences"
+      ],
+      "reason": "No direct ownership record found. Document authors are retained as clues, not accepted as project ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "skamoun-extra-001",
+      "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "proposedCatalogueOwner": "winj",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-explicit-custodian-selection",
+      "observedUnixOwner": "root",
+      "researchClues": [],
+      "reason": "George selected Joe Win as an established, reliable TSL contact for Saunders/group projects. This is administrative custody, not a claim of original scientific ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "skamoun-extra-002",
+      "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "proposedCatalogueOwner": "winj",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-explicit-custodian-selection",
+      "observedUnixOwner": "root",
+      "researchClues": [],
+      "reason": "George selected Joe Win as an established, reliable TSL contact for Saunders/group projects. This is administrative custody, not a claim of original scientific ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "skamoun-extra-003",
+      "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "proposedCatalogueOwner": "winj",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-explicit-custodian-selection",
+      "observedUnixOwner": "root",
+      "researchClues": [],
+      "reason": "George selected Joe Win as an established, reliable TSL contact for Saunders/group projects. This is administrative custody, not a claim of original scientific ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "skamoun-extra-004",
+      "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "proposedCatalogueOwner": "winj",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-explicit-custodian-selection",
+      "observedUnixOwner": "root",
+      "researchClues": [],
+      "reason": "George selected Joe Win as an established, reliable TSL contact for Saunders/group projects. This is administrative custody, not a claim of original scientific ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    },
+    {
+      "entryId": "skamoun-extra-005",
+      "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "proposedCatalogueOwner": "winj",
+      "ownerRole": "administrative-custodian",
+      "originalScientificOwner": null,
+      "basis": "George-explicit-custodian-selection",
+      "observedUnixOwner": "root",
+      "researchClues": [],
+      "reason": "George selected Joe Win as an established, reliable TSL contact for Saunders/group projects. This is administrative custody, not a claim of original scientific ownership.",
+      "changeUnixOwnership": false,
+      "executionStatus": "proposal-only"
+    }
+  ],
+  "productionWrites": false,
+  "decisionHistory": [
+    {
+      "source": "decision-history/ownership-before-winj-20261022.json",
+      "sha256": "b13e6a7c2d7d639799d45784433c4b967130938898ca75d287f0c7cf93ca6bd7",
+      "meaning": "Superseded local proposal, not a previous production database state",
+      "supersededBy": "George explicitly selected winj for all Saunders projects"
+    }
+  ],
+  "accountEvidenceByUsername": {
+    "shrestha": {
+      "_id": "5fbf86b6eaff7d6cffce08f7",
+      "groups": [],
+      "username": "shrestha",
+      "name": "Ram-Krishna Shrestha"
+    },
+    "winj": {
+      "_id": "6054b889d7661b6ec22a06f5",
+      "groups": [],
+      "username": "winj",
+      "name": "Joe Win"
+    }
+  }
+}

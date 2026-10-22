@@ -1,5 +1,25 @@
 # Archive batch 2026-10-16: action plan
 
+**Step 1 is implemented locally:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
+It covers the 23 missing Project records with retained creation history. Production
+execution and the remaining reconciliation steps have not run.
+
+**Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
+Use `winj` for all ten Saunders entries (five already registered, five new),
+and `shrestha` for the 17 Talbot directories and Courville. Filesystem ownership
+stays unchanged. See the [original-value retention design](reconciliation-preview-2026-10-22/ORIGINAL_VALUES_AND_CORRECTIONS.md) for the accepted registration/path correction approach. The separate
+bulk audit checksum sweep is cancelled; normal per-project archive verification
+remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
+the proposed catalogue owner, or await a bulk audit. No production write is authorized.
+
+**Superseded in part on 22 October:** the [read-only reconciliation preview](reconciliation-preview-2026-10-22/README.md)
+records George's new decisions: no owner enquiries/deadlines; preserve the five
+additional Saunders directories; keep legacy ownership; retain records instead of
+permanently deleting them; and measure current checksums without filling historical
+gaps. The old action CSV and steps below remain the October 17 proposal, not
+permission to contact owners or perform cleanup. The preview introduces no
+production writes and does not waive archive verification or manual deletion gates.
+
 [Completed blocker-resolution review](BLOCKER_RESOLUTION_REVIEW_2026-10-17.md) records the verdict, commits and validation caveats.
 
 Status: revised proposal, 2026-10-17, for review before execution. Only read-only evidence collection has run; no proposed disposal, registration or archival action has run.

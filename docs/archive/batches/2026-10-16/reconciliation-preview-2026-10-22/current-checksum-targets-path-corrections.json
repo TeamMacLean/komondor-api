@@ -1,0 +1,56 @@
+[
+  {
+    "entryId": "jjones-008",
+    "root": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+    "files": [
+      {
+        "relPath": "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq",
+        "type": "file",
+        "size": 1549507435,
+        "mode": 33272,
+        "uid": 0,
+        "gid": 0,
+        "mtimeMs": 1607182403211.064,
+        "ctimeMs": 1621619766996.606,
+        "dev": 42,
+        "ino": 20737830681,
+        "nlink": 1,
+        "linkTarget": null,
+        "disposition": "copy",
+        "hardLinkGroup": null
+      },
+      {
+        "relPath": "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq",
+        "type": "file",
+        "size": 1563167052,
+        "mode": 33272,
+        "uid": 0,
+        "gid": 0,
+        "mtimeMs": 1607182542252.736,
+        "ctimeMs": 1621619785201.497,
+        "dev": 42,
+        "ino": 20822046427,
+        "nlink": 1,
+        "linkTarget": null,
+        "disposition": "copy",
+        "hardLinkGroup": null
+      },
+      {
+        "relPath": "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq",
+        "type": "file",
+        "size": 2936919484,
+        "mode": 33272,
+        "uid": 0,
+        "gid": 0,
+        "mtimeMs": 1607182853358.957,
+        "ctimeMs": 1621619777478.54,
+        "dev": 42,
+        "ino": 20649245084,
+        "nlink": 1,
+        "linkTarget": null,
+        "disposition": "copy",
+        "hardLinkGroup": null
+      }
+    ]
+  }
+]

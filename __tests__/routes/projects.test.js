@@ -79,6 +79,32 @@ jest.mock("../../routes/middleware", () => ({
 
 app.use("/", projectsRouter);
 
+describe("GET /project/reconciliation-history", () => {
+  afterEach(() => { mockUser = { username: "testuser", groups: ["group-123"], isAdmin: false }; });
+  test("requires authentication and an administrator", async () => {
+    mockUser = null;
+    expect((await request(app).get("/project/reconciliation-history?id=64f1c0000000000000000000")).status).toBe(401);
+    mockUser = { username: "owner", isAdmin: false };
+    expect((await request(app).get("/project/reconciliation-history?id=64f1c0000000000000000000")).status).toBe(403);
+  });
+  test("validates the ID before querying", async () => {
+    mockUser = { username: "admin", isAdmin: true };
+    expect((await request(app).get("/project/reconciliation-history?id[$ne]=null")).status).toBe(400);
+  });
+  test("returns retained administrative provenance and history to an admin", async () => {
+    mockUser = { username: "admin", isAdmin: true };
+    const id = "64f1c0000000000000000000";
+    Project.findById.mockReturnValueOnce({ select: jest.fn().mockReturnValue({ lean: jest.fn().mockResolvedValue({
+      _id: id, registrationProvenance: { sourceUnixOwner: "root" },
+      reconciliationHistory: [{ before: { exists: false }, after: { owner: "winj" } }],
+    }) }) });
+    const result = await request(app).get(`/project/reconciliation-history?id=${id}`);
+    expect(result.status).toBe(200);
+    expect(result.body).toEqual({ projectId: id, registration: { sourceUnixOwner: "root" },
+      history: [{ before: { exists: false }, after: { owner: "winj" } }] });
+  });
+});
+
 describe("GET /project?id=:id", () => {
   const mockProjectId = new mongoose.Types.ObjectId().toString();
   const mockGroupId = new mongoose.Types.ObjectId().toString();

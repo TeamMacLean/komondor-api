@@ -1,5 +1,28 @@
 # Project decisions and production findings — 16 October 2026
 
+**Step 1 is implemented locally:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
+It covers the 23 missing Project records with retained creation history. Production
+execution and the remaining reconciliation steps have not run.
+
+**Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
+Use `winj` for all ten Saunders entries (five already registered, five new),
+and `shrestha` for the 17 Talbot directories and Courville. Filesystem ownership
+stays unchanged. See the [original-value retention design](reconciliation-preview-2026-10-22/ORIGINAL_VALUES_AND_CORRECTIONS.md) for the accepted registration/path correction approach. The separate
+bulk audit checksum sweep is cancelled; normal per-project archive verification
+remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
+the proposed catalogue owner, or await a bulk audit. No production write is authorized.
+
+**22 October update:** use the [read-only reconciliation preview](reconciliation-preview-2026-10-22/README.md)
+and its [197-entry decision table](reconciliation-preview-2026-10-22/PROJECT_DECISIONS.md)
+for George's latest policy: retain legacy owners, no owner enquiries, preserve the
+five additional Saunders directories, retain retired records, and record current
+checksums without closing historical gaps. It supersedes the older outreach and
+permanent record-deletion proposals below. This update authorizes a preview only;
+the October 16–17 observations remain historical and no production changes have run.
+The [fresh live inspection](reconciliation-preview-2026-10-22/LIVE_PREVIEW.md)
+now covers every entry and records the completed initial checksum pass and the
+unmeasured audit coverage separately; no further bulk audit is scheduled.
+
 [Completed blocker-resolution review](BLOCKER_RESOLUTION_REVIEW_2026-10-17.md) records the verdict, commits and validation caveats.
 
 **192 original source entries, each retained exactly once.** Decisions and technical findings are separate.
@@ -11,10 +34,13 @@ the [findings report](../../../HPC_ARCHIVE_CANDIDATES_2026-10-16.md) for discrep
 
 ## Current execution decisions supersede the historical labels below
 
-Use [ACTION_PLAN.md](ACTION_PLAN.md) and [action-plan.csv](action-plan.csv) for the
-current proposed actions. George's settled silence-consent decision supersedes
-`AWAITING_GROUP_DECISION` for the three exports (156 entries); only discrepancies
-receive outreach with a deadline. No age cutoff applies to this batch. Kamoun's
+The October 17 [ACTION_PLAN.md](ACTION_PLAN.md) and [action-plan.csv](action-plan.csv)
+record the earlier proposed actions; the October 22 preview linked above supersedes
+their enquiry, supplementary-Saunders and permanent database-deletion steps.
+George's settled silence-consent decision supersedes
+`AWAITING_GROUP_DECISION` for the three exports (156 entries). The October 17
+proposal restricted outreach to discrepancies; the October 22 policy removes
+those enquiries. No age cutoff applies to this batch. Kamoun's
 19 archive / 6 direct-delete / 11 KEEP decisions stand. Manual deletion remains a
 separate checkpoint and nothing is deleted on silence.
 
@@ -82,8 +108,9 @@ The JSON preserves each source value and the original decision separately from l
 ## Historical source decision table
 
 Each row below corresponds to one original entry. Imported waiting labels below are
-superseded by [the current action CSV](action-plan.csv); use that CSV for execution
-and discrepancy outreach. “Archive requested” still requires the normal
+superseded first by [the October 17 action CSV](action-plan.csv), then by the
+[October 22 preview](reconciliation-preview-2026-10-22/README.md). The older CSV
+is not a current instruction to execute or contact owners. “Archive requested” still requires the normal
 plan, freeze, checksum verification, restore/review and separate manual deletion checkpoints.
 KEEP entries remain on HPC. Outstanding owner decisions, identity repairs and deferrals remain unfinished work.
 See CSV/JSON for full paths, separate registered/observed counts, detailed questions and evidence.

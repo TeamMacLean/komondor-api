@@ -1,5 +1,13 @@
 # Kamoun direct-disposal targets
 
+**22 October decision:** George has chosen to preserve and archive all five
+supplementary directories in section 3, without an owner enquiry. See the
+[reconciliation preview](reconciliation-preview-2026-10-22/README.md) and its
+current policy. Section 3's awaiting-reply/deadline language and the old JSON
+decision labels are retained as October 17 history. The six original direct-disposal
+decisions remain distinct; no deletion has been executed or newly authorized by this
+preview. Database record retirement now replaces the old permanent-deletion proposal.
+
 Proposal for George, 17 October 2026. Nothing has been removed. The six original
 sheet decisions remain delete without an S3 copy. The five additional directories
 are a separate pending set, not five more approved deletions. All counts below

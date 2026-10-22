@@ -1,0 +1,24 @@
+// Local runner: SSH runs the collector in memory; evidence files stay on this Mac.
+const fs=require('fs'),path=require('path'),os=require('os'),crypto=require('crypto'),{spawn}=require('child_process');
+const folder=__dirname;
+const mode=process.argv[2];
+if(!['inventory','hash'].includes(mode))throw Error('Specify inventory or hash; hash also requires a reviewed target JSON file');
+const source=fs.readFileSync(path.join(folder,'collect-live.cjs'),'utf8');
+const sourceSha256=crypto.createHash('sha256').update(source).digest('hex');
+const targets=mode==='inventory'?JSON.parse(fs.readFileSync(path.join(folder,'projects.json'))):JSON.parse(fs.readFileSync(process.argv[3]));
+const payload={mode,repositoryRoot:'/storage/www/komondor-api',source,targets};
+const loader="const fs=require('fs'),Module=require('module');const p=JSON.parse(fs.readFileSync(0,'utf8'));const m=new Module('/storage/www/komondor-api/scripts/_readonly_reconcile.cjs');m.filename='/storage/www/komondor-api/scripts/_readonly_reconcile.cjs';m.paths=Module._nodeModulePaths('/storage/www/komondor-api/scripts');m._compile(p.source,m.filename);m.exports.run(p).catch(e=>{process.stderr.write((e.name+': '+e.message).replace(/mongodb(?:\\+srv)?:\\/\\/[^\\s]+/g,'[redacted Mongo URI]')+'\\n');process.exitCode=1;});";
+const quote=s=>"'"+s.replace(/'/g,"'\\''")+"'";
+const remote='cd /storage/www/komondor-api && /storage/.nvm/versions/node/v24.11.1/bin/node -e '+quote(loader);
+const socket=process.env.ARCHIVE_REVIEW_SSH_SOCKET||path.join(os.homedir(),'.ssh/v1333-codex-reconcile.sock');
+const args=['-S',socket,'-o','BatchMode=yes','-o','ConnectTimeout=15','-o','ServerAliveInterval=30','-o','ServerAliveCountMax=3','deeks@v1333.nbi.ac.uk',remote];
+const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+Z$/,'Z');
+const evidence=path.join(folder,'live-evidence');fs.mkdirSync(evidence,{recursive:true});
+const output=path.join(evidence,mode+'-'+stamp+'.jsonl'),log=output.replace('.jsonl','.stderr.log');
+const out=fs.createWriteStream(output,{flags:'wx',mode:0o600}),err=fs.createWriteStream(log,{flags:'wx',mode:0o600});
+const startedAt=new Date().toISOString();console.log('Evidence: '+output);
+const child=spawn('ssh',args,{stdio:['pipe','pipe','pipe']});let buffer='',lastProgress=0;
+child.stdout.on('data',chunk=>{buffer+=chunk;const lines=buffer.split('\n');buffer=lines.pop();for(const line of lines){if(!line)continue;try{const row=JSON.parse(line);if(row.type==='project')console.log(row.entryId+': '+(row.inventory?.entries.filter(e=>e.type==='file').length??'absent')+' files');else if(row.type==='project-error'||row.type==='checksum-error'||row.type==='complete')console.log(JSON.stringify(row));else if(row.type==='checksum'&&Date.now()-lastProgress>30000){console.log('Hashed '+row.entryId+'/'+row.relPath);lastProgress=Date.now();}}catch{console.log('Non-JSON remote output; inspect evidence before accepting');}}});
+child.stdout.pipe(out);child.stderr.pipe(err);child.stdin.end(JSON.stringify(payload));
+child.on('error',error=>{console.error(error.message);process.exitCode=1;});
+child.on('close',code=>{Promise.all([out.closed?Promise.resolve():new Promise(r=>out.once('close',r)),err.closed?Promise.resolve():new Promise(r=>err.once('close',r))]).then(()=>{const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');const receipt={mode,startedAt,finishedAt:new Date().toISOString(),exitCode:code,command:['ssh',...args],collectorSha256:sourceSha256,targetCount:targets.length,targetsSha256:crypto.createHash('sha256').update(JSON.stringify(targets)).digest('hex'),output:path.basename(output),outputSha256:hash(output),stderr:path.basename(log),productionWrites:false};fs.writeFileSync(output.replace('.jsonl','.command.json'),JSON.stringify(receipt,null,2)+'\n');console.log('SSH completed: '+code);process.exitCode=code===0?0:1;});});

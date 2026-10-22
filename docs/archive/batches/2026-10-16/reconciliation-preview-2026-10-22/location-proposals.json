@@ -1,0 +1,3646 @@
+[
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cda3efcb29338b9e70",
+    "fileId": "5fc012c9a3efcb29338b9322",
+    "runId": "5fc012c4a3efcb29338b86b6",
+    "previousExpectedRelativePath": "0h/0h/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "0h/0_hour/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+      "0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "0h/0_hour/raw/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+          "bytes": 3858761752,
+          "md5": "ace2cdb67a2b71bf9c64b3de111612fa",
+          "sha256": "ec68c87a536897fcad2d35789715dd4d6bee224713011b2f598d86fa8a8c8205"
+        },
+        {
+          "relPath": "0h/0h/processed/1312_LIB14323_LDI11928_NoIndex_L001_R1.fastq.gz",
+          "bytes": 3858761752,
+          "md5": "ace2cdb67a2b71bf9c64b3de111612fa",
+          "sha256": "ec68c87a536897fcad2d35789715dd4d6bee224713011b2f598d86fa8a8c8205"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cba3efcb29338b9889",
+    "fileId": "5fc012c7a3efcb29338b8d3b",
+    "runId": "5fc012c4a3efcb29338b86b6",
+    "previousExpectedRelativePath": "0h/0h/raw/JISO_0h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/JISO_0h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/JISO_0h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "0h/0h/processed/JISO_0h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "0h/0h/processed/JISO_0h_R1.clean.paired.fq",
+          "bytes": 7743640103,
+          "md5": "feb9db3b6b4c84026556a2168cc090de",
+          "sha256": "bfd90b301e5b04fbdd41f90abe1ee408816684edc65730550f7501b1d0bfca02"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cca3efcb29338b9be4",
+    "fileId": "5fc012c8a3efcb29338b9096",
+    "runId": "5fc012c4a3efcb29338b86b6",
+    "previousExpectedRelativePath": "0h/0h/raw/JISO_0h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/JISO_0h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/0h/0h/processed/JISO_0h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "0h/0h/processed/JISO_0h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "0h/0h/processed/JISO_0h_R2.clean.paired.fq",
+          "bytes": 7457629045,
+          "md5": "bd2a40372fa177b86ef64fccad77c73f",
+          "sha256": "79673a498767acee991c419423f1f8ef0724026ae38f72334a39d5e1a997b1fb"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cca3efcb29338b9ccf",
+    "fileId": "5fc012c8a3efcb29338b9181",
+    "runId": "5fc012c3a3efcb29338b853f",
+    "previousExpectedRelativePath": "12h/12h/raw/JISO_12h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/12h/12h/processed/JISO_12h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/12h/12h/processed/JISO_12h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "12h/12h/processed/JISO_12h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "12h/12h/processed/JISO_12h_R1.clean.paired.fq",
+          "bytes": 6950288318,
+          "md5": "1c0a45d6ff62ab79fb163a49961f15c1",
+          "sha256": "9f6ea456acd3787f74a949b4dc59541c6b0c6c5523924cfe3c9ac9b05c9fe5bd"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cda3efcb29338b9fae",
+    "fileId": "5fc012c9a3efcb29338b9460",
+    "runId": "5fc012c3a3efcb29338b853f",
+    "previousExpectedRelativePath": "12h/12h/raw/JISO_12h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/12h/12h/processed/JISO_12h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/12h/12h/processed/JISO_12h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "12h/12h/processed/JISO_12h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "12h/12h/processed/JISO_12h_R2.clean.paired.fq",
+          "bytes": 6758483904,
+          "md5": "6b4601469b06cd6d23d62b7d5958c809",
+          "sha256": "e5e869da2bfcbb9a263c1428d12788c2bfc08659be2b035ad84aa9e91547dfd8"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cca3efcb29338b9c8f",
+    "fileId": "5fc012c8a3efcb29338b9141",
+    "runId": "5fc012c3a3efcb29338b8549",
+    "previousExpectedRelativePath": "168h/168h/raw/JISO_168h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/168h/168h/processed/JISO_168h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/168h/168h/processed/JISO_168h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "168h/168h/processed/JISO_168h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "168h/168h/processed/JISO_168h_R1.clean.paired.fq",
+          "bytes": 8726826923,
+          "md5": "1e0fb862746695ae2ce37e5630889e8d",
+          "sha256": "03a1c7b256794e5d1951d1efe9d8a3a8b4546ab2b5ceb7c27409f34acfc56204"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cba3efcb29338b975f",
+    "fileId": "5fc012c7a3efcb29338b8c11",
+    "runId": "5fc012c3a3efcb29338b8549",
+    "previousExpectedRelativePath": "168h/168h/raw/JISO_168h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/168h/168h/processed/JISO_168h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/168h/168h/processed/JISO_168h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "168h/168h/processed/JISO_168h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "168h/168h/processed/JISO_168h_R2.clean.paired.fq",
+          "bytes": 8356869313,
+          "md5": "df242a40b68d2e4727eb097e918c0e5a",
+          "sha256": "44c187b172759913c2da0023a5f3cd372d443c16462ec15ec292ee08c9fbe785"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cca3efcb29338b9e4e",
+    "fileId": "5fc012c9a3efcb29338b9300",
+    "runId": "5fc012c3a3efcb29338b84b8",
+    "previousExpectedRelativePath": "24h/24h/raw/JISO_24h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/24h/24h/processed/JISO_24h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/24h/24h/processed/JISO_24h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "24h/24h/processed/JISO_24h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "24h/24h/processed/JISO_24h_R1.clean.paired.fq",
+          "bytes": 8787402489,
+          "md5": "948b84eb0504d4c0dc93e248d9a62df1",
+          "sha256": "f10ff3a26fc996717668b676cc60ca923b7c2a5c6119cdd99b3b4262e845c173"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cda3efcb29338b9ef5",
+    "fileId": "5fc012c9a3efcb29338b93a7",
+    "runId": "5fc012c3a3efcb29338b84b8",
+    "previousExpectedRelativePath": "24h/24h/raw/JISO_24h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/24h/24h/processed/JISO_24h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/24h/24h/processed/JISO_24h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "24h/24h/processed/JISO_24h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "24h/24h/processed/JISO_24h_R2.clean.paired.fq",
+          "bytes": 8369993609,
+          "md5": "e242a4fff37aa0cf5b20df53cb14709b",
+          "sha256": "adb31f78796be015f6cd0d4f1caf6c966f5274fe06c7685ca28a5d104e1605f6"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012caa3efcb29338b95a5",
+    "fileId": "5fc012c6a3efcb29338b8a57",
+    "runId": "5fc012c2a3efcb29338b830b",
+    "previousExpectedRelativePath": "36h/36/raw/JISO_36h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/36h/36/processed/JISO_36h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/36h/36/processed/JISO_36h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "36h/36/processed/JISO_36h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "36h/36/processed/JISO_36h_R1.clean.paired.fq",
+          "bytes": 9450463717,
+          "md5": "591b95bbb49103e23cfc07354179afde",
+          "sha256": "55ffc6a8a8159867298438140658e8399c18438dbd0173341595afe2b620a87b"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cca3efcb29338b9da6",
+    "fileId": "5fc012c9a3efcb29338b9258",
+    "runId": "5fc012c2a3efcb29338b830b",
+    "previousExpectedRelativePath": "36h/36/raw/JISO_36h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/36h/36/processed/JISO_36h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/36h/36/processed/JISO_36h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "36h/36/processed/JISO_36h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "36h/36/processed/JISO_36h_R2.clean.paired.fq",
+          "bytes": 9069824927,
+          "md5": "298326f204fe0a214d4198d1f5e19ada",
+          "sha256": "a9fe55d376959268b18f41b9939c1e6062c8b101ad2fa280e3f2f3902134c47e"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cba3efcb29338b982d",
+    "fileId": "5fc012c7a3efcb29338b8cdf",
+    "runId": "5fc012c3a3efcb29338b835c",
+    "previousExpectedRelativePath": "72h/72h/raw/JISO_72h_R1.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/72h/72h/processed/JISO_72h_R1.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/72h/72h/processed/JISO_72h_R1.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "72h/72h/processed/JISO_72h_R1.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "72h/72h/processed/JISO_72h_R1.clean.paired.fq",
+          "bytes": 7130928433,
+          "md5": "c9d3ee15d8bf30d5cf760c77c2be260d",
+          "sha256": "2a312ab5168cf4ad72f627363855a60fead2c114761fc47bfe86c7a107233788"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "two_blades-015",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "readId": "5fc012cda3efcb29338b9e89",
+    "fileId": "5fc012c9a3efcb29338b933b",
+    "runId": "5fc012c3a3efcb29338b835c",
+    "previousExpectedRelativePath": "72h/72h/raw/JISO_72h_R2.clean.paired.fq",
+    "previousStoredFilePath": "/two_blades/japanse_isolate_timecourse/72h/72h/processed/JISO_72h_R2.clean.paired.fq",
+    "proposedPhysicalFilePath": "/two_blades/japanse_isolate_timecourse/72h/72h/processed/JISO_72h_R2.clean.paired.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "72h/72h/processed/JISO_72h_R2.clean.paired.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "72h/72h/processed/JISO_72h_R2.clean.paired.fq",
+          "bytes": 6935097605,
+          "md5": "6ea95b1625e8c8fb4acfb20bf0ec42c1",
+          "sha256": "fce533c12499ca308c9b871558dbb3d9838407ce322253190b8e23ae3270500f"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-004",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "readId": "5fc012cda3efcb29338b9fbb",
+    "fileId": "5fc012c9a3efcb29338b946d",
+    "runId": "5fc012c3a3efcb29338b862b",
+    "previousExpectedRelativePath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz",
+    "previousStoredFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_1.fq.gz",
+          "bytes": 12607064839,
+          "md5": "3db4f4583bcb35cc30e64aaa8eadc874",
+          "sha256": "c38f372f285bdd142cabcb127737a1ecbb73773be37ec71cbb9e95fc487d848f"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-004",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "readId": "5fc012cda3efcb29338b9f6c",
+    "fileId": "5fc012c9a3efcb29338b941e",
+    "runId": "5fc012c3a3efcb29338b862b",
+    "previousExpectedRelativePath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz",
+    "previousStoredFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L1_2.fq.gz",
+          "bytes": 13564023587,
+          "md5": "930af2445087db81d0b4410adc508185",
+          "sha256": "c404a8d335a38c74d77ba3deb3164fb7d526f5cb32c4a95b7a90cb62024a9cc3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-004",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "readId": "5fc012cda3efcb29338b9e7a",
+    "fileId": "5fc012c9a3efcb29338b932c",
+    "runId": "5fc012c3a3efcb29338b862b",
+    "previousExpectedRelativePath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz",
+    "previousStoredFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_1.fq.gz",
+          "bytes": 11967012204,
+          "md5": "28c2d9fa151fe53dc32356e8b0d66763",
+          "sha256": "943e599d2d2f47ac540adafa50b606cd380b311477babf125d6a9049c801f13a"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-004",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "readId": "5fc012cda3efcb29338b9fe7",
+    "fileId": "5fc012c9a3efcb29338b9499",
+    "runId": "5fc012c3a3efcb29338b862b",
+    "previousExpectedRelativePath": "sp2273/sp2273_1/raw/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz",
+    "previousStoredFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/whole_genome_shotgun_of_solanum_americanum/sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sp2273/sp2273_1/processed/R_DMP02900-W_HNVHKBCXX_L2_2.fq.gz",
+          "bytes": 12908317092,
+          "md5": "351cf903efb283b24047cf5e9a92e44e",
+          "sha256": "16cb703d726567f4cd3eef3c9aa7ff45e5898e483f280603271ef9fa5fe4f235"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-005",
+    "projectId": "5fc012bda3efcb29338b7d29",
+    "readId": "5fc012cca3efcb29338b9da3",
+    "fileId": "5fc012c9a3efcb29338b9255",
+    "runId": "5fc012c4a3efcb29338b875d",
+    "previousExpectedRelativePath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R1.fq",
+    "previousStoredFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq",
+    "proposedPhysicalFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R1.fq",
+          "bytes": 6414854399,
+          "md5": "e56f2291cdb52fca719212447cc82966",
+          "sha256": "d47c334e1df07c403f410d8f04368e384e3437e824fd74dae9749a83a9f1fc49"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-005",
+    "projectId": "5fc012bda3efcb29338b7d29",
+    "readId": "5fc012cda3efcb29338b9e80",
+    "fileId": "5fc012c9a3efcb29338b9332",
+    "runId": "5fc012c4a3efcb29338b875d",
+    "previousExpectedRelativePath": "acem2_solexa/run1/raw/acem2_run146_lane7.i300bp.R2.fq",
+    "previousStoredFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq",
+    "proposedPhysicalFilePath": "/jjones/albugo_candida/acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "acem2_solexa/run1/processed/acem2_run146_lane7.i300bp.R2.fq",
+          "bytes": 6401349987,
+          "md5": "624adcfa43908e0806b86ba7b4280399",
+          "sha256": "54dd6d0c5b6128dc595712a99f1a44e65c3dd45b37bf18240b8b9e55d33597a3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-008",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "readId": "5fcba83ed8dd4a63058cc19d",
+    "fileId": "5fcba83ed8dd4a63058cc19c",
+    "runId": "5fcba83ed8dd4a63058cc19a",
+    "previousExpectedRelativePath": "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq.txt",
+    "previousStoredFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq.txt",
+    "proposedPhysicalFilePath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq",
+    "proposal": "correct-stored-path-after-live-check",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rad_sequencing_on_bs/rad_seq_psti_2271/raw/TSL_JJones_SolanumS-Parent_sequence_1.fastq",
+          "bytes": 1549507435,
+          "md5": "4cb59eeaf66da8753f0bb64e26e85ff2",
+          "sha256": "32ed012f5da91d960e9b6b68a0d09961f2890cb63ce3a34cccb179da34ceae70"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-008",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "readId": "5fcba8c9d8dd4a63058cc1a1",
+    "fileId": "5fcba8c9d8dd4a63058cc1a0",
+    "runId": "5fcba8c9d8dd4a63058cc19e",
+    "previousExpectedRelativePath": "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq.txt",
+    "previousStoredFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq.txt",
+    "proposedPhysicalFilePath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq",
+    "proposal": "correct-stored-path-after-live-check",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rad_sequencing_on_bs/rad_seq_psti_2273/raw/TSL_JJones_SolanumPop1-R_sequence_1.fastq",
+          "bytes": 1563167052,
+          "md5": "8f23d45f3b924cc8d17383b0785b0a40",
+          "sha256": "bcf05e89f3b5ca08c1942b46816db153a48cb40bc7cc14d0d9a3d0f933b2031e"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-008",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "readId": "5fcba9fdd8dd4a63058cc1a5",
+    "fileId": "5fcba9fdd8dd4a63058cc1a4",
+    "runId": "5fcba9fdd8dd4a63058cc1a2",
+    "previousExpectedRelativePath": "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq.txt",
+    "previousStoredFilePath": "jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq.txt",
+    "proposedPhysicalFilePath": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__/rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq",
+    "proposal": "correct-stored-path-after-live-check",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rad_sequencing_on_bs/rad_seq_psti_bs_all/raw/TSL_JJones_SolanumPop1-BS_sequence_1.fastq",
+          "bytes": 2936919484,
+          "md5": "2d6d9eec238c10426b271d3c338d910a",
+          "sha256": "09f250d151b55913bde44c64e44f5fb73506ad84ad24b99f88267d574d071c07"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b968e",
+    "fileId": "5fc012c6a3efcb29338b8b40",
+    "runId": "5fc012c4a3efcb29338b87a1",
+    "previousExpectedRelativePath": "os_1/os_1/raw/Os_1_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_1/os_1/processed/Os_1_mixed_L3_1_l170.fq.gz",
+          "bytes": 204154209,
+          "md5": "8fba126f2c68a17a679a1522710bfd1b",
+          "sha256": "b27a48c422503539bfa519c0bab8b326e2fc7babc2ff623f1723d4b529fe66f4"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9f9a",
+    "fileId": "5fc012c9a3efcb29338b944c",
+    "runId": "5fc012c3a3efcb29338b84e1",
+    "previousExpectedRelativePath": "os_10/os_10/raw/Os_10_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_10/os_10/processed/Os_10_mixed_L3_1_l170.fq.gz",
+          "bytes": 189889111,
+          "md5": "3d96aaf8bba1fa2eab14bc99f1754c7e",
+          "sha256": "dce7a69d11706b42b5bfbc4a7fe40a63c14a21506d19afbe5284be528a455d64"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b96f1",
+    "fileId": "5fc012c6a3efcb29338b8ba3",
+    "runId": "5fc012c3a3efcb29338b84e1",
+    "previousExpectedRelativePath": "os_10/os_10/raw/Os_10_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_10/os_10/processed/Os_10_mixed_L3_2_l170.fq.gz",
+          "bytes": 198063925,
+          "md5": "0ebf18f508be94a32d6a227222d4715e",
+          "sha256": "c3fa6cba4f045edfeef430113bbef98586977afe163eb8a297625e056ca64742"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b996a",
+    "fileId": "5fc012c7a3efcb29338b8e1c",
+    "runId": "5fc012c3a3efcb29338b84b4",
+    "previousExpectedRelativePath": "os_11/os_11/raw/Os_11_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_11/os_11/processed/Os_11_mixed_L3_1_l170.fq.gz",
+          "bytes": 187751670,
+          "md5": "b38c2aaf411eba80af90baa73193f4d3",
+          "sha256": "dd17b2e284b3381d52a3975fa549c86e2498659e7536397ecf896c6188e1c520"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9a46",
+    "fileId": "5fc012c8a3efcb29338b8ef8",
+    "runId": "5fc012c3a3efcb29338b84b4",
+    "previousExpectedRelativePath": "os_11/os_11/raw/Os_11_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_11/os_11/processed/Os_11_mixed_L3_2_l170.fq.gz",
+          "bytes": 195706880,
+          "md5": "8e46d65cefbc172a9c35c83d3c77d69e",
+          "sha256": "f5f1308084b8bc06f80ffb7f7a9d7344bdbbdfe415bf993252451a7ca59f52c0"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9ffc",
+    "fileId": "5fc012c9a3efcb29338b94ae",
+    "runId": "5fc012c3a3efcb29338b862c",
+    "previousExpectedRelativePath": "os_12/os_12/raw/Os_12_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_12/os_12/processed/Os_12_mixed_L3_1_l170.fq.gz",
+          "bytes": 189387383,
+          "md5": "283723b3a21c71c995a9f6d9adc9ae95",
+          "sha256": "443bb8ecec595661cb4a7a8c6a232ee0e466d56ff8ab0ff013aa1c7b2ba61e7c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9d20",
+    "fileId": "5fc012c8a3efcb29338b91d2",
+    "runId": "5fc012c3a3efcb29338b862c",
+    "previousExpectedRelativePath": "os_12/os_12/raw/Os_12_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_12/os_12/processed/Os_12_mixed_L3_2_l170.fq.gz",
+          "bytes": 196886765,
+          "md5": "5cc18f304822dd3912b1473f3baa5016",
+          "sha256": "6190863b7cc351cd381f4b56b5425e82c1f03f99477d034ff089c33f6d422d57"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9f06",
+    "fileId": "5fc012c9a3efcb29338b93b8",
+    "runId": "5fc012c3a3efcb29338b8400",
+    "previousExpectedRelativePath": "os_13/os_13/raw/Os_13_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_13/os_13/processed/Os_13_mixed_L3_1_l170.fq.gz",
+          "bytes": 238343811,
+          "md5": "3bf57fedd02c5456e8019cd8c95d7aca",
+          "sha256": "260be0fdec560ced6596ef0ff577278dabbd85d67889a5059141c1464c1cce97"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b96c0",
+    "fileId": "5fc012c6a3efcb29338b8b72",
+    "runId": "5fc012c3a3efcb29338b8400",
+    "previousExpectedRelativePath": "os_13/os_13/raw/Os_13_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_13/os_13/processed/Os_13_mixed_L3_2_l170.fq.gz",
+          "bytes": 249511936,
+          "md5": "14ad25c9e94e54694b294c3ca1137d41",
+          "sha256": "2e2c86548b93cec3e98b52247b2093d5f8f0508ac8a954f21a7cf324e334d7e3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b990e",
+    "fileId": "5fc012c7a3efcb29338b8dc0",
+    "runId": "5fc012c4a3efcb29338b874e",
+    "previousExpectedRelativePath": "os_14/os_14/raw/Os_14_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_14/os_14/processed/Os_14_mixed_L3_1_l170.fq.gz",
+          "bytes": 198941270,
+          "md5": "0affbf6ce342033a2279eeaf336b2d5d",
+          "sha256": "4c65fa3242775e1fe419e520b7809cb61ef4799d70b6ee214cccc2e1e87fbd48"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9cc2",
+    "fileId": "5fc012c8a3efcb29338b9174",
+    "runId": "5fc012c4a3efcb29338b874e",
+    "previousExpectedRelativePath": "os_14/os_14/raw/Os_14_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_14/os_14/processed/Os_14_mixed_L3_2_l170.fq.gz",
+          "bytes": 206667776,
+          "md5": "d4461bd5039dc1a446de4912e5cc38b1",
+          "sha256": "8c3647b7d70fff7568979d7266fc26a163858111003f17fc70df5d2d412eeeb3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b98c2",
+    "fileId": "5fc012c7a3efcb29338b8d74",
+    "runId": "5fc012c3a3efcb29338b869c",
+    "previousExpectedRelativePath": "os_15/os_15/raw/Os_15_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_15/os_15/processed/Os_15_mixed_L3_1_l170.fq.gz",
+          "bytes": 202751900,
+          "md5": "cbb51193697e35fc3d84ddc2415f8438",
+          "sha256": "39f47cb73949097ba824f90ae68f3188dd163b383ac96e8d935ab84d48c71ccf"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9ccc",
+    "fileId": "5fc012c8a3efcb29338b917e",
+    "runId": "5fc012c3a3efcb29338b869c",
+    "previousExpectedRelativePath": "os_15/os_15/raw/Os_15_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_15/os_15/processed/Os_15_mixed_L3_2_l170.fq.gz",
+          "bytes": 210671345,
+          "md5": "7d90f652ebac72daeefe65a3cbebf6b9",
+          "sha256": "bc84807b413eac75b519dcbb70778bc6d7e0fa339e1971ac773bd034564d0588"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9f3b",
+    "fileId": "5fc012c9a3efcb29338b93ed",
+    "runId": "5fc012c3a3efcb29338b8386",
+    "previousExpectedRelativePath": "os_17/os_17/raw/Os_17_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_17/os_17/processed/Os_17_mixed_L3_1_l170.fq.gz",
+          "bytes": 262228428,
+          "md5": "e6cb1cccb561fa1f5733052e49fb7f20",
+          "sha256": "cbeba6b4c9dff97dcb78ee0ab9b7bfb33789edd14e8e1ad01d9ebca6c72df90c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9b0e",
+    "fileId": "5fc012c8a3efcb29338b8fc0",
+    "runId": "5fc012c3a3efcb29338b8386",
+    "previousExpectedRelativePath": "os_17/os_17/raw/Os_17_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_17/os_17/processed/Os_17_mixed_L3_2_l170.fq.gz",
+          "bytes": 271950311,
+          "md5": "bf513212fa718484f872338e56575a4b",
+          "sha256": "c96cd4b545d9a04db3798fc55d5d15d8b3316d70bec96dd18be36d7e7741c0f5"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9f7d",
+    "fileId": "5fc012c9a3efcb29338b942f",
+    "runId": "5fc012c3a3efcb29338b85a9",
+    "previousExpectedRelativePath": "os_18/os_18/raw/Os_18_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_18/os_18/processed/Os_18_mixed_L3_1_l170.fq.gz",
+          "bytes": 189150877,
+          "md5": "46c4cf1aeb347991f13cedbd4dde2fa5",
+          "sha256": "af8c11a6bffb269d09414442149f812db637b6aac0438b3a2e1c1af7fc6d2b9d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b971a",
+    "fileId": "5fc012c6a3efcb29338b8bcc",
+    "runId": "5fc012c3a3efcb29338b85a9",
+    "previousExpectedRelativePath": "os_18/os_18/raw/Os_18_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_18/os_18/processed/Os_18_mixed_L3_2_l170.fq.gz",
+          "bytes": 197268201,
+          "md5": "3da600475791289b76367648a8323041",
+          "sha256": "0aca98eaef36288c3873d2cf34d7af92f932d97b056cc5d3af3436337bd432c9"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b971f",
+    "fileId": "5fc012c6a3efcb29338b8bd1",
+    "runId": "5fc012c4a3efcb29338b87de",
+    "previousExpectedRelativePath": "os_19/os_19/raw/Os_19_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_19/os_19/processed/Os_19_mixed_L3_1_l170.fq.gz",
+          "bytes": 161611776,
+          "md5": "9ac130eae59a18a760ee2b04f99608a1",
+          "sha256": "c4d690e465acd763c4ed9ae479071a67f45af782132230d08d2f128047f90e5c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9670",
+    "fileId": "5fc012c6a3efcb29338b8b22",
+    "runId": "5fc012c4a3efcb29338b87de",
+    "previousExpectedRelativePath": "os_19/os_19/raw/Os_19_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_19/os_19/processed/Os_19_mixed_L3_2_l170.fq.gz",
+          "bytes": 169500154,
+          "md5": "d588da630ce7d4bf9b0ddec915ad4061",
+          "sha256": "9d781092b82a4088e6ee0cfafd18376af133df738953137d53328ae9084727a6"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b995c",
+    "fileId": "5fc012c7a3efcb29338b8e0e",
+    "runId": "5fc012c3a3efcb29338b8620",
+    "previousExpectedRelativePath": "os_2_2/os_3/raw/Os_3_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_2_2/os_3/processed/Os_3_mixed_L3_1_l170.fq.gz",
+          "bytes": 126376859,
+          "md5": "25f9e968390e1b1e45610042ddae5af5",
+          "sha256": "0a8c2ff56995998a54b754bee19b1a1123c56a4261749169f16afcf8ad0eb048"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9df5",
+    "fileId": "5fc012c9a3efcb29338b92a7",
+    "runId": "5fc012c3a3efcb29338b8620",
+    "previousExpectedRelativePath": "os_2_2/os_3/raw/Os_3_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_2_2/os_3/processed/Os_3_mixed_L3_2_l170.fq.gz",
+          "bytes": 131028699,
+          "md5": "2f567fc0973786c2431a583443be23db",
+          "sha256": "7b5ac40e33fe86e2e59e2fc241c29b8d59843b489b9e4a55d6f33c06d2e0b983"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b99fb",
+    "fileId": "5fc012c7a3efcb29338b8ead",
+    "runId": "5fc012c4a3efcb29338b87b5",
+    "previousExpectedRelativePath": "os_2/os_2/raw/Os_2_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_2/os_2/processed/Os_2_mixed_L3_1_l170.fq.gz",
+          "bytes": 191251634,
+          "md5": "afb0d5b2cfbffc0fcb0b8abf3a508e18",
+          "sha256": "b122596c85eb774eef6b7f241785a44f5495a1778707a27def3e579ade897a44"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9d4e",
+    "fileId": "5fc012c8a3efcb29338b9200",
+    "runId": "5fc012c4a3efcb29338b87b5",
+    "previousExpectedRelativePath": "os_2/os_2/raw/Os_2_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_2/os_2/processed/Os_2_mixed_L3_2_l170.fq.gz",
+          "bytes": 199148889,
+          "md5": "a04af517c68f60b98715ffec11340f4c",
+          "sha256": "9d099a0f47d5331a0e6b6e9d768403388df7eb532b361c36e7e526036df370b2"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b985f",
+    "fileId": "5fc012c7a3efcb29338b8d11",
+    "runId": "5fc012c3a3efcb29338b8603",
+    "previousExpectedRelativePath": "os_20/os_20/raw/Os_20_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_20/os_20/processed/Os_20_mixed_L3_1_l170.fq.gz",
+          "bytes": 160120832,
+          "md5": "53c0333d3bc7a057756f4548a1feac21",
+          "sha256": "7950f6b51a7ebcbea9b71962c0ccba25b30d997b00f33e8dec0ba1ff08bed2c4"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9d45",
+    "fileId": "5fc012c8a3efcb29338b91f7",
+    "runId": "5fc012c3a3efcb29338b8603",
+    "previousExpectedRelativePath": "os_20/os_20/raw/Os_20_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_20/os_20/processed/Os_20_mixed_L3_2_l170.fq.gz",
+          "bytes": 166735253,
+          "md5": "681fda1ac59294e7048fa58ef4f8f5a0",
+          "sha256": "724a37c220c3983c61030131150e8f11a8cb274b56dd48acbc95791868936c8b"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9a7e",
+    "fileId": "5fc012c8a3efcb29338b8f30",
+    "runId": "5fc012c4a3efcb29338b87a0",
+    "previousExpectedRelativePath": "os_21/os_21/raw/Os_21_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_21/os_21/processed/Os_21_mixed_L3_1_l170.fq.gz",
+          "bytes": 168017920,
+          "md5": "6429657085d9108066c0e179fd2d90eb",
+          "sha256": "98e018be5b4ea0a0f1a7f4730ac52a362f3906a122b49313cca6000f2660536f"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9a0d",
+    "fileId": "5fc012c7a3efcb29338b8ebf",
+    "runId": "5fc012c4a3efcb29338b87a0",
+    "previousExpectedRelativePath": "os_21/os_21/raw/Os_21_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_21/os_21/processed/Os_21_mixed_L3_2_l170.fq.gz",
+          "bytes": 174524442,
+          "md5": "6c0b469ee897e698d130b56f40116dde",
+          "sha256": "78bb43531cdae6b0fcc6b4444998c35775df8c3e3941dd0931855098460383d9"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9cd3",
+    "fileId": "5fc012c8a3efcb29338b9185",
+    "runId": "5fc012c3a3efcb29338b8411",
+    "previousExpectedRelativePath": "os_22/os_22/raw/Os_22_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_22/os_22/processed/Os_22_mixed_L3_1_l170.fq.gz",
+          "bytes": 233439232,
+          "md5": "d6f63dd41cd439e9bad838b9084cd78d",
+          "sha256": "15f322eec5f0edce5ab2b31585f5e8418998a04f8c8361a5ea86d3adf9649e28"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9ba2",
+    "fileId": "5fc012c8a3efcb29338b9054",
+    "runId": "5fc012c3a3efcb29338b8411",
+    "previousExpectedRelativePath": "os_22/os_22/raw/Os_22_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_22/os_22/processed/Os_22_mixed_L3_2_l170.fq.gz",
+          "bytes": 242809892,
+          "md5": "8251c158217ba24fc23396eedbacbb20",
+          "sha256": "fbb7a8117fb6037398f66679a720b062d17a632ca938646fa24c06a7628c3c46"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9a2b",
+    "fileId": "5fc012c7a3efcb29338b8edd",
+    "runId": "5fc012c3a3efcb29338b864a",
+    "previousExpectedRelativePath": "os_23/os_23/raw/Os_23_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_23/os_23/processed/Os_23_mixed_L3_1_l170.fq.gz",
+          "bytes": 152403968,
+          "md5": "d6acb72c585db5aeb3c748a1149625df",
+          "sha256": "cceb23888c2afe5ab9aba51cfb456ecc3f80fdcb1964f333e34b04d9142a1ee3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9f28",
+    "fileId": "5fc012c9a3efcb29338b93da",
+    "runId": "5fc012c3a3efcb29338b864a",
+    "previousExpectedRelativePath": "os_23/os_23/raw/Os_23_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_23/os_23/processed/Os_23_mixed_L3_2_l170.fq.gz",
+          "bytes": 158761296,
+          "md5": "1df2d7501891cc9bcf51b6ccfe734b55",
+          "sha256": "0f67c0c3cf52eb100d54cd747e61b80dfa61ad615c3b2aa4f4f1eca815720730"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9ad5",
+    "fileId": "5fc012c8a3efcb29338b8f87",
+    "runId": "5fc012c4a3efcb29338b8826",
+    "previousExpectedRelativePath": "os_24/os_24/raw/Os_24_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_24/os_24/processed/Os_24_mixed_L3_1_l170.fq.gz",
+          "bytes": 200294400,
+          "md5": "b1c96124301ff4ef3674dd39bdfa716e",
+          "sha256": "bfac6f58d684244573d4742c5af080ed99311d741a147a834bf0ec9ce545f35d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9a33",
+    "fileId": "5fc012c8a3efcb29338b8ee5",
+    "runId": "5fc012c4a3efcb29338b8826",
+    "previousExpectedRelativePath": "os_24/os_24/raw/Os_24_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_24/os_24/processed/Os_24_mixed_L3_2_l170.fq.gz",
+          "bytes": 207977145,
+          "md5": "2c27981b32ce09ea63a98587ca881f4a",
+          "sha256": "d6f9b8de60a39d138b87fc65398394fc4c373dd1a2452f26d95609cacd8b40cc"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b982e",
+    "fileId": "5fc012c7a3efcb29338b8ce0",
+    "runId": "5fc012c3a3efcb29338b8396",
+    "previousExpectedRelativePath": "os_4/os_4/raw/Os_4_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_4/os_4/processed/Os_4_mixed_L3_1_l170.fq.gz",
+          "bytes": 219097486,
+          "md5": "f373eff1fad3d3d9794aad7d3e5e1305",
+          "sha256": "539b69fc13e601e68941e399dc98ab22897f459ffe3c07ca4500ee008c4d525d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9b88",
+    "fileId": "5fc012c8a3efcb29338b903a",
+    "runId": "5fc012c3a3efcb29338b8396",
+    "previousExpectedRelativePath": "os_4/os_4/raw/Os_4_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_4/os_4/processed/Os_4_mixed_L3_2_l170.fq.gz",
+          "bytes": 226827948,
+          "md5": "7df2cabd0d3eb1856b8e30a600cf366e",
+          "sha256": "0d84cab96288a6d237fcec9099d4e38350d1d8a2cf8cbd1fd1bf544d1b33607c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9774",
+    "fileId": "5fc012c7a3efcb29338b8c26",
+    "runId": "5fc012c4a3efcb29338b871a",
+    "previousExpectedRelativePath": "os_5/os_5/raw/Os_5_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_5/os_5/processed/Os_5_mixed_L3_1_l170.fq.gz",
+          "bytes": 117767925,
+          "md5": "ff4a2fdc09576d536b92aa09dd9d6a13",
+          "sha256": "70e4d3b16865d6e0f9dd5adeb13d85b02bd5462db780cc9c21d2872ee58c7326"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9fca",
+    "fileId": "5fc012c9a3efcb29338b947c",
+    "runId": "5fc012c4a3efcb29338b871a",
+    "previousExpectedRelativePath": "os_5/os_5/raw/Os_5_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_5/os_5/processed/Os_5_mixed_L3_2_l170.fq.gz",
+          "bytes": 123369199,
+          "md5": "791c0210336c679c0021718568e41279",
+          "sha256": "51bc9304205a23a8f0a4ef15d5f317b30389041ffc2041c40ad769f7b6bd9031"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9882",
+    "fileId": "5fc012c7a3efcb29338b8d34",
+    "runId": "5fc012c4a3efcb29338b87fa",
+    "previousExpectedRelativePath": "os_6/os_6/raw/Os_6_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_6/os_6/processed/Os_6_mixed_L3_1_l170.fq.gz",
+          "bytes": 207700458,
+          "md5": "eb0d54a91a2eccedb8f81187412ae26b",
+          "sha256": "25da59dd9afcbe9abf3ae039f5d885f6d0aed31e8532b190374ced5d1d4756fc"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9d70",
+    "fileId": "5fc012c9a3efcb29338b9222",
+    "runId": "5fc012c4a3efcb29338b87fa",
+    "previousExpectedRelativePath": "os_6/os_6/raw/Os_6_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_6/os_6/processed/Os_6_mixed_L3_2_l170.fq.gz",
+          "bytes": 216508162,
+          "md5": "61d285ae7f00dbb47668b4fa71157326",
+          "sha256": "b692354c5fcd2f0a71ab9623ebe596e18f054e8133da267155fa642f6e37386c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b98da",
+    "fileId": "5fc012c7a3efcb29338b8d8c",
+    "runId": "5fc012c4a3efcb29338b87b9",
+    "previousExpectedRelativePath": "os_7/os_7/raw/Os_7_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_7/os_7/processed/Os_7_mixed_L3_1_l170.fq.gz",
+          "bytes": 225486696,
+          "md5": "92aab72dadc9477531b6c46244560d13",
+          "sha256": "e16b69e2daab9c2978071db4a69992ac60788313dc9d163634281b92ebbbcdc3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9aab",
+    "fileId": "5fc012c8a3efcb29338b8f5d",
+    "runId": "5fc012c4a3efcb29338b87b9",
+    "previousExpectedRelativePath": "os_7/os_7/raw/Os_7_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_7/os_7/processed/Os_7_mixed_L3_2_l170.fq.gz",
+          "bytes": 234924343,
+          "md5": "1350e5f24e0d326db09cd5fa031c485a",
+          "sha256": "1279d2acdcb99134c871b3ca7bc00df1a861fa5ea2b9eab35ae95b248f114208"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9792",
+    "fileId": "5fc012c7a3efcb29338b8c44",
+    "runId": "5fc012c3a3efcb29338b836a",
+    "previousExpectedRelativePath": "os_8/os_8/raw/Os_8_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_8/os_8/processed/Os_8_mixed_L3_1_l170.fq.gz",
+          "bytes": 137687451,
+          "md5": "1545a3b8daec380a4d8c0726ff5918ae",
+          "sha256": "dbd54410d7d5e2f37eb288f5df7c29828e45e2222bbbfabebd8cb34237543886"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b96c9",
+    "fileId": "5fc012c6a3efcb29338b8b7b",
+    "runId": "5fc012c3a3efcb29338b836a",
+    "previousExpectedRelativePath": "os_8/os_8/raw/Os_8_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_8/os_8/processed/Os_8_mixed_L3_2_l170.fq.gz",
+          "bytes": 143570988,
+          "md5": "f4886c15c6346f6e470b5a53137e73fa",
+          "sha256": "ff32cfce3fde2a6bddfdf5fba3b5ec8840b04495ef3675a3e0b390491342cabf"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9917",
+    "fileId": "5fc012c7a3efcb29338b8dc9",
+    "runId": "5fc012c3a3efcb29338b8524",
+    "previousExpectedRelativePath": "os_9/os_9/raw/Os_9_mixed_L3_1_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_9/os_9/processed/Os_9_mixed_L3_1_l170.fq.gz",
+          "bytes": 177441760,
+          "md5": "3887cc02c5794778a0fddd6ba06e2d1a",
+          "sha256": "05df158233b932330b7d1505bdbf0ea3ed55815ec9743ce407dc70992ea593f5"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cca3efcb29338b9ceb",
+    "fileId": "5fc012c8a3efcb29338b919d",
+    "runId": "5fc012c3a3efcb29338b8524",
+    "previousExpectedRelativePath": "os_9/os_9/raw/Os_9_mixed_L3_2_l170.fq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "os_9/os_9/processed/Os_9_mixed_L3_2_l170.fq.gz",
+          "bytes": 185741646,
+          "md5": "7793280dbfb01089ac8d90b38cb5c970",
+          "sha256": "b9869242cc1cd47fe063ff635b5f0b181d8ac8b4a6afed676e367d8bfa289158"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9926",
+    "fileId": "5fc012c7a3efcb29338b8dd8",
+    "runId": "5fc012c3a3efcb29338b8693",
+    "previousExpectedRelativePath": "rice_pacbio_1/pacbio_1/raw/rice_pacbio_ccs_sample_1.fastq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rice_pacbio_1/pacbio_1/processed/rice_pacbio_ccs_sample_1.fastq.gz",
+          "bytes": 99277506,
+          "md5": "ce09bc709db7eb917b79c1b4a8723d8c",
+          "sha256": "4bc862e8eb5af5a8c667b951537706c77ba72f80f792171c0713a8146e289f4b"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b9753",
+    "fileId": "5fc012c7a3efcb29338b8c05",
+    "runId": "5fc012c3a3efcb29338b8334",
+    "previousExpectedRelativePath": "rice_pacbio_16/rice_pacbio_16/raw/AJI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rice_pacbio_16/rice_pacbio_16/processed/AJI_2.fastq.gz",
+          "bytes": 160603892,
+          "md5": "310ce6ec56f6a3552aff2dd75d1dd05d",
+          "sha256": "650566927d746e6816941673b2368e6a232bb505909ba897bda6cacfcc436cfe"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b981f",
+    "fileId": "5fc012c7a3efcb29338b8cd1",
+    "runId": "5fc012c3a3efcb29338b8670",
+    "previousExpectedRelativePath": "rice_pacbio_2/pacbio_2/raw/rice_pacbio_ccs_sample_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_2.fastq.gz",
+          "bytes": 88795398,
+          "md5": "414cd05dba2e0b14ef198691d0e87e95",
+          "sha256": "7db074a69348090408e6521db7f0de1e679267dee06149d68603cf5163584555"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cba3efcb29338b97b2",
+    "fileId": "5fc012c7a3efcb29338b8c64",
+    "runId": "5fc012c3a3efcb29338b8670",
+    "previousExpectedRelativePath": "rice_pacbio_2/pacbio_2/raw/rice_pacbio_ccs_sample_3.fastq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+      "rice_pacbio_3/pacbio_3/processed/rice_pacbio_ccs_sample_3.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rice_pacbio_2/pacbio_2/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+          "bytes": 189528284,
+          "md5": "dd4c1db277756bd15cf6abb510a31049",
+          "sha256": "5b453a79e6420bc2a762d194d634a68f9eb462b429cce3319da39f56b390d748"
+        },
+        {
+          "relPath": "rice_pacbio_3/pacbio_3/processed/rice_pacbio_ccs_sample_3.fastq.gz",
+          "bytes": 189528284,
+          "md5": "dd4c1db277756bd15cf6abb510a31049",
+          "sha256": "5b453a79e6420bc2a762d194d634a68f9eb462b429cce3319da39f56b390d748"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-012",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "readId": "5fc012cda3efcb29338b9e7b",
+    "fileId": "5fc012c9a3efcb29338b932d",
+    "runId": "5fc012c3a3efcb29338b862e",
+    "previousExpectedRelativePath": "rice_pacbio_4/pacbio_4/raw/rice_pacbio_ccs_sample_4.fastq.gz",
+    "previousStoredFilePath": "/jjones/rice_renseq/rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/rice_renseq/rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rice_pacbio_4/pacbio_4/processed/rice_pacbio_ccs_sample_4.fastq.gz",
+          "bytes": 125963714,
+          "md5": "125e284b2ad3bd947434c1137102c9f8",
+          "sha256": "5ea761455b92db3a4fe5a10f2838cbe99470cd6f187328036561f758b5dcff9b"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-041",
+    "projectId": "5fc012bda3efcb29338b7d28",
+    "readId": "5fc012cca3efcb29338b9bbc",
+    "fileId": "5fc012c8a3efcb29338b906e",
+    "runId": "5fc012c4a3efcb29338b8706",
+    "previousExpectedRelativePath": "solynta_b98/solynta_b98_smrt_renseq/raw/B98.fastq.gz",
+    "previousStoredFilePath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "solynta_b98/solynta_b98_smrt_renseq/processed/B98.fastq.gz",
+          "bytes": 54413765,
+          "md5": "f7b946f6fa6948019ad101b07cf094a2",
+          "sha256": "8c6eef7c7670519db2ea1bcf357c89d195191e8e6076523261e544d385ab0be4"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-041",
+    "projectId": "5fc012bda3efcb29338b7d28",
+    "readId": "5fc012cca3efcb29338b9c02",
+    "fileId": "5fc012c8a3efcb29338b90b4",
+    "runId": "5fc012c4a3efcb29338b8706",
+    "previousExpectedRelativePath": "solynta_b98/solynta_b98_smrt_renseq/raw/B981.fastq.gz",
+    "previousStoredFilePath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq/processed/B981.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/solynta_sequencing/solynta_b98/solynta_b98_smrt_renseq/processed/B981.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "solynta_b98/solynta_b98_smrt_renseq/processed/B981.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "solynta_b98/solynta_b98_smrt_renseq/processed/B981.fastq.gz",
+          "bytes": 54413765,
+          "md5": "f7b946f6fa6948019ad101b07cf094a2",
+          "sha256": "8c6eef7c7670519db2ea1bcf357c89d195191e8e6076523261e544d385ab0be4"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9a9b",
+    "fileId": "5fc012c8a3efcb29338b8f4d",
+    "runId": "5fc012c4a3efcb29338b8853",
+    "previousExpectedRelativePath": "bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/raw/Bur-0_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/processed/Bur-0_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/processed/Bur-0_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/processed/Bur-0_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "bur_0_pacbio_renseq/bur_0_pacbio_renseq_2/processed/Bur-0_ROI_2.fastq.gz",
+          "bytes": 50064540,
+          "md5": "a9e50a4ff248be042b5614ba712d765e",
+          "sha256": "9ce3ad18c4fecbb96c7bc967f9ebb42a4bdd2b3db3f4be0643b636764ed23a49"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b9818",
+    "fileId": "5fc012c7a3efcb29338b8cca",
+    "runId": "5fc012c4a3efcb29338b8754",
+    "previousExpectedRelativePath": "ct_1_pacbio_renseq/ct_1_pacbio_renseq/raw/Ct-1_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/ct_1_pacbio_renseq/ct_1_pacbio_renseq/processed/Ct-1_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/ct_1_pacbio_renseq/ct_1_pacbio_renseq/processed/Ct-1_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "ct_1_pacbio_renseq/ct_1_pacbio_renseq/processed/Ct-1_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "ct_1_pacbio_renseq/ct_1_pacbio_renseq/processed/Ct-1_ROI_2.fastq.gz",
+          "bytes": 61472784,
+          "md5": "f08409e38e4cc75e71eab726c82ce850",
+          "sha256": "4d7307f35f1d8081254b251e7fb646e040411033933dcf85a287d26db6043f1b"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9be0",
+    "fileId": "5fc012c8a3efcb29338b9092",
+    "runId": "5fc012c3a3efcb29338b84d0",
+    "previousExpectedRelativePath": "edi_0_pacbio_renseq/edi_0_pacbio_renseq/raw/Edi-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/edi_0_pacbio_renseq/edi_0_pacbio_renseq/processed/Edi-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/edi_0_pacbio_renseq/edi_0_pacbio_renseq/processed/Edi-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "edi_0_pacbio_renseq/edi_0_pacbio_renseq/processed/Edi-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "edi_0_pacbio_renseq/edi_0_pacbio_renseq/processed/Edi-0_ROI.fastq.gz",
+          "bytes": 62821843,
+          "md5": "2fba5393d4d762b86138cad533440963",
+          "sha256": "f7298f52f1307e58ffed22ab74540a0b9a894a97c29c61c87a174cbd036df23e"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b98a7",
+    "fileId": "5fc012c7a3efcb29338b8d59",
+    "runId": "5fc012c4a3efcb29338b87ca",
+    "previousExpectedRelativePath": "hi_0_pacbio_renseq/hi_0_pacbio_renseq/raw/Hi-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/hi_0_pacbio_renseq/hi_0_pacbio_renseq/processed/Hi-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/hi_0_pacbio_renseq/hi_0_pacbio_renseq/processed/Hi-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "hi_0_pacbio_renseq/hi_0_pacbio_renseq/processed/Hi-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "hi_0_pacbio_renseq/hi_0_pacbio_renseq/processed/Hi-0_ROI.fastq.gz",
+          "bytes": 27084420,
+          "md5": "8e0d88f426489adb9c09258500e206df",
+          "sha256": "87aa34da8f5ffbd536192729f013e394ee7b3b33104228d32ffced7d78979f3f"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9b48",
+    "fileId": "5fc012c8a3efcb29338b8ffa",
+    "runId": "5fc012c2a3efcb29338b8316",
+    "previousExpectedRelativePath": "hr_5_pacbio_renseq/hr_5_pacbio_renseq/raw/HR-5_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/hr_5_pacbio_renseq/hr_5_pacbio_renseq/processed/HR-5_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/hr_5_pacbio_renseq/hr_5_pacbio_renseq/processed/HR-5_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "hr_5_pacbio_renseq/hr_5_pacbio_renseq/processed/HR-5_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "hr_5_pacbio_renseq/hr_5_pacbio_renseq/processed/HR-5_ROI.fastq.gz",
+          "bytes": 68861624,
+          "md5": "16c792c102b9c6d47c3b9ac8368b2097",
+          "sha256": "a9a8fb0b6bb265509f436e949bb87b96a757899f13f9617f384e62015309c252"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cda3efcb29338b9f6f",
+    "fileId": "5fc012c9a3efcb29338b9421",
+    "runId": "5fc012c4a3efcb29338b86ec",
+    "previousExpectedRelativePath": "kn_0_pacbio_renseq/kn_0_pacbio_renseq/raw/Kn-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/kn_0_pacbio_renseq/kn_0_pacbio_renseq/processed/Kn-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/kn_0_pacbio_renseq/kn_0_pacbio_renseq/processed/Kn-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "kn_0_pacbio_renseq/kn_0_pacbio_renseq/processed/Kn-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "kn_0_pacbio_renseq/kn_0_pacbio_renseq/processed/Kn-0_ROI.fastq.gz",
+          "bytes": 19864944,
+          "md5": "4cf9a3066773e0674ca90e8e8325925a",
+          "sha256": "73f32e2e401256f6eb99a056578fd304bbf2511a00602b372ebec63edc38b2c6"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cda3efcb29338ba057",
+    "fileId": "5fc012c9a3efcb29338b9509",
+    "runId": "5fc012c4a3efcb29338b86de",
+    "previousExpectedRelativePath": "ler_0_pacbio_renseq/ler_0_pacbio_renseq/raw/Ler-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/ler_0_pacbio_renseq/ler_0_pacbio_renseq/processed/Ler-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/ler_0_pacbio_renseq/ler_0_pacbio_renseq/processed/Ler-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "ler_0_pacbio_renseq/ler_0_pacbio_renseq/processed/Ler-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "ler_0_pacbio_renseq/ler_0_pacbio_renseq/processed/Ler-0_ROI.fastq.gz",
+          "bytes": 32067608,
+          "md5": "380062f69559fa558a68ce2d51199d22",
+          "sha256": "3aaa722fe892423a1d87c8947db94a469e090c9cb743bfa5fd8ac973a76c1462"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cda3efcb29338ba088",
+    "fileId": "5fc012c9a3efcb29338b953a",
+    "runId": "5fc012c3a3efcb29338b85df",
+    "previousExpectedRelativePath": "mt_0_pacbio_renseq/mt_0_pacbio_renseq/raw/Mt-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/mt_0_pacbio_renseq/mt_0_pacbio_renseq/processed/Mt-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/mt_0_pacbio_renseq/mt_0_pacbio_renseq/processed/Mt-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "mt_0_pacbio_renseq/mt_0_pacbio_renseq/processed/Mt-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "mt_0_pacbio_renseq/mt_0_pacbio_renseq/processed/Mt-0_ROI.fastq.gz",
+          "bytes": 108262695,
+          "md5": "f755c2f510ec412c69622b748761a8d6",
+          "sha256": "40d399a05b5aba4caf9ade7f31b10d7cf0a367c749119b8d3c678f7caacf7627"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b9841",
+    "fileId": "5fc012c7a3efcb29338b8cf3",
+    "runId": "5fc012c3a3efcb29338b857a",
+    "previousExpectedRelativePath": "no_0_pacbio_renseq/no_0_pacbio_renseq/raw/No-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/no_0_pacbio_renseq/no_0_pacbio_renseq/processed/No-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/no_0_pacbio_renseq/no_0_pacbio_renseq/processed/No-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "no_0_pacbio_renseq/no_0_pacbio_renseq/processed/No-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "no_0_pacbio_renseq/no_0_pacbio_renseq/processed/No-0_ROI.fastq.gz",
+          "bytes": 30973581,
+          "md5": "a7a94b64a1be78545e01e15f51df6f5c",
+          "sha256": "a9444fadb4b45ca41ae75f7d722515e7ebb1a9b587b00888d26e649d690985af"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9c45",
+    "fileId": "5fc012c8a3efcb29338b90f7",
+    "runId": "5fc012c3a3efcb29338b84a0",
+    "previousExpectedRelativePath": "oy_0_pacbio_renseq/oy_0_pacbio_renseq/raw/Oy-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/oy_0_pacbio_renseq/oy_0_pacbio_renseq/processed/Oy-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/oy_0_pacbio_renseq/oy_0_pacbio_renseq/processed/Oy-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "oy_0_pacbio_renseq/oy_0_pacbio_renseq/processed/Oy-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "oy_0_pacbio_renseq/oy_0_pacbio_renseq/processed/Oy-0_ROI.fastq.gz",
+          "bytes": 84402046,
+          "md5": "f6a97e4ee08eae42f6b60e9ed8a3fa30",
+          "sha256": "58f46debadb685ba19d9f03694d5fdac6729b1a16307fb260adca61c339e4186"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b99dc",
+    "fileId": "5fc012c7a3efcb29338b8e8f",
+    "runId": "5fc012c4a3efcb29338b8712",
+    "previousExpectedRelativePath": "po_0_pacbio_renseq/po_0_pacbio_renseq/raw/Po-0_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/po_0_pacbio_renseq/po_0_pacbio_renseq/processed/Po-0_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/po_0_pacbio_renseq/po_0_pacbio_renseq/processed/Po-0_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "po_0_pacbio_renseq/po_0_pacbio_renseq/processed/Po-0_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "po_0_pacbio_renseq/po_0_pacbio_renseq/processed/Po-0_ROI_2.fastq.gz",
+          "bytes": 34641253,
+          "md5": "74e6889c561707973bedb2267b491ae8",
+          "sha256": "5a05ae785c7a0b90b01d891272b752b4493a4a3dc498493500cef87ac7825c5d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9cb2",
+    "fileId": "5fc012c8a3efcb29338b9164",
+    "runId": "5fc012c3a3efcb29338b864d",
+    "previousExpectedRelativePath": "rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/raw/Rsch-4_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/processed/Rsch-4_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/processed/Rsch-4_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/processed/Rsch-4_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "rsch_4_pacbio_renseq/rsch_4_pacbio_renseq/processed/Rsch-4_ROI.fastq.gz",
+          "bytes": 32508836,
+          "md5": "6b0cd9339ccb13b80f216821ad7863c6",
+          "sha256": "85da1944e2f0abc14a74c52bd9c42f38c1a2fff07b9a5ac1977095159770707d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9de3",
+    "fileId": "5fc012c9a3efcb29338b9295",
+    "runId": "5fc012c3a3efcb29338b8329",
+    "previousExpectedRelativePath": "sf_2_pacbio_renseq/sf_2_pacbio_renseq/raw/Sf-2_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/sf_2_pacbio_renseq/sf_2_pacbio_renseq/processed/Sf-2_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/sf_2_pacbio_renseq/sf_2_pacbio_renseq/processed/Sf-2_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sf_2_pacbio_renseq/sf_2_pacbio_renseq/processed/Sf-2_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sf_2_pacbio_renseq/sf_2_pacbio_renseq/processed/Sf-2_ROI.fastq.gz",
+          "bytes": 80296871,
+          "md5": "637de84df30562e66b444dff93134f13",
+          "sha256": "8b9fa9b97753619d01213acf698827f9bf16ccadb0e4c97262d8112e1c955b6f"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b9956",
+    "fileId": "5fc012c7a3efcb29338b8e08",
+    "runId": "5fc012c4a3efcb29338b8786",
+    "previousExpectedRelativePath": "tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/raw/Tsu-0_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/processed/Tsu-0_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/processed/Tsu-0_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/processed/Tsu-0_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "tsu_0_pacbio_renseq/tsu_0_pacbio_renseq/processed/Tsu-0_ROI_2.fastq.gz",
+          "bytes": 32498454,
+          "md5": "e965f0001d5b44779055df05260a956a",
+          "sha256": "3b1ccd19711c944a92f31044469bde65e69962566a278866ec3d8953fe111fc3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b999f",
+    "fileId": "5fc012c7a3efcb29338b8e51",
+    "runId": "5fc012c4a3efcb29338b86b8",
+    "previousExpectedRelativePath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/raw/Wil-2_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "wil_2_pacbio_renseq/wil_2_pacbio_renseq/processed/Wil-2_ROI.fastq.gz",
+          "bytes": 38568434,
+          "md5": "4671d995fc4644d6bb3018fa5485e250",
+          "sha256": "65662c6a1227d92fdfc058208b811efe572cf80d9c6dfbbef0db463681a71f61"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9e16",
+    "fileId": "5fc012c9a3efcb29338b92c8",
+    "runId": "5fc012c2a3efcb29338b828c",
+    "previousExpectedRelativePath": "ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/raw/Ws-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/processed/Ws-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/processed/Ws-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/processed/Ws-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "ws_0_pacbio_renseq/ws_0_pacbio_renseq_2/processed/Ws-0_ROI.fastq.gz",
+          "bytes": 34122639,
+          "md5": "bed2b21cf0c8a1bb84769df7b83fde42",
+          "sha256": "8127230c1b6491e677ac04a8f64503a59c38e37033c26b926b9c0f1dac02901d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9d78",
+    "fileId": "5fc012c9a3efcb29338b922a",
+    "runId": "5fc012c3a3efcb29338b83e2",
+    "previousExpectedRelativePath": "ws_2_pacbio_renseq/ws_2_pacbio_renseq/raw/Ws-2_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/ws_2_pacbio_renseq/ws_2_pacbio_renseq/processed/Ws-2_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/ws_2_pacbio_renseq/ws_2_pacbio_renseq/processed/Ws-2_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "ws_2_pacbio_renseq/ws_2_pacbio_renseq/processed/Ws-2_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "ws_2_pacbio_renseq/ws_2_pacbio_renseq/processed/Ws-2_ROI_2.fastq.gz",
+          "bytes": 45631587,
+          "md5": "21e914b829414c8738a9a79c1840d08e",
+          "sha256": "08ade54b8c9142ebf5cf000bce01c00d12de9aaad04e353318a677331aca0bb5"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cba3efcb29338b9967",
+    "fileId": "5fc012c7a3efcb29338b8e19",
+    "runId": "5fc012c3a3efcb29338b85ea",
+    "previousExpectedRelativePath": "wu_0_pacbio_renseq/wu_0_pacbio_renseq/raw/Wu-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/wu_0_pacbio_renseq/wu_0_pacbio_renseq/processed/Wu-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/wu_0_pacbio_renseq/wu_0_pacbio_renseq/processed/Wu-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "wu_0_pacbio_renseq/wu_0_pacbio_renseq/processed/Wu-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "wu_0_pacbio_renseq/wu_0_pacbio_renseq/processed/Wu-0_ROI.fastq.gz",
+          "bytes": 36609936,
+          "md5": "61f0b84452b3c8e5c8dc1ca1e2899429",
+          "sha256": "f6932f9afc154317deaafcf04e33589803fb72f0a6363d2878e7450c24db9dd8"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cda3efcb29338b9f01",
+    "fileId": "5fc012c9a3efcb29338b93b3",
+    "runId": "5fc012c3a3efcb29338b8607",
+    "previousExpectedRelativePath": "yo_0_pacbio_renseq/yo_0_pacbio_renseq/raw/Yo-0_ROI.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/yo_0_pacbio_renseq/yo_0_pacbio_renseq/processed/Yo-0_ROI.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/yo_0_pacbio_renseq/yo_0_pacbio_renseq/processed/Yo-0_ROI.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "yo_0_pacbio_renseq/yo_0_pacbio_renseq/processed/Yo-0_ROI.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "yo_0_pacbio_renseq/yo_0_pacbio_renseq/processed/Yo-0_ROI.fastq.gz",
+          "bytes": 32314514,
+          "md5": "bcfcf0bd31334f10a45bd485d389cbea",
+          "sha256": "8b2eb4826f131191eea51c9b4ea19957bcd4e9833c8b535d41445800a1198a74"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "jjones-047",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "readId": "5fc012cca3efcb29338b9dd1",
+    "fileId": "5fc012c9a3efcb29338b9283",
+    "runId": "5fc012c2a3efcb29338b82de",
+    "previousExpectedRelativePath": "zu_0_pacbio_renseq/zu_0_pacbio_renseq/raw/Zu-0_ROI_2.fastq.gz",
+    "previousStoredFilePath": "/jjones/arabidopsis_pacbio_renseq/zu_0_pacbio_renseq/zu_0_pacbio_renseq/processed/Zu-0_ROI_2.fastq.gz",
+    "proposedPhysicalFilePath": "/jjones/arabidopsis_pacbio_renseq/zu_0_pacbio_renseq/zu_0_pacbio_renseq/processed/Zu-0_ROI_2.fastq.gz",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "zu_0_pacbio_renseq/zu_0_pacbio_renseq/processed/Zu-0_ROI_2.fastq.gz"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "zu_0_pacbio_renseq/zu_0_pacbio_renseq/processed/Zu-0_ROI_2.fastq.gz",
+          "bytes": 38768115,
+          "md5": "5a1a587adb3cbd66cf11d6ed8fb26a8c",
+          "sha256": "f994f6f9e3027e52c6eee781bd995021d45fe21bd5f125acd250ec95469ac360"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9a85",
+    "fileId": "5fc012c8a3efcb29338b8f38",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/AG8_2_200_1.fastq.trim.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_200_1.fastq.trim.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_200_1.fastq.trim.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/AG8_2_200_1.fastq.trim.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/AG8_2_200_1.fastq.trim.paired",
+          "bytes": 8630200509,
+          "md5": "347d3d4e930b169fd51953a1fbdaa088",
+          "sha256": "f7a320063f908ca7a7d79d00513a43db912b58026193a80a975966851fa2bc09"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cda3efcb29338ba00d",
+    "fileId": "5fc012c9a3efcb29338b94bf",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/AG8_2_200_2.fastq.trim.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_200_2.fastq.trim.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_200_2.fastq.trim.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/AG8_2_200_2.fastq.trim.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/AG8_2_200_2.fastq.trim.paired",
+          "bytes": 8521624195,
+          "md5": "8d0e04578d73a9f79d19861080954230",
+          "sha256": "f9a053274dc3a3e21139b8746381bafcc7b44e286df3ccb32742662346a50511"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cda3efcb29338ba0b7",
+    "fileId": "5fc012caa3efcb29338b9569",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/AG8_2_500_1.fastq.trim.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_500_1.fastq.trim.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_500_1.fastq.trim.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/AG8_2_500_1.fastq.trim.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/AG8_2_500_1.fastq.trim.paired",
+          "bytes": 3617583681,
+          "md5": "c35924d9c6a7df082aa80438122fd5cd",
+          "sha256": "a907d57ac45f4d1a74ef1de667bf34b964c10e2e56c16b8f809b3b92e82af3c2"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9ac4",
+    "fileId": "5fc012c8a3efcb29338b8f76",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/AG8_2_500_2.fastq.trim.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_500_2.fastq.trim.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/AG8_2_500_2.fastq.trim.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/AG8_2_500_2.fastq.trim.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/AG8_2_500_2.fastq.trim.paired",
+          "bytes": 3512605781,
+          "md5": "cad8db0e1149b725e67038413c8a4280",
+          "sha256": "0092350eff8fa69979089f3994bdd8cbbd07af345f25ba2511b17d2b5d4d30c3"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cba3efcb29338b9786",
+    "fileId": "5fc012c7a3efcb29338b8c38",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja4_tgacca_l002_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja4_tgacca_l002_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja4_tgacca_l002_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja4_tgacca_l002_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja4_tgacca_l002_r1_001.fastq.trimmed.paired",
+          "bytes": 6888341946,
+          "md5": "e22aeb1d32251f4c8136c3d4c6991b41",
+          "sha256": "3631461455e7e5a7ff33aebda0c95bfa1e334241e58365530c9105b1b3a893b8"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9af0",
+    "fileId": "5fc012c8a3efcb29338b8fa2",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja4_tgacca_l002_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja4_tgacca_l002_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja4_tgacca_l002_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja4_tgacca_l002_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja4_tgacca_l002_r2_001.fastq.trimmed.paired",
+          "bytes": 6794893728,
+          "md5": "7b6862d878e7aae7039405d6eb2f8122",
+          "sha256": "3d730c58be50dd20a35b509713eef666a616104d508abfa8a0b702db33ac6504"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cba3efcb29338b97ea",
+    "fileId": "5fc012c7a3efcb29338b8c9c",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja5_acagtg_l002_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja5_acagtg_l002_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja5_acagtg_l002_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja5_acagtg_l002_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja5_acagtg_l002_r1_001.fastq.trimmed.paired",
+          "bytes": 7476858110,
+          "md5": "d6f27a6164d9bb13567886f6585e7b67",
+          "sha256": "432ca2a499ec4f5d2560063a6257fd2fd579e4db860d920483840e29d56fdd90"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cda3efcb29338b9e84",
+    "fileId": "5fc012c9a3efcb29338b9336",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja5_acagtg_l002_r2_001.fastq.trimmed.paired",
+          "bytes": 7419270322,
+          "md5": "d20e3a96a312459263a1ed0ee6f1ec58",
+          "sha256": "48272da9e3870b576a4fc878918f14be71496a1bed57339a2566135152bebd02"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9a31",
+    "fileId": "5fc012c8a3efcb29338b8ee3",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja6_gccaat_l002_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja6_gccaat_l002_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja6_gccaat_l002_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja6_gccaat_l002_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja6_gccaat_l002_r1_001.fastq.trimmed.paired",
+          "bytes": 6241849353,
+          "md5": "74acd985350a89e60973023d5b1d3190",
+          "sha256": "9eef8e64f942794c15a80875f2a470ab8abbf8343dac7770b6e41427f408a967"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9b1a",
+    "fileId": "5fc012c8a3efcb29338b8fcc",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/ja6_gccaat_l002_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja6_gccaat_l002_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/ja6_gccaat_l002_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/ja6_gccaat_l002_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/ja6_gccaat_l002_r2_001.fastq.trimmed.paired",
+          "bytes": 6157901385,
+          "md5": "2be58483bf9b4f1096debe795ea48d64",
+          "sha256": "b19a65674bf8b74975b2239a32c32d7dd376dd7bc8958033c79fd99bb15e561e"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9b4e",
+    "fileId": "5fc012c8a3efcb29338b9000",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar13z_atcacg_l005_r1_001.fastq.trimmed.paired",
+          "bytes": 6608050162,
+          "md5": "9d417218b1131deefad9c64a5a5fcf50",
+          "sha256": "6ce46e1f630e042f375e951dc37199d3b54286e8feae3dfeaf619ec4a82ed563"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cca3efcb29338b9e64",
+    "fileId": "5fc012c9a3efcb29338b9316",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar13z_atcacg_l005_r2_001.fastq.trimmed.paired",
+          "bytes": 6605688554,
+          "md5": "c28f7501767a665b4843bfd3c6b2b170",
+          "sha256": "0af0903fb0137cb3759ef028e351d3733af469a8f453adc3d2831cc81775291d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cba3efcb29338b95f0",
+    "fileId": "5fc012c6a3efcb29338b8aa4",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar14z_tgacca_l005_r1_001.fastq.trimmed.paired",
+          "bytes": 8010934115,
+          "md5": "3e8fd7d659aae09f2bfdc6c92ad84d8c",
+          "sha256": "89635abaca404cb5c3b03d3260d78ea1a513309323f2af85629e8acd8a9b28fe"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cba3efcb29338b9773",
+    "fileId": "5fc012c7a3efcb29338b8c25",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar14z_tgacca_l005_r2_001.fastq.trimmed.paired",
+          "bytes": 7984290755,
+          "md5": "444b28832b7294bee2ace4270e720557",
+          "sha256": "dcc6cc1705bdfc1530cccbc6a75d93602322151783dab450bef4864d4039d72c"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cda3efcb29338b9edc",
+    "fileId": "5fc012c9a3efcb29338b938e",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar15z_acttga_l005_r1_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar15z_acttga_l005_r1_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar15z_acttga_l005_r1_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar15z_acttga_l005_r1_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar15z_acttga_l005_r1_001.fastq.trimmed.paired",
+          "bytes": 9522185435,
+          "md5": "02e2967b6574a4798b5ce7a0dddcc656",
+          "sha256": "1256a058b01c8ff5d38fd1f4683f6f9fe656a23dea94124febb73653ea88819e"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  },
+  {
+    "entryId": "skamoun-014",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "readId": "5fc012cda3efcb29338b9f24",
+    "fileId": "5fc012c9a3efcb29338b93d6",
+    "runId": "5fc012c3a3efcb29338b8532",
+    "previousExpectedRelativePath": "sample1/run1/raw/jar15z_acttga_l005_r2_001.fastq.trimmed.paired",
+    "previousStoredFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar15z_acttga_l005_r2_001.fastq.trimmed.paired",
+    "proposedPhysicalFilePath": "/skamoun/janderso_rsolani/sample1/run1/processed/jar15z_acttga_l005_r2_001.fastq.trimmed.paired",
+    "proposal": "use-existing-stored-path",
+    "proposedFileMoves": [],
+    "changeReadOrRunIdentity": false,
+    "preserveAllCandidatePaths": [
+      "sample1/run1/processed/jar15z_acttga_l005_r2_001.fastq.trimmed.paired"
+    ],
+    "evidence": {
+      "observedFrom": "2026-10-17T11:56:37.068Z",
+      "observedTo": "2026-10-17T13:39:46.104Z",
+      "source": "../path-resolutions.json",
+      "checksumsArePreviousObservations": true,
+      "candidates": [
+        {
+          "relPath": "sample1/run1/processed/jar15z_acttga_l005_r2_001.fastq.trimmed.paired",
+          "bytes": 9484315209,
+          "md5": "ad1c922abcc36a39a840e6e1c0996d34",
+          "sha256": "bada207c3c6ba11e4dc6cfb52cb287aa8c4fbbe49ec280f8b0d75f9741e32d8d"
+        }
+      ]
+    },
+    "currentChecksum": null,
+    "freshIdentityAndContentCheckRequired": true,
+    "executionStatus": "proposal-only"
+  }
+]
