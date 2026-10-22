@@ -1,14 +1,19 @@
 # Register existing archive directories with retained history
 
-This implements **step 1 only**: create the 23 missing Project records in the
-22 October reconciliation preview. No production execution has occurred as part
-of implementing it. It does not repair the three Jones File paths, create
+**Production update:** **22 registrations have been applied and verified**. The
+fresh live check found existing Run associations beneath `project_2178`, which is
+held for association repair; see the [production record](archive/batches/2026-10-16/registration-production-2026-10-22/README.md).
+The original 23-target preview below remains historical evidence.
+
+This implements **step 1 only**: register existing directories from the
+22 October reconciliation preview. It does not repair the three Jones File paths, create
 Sample/Run/Read/AdditionalFile records, retire records, copy to S3 or delete files.
 Those remain separate steps.
 
 The reviewed [target file](archive/batches/2026-10-16/reconciliation-preview-2026-10-22/registration-targets.json)
-contains 17 Talbot directories and Courville with owner `shrestha`, and five
-additional Saunders directories with owner `winj`. The five already-registered
+originally contained 17 Talbot directories and Courville with owner `shrestha`, and
+five additional Saunders directories with owner `winj`. Execution excluded
+`project_2178`: 17 `shrestha` and five `winj` registrations were created. The five already-registered
 Saunders projects retain `winj`/`kamouns`; this tool does not update them.
 Unix ownership and file contents stay unchanged. All new projects disable Nudge
 and ENA submission, and identify the owner as an administrative custodian in their
@@ -56,6 +61,11 @@ does not implement a general-purpose update/reversal tool.
 
 ## Prepare a reviewable plan
 
+The recorded 22-target batch is now applied. Do not create a fresh plan over those
+records or rerun its commands casually; use the retained plan and interruption
+procedure only if an actual recovery is necessary. The instructions below document
+the workflow used and remain a template for a separately reviewed future batch.
+
 Run from the reviewed API checkout. Set `ARCHIVE_WORK_DIR` to a fresh execution
 directory under the approved `/storage` evidence location, and `ARCHIVE_ACTOR` to
 the actual operator. The variable checks below deliberately stop if values have
@@ -70,7 +80,7 @@ umask 077
 : "${ARCHIVE_ACTOR:?Set the acting operator}"
 
 node scripts/register-archive-projects.js prepare \
-  --targets docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/registration-targets.json \
+  --targets docs/archive/batches/2026-10-16/registration-production-2026-10-22/execution-targets.json \
   --work-dir "$ARCHIVE_WORK_DIR" \
   --database "$ARCHIVE_DATABASE" \
   --actor "$ARCHIVE_ACTOR"
@@ -84,7 +94,7 @@ the candidate root. It preserves mixed case and dots in the directory name as
 both `safeName` and `path`, with a provenance marker that prevents later normal
 Project validation from regenerating them.
 
-Review `plan.json`: all 23 roots, owners, group identities, file counts/bytes,
+Review `plan.json`: all 22 selected roots, owners, group identities, file counts/bytes,
 before-absent states and new IDs. Record the displayed `planSha256` externally as
 `ARCHIVE_PLAN_SHA256`. Do not regenerate a digest from a changed plan and call it
 the reviewed version. Preparation never overwrites an older plan.

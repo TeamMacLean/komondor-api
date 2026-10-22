@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-22T20:21:51.464Z",
+  "status": "applied-and-verified",
+  "releaseHead": "4cd738e6c2d9d508b2248ff4298061e576109c19",
+  "previousProductionHead": "c6b9d77db069fa6dd808367086ff358302565b2f",
+  "branch": "codex/register-archive-projects",
+  "mergedToMaster": false,
+  "pushedToOrigin": false,
+  "windowRunId": "1078e7e1-3e16-4c83-9997-c90864e9c35d",
+  "planSha256": "1aa44aeacc5ae4c921b6498fa56e82a0a35a68bd897bcd1bdd2b9a11dddff99d",
+  "createdProjects": 22,
+  "custodians": {
+    "shrestha": 17,
+    "winj": 5
+  },
+  "projectCountBefore": 339,
+  "projectCountAfter": 361,
+  "originalDocumentsCompared": 30083,
+  "originalDocumentsAndIndexesUnchanged": true,
+  "filesystemMetadataComparedToPlan": true,
+  "payloadsMovedOrDeleted": false,
+  "newPayloadChecksumSweep": false,
+  "notificationsSent": false,
+  "existingSaundersOwnerPairsUnchanged": 5,
+  "heldEntries": [
+    {
+      "entryId": "ntalbot-031",
+      "directory": "/ntalbot/project_2178",
+      "existingProjectId": "5fc012bda3efcb29338b7cf7",
+      "reason": "Two existing Runs associate this tree with an existing named Project. Do not create a competing Project."
+    }
+  ],
+  "pauseStartedAt": "2026-10-22T20:15:02.113Z",
+  "servicesRestoredAt": "2026-10-22T20:18:20.010Z",
+  "pauseSeconds": 197.897,
+  "services": [
+    {
+      "name": "komondor-nudge",
+      "pid": 1895916,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "pid": 1895898,
+      "status": "online"
+    },
+    {
+      "name": "komondor-api",
+      "pid": 1895869,
+      "status": "online"
+    }
+  ],
+  "applicationChecks": {
+    "projects": 22,
+    "historyReads": 22,
+    "unauthenticatedHistory": 401,
+    "nonAdminHistory": 403
+  },
+  "evidenceArchives": {
+    "beforeImages": {
+      "sha256": "3ba055844b21a786f52cf1bf0ff935084e03e2bf88c9bffe540f163fa82d3415",
+      "independentCopyVerified": true,
+      "nativeBsonDecoded": true
+    },
+    "execution": {
+      "sha256": "5c5c5aac8fa151766476354f7c894ad7e29b9367386ea364685b8b50dbae5cf2",
+      "independentCopyVerified": true
+    }
+  },
+  "serverEvidence": "/storage/komondor-registration-20261022/",
+  "independentEvidence": "/Users/deeks/.codex/artifacts/archive-registration-production-20261022",
+  "files": {
+    "after-snapshot.json": "11836955bd8b24b1aed9ad2168336fc06296c5264d82e69227fb24e7683a978f",
+    "application-checks.json": "a27b98842440ac419e56a41a8c5935f65ecd955bfe2a4929d48d2c4ab3e78c3a",
+    "before-snapshot.json": "90fe33e39131d83c23123357012f1531570caef120d8200f9e9ba76084b80082",
+    "claim-inspection.json": "bd5a57cbd45d632a877c9fa4b57af1b29aa97cb4c9e76b35d809b67ef75d7b0a",
+    "execution-ready.json": "1cb6c625a2becd4ad6c9e4dbcf895177e0bb9245cd35c4b11c37d146dbb67faf",
+    "execution-targets.json": "93befc3c4fec1d604d717e8070c382e6522167722196df7156a7ef1658d5b998",
+    "paused.json": "e649466c47672c426f926e93cd9fdc97c458ea4971c71f8b6e07d6f831c2ea44",
+    "post-restart-check.json": "2b0118c22092407ff741545ff2737f0e923d6bcbcb30163d10cb7192de89af64",
+    "restart-reason.json": "dadba2eb805d9d310bb9111e1035ec8b949be53cd5ef4908b6070cd60dc1a2d5",
+    "restored.json": "38da57edd7a1cffd04327f95c9fcca71857a158efbc271b7bcc167e2ba721822",
+    "snapshot.cjs": "4698abd10754abd5007920fe8150e75095444ff008babd25eb8baca63f1cf637",
+    "test-window.cjs": "aba0222eaf460a6c393f8b67dccd58a405a51857d5a23561d20c4828928c4d2f",
+    "window-backup-verified.json": "1c852099a04b3384c06033f5a726d49dc8052b08a14d61b50cbefb07dafe5fbe",
+    "window.cjs": "1637ce35aabd002428fe576db3b02f86c736584dd5f7d32596372bf676ba818a"
+  },
+  "postRestartVerification": {
+    "at": "2026-10-22T20:22:46.439Z",
+    "postRestart": true,
+    "readOnly": true,
+    "changedOriginalCollections": [],
+    "projectCount": 361,
+    "registered": 22,
+    "head": "4cd738e6c2d9d508b2248ff4298061e576109c19",
+    "gitStatus": ""
+  }
+}

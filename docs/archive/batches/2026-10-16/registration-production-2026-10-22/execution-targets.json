@@ -1,0 +1,407 @@
+{
+  "schemaVersion": 1,
+  "batchId": "2026-10-16",
+  "targets": [
+    {
+      "entryId": "two_blades-003",
+      "relativePath": "/two_blades/Courville",
+      "name": "Courville",
+      "groupSafeName": "two_blades",
+      "owner": "shrestha",
+      "observedUnixOwner": "shrestha",
+      "expectedFiles": 100,
+      "expectedBytes": 298805448427,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "two_blades-003",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "shrestha",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-012",
+      "relativePath": "/ntalbot/project_2370",
+      "name": "project_2370",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 11,
+      "expectedBytes": 78243529352,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-012",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-013",
+      "relativePath": "/ntalbot/project_2035",
+      "name": "project_2035",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 97,
+      "expectedBytes": 75397724663,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-013",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-018",
+      "relativePath": "/ntalbot/project_945",
+      "name": "project_945",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 20,
+      "expectedBytes": 38737500366,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-018",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-024",
+      "relativePath": "/ntalbot/project_2012",
+      "name": "project_2012",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 72,
+      "expectedBytes": 31629123970,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-024",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-025",
+      "relativePath": "/ntalbot/project_809",
+      "name": "project_809",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 6,
+      "expectedBytes": 27090686963,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-025",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-028",
+      "relativePath": "/ntalbot/project_930",
+      "name": "project_930",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 52,
+      "expectedBytes": 22742214458,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-028",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-029",
+      "relativePath": "/ntalbot/project_2323",
+      "name": "project_2323",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 40,
+      "expectedBytes": 22039506100,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-029",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-033",
+      "relativePath": "/ntalbot/project_2009",
+      "name": "project_2009",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 28,
+      "expectedBytes": 14852621710,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-033",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-035",
+      "relativePath": "/ntalbot/project_1622",
+      "name": "project_1622",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 15,
+      "expectedBytes": 10629370636,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-035",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-037",
+      "relativePath": "/ntalbot/project_1566",
+      "name": "project_1566",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 1,
+      "expectedBytes": 8982368958,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-037",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-040",
+      "relativePath": "/ntalbot/project_592_593",
+      "name": "project_592_593",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 3,
+      "expectedBytes": 5229182384,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-040",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-044",
+      "relativePath": "/ntalbot/project_2171",
+      "name": "project_2171",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 1,
+      "expectedBytes": 3557810271,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-044",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-046",
+      "relativePath": "/ntalbot/project_539",
+      "name": "project_539",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 8,
+      "expectedBytes": 2914165083,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-046",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-047",
+      "relativePath": "/ntalbot/project_2561",
+      "name": "project_2561",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 34,
+      "expectedBytes": 1523739906,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-047",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-050",
+      "relativePath": "/ntalbot/project_230",
+      "name": "project_230",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 7,
+      "expectedBytes": 8728408,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-050",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "ntalbot-051",
+      "relativePath": "/ntalbot/project_758",
+      "name": "project_758",
+      "groupSafeName": "ntalbot",
+      "owner": "shrestha",
+      "observedUnixOwner": "tsldata",
+      "expectedFiles": 4,
+      "expectedBytes": 119591,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "ntalbot-051",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": "tsldata",
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "skamoun-extra-001",
+      "relativePath": "/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "name": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "groupSafeName": "skamoun",
+      "owner": "winj",
+      "observedUnixOwner": "root",
+      "expectedFiles": 268,
+      "expectedBytes": 65286846255,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "skamoun-extra-001",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": null,
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "skamoun-extra-002",
+      "relativePath": "/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "name": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "groupSafeName": "skamoun",
+      "owner": "winj",
+      "observedUnixOwner": "root",
+      "expectedFiles": 38,
+      "expectedBytes": 32165487135,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "skamoun-extra-002",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": null,
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "skamoun-extra-003",
+      "relativePath": "/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "name": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "groupSafeName": "skamoun",
+      "owner": "winj",
+      "observedUnixOwner": "root",
+      "expectedFiles": 16,
+      "expectedBytes": 6156498502,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "skamoun-extra-003",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": null,
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "skamoun-extra-004",
+      "relativePath": "/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "name": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "groupSafeName": "skamoun",
+      "owner": "winj",
+      "observedUnixOwner": "root",
+      "expectedFiles": 34,
+      "expectedBytes": 41786044848,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "skamoun-extra-004",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": null,
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    },
+    {
+      "entryId": "skamoun-extra-005",
+      "relativePath": "/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "name": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "groupSafeName": "skamoun",
+      "owner": "winj",
+      "observedUnixOwner": "root",
+      "expectedFiles": 64,
+      "expectedBytes": 27554681601,
+      "decisionAuthority": "George, archive review chat, 22 October 2026",
+      "sourceReference": {
+        "entryId": "skamoun-extra-005",
+        "ownershipDecisions": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+        "ownershipDecisionsSha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb",
+        "originalSourceOwner": null,
+        "observedAt": "2026-10-16T20:31:11.362Z"
+      }
+    }
+  ],
+  "selection": {
+    "heldEntry": "ntalbot-031",
+    "reason": "Two existing Runs under project_2178 link to Project 5fc012bda3efcb29338b7cf7 through existing Samples; registration would create a competing project association.",
+    "evidence": "claim-inspection.json"
+  }
+}

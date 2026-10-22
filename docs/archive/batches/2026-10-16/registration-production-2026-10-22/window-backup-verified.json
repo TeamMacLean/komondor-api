@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-22T20:16:09.800Z",
+  "runId": "1078e7e1-3e16-4c83-9997-c90864e9c35d",
+  "planSha256": "1aa44aeacc5ae4c921b6498fa56e82a0a35a68bd897bcd1bdd2b9a11dddff99d",
+  "archiveSha256": "3ba055844b21a786f52cf1bf0ff935084e03e2bf88c9bffe540f163fa82d3415",
+  "collections": 16,
+  "documents": 30083,
+  "nativeBsonDecoded": true,
+  "independentCopyVerified": true
+}
