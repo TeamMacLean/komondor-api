@@ -1,0 +1,305 @@
+{
+  "at": "2026-10-22T20:17:01.787Z",
+  "collections": {
+    "additionalfiles": {
+      "bytes": 103237,
+      "count": 768,
+      "indexesSha256": "7fc65203fec40223b51015bb037d1fb1d510c30366b85c042bc97a323292ed41",
+      "sha256": "47501a6537d2b4a4192ec18584c94a6974464c1678b404dba006489d15a83b7e"
+    },
+    "files": {
+      "bytes": 4786296,
+      "count": 9152,
+      "indexesSha256": "b0aa0b6f0bfb0aff1574a3b9b7097cebf23b7ded0bff75403cdd7cb64a83144b",
+      "sha256": "78eb5bb151fc67ef060096ad7a04a32985d7d40604ae2d84f93976152d119edb"
+    },
+    "groups": {
+      "bytes": 4588,
+      "count": 13,
+      "indexesSha256": "ca3227e29a016efcaa03fe17dc458b2655fe9953ed7995bc91192d31f61c23c1",
+      "sha256": "13a0642beb3329e77c79d45a7c93379ae64458f032c90350bbc7fccb92182ecf"
+    },
+    "ingestjobs": {
+      "bytes": 132638,
+      "count": 101,
+      "indexesSha256": "af01f4b2cf9f00b4b7c28dc1173ec1b1c73e59923188f9a52059d7a4e88b9dfd",
+      "sha256": "bff4013f1bfb2347f2e6aec14a99f38c6ec5762ce3f1561a6c01d312880bdbee"
+    },
+    "libraryselections": {
+      "bytes": 1475,
+      "count": 27,
+      "indexesSha256": "baf7ca104892f2a5b9f62bf8bc64474249e15cb6e1d54127b4dede7b766a7fcb",
+      "sha256": "42492df0389b74fc688d5ca343735c81af54b921f4ad705feb44fcef04cc8c3f"
+    },
+    "librarysources": {
+      "bytes": 374,
+      "count": 7,
+      "indexesSha256": "baf7ca104892f2a5b9f62bf8bc64474249e15cb6e1d54127b4dede7b766a7fcb",
+      "sha256": "3f47e64c532273e44f23c8b694af8902e2d01137191e4ae9c3d1e77c2bbd1841"
+    },
+    "librarystrategies": {
+      "bytes": 1908,
+      "count": 36,
+      "indexesSha256": "baf7ca104892f2a5b9f62bf8bc64474249e15cb6e1d54127b4dede7b766a7fcb",
+      "sha256": "414623094f85541cdbf9b7a73f1039b8f1bb66ee966c13e78bde5cf4ade37241"
+    },
+    "librarytypes": {
+      "bytes": 1023,
+      "count": 8,
+      "indexesSha256": "df3c7c99f429f06f8323a099596bf92f908b5dcff433e9d00cf9b2553fb0dbb4",
+      "sha256": "1a0ece64ef628ac83a8ccd76eb4966e5f5fee0d0d54eb551e25fad67b46d0258"
+    },
+    "newsitems": {
+      "bytes": 1303731,
+      "count": 4268,
+      "indexesSha256": "baf7ca104892f2a5b9f62bf8bc64474249e15cb6e1d54127b4dede7b766a7fcb",
+      "sha256": "b613aae06da63f7c7d5ee197819845c45350101aff8564d32a3254a8b01aebf7"
+    },
+    "nudgeRuns": {
+      "bytes": 5193701,
+      "count": 58,
+      "indexesSha256": "3ab1a529eb309ca44fe1b3a24624bf8e715b4f67337b897921d74bbdb9186e4f",
+      "sha256": "427a6daeaa2159fa487c941d84933d4ddf6bab7514c1063cf32e0422fc4cc9d6"
+    },
+    "projects": {
+      "bytes": 306030,
+      "count": 339,
+      "indexesSha256": "13a0d39d5b24318132ff2b308f6814580a941e19727459bdc736f7cbc1316585",
+      "sha256": "df157c7708bc3d3ebec85ae523427255f578354176e04f4f83e45c09cb349417"
+    },
+    "reads": {
+      "bytes": 1796860,
+      "count": 8387,
+      "indexesSha256": "250555729da651edd0b4da1b1bbc2f367ecfc72e4dc253612696ff7e36f34846",
+      "sha256": "5a92bb9d59f5a3b440f1d6432a0eb4ee3161b8378e739efd949357426a62b0d3"
+    },
+    "runs": {
+      "bytes": 2493507,
+      "count": 3985,
+      "indexesSha256": "8ddbdb2ea661289462a3760e2df5ceaf504edf2b6bbdfb27d7c2928bcaaebca3",
+      "sha256": "abc9988b84d2f5fa400deabb87a84902eff5128bc2550ec145bc8a4365512740"
+    },
+    "samples": {
+      "bytes": 2381377,
+      "count": 2794,
+      "indexesSha256": "bf93dda2b3e1dfc3d22fbbed4687f57467edad3f80b8956c33cf6639781cea34",
+      "sha256": "9ba5716414b7fbc6e69eb845b7518cef67cd62d99c5093c60b739da78a203334"
+    },
+    "sequencingtechnologies": {
+      "bytes": 3345,
+      "count": 55,
+      "indexesSha256": "baf7ca104892f2a5b9f62bf8bc64474249e15cb6e1d54127b4dede7b766a7fcb",
+      "sha256": "c4950ba784c273f0fdef4844e9d5197b62c16eec6e97a601915d6a4dff3e0b85"
+    },
+    "users": {
+      "bytes": 17943,
+      "count": 85,
+      "indexesSha256": "b25f710ed61862f7f9719e1fc310d18be8cf9cef298b157337aa3e0c0f616802",
+      "sha256": "92b00fe5d0471136502cca44a8cde23457cefb5e52ecc5b77d69e0ee88f12cc1"
+    }
+  },
+  "created": [
+    {
+      "doNotSendToEna": true,
+      "entryId": "two_blades-003",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae1712264e",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/two_blades/Courville"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-012",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae1712264f",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2370"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-013",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122650",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2035"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-018",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122651",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_945"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-024",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122652",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2012"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-025",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122653",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_809"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-028",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122654",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_930"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-029",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122655",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2323"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-033",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122656",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2009"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-035",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122657",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_1622"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-037",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122658",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_1566"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-040",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae17122659",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_592_593"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-044",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae1712265a",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2171"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-046",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae1712265b",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_539"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-047",
+      "historyEvents": 1,
+      "id": "6ada6c4457c017ae1712265c",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_2561"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-050",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae1712265d",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_230"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "ntalbot-051",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae1712265e",
+      "nudgeable": false,
+      "owner": "shrestha",
+      "path": "/ntalbot/project_758"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "skamoun-extra-001",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae1712265f",
+      "nudgeable": false,
+      "owner": "winj",
+      "path": "/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "skamoun-extra-002",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae17122660",
+      "nudgeable": false,
+      "owner": "winj",
+      "path": "/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "skamoun-extra-003",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae17122661",
+      "nudgeable": false,
+      "owner": "winj",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "skamoun-extra-004",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae17122662",
+      "nudgeable": false,
+      "owner": "winj",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105"
+    },
+    {
+      "doNotSendToEna": true,
+      "entryId": "skamoun-extra-005",
+      "historyEvents": 1,
+      "id": "6ada6c4557c017ae17122663",
+      "nudgeable": false,
+      "owner": "winj",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144"
+    }
+  ],
+  "originalDocumentsUnchanged": true,
+  "planSha256": "1aa44aeacc5ae4c921b6498fa56e82a0a35a68bd897bcd1bdd2b9a11dddff99d",
+  "runId": "1078e7e1-3e16-4c83-9997-c90864e9c35d",
+  "targetFilesystemMetadataUnchanged": true
+}

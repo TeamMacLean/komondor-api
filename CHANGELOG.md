@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-22 — Production registration completed
+
+- Created and verified 22 Projects: 17 under `shrestha`, five under `winj`, each
+  with retained creation history. The five existing Saunders owner pairs remain.
+- Held `project_2178` after the fresh preview found two existing Runs linking it
+  to a named Project. No competing Project or ownership change was made.
+- Verified all 30,083 original documents and index definitions were unchanged,
+  retained independent BSON evidence, and checked every new Project/history API
+  response. API, Power and Nudge recovered after a 3 minute 18 second window.
+- No files were moved/deleted, no owner notifications were sent, and no S3 transfer
+  or separate bulk checksum sweep was run. Nothing was merged or pushed.
+
+Evidence: [production registration record](docs/archive/batches/2026-10-16/registration-production-2026-10-22/README.md).
+
 ## 2026-10-22 — Administrative archive registration
 
 - Added a prepare/apply/inspect command for registering existing, unclaimed archive

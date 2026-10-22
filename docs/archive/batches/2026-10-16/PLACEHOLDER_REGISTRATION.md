@@ -1,8 +1,15 @@
+# Production outcome update — 22 October 2026
+
+[Twenty-two registrations are applied and verified](registration-production-2026-10-22/README.md).
+The original proposal for `ntalbot-031` / `project_2178` is held because existing
+Runs associate it with a named Project. Use the retained outcomes and history;
+do not execute an older registration proposal again.
+
 # Placeholder registration and canonical roots
 
-**Step 1 is implemented locally:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
-It covers the 23 missing Project records with retained creation history. Production
-execution and the remaining reconciliation steps have not run.
+**Step 1 is implemented and applied:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
+The original 23-target preview yielded 22 completed registrations with creation
+history and one association hold. The remaining reconciliation steps have not run.
 
 **Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
 Use `winj` for all ten Saunders entries (five already registered, five new),
@@ -10,7 +17,8 @@ and `shrestha` for the 17 Talbot directories and Courville. Filesystem ownership
 stays unchanged. See the [original-value retention design](reconciliation-preview-2026-10-22/ORIGINAL_VALUES_AND_CORRECTIONS.md) for the accepted registration/path correction approach. The separate
 bulk audit checksum sweep is cancelled; normal per-project archive verification
 remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
-the proposed catalogue owner, or await a bulk audit. No production write is authorized.
+the proposed catalogue owner, or await a bulk audit. The later production authority
+and completed registration scope are recorded in the production outcome linked above.
 
 **22 October update:** the [reconciliation preview](reconciliation-preview-2026-10-22/README.md)
 supersedes the enquiry/deadline and group-administrator-address prerequisites below.
@@ -20,8 +28,9 @@ email, so they must not be used unchanged for this new policy. Root handling is
 being reviewed with a preference for retaining actual physical paths; the rename
 procedure below is an unexecuted alternative, not an authorized next step.
 
-Proposal only. No project has been created and no directory has been moved by this
-review. Apply after the discrepancy email's recorded deadline or an explicit archive
+Historical proposal (17 October): the following POST/rename recipes were not
+executed; the later administrative registration above preserves physical roots.
+The original proposal said to apply after the discrepancy email's recorded deadline or an explicit archive
 reply, following [ACTION_PLAN.md](ACTION_PLAN.md). **George must supply the Talbot
 and Two Blades group-administrator email addresses: neither is in the register.**
 Do not substitute `tsldata` for a deliverable address or send outreach automatically.

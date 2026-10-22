@@ -1,0 +1,160 @@
+{
+  "at": "2026-10-22T20:03:32.172Z",
+  "targetsChecked": 23,
+  "conflicts": [
+    {
+      "entryId": "ntalbot-031",
+      "root": "/ntalbot/project_2178",
+      "claims": {
+        "runs": [
+          {
+            "_id": "5fc012c3a3efcb29338b8388",
+            "forceSafeName": true,
+            "additionalFilesUploadIDs": [],
+            "sample": "5fc012bfa3efcb29338b8042",
+            "safeName": "magnaporthe_oryzae",
+            "name": "magnaporthe oryzae",
+            "sequencingProvider": "Exeter sequencing service",
+            "sequencingTechnology": "Illumina HiSeq 2500",
+            "librarySource": "GENOMIC",
+            "libraryType": "paired",
+            "librarySelection": "RANDOM",
+            "insertSize": "500",
+            "libraryStrategy": "WGS",
+            "owner": "talbotn",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "oldId": "2e150cab-6966-40f7-be95-6f7bebbd7177",
+            "oldSafeName": "magnaporthe_oryzae",
+            "path": "/ntalbot/project_2178/magnaporthe_oryzae/magnaporthe_oryzae",
+            "createdAt": "2020-11-26T20:40:36.812Z",
+            "updatedAt": "2020-11-26T20:40:36.812Z",
+            "__v": 0
+          },
+          {
+            "_id": "5fc012c3a3efcb29338b85c0",
+            "forceSafeName": true,
+            "additionalFilesUploadIDs": [],
+            "sample": "5fc012bfa3efcb29338b8094",
+            "safeName": "rice",
+            "name": "rice",
+            "sequencingProvider": "Exeter sequencing service",
+            "sequencingTechnology": "Illumina HiSeq 2500",
+            "librarySource": "GENOMIC",
+            "libraryType": "paired",
+            "librarySelection": "RANDOM",
+            "insertSize": "500",
+            "libraryStrategy": "WGS",
+            "owner": "talbotn",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "oldId": "8ac0df9a-01a9-45bb-b5eb-dfa107cac093",
+            "oldSafeName": "rice",
+            "path": "/ntalbot/project_2178/rice/rice",
+            "createdAt": "2020-11-26T20:40:36.832Z",
+            "updatedAt": "2020-11-26T20:40:36.832Z",
+            "__v": 0
+          }
+        ]
+      },
+      "associations": [
+        {
+          "runId": "5fc012c3a3efcb29338b8388",
+          "sample": {
+            "_id": "5fc012bfa3efcb29338b8042",
+            "additionalFilesUploadIDs": [],
+            "project": "5fc012bda3efcb29338b7cf7",
+            "name": "magnaporthe oryzae",
+            "ncbi": "318829",
+            "commonName": "rice blast fungus",
+            "scientificName": "Magnaporthe oryzae",
+            "conditions": "na",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "owner": "talbotn",
+            "oldId": "9659dd09-6a0b-4e41-a4e5-68a543e656b7",
+            "oldSafeName": "magnaporthe_oryzae",
+            "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor/magnaporthe_oryzae",
+            "sampleGroup": "project_2178_magnaporthe_oryzae",
+            "safeName": "magnaporthe_oryzae",
+            "createdAt": "2020-11-26T20:40:33.768Z",
+            "updatedAt": "2020-11-26T20:40:33.768Z",
+            "__v": 0
+          },
+          "project": {
+            "_id": "5fc012bda3efcb29338b7cf7",
+            "isPublic": false,
+            "additionalFilesUploadIDs": [],
+            "doNotSendToEna": false,
+            "name": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+            "owner": "talbotn",
+            "shortDesc": "Fungal gene expression was compared during infection of rice using leaf spray by the M. oryzae pmk1AS mutant in the presence and absence of 1NA-PP1",
+            "longDesc": "Fungal gene expression was compared during infection of rice using leaf spray by the M. oryzae pmk1AS mutant in the presence and absence of the inhibitor 1NA-PP1",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "oldId": "07a9b5e2-d73b-4fef-81ae-38cc63e4a666",
+            "oldSafeName": "study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "secondaryOwner": "talbotn",
+            "safeName": "study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "createdAt": "2020-11-26T20:40:30.006Z",
+            "updatedAt": "2021-10-19T10:19:28.374Z",
+            "__v": 1,
+            "accessions": [
+              "ERP119881"
+            ],
+            "nudgeable": false,
+            "nudges": []
+          },
+          "reads": [],
+          "additionalFiles": []
+        },
+        {
+          "runId": "5fc012c3a3efcb29338b85c0",
+          "sample": {
+            "_id": "5fc012bfa3efcb29338b8094",
+            "additionalFilesUploadIDs": [],
+            "project": "5fc012bda3efcb29338b7cf7",
+            "name": "rice",
+            "ncbi": "4530",
+            "commonName": "Oryza",
+            "scientificName": "Oryza sativa",
+            "conditions": "NA",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "owner": "talbotn",
+            "oldId": "a699057b-f640-4d64-a92e-0b69120c3d61",
+            "oldSafeName": "rice",
+            "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor/rice",
+            "sampleGroup": "project_2178_rice",
+            "safeName": "rice",
+            "createdAt": "2020-11-26T20:40:33.845Z",
+            "updatedAt": "2020-11-26T20:40:33.845Z",
+            "__v": 0
+          },
+          "project": {
+            "_id": "5fc012bda3efcb29338b7cf7",
+            "isPublic": false,
+            "additionalFilesUploadIDs": [],
+            "doNotSendToEna": false,
+            "name": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+            "owner": "talbotn",
+            "shortDesc": "Fungal gene expression was compared during infection of rice using leaf spray by the M. oryzae pmk1AS mutant in the presence and absence of 1NA-PP1",
+            "longDesc": "Fungal gene expression was compared during infection of rice using leaf spray by the M. oryzae pmk1AS mutant in the presence and absence of the inhibitor 1NA-PP1",
+            "group": "5fc012bda3efcb29338b7cf2",
+            "oldId": "07a9b5e2-d73b-4fef-81ae-38cc63e4a666",
+            "oldSafeName": "study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "secondaryOwner": "talbotn",
+            "safeName": "study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+            "createdAt": "2020-11-26T20:40:30.006Z",
+            "updatedAt": "2021-10-19T10:19:28.374Z",
+            "__v": 1,
+            "accessions": [
+              "ERP119881"
+            ],
+            "nudgeable": false,
+            "nudges": []
+          },
+          "reads": [],
+          "additionalFiles": []
+        }
+      ]
+    }
+  ]
+}

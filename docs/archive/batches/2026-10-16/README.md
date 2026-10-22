@@ -1,8 +1,17 @@
+# Latest production registration record
+
+The [22 October production record](registration-production-2026-10-22/README.md)
+supersedes the earlier 23-registration selection: **22 are now registered and
+verified in production**, with their creation histories retained;
+`ntalbot-031` is held because two Runs already link to an existing named Project.
+That record distinguishes preparation from completed database execution and
+retains the backup, service-window and verification evidence.
+
 # Project decisions and production findings — 16 October 2026
 
-**Step 1 is implemented locally:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
-It covers the 23 missing Project records with retained creation history. Production
-execution and the remaining reconciliation steps have not run.
+**Step 1 implementation and production results:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
+The original 23-target preview yielded 22 completed registrations and one association
+hold. The remaining reconciliation steps have not run.
 
 **Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
 Use `winj` for all ten Saunders entries (five already registered, five new),
@@ -10,15 +19,17 @@ and `shrestha` for the 17 Talbot directories and Courville. Filesystem ownership
 stays unchanged. See the [original-value retention design](reconciliation-preview-2026-10-22/ORIGINAL_VALUES_AND_CORRECTIONS.md) for the accepted registration/path correction approach. The separate
 bulk audit checksum sweep is cancelled; normal per-project archive verification
 remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
-the proposed catalogue owner, or await a bulk audit. No production write is authorized.
+the proposed catalogue owner, or await a bulk audit. The later production authority
+and completed registration scope are recorded in the production outcome linked above.
 
 **22 October update:** use the [read-only reconciliation preview](reconciliation-preview-2026-10-22/README.md)
 and its [197-entry decision table](reconciliation-preview-2026-10-22/PROJECT_DECISIONS.md)
 for George's latest policy: retain legacy owners, no owner enquiries, preserve the
 five additional Saunders directories, retain retired records, and record current
 checksums without closing historical gaps. It supersedes the older outreach and
-permanent record-deletion proposals below. This update authorizes a preview only;
-the October 16–17 observations remain historical and no production changes have run.
+permanent record-deletion proposals below. That update originally authorized a preview only; the subsequent registration
+authority and completed execution are recorded above. October 16–17 observations
+remain historical.
 The [fresh live inspection](reconciliation-preview-2026-10-22/LIVE_PREVIEW.md)
 now covers every entry and records the completed initial checksum pass and the
 unmeasured audit coverage separately; no further bulk audit is scheduled.
