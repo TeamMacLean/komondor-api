@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-22T21:06:55.446Z",
+  "windowRunId": "750ea760-95a1-412c-9b33-39129e5f86d6",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "releaseHead": "27b98035dccf1b33e2f449be972e2003b4114b24",
+  "webReleaseHead": "e9e183cc6968da46a4b0eada76471b750745a771",
+  "operations": 26724,
+  "exactOperationsVerified": true,
+  "unplannedDatabaseChanges": false,
+  "originalIndexesUnchanged": true,
+  "physicalMetadataUnchanged": true,
+  "afterDocumentsSha256": "3324aa134d763f38ff78781a9748cfdde95bbc87970e0f195811ffc24445408f",
+  "afterDocumentsBytes": 50860170,
+  "holds": [
+    {
+      "associations": [
+        {
+          "projectId": "5fc012bda3efcb29338b7cf7",
+          "runId": "5fc012c3a3efcb29338b8388",
+          "sampleId": "5fc012bfa3efcb29338b8042"
+        },
+        {
+          "projectId": "5fc012bda3efcb29338b7cf7",
+          "runId": "5fc012c3a3efcb29338b85c0",
+          "sampleId": "5fc012bfa3efcb29338b8094"
+        }
+      ],
+      "entryId": "ntalbot-031",
+      "reason": "Existing Run associations outside a Project's canonical root; preserve both trees"
+    }
+  ],
+  "counts": {
+    "projects": 361,
+    "files": 22204,
+    "additionalfiles": 13820,
+    "reads": 8387
+  },
+  "note": "Await independent copy verification before requesting service recovery."
+}

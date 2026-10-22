@@ -1,0 +1,463 @@
+{
+  "at": "2026-10-22T21:09:25.854Z",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "exactOperationsVerifiedAfterRestart": 26724,
+  "unplannedDatabaseChanges": false,
+  "originalIndexesUnchanged": true,
+  "activeProjects": 359,
+  "retiredDocumentsHiddenAndAdminHistoryAvailable": 5,
+  "correctedParentPathsVerified": 27,
+  "processedReadLocationsVerified": 144,
+  "additionalFileLocationsVerified": 8,
+  "adminAccessControlsPassed": true,
+  "checks": [
+    {
+      "url": "/ready",
+      "status": 200
+    },
+    {
+      "url": "/projects",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b82f9",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bea3efcb29338b7df9",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7cf8",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b887b",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b8217",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7d0d",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b850e",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b83bb",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b8253",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7d5c",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8341",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b8193",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7cf5",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8425",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b81a1",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7cf9",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86d3",
+      "status": 404
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=runs&id=5fc012c4a3efcb29338b86d3",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b81a7",
+      "status": 404
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=samples&id=5fc012bfa3efcb29338b81a7",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7d4d",
+      "status": 404
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=projects&id=5fc012bda3efcb29338b7d4d",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b8059",
+      "status": 404
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=samples&id=5fc012bfa3efcb29338b8059",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7d6a",
+      "status": 404
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=projects&id=5fc012bda3efcb29338b7d6a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87d2",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8790",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8617",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b85be",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b837f",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b8153",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bfa3efcb29338b80d9",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bea3efcb29338b7f90",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bea3efcb29338b7ec8",
+      "status": 200
+    },
+    {
+      "url": "/sample?id=5fc012bea3efcb29338b7db2",
+      "status": 200
+    },
+    {
+      "url": "/project?id=5fc012bda3efcb29338b7d6b",
+      "status": 200
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=projects&id=5fc012bda3efcb29338b7d6a",
+      "status": 401
+    },
+    {
+      "url": "/admin/reconciliation-record?collection=projects&id=5fc012bda3efcb29338b7d6a",
+      "status": 403
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b830b",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b85ff",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8532",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b83f3",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87de",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87a1",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b82f6",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8400",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b836a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84e1",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86cd",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b85a9",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b8285",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8379",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86a3",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8334",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8549",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b871a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8670",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8696",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8754",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b835c",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8396",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b857a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8603",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87fa",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86b6",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87ca",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b869c",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87b9",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b83e1",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b874e",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8524",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8693",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8868",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8786",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8620",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b85ea",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84b4",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86b8",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b880a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8691",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8712",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87b5",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b87a0",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b864a",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8826",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84bb",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8853",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8386",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b8316",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8411",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b8706",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84d0",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84a0",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b864d",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b853f",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b862c",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b83e2",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b875d",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b82de",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8329",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b828c",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b84b8",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b862b",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b862e",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b8607",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86ec",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c4a3efcb29338b86de",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c3a3efcb29338b85df",
+      "status": 200
+    },
+    {
+      "url": "/run?id=5fc012c2a3efcb29338b8271",
+      "status": 200
+    }
+  ]
+}

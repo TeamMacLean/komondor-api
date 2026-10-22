@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-22T21:06:40.074Z",
+  "completed": 26724,
+  "corrected": {
+    "additionalfiles": 0,
+    "files": 402,
+    "ingestjobs": 0,
+    "newsitems": 0,
+    "projects": 8,
+    "reads": 0,
+    "runs": 12,
+    "samples": 12
+  },
+  "created": {
+    "additionalfiles": 13052,
+    "archiveReconciliations": 186,
+    "files": 13052,
+    "ingestjobs": 0,
+    "newsitems": 0,
+    "projects": 0,
+    "reads": 0,
+    "runs": 0,
+    "samples": 0
+  },
+  "holds": [
+    {
+      "associations": [
+        {
+          "projectId": "5fc012bda3efcb29338b7cf7",
+          "runId": "5fc012c3a3efcb29338b8388",
+          "sampleId": "5fc012bfa3efcb29338b8042"
+        },
+        {
+          "projectId": "5fc012bda3efcb29338b7cf7",
+          "runId": "5fc012c3a3efcb29338b85c0",
+          "sampleId": "5fc012bfa3efcb29338b8094"
+        }
+      ],
+      "entryId": "ntalbot-031",
+      "reason": "Existing Run associations outside a Project's canonical root; preserve both trees"
+    }
+  ],
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+}

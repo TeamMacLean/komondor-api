@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-22T21:08:58.433Z",
+  "runId": "750ea760-95a1-412c-9b33-39129e5f86d6",
+  "apiReady": true,
+  "head": "27b98035dccf1b33e2f449be972e2003b4114b24",
+  "webHead": "e9e183cc6968da46a4b0eada76471b750745a771",
+  "registered": 26724,
+  "services": [
+    {
+      "name": "komondor-web",
+      "pid": 1916121,
+      "status": "online"
+    },
+    {
+      "name": "komondor-nudge",
+      "pid": 1916157,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "pid": 1916139,
+      "status": "online"
+    },
+    {
+      "name": "komondor-api",
+      "pid": 1916092,
+      "status": "online"
+    }
+  ]
+}

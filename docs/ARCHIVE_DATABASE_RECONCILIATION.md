@@ -1,5 +1,11 @@
 # Archive database reconciliation with retained history
 
+The 22 October production plan is **applied and verified**. See the
+[execution record](archive/batches/2026-10-16/reconciliation-production-2026-10-22/README.md)
+and [per-entry outcomes](archive/batches/2026-10-16/reconciliation-production-2026-10-22/OUTCOMES.md).
+The procedure below documents the controls; do not rerun preparation or application
+as a routine follow-up to the already completed batch.
+
 This is the database continuation of the 22 completed Project registrations.
 George authorised completing the remaining production database steps on 22 October
 2026. No owner contact, bulk checksum sweep, physical move, S3 transfer or deletion

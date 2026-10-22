@@ -1,5 +1,10 @@
 # Production registration — 22 October 2026
 
+**Subsequent stage:** [production reconciliation](../reconciliation-production-2026-10-22/README.md)
+has now applied the catalogue/path/retirement changes and matching application
+releases. This page remains the evidence for the earlier 22-registration stage;
+its release and unchanged-record claims refer to that stage's execution window.
+
 **Completed:** 22 Projects were created and verified in production, and API,
 Power and Nudge are back online. See [actual outcomes](OUTCOMES.md) and the
 [deployment receipt](deployment-receipt.json). No existing record, file content,

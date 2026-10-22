@@ -1,5 +1,11 @@
 # Production outcome update — 22 October 2026
 
+[Database reconciliation is applied and verified](reconciliation-production-2026-10-22/README.md).
+Use the [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
+for current status. All 26,724 planned operations completed, with original values
+and history retained; all four services are online. One multi-root association is
+held. No archive transfer or manual disposal was performed.
+
 [Twenty-two registrations are applied and verified](registration-production-2026-10-22/README.md).
 The original proposal for `ntalbot-031` / `project_2178` is held because existing
 Runs associate it with a named Project. Use the retained outcomes and history;
@@ -9,7 +15,8 @@ do not execute an older registration proposal again.
 
 **Step 1 is implemented and applied:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
 The original 23-target preview yielded 22 completed registrations with creation
-history and one association hold. The remaining reconciliation steps have not run.
+history and one association hold. The subsequent sealed reconciliation plan has
+also been applied, as recorded above; older pending labels are historical.
 
 **Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
 Use `winj` for all ten Saunders entries (five already registered, five new),

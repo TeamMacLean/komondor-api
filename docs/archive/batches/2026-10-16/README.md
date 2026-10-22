@@ -1,4 +1,14 @@
-# Latest production registration record
+# Latest production database outcome
+
+The [completed reconciliation record](reconciliation-production-2026-10-22/README.md)
+and [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
+are the current execution status. After the 22 registrations, all 26,724 planned
+database operations were applied and independently verified: catalogue additions,
+stored-path corrections, dated current observations and retained-history retirement.
+Services are online. `ntalbot-031` remains an explicit multi-root association hold;
+archive transfers and manual disposal remain separate and unexecuted.
+
+## Earlier registration stage
 
 The [22 October production record](registration-production-2026-10-22/README.md)
 supersedes the earlier 23-registration selection: **22 are now registered and
@@ -11,7 +21,8 @@ retains the backup, service-window and verification evidence.
 
 **Step 1 implementation and production results:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
 The original 23-target preview yielded 22 completed registrations and one association
-hold. The remaining reconciliation steps have not run.
+hold. The remaining sealed reconciliation plan has now been applied; see the
+production outcome above. Earlier preview statuses below are historical.
 
 **Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
 Use `winj` for all ten Saunders entries (five already registered, five new),
@@ -20,7 +31,7 @@ stays unchanged. See the [original-value retention design](reconciliation-previe
 bulk audit checksum sweep is cancelled; normal per-project archive verification
 remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
 the proposed catalogue owner, or await a bulk audit. The later production authority
-and completed registration scope are recorded in the production outcome linked above.
+and completed database scope are recorded in the production outcomes linked above.
 
 **22 October update:** use the [read-only reconciliation preview](reconciliation-preview-2026-10-22/README.md)
 and its [197-entry decision table](reconciliation-preview-2026-10-22/PROJECT_DECISIONS.md)

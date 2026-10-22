@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-22T21:09:58.687Z",
+  "results": [
+    {
+      "url": "https://sequences.tsl.ac.uk/",
+      "status": 200,
+      "htmlBytes": 3819,
+      "bundles": [
+        {
+          "path": "/_nuxt/3ac0461.js",
+          "sha256": "deb7122d393625708e01cb74d553aa077d7b88ae974291c4e410ff99a4552ce5",
+          "bytes": 2637
+        },
+        {
+          "path": "/_nuxt/f6086b8.js",
+          "sha256": "75983b6aed5f19fd3c8d86e8b2841720883f753839bc10618d63a1a9d80841b3",
+          "bytes": 296379
+        },
+        {
+          "path": "/_nuxt/3254d40.js",
+          "sha256": "2fd8ae6d6bc1528fcf3d6f385db3a4a95b2aac7366d1f770b0c1e1818503a622",
+          "bytes": 430722
+        },
+        {
+          "path": "/_nuxt/eaef234.js",
+          "sha256": "f1a34568de5be3d31e9f7a16d407810481fdeeb489c7d15b1e55aac3c8c02754",
+          "bytes": 847050
+        }
+      ]
+    },
+    {
+      "url": "https://power-sequences.tsl.ac.uk/",
+      "status": 200,
+      "htmlBytes": 7765
+    }
+  ]
+}

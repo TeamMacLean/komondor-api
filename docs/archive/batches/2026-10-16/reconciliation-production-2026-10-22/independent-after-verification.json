@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-22T21:08:22.824Z",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "operationsIndependentlyVerified": 26724,
+  "afterDocumentsSha256": "3324aa134d763f38ff78781a9748cfdde95bbc87970e0f195811ffc24445408f",
+  "afterDocumentsBytes": 50860170,
+  "retainedOnIndependentHost": true,
+  "verification": "All returned BSON documents decoded on Mac and compared individually with the sealed plan and fixed execution timestamp."
+}

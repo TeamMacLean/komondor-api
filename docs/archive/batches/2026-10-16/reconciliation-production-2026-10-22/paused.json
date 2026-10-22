@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-22T21:05:19.374Z",
+  "runId": "750ea760-95a1-412c-9b33-39129e5f86d6",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "windowOperator": "tsldata",
+  "externalWritersFrozen": true,
+  "allApiInstancesStopped": true,
+  "powerPaused": true,
+  "nudgePaused": true,
+  "webPaused": true,
+  "expiresAt": "2026-10-22T21:20:19.374Z",
+  "automaticRestartAt": "2026-10-22T21:25:19.374Z"
+}

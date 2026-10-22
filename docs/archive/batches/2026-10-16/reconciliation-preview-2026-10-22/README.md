@@ -1,5 +1,14 @@
 # Read-only reconciliation preview — 22 October 2026
 
+**Historical preview, superseded for execution status:** the later
+[registration outcome](../registration-production-2026-10-22/README.md) records
+22 applied registrations, and the [completed reconciliation](../reconciliation-production-2026-10-22/README.md)
+records 26,724 applied database operations. Use the
+[197-entry outcome table](../reconciliation-production-2026-10-22/OUTCOMES.md)
+for current status. The preview's "production unchanged", 23-target selection
+and pending-step statements below describe the earlier point in time. Its
+observations and original proposals remain retained rather than rewritten.
+
 **Step 1 implementation update:** [registration runbook](../../../../ARCHIVE_PROJECT_REGISTRATION.md)
 and [exact 23-target input](registration-targets.json). The administrative registration
 command and creation-history safeguards are implemented locally and tested on a
