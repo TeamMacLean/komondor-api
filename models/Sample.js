@@ -35,12 +35,15 @@ const schema = new Schema(
 );
 
 // Indexes for performance
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.index({ project: 1, name: 1 }); // For idempotency checks
 schema.index({ group: 1, createdAt: -1 }); // For group-specific queries
 schema.index({ createdAt: -1 }); // For sorting by creation time
 
 schema.pre("validate", function (next) {
   const doc = this;
+  if (doc.reconciliation?.identity) return next();
 
   // Handle conditional required fields based on tplexCsv
   if (!doc.tplexCsv) {
@@ -215,6 +218,10 @@ schema.virtual("additionalFiles", {
 
 schema.methods.getRelativePath = function () {
   const doc = this;
+  if (doc.reconciliation?.identity) {
+    require("../lib/reconciliation-state").assertPinned(doc);
+    return Promise.resolve(doc.path.replace(/^\//, ""));
+  }
   return doc
     .populate({
       path: "group",
@@ -224,11 +231,9 @@ schema.methods.getRelativePath = function () {
     })
     .execPopulate()
     .then((populatedDoc) => {
-      return join(
-        populatedDoc.group.safeName,
-        populatedDoc.project.safeName,
-        populatedDoc.safeName,
-      );
+      const { normalized, relativeTo } = require("../lib/physical-file-path");
+      if (!relativeTo(populatedDoc.project.path, populatedDoc.path)) throw Error("Sample path is outside its project");
+      return normalized(populatedDoc.path);
     });
 };
 

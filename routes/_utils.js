@@ -246,9 +246,35 @@ const getAdditionalFilesStatus = (dbFiles = [], actualFiles = []) => {
  * @param {string} directoryPath - Absolute path to the directory to list.
  * @returns {Promise<{actualFiles: string[], status: object}>}
  */
-const compareFilesToDirectory = async (dbFiles, directoryPath) => {
+const compareFilesToDirectory = async (dbFiles, directoryPath, project, otherCatalogued = []) => {
   try {
     const actualFiles = await getActualFiles(directoryPath);
+    if (project) {
+      const path = require("path");
+      const { resolvePhysicalFile } = require("../lib/physical-file-path");
+      const missing = [], unresolved = [], expectedHere = new Set(), elsewhere = [];
+      for (const record of dbFiles || []) {
+        try {
+          const absolute = await resolvePhysicalFile(process.env.DATASTORE_ROOT, project.path, record.file?.path);
+          if (path.dirname(absolute) === directoryPath) expectedHere.add(path.basename(absolute));
+          else elsewhere.push(record.file.path);
+        } catch (error) {
+          (error.code === "ENOENT" ? missing : unresolved).push(record.file?.path || String(record._id));
+        }
+      }
+      // A checksum/additional file may deliberately live beside a Read in raw/.
+      // Its own list reports validity; it is not an untracked extra in this list.
+      for (const record of otherCatalogued) {
+        try {
+          const absolute = await resolvePhysicalFile(process.env.DATASTORE_ROOT, project.path, record.file?.path);
+          if (path.dirname(absolute) === directoryPath) expectedHere.add(path.basename(absolute));
+        } catch (_) { /* reported by that record's own comparison */ }
+      }
+      const extra = actualFiles.filter(name => !expectedHere.has(name));
+      const status = missing.length || unresolved.length ? "MISMATCH" : extra.length ? "WARNING" : "OK";
+      return { actualFiles, status: { status, missing, unresolved, extra, elsewhere,
+        message: `${missing.length} missing, ${unresolved.length} unresolved, ${extra.length} uncatalogued here; ${elsewhere.length} catalogued at another stored location.` } };
+    }
     return {
       actualFiles,
       status: getAdditionalFilesStatus(dbFiles, actualFiles),

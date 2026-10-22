@@ -43,13 +43,15 @@ const schema = new Schema(
   { timestamps: true, toJSON: { virtuals: true } },
 );
 
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.pre("save", function (next) {
   this.wasNew = this.isNew;
   next();
 });
 
 schema.post("save", async function (doc) {
-  if (doc.skipPostSave) {
+  if (doc.skipPostSave || doc.reconciliation || !doc.wasNew) {
     return;
   }
 

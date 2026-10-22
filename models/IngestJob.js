@@ -47,6 +47,8 @@ const schema = new Schema(
 );
 
 // Covers the claim query: filter on status/leaseExpiresAt, sort by createdAt.
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.index({ status: 1, leaseExpiresAt: 1, createdAt: 1 });
 
 const IngestJob = model("IngestJob", schema);

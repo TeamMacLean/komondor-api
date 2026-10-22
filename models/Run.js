@@ -86,6 +86,8 @@ const schema = new Schema(
 // is only advisory without it, so two concurrent identical POSTs both insert.
 // NB on an existing collection, check for duplicates first — createIndex fails
 // on them and mongoose logs that failure rather than throwing.
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.index({ sample: 1, name: 1 }, { unique: true }); // For idempotency checks
 schema.index({ status: 1 }); // For querying runs by status
 schema.index({ md5VerificationStatus: 1 }); // For background job queries
@@ -93,6 +95,7 @@ schema.index({ createdAt: -1 }); // For sorting by creation time
 schema.index({ group: 1, createdAt: -1 }); // For group-specific queries
 
 schema.pre("validate", function () {
+  if (this.reconciliation?.identity) return;
   if (this.forceSafeName) {
     return Promise.resolve();
   }
@@ -194,6 +197,10 @@ schema.virtual("rawFiles", {
 
 schema.methods.getRelativePath = function () {
   const doc = this;
+  if (doc.reconciliation?.identity) {
+    require("../lib/reconciliation-state").assertPinned(doc);
+    return Promise.resolve(doc.path.replace(/^\//, ""));
+  }
   return doc
     .populate({
       path: "group",
@@ -206,12 +213,9 @@ schema.methods.getRelativePath = function () {
     })
     .execPopulate()
     .then((populatedDoc) => {
-      return join(
-        populatedDoc.group.safeName,
-        populatedDoc.sample.project.safeName,
-        populatedDoc.sample.safeName,
-        populatedDoc.safeName,
-      );
+      const { normalized, relativeTo } = require("../lib/physical-file-path");
+      if (!relativeTo(populatedDoc.sample.project.path, populatedDoc.path)) throw Error("Run path is outside its project");
+      return normalized(populatedDoc.path);
     });
 };
 

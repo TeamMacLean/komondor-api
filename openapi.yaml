@@ -949,6 +949,34 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+  /admin/reconciliation-record:
+    get:
+      tags: [Projects]
+      summary: Inspect a retained record, including retired records and correction history.
+      description: Admin-only, read-only access to a fixed collection allowlist. Original document types remain in the independent BSON evidence bundle.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+        - name: collection
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [projects, samples, runs, reads, additionalfiles, files, ingestjobs, newsitems, archiveReconciliations]
+      responses:
+        "200":
+          description: The retained document and its collection.
+        "400":
+          description: Invalid collection or ID.
+        "401":
+          description: Authentication required.
+        "403":
+          description: Administrator required.
+        "404":
+          description: Record not found.
   /project/reconciliation-history:
     get:
       tags: [Projects]

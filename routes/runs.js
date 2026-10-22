@@ -332,8 +332,8 @@ router
         const additionalDir = _path.join(runDirectory, "additional");
 
         const [raw, additional] = await Promise.all([
-          compareFilesToDirectory(run.rawFiles, rawDir),
-          compareFilesToDirectory(run.additionalFiles, additionalDir),
+          compareFilesToDirectory(run.rawFiles, rawDir, project, run.additionalFiles || []),
+          compareFilesToDirectory(run.additionalFiles, additionalDir, project, run.rawFiles || []),
         ]);
         actualReads = raw.actualFiles;
         rawFilesStatus = raw.status;
@@ -341,6 +341,8 @@ router
         additionalFilesStatus = additional.status;
       }
 
+      require("../lib/physical-file-path").attachFileLocations(run.rawFiles, project);
+      require("../lib/physical-file-path").attachFileLocations(run.additionalFiles, project);
       res.status(200).send({
         run,
         location: locationFor(project, run.path, { includeRaw: true }),

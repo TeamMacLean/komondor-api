@@ -22,6 +22,8 @@ const schema = new mongoose.Schema(
  *   token's `groups` claim is stale for groups deleted since login.
  * @returns {mongoose.Query} A query scoped to what the user may read.
  */
+require("../lib/reconciliation-state").installReconciliationGuards(schema);
+
 schema.statics.iCanSee = function iCanSee(user, groupIds) {
   if (groupIds !== null && !Array.isArray(groupIds)) {
     throw new TypeError(
