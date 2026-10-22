@@ -1,0 +1,68 @@
+{
+  "preparedOn": "2026-10-22",
+  "mode": "offline-read-only-preview",
+  "sourceObservationDates": [
+    "2026-10-16",
+    "2026-10-17"
+  ],
+  "liveInspection": "pending-SSH-authentication",
+  "productionWrites": false,
+  "productionCodeChanges": false,
+  "currentChecksumsCalculatedThisPreview": 0,
+  "currentChecksumsStoredInDatabase": 0,
+  "originalEntries": 192,
+  "supplementaryEntries": 5,
+  "totalEntries": 197,
+  "dispositionCounts": {
+    "archive": 176,
+    "record-empty-directory": 2,
+    "retire-records-retain-history": 2,
+    "existing-approved-direct-disposal": 6,
+    "keep": 11
+  },
+  "originalDispositionCounts": {
+    "archive": 171,
+    "record-empty-directory": 2,
+    "retire-records-retain-history": 2,
+    "existing-approved-direct-disposal": 6,
+    "keep": 11
+  },
+  "projectRegistrationsProposed": 23,
+  "originalOwnerEnquiriesRemoved": 18,
+  "ownerEnquiriesOutstanding": 0,
+  "humanDispositionDecisionsOutstanding": 0,
+  "humanTechnicalDecisionsOutstanding": "not-yet-quantifiable; fresh file/parent matching is required; unclassified preservation is accepted",
+  "observedUntrackedPathCount": 11626,
+  "observedUntrackedProjectCount": 109,
+  "untrackedClassificationCounts": {
+    "checksum-file-candidate": 5223,
+    "supporting-file-candidate": 1077,
+    "other-sequence-data-candidate": 1179,
+    "unclassified-preserve": 361,
+    "fastq-candidate": 3675,
+    "existing-read-location-candidate": 111
+  },
+  "archiveScopeUntrackedPathCount": 10935,
+  "archiveScopeUntrackedProjectCount": 106,
+  "archiveScopeClassificationCounts": {
+    "checksum-file-candidate": 4646,
+    "supporting-file-candidate": 1077,
+    "other-sequence-data-candidate": 1179,
+    "unclassified-preserve": 353,
+    "fastq-candidate": 3569,
+    "existing-read-location-candidate": 111
+  },
+  "archiveScopeFastqProjectCount": 59,
+  "missingDestinationChecksumProjectsAllDecisions": 101,
+  "missingDestinationChecksumRecordsAllDecisions": 3896,
+  "missingDestinationChecksumProjectsArchiveScope": 90,
+  "missingDestinationChecksumRecordsArchiveScope": 3164,
+  "locationProposals": {
+    "use-existing-stored-path": 107,
+    "correct-stored-path-after-live-check": 3
+  },
+  "locationRecords": 110,
+  "priorLocationCandidatePaths": 112,
+  "priorLocationCandidateByteSum": 297407594792,
+  "fileLevelCoverage": "Only the reported untracked paths and 110 investigated Read records are individually listed. All other registered files, the 23 proposed registrations, and unreadable/missing/new paths require a fresh full inventory and database association collection. No project is declared execution-ready."
+}

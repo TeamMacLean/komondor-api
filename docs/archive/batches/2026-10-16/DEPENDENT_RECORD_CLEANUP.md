@@ -1,5 +1,12 @@
 # Dependent-record disposal proposal
 
+**22 October update:** George now wants records retained with their history rather
+than permanently removed. The [reconciliation preview](reconciliation-preview-2026-10-22/README.md)
+supersedes this document's deletion operations with a proposed retirement mechanism.
+The scoped exports, document IDs and relationship checks below remain useful
+evidence. Do not execute the deletion filters. Retirement is not yet implemented
+and must be respected by application queries, writers and background workers.
+
 **For George to execute after review. No cleanup has run.** This covers two empty
 projects, five Saunders shells and the populated Xiao project. The
 [Kamoun target ledger](KAMOUN_DELETE_TARGETS.md) governs physical disposal.

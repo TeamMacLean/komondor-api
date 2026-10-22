@@ -1,0 +1,49 @@
+{
+  "generatorSha256": "4f4afe48c3c42f3c37f8d7d18ae1050747d9e11fb195628976ae687352f0431e",
+  "inputs": [
+    {
+      "path": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/policy.json",
+      "sha256": "42bef4e5e9be275c3b584c8506b42d9610410829155a8c5fd4b94b68c486acd0"
+    },
+    {
+      "path": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/ownership-decisions.json",
+      "sha256": "9e5bd12d0a710a559dfaeaa39cf0960000dd437d6908c84c02387d54525854cb"
+    },
+    {
+      "path": "docs/archive/batches/2026-10-16/register.json",
+      "sha256": "78333769a7ede546480b24a35ea4d491f67a322d1421a71bcf2ef11b94478077"
+    },
+    {
+      "path": "docs/archive/batches/2026-10-16/path-resolutions.json",
+      "sha256": "8ef18a5bf9de156f7e2c52f118592f572b9be6931cddc37de365f1d95ac5666b"
+    },
+    {
+      "path": "docs/archive/batches/2026-10-16/kamoun-delete-targets.json",
+      "sha256": "c5fc55d385364d67d9832d1075ab80349ed5d52c5e27717abb5295cd957ef3e2"
+    },
+    {
+      "path": "docs/hpc-verification-2026-10-16/corrected-diagnostics/verify-two_blades.json",
+      "sha256": "ca7cc559c8c8119bcb9d69818295b22ea37aff5f8724b010a299fa8c53db5e13"
+    },
+    {
+      "path": "docs/hpc-verification-2026-10-16/corrected-diagnostics/verify-jjones.json",
+      "sha256": "7b2978c7df6a42c8d99b66d3cc650d5d1923fd912f00223747b2dda828e72bc5"
+    },
+    {
+      "path": "docs/hpc-verification-2026-10-16/corrected-diagnostics/verify-ntalbot.json",
+      "sha256": "e62c38a9f0be447fa70d6b401fd5de14ea1fff2d72813f6beaa31509e9c9b5a1"
+    },
+    {
+      "path": "docs/hpc-verification-2026-10-16/corrected-diagnostics/verify-skamoun.json",
+      "sha256": "7b7f85447f0a223d3b53ddd2c038eeea2572a9dae661e0f74a84c207e42b693f"
+    }
+  ],
+  "measurements": "Source file SHA-256 values establish report provenance only; they are not checksums of HPC data.",
+  "outputs": {
+    "projects.json": "6372de91633bcc9f719df18e66cc195351046c71d0d7bb7d0c99366aafd2bc1d",
+    "registration-targets.json": "b9cdd1d37e0a988f043492ea59e051e2130315cfa5e28e3b59a6f86d4fe1c04e",
+    "file-classification.jsonl": "1f9349e141a1d4d5572435d9aa950f5849f352d7460a7d3e8eb1e98f9e6a674e",
+    "location-proposals.json": "435f7ded929610309a9b11ec21d9a73056b5975cbd704b65dd3a221ec4c173c3",
+    "summary.json": "573b1d74b5539aa650fc894b6f2751567f53dfbbf38a2aa46f3c26f55f64ab4c"
+  }
+}

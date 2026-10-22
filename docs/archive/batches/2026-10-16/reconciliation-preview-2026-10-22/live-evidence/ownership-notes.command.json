@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-22T17:15:43.619831+00:00",
+  "command": [
+    "ssh",
+    "-S",
+    "/Users/deeks/.ssh/v1333-codex-reconcile.sock",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "deeks@v1333.nbi.ac.uk",
+    "/storage/.nvm/versions/node/v24.11.1/bin/node -e 'const fs=require('\"'\"'fs'\"'\"'),crypto=require('\"'\"'crypto'\"'\"');const t=JSON.parse(fs.readFileSync(0,'\"'\"'utf8'\"'\"'));for(const x of t){if(!x.path.startsWith('\"'\"'/mnt/reads/ntalbot/project_'\"'\"')||!(/\\.docx$|readme\\.txt$/i.test(x.path)))throw Error('\"'\"'Unexpected path'\"'\"');const s=fs.lstatSync(x.path);if(!s.isFile()||s.size!==x.bytes||s.size>5000000||fs.realpathSync(x.path)!==x.path)throw Error('\"'\"'File identity differs'\"'\"');const b=fs.readFileSync(x.path);const a=fs.lstatSync(x.path);if(s.ino!==a.ino||s.size!==a.size||s.mtimeMs!==a.mtimeMs||s.ctimeMs!==a.ctimeMs)throw Error('\"'\"'File changed'\"'\"');console.log(JSON.stringify({...x,at:new Date().toISOString(),sha256:crypto.createHash('\"'\"'sha256'\"'\"').update(b).digest('\"'\"'hex'\"'\"'),base64:b.toString('\"'\"'base64'\"'\"')}));}'"
+  ],
+  "targets": "ownership-note-targets.json",
+  "targetSha256": "991edb6c59ce217d533f3baaa620f293437091c640980ee34e423dd6539bbf4c",
+  "scriptSha256": "06e61a15c5f65ec13127e3dc949702d0bc559de0ab1980e914e337fa883b703e",
+  "output": "ownership-notes.json",
+  "outputSha256": "3b6667eca573cafd393b34e2632506f128e3b58d979c3efdc7935687d4d6f9b5",
+  "exitCode": 0,
+  "filesRead": 17,
+  "bytesRead": 1541126,
+  "productionWrites": false,
+  "scope": "Author properties and paragraph text only; original documents unchanged; no layout review."
+}

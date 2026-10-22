@@ -1,0 +1,87 @@
+{
+  "decidedOn": "2026-10-22",
+  "authority": "George's instructions in the archive review chat on 22 October 2026",
+  "scope": "Step 1 local implementation and scratch-database validation authorized. No production database changes, file moves, archival, disposal, notifications or owner contact.",
+  "checksumPolicy": {
+    "mode": "current-observation-only",
+    "algorithms": [
+      "md5",
+      "sha256"
+    ],
+    "byteScope": "physical-file-bytes-as-stored",
+    "historicalVerification": "not-established-by-current-checksum",
+    "preserveExistingLegacyFields": true,
+    "fillMissingOriginalChecksum": false,
+    "markHistoricalUploadSuccessful": false,
+    "note": "Retain completed dated MD5/SHA-256 observations. Do not run a separate remaining-data sweep or require a new MD5 for every file. Normal copy --execute still reads each project to seal SHA-256/CRC64NVME and rechecks while uploading. Preserve historical fields and gaps; archive digests are current observations, not original upload verification.",
+    "separateBulkSweep": false,
+    "separateBulkSweepStatus": "cancelled-by-George-2026-10-22",
+    "remainingCurrentObservations": "collect-through-normal-per-project-archive-manifest-and-upload-verification",
+    "archiveAlgorithms": [
+      "sha256",
+      "crc64nvme"
+    ]
+  },
+  "ownershipPolicy": {
+    "retainExistingProjectOwnerAndSecondaryOwner": true,
+    "retainExportOwnerWithSource": true,
+    "inferScientificOwnerFromUnixOwner": false,
+    "assignOperatorAsResearchOwner": false,
+    "contactOwners": false,
+    "note": "All ten Saunders entries use winj: retain five existing owners and use winj for five new registrations, by explicit instruction from George. Talbot and Courville use shrestha. Retain existing secondary owners; do not invent new ones. Preserve original Unix owners and scientific attribution clues separately. No chown or owner contact.",
+    "fallbackCatalogueOwner": "shrestha",
+    "fallbackRole": "administrative-custodian; original-scientific-owner-unresolved",
+    "changeUnixOwnership": false,
+    "decisionEvidence": "ownership-decisions.json",
+    "catalogueOwnerOverrides": {
+      "allSaundersProjectsInThisBatch": "winj"
+    }
+  },
+  "classificationPolicy": {
+    "preserveUnclassifiedFiles": true,
+    "inventScientificMetadata": false,
+    "preserveDuplicatePhysicalPaths": true,
+    "deduplicateExistingRecordsBeforeProposingNewRecords": true,
+    "filenameClassificationIsProvisional": true
+  },
+  "retentionPolicy": {
+    "permanentlyDeleteDatabaseRecords": false,
+    "retainIdsRelationshipsAndBeforeImages": true,
+    "proposedStates": [
+      "present",
+      "missing",
+      "retired",
+      "superseded"
+    ],
+    "implemented": false,
+    "note": "Record availability is separate from HPC/S3 storage state. All application consumers and background workers must respect retirement before it can be applied."
+  },
+  "additionalSaundersDecision": "preserve-and-archive-all-five",
+  "existingKamounDecisions": {
+    "archive": 19,
+    "directDisposal": 6,
+    "keep": 11
+  },
+  "locationPolicy": "Investigate and propose evidence-backed locations; no file moves or database changes are authorized by this preview.",
+  "supersedes": [
+    "Owner enquiry/deadline requirements for the 17 unregistered Talbot directories and Courville",
+    "Awaiting Kamoun's answer for the five supplementary Saunders directories",
+    "Permanent database record deletion proposed by the earlier cleanup procedure",
+    "Any proposal to fill a historical original checksum from a new measurement",
+    "Using tsldata or root as the proposed catalogue owner of unregistered trees",
+    "A separate full-batch current-checksum sweep before archival"
+  ],
+  "registrationAndPathCorrectionDecision": {
+    "status": "step-1-registration-implemented-locally; path-corrections-remain-step-2",
+    "authority": "George agrees to registration and path corrections and asks how originals will be retained.",
+    "design": "ORIGINAL_VALUES_AND_CORRECTIONS.md",
+    "productionApplied": false
+  },
+  "registrationImplementation": {
+    "runbook": "../../../../ARCHIVE_PROJECT_REGISTRATION.md",
+    "script": "scripts/register-archive-projects.js",
+    "scope": "23 new Project insertions with atomic creation history; no existing-record changes",
+    "testedAgainst": "isolated local scratch database",
+    "productionApplied": false
+  }
+}

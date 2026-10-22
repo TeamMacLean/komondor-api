@@ -1,0 +1,57 @@
+{
+  "preparedAt": "2026-10-22T17:00:11.272Z",
+  "evidence": "live-evidence/inventory-20261022T164605Z.jsonl",
+  "evidenceSha256": "0e0049082204806489dd1c36884f771914f04e0e9475c070b50b378fcb593dba",
+  "sourceStartedAt": "2026-10-22T16:46:08.720Z",
+  "sourceFinishedAt": "2026-10-22T16:51:22.989Z",
+  "collectorSha256": "d30df6008e7134e70786238657512939d1ade0274a03b56bfcc76d3ee9adc560",
+  "gitBefore": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "gitAfter": {
+    "commit": "c6b9d77db069fa6dd808367086ff358302565b2f",
+    "status": ""
+  },
+  "projectsObserved": 197,
+  "collectionErrors": 0,
+  "totalPhysicalFiles": 17997,
+  "totalBytes": 15695201922398,
+  "archivePhysicalFiles": 15397,
+  "archiveBytes": 13448802534476,
+  "archiveLinkCounts": {
+    "no-file-document": 11875,
+    "existing-record": 3522
+  },
+  "uncataloguedClassification": {
+    "checksum-file-candidate": 4958,
+    "supporting-file-candidate": 1298,
+    "other-sequence-data-candidate": 1428,
+    "unclassified-preserve": 396,
+    "fastq-candidate": 3795
+  },
+  "uncataloguedParentCounts": {
+    "Run": 9453,
+    "Project-to-register": 950,
+    "Project": 348,
+    "Sample": 1124
+  },
+  "uncataloguedRawFastqWithRun": 3315,
+  "ambiguousParentFiles": 0,
+  "pathCorrectionFiles": 3,
+  "technicalExceptions": 0,
+  "exceptionKinds": {},
+  "blockingExceptionEntries": [],
+  "smallHashTargetFiles": 6760,
+  "smallHashTargetBytes": 254928278,
+  "largeHashTargetFiles": 8637,
+  "largeHashTargetBytes": 13448547606198,
+  "humanDispositionDecisionsOutstanding": 0,
+  "ownerEnquiriesOutstanding": 0,
+  "currentChecksumsCalculated": 6771,
+  "productionWrites": false,
+  "currentChecksumBytes": 6961044378,
+  "currentChecksumsPending": 8626,
+  "currentChecksumPendingBytes": 13441841490098,
+  "currentChecksumStatus": "partial-current-observations-retained; separate-bulk-audit-sweep-cancelled"
+}

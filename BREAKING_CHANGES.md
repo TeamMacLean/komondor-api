@@ -1,5 +1,20 @@
 # Breaking changes — hardening refactor
 
+## Administrative archive registrations (22 October 2026)
+
+Projects created by the new administrative registration CLI retain exact existing
+root spelling, including mixed case. Deploy the matching Project model before
+exposing them to writers; old save hooks can regenerate lowercase paths. Their
+identity/provenance/history cannot be changed or deleted through ordinary Project
+model operations. Normal description and storage-state updates still work.
+Partial Project documents excluding registration provenance must be reloaded before
+document save. Query pipeline updates are refused; use explicit field updates.
+
+No existing project is converted automatically. Ordinary project creation remains
+unchanged. Reverting to an older API after administrative registrations exist is
+not a safe rollback without first addressing the path/history safeguards. See
+[registration and recovery](docs/ARCHIVE_PROJECT_REGISTRATION.md).
+
 ## Background submission compatibility (September 2026)
 
 Checksum mismatches now set `md5VerificationStatus: "failed"`, rather than

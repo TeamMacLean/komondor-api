@@ -1,0 +1,19 @@
+{
+  "command": [
+    "ssh",
+    "-S",
+    "/Users/deeks/.ssh/v1333-codex-reconcile.sock",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=15",
+    "deeks@v1333.nbi.ac.uk",
+    "/storage/.nvm/versions/node/v24.11.1/bin/node -"
+  ],
+  "collector": "collector-ownership.cjs",
+  "collectorSha256": "91d54cb68d3102f6f23f9f520b400302293580c675650179de1eb91e81947249",
+  "exitCode": 0,
+  "output": "ownership-20261022T171418Z.json",
+  "outputSha256": "ba6b970041cfaca552c08554c4e5edeea7c3de7e670953465d1d8772a0eb2dd7",
+  "productionWrites": false
+}

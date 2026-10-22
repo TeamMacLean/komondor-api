@@ -949,6 +949,52 @@ paths:
         "500":
           $ref: "#/components/responses/ServerError"
 
+  /project/reconciliation-history:
+    get:
+      tags: [Projects]
+      summary: Administrative provenance and retained change history for a project.
+      description: |
+        Requires an authenticated user with isAdmin=true. Ordinary Project JSON
+        omits these fields. Administrative registration records an absent prior
+        document, source/Unix ownership evidence, the chosen custodian, complete
+        created values, operator, date and reviewed-plan digest. This endpoint
+        is read-only; it cannot edit or remove history.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectId"
+      responses:
+        "200":
+          description: Retained history; null registration and an empty history for legacy projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [projectId, registration, history]
+                properties:
+                  projectId:
+                    $ref: "#/components/schemas/ObjectId"
+                  registration:
+                    type: [object, "null"]
+                    additionalProperties: true
+                  history:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+        "400":
+          description: Missing or invalid project ID.
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          description: Administrator access required.
+        "404":
+          description: Project not found.
+        "500":
+          $ref: "#/components/responses/ServerError"
+
   /project/toggle-nudgeable:
     put:
       tags: [Projects]
@@ -3295,6 +3341,10 @@ components:
 
     Project:
       type: object
+      description: |
+        Ordinary serialization omits registrationProvenance and reconciliationHistory.
+        Administrators can read them through /project/reconciliation-history.
+        Retrospectively registered roots can preserve mixed case in safeName/path.
       properties:
         _id:
           $ref: "#/components/schemas/ObjectId"

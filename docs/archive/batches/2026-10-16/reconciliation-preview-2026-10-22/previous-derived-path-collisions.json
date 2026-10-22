@@ -1,0 +1,562 @@
+[
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac2v_solexa/run1/raw/ac2v_run127_lane7.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b97e6",
+        "fileId": "5fc012c7a3efcb29338b8c98",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/raw/ac2v_run127_lane7.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9d0b",
+        "fileId": "5fc012c8a3efcb29338b91bd",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/processed/ac2v_run127_lane7.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac2v_solexa/run1/raw/ac2v_run127_lane7.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b975c",
+        "fileId": "5fc012c7a3efcb29338b8c0e",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/raw/ac2v_run127_lane7.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9c3b",
+        "fileId": "5fc012c8a3efcb29338b90ed",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/processed/ac2v_run127_lane7.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac2v_solexa/run1/raw/ac2v_run127_lane8.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9733",
+        "fileId": "5fc012c7a3efcb29338b8be5",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/processed/ac2v_run127_lane8.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9fc4",
+        "fileId": "5fc012c9a3efcb29338b9476",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/raw/ac2v_run127_lane8.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac2v_solexa/run1/raw/ac2v_run127_lane8.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9c6f",
+        "fileId": "5fc012c8a3efcb29338b9121",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/processed/ac2v_run127_lane8.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9d2b",
+        "fileId": "5fc012c8a3efcb29338b91dd",
+        "path": "/jjones/albugo_candida/ac2v_solexa/run1/raw/ac2v_run127_lane8.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac7v_solexa/run1/raw/ac7v_run155_lane6.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9d15",
+        "fileId": "5fc012c8a3efcb29338b91c7",
+        "path": "/jjones/albugo_candida/ac7v_solexa/run1/processed/ac7v_run155_lane6.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9f86",
+        "fileId": "5fc012c9a3efcb29338b9438",
+        "path": "/jjones/albugo_candida/ac7v_solexa/run1/raw/ac7v_run155_lane6.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "ac7v_solexa/run1/raw/ac7v_run155_lane6.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9953",
+        "fileId": "5fc012c7a3efcb29338b8e05",
+        "path": "/jjones/albugo_candida/ac7v_solexa/run1/processed/ac7v_run155_lane6.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba021",
+        "fileId": "5fc012c9a3efcb29338b94d3",
+        "path": "/jjones/albugo_candida/ac7v_solexa/run1/raw/ac7v_run155_lane6.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run1/raw/acbol_run111_lane3.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9709",
+        "fileId": "5fc012c6a3efcb29338b8bbb",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/processed/acbol_run111_lane3.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cba3efcb29338b979b",
+        "fileId": "5fc012c7a3efcb29338b8c4d",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/raw/acbol_run111_lane3.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run1/raw/acbol_run111_lane3.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9a42",
+        "fileId": "5fc012c8a3efcb29338b8ef4",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/raw/acbol_run111_lane3.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9a7b",
+        "fileId": "5fc012c8a3efcb29338b8f2d",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/processed/acbol_run111_lane3.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run1/raw/acbol_run115_lane1.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9ab7",
+        "fileId": "5fc012c8a3efcb29338b8f69",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/processed/acbol_run115_lane1.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9d53",
+        "fileId": "5fc012c8a3efcb29338b9205",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/raw/acbol_run115_lane1.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run1/raw/acbol_run115_lane1.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012caa3efcb29338b95b7",
+        "fileId": "5fc012c6a3efcb29338b8a69",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/raw/acbol_run115_lane1.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba013",
+        "fileId": "5fc012c9a3efcb29338b94c5",
+        "path": "/jjones/albugo_candida/acbol_solexa/run1/processed/acbol_run115_lane1.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run2/raw/acbol_run111_lane4.i1kbp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9b03",
+        "fileId": "5fc012c8a3efcb29338b8fb5",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/raw/acbol_run111_lane4.i1kbp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9e82",
+        "fileId": "5fc012c9a3efcb29338b9334",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/processed/acbol_run111_lane4.i1kbp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run2/raw/acbol_run111_lane4.i1kbp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b99a8",
+        "fileId": "5fc012c7a3efcb29338b8e5a",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/raw/acbol_run111_lane4.i1kbp.R2.fq"
+      },
+      {
+        "id": "5fc012cba3efcb29338b99bb",
+        "fileId": "5fc012c7a3efcb29338b8e6d",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/processed/acbol_run111_lane4.i1kbp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run2/raw/acbol_run114_lane4.i1kbp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9613",
+        "fileId": "5fc012c6a3efcb29338b8ac5",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/raw/acbol_run114_lane4.i1kbp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9a0a",
+        "fileId": "5fc012c7a3efcb29338b8ebc",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/processed/acbol_run114_lane4.i1kbp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbol_solexa/run2/raw/acbol_run114_lane4.i1kbp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9bab",
+        "fileId": "5fc012c8a3efcb29338b905d",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/raw/acbol_run114_lane4.i1kbp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9fff",
+        "fileId": "5fc012c9a3efcb29338b94b1",
+        "path": "/jjones/albugo_candida/acbol_solexa/run2/processed/acbol_run114_lane4.i1kbp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run1/raw/acbot_run111_lane1.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9a50",
+        "fileId": "5fc012c8a3efcb29338b8f02",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/processed/acbot_run111_lane1.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9a6d",
+        "fileId": "5fc012c8a3efcb29338b8f1f",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/raw/acbot_run111_lane1.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run1/raw/acbot_run111_lane1.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012caa3efcb29338b95b8",
+        "fileId": "5fc012c6a3efcb29338b8a6a",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/processed/acbot_run111_lane1.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba038",
+        "fileId": "5fc012c9a3efcb29338b94ea",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/raw/acbot_run111_lane1.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run1/raw/acbot_run114_lane1.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b96a0",
+        "fileId": "5fc012c6a3efcb29338b8b52",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/processed/acbot_run114_lane1.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9d40",
+        "fileId": "5fc012c8a3efcb29338b91f2",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/raw/acbot_run114_lane1.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run1/raw/acbot_run114_lane1.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9ba0",
+        "fileId": "5fc012c8a3efcb29338b9052",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/raw/acbot_run114_lane1.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9f50",
+        "fileId": "5fc012c9a3efcb29338b9402",
+        "path": "/jjones/albugo_candida/acbot_solexa/run1/processed/acbot_run114_lane1.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run2/raw/acbot_run111_lane2.i1kbp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b97e1",
+        "fileId": "5fc012c7a3efcb29338b8c93",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/raw/acbot_run111_lane2.i1kbp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba0a2",
+        "fileId": "5fc012c9a3efcb29338b9554",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/processed/acbot_run111_lane2.i1kbp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run2/raw/acbot_run111_lane2.i1kbp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b99a2",
+        "fileId": "5fc012c7a3efcb29338b8e54",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/raw/acbot_run111_lane2.i1kbp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9a90",
+        "fileId": "5fc012c8a3efcb29338b8f42",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/processed/acbot_run111_lane2.i1kbp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run2/raw/acbot_run114_lane2.i1kbp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b95f1",
+        "fileId": "5fc012c6a3efcb29338b8aa5",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/raw/acbot_run114_lane2.i1kbp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9d10",
+        "fileId": "5fc012c8a3efcb29338b91c2",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/processed/acbot_run114_lane2.i1kbp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acbot_solexa/run2/raw/acbot_run114_lane2.i1kbp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b98db",
+        "fileId": "5fc012c7a3efcb29338b8d8d",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/processed/acbot_run114_lane2.i1kbp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9bbe",
+        "fileId": "5fc012c8a3efcb29338b9070",
+        "path": "/jjones/albugo_candida/acbot_solexa/run2/raw/acbot_run114_lane2.i1kbp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acex1_solexa/run1/raw/acex1_run151_lane3.i300bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b973d",
+        "fileId": "5fc012c7a3efcb29338b8bef",
+        "path": "/jjones/albugo_candida/acex1_solexa/run1/processed/acex1_run151_lane3.i300bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9e8e",
+        "fileId": "5fc012c9a3efcb29338b9340",
+        "path": "/jjones/albugo_candida/acex1_solexa/run1/raw/acex1_run151_lane3.i300bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acex1_solexa/run1/raw/acex1_run151_lane3.i300bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9980",
+        "fileId": "5fc012c7a3efcb29338b8e33",
+        "path": "/jjones/albugo_candida/acex1_solexa/run1/processed/acex1_run151_lane3.i300bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9ae0",
+        "fileId": "5fc012c8a3efcb29338b8f92",
+        "path": "/jjones/albugo_candida/acex1_solexa/run1/raw/acex1_run151_lane3.i300bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run1/raw/acnc2_run101_lane4.i800bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9b13",
+        "fileId": "5fc012c8a3efcb29338b8fc5",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/processed/acnc2_run101_lane4.i800bp.R1.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9b33",
+        "fileId": "5fc012c8a3efcb29338b8fe5",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/raw/acnc2_run101_lane4.i800bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run1/raw/acnc2_run101_lane4.i800bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9adf",
+        "fileId": "5fc012c8a3efcb29338b8f91",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/raw/acnc2_run101_lane4.i800bp.R2.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338b9ffe",
+        "fileId": "5fc012c9a3efcb29338b94b0",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/processed/acnc2_run101_lane4.i800bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run1/raw/acnc2_run101_lane5.i800bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012caa3efcb29338b95e2",
+        "fileId": "5fc012c6a3efcb29338b8a94",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/raw/acnc2_run101_lane5.i800bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba094",
+        "fileId": "5fc012c9a3efcb29338b9546",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/processed/acnc2_run101_lane5.i800bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run1/raw/acnc2_run101_lane5.i800bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9a73",
+        "fileId": "5fc012c8a3efcb29338b8f25",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/processed/acnc2_run101_lane5.i800bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9e51",
+        "fileId": "5fc012c9a3efcb29338b9303",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run1/raw/acnc2_run101_lane5.i800bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run2/raw/acnc2_run101_lane6.i500bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9c48",
+        "fileId": "5fc012c8a3efcb29338b90fa",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/processed/acnc2_run101_lane6.i500bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba066",
+        "fileId": "5fc012c9a3efcb29338b9518",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/raw/acnc2_run101_lane6.i500bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run2/raw/acnc2_run101_lane6.i500bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b96b0",
+        "fileId": "5fc012c6a3efcb29338b8b62",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/processed/acnc2_run101_lane6.i500bp.R2.fq"
+      },
+      {
+        "id": "5fc012cba3efcb29338b9868",
+        "fileId": "5fc012c7a3efcb29338b8d1a",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/raw/acnc2_run101_lane6.i500bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run2/raw/acnc2_run101_lane7.i500bp.R1.fq",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b97f0",
+        "fileId": "5fc012c7a3efcb29338b8ca2",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/processed/acnc2_run101_lane7.i500bp.R1.fq"
+      },
+      {
+        "id": "5fc012cda3efcb29338ba01c",
+        "fileId": "5fc012c9a3efcb29338b94ce",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/raw/acnc2_run101_lane7.i500bp.R1.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-005",
+    "oldExpected": "acnc2_solexa/run2/raw/acnc2_run101_lane7.i500bp.R2.fq",
+    "refs": [
+      {
+        "id": "5fc012cca3efcb29338b9a19",
+        "fileId": "5fc012c7a3efcb29338b8ecb",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/processed/acnc2_run101_lane7.i500bp.R2.fq"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9ce9",
+        "fileId": "5fc012c8a3efcb29338b919b",
+        "path": "/jjones/albugo_candida/acnc2_solexa/run2/raw/acnc2_run101_lane7.i500bp.R2.fq"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-012",
+    "oldExpected": "ill_2/ill_2/raw/ill_2_DO16090244-2_HNVV5BCXX_L1_1.clean.fq.gz",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b97f9",
+        "fileId": "5fc012c7a3efcb29338b8cab",
+        "path": "/jjones/rice_renseq/ill_2/ill_2/processed/ill_2_DO16090244-2_HNVV5BCXX_L1_1.clean.fq.gz"
+      },
+      {
+        "id": "5fc012cca3efcb29338b9a1e",
+        "fileId": "5fc012c7a3efcb29338b8ed0",
+        "path": "/jjones/rice_renseq/ill_2/ill_2/raw/ill_2_DO16090244-2_HNVV5BCXX_L1_1.clean.fq.gz"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-047",
+    "oldExpected": "can_0_pacbio_renseq/can_0_pacbio_renseq_2/raw/Can-0_ROI_2.fastq.gz",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b9787",
+        "fileId": "5fc012c7a3efcb29338b8c39",
+        "path": "/jjones/arabidopsis_pacbio_renseq/can_0_pacbio_renseq/can_0_pacbio_renseq_2/raw/Can-0_ROI_2.fastq.gz"
+      },
+      {
+        "id": "5fc012cba3efcb29338b99b1",
+        "fileId": "5fc012c7a3efcb29338b8e63",
+        "path": "/jjones/arabidopsis_pacbio_renseq/can_0_pacbio_renseq/can_0_pacbio_renseq_2/processed/Can-0_ROI_2.fastq.gz"
+      }
+    ]
+  },
+  {
+    "entry": "jjones-047",
+    "oldExpected": "col_0_nextera_pacbio_renseq/col_0_nextera_pacbio_renseq/raw/Col-0_10_ng_nextera.fastq.gz",
+    "refs": [
+      {
+        "id": "5fc012cba3efcb29338b965f",
+        "fileId": "5fc012c6a3efcb29338b8b11",
+        "path": "/jjones/arabidopsis_pacbio_renseq/col_0_nextera_pacbio_renseq/col_0_nextera_pacbio_renseq/raw/Col-0_10_ng_nextera.fastq.gz"
+      },
+      {
+        "id": "5fc012cba3efcb29338b966d",
+        "fileId": "5fc012c6a3efcb29338b8b1f",
+        "path": "/jjones/arabidopsis_pacbio_renseq/col_0_nextera_pacbio_renseq/col_0_nextera_pacbio_renseq/processed/Col-0_10_ng_nextera.fastq.gz"
+      }
+    ]
+  }
+]

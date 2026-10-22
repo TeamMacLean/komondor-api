@@ -1,5 +1,25 @@
 # Placeholder registration and canonical roots
 
+**Step 1 is implemented locally:** [administrative registration runbook](../../../ARCHIVE_PROJECT_REGISTRATION.md).
+It covers the 23 missing Project records with retained creation history. Production
+execution and the remaining reconciliation steps have not run.
+
+**Latest owner/checksum clarification (22 October):** [recorded proposal](reconciliation-preview-2026-10-22/OWNERSHIP_AND_NEXT_STEPS.md).
+Use `winj` for all ten Saunders entries (five already registered, five new),
+and `shrestha` for the 17 Talbot directories and Courville. Filesystem ownership
+stays unchanged. See the [original-value retention design](reconciliation-preview-2026-10-22/ORIGINAL_VALUES_AND_CORRECTIONS.md) for the accepted registration/path correction approach. The separate
+bulk audit checksum sweep is cancelled; normal per-project archive verification
+remains. This supersedes earlier instructions to use `tsldata`, leave `root` as
+the proposed catalogue owner, or await a bulk audit. No production write is authorized.
+
+**22 October update:** the [reconciliation preview](reconciliation-preview-2026-10-22/README.md)
+supersedes the enquiry/deadline and group-administrator-address prerequisites below.
+Keep existing legacy owners and preserve source owner identifiers for unregistered
+trees. The earlier POST recipes assign the authenticated operator and can send an
+email, so they must not be used unchanged for this new policy. Root handling is
+being reviewed with a preference for retaining actual physical paths; the rename
+procedure below is an unexecuted alternative, not an authorized next step.
+
 Proposal only. No project has been created and no directory has been moved by this
 review. Apply after the discrepancy email's recorded deadline or an explicit archive
 reply, following [ACTION_PLAN.md](ACTION_PLAN.md). **George must supply the Talbot

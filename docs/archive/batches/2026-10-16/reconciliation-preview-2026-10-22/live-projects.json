@@ -1,0 +1,6747 @@
+[
+  {
+    "entryId": "two_blades-002",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d00",
+    "physicalRoot": "/mnt/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+    "rootExists": true,
+    "files": 374,
+    "bytes": 521252084820,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d00",
+        "path": "/two_blades/pacbio_genome_sequencing_ppufv02",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:14.743Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-003",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/two_blades/Courville",
+    "rootExists": true,
+    "files": 100,
+    "bytes": 298805448427,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "shrestha",
+    "unixOwner": {
+      "uid": 10273,
+      "username": "shrestha"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:15.254Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-004",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cfd",
+    "physicalRoot": "/mnt/reads/two_blades/ppufv02_transcriptome",
+    "rootExists": true,
+    "files": 867,
+    "bytes": 298625577302,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cfd",
+        "path": "/two_blades/ppufv02_transcriptome",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 24,
+      "runs": 24,
+      "reads": 288,
+      "additionalFiles": 0,
+      "files": 288
+    },
+    "observationAt": "2026-10-22T16:46:17.971Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-005",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d58",
+    "physicalRoot": "/mnt/reads/two_blades/gargy_2019_rnaseq",
+    "rootExists": true,
+    "files": 59,
+    "bytes": 274802985983,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "romeroc",
+    "existingSecondaryOwner": "inoue",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d58",
+        "path": "/two_blades/gargy_2019_rnaseq",
+        "owner": "romeroc"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:18.666Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-006",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d05",
+    "physicalRoot": "/mnt/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+    "rootExists": true,
+    "files": 41,
+    "bytes": 271991566056,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ilkn",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d05",
+        "path": "/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+        "owner": "ilkn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 6,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:20.253Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-007",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d16",
+    "physicalRoot": "/mnt/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+    "rootExists": true,
+    "files": 266,
+    "bytes": 249579426855,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d16",
+        "path": "/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 12,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:25.486Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-008",
+    "disposition": "archive",
+    "projectId": "60be4bafe788b405b6ce6726",
+    "physicalRoot": "/mnt/reads/two_blades/2021_gargy_accessions_wgs",
+    "rootExists": true,
+    "files": 59,
+    "bytes": 225146340583,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "romeroc",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60be4bafe788b405b6ce6726",
+        "path": "/two_blades/2021_gargy_accessions_wgs",
+        "owner": "romeroc"
+      }
+    ],
+    "dbCounts": {
+      "samples": 8,
+      "runs": 7,
+      "reads": 56,
+      "additionalFiles": 3,
+      "files": 59
+    },
+    "observationAt": "2026-10-22T16:46:27.400Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-009",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cfe",
+    "physicalRoot": "/mnt/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+    "rootExists": true,
+    "files": 30,
+    "bytes": 219297530739,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "vanessep",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cfe",
+        "path": "/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 3,
+      "reads": 0,
+      "additionalFiles": 4,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:46:28.187Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-010",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d5f",
+    "physicalRoot": "/mnt/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+    "rootExists": true,
+    "files": 239,
+    "bytes": 214088937044,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5f",
+        "path": "/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:29.544Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-011",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d5e",
+    "physicalRoot": "/mnt/reads/two_blades/pkg_enq_698nadineilk",
+    "rootExists": true,
+    "files": 74,
+    "bytes": 168220436830,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "rigneyb",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5e",
+        "path": "/two_blades/pkg_enq_698nadineilk",
+        "owner": "rigneyb"
+      }
+    ],
+    "dbCounts": {
+      "samples": 11,
+      "runs": 11,
+      "reads": 11,
+      "additionalFiles": 0,
+      "files": 11
+    },
+    "observationAt": "2026-10-22T16:46:30.568Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-012",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d20",
+    "physicalRoot": "/mnt/reads/two_blades/rnaseqp_sa",
+    "rootExists": true,
+    "files": 70,
+    "bytes": 166467707030,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "rigneyb",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d20",
+        "path": "/two_blades/rnaseqp_sa",
+        "owner": "rigneyb"
+      }
+    ],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:30.746Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-013",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d7e",
+    "physicalRoot": "/mnt/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+    "rootExists": true,
+    "files": 84,
+    "bytes": 150156064373,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7e",
+        "path": "/two_blades/cajanus_70x_genomicdata_reads_illumina",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 21,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:46:31.082Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-014",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d6c",
+    "physicalRoot": "/mnt/reads/two_blades/ppufv02_timecourse",
+    "rootExists": true,
+    "files": 64,
+    "bytes": 148918476355,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6c",
+        "path": "/two_blades/ppufv02_timecourse",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 8,
+      "runs": 8,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:31.305Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-015",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "physicalRoot": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+    "rootExists": true,
+    "files": 50,
+    "bytes": 145459637100,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d67",
+        "path": "/two_blades/japanse_isolate_timecourse",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 12,
+      "reads": 25,
+      "additionalFiles": 0,
+      "files": 25
+    },
+    "observationAt": "2026-10-22T16:46:32.539Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-016",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d0b",
+    "physicalRoot": "/mnt/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+    "rootExists": true,
+    "files": 87,
+    "bytes": 139553461709,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "guptay",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d0b",
+        "path": "/two_blades/_re_sequencing_genomic_dna_bgi",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 8,
+      "runs": 8,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:33.884Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-017",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d5d",
+    "physicalRoot": "/mnt/reads/two_blades/medicago_trucatala__genome_sequences",
+    "rootExists": true,
+    "files": 20,
+    "bytes": 133328625562,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "peter.vanesse@tsl.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5d",
+        "path": "/two_blades/medicago_trucatala__genome_sequences",
+        "owner": "peter.vanesse@tsl.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 8,
+      "runs": 7,
+      "reads": 18,
+      "additionalFiles": 1,
+      "files": 19
+    },
+    "observationAt": "2026-10-22T16:46:35.847Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-018",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d07",
+    "physicalRoot": "/mnt/reads/two_blades/gargy_2019_isoseq",
+    "rootExists": true,
+    "files": 11,
+    "bytes": 123255416179,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "romeroc",
+    "existingSecondaryOwner": "inoue",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d07",
+        "path": "/two_blades/gargy_2019_isoseq",
+        "owner": "romeroc"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:36.453Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-019",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d55",
+    "physicalRoot": "/mnt/reads/two_blades/ppufv02_nanopore_sequencing",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 106000044545,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d55",
+        "path": "/two_blades/ppufv02_nanopore_sequencing",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:36.834Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-020",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d08",
+    "physicalRoot": "/mnt/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+    "rootExists": true,
+    "files": 22,
+    "bytes": 103376057393,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Harun.Murithi@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "guptay",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d08",
+        "path": "/two_blades/rnaseq_of_differential_isolates_of_asr",
+        "owner": "Harun.Murithi@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 10,
+      "runs": 9,
+      "reads": 6,
+      "additionalFiles": 1,
+      "files": 7
+    },
+    "observationAt": "2026-10-22T16:46:38.660Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-021",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d48",
+    "physicalRoot": "/mnt/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+    "rootExists": true,
+    "files": 44,
+    "bytes": 102821725130,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "peter.vanesse@tsl.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d48",
+        "path": "/two_blades/sequencing_field_isolates_of_phakopsora",
+        "owner": "peter.vanesse@tsl.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 5,
+      "reads": 10,
+      "additionalFiles": 0,
+      "files": 10
+    },
+    "observationAt": "2026-10-22T16:46:39.816Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-022",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1f",
+    "physicalRoot": "/mnt/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+    "rootExists": true,
+    "files": 19,
+    "bytes": 100282185901,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ilkn",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1f",
+        "path": "/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+        "owner": "ilkn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 6,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:42.058Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-023",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d62",
+    "physicalRoot": "/mnt/reads/two_blades/foc_cr1_",
+    "rootExists": true,
+    "files": 50,
+    "bytes": 100272415170,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "sarah.schmidt@tsl.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d62",
+        "path": "/two_blades/foc_cr1_",
+        "owner": "sarah.schmidt@tsl.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:42.149Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-024",
+    "disposition": "archive",
+    "projectId": "606d815ed7661b6ec22a0799",
+    "physicalRoot": "/mnt/reads/two_blades/adpop7_progeny_bsa_illumina",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 97868724548,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "strachan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "606d815ed7661b6ec22a0799",
+        "path": "/two_blades/adpop7_progeny_bsa_illumina",
+        "owner": "strachan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 0,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:46:42.676Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-025",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d6f",
+    "physicalRoot": "/mnt/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+    "rootExists": true,
+    "files": 56,
+    "bytes": 89741146441,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6f",
+        "path": "/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:43.290Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-026",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d2c",
+    "physicalRoot": "/mnt/reads/two_blades/foc_st4",
+    "rootExists": true,
+    "files": 50,
+    "bytes": 89668270245,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "sarah.schmidt@tsl.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d2c",
+        "path": "/two_blades/foc_st4",
+        "owner": "sarah.schmidt@tsl.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:43.470Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-027",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d54",
+    "physicalRoot": "/mnt/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+    "rootExists": true,
+    "files": 60,
+    "bytes": 85588402376,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "guptay",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d54",
+        "path": "/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:44.408Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-028",
+    "disposition": "archive",
+    "projectId": "6130d23de788b405b6ce6d93",
+    "physicalRoot": "/mnt/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+    "rootExists": true,
+    "files": 14,
+    "bytes": 81147190680,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "romeroc",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6130d23de788b405b6ce6d93",
+        "path": "/two_blades/genotyping_by_sequencing_advanced_population_8",
+        "owner": "romeroc"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 4,
+      "additionalFiles": 10,
+      "files": 14
+    },
+    "observationAt": "2026-10-22T16:46:45.382Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-029",
+    "disposition": "archive",
+    "projectId": "6051c37ad7661b6ec22a06e3",
+    "physicalRoot": "/mnt/reads/two_blades/adpop7_parents_wgs_illumina",
+    "rootExists": true,
+    "files": 6,
+    "bytes": 77132674232,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "strachan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6051c37ad7661b6ec22a06e3",
+        "path": "/two_blades/adpop7_parents_wgs_illumina",
+        "owner": "strachan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 3,
+      "reads": 6,
+      "additionalFiles": 0,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:46:45.944Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-030",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d52",
+    "physicalRoot": "/mnt/reads/two_blades/asr_sequencing_10xgenomics",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 77051692759,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d52",
+        "path": "/two_blades/asr_sequencing_10xgenomics",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 4,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:46:46.072Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-031",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d51",
+    "physicalRoot": "/mnt/reads/two_blades/asr_sequencing_illumina",
+    "rootExists": true,
+    "files": 7,
+    "bytes": 72453177309,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d51",
+        "path": "/two_blades/asr_sequencing_illumina",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:46.118Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-032",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1c",
+    "physicalRoot": "/mnt/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+    "rootExists": true,
+    "files": 10,
+    "bytes": 51726945153,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1c",
+        "path": "/two_blades/mtruncatula_bgi_rnaseq_parents",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:46.966Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-033",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d18",
+    "physicalRoot": "/mnt/reads/two_blades/exome_capture_field_samples_jan2018",
+    "rootExists": true,
+    "files": 345,
+    "bytes": 49872696933,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d18",
+        "path": "/two_blades/exome_capture_field_samples_jan2018",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 5,
+      "files": 5
+    },
+    "observationAt": "2026-10-22T16:46:47.198Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-034",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d7d",
+    "physicalRoot": "/mnt/reads/two_blades/ppufv02_gdna_bgi",
+    "rootExists": true,
+    "files": 7,
+    "bytes": 49736660585,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "vanessep",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7d",
+        "path": "/two_blades/ppufv02_gdna_bgi",
+        "owner": "vanessep"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 6,
+      "additionalFiles": 1,
+      "files": 7
+    },
+    "observationAt": "2026-10-22T16:46:47.701Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-035",
+    "disposition": "archive",
+    "projectId": "606eb043d7661b6ec22a07a3",
+    "physicalRoot": "/mnt/reads/two_blades/adpop7_refassembly_hifi",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 46103572077,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "strachan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "606eb043d7661b6ec22a07a3",
+        "path": "/two_blades/adpop7_refassembly_hifi",
+        "owner": "strachan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 0,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:46:47.862Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-036",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d15",
+    "physicalRoot": "/mnt/reads/two_blades/soybean_rust_dovetail_hic",
+    "rootExists": true,
+    "files": 11,
+    "bytes": 44801395583,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "guptay",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d15",
+        "path": "/two_blades/soybean_rust_dovetail_hic",
+        "owner": "guptay"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 2,
+      "additionalFiles": 9,
+      "files": 11
+    },
+    "observationAt": "2026-10-22T16:46:48.747Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-037",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d2d",
+    "physicalRoot": "/mnt/reads/two_blades/gltp_wgs_cintiakawashima",
+    "rootExists": true,
+    "files": 11,
+    "bytes": 40690750463,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d2d",
+        "path": "/two_blades/gltp_wgs_cintiakawashima",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:48.850Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-038",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3f",
+    "physicalRoot": "/mnt/reads/two_blades/gltp_rnaseq_cintiakawashima",
+    "rootExists": true,
+    "files": 10,
+    "bytes": 37991753431,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3f",
+        "path": "/two_blades/gltp_rnaseq_cintiakawashima",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:49.148Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-039",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d19",
+    "physicalRoot": "/mnt/reads/two_blades/bulks_asr_3_screen",
+    "rootExists": true,
+    "files": 10,
+    "bytes": 33872870524,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "rigneyb",
+    "existingSecondaryOwner": "vanessep",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d19",
+        "path": "/two_blades/bulks_asr_3_screen",
+        "owner": "rigneyb"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 2,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:46:49.632Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-040",
+    "disposition": "archive",
+    "projectId": "60bf4a7be788b405b6ce6763",
+    "physicalRoot": "/mnt/reads/two_blades/ant_project_rnaseq_data",
+    "rootExists": true,
+    "files": 21,
+    "bytes": 31061957907,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "navarrim",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60bf4a7be788b405b6ce6763",
+        "path": "/two_blades/ant_project_rnaseq_data",
+        "owner": "navarrim"
+      }
+    ],
+    "dbCounts": {
+      "samples": 8,
+      "runs": 8,
+      "reads": 16,
+      "additionalFiles": 5,
+      "files": 21
+    },
+    "observationAt": "2026-10-22T16:46:51.639Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-041",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d45",
+    "physicalRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 23555304813,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d45",
+        "path": "/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:51.811Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-042",
+    "disposition": "archive",
+    "projectId": "604f7072d7661b6ec22a06cf",
+    "physicalRoot": "/mnt/reads/two_blades/advpop7_cdna_nanopore",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 20841174602,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "strachan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "604f7072d7661b6ec22a06cf",
+        "path": "/two_blades/advpop7_cdna_nanopore",
+        "owner": "strachan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 2,
+      "additionalFiles": 0,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:46:52.049Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-043",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d22",
+    "physicalRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_rd",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 9850699379,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d22",
+        "path": "/two_blades/legumeenrichmentcapture_rd",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:52.093Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-044",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3b",
+    "physicalRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_s48",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 9238905532,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3b",
+        "path": "/two_blades/legumeenrichmentcapture_s48",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:52.246Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-045",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d63",
+    "physicalRoot": "/mnt/reads/two_blades/legumeenrichmentcapture_raparent",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 8833478265,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "kawashic",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d63",
+        "path": "/two_blades/legumeenrichmentcapture_raparent",
+        "owner": "kawashic"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:52.473Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-046",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d65",
+    "physicalRoot": "/mnt/reads/two_blades/rnaseq_m_trun",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 8236352627,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "rigneyb",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d65",
+        "path": "/two_blades/rnaseq_m_trun",
+        "owner": "rigneyb"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 3,
+      "reads": 6,
+      "additionalFiles": 0,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:46:52.801Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-047",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d74",
+    "physicalRoot": "/mnt/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+    "rootExists": true,
+    "files": 5,
+    "bytes": 7270673459,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ilkn",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d74",
+        "path": "/two_blades/rnaseq_2bl_ni_gargy_fam1",
+        "owner": "ilkn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:46:53.209Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-048",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d80",
+    "physicalRoot": "/mnt/reads/two_blades/pkg_enq_832_01nadineilk",
+    "rootExists": true,
+    "files": 1,
+    "bytes": 75672305,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ilkn",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d80",
+        "path": "/two_blades/pkg_enq_832_01nadineilk",
+        "owner": "ilkn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:53.624Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "two_blades-049",
+    "disposition": "record-empty-directory",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/two_blades/medicago_trucatala___19__pacbio",
+    "rootExists": true,
+    "files": 0,
+    "bytes": 0,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:46:53.719Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-002",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d39",
+    "physicalRoot": "/mnt/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+    "rootExists": true,
+    "files": 424,
+    "bytes": 577790849790,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d39",
+        "path": "/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 90,
+      "runs": 160,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:47:09.356Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-003",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1b",
+    "physicalRoot": "/mnt/reads/jjones/hk_pacbio",
+    "rootExists": true,
+    "files": 868,
+    "bytes": 550447162305,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Hari.Karki@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1b",
+        "path": "/jjones/hk_pacbio",
+        "owner": "Hari.Karki@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 20,
+      "runs": 21,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:47:12.872Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-004",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "physicalRoot": "/mnt/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+    "rootExists": true,
+    "files": 186,
+    "bytes": 377051587961,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d0a",
+        "path": "/jjones/whole_genome_shotgun_of_solanum_americanum",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 54,
+      "runs": 53,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:47:20.614Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-005",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d29",
+    "physicalRoot": "/mnt/reads/jjones/albugo_candida",
+    "rootExists": true,
+    "files": 525,
+    "bytes": 359930630710,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d29",
+        "path": "/jjones/albugo_candida",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 14,
+      "runs": 24,
+      "reads": 74,
+      "additionalFiles": 4,
+      "files": 78
+    },
+    "observationAt": "2026-10-22T16:47:26.072Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-006",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d6b",
+    "physicalRoot": "/mnt/reads/jjones/witekk_s_americanum_gDNA_bgi",
+    "rootExists": true,
+    "files": 135,
+    "bytes": 319776477622,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6b",
+        "path": "/jjones/witekk_s_americanum_gdna_bgi",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:47:27.242Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-007",
+    "disposition": "archive",
+    "projectId": "60b78429e788b405b6ce66aa",
+    "physicalRoot": "/mnt/reads/jjones/s__americanum_nanopore_cdna_renseq",
+    "rootExists": true,
+    "files": 29,
+    "bytes": 162591239741,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "linx",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60b78429e788b405b6ce66aa",
+        "path": "/jjones/s__americanum_nanopore_cdna_renseq",
+        "owner": "linx"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 5,
+      "additionalFiles": 24,
+      "files": 29
+    },
+    "observationAt": "2026-10-22T16:47:27.641Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-008",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+    "rootExists": true,
+    "files": 56,
+    "bytes": 154231387866,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3a",
+        "path": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 17,
+      "reads": 9,
+      "additionalFiles": 3,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:47:29.076Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-009",
+    "disposition": "archive",
+    "projectId": "60ba0530e788b405b6ce66f2",
+    "physicalRoot": "/mnt/reads/jjones/s__americanum_sp1102_cdna_nanopore",
+    "rootExists": true,
+    "files": 22,
+    "bytes": 120693731678,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "linx",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60ba0530e788b405b6ce66f2",
+        "path": "/jjones/s__americanum_sp1102_cdna_nanopore",
+        "owner": "linx"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 6,
+      "additionalFiles": 16,
+      "files": 22
+    },
+    "observationAt": "2026-10-22T16:47:29.483Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-010",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d10",
+    "physicalRoot": "/mnt/reads/jjones/aj_pathseq",
+    "rootExists": true,
+    "files": 823,
+    "bytes": 110493830761,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Agathe.Jouet@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d10",
+        "path": "/jjones/aj_pathseq",
+        "owner": "Agathe.Jouet@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 117,
+      "runs": 111,
+      "reads": 54,
+      "additionalFiles": 9,
+      "files": 63
+    },
+    "observationAt": "2026-10-22T16:47:43.124Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-011",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d11",
+    "physicalRoot": "/mnt/reads/jjones/dingp_ath_atacseq_2019_1",
+    "rootExists": true,
+    "files": 87,
+    "bytes": 109121636160,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d11",
+        "path": "/jjones/dingp_ath_atacseq_2019_1",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 40,
+      "runs": 40,
+      "reads": 10,
+      "additionalFiles": 0,
+      "files": 10
+    },
+    "observationAt": "2026-10-22T16:47:46.878Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-012",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "physicalRoot": "/mnt/reads/jjones/rice_renseq",
+    "rootExists": true,
+    "files": 432,
+    "bytes": 108509578131,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Agathe.Jouet@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d2b",
+        "path": "/jjones/rice_renseq",
+        "owner": "Agathe.Jouet@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 85,
+      "runs": 84,
+      "reads": 239,
+      "additionalFiles": 6,
+      "files": 245
+    },
+    "observationAt": "2026-10-22T16:48:02.700Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-013",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d66",
+    "physicalRoot": "/mnt/reads/jjones/witekk_s_pimpinellifolium_qcdata",
+    "rootExists": true,
+    "files": 27,
+    "bytes": 103435674582,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d66",
+        "path": "/jjones/witekk_s_pimpinellifolium_qcdata",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 12,
+      "additionalFiles": 0,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:48:02.918Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-014",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d24",
+    "physicalRoot": "/mnt/reads/jjones/xl_pacbio_rlp_k_seq_2019",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 79718025620,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "linx",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d24",
+        "path": "/jjones/xl_pacbio_rlp_k_seq_2019",
+        "owner": "linx"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 8,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:48:03.288Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-015",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d5a",
+    "physicalRoot": "/mnt/reads/jjones/ccg_expression",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 72453154755,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5a",
+        "path": "/jjones/ccg_expression",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:48:03.959Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-016",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d34",
+    "physicalRoot": "/mnt/reads/jjones/hk_amr5",
+    "rootExists": true,
+    "files": 160,
+    "bytes": 64299925771,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d34",
+        "path": "/jjones/hk_amr5",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 9,
+      "reads": 16,
+      "additionalFiles": 3,
+      "files": 19
+    },
+    "observationAt": "2026-10-22T16:48:05.228Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-017",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d26",
+    "physicalRoot": "/mnt/reads/jjones/witekk_jupef_solanum",
+    "rootExists": true,
+    "files": 39,
+    "bytes": 49905834495,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d26",
+        "path": "/jjones/witekk_jupef_solanum",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:48:05.451Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-018",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d6d",
+    "physicalRoot": "/mnt/reads/jjones/solanum_americanum_nanopore_sequencing",
+    "rootExists": true,
+    "files": 1202,
+    "bytes": 48063375008,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fairheas",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6d",
+        "path": "/jjones/solanum_americanum_nanopore_sequencing",
+        "owner": "fairheas"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:48:07.419Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-019",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d38",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+    "rootExists": true,
+    "files": 17,
+    "bytes": 42992833523,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d38",
+        "path": "/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 10,
+      "reads": 8,
+      "additionalFiles": 1,
+      "files": 9
+    },
+    "observationAt": "2026-10-22T16:48:08.837Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-020",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d31",
+    "physicalRoot": "/mnt/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+    "rootExists": true,
+    "files": 25,
+    "bytes": 32167515043,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d31",
+        "path": "/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 12,
+      "runs": 12,
+      "reads": 24,
+      "additionalFiles": 1,
+      "files": 25
+    },
+    "observationAt": "2026-10-22T16:48:10.625Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-021",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d7c",
+    "physicalRoot": "/mnt/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+    "rootExists": true,
+    "files": 860,
+    "bytes": 29761259708,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "ngoub",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7c",
+        "path": "/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 103,
+      "runs": 103,
+      "reads": 412,
+      "additionalFiles": 0,
+      "files": 412
+    },
+    "observationAt": "2026-10-22T16:48:27.631Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-022",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d4a",
+    "physicalRoot": "/mnt/reads/jjones/hk_renseq",
+    "rootExists": true,
+    "files": 140,
+    "bytes": 24941668725,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Hari.Karki@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d4a",
+        "path": "/jjones/hk_renseq",
+        "owner": "Hari.Karki@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 14,
+      "runs": 35,
+      "reads": 70,
+      "additionalFiles": 0,
+      "files": 70
+    },
+    "observationAt": "2026-10-22T16:48:31.871Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-023",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d78",
+    "physicalRoot": "/mnt/reads/jjones/genetic_variation_in_albugo_laibachii",
+    "rootExists": true,
+    "files": 40,
+    "bytes": 24445469078,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d78",
+        "path": "/jjones/genetic_variation_in_albugo_laibachii",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:48:32.589Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-024",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d40",
+    "physicalRoot": "/mnt/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+    "rootExists": true,
+    "files": 1,
+    "bytes": 21003151360,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "linx",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d40",
+        "path": "/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+        "owner": "linx"
+      }
+    ],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:48:32.668Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-025",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d64",
+    "physicalRoot": "/mnt/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+    "rootExists": true,
+    "files": 1080,
+    "bytes": 14327908887,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d64",
+        "path": "/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 64,
+      "runs": 64,
+      "reads": 512,
+      "additionalFiles": 0,
+      "files": 512
+    },
+    "observationAt": "2026-10-22T16:48:43.948Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-026",
+    "disposition": "archive",
+    "projectId": "61375deae788b405b6ce6da8",
+    "physicalRoot": "/mnt/reads/jjones/renseq_on_s__americanum_populations_2021",
+    "rootExists": true,
+    "files": 74,
+    "bytes": 12775990456,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fairheas",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61375deae788b405b6ce6da8",
+        "path": "/jjones/renseq_on_s__americanum_populations_2021",
+        "owner": "fairheas"
+      }
+    ],
+    "dbCounts": {
+      "samples": 16,
+      "runs": 16,
+      "reads": 64,
+      "additionalFiles": 10,
+      "files": 74
+    },
+    "observationAt": "2026-10-22T16:48:46.026Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-027",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d68",
+    "physicalRoot": "/mnt/reads/jjones/hk_amr10",
+    "rootExists": true,
+    "files": 34,
+    "bytes": 10055314240,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Hari.Karki@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d68",
+        "path": "/jjones/hk_amr10",
+        "owner": "Hari.Karki@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 10,
+      "reads": 20,
+      "additionalFiles": 0,
+      "files": 20
+    },
+    "observationAt": "2026-10-22T16:48:47.174Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-028",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d36",
+    "physicalRoot": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+    "rootExists": true,
+    "files": 21,
+    "bytes": 9649016353,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d36",
+        "path": "/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 18,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:48:49.672Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-029",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cfc",
+    "physicalRoot": "/mnt/reads/jjones/witekk_tomato_renseq_miseq",
+    "rootExists": true,
+    "files": 22,
+    "bytes": 9528073071,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cfc",
+        "path": "/jjones/witekk_tomato_renseq_miseq",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 10,
+      "additionalFiles": 0,
+      "files": 10
+    },
+    "observationAt": "2026-10-22T16:48:49.807Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-030",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d37",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 9244025241,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d37",
+        "path": "/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 6,
+      "reads": 12,
+      "additionalFiles": 0,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:48:50.737Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-031",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d44",
+    "physicalRoot": "/mnt/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+    "rootExists": true,
+    "files": 65,
+    "bytes": 8808616053,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "castelb",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d44",
+        "path": "/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 14,
+      "runs": 13,
+      "reads": 26,
+      "additionalFiles": 3,
+      "files": 29
+    },
+    "observationAt": "2026-10-22T16:48:53.580Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-032",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d6e",
+    "physicalRoot": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+    "rootExists": true,
+    "files": 21,
+    "bytes": 8502152467,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "ngoub",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6e",
+        "path": "/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 15,
+      "additionalFiles": 6,
+      "files": 21
+    },
+    "observationAt": "2026-10-22T16:48:54.950Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-033",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d71",
+    "physicalRoot": "/mnt/reads/jjones/witekk_s_tuberosum_dm_ber2",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 8210369537,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d71",
+        "path": "/jjones/witekk_s_tuberosum_dm_ber2",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 6,
+      "additionalFiles": 0,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:48:55.508Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-034",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d01",
+    "physicalRoot": "/mnt/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+    "rootExists": true,
+    "files": 68,
+    "bytes": 6953929735,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d01",
+        "path": "/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 14,
+      "runs": 14,
+      "reads": 28,
+      "additionalFiles": 4,
+      "files": 32
+    },
+    "observationAt": "2026-10-22T16:48:57.720Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-035",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d12",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+    "rootExists": true,
+    "files": 24,
+    "bytes": 6419055524,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d12",
+        "path": "/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 6,
+      "additionalFiles": 4,
+      "files": 10
+    },
+    "observationAt": "2026-10-22T16:48:58.227Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-036",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d56",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+    "rootExists": true,
+    "files": 26,
+    "bytes": 5337064647,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d56",
+        "path": "/jjones/resistance_to_albugo_laibachii_in_hr_5",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 6,
+      "files": 10
+    },
+    "observationAt": "2026-10-22T16:48:58.541Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-037",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d77",
+    "physicalRoot": "/mnt/reads/jjones/amr4_mapping",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 5110227961,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fairheas",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d77",
+        "path": "/jjones/amr4_mapping",
+        "owner": "fairheas"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 6,
+      "reads": 12,
+      "additionalFiles": 0,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:48:59.670Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-038",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1a",
+    "physicalRoot": "/mnt/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+    "rootExists": true,
+    "files": 11,
+    "bytes": 4995073219,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fairheas",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1a",
+        "path": "/jjones/non_host_resistance_to_ac2v_in_wu_0",
+        "owner": "fairheas"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:00.523Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-039",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1e",
+    "physicalRoot": "/mnt/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+    "rootExists": true,
+    "files": 21,
+    "bytes": 4725542901,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1e",
+        "path": "/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 8,
+      "additionalFiles": 0,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:49:00.893Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-040",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d27",
+    "physicalRoot": "/mnt/reads/jjones/hiseq_on_solanum_cdna",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 4102243516,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "heal",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d27",
+        "path": "/jjones/hiseq_on_solanum_cdna",
+        "owner": "heal"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 0,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:49:01.281Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-041",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d28",
+    "physicalRoot": "/mnt/reads/jjones/solynta_sequencing",
+    "rootExists": true,
+    "files": 15,
+    "bytes": 4044941281,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d28",
+        "path": "/jjones/solynta_sequencing",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 8,
+      "reads": 15,
+      "additionalFiles": 0,
+      "files": 15
+    },
+    "observationAt": "2026-10-22T16:49:02.116Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-042",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d81",
+    "physicalRoot": "/mnt/reads/jjones/furzero_hpa_emwa1_illumina",
+    "rootExists": true,
+    "files": 22,
+    "bytes": 3873656200,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d81",
+        "path": "/jjones/furzero_hpa_emwa1_illumina",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:02.357Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-043",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3c",
+    "physicalRoot": "/mnt/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+    "rootExists": true,
+    "files": 5,
+    "bytes": 2271599624,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3c",
+        "path": "/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 4,
+      "additionalFiles": 1,
+      "files": 5
+    },
+    "observationAt": "2026-10-22T16:49:02.814Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-044",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d47",
+    "physicalRoot": "/mnt/reads/jjones/miseq_renseq_on_various_solanum_",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 2200967737,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d47",
+        "path": "/jjones/miseq_renseq_on_various_solanum_",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:49:03.371Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-045",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d59",
+    "physicalRoot": "/mnt/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+    "rootExists": true,
+    "files": 6,
+    "bytes": 1999188163,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d59",
+        "path": "/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 7,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 2,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:49:03.884Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-046",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d2a",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 1685058123,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "castelb",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d2a",
+        "path": "/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 0,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:49:04.623Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-047",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "physicalRoot": "/mnt/reads/jjones/arabidopsis_pacbio_renseq",
+    "rootExists": true,
+    "files": 51,
+    "bytes": 1215896390,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d60",
+        "path": "/jjones/arabidopsis_pacbio_renseq",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 22,
+      "runs": 22,
+      "reads": 24,
+      "additionalFiles": 1,
+      "files": 25
+    },
+    "observationAt": "2026-10-22T16:49:09.273Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-048",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cfb",
+    "physicalRoot": "/mnt/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 847658798,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fairheas",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cfb",
+        "path": "/jjones/pacbio_penseq_on_phytophthora_infestans",
+        "owner": "fairheas"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:09.948Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-049",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d17",
+    "physicalRoot": "/mnt/reads/jjones/atac_cseq",
+    "rootExists": true,
+    "files": 232,
+    "bytes": 675008621,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "ngoub",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d17",
+        "path": "/jjones/atac_cseq",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 40,
+      "runs": 40,
+      "reads": 80,
+      "additionalFiles": 0,
+      "files": 80
+    },
+    "observationAt": "2026-10-22T16:49:17.797Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-050",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d49",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+    "rootExists": true,
+    "files": 17,
+    "bytes": 655616074,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d49",
+        "path": "/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 3,
+      "files": 7
+    },
+    "observationAt": "2026-10-22T16:49:18.153Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-051",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d0f",
+    "physicalRoot": "/mnt/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 618589074,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d0f",
+        "path": "/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 4,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:49:18.563Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-052",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d42",
+    "physicalRoot": "/mnt/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 336972337,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "tomlinsl",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d42",
+        "path": "/jjones/white_rust_resistance_gene_cloning_using_renseq",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:49:18.934Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-053",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d13",
+    "physicalRoot": "/mnt/reads/jjones/miseq_renseq_of_brassica_accessions_",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 298166898,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "fairheas",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d13",
+        "path": "/jjones/miseq_renseq_of_brassica_accessions_",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 4,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:49:19.485Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-054",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d35",
+    "physicalRoot": "/mnt/reads/jjones/lop_868_pacbio_renseq",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 285483141,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "jonesj",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d35",
+        "path": "/jjones/lop_868_pacbio_renseq",
+        "owner": "jonesj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 1,
+      "additionalFiles": 3,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:49:20.042Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-055",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d4e",
+    "physicalRoot": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+    "rootExists": true,
+    "files": 7,
+    "bytes": 89834094,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Oliver.Furzer@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d4e",
+        "path": "/jjones/resistance_to_albugo_laibachii_in_sf_2",
+        "owner": "Oliver.Furzer@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 1,
+      "files": 3
+    },
+    "observationAt": "2026-10-22T16:49:20.477Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-056",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d4b",
+    "physicalRoot": "/mnt/reads/jjones/plant_capture_enhancer",
+    "rootExists": true,
+    "files": 3,
+    "bytes": 34647343,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "witekk",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d4b",
+        "path": "/jjones/plant_capture_enhancer",
+        "owner": "witekk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 1,
+      "files": 3
+    },
+    "observationAt": "2026-10-22T16:49:20.655Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "jjones-057",
+    "disposition": "retire-records-retain-history",
+    "projectId": "5fc012bda3efcb29338b7d6a",
+    "physicalRoot": "/mnt/reads/jjones/dingp_ath_atacseq_2019_optimization",
+    "rootExists": true,
+    "files": 0,
+    "bytes": 0,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "dingp",
+    "existingSecondaryOwner": "jonesj",
+    "exportOwner": "root",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d6a",
+        "path": "/jjones/dingp_ath_atacseq_2019_optimization",
+        "owner": "dingp"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:20.904Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-002",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d46",
+    "physicalRoot": "/mnt/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+    "rootExists": true,
+    "files": 657,
+    "bytes": 457914621055,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "yan",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d46",
+        "path": "/ntalbot/transcription_profiling_during_rice_plant_infection",
+        "owner": "yan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 7,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:24.998Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-003",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3e",
+    "physicalRoot": "/mnt/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+    "rootExists": true,
+    "files": 269,
+    "bytes": 423593913251,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3e",
+        "path": "/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 31,
+      "runs": 31,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:33.580Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-004",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d04",
+    "physicalRoot": "/mnt/reads/ntalbot/uv_mutagenesis",
+    "rootExists": true,
+    "files": 267,
+    "bytes": 184379087191,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "tangb",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d04",
+        "path": "/ntalbot/uv_mutagenesis",
+        "owner": "tangb"
+      }
+    ],
+    "dbCounts": {
+      "samples": 17,
+      "runs": 28,
+      "reads": 0,
+      "additionalFiles": 2,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:49:37.675Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-005",
+    "disposition": "archive",
+    "projectId": "5fd1ed55d8dd4a63058cc1c9",
+    "physicalRoot": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+    "rootExists": true,
+    "files": 142,
+    "bytes": 173734125362,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "scharnag",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fd1ed55d8dd4a63058cc1c9",
+        "path": "/ntalbot/lichen_coculture_i_21_days",
+        "owner": "scharnag"
+      }
+    ],
+    "dbCounts": {
+      "samples": 35,
+      "runs": 35,
+      "reads": 73,
+      "additionalFiles": 69,
+      "files": 142
+    },
+    "observationAt": "2026-10-22T16:49:42.873Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-006",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d02",
+    "physicalRoot": "/mnt/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 141690619948,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d02",
+        "path": "/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:44.032Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-007",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d41",
+    "physicalRoot": "/mnt/reads/ntalbot/wheat_blast_project",
+    "rootExists": true,
+    "files": 95,
+    "bytes": 106623504945,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ryderl",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d41",
+        "path": "/ntalbot/wheat_blast_project",
+        "owner": "ryderl"
+      }
+    ],
+    "dbCounts": {
+      "samples": 24,
+      "runs": 24,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:49:48.835Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-008",
+    "disposition": "archive",
+    "projectId": "61204424e788b405b6ce6bde",
+    "physicalRoot": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+    "rootExists": true,
+    "files": 99,
+    "bytes": 105611175618,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "scharnag",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61204424e788b405b6ce6bde",
+        "path": "/ntalbot/lichen_coculture_i_2_days",
+        "owner": "scharnag"
+      }
+    ],
+    "dbCounts": {
+      "samples": 31,
+      "runs": 31,
+      "reads": 93,
+      "additionalFiles": 6,
+      "files": 99
+    },
+    "observationAt": "2026-10-22T16:49:52.047Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-009",
+    "disposition": "archive",
+    "projectId": "611ff26de788b405b6ce6a4c",
+    "physicalRoot": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+    "rootExists": true,
+    "files": 122,
+    "bytes": 103438441044,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "scharnag",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "611ff26de788b405b6ce6a4c",
+        "path": "/ntalbot/lichen_coculture_i_9_days",
+        "owner": "scharnag"
+      }
+    ],
+    "dbCounts": {
+      "samples": 30,
+      "runs": 30,
+      "reads": 90,
+      "additionalFiles": 32,
+      "files": 122
+    },
+    "observationAt": "2026-10-22T16:49:55.945Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-010",
+    "disposition": "archive",
+    "projectId": "5fdb2d62d7661b6ec22a0571",
+    "physicalRoot": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+    "rootExists": true,
+    "files": 89,
+    "bytes": 99954671448,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "scharnag",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fdb2d62d7661b6ec22a0571",
+        "path": "/ntalbot/lichen_coculture_i_42_days",
+        "owner": "scharnag"
+      }
+    ],
+    "dbCounts": {
+      "samples": 29,
+      "runs": 29,
+      "reads": 58,
+      "additionalFiles": 31,
+      "files": 89
+    },
+    "observationAt": "2026-10-22T16:49:59.904Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-011",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d7b",
+    "physicalRoot": "/mnt/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+    "rootExists": true,
+    "files": 128,
+    "bytes": 85999414527,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7b",
+        "path": "/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 6,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:01.346Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-012",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2370",
+    "rootExists": true,
+    "files": 11,
+    "bytes": 78243529352,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:01.768Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-013",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2035",
+    "rootExists": true,
+    "files": 97,
+    "bytes": 75397724663,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:02.194Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-014",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d4c",
+    "physicalRoot": "/mnt/reads/ntalbot/lichen_tissue_rna1",
+    "rootExists": true,
+    "files": 58,
+    "bytes": 65384995837,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "talbotn",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d4c",
+        "path": "/ntalbot/lichen_tissue_rna1",
+        "owner": "talbotn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 19,
+      "runs": 19,
+      "reads": 0,
+      "additionalFiles": 20,
+      "files": 20
+    },
+    "observationAt": "2026-10-22T16:50:06.328Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-015",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d09",
+    "physicalRoot": "/mnt/reads/ntalbot/rna_seq_of_various_mutants",
+    "rootExists": true,
+    "files": 50,
+    "bytes": 58826618808,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d09",
+        "path": "/ntalbot/rna_seq_of_various_mutants",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:07.157Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-016",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d33",
+    "physicalRoot": "/mnt/reads/ntalbot/nadph_oxidase_project",
+    "rootExists": true,
+    "files": 75,
+    "bytes": 52231000289,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ryderl",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d33",
+        "path": "/ntalbot/nadph_oxidase_project",
+        "owner": "ryderl"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:07.955Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-017",
+    "disposition": "archive",
+    "projectId": "6116bf17e788b405b6ce69e8",
+    "physicalRoot": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+    "rootExists": true,
+    "files": 21,
+    "bytes": 42891475718,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6116bf17e788b405b6ce69e8",
+        "path": "/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 7,
+      "reads": 21,
+      "additionalFiles": 0,
+      "files": 21
+    },
+    "observationAt": "2026-10-22T16:50:08.975Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-018",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_945",
+    "rootExists": true,
+    "files": 20,
+    "bytes": 38737500366,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:09.377Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-019",
+    "disposition": "archive",
+    "projectId": "6116c323e788b405b6ce69f6",
+    "physicalRoot": "/mnt/reads/ntalbot/generational_experiment_",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 36630086564,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6116c323e788b405b6ce69f6",
+        "path": "/ntalbot/generational_experiment_",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 6,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:50:09.950Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-020",
+    "disposition": "archive",
+    "projectId": "60804e0b837a8a261f0133ee",
+    "physicalRoot": "/mnt/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 35736656386,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60804e0b837a8a261f0133ee",
+        "path": "/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 9,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:50:11.141Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-021",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d2f",
+    "physicalRoot": "/mnt/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+    "rootExists": true,
+    "files": 28,
+    "bytes": 35075963678,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d2f",
+        "path": "/ntalbot/global_transcriptional_analysis_of_surface_perception",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 9,
+      "runs": 9,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:12.048Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-022",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cfa",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+    "rootExists": true,
+    "files": 97,
+    "bytes": 34152118080,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cfa",
+        "path": "/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 16,
+      "runs": 16,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:14.505Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-023",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d43",
+    "physicalRoot": "/mnt/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+    "rootExists": true,
+    "files": 14,
+    "bytes": 32153599360,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "talbotn",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d43",
+        "path": "/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+        "owner": "talbotn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 2,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:50:14.936Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-024",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2012",
+    "rootExists": true,
+    "files": 72,
+    "bytes": 31629123970,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:15.227Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-025",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_809",
+    "rootExists": true,
+    "files": 6,
+    "bytes": 27090686963,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:15.465Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-026",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cf7",
+    "physicalRoot": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 23621445468,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "talbotn",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cf7",
+        "path": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+        "owner": "talbotn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 3,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:15.658Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-027",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d79",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+    "rootExists": true,
+    "files": 30,
+    "bytes": 23114728859,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d79",
+        "path": "/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:16.949Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-028",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_930",
+    "rootExists": true,
+    "files": 52,
+    "bytes": 22742214458,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:17.228Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-029",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2323",
+    "rootExists": true,
+    "files": 40,
+    "bytes": 22039506100,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:17.724Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-030",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d06",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+    "rootExists": true,
+    "files": 24,
+    "bytes": 19142588085,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "fostera",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d06",
+        "path": "/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+        "owner": "fostera"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 6,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:18.533Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-031",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2178",
+    "rootExists": true,
+    "files": 31,
+    "bytes": 18228463024,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:20.530Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-032",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d1d",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+    "rootExists": true,
+    "files": 42,
+    "bytes": 16867382244,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d1d",
+        "path": "/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 7,
+      "runs": 7,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:21.875Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-033",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2009",
+    "rootExists": true,
+    "files": 28,
+    "bytes": 14852621710,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:22.148Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-034",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d57",
+    "physicalRoot": "/mnt/reads/ntalbot/cell_cycle",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 12147621942,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d57",
+        "path": "/ntalbot/cell_cycle",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:22.402Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-035",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_1622",
+    "rootExists": true,
+    "files": 15,
+    "bytes": 10629370636,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:22.579Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-036",
+    "disposition": "archive",
+    "projectId": "606c3308d7661b6ec22a0793",
+    "physicalRoot": "/mnt/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+    "rootExists": true,
+    "files": 13,
+    "bytes": 9339040375,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "606c3308d7661b6ec22a0793",
+        "path": "/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 8,
+      "reads": 8,
+      "additionalFiles": 1,
+      "files": 9
+    },
+    "observationAt": "2026-10-22T16:50:23.540Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-037",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_1566",
+    "rootExists": true,
+    "files": 1,
+    "bytes": 8982368958,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:23.807Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-038",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d03",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 7545919237,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d03",
+        "path": "/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:24.066Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-039",
+    "disposition": "archive",
+    "projectId": "6116c220e788b405b6ce69f2",
+    "physicalRoot": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+    "rootExists": true,
+    "files": 3,
+    "bytes": 6209130977,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6116c220e788b405b6ce69f2",
+        "path": "/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 3,
+      "additionalFiles": 0,
+      "files": 3
+    },
+    "observationAt": "2026-10-22T16:50:24.190Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-040",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_592_593",
+    "rootExists": true,
+    "files": 3,
+    "bytes": 5229182384,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:24.400Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-041",
+    "disposition": "archive",
+    "projectId": "605b441ad7661b6ec22a076a",
+    "physicalRoot": "/mnt/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+    "rootExists": true,
+    "files": 6,
+    "bytes": 4808078917,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "605b441ad7661b6ec22a076a",
+        "path": "/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 4,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:50:24.911Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-042",
+    "disposition": "archive",
+    "projectId": "60619edfd7661b6ec22a076e",
+    "physicalRoot": "/mnt/reads/ntalbot/dap_seq_mst12_and_hox7_",
+    "rootExists": true,
+    "files": 9,
+    "bytes": 4448038873,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "osesrum",
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60619edfd7661b6ec22a076e",
+        "path": "/ntalbot/dap_seq_mst12_and_hox7_",
+        "owner": "osesrum"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 1,
+      "files": 9
+    },
+    "observationAt": "2026-10-22T16:50:25.316Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-043",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d21",
+    "physicalRoot": "/mnt/reads/ntalbot/wsc1_project",
+    "rootExists": true,
+    "files": 15,
+    "bytes": 3744179136,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ryderl",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d21",
+        "path": "/ntalbot/wsc1_project",
+        "owner": "ryderl"
+      }
+    ],
+    "dbCounts": {
+      "samples": 5,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:26.807Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-044",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2171",
+    "rootExists": true,
+    "files": 1,
+    "bytes": 3557810271,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:26.943Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-045",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d7f",
+    "physicalRoot": "/mnt/reads/ntalbot/turgor_project",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 3039086281,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "ryderl",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7f",
+        "path": "/ntalbot/turgor_project",
+        "owner": "ryderl"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 5,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:27.421Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-046",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_539",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 2914165083,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:28.099Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-047",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_2561",
+    "rootExists": true,
+    "files": 34,
+    "bytes": 1523739906,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:28.496Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-048",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d25",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 57901188,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d25",
+        "path": "/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:28.785Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-049",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d50",
+    "physicalRoot": "/mnt/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 51087911,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "werev",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d50",
+        "path": "/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+        "owner": "werev"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:28.983Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-050",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_230",
+    "rootExists": true,
+    "files": 7,
+    "bytes": 8728408,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:29.065Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-051",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_758",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 119591,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:29.333Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-052",
+    "disposition": "retire-records-retain-history",
+    "projectId": "5fc012bda3efcb29338b7d4d",
+    "physicalRoot": "/mnt/reads/ntalbot/long_read_assembly_of_african_yam_bean",
+    "rootExists": true,
+    "files": 0,
+    "bytes": 0,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "talbotn",
+    "existingSecondaryOwner": "talbotn",
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d4d",
+        "path": "/ntalbot/long_read_assembly_of_african_yam_bean",
+        "owner": "talbotn"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:29.449Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "ntalbot-053",
+    "disposition": "record-empty-directory",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/ntalbot/project_946",
+    "rootExists": true,
+    "files": 0,
+    "bytes": 0,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": "tsldata",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:29.483Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-002",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7cf9",
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+    "rootExists": true,
+    "files": 260,
+    "bytes": 48614994012,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cf9",
+        "path": "/skamoun/saunderd_pstriiformis_project_tcs_clarelewis_jic_cl_20130227_01",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:30.486Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-003",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7cf5",
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_South_African_isolates",
+    "rootExists": true,
+    "files": 24,
+    "bytes": 109802811903,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cf5",
+        "path": "/skamoun/saunderd_pstriiformis_south_african_isolates",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:30.573Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-004",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d0c",
+    "physicalRoot": "/mnt/reads/skamoun/rice_blast",
+    "rootExists": true,
+    "files": 84,
+    "bytes": 408575806056,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Emilie.Chanclud@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "winj",
+    "exportOwner": "Emilie.Chanclud@sainsbury-laboratory.ac.uk",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d0c",
+        "path": "/skamoun/rice_blast",
+        "owner": "Emilie.Chanclud@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 44,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:31.677Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-005",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7d5c",
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+    "rootExists": true,
+    "files": 106,
+    "bytes": 72013629033,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5c",
+        "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130516_01_tcs_68",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:31.791Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-006",
+    "disposition": "keep",
+    "projectId": "5fc012bda3efcb29338b7d5b",
+    "physicalRoot": "/mnt/reads/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
+    "rootExists": true,
+    "files": 236,
+    "bytes": 41230907322,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "langnert",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "langnert",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d5b",
+        "path": "/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
+        "owner": "langnert"
+      }
+    ],
+    "dbCounts": {
+      "samples": 25,
+      "runs": 51,
+      "reads": 232,
+      "additionalFiles": 3,
+      "files": 235
+    },
+    "observationAt": "2026-10-22T16:50:35.951Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-007",
+    "disposition": "keep",
+    "projectId": "6054ba49d7661b6ec22a06f6",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast___zambia_2018_2020",
+    "rootExists": true,
+    "files": 44,
+    "bytes": 119681355085,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6054ba49d7661b6ec22a06f6",
+        "path": "/skamoun/wheat_blast___zambia_2018_2020",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 13,
+      "runs": 29,
+      "reads": 42,
+      "additionalFiles": 2,
+      "files": 44
+    },
+    "observationAt": "2026-10-22T16:50:37.984Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-008",
+    "disposition": "keep",
+    "projectId": "5fc012bda3efcb29338b7d70",
+    "physicalRoot": "/mnt/reads/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
+    "rootExists": true,
+    "files": 904,
+    "bytes": 797881408848,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "winj",
+    "exportOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d70",
+        "path": "/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
+        "owner": "Helen.Pennington@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 24,
+      "runs": 69,
+      "reads": 266,
+      "additionalFiles": 1,
+      "files": 267
+    },
+    "observationAt": "2026-10-22T16:50:45.334Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-009",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7cff",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast_2017",
+    "rootExists": true,
+    "files": 228,
+    "bytes": 66261978234,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "unknown",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cff",
+        "path": "/skamoun/wheat_blast_2017",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 20,
+      "runs": 20,
+      "reads": 80,
+      "additionalFiles": 4,
+      "files": 84
+    },
+    "observationAt": "2026-10-22T16:50:48.197Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-010",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d73",
+    "physicalRoot": "/mnt/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+    "rootExists": true,
+    "files": 13,
+    "bytes": 61328719175,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "langnert",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d73",
+        "path": "/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 10,
+      "runs": 11,
+      "reads": 11,
+      "additionalFiles": 2,
+      "files": 13
+    },
+    "observationAt": "2026-10-22T16:50:49.401Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-011",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d23",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast",
+    "rootExists": true,
+    "files": 68,
+    "bytes": 61698523958,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d23",
+        "path": "/skamoun/wheat_blast",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 8,
+      "reads": 28,
+      "additionalFiles": 2,
+      "files": 30
+    },
+    "observationAt": "2026-10-22T16:50:50.389Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-012",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d32",
+    "physicalRoot": "/mnt/reads/skamoun/halioticida_haliphthoros",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 5332457063,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "winj",
+    "exportOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d32",
+        "path": "/skamoun/halioticida_haliphthoros",
+        "owner": "Helen.Pennington@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 7,
+      "additionalFiles": 1,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:50:51.233Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-013",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7d7a",
+    "physicalRoot": "/mnt/reads/skamoun/xiao_scr74",
+    "rootExists": true,
+    "files": 62,
+    "bytes": 161447455740,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "winj",
+    "exportOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d7a",
+        "path": "/skamoun/xiao_scr74",
+        "owner": "Helen.Pennington@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 1,
+      "files": 9
+    },
+    "observationAt": "2026-10-22T16:50:51.964Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-014",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "physicalRoot": "/mnt/reads/skamoun/janderso_rsolani",
+    "rootExists": true,
+    "files": 40,
+    "bytes": 161890791630,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d3d",
+        "path": "/skamoun/janderso_rsolani",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 18,
+      "additionalFiles": 0,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:50:52.578Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-015",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7d0d",
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+    "rootExists": true,
+    "files": 641,
+    "bytes": 239985996303,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d0d",
+        "path": "/skamoun/saunderd_pstriiformis_project_gel139_clarelewis_jic_cl_20121001_01",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:54.080Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-016",
+    "disposition": "existing-approved-direct-disposal",
+    "projectId": "5fc012bda3efcb29338b7cf8",
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+    "rootExists": true,
+    "files": 124,
+    "bytes": 158139688071,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": "kamouns",
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7cf8",
+        "path": "/skamoun/saunderd_pstriiformis_tsl_ds_20130626_01_tcs_83",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:50:54.586Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-017",
+    "disposition": "archive",
+    "projectId": "5fc012bda3efcb29338b7d30",
+    "physicalRoot": "/mnt/reads/skamoun/halioticida_haliocrustida",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 9129,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "existingSecondaryOwner": "winj",
+    "exportOwner": "Helen.Pennington@sainsbury-laboratory.ac.uk",
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "5fc012bda3efcb29338b7d30",
+        "path": "/skamoun/halioticida_haliocrustida",
+        "owner": "Helen.Pennington@sainsbury-laboratory.ac.uk"
+      }
+    ],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 1,
+      "files": 1
+    },
+    "observationAt": "2026-10-22T16:50:54.682Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-018",
+    "disposition": "archive",
+    "projectId": "60defd3ae788b405b6ce68db",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+    "rootExists": true,
+    "files": 17,
+    "bytes": 50687234252,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60defd3ae788b405b6ce68db",
+        "path": "/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 8,
+      "reads": 16,
+      "additionalFiles": 1,
+      "files": 17
+    },
+    "observationAt": "2026-10-22T16:50:56.457Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-019",
+    "disposition": "archive",
+    "projectId": "60d1f3a0e788b405b6ce68a1",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 47942838875,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60d1f3a0e788b405b6ce68a1",
+        "path": "/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 8,
+      "reads": 16,
+      "additionalFiles": 0,
+      "files": 16
+    },
+    "observationAt": "2026-10-22T16:50:57.598Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-020",
+    "disposition": "archive",
+    "projectId": "60c8b1d3e788b405b6ce6845",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+    "rootExists": true,
+    "files": 42,
+    "bytes": 123144455087,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60c8b1d3e788b405b6ce6845",
+        "path": "/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 3,
+      "runs": 7,
+      "reads": 42,
+      "additionalFiles": 0,
+      "files": 42
+    },
+    "observationAt": "2026-10-22T16:50:59.154Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-021",
+    "disposition": "archive",
+    "projectId": "60e4528be788b405b6ce6917",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 39838925625,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "60e4528be788b405b6ce6917",
+        "path": "/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 12,
+      "additionalFiles": 0,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:50:59.420Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-022",
+    "disposition": "archive",
+    "projectId": "610fd90de788b405b6ce6946",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+    "rootExists": true,
+    "files": 60,
+    "bytes": 149454437756,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "610fd90de788b405b6ce6946",
+        "path": "/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 10,
+      "runs": 10,
+      "reads": 60,
+      "additionalFiles": 0,
+      "files": 60
+    },
+    "observationAt": "2026-10-22T16:51:00.719Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-023",
+    "disposition": "archive",
+    "projectId": "611bd783e788b405b6ce6a0c",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+    "rootExists": true,
+    "files": 14,
+    "bytes": 33201255555,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "611bd783e788b405b6ce6a0c",
+        "path": "/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 7,
+      "reads": 14,
+      "additionalFiles": 0,
+      "files": 14
+    },
+    "observationAt": "2026-10-22T16:51:01.493Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-024",
+    "disposition": "archive",
+    "projectId": "611bcc57e788b405b6ce69fc",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 9739985962,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "611bcc57e788b405b6ce69fc",
+        "path": "/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:51:01.673Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-025",
+    "disposition": "archive",
+    "projectId": "611be0c6e788b405b6ce6a3c",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+    "rootExists": true,
+    "files": 4,
+    "bytes": 9377213032,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "611be0c6e788b405b6ce6a3c",
+        "path": "/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 4,
+      "additionalFiles": 0,
+      "files": 4
+    },
+    "observationAt": "2026-10-22T16:51:01.917Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-026",
+    "disposition": "archive",
+    "projectId": "613b733ee788b405b6ce6eb8",
+    "physicalRoot": "/mnt/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+    "rootExists": true,
+    "files": 22,
+    "bytes": 66190383789,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "barragan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "barragan",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "613b733ee788b405b6ce6eb8",
+        "path": "/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+        "owner": "barragan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 11,
+      "runs": 11,
+      "reads": 22,
+      "additionalFiles": 0,
+      "files": 22
+    },
+    "observationAt": "2026-10-22T16:51:03.942Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-027",
+    "disposition": "archive",
+    "projectId": "61572b1b36105e13c15d58ac",
+    "physicalRoot": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+    "rootExists": true,
+    "files": 12,
+    "bytes": 29715892569,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61572b1b36105e13c15d58ac",
+        "path": "/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 7,
+      "runs": 6,
+      "reads": 12,
+      "additionalFiles": 0,
+      "files": 12
+    },
+    "observationAt": "2026-10-22T16:51:04.953Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-028",
+    "disposition": "keep",
+    "projectId": "61a758113545d74de71ebbec",
+    "physicalRoot": "/mnt/reads/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
+    "rootExists": true,
+    "files": 88,
+    "bytes": 252986584419,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61a758113545d74de71ebbec",
+        "path": "/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 24,
+      "runs": 48,
+      "reads": 85,
+      "additionalFiles": 3,
+      "files": 88
+    },
+    "observationAt": "2026-10-22T16:51:09.357Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-029",
+    "disposition": "keep",
+    "projectId": "61ee798cdecd27242ab8adb1",
+    "physicalRoot": "/mnt/reads/skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
+    "rootExists": true,
+    "files": 17,
+    "bytes": 28144970282,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61ee798cdecd27242ab8adb1",
+        "path": "/skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 4,
+      "runs": 8,
+      "reads": 16,
+      "additionalFiles": 1,
+      "files": 17
+    },
+    "observationAt": "2026-10-22T16:51:10.063Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-030",
+    "disposition": "keep",
+    "projectId": "61fd5d59decd27242ab8adf3",
+    "physicalRoot": "/mnt/reads/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
+    "rootExists": true,
+    "files": 18,
+    "bytes": 23406682213,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "61fd5d59decd27242ab8adf3",
+        "path": "/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 6,
+      "runs": 6,
+      "reads": 12,
+      "additionalFiles": 6,
+      "files": 18
+    },
+    "observationAt": "2026-10-22T16:51:10.895Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-031",
+    "disposition": "archive",
+    "projectId": "6452a72c525e070698932583",
+    "physicalRoot": "/mnt/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+    "rootExists": true,
+    "files": 8,
+    "bytes": 7449731477,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "barragan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "barragan",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6452a72c525e070698932583",
+        "path": "/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+        "owner": "barragan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 4,
+      "reads": 8,
+      "additionalFiles": 0,
+      "files": 8
+    },
+    "observationAt": "2026-10-22T16:51:11.446Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-032",
+    "disposition": "archive",
+    "projectId": "64c13517d32c7a7e4b174f20",
+    "physicalRoot": "/mnt/reads/skamoun/rnaseq_pikobodiesmada",
+    "rootExists": true,
+    "files": 63,
+    "bytes": 72238981053,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "bon23vap",
+    "existingSecondaryOwner": null,
+    "exportOwner": "bon23vap",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "64c13517d32c7a7e4b174f20",
+        "path": "/skamoun/rnaseq_pikobodiesmada",
+        "owner": "bon23vap"
+      }
+    ],
+    "dbCounts": {
+      "samples": 7,
+      "runs": 18,
+      "reads": 62,
+      "additionalFiles": 1,
+      "files": 63
+    },
+    "observationAt": "2026-10-22T16:51:14.583Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-033",
+    "disposition": "keep",
+    "projectId": "6502df19d32c7a7e4b174fe8",
+    "physicalRoot": "/mnt/reads/skamoun/italian_blast_fungus_isolates_from_wild_grasses",
+    "rootExists": true,
+    "files": 6,
+    "bytes": 3196182952,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "barragan",
+    "existingSecondaryOwner": null,
+    "exportOwner": "barragan",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6502df19d32c7a7e4b174fe8",
+        "path": "/skamoun/italian_blast_fungus_isolates_from_wild_grasses",
+        "owner": "barragan"
+      }
+    ],
+    "dbCounts": {
+      "samples": 2,
+      "runs": 2,
+      "reads": 6,
+      "additionalFiles": 0,
+      "files": 6
+    },
+    "observationAt": "2026-10-22T16:51:14.817Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-034",
+    "disposition": "keep",
+    "projectId": "6863b1c7dc823951803ac3a4",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast___bolivia_2023_24",
+    "rootExists": true,
+    "files": 24,
+    "bytes": 18974186184,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6863b1c7dc823951803ac3a4",
+        "path": "/skamoun/wheat_blast___bolivia_2023_24",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 12,
+      "runs": 12,
+      "reads": 24,
+      "additionalFiles": 0,
+      "files": 24
+    },
+    "observationAt": "2026-10-22T16:51:16.308Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-035",
+    "disposition": "keep",
+    "projectId": "65f06e07e372f7554d754873",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast___zambia_2023",
+    "rootExists": true,
+    "files": 39,
+    "bytes": 20274775004,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "65f06e07e372f7554d754873",
+        "path": "/skamoun/wheat_blast___zambia_2023",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 10,
+      "runs": 11,
+      "reads": 39,
+      "additionalFiles": 0,
+      "files": 39
+    },
+    "observationAt": "2026-10-22T16:51:18.501Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-036",
+    "disposition": "keep",
+    "projectId": "6863e922dc823951803ac406",
+    "physicalRoot": "/mnt/reads/skamoun/wheat_blast___paraguay_2023",
+    "rootExists": true,
+    "files": 2,
+    "bytes": 1411573425,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "winj",
+    "existingSecondaryOwner": null,
+    "exportOwner": "winj",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "6863e922dc823951803ac406",
+        "path": "/skamoun/wheat_blast___paraguay_2023",
+        "owner": "winj"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 1,
+      "reads": 2,
+      "additionalFiles": 0,
+      "files": 2
+    },
+    "observationAt": "2026-10-22T16:51:18.663Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-037",
+    "disposition": "keep",
+    "projectId": "69a81b4920a8c93a2306efc6",
+    "physicalRoot": "/mnt/reads/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
+    "rootExists": true,
+    "files": 5,
+    "bytes": 149206187126,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": "sugihara",
+    "existingSecondaryOwner": null,
+    "exportOwner": "sugihara",
+    "unixOwner": {
+      "uid": 11449,
+      "username": "tsldata"
+    },
+    "ownerChanged": false,
+    "projectClaims": [
+      {
+        "_id": "69a81b4920a8c93a2306efc6",
+        "path": "/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
+        "owner": "sugihara"
+      }
+    ],
+    "dbCounts": {
+      "samples": 1,
+      "runs": 2,
+      "reads": 5,
+      "additionalFiles": 0,
+      "files": 5
+    },
+    "observationAt": "2026-10-22T16:51:19.029Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-extra-001",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+    "rootExists": true,
+    "files": 268,
+    "bytes": 65286846255,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": null,
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:51:20.151Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-extra-002",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+    "rootExists": true,
+    "files": 38,
+    "bytes": 32165487135,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": null,
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:51:20.587Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-extra-003",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+    "rootExists": true,
+    "files": 16,
+    "bytes": 6156498502,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": null,
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:51:20.903Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-extra-004",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+    "rootExists": true,
+    "files": 34,
+    "bytes": 41786044848,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": null,
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:51:21.611Z",
+    "atomicSnapshot": false
+  },
+  {
+    "entryId": "skamoun-extra-005",
+    "disposition": "archive",
+    "projectId": null,
+    "physicalRoot": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+    "rootExists": true,
+    "files": 64,
+    "bytes": 27554681601,
+    "countsAndBytesAgreeWithPrevious": true,
+    "countsAgreementIsNotContentEquality": true,
+    "existingOwner": null,
+    "existingSecondaryOwner": null,
+    "exportOwner": null,
+    "unixOwner": {
+      "uid": 0,
+      "username": "root"
+    },
+    "ownerChanged": false,
+    "projectClaims": [],
+    "dbCounts": {
+      "samples": 0,
+      "runs": 0,
+      "reads": 0,
+      "additionalFiles": 0,
+      "files": 0
+    },
+    "observationAt": "2026-10-22T16:51:22.984Z",
+    "atomicSnapshot": false
+  }
+]
