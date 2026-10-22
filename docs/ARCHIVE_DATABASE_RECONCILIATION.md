@@ -39,11 +39,13 @@ is included. The source decisions and KEEP entries remain unchanged.
   unclassified/association holds and unregistered empty directories. Symbolic
   links are recorded as links without following them or inventing regular Files.
 
-`ntalbot-031` / `project_2178` already belongs to an existing Project through two
-Runs, while that Project also has another populated root. The database ledger
-retains this association and its 31 files. No competing Project or unsupported
-move is manufactured; the archive mover still needs a separately resolved
-multi-root association before that entry can be archived.
+The subsequent, explicitly approved [Project 2178 consolidation](archive/batches/2026-10-16/project-2178-consolidation-2026-10-22/README.md)
+is also applied and verified. It moved the intact numeric directory into
+`legacy_project_2178` beneath its existing named Project, preserving `talbotn`,
+all original values and both decision entries. The last known association hold
+is resolved. The Project now contains 39 catalogued files and must be archived
+once, covering entries `ntalbot-026` and `ntalbot-031`. This separate approval
+covered that one move; the database-only procedure above did not move files.
 
 ## Prepare and review
 

@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-22T21:35:07.101Z",
+  "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+  "restoredDocuments": 56395,
+  "restoredCollections": 17,
+  "allBackupDigestsPassed": true,
+  "restoredIndexesMatch": true,
+  "operationsReplayed": 69,
+  "unplannedDatabaseChanges": false,
+  "projectSamples": 3,
+  "projectRuns": 3,
+  "cataloguedFiles": 39,
+  "scientificReadsUnchanged": 0,
+  "allParentsAndFilesInsideProject": true,
+  "archiveOverlaySeriousAnomalies": 0,
+  "archiveOverlayMissing": 0,
+  "note": "Exact production records and original indexes restored into an isolated database; exact planned results replayed. Real filesystem rename/recovery covered by nine separate fault tests."
+}

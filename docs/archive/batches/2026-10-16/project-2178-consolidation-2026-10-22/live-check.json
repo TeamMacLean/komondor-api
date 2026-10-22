@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-22T21:40:05.522Z",
+  "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+  "operations": 69,
+  "exactResults": true,
+  "unplannedDatabaseChanges": false,
+  "originalIndexesUnchanged": true,
+  "files": 39,
+  "bytes": 41849908492,
+  "physicalDescendantsUnchanged": true,
+  "requests": 15,
+  "visibleFileLocations": 39,
+  "projectOwner": "talbotn",
+  "samples": 3,
+  "runs": 3,
+  "scientificReads": 0,
+  "archiveOverlaySeriousAnomalies": 0,
+  "untrackedFiles": 0,
+  "allPriorHistoriesRetained": true,
+  "knownAssociationHoldResolved": true,
+  "note": "Fresh live structural archive preflight; full AWS CLI plan recorded separately. No S3 writes or new payload checksum sweep."
+}

@@ -3,13 +3,15 @@
 [Database reconciliation is applied and verified](reconciliation-production-2026-10-22/README.md).
 Use the [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
 for current status. All 26,724 planned operations completed, with original values
-and history retained; all four services are online. One multi-root association is
-held. No archive transfer or manual disposal was performed.
+and history retained. The later [69-operation Project 2178 consolidation](project-2178-consolidation-2026-10-22/README.md)
+is also complete and resolves the last known association hold. All four services
+are online. No archive transfer or manual disposal was performed.
 
 [Twenty-two registrations are applied and verified](registration-production-2026-10-22/README.md).
-The original proposal for `ntalbot-031` / `project_2178` is held because existing
-Runs associate it with a named Project. Use the retained outcomes and history;
-do not execute an older registration proposal again.
+The original separate-registration proposal for `ntalbot-031` / `project_2178`
+was superseded by consolidating it beneath its existing named Project, preserving
+`talbotn` ownership. Use the current outcomes and history; do not execute the old
+registration proposal or archive the two source entries as separate Projects.
 
 # Archive batch 2026-10-16: action plan
 

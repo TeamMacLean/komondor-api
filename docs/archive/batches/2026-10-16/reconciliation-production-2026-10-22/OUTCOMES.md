@@ -7,11 +7,11 @@ All 197 decision entries are retained: 192 original source entries plus five sup
 | Reconciled (175 archive candidates and six pending manual disposal) | 181 |
 | Empty unregistered directory recorded | 2 |
 | Empty project retired, history retained | 2 |
-| Existing association held for resolution | 1 |
+| Consolidated under an existing Project (archive once with ntalbot-026) | 1 |
 | KEEP unchanged | 11 |
 | **Total** | **197** |
 
-The remaining association hold is `ntalbot-031` / `project_2178`: two existing Runs link to a named Project which also has a different populated root. Both trees and all records remain. No duplicate Project was created. Classification of newly catalogued files remains provisional; no scientific Read or pairing metadata was invented.
+The [approved consolidation](../project-2178-consolidation-2026-10-22/README.md) resolves the last known association hold. `ntalbot-031` / `project_2178` now lives intact beneath the existing Project for `ntalbot-026`, retaining `talbotn` ownership. Both source entries remain, but their shared Project is archived once with all 39 files. Classification remains provisional; no scientific Read or pairing metadata was invented. The current totals include 13,083 new File/AdditionalFile pairs and 6,771 retained dated observations.
 
 | Entry | Source decision | Database outcome | New File/AdditionalFile pairs | Current observations retained | Physical root |
 |---|---|---|---:|---:|---|
@@ -148,7 +148,7 @@ The remaining association hold is `ntalbot-031` / `project_2178`: two existing R
 | ntalbot-028 | archive | reconciled | 52 | 3 | /ntalbot/project_930 |
 | ntalbot-029 | archive | reconciled | 40 | 17 | /ntalbot/project_2323 |
 | ntalbot-030 | archive | reconciled | 24 | 12 | /ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background |
-| ntalbot-031 | archive | technical-hold | 0 | 0 | /ntalbot/project_2178 |
+| ntalbot-031 | archive | consolidated-under-existing-project | 31 | 8 | /ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor/legacy_project_2178 |
 | ntalbot-032 | archive | reconciled | 42 | 0 | /ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya |
 | ntalbot-033 | archive | reconciled | 28 | 5 | /ntalbot/project_2009 |
 | ntalbot-034 | archive | reconciled | 12 | 6 | /ntalbot/cell_cycle |

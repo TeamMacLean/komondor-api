@@ -5,6 +5,13 @@ Nudge are online.** This follows the 22 completed
 [Project registrations](../registration-production-2026-10-22/README.md).
 George explicitly authorised completing the remaining database reconciliation.
 
+**Subsequent resolution:** the [approved Project 2178 consolidation](../project-2178-consolidation-2026-10-22/README.md)
+is now applied and verified. It resolves the association hold described below,
+adds 31 File/AdditionalFile pairs and eight retained dated observations, and preserves
+both source entries under the existing `talbotn` Project. This page's execution
+counts refer to the earlier 26,724-operation plan; [OUTCOMES.md](OUTCOMES.md) reflects
+both completed stages.
+
 The [runbook](../../../../ARCHIVE_DATABASE_RECONCILIATION.md) describes retained
 before-images, history, recovery, file classification and retirement. Earlier
 read-only preview restrictions are superseded by this authority only for database
@@ -27,9 +34,11 @@ The final sealed plan was applied in full:
   independently against the returned BSON documents on the Mac.
 
 The [197-entry outcome table](OUTCOMES.md) records every original candidate and the
-five supplementary Saunders entries. There are 181 reconciled entries (175 archive
-candidates and six pending manual disposal), two retired empty Projects, two empty
-unregistered directories recorded, one association hold, and 11 unchanged KEEP entries.
+five supplementary Saunders entries. At this stage there were 181 reconciled entries
+(175 archive candidates and six pending manual disposal), two retired empty Projects,
+two empty unregistered directories recorded, one association hold, and 11 unchanged
+KEEP entries. The subsequent consolidation resolves that hold; current outcomes
+retain both source entries but require only one archive of their shared Project.
 
 Plan SHA-256: `6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303`.
 API release: `27b98035dccf1b33e2f449be972e2003b4114b24`.
@@ -96,14 +105,14 @@ Preparation evidence remains: [prepared counts and holds](prepare.json), [execut
 [service controller](window.cjs), [its fault tests](test-window.cjs) and
 [deployment/verification procedure](deploy.cjs).
 
-`ntalbot-031` / `project_2178` remains an explicit association hold; its 31 files and
+At this stage, `ntalbot-031` / `project_2178` remained an explicit association hold; its 31 files and
 two existing Run links are recorded without creating a duplicate Project. A legacy
 symbolic link under `skamoun-015` is retained and recorded without being followed.
 No project owners are contacted and no files are moved, deleted or uploaded.
 
-Database reconciliation is complete for this sealed plan. The remaining work is
-to resolve that one multi-root association and perform normal archive planning and
-verification for eligible entries. A fresh live archive plan is still required
+Database reconciliation is complete for this sealed plan. The subsequent
+consolidation linked above resolves the multi-root association. Normal archive
+planning and verification for eligible entries remain. A fresh live archive plan is still required
 before each lock. Manual disposal remains separate. Historical checksum gaps and
 provisional file classifications remain visible; no further bulk sweep was run.
 

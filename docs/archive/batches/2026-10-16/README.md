@@ -5,15 +5,19 @@ and [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
 are the current execution status. After the 22 registrations, all 26,724 planned
 database operations were applied and independently verified: catalogue additions,
 stored-path corrections, dated current observations and retained-history retirement.
-Services are online. `ntalbot-031` remains an explicit multi-root association hold;
-archive transfers and manual disposal remain separate and unexecuted.
+The subsequent [69-operation Project 2178 consolidation](project-2178-consolidation-2026-10-22/README.md)
+is also applied and verified, resolving the last known association hold. Its 31
+files now sit intact beneath the existing `talbotn` Project; both source decision
+entries remain. Services are online. Archive transfers and manual disposal remain
+separate and unexecuted.
 
 ## Earlier registration stage
 
 The [22 October production record](registration-production-2026-10-22/README.md)
 supersedes the earlier 23-registration selection: **22 are now registered and
 verified in production**, with their creation histories retained;
-`ntalbot-031` is held because two Runs already link to an existing named Project.
+`ntalbot-031` was held because two Runs already link to an existing named Project.
+That hold is resolved by the approved consolidation linked above.
 That record distinguishes preparation from completed database execution and
 retains the backup, service-window and verification evidence.
 

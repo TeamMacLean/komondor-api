@@ -4,6 +4,8 @@
 has now applied the catalogue/path/retirement changes and matching application
 releases. This page remains the evidence for the earlier 22-registration stage;
 its release and unchanged-record claims refer to that stage's execution window.
+The later [approved Project 2178 consolidation](../project-2178-consolidation-2026-10-22/README.md)
+has now resolved the association hold recorded below without creating another Project.
 
 **Completed:** 22 Projects were created and verified in production, and API,
 Power and Nudge are back online. See [actual outcomes](OUTCOMES.md) and the

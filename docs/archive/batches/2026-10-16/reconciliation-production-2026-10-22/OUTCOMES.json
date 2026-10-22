@@ -1,7 +1,7 @@
 {
   "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
   "verifiedAt": "2026-10-22T21:09:25.854Z",
-  "note": "Production database outcomes only. No archive transfer or manual deletion occurred. Scientific classification remains provisional; archive candidates still require a fresh live plan.",
+  "note": "Current production database outcomes after the base plan and listed follow-ups. No archive transfer or manual deletion occurred. Scientific classification remains provisional; archive candidates still require a fresh live plan. Archive entries ntalbot-026 and ntalbot-031 together as their single existing Project.",
   "entries": [
     {
       "entryId": "two_blades-002",
@@ -1420,7 +1420,12 @@
       "newFileAdditionalPairs": 8,
       "currentObservations": 0,
       "unresolvedLegacyPaths": 0,
-      "ledgerId": "6ada77f9d21dd41b805865dd"
+      "ledgerId": "6ada77f9d21dd41b805865dd",
+      "consolidatedEntries": [
+        "ntalbot-031"
+      ],
+      "combinedFileCount": 39,
+      "combinedBytes": 41849908492
     },
     {
       "entryId": "ntalbot-027",
@@ -1469,28 +1474,33 @@
     {
       "entryId": "ntalbot-031",
       "sourceDisposition": "archive",
-      "physicalRoot": "/ntalbot/project_2178",
-      "projectId": null,
-      "databaseOutcome": "technical-hold",
-      "newFileAdditionalPairs": 0,
-      "currentObservations": 0,
-      "unresolvedLegacyPaths": null,
+      "physicalRoot": "/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor/legacy_project_2178",
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "databaseOutcome": "consolidated-under-existing-project",
+      "newFileAdditionalPairs": 31,
+      "currentObservations": 8,
+      "unresolvedLegacyPaths": 0,
       "ledgerId": "6ada77f9d21dd41b80586716",
-      "hold": {
-        "associations": [
-          {
-            "projectId": "5fc012bda3efcb29338b7cf7",
-            "runId": "5fc012c3a3efcb29338b8388",
-            "sampleId": "5fc012bfa3efcb29338b8042"
-          },
-          {
-            "projectId": "5fc012bda3efcb29338b7cf7",
-            "runId": "5fc012c3a3efcb29338b85c0",
-            "sampleId": "5fc012bfa3efcb29338b8094"
-          }
-        ],
-        "entryId": "ntalbot-031",
-        "reason": "Existing Run associations outside a Project's canonical root; preserve both trees"
+      "previousPhysicalRoot": "/ntalbot/project_2178",
+      "consolidatedIntoEntryId": "ntalbot-026",
+      "holdResolved": {
+        "previousHold": {
+          "associations": [
+            {
+              "projectId": "5fc012bda3efcb29338b7cf7",
+              "runId": "5fc012c3a3efcb29338b8388",
+              "sampleId": "5fc012bfa3efcb29338b8042"
+            },
+            {
+              "projectId": "5fc012bda3efcb29338b7cf7",
+              "runId": "5fc012c3a3efcb29338b85c0",
+              "sampleId": "5fc012bfa3efcb29338b8094"
+            }
+          ],
+          "entryId": "ntalbot-031",
+          "reason": "Existing Run associations outside a Project's canonical root; preserve both trees"
+        },
+        "reason": "Approved intact relocation under the existing Project root"
       }
     },
     {
@@ -2185,6 +2195,18 @@
       "currentObservations": 45,
       "unresolvedLegacyPaths": 0,
       "ledgerId": "6ada77fed21dd41b80587754"
+    }
+  ],
+  "followUps": [
+    {
+      "kind": "project-2178-consolidation",
+      "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+      "verifiedAt": "2026-10-22T21:40:05.522Z",
+      "entryIds": [
+        "ntalbot-026",
+        "ntalbot-031"
+      ],
+      "evidence": "../project-2178-consolidation-2026-10-22/README.md"
     }
   ]
 }

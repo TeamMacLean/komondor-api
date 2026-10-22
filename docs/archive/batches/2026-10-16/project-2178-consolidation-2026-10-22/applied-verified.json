@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-22T21:38:33.698Z",
+  "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+  "completed": 69,
+  "operations": 69,
+  "exactResults": true,
+  "unplannedDatabaseChanges": false,
+  "originalIndexesUnchanged": true,
+  "files": 39,
+  "bytes": 41849908492,
+  "physicalDescendantsUnchanged": true,
+  "counts": {
+    "bytes": 41849908492,
+    "currentObservations": 8,
+    "existingCorrections": 7,
+    "files": 39,
+    "newFilePairs": 31
+  },
+  "runId": "4c6b4cce-3593-4a71-a5b8-827f58d0a920",
+  "afterDocumentsBytes": 151469,
+  "afterDocumentsSha256": "73d24b5fad71107c75e4b8251745d97bd0b8e2956495f66d2f297c10c6f091fd",
+  "note": "Exported operation applied; independently verify the returned BSON before requesting service recovery."
+}

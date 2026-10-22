@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-22T21:36:04.178Z",
+  "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+  "releaseHead": "27b98035dccf1b33e2f449be972e2003b4114b24",
+  "webReleaseHead": "e9e183cc6968da46a4b0eada76471b750745a771",
+  "operations": 69,
+  "independentBackupRestored": true,
+  "shadowReplayPassed": true,
+  "webBuildSucceeded": true,
+  "unchangedApplicationReleases": true,
+  "restoredDocuments": 56395,
+  "restoredCollections": 17,
+  "operationFaultTests": 9,
+  "serviceControllerTests": 9
+}

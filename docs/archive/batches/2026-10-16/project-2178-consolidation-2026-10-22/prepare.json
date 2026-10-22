@@ -1,0 +1,13 @@
+{
+  "counts": {
+    "bytes": 41849908492,
+    "currentObservations": 8,
+    "existingCorrections": 7,
+    "files": 39,
+    "newFilePairs": 31
+  },
+  "operations": 69,
+  "planSha256": "f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b",
+  "productionWrites": false,
+  "toolVersion": "54aacfc2168e39fa070e943f2ce2aae8da960a778f31a6f672fa9fbdbe7bac85"
+}

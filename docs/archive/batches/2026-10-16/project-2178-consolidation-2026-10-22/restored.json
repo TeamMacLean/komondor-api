@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-22T21:39:36.255Z",
+  "runId": "4c6b4cce-3593-4a71-a5b8-827f58d0a920",
+  "apiReady": true,
+  "head": "27b98035dccf1b33e2f449be972e2003b4114b24",
+  "webHead": "e9e183cc6968da46a4b0eada76471b750745a771",
+  "registered": 69,
+  "consolidation": {
+    "state": "after",
+    "safe": true,
+    "operations": 69,
+    "files": 39,
+    "reason": "All moved-file metadata and database operations verified"
+  },
+  "services": [
+    {
+      "name": "komondor-web",
+      "pid": 1926579,
+      "status": "online"
+    },
+    {
+      "name": "komondor-nudge",
+      "pid": 1926615,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "pid": 1926597,
+      "status": "online"
+    },
+    {
+      "name": "komondor-api",
+      "pid": 1926550,
+      "status": "online"
+    }
+  ]
+}
