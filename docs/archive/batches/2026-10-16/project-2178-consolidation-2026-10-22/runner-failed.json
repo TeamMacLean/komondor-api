@@ -1,0 +1,4 @@
+{
+  "at": "2026-10-22T21:37:19.476Z",
+  "error": "Command failed: /storage/.nvm/versions/node/v24.11.1/bin/node /storage/komondor-project2178-20261022/operation.cjs apply --database komondor --work-dir /storage/komondor-project2178-20261022/execution --backup-plan /storage/komondor-project2178-20261022/approved-plan.json --plan-sha256 f6cd487d3bcdac65d6ff1eaa98d87376d91b2acd8c5e99bce0d2e712eb3cf19b --quiescence-receipt /storage/komondor-project2178-20261022/quiescence.json --execute"
+}

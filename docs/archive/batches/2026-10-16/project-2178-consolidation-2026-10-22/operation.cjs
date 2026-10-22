@@ -151,9 +151,22 @@ async function apply({db,databaseIdentity,datastoreRoot,workDir,actor,expectedSh
  const verified=await validateResults(db,plan,at,digest),result={at:new Date(),planSha256:digest,completed,...verified,counts:plan.counts};
  await reg.writeOnce(path.join(dir,'completed-'+crypto.randomUUID()+'.json'),reg.encode(result));return result;
 }
+function parseArgs(argv){
+ const args=[...argv],command=args.shift(),opts={};
+ assert(['prepare','apply','verify'].includes(command),'Expected prepare, apply or verify');
+ const required=['--work-dir','--database'];
+ if(command==='apply')required.push('--plan-sha256','--backup-plan','--quiescence-receipt','--execute');
+ const allowed=new Set([...required,...(command==='prepare'?['--checksums']:[])]);
+ while(args.length){
+  const key=args.shift();assert(allowed.has(key)&&!Object.hasOwn(opts,key),'Unknown or repeated option: '+key);
+  if(key==='--execute')opts[key]=true;
+  else{const value=args.shift();assert(typeof value==='string'&&value.length&&!value.startsWith('--'),'Missing value: '+key);opts[key]=value;}
+ }
+ for(const key of required)assert(Object.hasOwn(opts,key),'Required option: '+key);
+ return {command,opts};
+}
 async function main(args=process.argv.slice(2)){
- const command=args.shift(),opts={};assert(['prepare','apply','verify'].includes(command));while(args.length){const key=args.shift();assert(/^--[a-z-]+$/.test(key)&&!opts[key]);opts[key]=key==='--execute'?true:args.shift();}
- assert(opts['--work-dir']&&opts['--database']);
+ const {command,opts}=parseArgs(args);
  const m=require(api+'/node_modules/mongoose');m.set('autoIndex',false);m.set('autoCreate',false);require(api+'/node_modules/dotenv').config({path:api+'/.env'});
  const uri=process.env.MONGODB_URI||require(api+'/lib/utils/validateEnv').resolveMongoUri();
  await m.connect(uri,{autoIndex:false,autoCreate:false,useNewUrlParser:true,useUnifiedTopology:true,serverSelectionTimeoutMS:10000});
@@ -168,4 +181,4 @@ async function main(args=process.argv.slice(2)){
  }finally{await m.disconnect();}
 }
 if(require.main===module)main().catch(e=>{console.error(e.stack?.replace(/mongodb(?:\+srv)?:\/\/[^\s]+/g,'[redacted]'));process.exitCode=1;});
-module.exports={prepare,apply,filesystemState,validateResults,toolVersion,tree,SOURCE,ROOT,DEST,PROJECT,ids};
+module.exports={prepare,apply,filesystemState,validateResults,toolVersion,tree,parseArgs,SOURCE,ROOT,DEST,PROJECT,ids};

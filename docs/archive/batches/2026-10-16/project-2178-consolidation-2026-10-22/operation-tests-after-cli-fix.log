@@ -1,0 +1,10 @@
+PASS read-only preparation; intact move; 69 exact writes; append-only history; idempotent repeat
+PASS resume after rename before any database write
+PASS resume after partial database correction/cataloguing without duplicate history
+PASS refuse later edits during recovery
+PASS refuse destination collision without moving or overwriting it
+PASS refuse changed source bytes/metadata before rename
+PASS refuse unrelated database changes before rename
+PASS refuse missing freeze or independent backup
+PASS refuse replacing or altering moved files during interrupted recovery
+{"passed":9,"database":"komondor-project2178-test"}

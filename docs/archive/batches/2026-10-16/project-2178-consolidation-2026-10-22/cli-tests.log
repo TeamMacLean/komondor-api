@@ -1,0 +1,9 @@
+PASS accept the exact launcher options including the digit-bearing digest flag
+PASS accept preparation and verification without execution authority
+PASS reject unknown options
+PASS reject repeated options
+PASS reject missing option values
+PASS reject an apply missing its digest or execute flag
+PASS reject mutation options on verification
+PASS reject missing database or an unsupported command
+{"passed":8,"databaseConnections":0,"filesystemWrites":0}

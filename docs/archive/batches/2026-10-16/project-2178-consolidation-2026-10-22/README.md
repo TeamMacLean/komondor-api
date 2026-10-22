@@ -86,6 +86,13 @@ The [module adapter](apply-module.cjs) then called the already-tested exported
 operation with the same sealed plan, implementation, independent backup and
 quiescence receipt. All guards remained in force. That application succeeded.
 The server's sealed operation source is retained unchanged for recovery evidence.
+Commit `c369bee` retains that exact executed implementation. The subsequent
+repository-only parser correction accepts the explicit `--plan-sha256` option and
+rejects missing, repeated or command-inappropriate options before connecting to
+MongoDB. [Eight CLI regression cases](cli-tests.log), [all nine operation/recovery
+cases](operation-tests-after-cli-fix.log), and [all nine controller cases](window-tests-after-cli-fix.log)
+passed after the correction. This changes the repository tool identity; do not
+substitute it for the original sealed server tool when verifying the executed plan.
 Do not rerun the one-off launchers as a routine follow-up.
 
 The first full AWS-backed archive plan [stopped at expired SSO authentication](archive-plan.stderr),

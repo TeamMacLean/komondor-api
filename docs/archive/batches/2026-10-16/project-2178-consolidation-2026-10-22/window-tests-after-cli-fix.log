@@ -1,0 +1,9 @@
+PASS normal
+PASS busy
+PASS dirty
+PASS stop-failure
+PASS wrong-release
+PASS restart-failure
+PASS wrong-build
+PASS deadline
+PASS partial-consolidation
