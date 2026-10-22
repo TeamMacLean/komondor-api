@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-22T20:56:02.874Z",
+  "database": "komondor-reconciliation-preview",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "operationsReplayed": 26724,
+  "additionalFilesVerified": 13052,
+  "retiredProjectsHidden": 2,
+  "allOriginalIndexesUnchanged": true,
+  "readsUsersGroupsIngestAndNudgeUnchanged": true,
+  "note": "Exact proposed records replayed in isolated database; live filesystem and conditional crash recovery covered separately."
+}

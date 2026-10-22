@@ -1,6 +1,7 @@
 # Production database reconciliation — 22 October 2026
 
-**Status: preparing and testing; not yet applied.** This follows the 22 completed
+**Status: reviewed, tested and ready; awaiting the `tsldata` service window. No
+production database changes have been made by this stage yet.** This follows the 22 completed
 [Project registrations](../registration-production-2026-10-22/README.md).
 George explicitly authorised completing the remaining database reconciliation.
 
@@ -10,12 +11,49 @@ read-only preview restrictions are superseded by this authority only for databas
 reconciliation and its required application deployment. KEEP decisions, legacy
 owners, manual deletion and archive-verification gates remain unchanged.
 
-The preliminary live plan contains 13,052 new File/AdditionalFile pairs, including
-regular files in the six pending-disposal projects. Unknown scientific roles remain
-unclassified. It corrects three filenames, six physical Project roots and supported
-child paths, retains matching dated checksum observations, and retires the two
-confirmed-empty Projects with their dependents. These are preview counts, not a
-completion claim. The final sealed plan and execution receipts govern exact counts.
+The final sealed plan contains:
+
+- **13,052 new File + AdditionalFile pairs**, including the regular files in the
+  six pending-disposal projects; no new scientific Reads or Samples.
+- **434 existing-record corrections:** 402 Files (three physical filename fixes
+  and retained current observations), eight Projects, 12 Samples and 12 Runs.
+  Six roots and 21 child directory paths are corrected; two empty Projects,
+  their two Samples and one Run are retired with history.
+- **6,763 dated current observations** attached to matching Files; all historical
+  upload checksums and gaps remain. Eight observations under the held numeric
+  directory remain in the source evidence rather than acquiring a guessed File.
+- **186 per-entry database ledger rows**; the 11 KEEP entries are unchanged.
+- **26,724 total atomic operations**. These are prepared counts, not a claim that
+  production execution has completed.
+
+Plan SHA-256: `6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303`.
+API release: `27b98035dccf1b33e2f449be972e2003b4114b24`.
+Web release: `e9e183cc6968da46a4b0eada76471b750745a771`.
+Neither branch has been merged or pushed.
+
+Validation: **2,126 unit/contract tests** with coverage thresholds met,
+**87 integration tests** against an isolated database, **563 web tests**,
+and **eight service-controller fault scenarios**. The five migration integration
+cases also passed separately after the final migration refinements. A prior unit
+run had the existing HTTP `socket hang up` flake; the final full run with handle
+detection passed. Integration processes exited after their delayed handle cleanup;
+the targeted migration suite passed with handle detection.
+
+All **30,105 original documents** from 16 collections were restored independently.
+The exact **26,724 proposed operations** were replayed against that restored copy:
+13,052 populated AdditionalFile/File pairs, two retired Projects hidden from normal
+queries, no changed original indexes, and unchanged Reads, Users, Groups, IngestJobs
+and Nudge records. This database replay does not substitute for live filesystem
+checks: prepare and apply separately compare complete physical metadata.
+
+The production web build completed with existing package versions. Its first build
+attempt could not write a shared PWA cache; a separate writable build cache resolved
+that without changing production dependencies. Old build files will be retained.
+
+See [prepared counts and holds](prepare.json), [execution preconditions](execution-ready.json),
+[scratch replay](shadow-replay.json), [backup restore](baseline-restored.json),
+[service controller](window.cjs), [its fault tests](test-window.cjs) and
+[deployment/verification procedure](deploy.cjs).
 
 `ntalbot-031` / `project_2178` remains an explicit association hold; its 31 files and
 two existing Run links are recorded without creating a duplicate Project. A legacy

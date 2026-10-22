@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-22T20:56:02.874Z",
+  "releaseHead": "27b98035dccf1b33e2f449be972e2003b4114b24",
+  "webReleaseHead": "e9e183cc6968da46a4b0eada76471b750745a771",
+  "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303",
+  "operations": 26724,
+  "independentBackupRestored": true,
+  "restoredDocuments": 30105,
+  "shadowReplayPassed": true,
+  "unitTests": 2126,
+  "integrationTests": 87,
+  "webTests": 563,
+  "serviceControllerScenarios": 8,
+  "toolVersion": "58c8906cbf3b8eed963748f110d05bec547a2e98c5a3c673dcb68de0b8413e66",
+  "webBuildSucceeded": true,
+  "webBuildNote": "Built successfully on v1333 with existing pinned dependencies and a separate writable build cache."
+}
