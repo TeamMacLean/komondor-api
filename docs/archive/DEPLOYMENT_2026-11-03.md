@@ -14,10 +14,12 @@ running at any point.
 | komondor-power | `d98fab1` `main` | `d98fab1` `main` | no (unchanged) |
 | komondor-nudge | `a311f29` `master` (not on GitHub; diverged from `origin/master`) | `3791969` `master` | 15:07:09 UTC, PID 1131440 |
 
-The previous recorded release was the [22 October registration](batches/2026-10-16/registration-production-2026-10-22/README.md)
-(API `4cd738e`). The API working tree already held `4bb4f36` before this
-deployment; when that checkout happened and which code the old process
-(PID 2803225, up 9 days) had loaded is not recorded.
+The previous API release was `27b9803`, deployed for the
+[22 October reconciliation](batches/2026-10-16/reconciliation-production-2026-10-22/README.md)
+and retained on GitHub as branch `codex/archive-production-27b9803`.
+`git diff 4bb4f36 27b9803 -- . ':!docs'` is empty, so this deployment changed no
+API code: models, guards, routes, scripts and dependency files are identical.
+`4bb4f36` is the same work rebased onto the published history.
 
 ## Unpublished production commits
 
@@ -89,10 +91,19 @@ Warnings seen, none blocking:
 
 ## Not done
 
-- `scripts/reconcile-archive-database.js apply` has **not** been run. This
-  deployment puts its code (reconciliation guards, history routes and
-  `lib/physical-file-path.js`) on the running API, which was its stated
-  precondition in [ARCHIVE_DATABASE_RECONCILIATION.md](../ARCHIVE_DATABASE_RECONCILIATION.md).
+- No database reconciliation. *Correction:* the first version of this note said
+  `reconcile-archive-database.js apply` had not been run. It had: the 26,724-operation
+  plan was applied and independently verified on 22 October
+  ([receipt](batches/2026-10-16/reconciliation-production-2026-10-22/completed.json)),
+  followed by the 69-operation
+  [Project 2178 consolidation](batches/2026-10-16/project-2178-consolidation-2026-10-22/README.md).
+  That evidence was unpublished when this note was first written. Do not rerun the
+  old plan; any further corrections need a fresh preview against live data.
+- All 175 batch Projects (13.45 TB) were S3-verified by 2 November 20:55 GMT
+  (Codex artifact `archive-batch-20261023/transfer-complete-20261103T121635Z.json`,
+  not yet in the repository). HPC deletion review is the next archive step; the
+  pre-deletion hold was set to zero by George on 23 October once the pilot restore
+  passed.
 - No HPC deletion and no `confirm-absent`. The four Lichen CoCulture source
   projects stay on HPC until the
   [Gulnara ENA reassignment](GULNARA_ENA_REASSIGNMENT_2026-10-30.md) copy is done.
