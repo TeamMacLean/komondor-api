@@ -1,0 +1,422 @@
+{
+  "schemaVersion": 1,
+  "recordedOn": "2026-10-30",
+  "status": "planned_not_executed",
+  "source": {
+    "workbook": "data_for_release.xlsx",
+    "sha256": "8161216eec4fe75065474f8392f3edd75724465dd03147d0185e106a6d52192e",
+    "worksheet": "Sheet1",
+    "range": "A1:C13",
+    "productionEvidence": "User-supplied read-only mongosh output in Plan production sample migration on 2026-10-30",
+    "conversationId": "01a18d95-6c20-7f01-8fe8-21999f9cb0a6",
+    "idRepresentation": "ObjectIds rendered as strings; dates retained as ISO 8601 strings"
+  },
+  "coverageCheck": {
+    "database": "komondor",
+    "expectedSamples": 12,
+    "expectedRuns": 12,
+    "unexpectedRuns": [],
+    "missingOrAmbiguous": [],
+    "invalidReferences": [],
+    "coveragePassed": true
+  },
+  "targetProject": {
+    "_id": "6ae4ac89a6b876c643741d27",
+    "isPublic": false,
+    "name": "Xanthoria parietina mycobiont RNAseq",
+    "group": "5fc012bda3efcb29338b7cf2",
+    "storage": {
+      "state": "hpc"
+    },
+    "safeName": "xanthoria_parietina_mycobiont_rnaseq",
+    "path": "/ntalbot/xanthoria_parietina_mycobiont_rnaseq"
+  },
+  "sourceProjects": [
+    {
+      "_id": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "safeName": "lichen_coculture_i_2_days",
+      "path": "/ntalbot/lichen_coculture_i_2_days",
+      "group": "5fc012bda3efcb29338b7cf2",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+        "s3VerifiedAt": "2026-10-27T20:44:48.707Z"
+      },
+      "archiveMigration": {
+        "id": "6adb34bc2f2b2c46efb0e26a",
+        "phase": "verified",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_2_days",
+        "manifests": {
+          "fileCount": 99,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T19:36:05.831Z",
+          "sourceSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+          "totalBytes": 105611175618,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T20:44:48.707Z",
+          "verificationSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca"
+        }
+      }
+    },
+    {
+      "_id": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "safeName": "lichen_coculture_i_21_days",
+      "path": "/ntalbot/lichen_coculture_i_21_days",
+      "group": "5fc012bda3efcb29338b7cf2",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+        "s3VerifiedAt": "2026-10-29T19:13:25.516Z"
+      },
+      "archiveMigration": {
+        "id": "6adb34b02f2b2c46efb0e202",
+        "phase": "verified",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_21_days",
+        "manifests": {
+          "fileCount": 142,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-29T17:20:37.116Z",
+          "sourceSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+          "totalBytes": 173734125362,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-29T19:13:25.516Z",
+          "verificationSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4"
+        }
+      }
+    },
+    {
+      "_id": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "safeName": "lichen_coculture_i_42_days",
+      "path": "/ntalbot/lichen_coculture_i_42_days",
+      "group": "5fc012bda3efcb29338b7cf2",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+        "s3VerifiedAt": "2026-10-27T09:52:39.091Z"
+      },
+      "archiveMigration": {
+        "id": "6adb34c02f2b2c46efb0e295",
+        "phase": "verified",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_42_days",
+        "manifests": {
+          "fileCount": 89,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T08:47:35.973Z",
+          "sourceSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+          "totalBytes": 99954671448,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T09:52:39.091Z",
+          "verificationSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06"
+        }
+      }
+    },
+    {
+      "_id": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "safeName": "lichen_coculture_i_9_days",
+      "path": "/ntalbot/lichen_coculture_i_9_days",
+      "group": "5fc012bda3efcb29338b7cf2",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+        "s3VerifiedAt": "2026-10-27T19:07:09.277Z"
+      },
+      "archiveMigration": {
+        "id": "6adb34be2f2b2c46efb0e274",
+        "phase": "verified",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_9_days",
+        "manifests": {
+          "fileCount": 122,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T17:51:11.953Z",
+          "sourceSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+          "totalBytes": 103438441044,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T19:07:09.277Z",
+          "verificationSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa"
+        }
+      }
+    }
+  ],
+  "matches": [
+    {
+      "projectName": "Lichen CoCulture_I 21 days",
+      "sample": {
+        "_id": "5fd20521d8dd4a63058cc289",
+        "name": "21X_BMM1_KS",
+        "project": "5fd1ed55d8dd4a63058cc1c9",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "21x_bmm1_ks",
+        "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm1_ks"
+      },
+      "expectedRun": "S_21XB1",
+      "runs": [
+        {
+          "_id": "5fd205a8d8dd4a63058cc28b",
+          "sample": "5fd20521d8dd4a63058cc289",
+          "name": "S_21XB1",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "s_21xb1",
+          "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm1_ks/s_21xb1"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 21 days",
+      "sample": {
+        "_id": "612041f4e788b405b6ce6bc6",
+        "name": "21X_BMM2_KS",
+        "project": "5fd1ed55d8dd4a63058cc1c9",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "21x_bmm2_ks",
+        "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm2_ks"
+      },
+      "expectedRun": "KS21XB1",
+      "runs": [
+        {
+          "_id": "6120427ee788b405b6ce6bca",
+          "sample": "612041f4e788b405b6ce6bc6",
+          "name": "KS21XB1",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks21xb1",
+          "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm2_ks/ks21xb1"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 21 days",
+      "sample": {
+        "_id": "5fd205d6d8dd4a63058cc293",
+        "name": "21X_BMM3_KS",
+        "project": "5fd1ed55d8dd4a63058cc1c9",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "21x_bmm3_ks",
+        "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm3_ks"
+      },
+      "expectedRun": "S_21XB3",
+      "runs": [
+        {
+          "_id": "5fd20673d8dd4a63058cc295",
+          "sample": "5fd205d6d8dd4a63058cc293",
+          "name": "S_21XB3",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "s_21xb3",
+          "path": "/ntalbot/lichen_coculture_i_21_days/21x_bmm3_ks/s_21xb3"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 42 days",
+      "sample": {
+        "_id": "5fdb51a8d7661b6ec22a063f",
+        "name": "42X_BMM1_KS",
+        "project": "5fdb2d62d7661b6ec22a0571",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "42x_bmm1_ks",
+        "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm1_ks"
+      },
+      "expectedRun": "S_42XB1",
+      "runs": [
+        {
+          "_id": "5fdb5229d7661b6ec22a0641",
+          "sample": "5fdb51a8d7661b6ec22a063f",
+          "name": "S_42XB1",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "s_42xb1",
+          "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm1_ks/s_42xb1"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 42 days",
+      "sample": {
+        "_id": "5fdb5260d7661b6ec22a0649",
+        "name": "42X_BMM2_KS",
+        "project": "5fdb2d62d7661b6ec22a0571",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "42x_bmm2_ks",
+        "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm2_ks"
+      },
+      "expectedRun": "S_42XB2",
+      "runs": [
+        {
+          "_id": "5fdb5387d7661b6ec22a064b",
+          "sample": "5fdb5260d7661b6ec22a0649",
+          "name": "S_42XB2",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "s_42xb2",
+          "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm2_ks/s_42xb2"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 42 days",
+      "sample": {
+        "_id": "5fdb53b8d7661b6ec22a0653",
+        "name": "42X_BMM3_KS",
+        "project": "5fdb2d62d7661b6ec22a0571",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "42x_bmm3_ks",
+        "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm3_ks"
+      },
+      "expectedRun": "S_42XB3",
+      "runs": [
+        {
+          "_id": "5fdb543bd7661b6ec22a0655",
+          "sample": "5fdb53b8d7661b6ec22a0653",
+          "name": "S_42XB3",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "s_42xb3",
+          "path": "/ntalbot/lichen_coculture_i_42_days/42x_bmm3_ks/s_42xb3"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 2 days",
+      "sample": {
+        "_id": "61214e4ee788b405b6ce6cc8",
+        "name": "48X_BMM1_KS",
+        "project": "61204424e788b405b6ce6bde",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "48x_bmm1_ks",
+        "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm1_ks"
+      },
+      "expectedRun": "KS48XB1",
+      "runs": [
+        {
+          "_id": "61214ec2e788b405b6ce6cca",
+          "sample": "61214e4ee788b405b6ce6cc8",
+          "name": "KS48XB1",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks48xb1",
+          "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm1_ks/ks48xb1"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 2 days",
+      "sample": {
+        "_id": "61214f0be788b405b6ce6cd2",
+        "name": "48X_BMM2_KS",
+        "project": "61204424e788b405b6ce6bde",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "48x_bmm2_ks",
+        "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm2_ks"
+      },
+      "expectedRun": "KS48XB2",
+      "runs": [
+        {
+          "_id": "61214f77e788b405b6ce6cd4",
+          "sample": "61214f0be788b405b6ce6cd2",
+          "name": "KS48XB2",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks48xb2",
+          "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm2_ks/ks48xb2"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 2 days",
+      "sample": {
+        "_id": "61214fc6e788b405b6ce6cdc",
+        "name": "48X_BMM3_KS",
+        "project": "61204424e788b405b6ce6bde",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "48x_bmm3_ks",
+        "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm3_ks"
+      },
+      "expectedRun": "KS48XB3",
+      "runs": [
+        {
+          "_id": "61215030e788b405b6ce6cde",
+          "sample": "61214fc6e788b405b6ce6cdc",
+          "name": "KS48XB3",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks48xb3",
+          "path": "/ntalbot/lichen_coculture_i_2_days/48x_bmm3_ks/ks48xb3"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 9 days",
+      "sample": {
+        "_id": "6120146ee788b405b6ce6b42",
+        "name": "9X_BMM1_KS",
+        "project": "611ff26de788b405b6ce6a4c",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "9x_bmm1_ks",
+        "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm1_ks"
+      },
+      "expectedRun": "KS9XB1",
+      "runs": [
+        {
+          "_id": "612014e8e788b405b6ce6b46",
+          "sample": "6120146ee788b405b6ce6b42",
+          "name": "KS9XB1",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks9xb1",
+          "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm1_ks/ks9xb1"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 9 days",
+      "sample": {
+        "_id": "61201563e788b405b6ce6b4e",
+        "name": "9X_BMM2_KS",
+        "project": "611ff26de788b405b6ce6a4c",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "9x_bmm2_ks",
+        "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm2_ks"
+      },
+      "expectedRun": "KS9XB2",
+      "runs": [
+        {
+          "_id": "612019d5e788b405b6ce6b52",
+          "sample": "61201563e788b405b6ce6b4e",
+          "name": "KS9XB2",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks9xb2",
+          "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm2_ks/ks9xb2"
+        }
+      ]
+    },
+    {
+      "projectName": "Lichen CoCulture_I 9 days",
+      "sample": {
+        "_id": "61201a4de788b405b6ce6b5a",
+        "name": "9X_BMM3_KS",
+        "project": "611ff26de788b405b6ce6a4c",
+        "group": "5fc012bda3efcb29338b7cf2",
+        "safeName": "9x_bmm3_ks",
+        "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm3_ks"
+      },
+      "expectedRun": "KS9XB3",
+      "runs": [
+        {
+          "_id": "61201af1e788b405b6ce6b5e",
+          "sample": "61201a4de788b405b6ce6b5a",
+          "name": "KS9XB3",
+          "group": "5fc012bda3efcb29338b7cf2",
+          "safeName": "ks9xb3",
+          "path": "/ntalbot/lichen_coculture_i_9_days/9x_bmm3_ks/ks9xb3"
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,9 @@ there is no scheduled job and no automatic HPC deletion.
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
 - Before every batch: [renew SSO login](#before-each-archive-batch).
 - Routine batch: [semi-annual procedure](#semi-annual-procedure).
-- Current scope and KEEP decisions: [16 October 2026 register](archive/batches/2026-10-16/README.md).
+- Original scope and KEEP decisions: [16 October 2026 register](archive/batches/2026-10-16/README.md).
+- Initial batch coverage on 30 October: [175 of 366 project records, 47.8%](archive/INITIAL_MIGRATION_COVERAGE_2026-10-30.md).
+- Pending manual work: [Gulnara's ENA project reassignment](archive/GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
 - Each selected project: [archive one project](#archive-one-project).
 - Interrupted or failed work: [recovery](#recovery).
 - Retrieve data: [restore a real archived file](#restore-a-real-archived-file).
