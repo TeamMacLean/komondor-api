@@ -1,0 +1,2982 @@
+{
+  "observedAt": "2026-11-03T12:18:48.080Z",
+  "count": 175,
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d00",
+      "entries": [
+        "two_blades-002"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e0c5f563cce90e74418",
+      "hpcPath": "/mnt/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "s3VerifiedAt": "2026-11-02T02:48:41.097Z",
+      "fileCount": 374,
+      "bytes": 521252084820,
+      "sourceSha256": "3344e7453e7dba71875ec690f367ed98250af7cd40d0cdcffa08d131a139be63",
+      "verificationSha256": "50770c2d10a63f4b48bacc353c9ec17cf77ceaa34b641869182ae0c4dcbd83ff",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d00/6adb2e0c5f563cce90e74418/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d00/6adb2e0c5f563cce90e74418/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "entries": [
+        "two_blades-003"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e0b5f563cce90e7440f",
+      "hpcPath": "/mnt/reads/two_blades/Courville",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/Courville",
+      "s3VerifiedAt": "2026-10-31T06:06:05.886Z",
+      "fileCount": 100,
+      "bytes": 298805448427,
+      "sourceSha256": "9107d32d8d66405e87185938334061dec955290bdd3e8c6e9c5822b70db9f15d",
+      "verificationSha256": "ce83da4e95a08b8d2deaed265820c69e20b1fdaaec17d818a09facd08d14614b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712264e/6adb2e0b5f563cce90e7440f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712264e/6adb2e0b5f563cce90e7440f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfd",
+      "entries": [
+        "two_blades-004"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e0c5f563cce90e74422",
+      "hpcPath": "/mnt/reads/two_blades/ppufv02_transcriptome",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_transcriptome",
+      "s3VerifiedAt": "2026-10-31T01:42:29.976Z",
+      "fileCount": 867,
+      "bytes": 298625577302,
+      "sourceSha256": "fbb700ff13fccb0798253bbfb60c20534d1c81d2e13a198a8758fb3463aafe8d",
+      "verificationSha256": "ef74457713fa8b307c277ade1f389cd1a8ab13bf17195aace2bda2534220a2ee",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfd/6adb2e0c5f563cce90e74422/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfd/6adb2e0c5f563cce90e74422/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "entries": [
+        "two_blades-005"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e0b5f563cce90e74409",
+      "hpcPath": "/mnt/reads/two_blades/gargy_2019_rnaseq",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_rnaseq",
+      "s3VerifiedAt": "2026-10-30T20:18:30.550Z",
+      "fileCount": 59,
+      "bytes": 274802985983,
+      "sourceSha256": "f88db110eee64562a5f73904822b1b4e7d86d4a16b4ae5e1157d04dd8f674d57",
+      "verificationSha256": "06720716732992d612262a937efdf758a91edc42c15563e013f7415d80db46fe",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d58/6adb2e0b5f563cce90e74409/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d58/6adb2e0b5f563cce90e74409/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d05",
+      "entries": [
+        "two_blades-006"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e245f563cce90e74483",
+      "hpcPath": "/mnt/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "s3VerifiedAt": "2026-10-30T16:18:09.890Z",
+      "fileCount": 41,
+      "bytes": 271991566056,
+      "sourceSha256": "8b78e12bc2ce96f4173c6003caf280f85b86905124b77459db6405ea2e76b5f1",
+      "verificationSha256": "966d8ee168f08137092ff2980e87af13c71e29a38f7e322fbb001019487232b6",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d05/6adb2e245f563cce90e74483/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d05/6adb2e245f563cce90e74483/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d16",
+      "entries": [
+        "two_blades-007"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e255f563cce90e74494",
+      "hpcPath": "/mnt/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "s3VerifiedAt": "2026-10-30T12:22:24.920Z",
+      "fileCount": 266,
+      "bytes": 249579426855,
+      "sourceSha256": "1a96e184e548b35fd0d525d5431ae495902aa60ccb0aedceef913422ac0af76a",
+      "verificationSha256": "593f6eb678a9e18a497b2792baf47354c77e574d056471b717d5bf07151af564",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d16/6adb2e255f563cce90e74494/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d16/6adb2e255f563cce90e74494/verification-report.v1.json"
+    },
+    {
+      "projectId": "60be4bafe788b405b6ce6726",
+      "entries": [
+        "two_blades-008"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e255f563cce90e7448d",
+      "hpcPath": "/mnt/reads/two_blades/2021_gargy_accessions_wgs",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/2021_gargy_accessions_wgs",
+      "s3VerifiedAt": "2026-10-30T08:17:57.809Z",
+      "fileCount": 59,
+      "bytes": 225146340583,
+      "sourceSha256": "c9399b87ba15b2ff375a31288cf6910ff8dcf265a7454d8242756a8b5fabce62",
+      "verificationSha256": "27c0eb2435be138c7305c917661992d541a38c74be1eb1b459f5c8f15567aca1",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60be4bafe788b405b6ce6726/6adb2e255f563cce90e7448d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60be4bafe788b405b6ce6726/6adb2e255f563cce90e7448d/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfe",
+      "entries": [
+        "two_blades-009"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e275f563cce90e7449d",
+      "hpcPath": "/mnt/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "s3VerifiedAt": "2026-10-30T04:54:46.286Z",
+      "fileCount": 30,
+      "bytes": 219297530739,
+      "sourceSha256": "2ab0d9586f4f4d20b9cfaabb0e93b00e2edd0b390366eb4b97081643d95b41a0",
+      "verificationSha256": "2246d3221256a8f9ef180dfed1ab9c315289e8255825b785225c9129818d4091",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfe/6adb2e275f563cce90e7449d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfe/6adb2e275f563cce90e7449d/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5f",
+      "entries": [
+        "two_blades-010"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e3d5f563cce90e744ff",
+      "hpcPath": "/mnt/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "s3VerifiedAt": "2026-10-30T01:48:49.426Z",
+      "fileCount": 239,
+      "bytes": 214088937044,
+      "sourceSha256": "c5c6bd081cf858cb42f601f88bfb642dad486d3e9a5c9f15a982a2fb0b0967d0",
+      "verificationSha256": "b8efbeca43c6e5ff7baf7af9f94d7dccd9f49fbf0ae1d3cc828f964428055bf2",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5f/6adb2e3d5f563cce90e744ff/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5f/6adb2e3d5f563cce90e744ff/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5e",
+      "entries": [
+        "two_blades-011"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e3d5f563cce90e74509",
+      "hpcPath": "/mnt/reads/two_blades/pkg_enq_698nadineilk",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_698nadineilk",
+      "s3VerifiedAt": "2026-10-29T16:29:39.479Z",
+      "fileCount": 74,
+      "bytes": 168220436830,
+      "sourceSha256": "4603d620dbcf1c2db676a8060ee2a03e66f7afbf8c1ff22fbe82b3e2ea4eba4c",
+      "verificationSha256": "b3df5a304d123aeca39a6f373828cb7a222db19b4d2b4137f20a510786d5e172",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5e/6adb2e3d5f563cce90e74509/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5e/6adb2e3d5f563cce90e74509/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d20",
+      "entries": [
+        "two_blades-012"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e3e5f563cce90e7450f",
+      "hpcPath": "/mnt/reads/two_blades/rnaseqp_sa",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseqp_sa",
+      "s3VerifiedAt": "2026-10-29T13:59:25.290Z",
+      "fileCount": 70,
+      "bytes": 166467707030,
+      "sourceSha256": "0fa76a5569fe8a3f9a3a1878a10aa20f4d37e5c5b53d38ea2266f6a2959acae0",
+      "verificationSha256": "3f4d3ce38cccfc4a9c91dd0a57c757957cd046597687fb889bb02969331166dc",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d20/6adb2e3e5f563cce90e7450f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d20/6adb2e3e5f563cce90e7450f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7e",
+      "entries": [
+        "two_blades-013"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e3e5f563cce90e74519",
+      "hpcPath": "/mnt/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "s3VerifiedAt": "2026-10-29T04:28:03.232Z",
+      "fileCount": 84,
+      "bytes": 150156064373,
+      "sourceSha256": "7d2c46961d451a712cd84ca1d062daa36efa3d9b3cec545ccf301bcf1584220f",
+      "verificationSha256": "22caf513e91ee87953197f61724ada90dacbc86aeef16d5e302932e7a0baea7e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7e/6adb2e3e5f563cce90e74519/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7e/6adb2e3e5f563cce90e74519/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6c",
+      "entries": [
+        "two_blades-014"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e555f563cce90e74581",
+      "hpcPath": "/mnt/reads/two_blades/ppufv02_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_timecourse",
+      "s3VerifiedAt": "2026-10-29T00:02:38.969Z",
+      "fileCount": 64,
+      "bytes": 148918476355,
+      "sourceSha256": "b7c4c424d47f0a8d1703ea9c3ba2717551113f5bd5590cb42c7ae21fa4516c7f",
+      "verificationSha256": "21fdf388aae6fc0796ed7d66b19047595205e5a5bd2626d313e04ee23629aa1c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6c/6adb2e555f563cce90e74581/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6c/6adb2e555f563cce90e74581/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "entries": [
+        "two_blades-015"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e555f563cce90e7458b",
+      "hpcPath": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/japanse_isolate_timecourse",
+      "s3VerifiedAt": "2026-10-28T21:51:31.928Z",
+      "fileCount": 50,
+      "bytes": 145459637100,
+      "sourceSha256": "6d56464c58dd004a93344699718b16ef1ceba0647655d50f1051dba22496e092",
+      "verificationSha256": "7ec443d324e1b8b771991de10f8e611ffcfeac34d3bb604e95cbe40a4900f61f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d67/6adb2e555f563cce90e7458b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d67/6adb2e555f563cce90e7458b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0b",
+      "entries": [
+        "two_blades-016"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e565f563cce90e74594",
+      "hpcPath": "/mnt/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "s3VerifiedAt": "2026-10-28T16:43:43.048Z",
+      "fileCount": 87,
+      "bytes": 139553461709,
+      "sourceSha256": "dec1c800c0181c51c4720d964fa5d0dddbb267fddab21cb50df45d9797c64019",
+      "verificationSha256": "c89184499dbd636092f18cdeed749f9cf1b0bfedc72cbe781f4e606f945b1c80",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0b/6adb2e565f563cce90e74594/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0b/6adb2e565f563cce90e74594/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5d",
+      "entries": [
+        "two_blades-017"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e565f563cce90e7459e",
+      "hpcPath": "/mnt/reads/two_blades/medicago_trucatala__genome_sequences",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/medicago_trucatala__genome_sequences",
+      "s3VerifiedAt": "2026-10-28T14:23:44.721Z",
+      "fileCount": 20,
+      "bytes": 133328625562,
+      "sourceSha256": "277ce86bb502e3c5c2ef1e449253949427359b2683a4283a0cee9017fb00a66c",
+      "verificationSha256": "8383a1224c8c782b1c37ab605b106aaf17c0489a4ed33d9e40bf597423b8e6e0",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5d/6adb2e565f563cce90e7459e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5d/6adb2e565f563cce90e7459e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d07",
+      "entries": [
+        "two_blades-018"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e6c5f563cce90e74609",
+      "hpcPath": "/mnt/reads/two_blades/gargy_2019_isoseq",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_isoseq",
+      "s3VerifiedAt": "2026-10-28T12:12:03.676Z",
+      "fileCount": 11,
+      "bytes": 123255416179,
+      "sourceSha256": "f7c97580da766f8d766abdbb4673fcfd09f3413a8e755e8db0fd9058595512e4",
+      "verificationSha256": "4480c0485bbf06d1130438db6f0de8416e1c88b8755ff28a2a0aa5ac6d29affe",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d07/6adb2e6c5f563cce90e74609/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d07/6adb2e6c5f563cce90e74609/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d55",
+      "entries": [
+        "two_blades-019"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e6d5f563cce90e74612",
+      "hpcPath": "/mnt/reads/two_blades/ppufv02_nanopore_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_nanopore_sequencing",
+      "s3VerifiedAt": "2026-10-27T22:14:31.479Z",
+      "fileCount": 4,
+      "bytes": 106000044545,
+      "sourceSha256": "77a1ac1ef7783880bf0889f7cc5e52d44c0301ed13c71878a7bc4a91bc42bf79",
+      "verificationSha256": "5840a9b37d4b37519bc063404d2223f7a65267f0ae08f7f827877a08f2aa7b3d",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d55/6adb2e6d5f563cce90e74612/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d55/6adb2e6d5f563cce90e74612/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d08",
+      "entries": [
+        "two_blades-020"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e6d5f563cce90e74626",
+      "hpcPath": "/mnt/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "s3VerifiedAt": "2026-10-27T15:52:15.836Z",
+      "fileCount": 22,
+      "bytes": 103376057393,
+      "sourceSha256": "058a81bb53bb776dc4bb6b40969992479ab51cd141427d5503505dd7c3f0152d",
+      "verificationSha256": "6d3c2d0ac20e2e49358e9c6e23ce9f7e7177f2fb3b44520b382c496613636a65",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d08/6adb2e6d5f563cce90e74626/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d08/6adb2e6d5f563cce90e74626/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d48",
+      "entries": [
+        "two_blades-021"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e6d5f563cce90e74625",
+      "hpcPath": "/mnt/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "s3VerifiedAt": "2026-10-27T14:22:29.645Z",
+      "fileCount": 44,
+      "bytes": 102821725130,
+      "sourceSha256": "3790050005a74b8f907832c572851cdd96db8f672e3ea1595d0defd66d2383f7",
+      "verificationSha256": "af35ca0e3d9c7311330ad81e9a4fff985127f480961b1efce7133ed3c705f898",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d48/6adb2e6d5f563cce90e74625/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d48/6adb2e6d5f563cce90e74625/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1f",
+      "entries": [
+        "two_blades-022"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e825f563cce90e7468d",
+      "hpcPath": "/mnt/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "s3VerifiedAt": "2026-10-27T12:52:04.687Z",
+      "fileCount": 19,
+      "bytes": 100282185901,
+      "sourceSha256": "e3b9335b7d0bf5f03491905b13fd48f2f048ab3179db8e73863d63392208d5ad",
+      "verificationSha256": "fd1e7584f9a8e1a836d7f0300d601fb8f4c0efbf7ef8255c2d0517476a86d44c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1f/6adb2e825f563cce90e7468d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1f/6adb2e825f563cce90e7468d/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d62",
+      "entries": [
+        "two_blades-023"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e845f563cce90e74696",
+      "hpcPath": "/mnt/reads/two_blades/foc_cr1_",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/foc_cr1_",
+      "s3VerifiedAt": "2026-10-27T11:23:19.029Z",
+      "fileCount": 50,
+      "bytes": 100272415170,
+      "sourceSha256": "9818af18cffd32ba93dbf0f22520d56d17f3b49942d42f3c3411b6acf2d30d21",
+      "verificationSha256": "6080fdda01cf6b8def479b890af009bba3ee4cd86ae6eddc4026e09d64d936ee",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d62/6adb2e845f563cce90e74696/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d62/6adb2e845f563cce90e74696/verification-report.v1.json"
+    },
+    {
+      "projectId": "606d815ed7661b6ec22a0799",
+      "entries": [
+        "two_blades-024"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e845f563cce90e746a7",
+      "hpcPath": "/mnt/reads/two_blades/adpop7_progeny_bsa_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_progeny_bsa_illumina",
+      "s3VerifiedAt": "2026-10-27T08:20:37.567Z",
+      "fileCount": 8,
+      "bytes": 97868724548,
+      "sourceSha256": "7bd317b4e9ec96c254dd689a46670812a0c9639751158bd7ff7341c509220dff",
+      "verificationSha256": "af95edbe7ff3cb90138cb33777c104b59c92191df3d8b1e20a8f5c2186cf7df2",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/606d815ed7661b6ec22a0799/6adb2e845f563cce90e746a7/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/606d815ed7661b6ec22a0799/6adb2e845f563cce90e746a7/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6f",
+      "entries": [
+        "two_blades-025"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e845f563cce90e746a8",
+      "hpcPath": "/mnt/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "s3VerifiedAt": "2026-10-27T06:57:23.715Z",
+      "fileCount": 56,
+      "bytes": 89741146441,
+      "sourceSha256": "d9515c2df6b573a4b85a9a0698876a37f7827cdb849ec3155411764abceaacb1",
+      "verificationSha256": "0282486445fc4d56743c729d1a493c7dfbf1556f92c325bc861a52d9593b3854",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6f/6adb2e845f563cce90e746a8/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6f/6adb2e845f563cce90e746a8/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2c",
+      "entries": [
+        "two_blades-026"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e995f563cce90e7470f",
+      "hpcPath": "/mnt/reads/two_blades/foc_st4",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/foc_st4",
+      "s3VerifiedAt": "2026-10-27T05:37:36.927Z",
+      "fileCount": 50,
+      "bytes": 89668270245,
+      "sourceSha256": "09cfcafff96f50cd54450ec228609648596cabff461b8aaddae5d4a3ae2d6b33",
+      "verificationSha256": "bcf3a400d06702fcc2065cb014815feee6a5f43d9d5b13cbd49f80009a38bb74",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2c/6adb2e995f563cce90e7470f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2c/6adb2e995f563cce90e7470f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d54",
+      "entries": [
+        "two_blades-027"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e9c5f563cce90e7472b",
+      "hpcPath": "/mnt/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "s3VerifiedAt": "2026-10-27T02:54:06.437Z",
+      "fileCount": 60,
+      "bytes": 85588402376,
+      "sourceSha256": "fc379d3c501ca8d1645e3b8b5156d88023ab35d48bc8b5940ac75bcdc93a7f5f",
+      "verificationSha256": "4728ee46ecd4eb7ae63185bcd3544eb2c72aa5541b065453617e3d0df09e619a",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d54/6adb2e9c5f563cce90e7472b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d54/6adb2e9c5f563cce90e7472b/verification-report.v1.json"
+    },
+    {
+      "projectId": "6130d23de788b405b6ce6d93",
+      "entries": [
+        "two_blades-028"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e9a5f563cce90e74719",
+      "hpcPath": "/mnt/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "s3VerifiedAt": "2026-10-27T01:37:30.993Z",
+      "fileCount": 14,
+      "bytes": 81147190680,
+      "sourceSha256": "5f264d68292982f448882bb92a49e2db32eb911343bea4c91005807220792220",
+      "verificationSha256": "abf4e6e771e4c28d7567662366b1f9a5028fd1d8b4ae3976fd14857e7c20ecd9",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6130d23de788b405b6ce6d93/6adb2e9a5f563cce90e74719/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6130d23de788b405b6ce6d93/6adb2e9a5f563cce90e74719/verification-report.v1.json"
+    },
+    {
+      "projectId": "6051c37ad7661b6ec22a06e3",
+      "entries": [
+        "two_blades-029"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2e9b5f563cce90e74722",
+      "hpcPath": "/mnt/reads/two_blades/adpop7_parents_wgs_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_parents_wgs_illumina",
+      "s3VerifiedAt": "2026-10-26T22:10:24.828Z",
+      "fileCount": 6,
+      "bytes": 77132674232,
+      "sourceSha256": "5f3421364c41a25c457b7888bcb65ba9b523e92f4d578129aa152d96e6dafbfa",
+      "verificationSha256": "9665cbd6fcaf15d7d581702f90716f1a08e671673c23b91272c6d5d6b0cc8522",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6051c37ad7661b6ec22a06e3/6adb2e9b5f563cce90e74722/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6051c37ad7661b6ec22a06e3/6adb2e9b5f563cce90e74722/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d52",
+      "entries": [
+        "two_blades-030"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eaf5f563cce90e74791",
+      "hpcPath": "/mnt/reads/two_blades/asr_sequencing_10xgenomics",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_10xgenomics",
+      "s3VerifiedAt": "2026-10-26T21:01:37.507Z",
+      "fileCount": 16,
+      "bytes": 77051692759,
+      "sourceSha256": "0d46c6b121111838a4824aff340ef35a70409fcf898ceb69308d2c5bc9452b25",
+      "verificationSha256": "545fdf19501e38d03f57cc86b9e6c231f484ed488b2288ea9f9e59baf928e906",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d52/6adb2eaf5f563cce90e74791/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d52/6adb2eaf5f563cce90e74791/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d51",
+      "entries": [
+        "two_blades-031"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eb05f563cce90e7479a",
+      "hpcPath": "/mnt/reads/two_blades/asr_sequencing_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_illumina",
+      "s3VerifiedAt": "2026-10-26T18:43:50.948Z",
+      "fileCount": 7,
+      "bytes": 72453177309,
+      "sourceSha256": "88a4f446a7197edc2570a87743ea374432728d6d06608c9e26baefb39c97d765",
+      "verificationSha256": "49e13c4fee421375020a91ad17d5e3b05045f3dc7d68daa715ec65d652dc8d22",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d51/6adb2eb05f563cce90e7479a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d51/6adb2eb05f563cce90e7479a/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1c",
+      "entries": [
+        "two_blades-032"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eb75f563cce90e747c0",
+      "hpcPath": "/mnt/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "s3VerifiedAt": "2026-10-25T17:43:14.769Z",
+      "fileCount": 10,
+      "bytes": 51726945153,
+      "sourceSha256": "b657e6f97a6725a94a4f5269529a819d09cdd1b6909a21980615332798984684",
+      "verificationSha256": "ab40af39c324624e6e63b242843b48331b31d25e38fefd7fcf7d95a5bf87fa6e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1c/6adb2eb75f563cce90e747c0/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1c/6adb2eb75f563cce90e747c0/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d18",
+      "entries": [
+        "two_blades-033"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eb85f563cce90e747c9",
+      "hpcPath": "/mnt/reads/two_blades/exome_capture_field_samples_jan2018",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/exome_capture_field_samples_jan2018",
+      "s3VerifiedAt": "2026-10-25T15:30:10.440Z",
+      "fileCount": 345,
+      "bytes": 49872696933,
+      "sourceSha256": "44a8437212b21354dfc64a2dcd398de632af577293c4a739778c2c7f1ed22d7f",
+      "verificationSha256": "39fda0ab0a9487ef10a5c28ec7b9134ac8158fd736847c67251f00298015a91f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d18/6adb2eb85f563cce90e747c9/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d18/6adb2eb85f563cce90e747c9/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7d",
+      "entries": [
+        "two_blades-034"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2ed65f563cce90e74816",
+      "hpcPath": "/mnt/reads/two_blades/ppufv02_gdna_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_gdna_bgi",
+      "s3VerifiedAt": "2026-10-25T09:15:18.316Z",
+      "fileCount": 7,
+      "bytes": 49736660585,
+      "sourceSha256": "d87c17a2076251a53d68e43140f4469703cbb5ab749259f45f1ece4a3255a5fc",
+      "verificationSha256": "548d539f3750e11e3a1a694e02e825f8a7b675a88813b18dedd779e9e876613b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7d/6adb2ed65f563cce90e74816/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7d/6adb2ed65f563cce90e74816/verification-report.v1.json"
+    },
+    {
+      "projectId": "606eb043d7661b6ec22a07a3",
+      "entries": [
+        "two_blades-035"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2ed75f563cce90e7481f",
+      "hpcPath": "/mnt/reads/two_blades/adpop7_refassembly_hifi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_refassembly_hifi",
+      "s3VerifiedAt": "2026-10-25T05:30:05.554Z",
+      "fileCount": 2,
+      "bytes": 46103572077,
+      "sourceSha256": "39833bab87da0c5c5b7adde7f107816544d3046de4ed204bcd2f287a888ca4ff",
+      "verificationSha256": "78fe2734a6e9db4e1ee09021e68f498c9fe29ee26bd260ce6d132b11250ed8b4",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/606eb043d7661b6ec22a07a3/6adb2ed75f563cce90e7481f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/606eb043d7661b6ec22a07a3/6adb2ed75f563cce90e7481f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d15",
+      "entries": [
+        "two_blades-036"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2edd5f563cce90e7484f",
+      "hpcPath": "/mnt/reads/two_blades/soybean_rust_dovetail_hic",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/soybean_rust_dovetail_hic",
+      "s3VerifiedAt": "2026-10-25T05:04:53.355Z",
+      "fileCount": 11,
+      "bytes": 44801395583,
+      "sourceSha256": "1a8fcea869a0f3f1fa89ef7e84ac6cc94a29ca84c859d42d5ac1926bb67fb5fd",
+      "verificationSha256": "12b87c54f50de3e02660f201c0c741ad82197cf03964a6872233cdab10b0f9ef",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d15/6adb2edd5f563cce90e7484f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d15/6adb2edd5f563cce90e7484f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2d",
+      "entries": [
+        "two_blades-037"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eda5f563cce90e74845",
+      "hpcPath": "/mnt/reads/two_blades/gltp_wgs_cintiakawashima",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gltp_wgs_cintiakawashima",
+      "s3VerifiedAt": "2026-10-25T02:53:10.339Z",
+      "fileCount": 11,
+      "bytes": 40690750463,
+      "sourceSha256": "64bed407cffaf1c7b9c570339a702d56089c2d9e51600c86ab622254e401ab3a",
+      "verificationSha256": "048125521814203cad8dcae4d03803110636b74c63be7f058e3b153404e2585e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2d/6adb2eda5f563cce90e74845/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2d/6adb2eda5f563cce90e74845/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3f",
+      "entries": [
+        "two_blades-038"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eec5f563cce90e7489b",
+      "hpcPath": "/mnt/reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "s3VerifiedAt": "2026-10-25T01:39:52.084Z",
+      "fileCount": 10,
+      "bytes": 37991753431,
+      "sourceSha256": "3c99211d58e339d68c5ade6bbfcedb2e5f8c434cb8be75ed3dc699b32bea7b25",
+      "verificationSha256": "ceb18a2728eee0b3ade3d59df39f79ededc1fdb430aa4ab6f83859ca51b34336",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3f/6adb2eec5f563cce90e7489b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3f/6adb2eec5f563cce90e7489b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d19",
+      "entries": [
+        "two_blades-039"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eef5f563cce90e748cb",
+      "hpcPath": "/mnt/reads/two_blades/bulks_asr_3_screen",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/bulks_asr_3_screen",
+      "s3VerifiedAt": "2026-10-24T23:45:13.220Z",
+      "fileCount": 10,
+      "bytes": 33872870524,
+      "sourceSha256": "af4f69b4ac22c11a9359bb4e8d9081a5e108fa5d43ae75a9d3a76a4c2a8f9ccf",
+      "verificationSha256": "38d1644969badc160bae9c5d129e3d4b02c473e1791a826e175d91aae1044b5f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d19/6adb2eef5f563cce90e748cb/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d19/6adb2eef5f563cce90e748cb/verification-report.v1.json"
+    },
+    {
+      "projectId": "60bf4a7be788b405b6ce6763",
+      "entries": [
+        "two_blades-040"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2eec5f563cce90e748a5",
+      "hpcPath": "/mnt/reads/two_blades/ant_project_rnaseq_data",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ant_project_rnaseq_data",
+      "s3VerifiedAt": "2026-10-24T21:40:34.384Z",
+      "fileCount": 21,
+      "bytes": 31061957907,
+      "sourceSha256": "921a9cf450f8a47abd6284a95c09d1afe4b4248abb9c3675e8f675b5f9e8683e",
+      "verificationSha256": "882f80d72f70f5f445205da467b53ef482eb445194a864624a321aaed51d8c8d",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60bf4a7be788b405b6ce6763/6adb2eec5f563cce90e748a5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60bf4a7be788b405b6ce6763/6adb2eec5f563cce90e748a5/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d45",
+      "entries": [
+        "two_blades-041"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2ef25f563cce90e748e2",
+      "hpcPath": "/mnt/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "s3VerifiedAt": "2026-10-23T17:30:34.759Z",
+      "fileCount": 4,
+      "bytes": 23555304813,
+      "sourceSha256": "23f14fbfbd49ac47db00622527791f87e20b61eabfe6e4e9c5a28aa3fcd494fc",
+      "verificationSha256": "1689a741bf25315d0f8a5432b545d8d93fb412df2a9fb161d9e3e45919d81bec",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d45/6adb2ef25f563cce90e748e2/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d45/6adb2ef25f563cce90e748e2/verification-report.v1.json"
+    },
+    {
+      "projectId": "604f7072d7661b6ec22a06cf",
+      "entries": [
+        "two_blades-042"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2f005f563cce90e74926",
+      "hpcPath": "/mnt/reads/two_blades/advpop7_cdna_nanopore",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/advpop7_cdna_nanopore",
+      "s3VerifiedAt": "2026-10-23T15:39:49.817Z",
+      "fileCount": 2,
+      "bytes": 20841174602,
+      "sourceSha256": "457ffeb29540a6320f71e736a22cdcb9c91ff656cb14505d48e8a42f567550f6",
+      "verificationSha256": "4db34da9c2307439e8be518ec167269f2ac24e8991434303408b11d16d4d0cf3",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/604f7072d7661b6ec22a06cf/6adb2f005f563cce90e74926/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/604f7072d7661b6ec22a06cf/6adb2f005f563cce90e74926/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d22",
+      "entries": [
+        "two_blades-043"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2f005f563cce90e7491d",
+      "hpcPath": "/mnt/reads/two_blades/legumeenrichmentcapture_rd",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_rd",
+      "s3VerifiedAt": "2026-10-23T13:44:05.738Z",
+      "fileCount": 4,
+      "bytes": 9850699379,
+      "sourceSha256": "4d585df67c1ea9d812244868d3971bf5d32ade57160ac2f46a7f51b9964a437a",
+      "verificationSha256": "bb3c41e8709fe816d511f1681aaeb29e7b47f6959f30651903c20d11d2d6aec8",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d22/6adb2f005f563cce90e7491d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d22/6adb2f005f563cce90e7491d/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3b",
+      "entries": [
+        "two_blades-044"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2f035f563cce90e7494c",
+      "hpcPath": "/mnt/reads/two_blades/legumeenrichmentcapture_s48",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_s48",
+      "s3VerifiedAt": "2026-10-23T13:04:13.485Z",
+      "fileCount": 4,
+      "bytes": 9238905532,
+      "sourceSha256": "98a12c2ee9faa7a61b864e513b9be17a99c99f4b48677070617067ea6b40c55e",
+      "verificationSha256": "d34b00ea764a44b6b940efab44af4debc499807e27f37675d08ad89c94e4a850",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3b/6adb2f035f563cce90e7494c/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3b/6adb2f035f563cce90e7494c/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d63",
+      "entries": [
+        "two_blades-045"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb2f075f563cce90e74963",
+      "hpcPath": "/mnt/reads/two_blades/legumeenrichmentcapture_raparent",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_raparent",
+      "s3VerifiedAt": "2026-10-23T12:47:24.492Z",
+      "fileCount": 4,
+      "bytes": 8833478265,
+      "sourceSha256": "8db69f6d6d2f34106b89dd03d7a1a31fb742d3ae25cb5223c106b0d0d0251fdd",
+      "verificationSha256": "251bbea91c2374e624e71e761d7b1a3fdef13c41a6983ff9689f4d195e1ea5df",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d63/6adb2f075f563cce90e74963/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d63/6adb2f075f563cce90e74963/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d65",
+      "entries": [
+        "two_blades-046"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33a62f2b2c46efb0da12",
+      "hpcPath": "/mnt/reads/two_blades/rnaseq_m_trun",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_m_trun",
+      "s3VerifiedAt": "2026-10-23T12:36:29.818Z",
+      "fileCount": 12,
+      "bytes": 8236352627,
+      "sourceSha256": "86fd4550aca1da91aeda5573e2fee9904c01c1684255d934b3318bacbec2d3ad",
+      "verificationSha256": "465b4f65b78cbb6e7b5cf941374c6a86375d6482e0a290d42dfb007e5a80d5c2",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d65/6adb33a62f2b2c46efb0da12/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d65/6adb33a62f2b2c46efb0da12/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d74",
+      "entries": [
+        "two_blades-047"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33a62f2b2c46efb0da2b",
+      "hpcPath": "/mnt/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "s3VerifiedAt": "2026-10-23T12:12:52.447Z",
+      "fileCount": 5,
+      "bytes": 7270673459,
+      "sourceSha256": "3b104d1d54ba22586c35c63d76df20413f31eb5325c6d6a55bdb51c0b9100993",
+      "verificationSha256": "f62434ba20d7b6198c42d29c29baf768e76997f349e31665a39cdc8a234ee14d",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d74/6adb33a62f2b2c46efb0da2b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d74/6adb33a62f2b2c46efb0da2b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d80",
+      "entries": [
+        "two_blades-048"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33a62f2b2c46efb0da29",
+      "hpcPath": "/mnt/reads/two_blades/pkg_enq_832_01nadineilk",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_832_01nadineilk",
+      "s3VerifiedAt": "2026-10-23T10:29:10.709Z",
+      "fileCount": 1,
+      "bytes": 75672305,
+      "sourceSha256": "985d43efa4491f56e92b9b57dc62797fee5e3fe4210ebf9a8155afd61e38cf12",
+      "verificationSha256": "d317f3762f7c2c3f00610001b2c6a35121e97cde9d6ce61e8fe94bd70c54d58c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d80/6adb33a62f2b2c46efb0da29/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d80/6adb33a62f2b2c46efb0da29/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d39",
+      "entries": [
+        "jjones-002"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33a62f2b2c46efb0da2d",
+      "hpcPath": "/mnt/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+      "s3VerifiedAt": "2026-11-02T20:55:20.889Z",
+      "fileCount": 424,
+      "bytes": 577790849790,
+      "sourceSha256": "021eb24377b22b64f7e70ec1fa3a2bc3f1c3e5f421c1cb71dac9096a106c67fa",
+      "verificationSha256": "3cd529c8a17ef62102f2fdce52028c0c995f5f668fead668254339f9b54c2061",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d39/6adb33a62f2b2c46efb0da2d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d39/6adb33a62f2b2c46efb0da2d/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1b",
+      "entries": [
+        "jjones-003"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33b62f2b2c46efb0dab5",
+      "hpcPath": "/mnt/reads/jjones/hk_pacbio",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_pacbio",
+      "s3VerifiedAt": "2026-11-02T11:46:21.380Z",
+      "fileCount": 868,
+      "bytes": 550447162305,
+      "sourceSha256": "b4aed20a066ec8b55c6a894dc6d014233176382a9bac4fb9b1a9eb7d38ba6367",
+      "verificationSha256": "f15cfba5bf9b78ff907c694e7a277463f9c634857d3c3fc3a95f82003ef215be",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1b/6adb33b62f2b2c46efb0dab5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1b/6adb33b62f2b2c46efb0dab5/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0a",
+      "entries": [
+        "jjones-004"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33b62f2b2c46efb0dab7",
+      "hpcPath": "/mnt/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "s3VerifiedAt": "2026-10-31T22:42:06.554Z",
+      "fileCount": 186,
+      "bytes": 377051587961,
+      "sourceSha256": "9e0f65ef852d4f1165c23b5c38eb05199512ed7e357844935a33f69b7154630e",
+      "verificationSha256": "6a08c8b07a0d4c284a9fcff6773d27c30eaf1db6a2676693f9185db4e84edc36",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0a/6adb33b62f2b2c46efb0dab7/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0a/6adb33b62f2b2c46efb0dab7/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "entries": [
+        "jjones-005"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33b62f2b2c46efb0dab6",
+      "hpcPath": "/mnt/reads/jjones/albugo_candida",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/albugo_candida",
+      "s3VerifiedAt": "2026-10-31T16:57:12.698Z",
+      "fileCount": 525,
+      "bytes": 359930630710,
+      "sourceSha256": "9cdae3defdf416b6b115b8d3705c4c75f60bed49507962618ca3927511d9f723",
+      "verificationSha256": "3210797889d0cfc7cca999c4ee6ac5a15123fb31c21c6edd6c88f66809c5b893",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d29/6adb33b62f2b2c46efb0dab6/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d29/6adb33b62f2b2c46efb0dab6/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6b",
+      "entries": [
+        "jjones-006"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33b52f2b2c46efb0da99",
+      "hpcPath": "/mnt/reads/jjones/witekk_s_americanum_gDNA_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_americanum_gDNA_bgi",
+      "s3VerifiedAt": "2026-10-31T11:07:04.131Z",
+      "fileCount": 135,
+      "bytes": 319776477622,
+      "sourceSha256": "313f67755c9031635e60f3d9b3ed1332f9dde8b6cd67131a5c989f58b6d63c71",
+      "verificationSha256": "3e11da192c78694b7b7dd6dba9302b1dbfbb19efbe47e5c2e214742325e3ac03",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6b/6adb33b52f2b2c46efb0da99/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6b/6adb33b52f2b2c46efb0da99/verification-report.v1.json"
+    },
+    {
+      "projectId": "60b78429e788b405b6ce66aa",
+      "entries": [
+        "jjones-007"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33c42f2b2c46efb0db28",
+      "hpcPath": "/mnt/reads/jjones/s__americanum_nanopore_cdna_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/s__americanum_nanopore_cdna_renseq",
+      "s3VerifiedAt": "2026-10-29T11:25:13.197Z",
+      "fileCount": 29,
+      "bytes": 162591239741,
+      "sourceSha256": "4900746cadad280e0c2144d20b0406fec3ef58b0af99454f6f685a4eebb71c77",
+      "verificationSha256": "e32193c395e188c93e5212c417d8a58762020f04045daa32e4840a5b8772eac8",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60b78429e788b405b6ce66aa/6adb33c42f2b2c46efb0db28/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60b78429e788b405b6ce66aa/6adb33c42f2b2c46efb0db28/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3a",
+      "entries": [
+        "jjones-008"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33c52f2b2c46efb0db3c",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "s3VerifiedAt": "2026-10-29T06:43:11.238Z",
+      "fileCount": 56,
+      "bytes": 154231387866,
+      "sourceSha256": "05a9aa3c263a21bdb69dfb276fd2efe174e4d6db4fa571a5e6424b6b021a6644",
+      "verificationSha256": "d9ed4b73a0aa8708b9b50137375a7c04e315913f8feabbef92462109fea7b157",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3a/6adb33c52f2b2c46efb0db3c/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3a/6adb33c52f2b2c46efb0db3c/verification-report.v1.json"
+    },
+    {
+      "projectId": "60ba0530e788b405b6ce66f2",
+      "entries": [
+        "jjones-009"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33c52f2b2c46efb0db3b",
+      "hpcPath": "/mnt/reads/jjones/s__americanum_sp1102_cdna_nanopore",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/s__americanum_sp1102_cdna_nanopore",
+      "s3VerifiedAt": "2026-10-28T08:04:50.822Z",
+      "fileCount": 22,
+      "bytes": 120693731678,
+      "sourceSha256": "cd830e139a88030f859bd05e99c496fd5e9d95c5450a1abe9a12f85887f8b144",
+      "verificationSha256": "cea86e66ddb70db3ad8056af3453b659bd3e94a752902ae2d928fffe50b0ad3f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60ba0530e788b405b6ce66f2/6adb33c52f2b2c46efb0db3b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60ba0530e788b405b6ce66f2/6adb33c52f2b2c46efb0db3b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d10",
+      "entries": [
+        "jjones-010"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33c92f2b2c46efb0db76",
+      "hpcPath": "/mnt/reads/jjones/aj_pathseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/aj_pathseq",
+      "s3VerifiedAt": "2026-10-28T06:17:31.471Z",
+      "fileCount": 823,
+      "bytes": 110493830761,
+      "sourceSha256": "82955b27eb0b74aae53e900feee6f3241e2ab3dff05785e8275d9d64992c8311",
+      "verificationSha256": "e066ba427828ff28a5de6dd6f0cc30981befabc6dd65da61ccac6e2283ae0883",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d10/6adb33c92f2b2c46efb0db76/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d10/6adb33c92f2b2c46efb0db76/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d11",
+      "entries": [
+        "jjones-011"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33d42f2b2c46efb0dbc0",
+      "hpcPath": "/mnt/reads/jjones/dingp_ath_atacseq_2019_1",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_atacseq_2019_1",
+      "s3VerifiedAt": "2026-10-28T03:39:29.944Z",
+      "fileCount": 87,
+      "bytes": 109121636160,
+      "sourceSha256": "c0ffb1906e212031b617ed576e0fa336a93e78a8d03373191443860e02e789cc",
+      "verificationSha256": "537400b8515b3ed5e191028b80bb0832a163a97b1e99b84ee8b0ecfa5538c6a8",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d11/6adb33d42f2b2c46efb0dbc0/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d11/6adb33d42f2b2c46efb0dbc0/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2b",
+      "entries": [
+        "jjones-012"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33d62f2b2c46efb0dbd9",
+      "hpcPath": "/mnt/reads/jjones/rice_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rice_renseq",
+      "s3VerifiedAt": "2026-10-28T01:59:05.989Z",
+      "fileCount": 432,
+      "bytes": 108509578131,
+      "sourceSha256": "efcd89c89f1c3dc37866a156b2dbc46cb7703a97f41806164663098bcb9fcef8",
+      "verificationSha256": "fb97a360b44a0208393493b3a21c6ee7ccb8bafd29ca1c7cc74c4b7311443b0f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2b/6adb33d62f2b2c46efb0dbd9/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2b/6adb33d62f2b2c46efb0dbd9/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d66",
+      "entries": [
+        "jjones-013"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33d42f2b2c46efb0dbb6",
+      "hpcPath": "/mnt/reads/jjones/witekk_s_pimpinellifolium_qcdata",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_qcdata",
+      "s3VerifiedAt": "2026-10-27T17:21:58.181Z",
+      "fileCount": 27,
+      "bytes": 103435674582,
+      "sourceSha256": "0c448e6ff25e9a3e85addcac5925f4bb0fa6969559f5866139ffa0c20c219a86",
+      "verificationSha256": "8644814f003c365559b900e8d5ec3da53474622b973ebd7bfde8231bf6e65367",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d66/6adb33d42f2b2c46efb0dbb6/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d66/6adb33d42f2b2c46efb0dbb6/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d24",
+      "entries": [
+        "jjones-014"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33d82f2b2c46efb0dbf2",
+      "hpcPath": "/mnt/reads/jjones/xl_pacbio_rlp_k_seq_2019",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/xl_pacbio_rlp_k_seq_2019",
+      "s3VerifiedAt": "2026-10-27T00:26:51.497Z",
+      "fileCount": 18,
+      "bytes": 79718025620,
+      "sourceSha256": "494ab287ffc1086ba009fc60181fbd0bbeec02e38a734cb19a190d02f8bd9e2f",
+      "verificationSha256": "b050f16a82a8d5d1984ee9f23d499d79370d8122e2034642a64d6005ee41262e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d24/6adb33d82f2b2c46efb0dbf2/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d24/6adb33d82f2b2c46efb0dbf2/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5a",
+      "entries": [
+        "jjones-015"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33e22f2b2c46efb0dc3f",
+      "hpcPath": "/mnt/reads/jjones/ccg_expression",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/ccg_expression",
+      "s3VerifiedAt": "2026-10-26T04:56:32.915Z",
+      "fileCount": 8,
+      "bytes": 72453154755,
+      "sourceSha256": "ba54cf269f63224094e6d58d5c0d195d5ea75f95234476600b0117e63bfed7d9",
+      "verificationSha256": "12bbde2a1eb9d92587b6b86e20abac5a523a8520f767c93b95229bf426f433d1",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5a/6adb33e22f2b2c46efb0dc3f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d5a/6adb33e22f2b2c46efb0dc3f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d34",
+      "entries": [
+        "jjones-016"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33e32f2b2c46efb0dc49",
+      "hpcPath": "/mnt/reads/jjones/hk_amr5",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_amr5",
+      "s3VerifiedAt": "2026-10-25T22:25:47.687Z",
+      "fileCount": 160,
+      "bytes": 64299925771,
+      "sourceSha256": "754d82643c8b4cd3f934d4c1ac2abee2329abcbe4bfa7161501f670e84d03f67",
+      "verificationSha256": "8446853bf7c0f499f868833eb53741ea28f897a6fcdf5e0823f071c97404ef6c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d34/6adb33e32f2b2c46efb0dc49/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d34/6adb33e32f2b2c46efb0dc49/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d26",
+      "entries": [
+        "jjones-017"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33e52f2b2c46efb0dc62",
+      "hpcPath": "/mnt/reads/jjones/witekk_jupef_solanum",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_jupef_solanum",
+      "s3VerifiedAt": "2026-10-25T16:14:42.467Z",
+      "fileCount": 39,
+      "bytes": 49905834495,
+      "sourceSha256": "eac8e7e080b015d19a17a983452f1d97bef8afe50fc76e94adc5f03db5f83c97",
+      "verificationSha256": "159fd3fc04c954a566f759ea4a2eb64e2ca40d7d0d079291083ed6c060935800",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d26/6adb33e52f2b2c46efb0dc62/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d26/6adb33e52f2b2c46efb0dc62/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6d",
+      "entries": [
+        "jjones-018"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33e72f2b2c46efb0dc8b",
+      "hpcPath": "/mnt/reads/jjones/solanum_americanum_nanopore_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/solanum_americanum_nanopore_sequencing",
+      "s3VerifiedAt": "2026-10-25T14:07:07.321Z",
+      "fileCount": 1202,
+      "bytes": 48063375008,
+      "sourceSha256": "da623d2fbeaf787e3dbfba53f60861a6cc47717b417c6c3a5d7265413d2311b8",
+      "verificationSha256": "88b9cca51bd3e330aee0ea705387da536c9bac23069799775a2ff9b821902d0a",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6d/6adb33e72f2b2c46efb0dc8b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6d/6adb33e72f2b2c46efb0dc8b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d38",
+      "entries": [
+        "jjones-019"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33f12f2b2c46efb0dccc",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+      "s3VerifiedAt": "2026-10-25T04:39:11.584Z",
+      "fileCount": 17,
+      "bytes": 42992833523,
+      "sourceSha256": "3a52a5ae5ebcd845aad7e4e0b7fa1f08fae916eaf15ba72c1681b9cf980373d5",
+      "verificationSha256": "d0049d5814403980526180ad7dc0be7f50ef30eaa39e950a9088517b7deb917c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d38/6adb33f12f2b2c46efb0dccc/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d38/6adb33f12f2b2c46efb0dccc/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d31",
+      "entries": [
+        "jjones-020"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33f22f2b2c46efb0dcd6",
+      "hpcPath": "/mnt/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+      "s3VerifiedAt": "2026-10-24T23:05:32.037Z",
+      "fileCount": 25,
+      "bytes": 32167515043,
+      "sourceSha256": "78c60c172be10692c27af5fe426df775face4016bd7673950249f669af678801",
+      "verificationSha256": "da658dccfc5a246ccabb41605f963c6dff83b1fc0ba546f4435255ef8bac0c0e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d31/6adb33f22f2b2c46efb0dcd6/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d31/6adb33f22f2b2c46efb0dcd6/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7c",
+      "entries": [
+        "jjones-021"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33f62f2b2c46efb0dcfb",
+      "hpcPath": "/mnt/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+      "s3VerifiedAt": "2026-10-25T12:02:48.579Z",
+      "fileCount": 860,
+      "bytes": 29761259708,
+      "sourceSha256": "734b341e58618957b5ecf27851237196b020ca82d4cab9e68749bab68ca75089",
+      "verificationSha256": "4bfafadfe3ce1064d58f5e55dfdfc07fb5cc79cdbb29852d1d8c469893f34d3b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7c/6adb33f62f2b2c46efb0dcfb/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7c/6adb33f62f2b2c46efb0dcfb/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4a",
+      "entries": [
+        "jjones-022"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33f62f2b2c46efb0dd05",
+      "hpcPath": "/mnt/reads/jjones/hk_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_renseq",
+      "s3VerifiedAt": "2026-10-24T18:48:44.239Z",
+      "fileCount": 140,
+      "bytes": 24941668725,
+      "sourceSha256": "35a96d950216287b2e48c19e48f274becefe624c6d15f28873b266058daa08e6",
+      "verificationSha256": "099f6139f9963a7a8fbb222b59730353fc18f1fa880bf5920c36125ae02d1ba4",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4a/6adb33f62f2b2c46efb0dd05/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4a/6adb33f62f2b2c46efb0dd05/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d78",
+      "entries": [
+        "jjones-023"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33ff2f2b2c46efb0dd50",
+      "hpcPath": "/mnt/reads/jjones/genetic_variation_in_albugo_laibachii",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/genetic_variation_in_albugo_laibachii",
+      "s3VerifiedAt": "2026-10-24T18:23:35.076Z",
+      "fileCount": 40,
+      "bytes": 24445469078,
+      "sourceSha256": "9fa0d7c85c557a8a387ce4c5f85a3a8aff1c76856ef61a50698cc3526fb6de15",
+      "verificationSha256": "a76882b01acb22f4a019f62da0178dde1d5cff8d73ea8f45ce6c6a19d6e3e4d4",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d78/6adb33ff2f2b2c46efb0dd50/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d78/6adb33ff2f2b2c46efb0dd50/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d40",
+      "entries": [
+        "jjones-024"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb33ff2f2b2c46efb0dd57",
+      "hpcPath": "/mnt/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+      "s3VerifiedAt": "2026-10-23T16:14:42.013Z",
+      "fileCount": 1,
+      "bytes": 21003151360,
+      "sourceSha256": "9bb0c290f651e559ad55beddc9a470d6219a76e6d7d59f9f78167e015f9dbe6c",
+      "verificationSha256": "5f9f0fdb69f2086514d3b066506472679b2bc0c4b8f2c77f82b44bf14a4a261c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d40/6adb33ff2f2b2c46efb0dd57/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d40/6adb33ff2f2b2c46efb0dd57/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d64",
+      "entries": [
+        "jjones-025"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34072f2b2c46efb0ddaa",
+      "hpcPath": "/mnt/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+      "s3VerifiedAt": "2026-10-25T10:33:18.589Z",
+      "fileCount": 1080,
+      "bytes": 14327908887,
+      "sourceSha256": "d42a524672ffdab3260819a75e94074a5ffea957d2c7986a6a46df5720853b47",
+      "verificationSha256": "5910eb0416fe1e7effdc77e9cca28282c100dfd811020092174376fbb7beddb9",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d64/6adb34072f2b2c46efb0ddaa/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d64/6adb34072f2b2c46efb0ddaa/verification-report.v1.json"
+    },
+    {
+      "projectId": "61375deae788b405b6ce6da8",
+      "entries": [
+        "jjones-026"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34052f2b2c46efb0dd7c",
+      "hpcPath": "/mnt/reads/jjones/renseq_on_s__americanum_populations_2021",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/renseq_on_s__americanum_populations_2021",
+      "s3VerifiedAt": "2026-10-23T14:42:47.361Z",
+      "fileCount": 74,
+      "bytes": 12775990456,
+      "sourceSha256": "ade48342f6c23274eae0f1a2591cbeaba37aa2b10644f571254e625debba0525",
+      "verificationSha256": "946089ef1d7f1d365d39ba2bcf170a44b01583d2f709e5b6145a293d29b34259",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61375deae788b405b6ce6da8/6adb34052f2b2c46efb0dd7c/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61375deae788b405b6ce6da8/6adb34052f2b2c46efb0dd7c/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d68",
+      "entries": [
+        "jjones-027"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb340e2f2b2c46efb0ddcd",
+      "hpcPath": "/mnt/reads/jjones/hk_amr10",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_amr10",
+      "s3VerifiedAt": "2026-10-23T14:02:22.644Z",
+      "fileCount": 34,
+      "bytes": 10055314240,
+      "sourceSha256": "3159b1ac8f20400f384da99a562acd392c65cb3f499b371414d6f94b651a4798",
+      "verificationSha256": "6275f6d468d3a4e5928b333ecc23b0e98c6a3fef5fbe082a84320a34cbbb87e6",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d68/6adb340e2f2b2c46efb0ddcd/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d68/6adb340e2f2b2c46efb0ddcd/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d36",
+      "entries": [
+        "jjones-028"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb340f2f2b2c46efb0dde0",
+      "hpcPath": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "s3VerifiedAt": "2026-10-23T13:27:19.994Z",
+      "fileCount": 21,
+      "bytes": 9649016353,
+      "sourceSha256": "8b1276522ab664b84979773ce416571b136bde57c0d967d584951f3f54bc4831",
+      "verificationSha256": "ecd1b3459bc5f50f1add88d30f9da214915cc218d9335591c88dcce0505ccd71",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d36/6adb340f2f2b2c46efb0dde0/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d36/6adb340f2f2b2c46efb0dde0/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfc",
+      "entries": [
+        "jjones-029"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34132f2b2c46efb0de0a",
+      "hpcPath": "/mnt/reads/jjones/witekk_tomato_renseq_miseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_tomato_renseq_miseq",
+      "s3VerifiedAt": "2026-10-23T13:25:54.466Z",
+      "fileCount": 22,
+      "bytes": 9528073071,
+      "sourceSha256": "ca1d8dbd7c5b708afe523f063b6bdb9b5c5c1e248f591e4d68adccf78682feed",
+      "verificationSha256": "c64abf3b4644c9a4de18cc425ed2629a64f003e596aae7c9f52b56232bb8c253",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfc/6adb34132f2b2c46efb0de0a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfc/6adb34132f2b2c46efb0de0a/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d37",
+      "entries": [
+        "jjones-030"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34162f2b2c46efb0de37",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+      "s3VerifiedAt": "2026-10-23T13:07:06.944Z",
+      "fileCount": 12,
+      "bytes": 9244025241,
+      "sourceSha256": "d553e34bb784c8b91c48bbd62593a03628dbd2cfe44ed21c5e55b58f66e58ddf",
+      "verificationSha256": "110aeb9291e644f223fb846c85fba8dca2bfb04bb148e64a493f507ea93b909c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d37/6adb34162f2b2c46efb0de37/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d37/6adb34162f2b2c46efb0de37/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d44",
+      "entries": [
+        "jjones-031"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb341c2f2b2c46efb0de5a",
+      "hpcPath": "/mnt/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+      "s3VerifiedAt": "2026-10-23T12:56:03.051Z",
+      "fileCount": 65,
+      "bytes": 8808616053,
+      "sourceSha256": "adf3958b48a554334c6532c1c93e11c03d06912029dcb7d395d4b901ef5a68bf",
+      "verificationSha256": "b361ddf6e2c84ee136480d546cd976f041a45d04bf2a27bd27461c1522a91816",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d44/6adb341c2f2b2c46efb0de5a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d44/6adb341c2f2b2c46efb0de5a/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6e",
+      "entries": [
+        "jjones-032"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb341d2f2b2c46efb0de6e",
+      "hpcPath": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "s3VerifiedAt": "2026-10-23T12:40:00.948Z",
+      "fileCount": 21,
+      "bytes": 8502152467,
+      "sourceSha256": "a403b56156ebe99f9ac0b857bac43f9e3db13d3d5ae43745703e5c1c05bee1b0",
+      "verificationSha256": "903008ac249f69ca4430cb8c204d449efcf4a39bf2a3a59c73c8fdd30f0ecf28",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6e/6adb341d2f2b2c46efb0de6e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d6e/6adb341d2f2b2c46efb0de6e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d71",
+      "entries": [
+        "jjones-033"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34212f2b2c46efb0de98",
+      "hpcPath": "/mnt/reads/jjones/witekk_s_tuberosum_dm_ber2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_tuberosum_dm_ber2",
+      "s3VerifiedAt": "2026-10-23T12:30:03.510Z",
+      "fileCount": 16,
+      "bytes": 8210369537,
+      "sourceSha256": "0aeda9da0f437b6ad5d08fd045b25df59aa7b56e70e656af59ceeda2deae6090",
+      "verificationSha256": "60141552538f97add0d10b82fafc8633127b2bd13041a97b28b52a1b31b3ef6e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d71/6adb34212f2b2c46efb0de98/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d71/6adb34212f2b2c46efb0de98/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d01",
+      "entries": [
+        "jjones-034"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34242f2b2c46efb0debb",
+      "hpcPath": "/mnt/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+      "s3VerifiedAt": "2026-10-23T12:19:28.348Z",
+      "fileCount": 68,
+      "bytes": 6953929735,
+      "sourceSha256": "bb0de27856e71931c1d0df1bbf699e35281cfed48bb02be2ce2fa1a0f66ef624",
+      "verificationSha256": "4150fe1901dd94103209b97fbfee36644239e3b0c7d4de277f6a05b11beb6d57",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d01/6adb34242f2b2c46efb0debb/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d01/6adb34242f2b2c46efb0debb/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d12",
+      "entries": [
+        "jjones-035"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb342a2f2b2c46efb0dee7",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+      "s3VerifiedAt": "2026-10-23T12:07:40.501Z",
+      "fileCount": 24,
+      "bytes": 6419055524,
+      "sourceSha256": "11f84dbfa4818d6ddcb0ef1c2352216203229cc30a79d1d9c723e4895ea1b0e9",
+      "verificationSha256": "86ab380cd8581353ab8a5c9684140a07f2e3b00c95ccfa125a253b385d8ee015",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d12/6adb342a2f2b2c46efb0dee7/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d12/6adb342a2f2b2c46efb0dee7/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d56",
+      "entries": [
+        "jjones-036"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb342b2f2b2c46efb0defa",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+      "s3VerifiedAt": "2026-10-23T11:56:39.857Z",
+      "fileCount": 26,
+      "bytes": 5337064647,
+      "sourceSha256": "93bfd982f053410e1041e2f77dcfff7088b6ac75e39e188d9d7a20596beda426",
+      "verificationSha256": "b42dc6d523fb77a08205076ea0eb8f22155ad38c820631f2a9957c141b18d8cf",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d56/6adb342b2f2b2c46efb0defa/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d56/6adb342b2f2b2c46efb0defa/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d77",
+      "entries": [
+        "jjones-037"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb342f2f2b2c46efb0df22",
+      "hpcPath": "/mnt/reads/jjones/amr4_mapping",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/amr4_mapping",
+      "s3VerifiedAt": "2026-10-23T11:46:41.393Z",
+      "fileCount": 12,
+      "bytes": 5110227961,
+      "sourceSha256": "0ea5445cfd28e53bb368773bbd16e50f1147e1073e16aae7921c19e3e565cd1d",
+      "verificationSha256": "ed5ab0c92fc1e666b63516a6b0f7f24793ae06852c3844fcb6a3aced23a055ac",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d77/6adb342f2f2b2c46efb0df22/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d77/6adb342f2f2b2c46efb0df22/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1a",
+      "entries": [
+        "jjones-038"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34322f2b2c46efb0df43",
+      "hpcPath": "/mnt/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+      "s3VerifiedAt": "2026-10-23T11:43:14.621Z",
+      "fileCount": 11,
+      "bytes": 4995073219,
+      "sourceSha256": "19865459daf75e1dfc048accc4df2497a65e49066296e54f254f24cf817282ad",
+      "verificationSha256": "cbf229e209273eafc485d3d0382179945b5043775bcfbe10f975b08586f1c711",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1a/6adb34322f2b2c46efb0df43/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1a/6adb34322f2b2c46efb0df43/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1e",
+      "entries": [
+        "jjones-039"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb343a2f2b2c46efb0df56",
+      "hpcPath": "/mnt/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+      "s3VerifiedAt": "2026-10-23T11:40:23.793Z",
+      "fileCount": 21,
+      "bytes": 4725542901,
+      "sourceSha256": "c459312a01813a5160990bc000237960b1b8e5bb5962b3ce7686d2a11495da03",
+      "verificationSha256": "0f87d178b8be1ac87e21f378fdea8bb512f40116105606b38cea5b86d18ec1d2",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1e/6adb343a2f2b2c46efb0df56/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1e/6adb343a2f2b2c46efb0df56/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d27",
+      "entries": [
+        "jjones-040"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb344c2f2b2c46efb0df8f",
+      "hpcPath": "/mnt/reads/jjones/hiseq_on_solanum_cdna",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hiseq_on_solanum_cdna",
+      "s3VerifiedAt": "2026-10-23T11:32:00.234Z",
+      "fileCount": 8,
+      "bytes": 4102243516,
+      "sourceSha256": "01050d328423032ee65fba35d5c8ecda74206939d6dac3c12bef2d27526fd910",
+      "verificationSha256": "db1b0fff06b4537b539099e42070ce6802a059c4a3acbd8b5a7c2a89242ac882",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d27/6adb344c2f2b2c46efb0df8f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d27/6adb344c2f2b2c46efb0df8f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "entries": [
+        "jjones-041"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34512f2b2c46efb0dfb9",
+      "hpcPath": "/mnt/reads/jjones/solynta_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/solynta_sequencing",
+      "s3VerifiedAt": "2026-10-23T11:28:49.655Z",
+      "fileCount": 15,
+      "bytes": 4044941281,
+      "sourceSha256": "401f0e940b0a6c52f8cd9652aa4395869077c2f140a4e827b1a7904357d368b9",
+      "verificationSha256": "90cf7157cfe9b5bcd6abd9a093683f1cdbd59ac0dffe06a9d9640a75030d0e6c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d28/6adb34512f2b2c46efb0dfb9/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d28/6adb34512f2b2c46efb0dfb9/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d81",
+      "entries": [
+        "jjones-042"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb344f2f2b2c46efb0dfb0",
+      "hpcPath": "/mnt/reads/jjones/furzero_hpa_emwa1_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/furzero_hpa_emwa1_illumina",
+      "s3VerifiedAt": "2026-10-23T11:27:25.093Z",
+      "fileCount": 22,
+      "bytes": 3873656200,
+      "sourceSha256": "d5f034b940ee7f723b70df546ea8aaf24a4a7e7addc3afbd7042a6315b54ad2a",
+      "verificationSha256": "e3448575e71d38020fa206298cf0f4dc0755e5a88d33e87a609d5c0dac3ad2e0",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d81/6adb344f2f2b2c46efb0dfb0/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d81/6adb344f2f2b2c46efb0dfb0/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3c",
+      "entries": [
+        "jjones-043"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34552f2b2c46efb0dfea",
+      "hpcPath": "/mnt/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+      "s3VerifiedAt": "2026-10-23T11:12:45.653Z",
+      "fileCount": 5,
+      "bytes": 2271599624,
+      "sourceSha256": "e000da737b24465247812811699bd040501a81a6dfebfd0dbe706f685f9f9fb7",
+      "verificationSha256": "f410d7aeb7222ac9831f80e390fda676ffa556b8b5c50594b560014d1b168885",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3c/6adb34552f2b2c46efb0dfea/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3c/6adb34552f2b2c46efb0dfea/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d47",
+      "entries": [
+        "jjones-044"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb345b2f2b2c46efb0e017",
+      "hpcPath": "/mnt/reads/jjones/miseq_renseq_on_various_solanum_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_on_various_solanum_",
+      "s3VerifiedAt": "2026-10-23T11:10:13.098Z",
+      "fileCount": 4,
+      "bytes": 2200967737,
+      "sourceSha256": "2382f00cbe9547057c3505e5f387c9e0d6cab1f7e7442e1f04e7d7b6343dc12d",
+      "verificationSha256": "a237df5780a05e0f4da5a7961d7710ff9a957b66d99384ea60c12c2aaf4ddc6b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d47/6adb345b2f2b2c46efb0e017/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d47/6adb345b2f2b2c46efb0e017/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d59",
+      "entries": [
+        "jjones-045"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb345d2f2b2c46efb0e02b",
+      "hpcPath": "/mnt/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+      "s3VerifiedAt": "2026-10-23T11:08:15.089Z",
+      "fileCount": 6,
+      "bytes": 1999188163,
+      "sourceSha256": "3e8bd433316547b7fc856969efd9b0431cfd3979d638b62dcdb2bc2dd04b1711",
+      "verificationSha256": "d1f1b9904c15737762ee430ddea5c9a263981a33e8304452b8931ef28a39737e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d59/6adb345d2f2b2c46efb0e02b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d59/6adb345d2f2b2c46efb0e02b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2a",
+      "entries": [
+        "jjones-046"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb345f2f2b2c46efb0e053",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+      "s3VerifiedAt": "2026-10-23T11:06:14.583Z",
+      "fileCount": 16,
+      "bytes": 1685058123,
+      "sourceSha256": "ccfb6ca54e549f95730a9809887c2cdb75864f6a062d2e03f5c368134190698a",
+      "verificationSha256": "0ab8707409938d432efd1e8e1b4c75e19e0eaf94accb74f081e5296442524eec",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2a/6adb345f2f2b2c46efb0e053/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2a/6adb345f2f2b2c46efb0e053/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "entries": [
+        "jjones-047"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34632f2b2c46efb0e076",
+      "hpcPath": "/mnt/reads/jjones/arabidopsis_pacbio_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/arabidopsis_pacbio_renseq",
+      "s3VerifiedAt": "2026-10-23T10:57:46.114Z",
+      "fileCount": 51,
+      "bytes": 1215896390,
+      "sourceSha256": "4e271c3e157ce033f3c480ef608799f0234ce09e88556162b13c576629663344",
+      "verificationSha256": "d982de9324a8c22f22013a33d0bf16e6c485c3d4db0d0ea2d8aade39e007e967",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d60/6adb34632f2b2c46efb0e076/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d60/6adb34632f2b2c46efb0e076/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfb",
+      "entries": [
+        "jjones-048"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34692f2b2c46efb0e0a3",
+      "hpcPath": "/mnt/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+      "s3VerifiedAt": "2026-10-23T10:48:59.518Z",
+      "fileCount": 8,
+      "bytes": 847658798,
+      "sourceSha256": "56c30fc47341babbc4e62ac357ebb48dd8c928a3522ec12d345eb4ac0d32844b",
+      "verificationSha256": "b7959475da584a8f526307a8af6beae703128474af3eff491ae9f5c106b15e02",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfb/6adb34692f2b2c46efb0e0a3/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfb/6adb34692f2b2c46efb0e0a3/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d17",
+      "entries": [
+        "jjones-049"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb346c2f2b2c46efb0e0c5",
+      "hpcPath": "/mnt/reads/jjones/atac_cseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/atac_cseq",
+      "s3VerifiedAt": "2026-10-23T11:16:26.002Z",
+      "fileCount": 232,
+      "bytes": 675008621,
+      "sourceSha256": "d954f3948d2b14e87bc5aab9c0b9ad7777426f0a123c724fcb6edee702ac7c23",
+      "verificationSha256": "c84f6e3ff2d2a9019ca937141126c403834d6eb59f3a72282838514c3fc7a66e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d17/6adb346c2f2b2c46efb0e0c5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d17/6adb346c2f2b2c46efb0e0c5/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d49",
+      "entries": [
+        "jjones-050"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb346d2f2b2c46efb0e0cf",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+      "s3VerifiedAt": "2026-10-23T10:40:49.854Z",
+      "fileCount": 17,
+      "bytes": 655616074,
+      "sourceSha256": "36fa46e14476430ccf86ddb5f32607e917b7b7cba6e8c10b20d34a6724f06103",
+      "verificationSha256": "6639b656b973699545cf99ce17c223727011fbe8f76c7e0c89e0c812b8190199",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d49/6adb346d2f2b2c46efb0e0cf/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d49/6adb346d2f2b2c46efb0e0cf/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0f",
+      "entries": [
+        "jjones-051"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34712f2b2c46efb0e102",
+      "hpcPath": "/mnt/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+      "s3VerifiedAt": "2026-10-23T10:40:37.060Z",
+      "fileCount": 16,
+      "bytes": 618589074,
+      "sourceSha256": "e0b0685a16706399db7f7a18907dc46537ef8ffc5b05c7faba0a21f2550d1e96",
+      "verificationSha256": "8f0955e1af66c4a998159451283bbdf5b0a430777377ee2cc4437e48946a1c81",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0f/6adb34712f2b2c46efb0e102/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0f/6adb34712f2b2c46efb0e102/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d42",
+      "entries": [
+        "jjones-052"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34862f2b2c46efb0e11f",
+      "hpcPath": "/mnt/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+      "s3VerifiedAt": "2026-10-23T10:38:49.317Z",
+      "fileCount": 4,
+      "bytes": 336972337,
+      "sourceSha256": "7a621d1178a595d88d4fd27e92389ebebddc1e448ad1533701db60808c67ceb5",
+      "verificationSha256": "bdaed93e41f4a999875dde3b8bf43266cb6e5233bf6e7e274f334c6d60a382b8",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d42/6adb34862f2b2c46efb0e11f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d42/6adb34862f2b2c46efb0e11f/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "entries": [
+        "jjones-053"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34882f2b2c46efb0e138",
+      "hpcPath": "/mnt/reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "s3VerifiedAt": "2026-10-23T10:38:53.748Z",
+      "fileCount": 16,
+      "bytes": 298166898,
+      "sourceSha256": "3dc1f4185755712801d902c3750d0530b1e3bef759c7cec0a220c824ad718050",
+      "verificationSha256": "0513d2ee9c7201a8ae59c95401806cceafc625732899789705f3960536d69087",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d35",
+      "entries": [
+        "jjones-054"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb348a2f2b2c46efb0e151",
+      "hpcPath": "/mnt/reads/jjones/lop_868_pacbio_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/lop_868_pacbio_renseq",
+      "s3VerifiedAt": "2026-10-23T10:37:18.160Z",
+      "fileCount": 4,
+      "bytes": 285483141,
+      "sourceSha256": "0eedc169390f3c9fbd4b2ab5fa8aa8dded172f78fd87635d9c40ca1238a2fe57",
+      "verificationSha256": "ac5120d342cfd3216b3d0324707956a3b6e46de1453947cb326dc33a001e2523",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d35/6adb348a2f2b2c46efb0e151/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d35/6adb348a2f2b2c46efb0e151/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "entries": [
+        "jjones-055"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34932f2b2c46efb0e186",
+      "hpcPath": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "s3VerifiedAt": "2026-10-23T10:37:23.125Z",
+      "fileCount": 7,
+      "bytes": 89834094,
+      "sourceSha256": "ec00bdeb850a4634060bf4562d41796882f7ec035cb7f1c335a809cf081e9ff6",
+      "verificationSha256": "af187aea99d5b89d0504d9825c3376aa70c13d304d123fbb088aa00eb8b83dfb",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4b",
+      "entries": [
+        "jjones-056"
+      ],
+      "alreadyCopiedPilot": true,
+      "migrationId": "6adb1abcbed8ab3ef3948eb3",
+      "hpcPath": "/mnt/reads/jjones/plant_capture_enhancer",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+      "s3VerifiedAt": "2026-10-23T08:30:52.069Z",
+      "fileCount": 3,
+      "bytes": 34647343,
+      "sourceSha256": "53d3a4a89236ddbff477eac5a63f1acc302992fbc9029cadb54629f665312f08",
+      "verificationSha256": "472e6d76dd2cd29b8c2f6642c78ea4c20c1f57a0ff19a5554d0cf92252c59747",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d46",
+      "entries": [
+        "ntalbot-002"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34952f2b2c46efb0e19e",
+      "hpcPath": "/mnt/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "s3VerifiedAt": "2026-11-01T18:57:12.746Z",
+      "fileCount": 657,
+      "bytes": 457914621055,
+      "sourceSha256": "73ea6ca6c0e2bd4daf3d1a33365b65ab7f83acb17ea363a9037b1e98282c9b8f",
+      "verificationSha256": "4d3d1265d4ec1c70a926f07e8badf430992cc56d0075fa6e955d172872f32fa1",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d46/6adb34952f2b2c46efb0e19e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d46/6adb34952f2b2c46efb0e19e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3e",
+      "entries": [
+        "ntalbot-003"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34972f2b2c46efb0e1b6",
+      "hpcPath": "/mnt/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "s3VerifiedAt": "2026-11-01T11:18:20.619Z",
+      "fileCount": 269,
+      "bytes": 423593913251,
+      "sourceSha256": "96dfdc57182d3002aa2f1cdec99793f674d2296ab6885e2848f7ba7c5e96226b",
+      "verificationSha256": "4f065b1f8d5103f21388e843b03869da9e94de3ec27f47e31ebf2309c83376b7",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3e/6adb34972f2b2c46efb0e1b6/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3e/6adb34972f2b2c46efb0e1b6/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d04",
+      "entries": [
+        "ntalbot-004"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34c02f2b2c46efb0e296",
+      "hpcPath": "/mnt/reads/ntalbot/uv_mutagenesis",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/uv_mutagenesis",
+      "s3VerifiedAt": "2026-10-29T22:18:17.990Z",
+      "fileCount": 267,
+      "bytes": 184379087191,
+      "sourceSha256": "a2113648b0d068bf4c0df1690de328db54e67e95d000abda07f32ec86d1b8d05",
+      "verificationSha256": "d2bd419054c086b87ea34278c6885fbcc3603255f21d827136140ecc5ddd28ba",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d04/6adb34c02f2b2c46efb0e296/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d04/6adb34c02f2b2c46efb0e296/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "entries": [
+        "ntalbot-005"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34b02f2b2c46efb0e202",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+      "s3VerifiedAt": "2026-10-29T19:13:25.516Z",
+      "fileCount": 142,
+      "bytes": 173734125362,
+      "sourceSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "verificationSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d02",
+      "entries": [
+        "ntalbot-006"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34b22f2b2c46efb0e20b",
+      "hpcPath": "/mnt/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "s3VerifiedAt": "2026-10-28T19:39:11.778Z",
+      "fileCount": 18,
+      "bytes": 141690619948,
+      "sourceSha256": "afa8f7cb123535235e824f0ad4055a4f3c5563812cef61588b927fb4cb868572",
+      "verificationSha256": "519da171247aa5405021fe6421ebb5a3a15f2c73becc81b16ce58d4e1429f7b9",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d02/6adb34b22f2b2c46efb0e20b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d02/6adb34b22f2b2c46efb0e20b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d41",
+      "entries": [
+        "ntalbot-007"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34b32f2b2c46efb0e224",
+      "hpcPath": "/mnt/reads/ntalbot/wheat_blast_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wheat_blast_project",
+      "s3VerifiedAt": "2026-10-27T23:52:16.353Z",
+      "fileCount": 95,
+      "bytes": 106623504945,
+      "sourceSha256": "364408a4b78b963825c2c523256019b081086fe565f4a2a9c50461e2ba4a5f30",
+      "verificationSha256": "b5d942d278a71bd2401eeaa73697a8fa05d355d24cdc1804c1c8066edf9d571d",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d41/6adb34b32f2b2c46efb0e224/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d41/6adb34b32f2b2c46efb0e224/verification-report.v1.json"
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "entries": [
+        "ntalbot-008"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34bc2f2b2c46efb0e26a",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+      "s3VerifiedAt": "2026-10-27T20:44:48.707Z",
+      "fileCount": 99,
+      "bytes": 105611175618,
+      "sourceSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "verificationSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/verification-report.v1.json"
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "entries": [
+        "ntalbot-009"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34be2f2b2c46efb0e274",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+      "s3VerifiedAt": "2026-10-27T19:07:09.277Z",
+      "fileCount": 122,
+      "bytes": 103438441044,
+      "sourceSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "verificationSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "entries": [
+        "ntalbot-010"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34c02f2b2c46efb0e295",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+      "s3VerifiedAt": "2026-10-27T09:52:39.091Z",
+      "fileCount": 89,
+      "bytes": 99954671448,
+      "sourceSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "verificationSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7b",
+      "entries": [
+        "ntalbot-011"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34ca2f2b2c46efb0e2e3",
+      "hpcPath": "/mnt/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "s3VerifiedAt": "2026-10-27T04:18:10.758Z",
+      "fileCount": 128,
+      "bytes": 85999414527,
+      "sourceSha256": "5a200a8d4546ec883da3eeed2021fdbc918e401215f32c799d0312933a6ca9d2",
+      "verificationSha256": "689a9bc3cd5fce14f8068d503202e8a9e08668d4afafc0b3ff272b259ecf827f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7b/6adb34ca2f2b2c46efb0e2e3/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7b/6adb34ca2f2b2c46efb0e2e3/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "entries": [
+        "ntalbot-012"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34cc2f2b2c46efb0e2e9",
+      "hpcPath": "/mnt/reads/ntalbot/project_2370",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2370",
+      "s3VerifiedAt": "2026-10-26T23:17:10.626Z",
+      "fileCount": 11,
+      "bytes": 78243529352,
+      "sourceSha256": "cd543ba691dbc8eac050c5ce43cd0cc5a787b8acb102cb895175e19de1e227a1",
+      "verificationSha256": "c7bbfbf042c538996ad49a5844702250a8c5dfb918dfd9f140914b9d8dcfe8a3",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712264f/6adb34cc2f2b2c46efb0e2e9/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712264f/6adb34cc2f2b2c46efb0e2e9/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "entries": [
+        "ntalbot-013"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34ce2f2b2c46efb0e2fd",
+      "hpcPath": "/mnt/reads/ntalbot/project_2035",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2035",
+      "s3VerifiedAt": "2026-10-26T19:55:25.168Z",
+      "fileCount": 97,
+      "bytes": 75397724663,
+      "sourceSha256": "687d97eb5ca53423fb6915caa06f30c3d3735ecca0c63d70d5b4ad267b266c70",
+      "verificationSha256": "89f00739fb6358e99a7515ea175b2e14ce03300d24d11efa1428345137ca9fd0",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122650/6adb34ce2f2b2c46efb0e2fd/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122650/6adb34ce2f2b2c46efb0e2fd/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4c",
+      "entries": [
+        "ntalbot-014"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34cf2f2b2c46efb0e311",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_tissue_rna1",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_tissue_rna1",
+      "s3VerifiedAt": "2026-10-26T00:40:12.458Z",
+      "fileCount": 58,
+      "bytes": 65384995837,
+      "sourceSha256": "b6cdcdada6f1688ba7cf3e7a96de8d2e3b53a2d049b1c597417bd1c0d58b7293",
+      "verificationSha256": "852146535b5358cf8b78bb132f31481e7e94fa05f9fa29bdf1e742bde0f7ee80",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4c/6adb34cf2f2b2c46efb0e311/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4c/6adb34cf2f2b2c46efb0e311/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d09",
+      "entries": [
+        "ntalbot-015"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34d92f2b2c46efb0e351",
+      "hpcPath": "/mnt/reads/ntalbot/rna_seq_of_various_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_of_various_mutants",
+      "s3VerifiedAt": "2026-10-25T19:30:22.872Z",
+      "fileCount": 50,
+      "bytes": 58826618808,
+      "sourceSha256": "5b0002d3d7f2f66889b04df54cdfa1aad471bf878596370a7a317ef7271e2a9e",
+      "verificationSha256": "3757c03760c56689e39016f0de29e6f71ff8b827be18ad8fbbb2d2db7b1e81c3",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d09/6adb34d92f2b2c46efb0e351/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d09/6adb34d92f2b2c46efb0e351/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d33",
+      "entries": [
+        "ntalbot-016"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34da2f2b2c46efb0e35a",
+      "hpcPath": "/mnt/reads/ntalbot/nadph_oxidase_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/nadph_oxidase_project",
+      "s3VerifiedAt": "2026-10-25T18:37:11.296Z",
+      "fileCount": 75,
+      "bytes": 52231000289,
+      "sourceSha256": "19c40952a77924718e4cb36fb079c7e34f6968eb3cfa1d136a94067778d7a63c",
+      "verificationSha256": "57b7216b0cfd3308bbd67f49b59870fffd220249f45413d5267b3750def9fdd7",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d33/6adb34da2f2b2c46efb0e35a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d33/6adb34da2f2b2c46efb0e35a/verification-report.v1.json"
+    },
+    {
+      "projectId": "6116bf17e788b405b6ce69e8",
+      "entries": [
+        "ntalbot-017"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34dd2f2b2c46efb0e37f",
+      "hpcPath": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "s3VerifiedAt": "2026-10-25T04:11:38.598Z",
+      "fileCount": 21,
+      "bytes": 42891475718,
+      "sourceSha256": "686a10ffda77c45205f3dc5829aa706765ad1e7f5b204999d0143398028c42eb",
+      "verificationSha256": "7a3f6717aac0433145e06df9b4f7ae5a2a75e7a85f3d701c6a39ddd8d41d83bf",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6116bf17e788b405b6ce69e8/6adb34dd2f2b2c46efb0e37f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6116bf17e788b405b6ce69e8/6adb34dd2f2b2c46efb0e37f/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "entries": [
+        "ntalbot-018"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34dd2f2b2c46efb0e385",
+      "hpcPath": "/mnt/reads/ntalbot/project_945",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_945",
+      "s3VerifiedAt": "2026-10-25T02:03:25.627Z",
+      "fileCount": 20,
+      "bytes": 38737500366,
+      "sourceSha256": "db7c9271f76883623c0871f22563c125b9986a2aa1db717005c0d3a023c90955",
+      "verificationSha256": "9aabec2c83200fb3806b986a154e52b051ef1bfd0ae3fa52ccac38e5190d1359",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122651/6adb34dd2f2b2c46efb0e385/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122651/6adb34dd2f2b2c46efb0e385/verification-report.v1.json"
+    },
+    {
+      "projectId": "6116c323e788b405b6ce69f6",
+      "entries": [
+        "ntalbot-019"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb351c2f2b2c46efb0e3d4",
+      "hpcPath": "/mnt/reads/ntalbot/generational_experiment_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/generational_experiment_",
+      "s3VerifiedAt": "2026-10-25T01:18:02.267Z",
+      "fileCount": 18,
+      "bytes": 36630086564,
+      "sourceSha256": "12c25f3eaaa8930299228e31deb2e98f5a237692b14959278644813847b37347",
+      "verificationSha256": "4746910d7096ce4bdaf2dd32b6e583fa3d199edaf0cbc2bdf38c5de190c1a827",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6116c323e788b405b6ce69f6/6adb351c2f2b2c46efb0e3d4/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6116c323e788b405b6ce69f6/6adb351c2f2b2c46efb0e3d4/verification-report.v1.json"
+    },
+    {
+      "projectId": "60804e0b837a8a261f0133ee",
+      "entries": [
+        "ntalbot-020"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35142f2b2c46efb0e3c2",
+      "hpcPath": "/mnt/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "s3VerifiedAt": "2026-10-25T00:56:29.727Z",
+      "fileCount": 18,
+      "bytes": 35736656386,
+      "sourceSha256": "ff76817022adb6720faf54542790d6cc154df48ee813caf699477b3f1405636c",
+      "verificationSha256": "c4475e74a546723fc865e47a59c74acf97c45d13f42612943509c1c7f2e83527",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60804e0b837a8a261f0133ee/6adb35142f2b2c46efb0e3c2/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60804e0b837a8a261f0133ee/6adb35142f2b2c46efb0e3c2/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2f",
+      "entries": [
+        "ntalbot-021"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35202f2b2c46efb0e3ff",
+      "hpcPath": "/mnt/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "s3VerifiedAt": "2026-10-25T00:35:09.291Z",
+      "fileCount": 28,
+      "bytes": 35075963678,
+      "sourceSha256": "1561c8e9e64ae78c45498151a09c9466d5b4669ae02e180eb717657120487d7d",
+      "verificationSha256": "d0088475071662d69baee2ad0b986dd566afc61574069ac3697873c946e7240c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2f/6adb35202f2b2c46efb0e3ff/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d2f/6adb35202f2b2c46efb0e3ff/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfa",
+      "entries": [
+        "ntalbot-022"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35222f2b2c46efb0e408",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "s3VerifiedAt": "2026-10-25T00:13:20.600Z",
+      "fileCount": 97,
+      "bytes": 34152118080,
+      "sourceSha256": "e88125073515cc4a3115388ba3d8e221c29c8dc781525d22c6e881fc36924692",
+      "verificationSha256": "242fc5157c3c0e325118a1a5b98012057a337e534a837aed124ac70539ba994b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfa/6adb35222f2b2c46efb0e408/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cfa/6adb35222f2b2c46efb0e408/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d43",
+      "entries": [
+        "ntalbot-023"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35272f2b2c46efb0e436",
+      "hpcPath": "/mnt/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "s3VerifiedAt": "2026-10-24T22:24:15.576Z",
+      "fileCount": 14,
+      "bytes": 32153599360,
+      "sourceSha256": "a35dd612eb643de4114f05da520cb37c43e0cb2242048bd220b53d478074c053",
+      "verificationSha256": "15f772deac07fb9adf18a75d3cad0c8572fe41716078825a3a83e6b88d14aa97",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d43/6adb35272f2b2c46efb0e436/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d43/6adb35272f2b2c46efb0e436/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "entries": [
+        "ntalbot-024"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb352a2f2b2c46efb0e445",
+      "hpcPath": "/mnt/reads/ntalbot/project_2012",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2012",
+      "s3VerifiedAt": "2026-10-24T22:05:11.532Z",
+      "fileCount": 72,
+      "bytes": 31629123970,
+      "sourceSha256": "b1e378338af73cf258e76a15bb5c6663ab08a808221d7edfb00c5c55ea77def3",
+      "verificationSha256": "142f480aa483210a9421eb9735c5697cce26b7d3cc962664379eb08fe99d41dc",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122652/6adb352a2f2b2c46efb0e445/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122652/6adb352a2f2b2c46efb0e445/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "entries": [
+        "ntalbot-025"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb352f2f2b2c46efb0e461",
+      "hpcPath": "/mnt/reads/ntalbot/project_809",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_809",
+      "s3VerifiedAt": "2026-10-24T19:04:10.913Z",
+      "fileCount": 6,
+      "bytes": 27090686963,
+      "sourceSha256": "af85ec24f5f819a6c783d16feabbb38b6b968373b67d6f2aa61a819e921aae26",
+      "verificationSha256": "2b8ec4d737f6eaeb331c9968dc7c08e4deb2783b9910ebc3d50bdf4c3c450b53",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122653/6adb352f2f2b2c46efb0e461/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122653/6adb352f2f2b2c46efb0e461/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "entries": [
+        "ntalbot-026",
+        "ntalbot-031"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35302f2b2c46efb0e473",
+      "hpcPath": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "s3VerifiedAt": "2026-10-25T03:45:45.451Z",
+      "fileCount": 39,
+      "bytes": 41849908492,
+      "sourceSha256": "259928d23d83f0955914925b365954f5064e92a3d962aaf614001c1c9dfa7d9e",
+      "verificationSha256": "ccc7864fc9620ee387bf227f1e6f4a421c5becf2730ffbb79ca6dd399bfbc584",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cf7/6adb35302f2b2c46efb0e473/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cf7/6adb35302f2b2c46efb0e473/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d79",
+      "entries": [
+        "ntalbot-027"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35362f2b2c46efb0e49e",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "s3VerifiedAt": "2026-10-23T17:17:00.572Z",
+      "fileCount": 30,
+      "bytes": 23114728859,
+      "sourceSha256": "9a17ae994dfb19246e6a99fdb1b08f41f3e4cb402425bb4f3bc407bdecbd80df",
+      "verificationSha256": "33e716f59ee05f1a05bf7cce92541ad02bc5e3096ce5c5675ab17133c6173874",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d79/6adb35362f2b2c46efb0e49e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d79/6adb35362f2b2c46efb0e49e/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "entries": [
+        "ntalbot-028"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35392f2b2c46efb0e4ad",
+      "hpcPath": "/mnt/reads/ntalbot/project_930",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_930",
+      "s3VerifiedAt": "2026-10-23T16:58:45.281Z",
+      "fileCount": 52,
+      "bytes": 22742214458,
+      "sourceSha256": "9a65e9887288c1ce86a8b8dc1a45ad03572f1c2575cf1da45f777acbf32e4374",
+      "verificationSha256": "53577c8697721f866b584c722cb08806a483b5a26d457eddb3aa7eb6225377ef",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122654/6adb35392f2b2c46efb0e4ad/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122654/6adb35392f2b2c46efb0e4ad/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "entries": [
+        "ntalbot-029"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35442f2b2c46efb0e4c1",
+      "hpcPath": "/mnt/reads/ntalbot/project_2323",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2323",
+      "s3VerifiedAt": "2026-10-23T16:35:53.982Z",
+      "fileCount": 40,
+      "bytes": 22039506100,
+      "sourceSha256": "c26d2bae9bb2fb3e41579cd1e043079a2afeb1688a5671dc0d5b598de66ae45a",
+      "verificationSha256": "d211bcbaa0a8093f7c74629219d9c6088b5b6c4f446eb419825c4b71716edb33",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122655/6adb35442f2b2c46efb0e4c1/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122655/6adb35442f2b2c46efb0e4c1/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d06",
+      "entries": [
+        "ntalbot-030"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35472f2b2c46efb0e4db",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "s3VerifiedAt": "2026-10-23T15:27:14.521Z",
+      "fileCount": 24,
+      "bytes": 19142588085,
+      "sourceSha256": "5c604239b556bdf73bab737dc9a7858cbe92b71d922b41cedcb415edb8a35db8",
+      "verificationSha256": "fbe769ece2d2696132ca781b529a42da4b7947cf4c00a7c590d79080155cedd2",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d06/6adb35472f2b2c46efb0e4db/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d06/6adb35472f2b2c46efb0e4db/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1d",
+      "entries": [
+        "ntalbot-032"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb354d2f2b2c46efb0e4f8",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "s3VerifiedAt": "2026-10-23T15:13:21.371Z",
+      "fileCount": 42,
+      "bytes": 16867382244,
+      "sourceSha256": "64c5ac119322b370e7bb9eeea787c9e44235d680a75b119fb0b385b98de23e5b",
+      "verificationSha256": "c3060be62afc78687543096370ff55ca229a27d6f269accab5432a1cbd2f078e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1d/6adb354d2f2b2c46efb0e4f8/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d1d/6adb354d2f2b2c46efb0e4f8/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "entries": [
+        "ntalbot-033"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35502f2b2c46efb0e512",
+      "hpcPath": "/mnt/reads/ntalbot/project_2009",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2009",
+      "s3VerifiedAt": "2026-10-23T14:55:49.728Z",
+      "fileCount": 28,
+      "bytes": 14852621710,
+      "sourceSha256": "54b174a70af113d72beeb7a2e93e7e57c1e84f6d40a2c873321de2fe32fdbc4b",
+      "verificationSha256": "ce91caee0a2ad7cd15d12dc0885a03d5e7443bb4a77273aa07c523dfb99a6197",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122656/6adb35502f2b2c46efb0e512/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122656/6adb35502f2b2c46efb0e512/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d57",
+      "entries": [
+        "ntalbot-034"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35542f2b2c46efb0e535",
+      "hpcPath": "/mnt/reads/ntalbot/cell_cycle",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/cell_cycle",
+      "s3VerifiedAt": "2026-10-23T14:24:47.962Z",
+      "fileCount": 12,
+      "bytes": 12147621942,
+      "sourceSha256": "a59b904e4e2b92bb2e995f3e1cccb8bfc44e29f6e7355fb6cbcf13d825923e2c",
+      "verificationSha256": "ecc0d89153195b78a4e9446dddf17014c852b4fc22ae93451f3a470de65c0fd7",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d57/6adb35542f2b2c46efb0e535/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d57/6adb35542f2b2c46efb0e535/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "entries": [
+        "ntalbot-035"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb355b2f2b2c46efb0e559",
+      "hpcPath": "/mnt/reads/ntalbot/project_1622",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1622",
+      "s3VerifiedAt": "2026-10-23T14:10:43.983Z",
+      "fileCount": 15,
+      "bytes": 10629370636,
+      "sourceSha256": "81d676518554097abeef5a774c6cd70943791c5386868368a1f83cebc22e7e24",
+      "verificationSha256": "96b618212c4e80b52c1f60f0b91a192a99683105cb73a4bc9cea9948b2c40d94",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122657/6adb355b2f2b2c46efb0e559/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122657/6adb355b2f2b2c46efb0e559/verification-report.v1.json"
+    },
+    {
+      "projectId": "606c3308d7661b6ec22a0793",
+      "entries": [
+        "ntalbot-036"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb355e2f2b2c46efb0e577",
+      "hpcPath": "/mnt/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "s3VerifiedAt": "2026-10-23T13:15:01.393Z",
+      "fileCount": 13,
+      "bytes": 9339040375,
+      "sourceSha256": "a98873cd0164a186f115861a4e3a300ca22c6d68a5c3e7af3b0c1d2567328e31",
+      "verificationSha256": "823dcbf7ef48c48e17787b9f8246587e66bf0ddfbe6aa92aa503cda371726657",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/606c3308d7661b6ec22a0793/6adb355e2f2b2c46efb0e577/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/606c3308d7661b6ec22a0793/6adb355e2f2b2c46efb0e577/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "entries": [
+        "ntalbot-037"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35602f2b2c46efb0e589",
+      "hpcPath": "/mnt/reads/ntalbot/project_1566",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1566",
+      "s3VerifiedAt": "2026-10-23T12:53:12.385Z",
+      "fileCount": 1,
+      "bytes": 8982368958,
+      "sourceSha256": "4b09017078817fc1fd4a663056315f076fadaad3d3be8a1a1e85a208d2cdbe02",
+      "verificationSha256": "8dfae8ac99200a35dd8ab2709419681512799b2602422690f6c5700a41d29285",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122658/6adb35602f2b2c46efb0e589/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122658/6adb35602f2b2c46efb0e589/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d03",
+      "entries": [
+        "ntalbot-038"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35632f2b2c46efb0e5a7",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "s3VerifiedAt": "2026-10-23T12:27:42.310Z",
+      "fileCount": 2,
+      "bytes": 7545919237,
+      "sourceSha256": "fe9507285adb40367bd65d86e4309886ef1d17b0e8ad419ba30951c56bf2ad92",
+      "verificationSha256": "a9f73f9e1c0c3d5bd5a54752b4475bf7251fc31928991a23813c9b74e9d63693",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d03/6adb35632f2b2c46efb0e5a7/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d03/6adb35632f2b2c46efb0e5a7/verification-report.v1.json"
+    },
+    {
+      "projectId": "6116c220e788b405b6ce69f2",
+      "entries": [
+        "ntalbot-039"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb357c2f2b2c46efb0e5cf",
+      "hpcPath": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "s3VerifiedAt": "2026-10-23T12:02:54.702Z",
+      "fileCount": 3,
+      "bytes": 6209130977,
+      "sourceSha256": "0144e44a7116af2391e0640b11b7f5825fdc47bedf2184df71748a2b72e82bc5",
+      "verificationSha256": "affea9decdb47b7285dba97e6640ce5228359c838c67cf43f9cc037e369c1abb",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6116c220e788b405b6ce69f2/6adb357c2f2b2c46efb0e5cf/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6116c220e788b405b6ce69f2/6adb357c2f2b2c46efb0e5cf/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "entries": [
+        "ntalbot-040"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35832f2b2c46efb0e5d5",
+      "hpcPath": "/mnt/reads/ntalbot/project_592_593",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_592_593",
+      "s3VerifiedAt": "2026-10-23T11:48:21.658Z",
+      "fileCount": 3,
+      "bytes": 5229182384,
+      "sourceSha256": "9f077fefb6a5a9ee1b458981c7a6e5b5abc38c5d3e7c05c4ee3c4c10aed1fc76",
+      "verificationSha256": "598c0aca63ce1fcbacd4344917a399413def3a80dffcd6c1dc06c1291f0dd711",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122659/6adb35832f2b2c46efb0e5d5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae17122659/6adb35832f2b2c46efb0e5d5/verification-report.v1.json"
+    },
+    {
+      "projectId": "605b441ad7661b6ec22a076a",
+      "entries": [
+        "ntalbot-041"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb358b2f2b2c46efb0e618",
+      "hpcPath": "/mnt/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "s3VerifiedAt": "2026-10-23T11:38:19.603Z",
+      "fileCount": 6,
+      "bytes": 4808078917,
+      "sourceSha256": "37f8051092cf355ce942a1d3fd0721531830fc87949e9b87df913429dc98def2",
+      "verificationSha256": "c7d2531f6c4352af3fd8769edc06b16d8b8ca20b26a9e26f3c0e079c2e7ebd31",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/605b441ad7661b6ec22a076a/6adb358b2f2b2c46efb0e618/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/605b441ad7661b6ec22a076a/6adb358b2f2b2c46efb0e618/verification-report.v1.json"
+    },
+    {
+      "projectId": "60619edfd7661b6ec22a076e",
+      "entries": [
+        "ntalbot-042"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb358a2f2b2c46efb0e608",
+      "hpcPath": "/mnt/reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "s3VerifiedAt": "2026-10-23T11:33:55.537Z",
+      "fileCount": 9,
+      "bytes": 4448038873,
+      "sourceSha256": "7bb3ed589290aa11f1c1d1f1847887d4c8ec0fa34a5b98f924ccc24ac19870e6",
+      "verificationSha256": "337c2f9fe2d5e2b41f3fd3085c139495580b5bd3bfeb7eea7d6b6e0493a6044c",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60619edfd7661b6ec22a076e/6adb358a2f2b2c46efb0e608/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60619edfd7661b6ec22a076e/6adb358a2f2b2c46efb0e608/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d21",
+      "entries": [
+        "ntalbot-043"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35912f2b2c46efb0e63c",
+      "hpcPath": "/mnt/reads/ntalbot/wsc1_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wsc1_project",
+      "s3VerifiedAt": "2026-10-23T11:23:46.163Z",
+      "fileCount": 15,
+      "bytes": 3744179136,
+      "sourceSha256": "a4721fec17c3a72e32f9c7b4170d6598075486e1d879058dfa48436ab0b0c8c6",
+      "verificationSha256": "a7e478121ba5aed2b8d7b841338d6c2087fd86968511d35b761b81f62071f2ed",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d21/6adb35912f2b2c46efb0e63c/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d21/6adb35912f2b2c46efb0e63c/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "entries": [
+        "ntalbot-044"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35932f2b2c46efb0e64b",
+      "hpcPath": "/mnt/reads/ntalbot/project_2171",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2171",
+      "s3VerifiedAt": "2026-10-23T11:22:04.867Z",
+      "fileCount": 1,
+      "bytes": 3557810271,
+      "sourceSha256": "7c06432bc0ec9a518aae6e014537c121f12381a745669b867643ba7c67c285f6",
+      "verificationSha256": "56db997583d718fe4dec6ffd3a197fc03950267df5e6a7269d25ba68886e3e19",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265a/6adb35932f2b2c46efb0e64b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265a/6adb35932f2b2c46efb0e64b/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7f",
+      "entries": [
+        "ntalbot-045"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35992f2b2c46efb0e676",
+      "hpcPath": "/mnt/reads/ntalbot/turgor_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/turgor_project",
+      "s3VerifiedAt": "2026-10-23T11:18:30.540Z",
+      "fileCount": 8,
+      "bytes": 3039086281,
+      "sourceSha256": "a95de94fd7de32bd1271da9f44c6b3d4cfd32fca01113ebf8cf5ea73acf366c2",
+      "verificationSha256": "988d098944a89304bcc4ee9dc38605bd1c3c0e0e01ebcb4930953bcbeafe441b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7f/6adb35992f2b2c46efb0e676/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d7f/6adb35992f2b2c46efb0e676/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "entries": [
+        "ntalbot-046"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ac2f2b2c46efb0e68b",
+      "hpcPath": "/mnt/reads/ntalbot/project_539",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_539",
+      "s3VerifiedAt": "2026-10-23T11:15:25.687Z",
+      "fileCount": 8,
+      "bytes": 2914165083,
+      "sourceSha256": "370091aa9b208e0900e58c9c7305d75be065c306f103172dad45d5afd213e646",
+      "verificationSha256": "84b418bc0ed5c1053b1b41c14607ebb1579cb8b7089f36f088bb8989b5a8f33b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265b/6adb35ac2f2b2c46efb0e68b/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265b/6adb35ac2f2b2c46efb0e68b/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "entries": [
+        "ntalbot-047"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35a42f2b2c46efb0e685",
+      "hpcPath": "/mnt/reads/ntalbot/project_2561",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2561",
+      "s3VerifiedAt": "2026-10-23T11:03:17.585Z",
+      "fileCount": 34,
+      "bytes": 1523739906,
+      "sourceSha256": "c74bfc25330c7355f222c5824fed295e64be63748c7b223db7cb7cf3d1fafbe3",
+      "verificationSha256": "2c97041719161f0562bc5903272e36e63bc5e58c908182a9b94061212e1e5f34",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265c/6adb35a42f2b2c46efb0e685/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4457c017ae1712265c/6adb35a42f2b2c46efb0e685/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d25",
+      "entries": [
+        "ntalbot-048"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ae2f2b2c46efb0e694",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "s3VerifiedAt": "2026-10-23T10:29:04.696Z",
+      "fileCount": 2,
+      "bytes": 57901188,
+      "sourceSha256": "8f512427dce5df105972762daa16050e1ad426c52269bd8073a107f4fd674488",
+      "verificationSha256": "95d51069b3721bc8d50fa6be2fbaf0e240869a00b64bb3335d3f32776cf16d25",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d25/6adb35ae2f2b2c46efb0e694/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d25/6adb35ae2f2b2c46efb0e694/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d50",
+      "entries": [
+        "ntalbot-049"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ba2f2b2c46efb0e6e7",
+      "hpcPath": "/mnt/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "s3VerifiedAt": "2026-10-23T10:28:32.444Z",
+      "fileCount": 2,
+      "bytes": 51087911,
+      "sourceSha256": "d711b88049c0afb1ac49c56a52925ea5f34ffdacdc2bff6e42838300971aba7a",
+      "verificationSha256": "10e23a5330fa9eff4b7e12ac66124e81933342201236a7129db494ee452a9714",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d50/6adb35ba2f2b2c46efb0e6e7/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d50/6adb35ba2f2b2c46efb0e6e7/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "entries": [
+        "ntalbot-050"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35bb2f2b2c46efb0e6ed",
+      "hpcPath": "/mnt/reads/ntalbot/project_230",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_230",
+      "s3VerifiedAt": "2026-10-23T10:28:43.410Z",
+      "fileCount": 7,
+      "bytes": 8728408,
+      "sourceSha256": "3192a50ef76087a8355ccc6284840024d169cb128d3b9bc890edeec1dca064b6",
+      "verificationSha256": "143ad7c7d6b56ff84fc29a7397029c36420b3476cc677da7838ec55dc828720b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265d/6adb35bb2f2b2c46efb0e6ed/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265d/6adb35bb2f2b2c46efb0e6ed/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "entries": [
+        "ntalbot-051"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35bf2f2b2c46efb0e70e",
+      "hpcPath": "/mnt/reads/ntalbot/project_758",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_758",
+      "s3VerifiedAt": "2026-10-23T10:27:52.930Z",
+      "fileCount": 4,
+      "bytes": 119591,
+      "sourceSha256": "3780595cac3125966b75cfd4a7def724c0e082096b454844e395dad2110448ee",
+      "verificationSha256": "e8b5c1c66761de3543ce7939d6ea7edb8a24b2c5201e3a2ccca8519e9ac59a58",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265e/6adb35bf2f2b2c46efb0e70e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265e/6adb35bf2f2b2c46efb0e70e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0c",
+      "entries": [
+        "skamoun-004"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35c02f2b2c46efb0e717",
+      "hpcPath": "/mnt/reads/skamoun/rice_blast",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rice_blast",
+      "s3VerifiedAt": "2026-11-01T04:49:38.347Z",
+      "fileCount": 84,
+      "bytes": 408575806056,
+      "sourceSha256": "db469bd7b835f15d9da00689b84a344b1479f3561b672aaa1b0b1d1f4b1eccc4",
+      "verificationSha256": "d41835d43d85db1e19d854bf7af5baf0d34dac2b6ce1a42798b385fa3d98ab7f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0c/6adb35c02f2b2c46efb0e717/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d0c/6adb35c02f2b2c46efb0e717/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cff",
+      "entries": [
+        "skamoun-009"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ca2f2b2c46efb0e764",
+      "hpcPath": "/mnt/reads/skamoun/wheat_blast_2017",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/wheat_blast_2017",
+      "s3VerifiedAt": "2026-10-26T02:49:30.278Z",
+      "fileCount": 228,
+      "bytes": 66261978234,
+      "sourceSha256": "d67ed80a99e21012a418a8c6f078b78c24aed6388f0444044ca48ad17d5b35c2",
+      "verificationSha256": "67bed1eb9a4f23816d58c8efc938cb5d05ee0c7dcb3506c522cedbe6839f0428",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cff/6adb35ca2f2b2c46efb0e764/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7cff/6adb35ca2f2b2c46efb0e764/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d73",
+      "entries": [
+        "skamoun-010"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ca2f2b2c46efb0e76e",
+      "hpcPath": "/mnt/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+      "s3VerifiedAt": "2026-10-25T20:22:53.949Z",
+      "fileCount": 13,
+      "bytes": 61328719175,
+      "sourceSha256": "db59963cf4e5a20d97b58c9fc4d0908de6427a6b60eedf4547d33fdcc1f7c8b7",
+      "verificationSha256": "5ef273f309d804113690423d2c11cfaeba062a8b4a60f44977930d12ea39c078",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d73/6adb35ca2f2b2c46efb0e76e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d73/6adb35ca2f2b2c46efb0e76e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d23",
+      "entries": [
+        "skamoun-011"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ce2f2b2c46efb0e794",
+      "hpcPath": "/mnt/reads/skamoun/wheat_blast",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/wheat_blast",
+      "s3VerifiedAt": "2026-10-25T21:20:50.254Z",
+      "fileCount": 68,
+      "bytes": 61698523958,
+      "sourceSha256": "c53140bf17426ba551da458afaf7edd9831d4a3c1a2f1101d625a07e5c4c47c9",
+      "verificationSha256": "7be706df612a95e61fb038ac1e08bcc1ecf334eb72dccdf4296cc77fa50f0639",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d23/6adb35ce2f2b2c46efb0e794/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d23/6adb35ce2f2b2c46efb0e794/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d32",
+      "entries": [
+        "skamoun-012"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35cf2f2b2c46efb0e79e",
+      "hpcPath": "/mnt/reads/skamoun/halioticida_haliphthoros",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliphthoros",
+      "s3VerifiedAt": "2026-10-23T11:53:15.824Z",
+      "fileCount": 18,
+      "bytes": 5332457063,
+      "sourceSha256": "e40e939ddb88d0ff083f62fb0aac90349cbc4b3b59bf3a4a1b9b0e2333a397d5",
+      "verificationSha256": "eedb7e461f6784447c2e22e371dcea0a7890bf6af976e0af45234f382fbc864f",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d32/6adb35cf2f2b2c46efb0e79e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d32/6adb35cf2f2b2c46efb0e79e/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "entries": [
+        "skamoun-014"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36022f2b2c46efb0e823",
+      "hpcPath": "/mnt/reads/skamoun/janderso_rsolani",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/janderso_rsolani",
+      "s3VerifiedAt": "2026-10-29T09:04:14.901Z",
+      "fileCount": 40,
+      "bytes": 161890791630,
+      "sourceSha256": "2b057078ed8d9f90d5b488fecc024705d06023de19bcbf6076f2d32164ecaa49",
+      "verificationSha256": "363b06e31cb4093c6b12f5c4a7c8a492c3427420afc21031cec8bda52816daf0",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3d/6adb36022f2b2c46efb0e823/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d3d/6adb36022f2b2c46efb0e823/verification-report.v1.json"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d30",
+      "entries": [
+        "skamoun-017"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36072f2b2c46efb0e841",
+      "hpcPath": "/mnt/reads/skamoun/halioticida_haliocrustida",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliocrustida",
+      "s3VerifiedAt": "2026-10-23T10:27:45.121Z",
+      "fileCount": 2,
+      "bytes": 9129,
+      "sourceSha256": "2a7c1628e31a908fbf1e7c1bee613d9a27c627b7edecb5eeb2083324e7b32cba",
+      "verificationSha256": "ab979528bfe3fed4c11b233ae31c4c0a1805cc595c5118970b70db626fd7cbbc",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/verification-report.v1.json"
+    },
+    {
+      "projectId": "60defd3ae788b405b6ce68db",
+      "entries": [
+        "skamoun-018"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35fc2f2b2c46efb0e7f3",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+      "s3VerifiedAt": "2026-10-25T16:58:35.319Z",
+      "fileCount": 17,
+      "bytes": 50687234252,
+      "sourceSha256": "87ee327cc0fa94973a3a1b766ea040231fcb1fe7a6ced9e42f08864b2714b6ac",
+      "verificationSha256": "30a4a66a7f2e0582414d970366d842ddcc904457a8b6afe5b836695fa7bc86ad",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60defd3ae788b405b6ce68db/6adb35fc2f2b2c46efb0e7f3/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60defd3ae788b405b6ce68db/6adb35fc2f2b2c46efb0e7f3/verification-report.v1.json"
+    },
+    {
+      "projectId": "60d1f3a0e788b405b6ce68a1",
+      "entries": [
+        "skamoun-019"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb35ea2f2b2c46efb0e7df",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+      "s3VerifiedAt": "2026-10-25T05:57:42.621Z",
+      "fileCount": 16,
+      "bytes": 47942838875,
+      "sourceSha256": "fda237a2078aa2f811d6167fa06df5810b09abc293dd8b5b45aabd920f2adccf",
+      "verificationSha256": "e87e0498445cf494a3d5ddd13627444ab7da34c7a1176cfc8c31cda6973855e5",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60d1f3a0e788b405b6ce68a1/6adb35ea2f2b2c46efb0e7df/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60d1f3a0e788b405b6ce68a1/6adb35ea2f2b2c46efb0e7df/verification-report.v1.json"
+    },
+    {
+      "projectId": "60c8b1d3e788b405b6ce6845",
+      "entries": [
+        "skamoun-020"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb360b2f2b2c46efb0e867",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+      "s3VerifiedAt": "2026-10-28T10:03:09.749Z",
+      "fileCount": 42,
+      "bytes": 123144455087,
+      "sourceSha256": "d672be99033abe13fcde544840960362b833de2601ac7d11dddcff8c056cfb5e",
+      "verificationSha256": "9fefc7c3c1c037fa2f23baf1fe936f8260cef2b33512aec6eb11c79e767ec2af",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60c8b1d3e788b405b6ce6845/6adb360b2f2b2c46efb0e867/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60c8b1d3e788b405b6ce6845/6adb360b2f2b2c46efb0e867/verification-report.v1.json"
+    },
+    {
+      "projectId": "60e4528be788b405b6ce6917",
+      "entries": [
+        "skamoun-021"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36092f2b2c46efb0e855",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+      "s3VerifiedAt": "2026-10-25T02:26:49.563Z",
+      "fileCount": 12,
+      "bytes": 39838925625,
+      "sourceSha256": "1f94fb997215cf55cbd5e210f624cf6ee94013f713367aec015fffa6d5c39fd0",
+      "verificationSha256": "74eca44ce429333c6601f8a6ee1e825a6231511f612c13181be878ce7f5fcbc9",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/60e4528be788b405b6ce6917/6adb36092f2b2c46efb0e855/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/60e4528be788b405b6ce6917/6adb36092f2b2c46efb0e855/verification-report.v1.json"
+    },
+    {
+      "projectId": "610fd90de788b405b6ce6946",
+      "entries": [
+        "skamoun-022"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36112f2b2c46efb0e89e",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+      "s3VerifiedAt": "2026-10-29T02:15:24.194Z",
+      "fileCount": 60,
+      "bytes": 149454437756,
+      "sourceSha256": "80e8b148e1982ec81cbb452706bd944134fa92cd89c88ef06528edf5a6697852",
+      "verificationSha256": "98de582c80a853281e2af90f3821b8a6bff6596e378d59e85fd3562ddf18b60e",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/610fd90de788b405b6ce6946/6adb36112f2b2c46efb0e89e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/610fd90de788b405b6ce6946/6adb36112f2b2c46efb0e89e/verification-report.v1.json"
+    },
+    {
+      "projectId": "611bd783e788b405b6ce6a0c",
+      "entries": [
+        "skamoun-023"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36152f2b2c46efb0e8be",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+      "s3VerifiedAt": "2026-10-24T23:25:13.498Z",
+      "fileCount": 14,
+      "bytes": 33201255555,
+      "sourceSha256": "6d0689265301467e9530a0c24a6001aab23ad45ee6a54d6e99aa256513a310a7",
+      "verificationSha256": "de8538a325afe216e77979877bf226c75683b88d72a305169e04f432c21bb81a",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611bd783e788b405b6ce6a0c/6adb36152f2b2c46efb0e8be/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611bd783e788b405b6ce6a0c/6adb36152f2b2c46efb0e8be/verification-report.v1.json"
+    },
+    {
+      "projectId": "611bcc57e788b405b6ce69fc",
+      "entries": [
+        "skamoun-024"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36172f2b2c46efb0e8d5",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+      "s3VerifiedAt": "2026-10-23T13:41:23.978Z",
+      "fileCount": 4,
+      "bytes": 9739985962,
+      "sourceSha256": "aad948e6bbda0d9b025a7b397637881f6804e1f43c37921c8355b1776dba768d",
+      "verificationSha256": "120162a79d94bc51ca07a9a7d7c009c464f1eaaf3b56d2e4ace2754b5dd12c2b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611bcc57e788b405b6ce69fc/6adb36172f2b2c46efb0e8d5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611bcc57e788b405b6ce69fc/6adb36172f2b2c46efb0e8d5/verification-report.v1.json"
+    },
+    {
+      "projectId": "611be0c6e788b405b6ce6a3c",
+      "entries": [
+        "skamoun-025"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb361a2f2b2c46efb0e8f5",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+      "s3VerifiedAt": "2026-10-23T13:16:19.190Z",
+      "fileCount": 4,
+      "bytes": 9377213032,
+      "sourceSha256": "e6eba0c00ad80b2878ac1a79b9965beba0b170c4bd6f01c81ee1cf25be73d230",
+      "verificationSha256": "6e10a9b270fc1c8f086ec4c4222587f6283c76bbd426f01397aa4c6f44f80a90",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611be0c6e788b405b6ce6a3c/6adb361a2f2b2c46efb0e8f5/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611be0c6e788b405b6ce6a3c/6adb361a2f2b2c46efb0e8f5/verification-report.v1.json"
+    },
+    {
+      "projectId": "613b733ee788b405b6ce6eb8",
+      "entries": [
+        "skamoun-026"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb361f2f2b2c46efb0e91f",
+      "hpcPath": "/mnt/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+      "s3VerifiedAt": "2026-10-26T01:37:25.471Z",
+      "fileCount": 22,
+      "bytes": 66190383789,
+      "sourceSha256": "e1a667f9056c1d1b3356c806af7281b9f5b0d76ea2140b33a2e18b34a5b515b1",
+      "verificationSha256": "882e32655895a3805606a2483f9f2c35c1ecadc2107c5b430943bd182de43381",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/613b733ee788b405b6ce6eb8/6adb361f2f2b2c46efb0e91f/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/613b733ee788b405b6ce6eb8/6adb361f2f2b2c46efb0e91f/verification-report.v1.json"
+    },
+    {
+      "projectId": "61572b1b36105e13c15d58ac",
+      "entries": [
+        "skamoun-027"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36242f2b2c46efb0e93d",
+      "hpcPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+      "s3VerifiedAt": "2026-10-24T19:41:24.823Z",
+      "fileCount": 12,
+      "bytes": 29715892569,
+      "sourceSha256": "94d5f9fa488e4b14d54034a4cd6ab8007a54ea5b2953c756df4d636ad572d08a",
+      "verificationSha256": "00f753d75ae2e26dc7037bf2af415a8b91e639364777c8c102a1cd4539e7425a",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61572b1b36105e13c15d58ac/6adb36242f2b2c46efb0e93d/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61572b1b36105e13c15d58ac/6adb36242f2b2c46efb0e93d/verification-report.v1.json"
+    },
+    {
+      "projectId": "6452a72c525e070698932583",
+      "entries": [
+        "skamoun-031"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36262f2b2c46efb0e951",
+      "hpcPath": "/mnt/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+      "s3VerifiedAt": "2026-10-23T12:20:05.113Z",
+      "fileCount": 8,
+      "bytes": 7449731477,
+      "sourceSha256": "74849a832a83083894fd6aadcf0786050cb6ffaa0f4813d774e657879a8db513",
+      "verificationSha256": "5874b4ba898579700dd017a9d8c9331c108016ad6957137bb6dce3b6b669d9f8",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6452a72c525e070698932583/6adb36262f2b2c46efb0e951/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6452a72c525e070698932583/6adb36262f2b2c46efb0e951/verification-report.v1.json"
+    },
+    {
+      "projectId": "64c13517d32c7a7e4b174f20",
+      "entries": [
+        "skamoun-032"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36302f2b2c46efb0e961",
+      "hpcPath": "/mnt/reads/skamoun/rnaseq_pikobodiesmada",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rnaseq_pikobodiesmada",
+      "s3VerifiedAt": "2026-10-26T03:55:36.349Z",
+      "fileCount": 63,
+      "bytes": 72238981053,
+      "sourceSha256": "012570fa793fc14a9ed98e92ae21c588b930947ce0943b115e74745bcbdbc12b",
+      "verificationSha256": "91e1e43504bc7dcf9745c10c117789a455145c97dfe694192227e62f53449140",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/64c13517d32c7a7e4b174f20/6adb36302f2b2c46efb0e961/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/64c13517d32c7a7e4b174f20/6adb36302f2b2c46efb0e961/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "entries": [
+        "skamoun-extra-001"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36482f2b2c46efb0e990",
+      "hpcPath": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "s3VerifiedAt": "2026-10-25T23:40:42.508Z",
+      "fileCount": 268,
+      "bytes": 65286846255,
+      "sourceSha256": "2005b629bd2a605d4de67e25d2c6b22b447b11c16258aeb0090c5840bc438830",
+      "verificationSha256": "6c22bb9909c96f6a20a5ac2d56b38c23eac7633a1e4acb8b9af54b9e743e8f2b",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265f/6adb36482f2b2c46efb0e990/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae1712265f/6adb36482f2b2c46efb0e990/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "entries": [
+        "skamoun-extra-002"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb364c2f2b2c46efb0e9a4",
+      "hpcPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "s3VerifiedAt": "2026-10-24T22:44:55.251Z",
+      "fileCount": 38,
+      "bytes": 32165487135,
+      "sourceSha256": "40b14a5d52499e7d07feda230c5d1d04d17b1b1a0b6e1990d96c6dbd133545d4",
+      "verificationSha256": "4b1c3c28b3f271f66b9ac9ec15d9ffa8f6e336c08475445660273de947c245ee",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122660/6adb364c2f2b2c46efb0e9a4/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122660/6adb364c2f2b2c46efb0e9a4/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "entries": [
+        "skamoun-extra-003"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb364b2f2b2c46efb0e99e",
+      "hpcPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "s3VerifiedAt": "2026-10-23T11:59:36.131Z",
+      "fileCount": 16,
+      "bytes": 6156498502,
+      "sourceSha256": "c17e9fbd6c1ae36dc8848a75b97d893e5b99b017523b5daa334d829e30dd7d69",
+      "verificationSha256": "a0d8f8675536604d1cc8ff342e32a84ce194101a4845e591ec23ff68981d2200",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122661/6adb364b2f2b2c46efb0e99e/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122661/6adb364b2f2b2c46efb0e99e/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "entries": [
+        "skamoun-extra-004"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb364e2f2b2c46efb0e9aa",
+      "hpcPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "s3VerifiedAt": "2026-10-25T03:18:53.147Z",
+      "fileCount": 34,
+      "bytes": 41786044848,
+      "sourceSha256": "10782e034eb7ef567d6c77a08778d1df823b2c72b62d90d6ceee6060bfd67874",
+      "verificationSha256": "a893319c8f73057f0259be5c0af4851b52e4d2f7a778d66fb2639b38b09361cf",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122662/6adb364e2f2b2c46efb0e9aa/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122662/6adb364e2f2b2c46efb0e9aa/verification-report.v1.json"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "entries": [
+        "skamoun-extra-005"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb36592f2b2c46efb0e9be",
+      "hpcPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "s3VerifiedAt": "2026-10-24T19:23:58.163Z",
+      "fileCount": 64,
+      "bytes": 27554681601,
+      "sourceSha256": "0822890e02bcf46855e143c94804a02108f469d4e9feab5cb97cd0ec63aa8f0b",
+      "verificationSha256": "4f75f62b14f8e05e52157788a94e9c4345a59d8b0a37e4dcf64ee380e844172a",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122663/6adb36592f2b2c46efb0e9be/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/6ada6c4557c017ae17122663/6adb36592f2b2c46efb0e9be/verification-report.v1.json"
+    }
+  ]
+}

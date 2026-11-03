@@ -100,8 +100,8 @@ Warnings seen, none blocking:
   That evidence was unpublished when this note was first written. Do not rerun the
   old plan; any further corrections need a fresh preview against live data.
 - All 175 batch Projects (13.45 TB) were S3-verified by 2 November 20:55 GMT
-  (Codex artifact `archive-batch-20261023/transfer-complete-20261103T121635Z.json`,
-  not yet in the repository). HPC deletion review is the next archive step; the
+  ([completion receipt and supporting evidence](evidence/transfer-completion-20261103/README.md)).
+  HPC deletion review is the next archive step; the
   pre-deletion hold was set to zero by George on 23 October once the pilot restore
   passed.
 - No HPC deletion and no `confirm-absent`. The four Lichen CoCulture source
