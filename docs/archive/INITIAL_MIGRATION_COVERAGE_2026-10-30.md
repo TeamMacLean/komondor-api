@@ -1,5 +1,7 @@
 # Initial archive migration coverage on 30 October 2026
 
+> **Current status (3 November 2026):** see [archive status](STATUS.md). This page is a historical record.
+
 **The initial migration covers 175 of 366 Komondor Project records: 47.8%, or roughly half.**
 This is the share of database project records selected for the batch. It is not
 the percentage of bytes uploaded, upload completion, or HPC data deleted.

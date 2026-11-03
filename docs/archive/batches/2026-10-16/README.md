@@ -1,5 +1,7 @@
 # Latest production database outcome
 
+> **Current status (3 November 2026):** see [archive status](../../STATUS.md). This page is a historical record.
+
 The [completed reconciliation record](reconciliation-production-2026-10-22/README.md)
 and [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
 are the current execution status. After the 22 registrations, all 26,724 planned

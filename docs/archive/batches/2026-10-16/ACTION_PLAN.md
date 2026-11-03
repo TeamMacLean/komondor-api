@@ -1,5 +1,7 @@
 # Production outcome update — 22 October 2026
 
+> **Current status (3 November 2026):** see [archive status](../../STATUS.md). This page is a historical record.
+
 [Database reconciliation is applied and verified](reconciliation-production-2026-10-22/README.md).
 Use the [197-entry outcome table](reconciliation-production-2026-10-22/OUTCOMES.md)
 for current status. All 26,724 planned operations completed, with original values

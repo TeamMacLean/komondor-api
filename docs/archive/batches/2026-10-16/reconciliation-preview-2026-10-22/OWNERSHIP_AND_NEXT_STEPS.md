@@ -1,5 +1,7 @@
 # Ownership decisions and way forward — 22 October 2026
 
+> **Current status (3 November 2026):** see [archive status](../../../STATUS.md). This page is a historical record.
+
 **Step 1 implementation update:** [registration runbook](../../../../ARCHIVE_PROJECT_REGISTRATION.md)
 and [exact 23-target input](registration-targets.json). The administrative registration
 command and creation-history safeguards are implemented locally and tested on a

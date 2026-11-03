@@ -1,5 +1,7 @@
 # HPC archive candidates and discrepancies — 16 October 2026
 
+> **Current status (3 November 2026):** see [archive status](archive/STATUS.md). This page is a historical record.
+
 **Current execution proposal (17 October):** [ACTION_PLAN.md](archive/batches/2026-10-16/ACTION_PLAN.md)
 and its [192-row decision CSV](archive/batches/2026-10-16/action-plan.csv).
 The [original source decision table](archive/batches/2026-10-16/README.md) remains historical evidence;
