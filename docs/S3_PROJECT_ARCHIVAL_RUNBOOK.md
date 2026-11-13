@@ -227,6 +227,12 @@ for deletion. Required state is pending deletion with a passing sealed report.
 
 ### 4. Review and delete manually
 
+First check the [current HPC retention exclusions](archive/HPC_RETENTION.md)
+by Project ID and exact path. Skip held Projects before preparing deletion
+commands. The deployed CLI does not enforce this manual register; a successful
+`deletion-command` result does not override a hold. As of 13 November 2026,
+Gargy 2019 RNAseq and the four Gulnara source Projects must be retained.
+
 Wait the agreed review interval. Save the source manifest and verification
 report using their **exact URIs from status**, with the mover profile. Compare
 their SHA-256 values with the digests recorded in status (Linux `sha256sum`, or

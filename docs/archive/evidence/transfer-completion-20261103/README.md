@@ -59,6 +59,10 @@ reviewed. The planning note installs no production hold: operators must skip
 those four during deletion review. A completed transfer is not permission to
 remove them.
 
+On 13 November George also required retaining Gargy 2019 RNAseq on HPC until
+explicitly released. Consult the [current five-Project retention register](../../HPC_RETENTION.md)
+before any deletion review; the dated completion JSON files remain unchanged.
+
 ## SHA-256 of the unchanged source files
 
 | File | Bytes | SHA-256 |

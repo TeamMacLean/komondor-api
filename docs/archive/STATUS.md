@@ -1,8 +1,12 @@
-# Archive status — 3 November 2026
+# Archive status — updated 13 November 2026
 
 This is the current position of the HPC-to-S3 archive work. Older plans,
 previews and snapshots under `docs/archive/` are historical; where they disagree
 with this page, this page and the records it links to win.
+
+The 13 November update adds Gargy's HPC retention instruction and records the
+published completion evidence. Production/transfer observations below remain
+dated 3 November; this update performs no new live check.
 
 ## Done
 
@@ -28,9 +32,9 @@ with this page, this page and the records it links to win.
   | Consolidated into an existing Project | 1 |
 
 - **S3 transfer.** All 175 archive Projects (13.45 TB) were uploaded and
-  verified by 2 November 20:55 GMT. The completion receipt is
-  `archive-batch-20261023/transfer-complete-20261103T121635Z.json` in the Codex
-  artifact store and is not yet in this repository.
+  verified by 2 November 20:55 GMT. The
+  [completion receipt and three companion files](evidence/transfer-completion-20261103/README.md)
+  are now preserved unchanged in the repository, with provenance and checksums.
 - **Owner contact: none needed.** The discrepancies the
   [action plan](batches/2026-10-16/ACTION_PLAN.md) would have taken to owners
   (unregistered directories, missing or misplaced files, empty projects) were
@@ -41,19 +45,27 @@ with this page, this page and the records it links to win.
 
 ## Remaining
 
-1. **HPC deletion of the 171 archived Projects outside Gulnara's scope.** For
+1. **HPC deletion review for the 170 archived Projects outside the five holds.** For
    each: a fresh source/S3 check immediately before deletion, manual deletion by
    George, then `confirm-absent`. No waiting period: George set the pre-deletion
-   hold to zero on 23 October after the pilot restore passed.
+   hold to zero on 23 October. The pilot restore passed the same day. Check the
+   [current retention register](HPC_RETENTION.md) first; these are review
+   candidates, not approved deletion targets.
 2. **The six manual-disposal entries.** Deleted by George outside the archive
    CLI, with no S3 copy. See the outcome table and
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md).
 3. **Gulnara's ENA reassignment.** The four Lichen CoCulture source Projects
    stay on HPC until the copy into the destination Project is done and
-   verified. [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). They then join
-   step 1.
-4. **Housekeeping.** Commit the transfer completion receipt and its three
-   companion files; optionally set `READS_ROOT_PATH` in the API `.env`.
+   verified. [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). They can join
+   step 1 only after their release is explicitly reviewed and recorded.
+4. **Gargy HPC retention.** Preserve
+   `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` (Project
+   `5fc012bda3efcb29338b7d58`) until George explicitly releases it. No end date
+   supplied; this is independent of Gulnara. The
+   [retention requirements](HPC_RETENTION.md) also record the pending application
+   work: independent AWS/HPC indicators and dated or indefinite HPC retention.
+   These five exclusions are manual; no production hold is installed.
+5. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
 
 ## Standing rules
 

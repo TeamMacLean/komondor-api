@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13T16:46:07.586613+00:00",
+  "status": "active manual deletion-review exclusions",
+  "productionEnforcementInstalled": false,
+  "sourceObservation": "2026-11-03T12:18:48.080Z",
+  "sourceRegister": "evidence/transfer-completion-20261103/completed-project-register-20261103T121635Z.json",
+  "sourceRegisterSha256": "6972ba92fa011a15957d42b146110ce23b5aa47ff892d98f015dad58e0845db2",
+  "instructionSource": "George: Gulnara retention recorded 3 November; Gargy retention added 13 November 2026.",
+  "noNewLiveCheck": true,
+  "automaticRelease": false,
+  "excludedProjectIds": [
+    "5fc012bda3efcb29338b7d58",
+    "5fd1ed55d8dd4a63058cc1c9",
+    "5fdb2d62d7661b6ec22a0571",
+    "611ff26de788b405b6ce6a4c",
+    "61204424e788b405b6ce6bde"
+  ],
+  "reviewCandidateCountInOriginal175": 170,
+  "remainingCandidatesAreNotDeletionApproval": true,
+  "holds": [
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "relativePath": "ntalbot/lichen_coculture_i_2_days",
+      "requestedHpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/",
+      "recordedArchiveHostPath": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+      "migrationId": "6adb34bc2f2b2c46efb0e26a",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+      "s3VerifiedAt": "2026-10-27T20:44:48.707Z",
+      "mode": "until_released",
+      "retainUntil": null,
+      "reason": "Gulnara ENA reassignment needs independent verified copies of selected sample directories before source HPC deletion.",
+      "releaseCondition": "Independent Gulnara destination copies verified; release explicitly reviewed and recorded."
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "relativePath": "ntalbot/lichen_coculture_i_21_days",
+      "requestedHpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days/",
+      "recordedArchiveHostPath": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+      "migrationId": "6adb34b02f2b2c46efb0e202",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+      "s3VerifiedAt": "2026-10-29T19:13:25.516Z",
+      "mode": "until_released",
+      "retainUntil": null,
+      "reason": "Gulnara ENA reassignment needs independent verified copies of selected sample directories before source HPC deletion.",
+      "releaseCondition": "Independent Gulnara destination copies verified; release explicitly reviewed and recorded."
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "relativePath": "ntalbot/lichen_coculture_i_42_days",
+      "requestedHpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days/",
+      "recordedArchiveHostPath": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+      "migrationId": "6adb34c02f2b2c46efb0e295",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+      "s3VerifiedAt": "2026-10-27T09:52:39.091Z",
+      "mode": "until_released",
+      "retainUntil": null,
+      "reason": "Gulnara ENA reassignment needs independent verified copies of selected sample directories before source HPC deletion.",
+      "releaseCondition": "Independent Gulnara destination copies verified; release explicitly reviewed and recorded."
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "relativePath": "ntalbot/lichen_coculture_i_9_days",
+      "requestedHpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days/",
+      "recordedArchiveHostPath": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+      "migrationId": "6adb34be2f2b2c46efb0e274",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+      "s3VerifiedAt": "2026-10-27T19:07:09.277Z",
+      "mode": "until_released",
+      "retainUntil": null,
+      "reason": "Gulnara ENA reassignment needs independent verified copies of selected sample directories before source HPC deletion.",
+      "releaseCondition": "Independent Gulnara destination copies verified; release explicitly reviewed and recorded."
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "name": "Gargy 2019 RNAseq",
+      "relativePath": "two_blades/gargy_2019_rnaseq",
+      "requestedHpcPath": "/tsl/data/reads/two_blades/gargy_2019_rnaseq/",
+      "recordedArchiveHostPath": "/mnt/reads/two_blades/gargy_2019_rnaseq",
+      "migrationId": "6adb2e0b5f563cce90e74409",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_rnaseq",
+      "s3VerifiedAt": "2026-10-30T20:18:30.550Z",
+      "mode": "until_released",
+      "retainUntil": null,
+      "reason": "George requested keeping this tree on HPC for now on 13 November 2026.",
+      "releaseCondition": "Explicit release by George. Independent of completion of the Gulnara work."
+    }
+  ]
+}

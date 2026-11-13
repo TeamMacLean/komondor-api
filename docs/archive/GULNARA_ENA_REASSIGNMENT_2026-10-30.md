@@ -6,6 +6,19 @@ the procedures manually later. The purpose is to gather the samples for
 Gulnara's paper into one project for ENA submission, with consistent website,
 HPC and eventual S3 locations.
 
+## HPC retention todo — updated 13 November 2026
+
+Keep the four source Projects below on HPC until the independent destination
+copies are verified and release is explicitly reviewed/recorded. **Also preserve
+`/tsl/data/reads/two_blades/gargy_2019_rnaseq/` on HPC until George explicitly
+releases it; no end date was supplied.** Gargy is Project
+`5fc012bda3efcb29338b7d58` and is a separate retention request, not part of the
+12-sample reassignment. Finishing Gulnara does not release Gargy's hold.
+
+The [current retention register and application requirements](HPC_RETENTION.md)
+cover all five exclusions. These remain manual review instructions; no
+production database flag, CLI guard or filesystem protection is installed.
+
 ## Destination and confirmed scope
 
 Destination: **Xanthoria parietina mycobiont RNAseq**, project
