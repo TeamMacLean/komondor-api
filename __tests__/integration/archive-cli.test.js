@@ -303,6 +303,58 @@ test("full lifecycle validates exact bytes and refuses each independent deletion
   expect((await project()).storage.state).toBe("aws");
 });
 
+test("real CLI retains HPC preservation through copying and refuses deletion or finalization until expiry", async () => {
+  const until = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+  await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: until } });
+  const originalBytes = await fs.readFile(`${source}/a.fastq`);
+  expectSuccess(await lock());
+  expect((await project()).preserveOnHpcUntil).toEqual(until);
+  expectSuccess(await copy());
+  const verified = await project();
+  expect(verified.storage.state).toBe("aws_pending_hpc_deletion");
+  expect(verified.preserveOnHpcUntil).toEqual(until);
+
+  const heldStatus = await cli("status", "--json");
+  expectSuccess(heldStatus);
+  expect(JSON.parse(heldStatus.stdout)).toMatchObject({
+    preserveOnHpcUntil: until.toISOString(), hpcPreservationActive: true, hpcPreservationInvalid: false,
+  });
+  for (const [command, flags] of [
+    ["deletion-command", []],
+    ["confirm-absent", ["--confirmed-by", "alice", "--execute"]],
+  ]) {
+    const refused = await cli(command, ...flags);
+    expect(refused.code).toBe(1);
+    expect(refused.stdout).not.toContain("rm -rf");
+    expect(refused.stderr).toContain("Preserve this Project on HPC until");
+    expect(refused.stderr).toContain(until.toISOString());
+    expect(await project()).toEqual(verified);
+  }
+
+  // Scratch fixture only: expire the date without changing any sealed source
+  // or archive evidence. Preparing the command is not executing it.
+  await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: new Date(Date.now() - 1000) } });
+  const allowed = await cli("deletion-command");
+  expectSuccess(allowed);
+  expect(allowed.stdout).toContain(`rm -rf -- '${source}'`);
+  expect((await fs.stat(source)).isDirectory()).toBe(true);
+  expect(await fs.readFile(`${source}/a.fastq`)).toEqual(originalBytes);
+  expect((await project()).storage).toEqual(verified.storage);
+
+  // Bypass casting only in the disposable database to prove the real spawned
+  // process/Mongoose loader does not mistake corruption for an absent hold.
+  await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: "not-a-date" } });
+  const invalidStatus = await cli("status", "--json");
+  expectSuccess(invalidStatus);
+  expect(JSON.parse(invalidStatus.stdout).hpcPreservationInvalid).toBe(true);
+  const invalid = await cli("deletion-command");
+  expect(invalid.code).toBe(1);
+  expect(invalid.stdout).not.toContain("rm -rf");
+  expect(invalid.stderr).toContain("Invalid preserveOnHpcUntil");
+  expect((await fs.stat(source)).isDirectory()).toBe(true);
+  expect((await project()).storage).toEqual(verified.storage);
+});
+
 test("real failed transfer preserves source and resumes with sealed storage class", async () => {
   expectSuccess(await lock());
   const store = await readStore();

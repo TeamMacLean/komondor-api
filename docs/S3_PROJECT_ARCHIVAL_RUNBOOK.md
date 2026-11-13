@@ -233,6 +233,14 @@ commands. The deployed CLI does not enforce this manual register; a successful
 `deletion-command` result does not override a hold. As of 13 November 2026,
 Gargy 2019 RNAseq and the four Gulnara source Projects must be retained.
 
+Also inspect the latest Project's `preserveOnHpcUntil` (visible on its page and
+in native `status --json`). The preservation feature blocks `deletion-command`
+and `confirm-absent` while that date is in the future or malformed, and rechecks
+the policy after the archive checks. Deploy the reviewed API/CLI and web feature
+before relying on it. Date expiry or clearing allows review only; it does not
+override the separate manual exclusions. Setting a date on an absent tree does
+not restore it. See [feature and test instructions](archive/HPC_RETENTION.md).
+
 Wait the agreed review interval. Save the source manifest and verification
 report using their **exact URIs from status**, with the mover profile. Compare
 their SHA-256 values with the digests recorded in status (Linux `sha256sum`, or

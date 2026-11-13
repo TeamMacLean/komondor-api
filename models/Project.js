@@ -63,6 +63,8 @@ const projectToJson = (_doc, ret) => {
   delete ret.archiveMigration;
   delete ret.registrationProvenance;
   delete ret.reconciliationHistory;
+  delete ret.hpcPreservationHistory;
+  ret.preserveOnHpcUntil = ret.preserveOnHpcUntil || null;
   return ret;
 };
 
@@ -105,6 +107,20 @@ const schema = new mongoose.Schema(
       type: [Date],
     },
     nudgeable: { type: Boolean, default: true },
+
+    // Independent of archive lifecycle: copying to AWS must not discard this
+    // administrator-set protection for the retained HPC copy.
+    preserveOnHpcUntil: Date,
+    hpcPreservationHistory: {
+      type: [new mongoose.Schema({
+        at: { type: Date, required: true },
+        by: { type: String, required: true },
+        previousUntil: Date,
+        until: Date,
+      }, { _id: false })],
+      default: undefined,
+      select: false,
+    },
 
     // Project is the single source of truth for storage. There is no default:
     // legacy records without this field deliberately resolve to "hpc".

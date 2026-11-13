@@ -104,7 +104,7 @@ const projectForSample = async (sampleLike) => {
   }
 
   return Project.findById(sample.project).select(
-    "path storage +archiveMigration",
+    "path storage preserveOnHpcUntil +archiveMigration",
   );
 };
 

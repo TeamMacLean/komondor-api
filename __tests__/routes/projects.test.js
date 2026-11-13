@@ -29,6 +29,13 @@ const { sortAdditionalFiles: mockSortAdditionalFiles } = jest.requireMock(
 // scope inside the factory. Instead we auto-mock the module and grab its default
 // export via requireMock after the fact.
 jest.mock("../../lib/utils/sendOverseerEmail");
+jest.mock("../../lib/project-storage-locations", () => ({
+  projectStorageLocations: jest.fn().mockResolvedValue({
+    hpc: { status: "present", uri: "/tsl/data/reads/group/project", checkedAt: "2026-11-13T00:00:00.000Z" },
+    aws: { status: "not_archived", uri: null, verifiedAt: null },
+  }),
+}));
+const { projectStorageLocations: mockProjectStorageLocations } = jest.requireMock("../../lib/project-storage-locations");
 const mockSendOverseerEmail = jest.requireMock(
   "../../lib/utils/sendOverseerEmail",
 );
@@ -186,6 +193,8 @@ describe("GET /project?id=:id", () => {
       expect(response.body.project.name).toBe("Test Project");
       expect(response.body.project.group.name).toBe("bioinformatics");
       expect(response.body).toHaveProperty("actualAdditionalFiles");
+      expect(response.body.storageLocations.hpc.status).toBe("present");
+      expect(mockProjectStorageLocations).toHaveBeenCalledWith(mockProject);
     });
 
     test("should return project when user is admin regardless of group membership", async () => {
@@ -379,6 +388,7 @@ describe("GET /project?id=:id", () => {
       expect(response.status).toBe(403);
       expect(response.body).toHaveProperty("error");
       expect(response.body.error).toMatch(/permission/i);
+      expect(mockProjectStorageLocations).not.toHaveBeenCalled();
     });
 
     test("should return 500 when database error occurs", async () => {
@@ -1326,6 +1336,19 @@ describe("POST /projects/new — nudgeable and boundary typing", () => {
     expect(Project).toHaveBeenCalledWith(
       expect.objectContaining({ owner: "testuser" }),
     );
+  });
+
+  test("ordinary project creation cannot inject administrator HPC preservation metadata", async () => {
+    givenWritableGroup(true);
+    const response = await request(app).post("/projects/new").send({
+      ...baseBody,
+      preserveOnHpcUntil: "2027-11-13T23:59:59.999Z",
+      hpcPreservationHistory: [{ by: "deeks", until: "2027-11-13T23:59:59.999Z" }],
+    });
+    expect(response.status).toBe(201);
+    const values = Project.mock.calls[0][0];
+    expect(values).not.toHaveProperty("preserveOnHpcUntil");
+    expect(values).not.toHaveProperty("hpcPreservationHistory");
   });
 
   test("stamps the owner from the session even when the body sends an operator", async () => {

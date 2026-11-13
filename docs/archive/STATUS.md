@@ -63,7 +63,9 @@ dated 3 November; this update performs no new live check.
    `5fc012bda3efcb29338b7d58`) until George explicitly releases it. No end date
    supplied; this is independent of Gulnara. The
    [retention requirements](HPC_RETENTION.md) also record the pending application
-   work: independent AWS/HPC indicators and dated or indefinite HPC retention.
+   work prepared locally: independent AWS/HPC indicators and the admin-editable
+   `preserveOnHpcUntil` date. Deployment and George's
+   [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) are pending.
    These five exclusions are manual; no production hold is installed.
 5. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
 

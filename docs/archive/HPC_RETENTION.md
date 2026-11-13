@@ -1,7 +1,7 @@
 # HPC retention and storage locations
 
 Updated 13 November 2026 from George's instructions. This page records active
-manual deletion exclusions and the application feature still to implement.
+manual deletion exclusions and the application feature prepared locally for review.
 It does not install a production/database hold or verify today's filesystem.
 
 ## Active manual exclusions
@@ -37,56 +37,52 @@ are superseded by this list; preserve those records unchanged as history.
 The batch-wide seven-day waiting period remains removed. These are specific
 Project retention instructions, not a renewed waiting period for the batch.
 
-## Application requirement — pending implementation
+## Application feature — implemented locally, deployment pending
 
-Represent three separate facts: the archive lifecycle, the locations of copies,
-and permission to remove the HPC copy.
+The project page shows separate HPC and AWS locations. HPC shows the result and
+time of a directory presence check; it does not claim every payload file was
+verified. AWS shows the recorded S3 transfer verification time. Unknown storage
+or mount/access/path errors are shown as unknown, never as proof of deletion.
+An `aws_pending_hpc_deletion` Project can therefore display both locations
+without conflating lifecycle with physical presence. S3 remains authoritative
+and archived sources remain protected against ingest writes.
 
-1. **Show AWS and HPC independently.** A Project can show both “AWS verified”
-   and “HPC present,” with both paths and the relevant check times. Preserve
-   `storage.s3VerifiedAt` as the transfer verification time. Provide an unknown
-   or unchecked HPC status and a confirmed-absent status. Do not infer present
-   merely because absence has not been recorded. The current
-   `aws_pending_hpc_deletion` state covers verified S3 plus unconfirmed HPC
-   removal; it is not a live existence check. Presence alone is not proof of a
-   complete, unchanged HPC copy; fresh native checks remain necessary.
-2. **Support exceptional HPC retention.** Store a Project-level policy with
-   either an explicit retain-until date or “until explicitly released,” a
-   reason, who set it and when, and an audit history of changes/releases.
-   A duration after transfer must use the verified transfer time, not the copy
-   start time; show the resulting deadline unambiguously. Gargy is indefinite
-   until George supplies a date or releases it. Gulnara uses the release
-   conditions above. A passed deadline permits review; it never deletes data.
-3. **Keep lifecycle and retention separate.** Retaining an HPC copy does not
-   revert an archived Project to writable `hpc`. S3 remains authoritative after
-   verified transfer; existing ingest/write guards remain. A dedicated
-   `hpcRetention` field is a possible implementation: the current archive lock
-   replaces `storage`, so a policy placed there would need preservation at
-   every lifecycle transition. Do not hand-edit `storage.*` or
-   `archiveMigration.*` to represent a hold.
-4. **Enforce retention in the deletion workflow.** Add controlled, authorized,
-   audited set/release operations. An active or malformed hold must prevent
-   `deletion-command` from emitting a destructive command. Recheck for policy
-   changes after long archive checks and immediately before issuing commands.
-   A held Project found absent during `confirm-absent` is a discrepancy to
-   investigate, not routine successful cleanup. Existing source/S3 integrity
-   checks and George's manual deletion step still apply. Previously printed
-   commands cannot enforce a later hold, so they must never be reused.
-5. **Make the distinction visible.** Project details/list badges should show
-   both locations and “Keep on HPC until [date]” or “Keep on HPC until
-   released,” plus the reason and a filter for held Projects. Avoid describing
-   a deliberately retained HPC copy simply as cleanup pending. Inherited
-   sample/run summaries must agree with the Project and preserve access rules.
+An administrator can set or clear **`preserveOnHpcUntil`** on any project page.
+The chosen calendar date means retain through **23:59:59.999 UTC** on that date.
+All project readers see the date and a message to contact **George Deeks** if
+HPC retention is needed for longer. A passed date is labelled expired without
+claiming the copy has been deleted. Setting a date on an absent copy does not
+restore it.
 
-Before release, cover dated/indefinite/expired/invalid policies, observed versus
-unknown locations, policy survival through archive transitions, unauthorized
-updates, concurrent policy changes during checks, blocked deletion-command
-output, held-but-missing sources, and unchanged archive write protections.
-The existing five exclusions must be imported through the reviewed management
-operation and checked before relying on application enforcement.
+The date is a top-level Project field, separate from `storage.*` and
+`archiveMigration.*`, so it survives archiving. The admin-only
+`PUT /project/hpc-preservation` validates canonical UTC timestamps, uses the
+previous date to prevent stale updates, and atomically records a private audit
+entry with operator/time/old/new values. A separate Clear action removes a dated
+policy. Ordinary project creation cannot inject it or its audit history.
 
-Current implementation references:
+The native CLI reports the date and whether it is active in `status`. While the
+date is in the future, `deletion-command` refuses to print a destructive command
+and `confirm-absent` refuses routine finalization. Invalid stored dates also stop
+those operations. The CLI reloads the Project after lengthy checks; finalization
+additionally fences the date in its database update. A held Project missing from
+HPC is a discrepancy to investigate. Do not reuse earlier printed commands:
+manual review must always check the latest date and exclusions.
+
+**Expiry or clearing permits fresh review only. It never deletes files or
+releases the separate manual Gargy/Gulnara exclusions above.** No production date
+has been set by this implementation. The current UI implements dated retention;
+indefinite, condition-based exclusions remain in this manual register. It does
+not automatically import them or add a batch-wide waiting interval.
+
+[Gargy production test candidate](GARGY_HPC_PRESERVATION_TEST.md) records the
+exact identity and the manual checks George will perform after deploying the
+reviewed API and web changes. No test date has been chosen on George's behalf.
+
+Implementation references:
 [Project schema](../../models/Project.js),
-[public storage summary and locations](../../lib/storage-state.js),
-[archive lifecycle writes](../../lib/s3-archive/state.js), and
-[native deletion checks](../../lib/s3-archive/cli.js).
+[date validation](../../lib/hpc-preservation.js),
+[read-only location observations](../../lib/project-storage-locations.js),
+[public summaries](../../lib/storage-state.js),
+[native deletion checks](../../lib/s3-archive/cli.js), and
+[API contract](../../openapi.yaml).

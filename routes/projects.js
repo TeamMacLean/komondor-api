@@ -13,6 +13,8 @@ const {
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
+const { parsePreservationDate } = require("../lib/hpc-preservation");
+const { projectStorageLocations } = require("../lib/project-storage-locations");
 const { handleError, compareFilesToDirectory } = require("./_utils");
 const {
   resolveStorageState,
@@ -193,6 +195,7 @@ router
       res.status(200).send({
         project,
         location: locationFor(project, project.path),
+        storageLocations: await projectStorageLocations(project),
         actualAdditionalFiles,
         additionalFilesStatus,
       });
@@ -200,6 +203,68 @@ router
       handleError(res, error, 500, `Failed to retrieve project ${id}.`);
     }
   });
+
+// Retention is administrative metadata and remains editable after archiving.
+// Never save the Project here: ordinary save hooks can derive paths or create
+// directories. The conditional update also prevents a stale page overwriting
+// another administrator's decision.
+router.put("/project/hpc-preservation", isAuthenticated, async (req, res) => {
+  if (
+    req.user.isAdmin !== true ||
+    typeof req.user.username !== "string" ||
+    !req.user.username.trim()
+  ) {
+    return res.status(403).send({ error: "Admin access required" });
+  }
+  const body = req.body || {};
+  const allowed = ["_id", "preserveOnHpcUntil", "expectedPreserveOnHpcUntil"];
+  if (Object.keys(body).some((key) => !allowed.includes(key))) {
+    return res.status(400).send({ error: "Unsupported HPC preservation field" });
+  }
+  const id = asObjectId(body._id);
+  if (!id) return res.status(400).send({ error: "Valid project ID required" });
+
+  let until;
+  let expected;
+  try {
+    until = parsePreservationDate(body.preserveOnHpcUntil);
+    expected = parsePreservationDate(body.expectedPreserveOnHpcUntil);
+  } catch (error) {
+    return res.status(400).send({ error: error.message });
+  }
+
+  try {
+    const updated = await Project.findOneAndUpdate(
+      // MongoDB's null equality also matches a legacy missing field.
+      { _id: id, preserveOnHpcUntil: expected },
+      {
+        $set: { preserveOnHpcUntil: until },
+        $push: {
+          hpcPreservationHistory: {
+            at: new Date(),
+            by: req.user.username,
+            previousUntil: expected,
+            until,
+          },
+        },
+      },
+      { new: true, runValidators: true },
+    );
+    if (!updated) {
+      const exists = await Project.findById(id).select("_id").lean();
+      if (!exists) return res.status(404).send({ error: "Project not found" });
+      return res.status(409).send({
+        error: "The HPC preservation date changed. Reload the project before saving again.",
+      });
+    }
+    return res.send({
+      projectId: updated._id,
+      preserveOnHpcUntil: updated.preserveOnHpcUntil || null,
+    });
+  } catch (error) {
+    return handleError(res, error, 500, "Failed to update HPC preservation date.");
+  }
+});
 
 /**
  * PUT /project/toggle-nudgeable

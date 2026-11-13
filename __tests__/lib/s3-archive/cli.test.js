@@ -949,6 +949,71 @@ describe("archive CLI interrupted copy and resume", () => {
   const dependencies = () =>
     makeDependencies({ aws, models: { Project, User: {} } });
 
+  const finishCopy = async () => {
+    currentProject = projectAt("copied");
+    upload.verifyManifestObjects.mockResolvedValue({ verified: true, entries: [], keySet: { matches: true } });
+    expect(await runCli(["copy", "--project-id", PROJECT_ID, "--moved-by", "alice", "--execute"], dependencies())).toBe(0);
+    state.fencedUpdate.mockClear();
+  };
+
+  test.each([new Date(NOW + 86400000), "not-a-date"])(
+    "preservation %s blocks deletion and confirm-absent without command output", async (until) => {
+      await finishCopy();
+      currentProject.preserveOnHpcUntil = until;
+      for (const command of ["deletion-command", "confirm-absent"]) {
+        const context = dependencies();
+        const args = [command, "--project-id", PROJECT_ID];
+        if (command === "confirm-absent") args.push("--confirmed-by", "alice", "--execute");
+        expect(await runCli(args, context)).toBe(1);
+        expect(context.stdout).not.toHaveBeenCalled();
+        expect(context.stderr).toHaveBeenCalledWith(expect.stringMatching(/preserve|Preserve/));
+      }
+      expect(state.fencedUpdate).not.toHaveBeenCalled();
+    },
+  );
+
+  test("an expired preservation date permits fresh checks and command preparation only", async () => {
+    await finishCopy();
+    currentProject.preserveOnHpcUntil = new Date(NOW - 1);
+    const context = dependencies();
+    expect(await runCli(["deletion-command", "--project-id", PROJECT_ID], context)).toBe(0);
+    expect(context.stdout).toHaveBeenCalledWith(`rm -rf -- '${sourceRoot}'\n`);
+    expect(state.fencedUpdate).not.toHaveBeenCalled();
+    expect(currentProject.storage.state).toBe("aws_pending_hpc_deletion");
+  });
+
+  test("a hold added during archive checking withholds the deletion command", async () => {
+    await finishCopy();
+    inventory.compareTreeToManifest.mockImplementation(async () => {
+      currentProject = { ...currentProject, preserveOnHpcUntil: new Date(NOW + 86400000) };
+      return { matches: true, differences: [] };
+    });
+    const context = dependencies();
+    expect(await runCli(["deletion-command", "--project-id", PROJECT_ID], context)).toBe(1);
+    expect(context.stdout).not.toHaveBeenCalled();
+  });
+
+  test("an archive identity change during checking withholds the deletion command", async () => {
+    await finishCopy();
+    inventory.compareTreeToManifest.mockImplementation(async () => {
+      currentProject = { ...currentProject, archiveMigration: { ...currentProject.archiveMigration, sourceRoot: "/different/path" } };
+      return { matches: true, differences: [] };
+    });
+    const context = dependencies();
+    expect(await runCli(["deletion-command", "--project-id", PROJECT_ID], context)).toBe(1);
+    expect(context.stdout).not.toHaveBeenCalled();
+    expect(context.stderr).toHaveBeenCalledWith(expect.stringMatching(/identity changed/));
+  });
+
+  test("confirm-absent fences the preservation date as well as the archive identity", async () => {
+    await finishCopy();
+    currentProject.preserveOnHpcUntil = new Date(NOW - 1);
+    const context = dependencies();
+    context.fs = { lstat: jest.fn().mockRejectedValue(Object.assign(new Error("absent"), { code: "ENOENT" })) };
+    expect(await runCli(["confirm-absent", "--project-id", PROJECT_ID, "--confirmed-by", "alice", "--execute"], context)).toBe(0);
+    expect(state.fencedUpdate).toHaveBeenCalledWith(Project, expect.objectContaining({ preserveOnHpcUntil: new Date(NOW - 1) }), expect.any(Object), expect.any(String));
+  });
+
   test("a copy that dies mid-file records the error and authorises no deletion", async () => {
     currentProject = projectAt("source_sealed");
     upload.copyManifestEntries.mockRejectedValue(expiredToken());

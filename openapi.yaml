@@ -931,6 +931,8 @@ paths:
                     $ref: "#/components/schemas/Project"
                   location:
                     $ref: "#/components/schemas/EntityLocation"
+                  storageLocations:
+                    $ref: "#/components/schemas/ProjectStorageLocations"
                   actualAdditionalFiles:
                     type: [array, "null"]
                     items:
@@ -1020,6 +1022,64 @@ paths:
           description: Administrator access required.
         "404":
           description: Project not found.
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+  /project/hpc-preservation:
+    put:
+      tags: [Projects]
+      summary: Set or clear the HPC preservation date. Admin only.
+      description: |
+        Requires isAdmin=true and an authenticated username. Works for archived
+        and HPC Projects; changes only preserveOnHpcUntil and its private audit
+        history, never the storage lifecycle or files. Canonical UTC timestamps
+        include milliseconds (YYYY-MM-DDTHH:mm:ss.sssZ); invalid calendar dates
+        are refused. Null clears the date. The expected previous value is a
+        compare-and-set fence; null also matches a legacy missing field.
+        The web date picker retains through 23:59:59.999 UTC on its selected day.
+        Expiry only permits manual review; it does not delete files or waive
+        separate manual retention instructions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [_id, preserveOnHpcUntil, expectedPreserveOnHpcUntil]
+              properties:
+                _id:
+                  $ref: "#/components/schemas/ObjectId"
+                preserveOnHpcUntil:
+                  type: [string, "null"]
+                  format: date-time
+                expectedPreserveOnHpcUntil:
+                  type: [string, "null"]
+                  format: date-time
+      responses:
+        "200":
+          description: Date and audit entry saved atomically.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [projectId, preserveOnHpcUntil]
+                properties:
+                  projectId:
+                    $ref: "#/components/schemas/ObjectId"
+                  preserveOnHpcUntil:
+                    type: [string, "null"]
+                    format: date-time
+        "400":
+          description: Invalid ID, date, missing expected value or unsupported field.
+        "401":
+          $ref: "#/components/responses/Unauthenticated"
+        "403":
+          $ref: "#/components/responses/AdminRequired"
+        "404":
+          description: Project not found.
+        "409":
+          description: Date changed since the page was loaded; reload before editing.
         "500":
           $ref: "#/components/responses/ServerError"
 
@@ -3219,9 +3279,48 @@ components:
         archivedAt:
           type: [string, "null"]
           format: date-time
+        preserveOnHpcUntil:
+          type: [string, "null"]
+          format: date-time
+          description: Derived from the Project-level preservation date, independent of archive state.
         migrationHealth:
           type: [string, "null"]
           enum: [active, needs_attention, null]
+
+    ProjectStorageLocations:
+      type: object
+      description: |
+        Separate location evidence on an authorized project detail response.
+        HPC presence checks only the project directory, not payload integrity.
+        AWS status is recorded transfer evidence, not a live S3 query. Unknown
+        is used when mount/access/path errors prevent a reliable observation.
+      properties:
+        hpc:
+          type: object
+          properties:
+            status:
+              type: string
+              enum: [present, absent, unknown]
+            uri:
+              type: [string, "null"]
+            checkedAt:
+              type: [string, "null"]
+              format: date-time
+              description: Current directory-check time, or historical confirmed-absence time for absence_recorded.
+            reason:
+              type: [string, "null"]
+              enum: [invalid_project_path, storage_unavailable, path_not_found, path_outside_storage, not_a_directory, absence_recorded, null]
+        aws:
+          type: object
+          properties:
+            status:
+              type: string
+              enum: [verified, unverified, not_archived, unknown]
+            uri:
+              type: [string, "null"]
+            verifiedAt:
+              type: [string, "null"]
+              format: date-time
 
     EntityLocation:
       type: object
@@ -3373,6 +3472,8 @@ components:
         Ordinary serialization omits registrationProvenance and reconciliationHistory.
         Administrators can read them through /project/reconciliation-history.
         Retrospectively registered roots can preserve mixed case in safeName/path.
+        HPC preservation history is private; preserveOnHpcUntil is public to
+        anyone who can read this Project and is editable only by an administrator.
       properties:
         _id:
           $ref: "#/components/schemas/ObjectId"
@@ -3428,6 +3529,10 @@ components:
             `NUDGE_INCLUDE_UNDEFINED_NUDGEABLE=true` — so absent and `false`
             are not the same thing to that consumer, even though the API can no
             longer produce an absent value.
+        preserveOnHpcUntil:
+          type: [string, "null"]
+          format: date-time
+          description: Preserve the HPC copy while this timestamp is in the future. Null means no dated protection; separate manual exclusions may still apply.
         storage:
           $ref: "#/components/schemas/StorageSummary"
         nudges:
