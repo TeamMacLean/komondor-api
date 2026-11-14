@@ -10,6 +10,12 @@ It does not install a production/database hold or verify today's filesystem.
 Consult the [machine-readable register](hpc-retention-holds.json) by Project ID
 and exact relative path, in addition to the normal archive checks.
 
+No code reads this register. Once the preservation feature is deployed, also set
+`preserveOnHpcUntil` on all five (a far-future date for open-ended holds) so the
+CLI refuses them, keeping this register as the reason. See the
+[feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
+[deletion checklist](HPC_DELETION_CHECKLIST.md).
+
 | Project | Project ID | Keep HPC path | Release condition |
 | --- | --- | --- | --- |
 | Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | George explicitly releases the hold; no end date supplied |

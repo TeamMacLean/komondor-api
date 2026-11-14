@@ -50,7 +50,8 @@ dated 3 November; this update performs no new live check.
    George, then `confirm-absent`. No waiting period: George set the pre-deletion
    hold to zero on 23 October. The pilot restore passed the same day. Check the
    [current retention register](HPC_RETENTION.md) first; these are review
-   candidates, not approved deletion targets.
+   candidates, not approved deletion targets. Work through the
+   [per-Project deletion checklist](HPC_DELETION_CHECKLIST.md).
 2. **The six manual-disposal entries.** Deleted by George outside the archive
    CLI, with no S3 copy. See the outcome table and
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md).
