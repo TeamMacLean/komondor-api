@@ -5,8 +5,8 @@
 
 | Repo | Before (production) | After (master) | Restart |
 | --- | --- | --- | --- |
-| komondor-api | `f2e464c` | this commit or later on master | yes, **first** |
-| komondor-web | `5e7bcf2` | `1e9f04f` | yes, after `yarn build` |
+| komondor-api | `f2e464c` | master: `7225374` plus documentation commits | yes, **first** |
+| komondor-web | `5e7bcf2` | `92d6794` | yes, after `yarn build` |
 | komondor-power | `d98fab1` | unchanged | no |
 | komondor-nudge | `3791969` | unchanged | no |
 
@@ -22,7 +22,8 @@
 - **Web.** Three changes:
   - the home page projects sidebar tidy-up (`c80879c`);
   - the borderless three-column project layout (`a82a65d`);
-  - the retention follow-up (`ed9be93`, `1e9f04f`).
+  - the retention follow-up (`ed9be93`, `1e9f04f`);
+  - a test-only commit for ENA admin project creation (`92d6794`).
 - **Compatibility.** The new API rejects keep-date saves from the old web
   (HTTP 400), so deploy both in one sitting, API first
   ([BREAKING_CHANGES.md](../../BREAKING_CHANGES.md)).

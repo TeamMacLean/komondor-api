@@ -16,7 +16,7 @@ dated 3 November; this update performs no new live check.
   ([record](DEPLOYMENT_2026-11-16.md)); Power and Nudge are unchanged since
   3 November ([record](DEPLOYMENT_2026-11-03.md)).
 - **Master, not yet deployed.** The retention follow-up was reviewed and merged
-  on 16 November: web master is `1e9f04f` and API master includes `7225374`.
+  on 16 November: web master is `92d6794` and API master includes `7225374`.
   Deployment is pending
   ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md),
   [review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)).
