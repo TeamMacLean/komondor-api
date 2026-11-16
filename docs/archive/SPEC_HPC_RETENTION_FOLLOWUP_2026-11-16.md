@@ -5,6 +5,10 @@ builds on the `preserveOnHpcUntil` feature, which was merged and deployed on
 16 November: production runs API `f2e464c` and web `5e7bcf2`
 ([record](DEPLOYMENT_2026-11-16.md)).
 
+**Status:** implemented, reviewed and merged to master on 16 November
+([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)); deployment pending
+([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+
 Read first: [HPC_RETENTION.md](HPC_RETENTION.md), the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
 [deletion checklist](HPC_DELETION_CHECKLIST.md).

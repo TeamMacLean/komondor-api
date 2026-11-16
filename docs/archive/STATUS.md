@@ -15,6 +15,11 @@ dated 3 November; this update performs no new live check.
   16 November with the HPC keep-date feature
   ([record](DEPLOYMENT_2026-11-16.md)); Power and Nudge are unchanged since
   3 November ([record](DEPLOYMENT_2026-11-03.md)).
+- **Master, not yet deployed.** The retention follow-up was reviewed and merged
+  on 16 November: web master is `1e9f04f` and API master includes `7225374`.
+  Deployment is pending
+  ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md),
+  [review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)).
 - **Database reconciliation (22 October).** 22 unregistered directories were
   registered as Projects, then 26,724 operations corrected paths, added
   13,052 File/AdditionalFile pairs, retired two empty Projects and recorded
@@ -52,7 +57,8 @@ dated 3 November; this update performs no new live check.
    [list with IDs and suggested dates](HPC_RETENTION.md#keep-dates-to-set-george)
    is in the retention page. Do Gargy first, as the
    [test](GARGY_HPC_PRESERVATION_TEST.md). Finish the five holds before step 2
-   starts.
+   starts. Set them after the follow-up deployment (step 6), so each date's
+   requester and reason are recorded with it and nothing needs backfilling.
 2. **HPC deletion review for the 170 archived Projects outside the five holds.** For
    each: a fresh source/S3 check immediately before deletion, manual deletion by
    George, then `confirm-absent`. No waiting period: George set the pre-deletion
@@ -77,12 +83,14 @@ dated 3 November; this update performs no new live check.
    `preserveOnHpcUntil` date. It was deployed on 16 November. George's
    [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) is step 1. Until the dates are
    set, these five exclusions are manual only.
-6. **Follow-up feature: implemented on review branches, not merged or deployed.**
-   API and web branch `codex/hpc-retention-followup-20261116` implement the
+6. **Follow-up feature: reviewed and merged 16 November; deploy next.**
+   The API and web changes implement the
    [spec](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md): visible disabled actions,
    requester/reason history, raw BSON date safeguards and repair, contact link,
    computed archive/deletion dates, and a read-only CSV/email review report.
-   Deploy API and web together, API first, after review. Then George backfills
+   [Review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md). Deploy API and web
+   together, API first
+   ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). Then George backfills
    the production holds, sets `HPC_DUE_REPORT_TO` and web
    `HPC_RETENTION_CONTACT_EMAIL`, checks a report by hand, and separately installs
    the documented January/July schedule. `HPC_RETENTION_YEARS` defaults to 5.

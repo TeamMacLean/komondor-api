@@ -34,12 +34,15 @@ release that existing instruction. Keep its source tree and S3 archive intact.
    the project identity and both displayed paths. AWS should show its recorded
    verification date. HPC should show a current directory presence observation;
    if it is unknown or absent, investigate before treating the copy as present.
-2. In **Preserve on HPC until**, choose the desired future date and save it.
-   The date is inclusive through the end of that UTC day. No MongoDB shell
-   edits or storage-state changes are required.
+2. In **Preserve on HPC until**, choose the desired future date, fill in
+   **Requested by** and **Reason** (required once the retention follow-up is
+   deployed), and save. The date is inclusive through the end of that UTC day.
+   No MongoDB shell edits or storage-state changes are required.
 3. Reload the page. Confirm the saved date persists, both location indicators
    remain independent, and the notice tells users to contact **George Deeks**
-   if they need longer HPC retention.
+   if they need longer HPC retention. After the follow-up deployment, the
+   requester and reason also show, and the name is a `mailto:` link if the web
+   `HPC_RETENTION_CONTACT_EMAIL` is set.
 4. View the same project as a non-admin user who has access. Confirm the date
    and extension notice are visible, and the editing controls are absent.
 5. Have the AI/operator inspect the latest Project's `preserveOnHpcUntil` and

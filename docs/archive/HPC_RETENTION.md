@@ -2,8 +2,10 @@
 
 Updated 16 November 2026 from George's instructions. This page records active
 manual deletion exclusions, the keep dates George is to set, and the application
-feature (deployed 16 November). The retention follow-up below is implemented
-on review branches, not deployed. This page does not verify today's filesystem.
+feature (deployed 16 November). The retention follow-up below was reviewed and
+merged to master on 16 November; its deployment is pending
+([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). This page does not
+verify today's filesystem.
 
 ## Active manual exclusions
 
@@ -56,6 +58,11 @@ George sets these himself on each project page as administrator. **None is set
 as of 16 November.** The dates below are suggestions; George chooses the actual
 ones. A date means "keep on HPC through 23:59:59.999 UTC that day". When it
 passes, the Project becomes eligible for deletion *review* only.
+
+Set them after the follow-up is deployed. The form then also asks **Requested
+by** (who asked) and **Reason**; the "Why" column below is a starting point for
+the reason. Both are shown to everyone who can see the project, so nothing
+needs backfilling later.
 
 Set Gargy first: it doubles as the
 [Gargy test](GARGY_HPC_PRESERVATION_TEST.md), where George suggested about a
@@ -143,7 +150,7 @@ Implementation references:
 [API contract](../../openapi.yaml).
 
 
-## Retention follow-up — implemented on review branches, not deployed
+## Retention follow-up — merged 16 November, deployment pending
 
 Deploy the follow-up API and web together, **API first**. The API now requires a
 requester (1–200 non-blank characters) and reason (1–1000) when setting a keep
