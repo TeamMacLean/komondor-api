@@ -50,6 +50,13 @@ describe("sendEmail", () => {
     );
   });
 
+  test("passes attachments to nodemailer", async () => {
+    const { sendEmail } = loadModules();
+    const attachments = [{ filename: "review.csv", content: "project_id\r\n1\r\n", contentType: "text/csv" }];
+    await sendEmail({ subject: "Review", message: "Review list", to: "review@example.test", attachments });
+    expect(mockSendMail).toHaveBeenCalledWith(expect.objectContaining({ attachments, to: "review@example.test" }));
+  });
+
   test("returns the transport's message id", async () => {
     const { sendEmail } = loadModules();
 

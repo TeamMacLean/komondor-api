@@ -13,7 +13,7 @@ const {
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
-const { parsePreservationDate } = require("../lib/hpc-preservation");
+const { parsePreservationDate, parseNewPreservationDate } = require("../lib/hpc-preservation");
 const { projectStorageLocations } = require("../lib/project-storage-locations");
 const { handleError, compareFilesToDirectory } = require("./_utils");
 const {
@@ -217,7 +217,7 @@ router.put("/project/hpc-preservation", isAuthenticated, async (req, res) => {
     return res.status(403).send({ error: "Admin access required" });
   }
   const body = req.body || {};
-  const allowed = ["_id", "preserveOnHpcUntil", "expectedPreserveOnHpcUntil"];
+  const allowed = ["_id", "preserveOnHpcUntil", "expectedPreserveOnHpcUntil", "hpcPreservationRequestedBy", "hpcPreservationReason"];
   if (Object.keys(body).some((key) => !allowed.includes(key))) {
     return res.status(400).send({ error: "Unsupported HPC preservation field" });
   }
@@ -226,25 +226,60 @@ router.put("/project/hpc-preservation", isAuthenticated, async (req, res) => {
 
   let until;
   let expected;
+  let requestedBy;
+  let reason;
   try {
-    until = parsePreservationDate(body.preserveOnHpcUntil);
-    expected = parsePreservationDate(body.expectedPreserveOnHpcUntil);
+    expected = body.expectedPreserveOnHpcUntil === "invalid" ? "invalid"
+      : parsePreservationDate(body.expectedPreserveOnHpcUntil);
+    // Metadata backfills may retain an existing date, even after expiry.
+    until = body.preserveOnHpcUntil === body.expectedPreserveOnHpcUntil && expected !== "invalid"
+      ? parsePreservationDate(body.preserveOnHpcUntil)
+      : parseNewPreservationDate(body.preserveOnHpcUntil);
+    const requiredText = (value, max, label) => {
+      if (typeof value !== "string" || !value.trim() || value.length > max) {
+        throw new TypeError(`${label} is required and must be at most ${max} characters.`);
+      }
+      return value.trim();
+    };
+    reason = requiredText(body.hpcPreservationReason, 1000, "Reason");
+    requestedBy = until ? requiredText(body.hpcPreservationRequestedBy, 200, "Requester") : null;
   } catch (error) {
     return res.status(400).send({ error: error.message });
   }
 
   try {
+    let previousUntil = expected;
+    let filter = { _id: id, preserveOnHpcUntil: expected,
+      $expr: { $in: [{ $type: "$preserveOnHpcUntil" }, expected === null ? ["null", "missing"] : ["date"]] } };
+    if (expected === "invalid") {
+      const raw = await Project.findById(id).select("preserveOnHpcUntil").lean();
+      if (!raw) return res.status(404).send({ error: "Project not found" });
+      const value = raw.preserveOnHpcUntil;
+      // Preserve malformed BSON without JSON silently turning NaN/Infinity
+      // into null or regular expressions into an empty object.
+      previousUntil = typeof value === "string" ? value
+        : require("util").inspect(value, { depth: null, maxArrayLength: null, breakLength: Infinity });
+      filter = { _id: id, $expr: { $and: [
+        { $not: [{ $in: [{ $type: "$preserveOnHpcUntil" }, ["date", "null", "missing"]] }] },
+        // Passing JS undefined through the driver loses its BSON identity.
+        // Compare its exact type, distinguishing it from a missing field.
+        value === undefined
+          ? { $eq: [{ $type: "$preserveOnHpcUntil" }, Object.prototype.hasOwnProperty.call(raw, "preserveOnHpcUntil") ? "undefined" : "missing"] }
+          : { $eq: ["$preserveOnHpcUntil", { $literal: value }] },
+      ] } };
+    }
     const updated = await Project.findOneAndUpdate(
-      // MongoDB's null equality also matches a legacy missing field.
-      { _id: id, preserveOnHpcUntil: expected },
+      filter,
       {
-        $set: { preserveOnHpcUntil: until },
+        $set: { preserveOnHpcUntil: until, hpcPreservationRequestedBy: requestedBy, hpcPreservationReason: until ? reason : null },
         $push: {
           hpcPreservationHistory: {
             at: new Date(),
             by: req.user.username,
-            previousUntil: expected,
+            previousUntil,
             until,
+            requestedBy,
+            reason,
           },
         },
       },
@@ -260,6 +295,9 @@ router.put("/project/hpc-preservation", isAuthenticated, async (req, res) => {
     return res.send({
       projectId: updated._id,
       preserveOnHpcUntil: updated.preserveOnHpcUntil || null,
+      hpcPreservationRequestedBy: updated.hpcPreservationRequestedBy || null,
+      hpcPreservationReason: updated.hpcPreservationReason || null,
+      hpcPreservationInvalid: false,
     });
   } catch (error) {
     return handleError(res, error, 500, "Failed to update HPC preservation date.");

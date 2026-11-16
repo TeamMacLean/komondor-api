@@ -1,7 +1,8 @@
 # S3 archive operator runbook
 
 **Start here every six months.** Projects are selected and archived manually;
-there is no scheduled job and no automatic HPC deletion.
+there is no automatic archiving or HPC deletion. The optional January/July
+email schedule below sends a review report only.
 
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
 - Before every batch: [renew SSO login](#before-each-archive-batch).
@@ -405,3 +406,69 @@ Deletion approval / fresh check time / operator / deletion time:
 Confirm-absent result / final state / UI check:
 Deferred or failed work / owner / next action:
 ```
+
+
+## Deletion-due review report
+
+After the retention follow-up is reviewed and deployed (API and web together,
+API first), generate the read-only list:
+
+```bash
+node scripts/hpc-deletion-due-report.js --within-months 6 --out /tmp/hpc-deletion-due.csv
+```
+
+Without `--out`, CSV goes to stdout. `--within-months` is a non-negative whole
+number, default 6; zero lists already-due projects and invalid keep dates. The
+window uses UTC calendar months, clamping month-end days. `HPC_RETENTION_YEARS`
+is a positive whole number, default 5, shared with the project page.
+`WEB_APP_URL` supplies project links and `READS_ROOT_PATH` (default
+`/tsl/data/reads`) supplies the same displayed HPC path as the page. The script
+uses normal model queries to exclude retired Projects, Samples and Runs,
+reads raw keep-date types, and disables automatic collection/index creation.
+It performs no database writes, filesystem presence checks or AWS operations.
+
+The CSV includes all eligible projects through the window, **including
+already overdue projects**, followed by projects with invalid keep dates. A
+keep date that expires between two reports therefore remains visible. For
+unarchived projects, review eligibility uses the later of the age-based archive
+date and keep date, and an AWS copy is required first. Pending verified copies
+use the later of verification and keep dates, preserving the October decisions.
+HPC copies already confirmed absent are excluded. Every row has owner, group,
+project/link, UTC eligibility date, storage state, verified-AWS flag, overdue
+flag, HPC path, keep details, age basis and notes. User-entered CSV cells that
+look like spreadsheet formulae are prefixed with an apostrophe.
+
+Notes read the existing `archiveReconciliations` ledger by Project ID:
+`disposition`, `executionStatus` and entry ID. The six Kamoun entries use
+`existing-approved-direct-disposal`; these are explicitly labelled manual
+disposal without AWS, requiring their separate review, **not ordinary archive
+backlog**. No new marker is introduced. The first report can be long: 170
+archived review candidates plus old projects in any group, subject to current
+holds and invalid-value checks. A report row never authorises deletion.
+
+To email this single CSV attachment to George, set `HPC_DUE_REPORT_TO` to the
+approved comma-separated recipient list in the API environment, then add
+`--email`. This never uses project owners or `ENA_ADMIN_EMAILS` as recipients.
+The subject gives the project count and window-end UTC date. The body counts
+overdue, due within the window, not yet on AWS, keep dates expiring within the
+window, and invalid values. These categories can overlap. It explicitly says
+this is a review list, not a deletion instruction. Missing report recipients
+fail closed. Development/test mode logs instead of sending; no real email was
+sent by this implementation.
+
+### Proposed twice-yearly schedule — not installed
+
+George installs this only after checking a report manually. Use **tsldata's
+user crontab**, not root or deeks. The last recorded PM2 Node interpreter is
+`/storage/.nvm/versions/node/v24.11.1/bin/node` (see the
+[service-control record](archive/STAGE3_APPLICATION_REHEARSAL_2026-10-16.md#readiness-and-service-control));
+confirm it still matches PM2 and replace the checkout/log placeholders with
+absolute paths writable by tsldata. The script reads the checkout's `.env`.
+
+```cron
+# tsldata user crontab; 09:00 server-local time on 1 January and 1 July.
+0 9 1 1,7 * cd /absolute/path/to/komondor-api && NODE_ENV=production /storage/.nvm/versions/node/v24.11.1/bin/node scripts/hpc-deletion-due-report.js --within-months 6 --email --out /absolute/path/to/reports/hpc-deletion-due.csv >> /absolute/path/to/logs/hpc-deletion-due.log 2>&1
+```
+
+This documents a schedule only; no cron entry is installed. Confirm the host's
+timezone when choosing the send time. George writes any owner emails himself.

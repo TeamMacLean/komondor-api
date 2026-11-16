@@ -15,7 +15,8 @@ const project = (state = "hpc") => ({
   },
 });
 const observe = (value, options = {}) => projectStorageLocations(value, {
-  datastoreRoot: root, readsRoot: "/tsl/data/reads", now, ...options,
+  datastoreRoot: root, readsRoot: "/tsl/data/reads", now,
+  retentionDates: async (project, options) => require("../../lib/hpc-retention").computeRetentionDates(project, options), ...options,
 });
 
 beforeEach(async () => {
@@ -72,4 +73,16 @@ test("invalid lifecycle or mismatched sealed relative root does not probe HPC", 
     expect((await observe(value, { filesystem })).hpc.status).toBe("unknown");
   }
   expect(filesystem.realpath).not.toHaveBeenCalled();
+});
+
+
+test("async retention snapshot distinguishes BSON undefined from a missing hold", async () => {
+  const Project = require("../../models/Project");
+  const raw = { _id: "64f1c0000000000000000000", ...project() };
+  const missing = await observe(Project.hydrate(raw));
+  expect(missing.hpcPreservationInvalid).toBe(false);
+  expect(missing.hpcDeletionEligibleAt).not.toBeNull();
+  const malformed = await observe(Project.hydrate({ ...raw, preserveOnHpcUntil: undefined }));
+  expect(malformed.hpcPreservationInvalid).toBe(true);
+  expect(malformed.hpcDeletionEligibleAt).toBeNull();
 });

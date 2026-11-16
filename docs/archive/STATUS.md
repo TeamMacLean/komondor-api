@@ -77,10 +77,18 @@ dated 3 November; this update performs no new live check.
    `preserveOnHpcUntil` date. It was deployed on 16 November. George's
    [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) is step 1. Until the dates are
    set, these five exclusions are manual only.
-6. **Follow-up feature.** Record who asked for each keep date and why, show
-   disabled buttons on read-only projects, show when each project is due, and
-   email George a twice-yearly deletion-due list.
-   [Spec for ChatGPT](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md).
+6. **Follow-up feature: implemented on review branches, not merged or deployed.**
+   API and web branch `codex/hpc-retention-followup-20261116` implement the
+   [spec](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md): visible disabled actions,
+   requester/reason history, raw BSON date safeguards and repair, contact link,
+   computed archive/deletion dates, and a read-only CSV/email review report.
+   Deploy API and web together, API first, after review. Then George backfills
+   the production holds, sets `HPC_DUE_REPORT_TO` and web
+   `HPC_RETENTION_CONTACT_EMAIL`, checks a report by hand, and separately installs
+   the documented January/July schedule. `HPC_RETENTION_YEARS` defaults to 5.
+   No production fields, email delivery or cron installation were changed.
+   Once backfilled and reviewed, Project date/requester/reason are the current
+   hold record and `hpc-retention-holds.json` is historical.
 7. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
 
 ## Standing rules

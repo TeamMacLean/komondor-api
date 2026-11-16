@@ -23,6 +23,9 @@ describe("Project storage serialization", () => {
       archivedAt: null,
       migrationHealth: null,
       preserveOnHpcUntil: null,
+      hpcPreservationInvalid: false,
+      hpcPreservationRequestedBy: null,
+      hpcPreservationReason: null,
     });
   });
 

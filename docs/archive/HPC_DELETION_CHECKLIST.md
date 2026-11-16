@@ -20,18 +20,22 @@ record why.
   `deletion-command` would print a command for the four Gulnara sources, and for
   Gargy until its date is saved. Set `preserveOnHpcUntil` on all five from their
   project pages (a far-future date for open-ended holds) so the CLI refuses
-  them, and keep the register as the record of *why*.
-- [ ] **No stored date has a non-date type.** Mongoose silently converts some
-  hand-edited values: `""` reads as no hold, `0` as an expired 1970 date, and a
-  bare `"2027-01-01"` as midnight rather than end of day. Read-only check on v1333:
+  them. After deploying the follow-up, backfill and review the requester and
+  reason too. Once all fields are populated, the Project's date, requester and
+  reason are the current record and `hpc-retention-holds.json` becomes history.
+- [ ] **No stored date has a non-date type.** The follow-up checks raw BSON
+  before Mongoose casting, flags invalid values publicly, and blocks deletion.
+  Until it is deployed, Mongoose can silently convert hand-edited `""`, `0` or
+  bare date strings. Continue this read-only check on v1333:
 
   ```bash
-  mongosh --quiet mongodb://localhost:28015/komondor --eval 'printjson(db.projects.find({ preserveOnHpcUntil: { $exists: true, $not: { $type: ["date", "null"] } } }, { name: 1, path: 1, preserveOnHpcUntil: 1 }).toArray())'
+  mongosh --quiet mongodb://localhost:28015/komondor --eval 'printjson(db.projects.find({ $expr: { $not: [{ $in: [{ $type: "$preserveOnHpcUntil" }, ["date", "null", "missing"]] }] } }, { name: 1, path: 1, preserveOnHpcUntil: 1 }).toArray())'
   ```
 
   Expected: `[]`. Anything listed needs an administrator to fix it before any
-  deletion review. The project page shows such a value as *no date*, and the
-  save button returns a conflict for it.
+  deletion review. With the follow-up deployed, the project page flags it and
+  an administrator may repair it with a requester and reason; the raw previous
+  value is retained in history. The older page cannot repair it.
 - [ ] **The mount roots are confirmed.** The project page shows
   `READS_ROOT_PATH` (default `/tsl/data/reads`), but its presence check and the
   CLI use `DATASTORE_ROOT` on the archive host (recorded as `/mnt/reads`).
@@ -39,8 +43,9 @@ record why.
 
 ## For each Project
 
-1. [ ] **Not one of the five holds** in [HPC_RETENTION.md](HPC_RETENTION.md),
-   matched by Project ID *and* relative path. Gulnara's four are released only
+1. [ ] **No active hold**, checking the Project's date, requester and reason.
+   Until the production fields are populated and reviewed, also check the five
+   holds in [HPC_RETENTION.md](HPC_RETENTION.md), by Project ID *and* relative path. Gulnara's four are released only
    by a recorded review after her copies are verified; Gargy only by George.
 2. [ ] **Not one of the six manual-disposal entries.** Those follow
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md):
@@ -85,4 +90,15 @@ record why.
 | Refusal: "Archive identity changed during deletion checks" | Path, S3 URI, migration or manifest changed while checking | Repeat the review from step 3 |
 | A date was set after the tree was already removed | `confirm-absent` refuses while it is active, leaving the Project in `aws_pending_hpc_deletion` | Record what happened. An administrator clears the date (the history keeps who and when), then run `confirm-absent` |
 | HPC shows *unknown* or *absent* while state is still `aws_pending_hpc_deletion` | The tree is missing or unreadable before any approved deletion | Investigate as a discrepancy; do not confirm absence to tidy it |
-| The page shows no date but the CLI says invalid | A non-date value is stored (see the type check above) | An administrator repairs it in the database, recording the before and after values; the page cannot |
+| The page or CLI says the keep date is invalid | A non-date value is stored (see the type check above) | With the follow-up deployed, an administrator repairs it through the project form; history retains the raw previous value. Do not delete until resolved |
+
+
+## Review list
+
+Use the [deletion-due report](../S3_PROJECT_ARCHIVAL_RUNBOOK.md#deletion-due-review-report)
+to find overdue and next-six-month candidates. It includes active unarchived
+projects and separately labels existing manual-disposal dispositions, so being
+listed is **not** permission to delete or a claim that an AWS copy exists.
+Invalid keep dates are included for attention with no eligibility date. Every
+candidate must still pass every gate above; expiry and clearing never delete
+anything automatically.

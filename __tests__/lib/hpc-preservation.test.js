@@ -31,20 +31,40 @@ describe("HPC preservation dates", () => {
     expect(resolveHpcPreservation(project)).toEqual({ until: null, active: false, invalid: false });
   });
 
-  test.each(["invalid", "2027-02-29T00:00:00.000Z", false, 0, {}, new Date(NaN)])(
+  test.each([undefined, "invalid", "2027-02-29T00:00:00.000Z", false, 0, {}, new Date(NaN)])(
     "does not silently treat malformed stored policy %p as no hold", (value) => {
       expect(resolveHpcPreservation({ preserveOnHpcUntil: value })).toEqual({ until: null, active: false, invalid: true });
     },
   );
 
-  test("Mongoose cast failures remain invalid when hydration omitted the bad value", () => {
-    const project = Project.hydrate({ _id: "64f1c0000000000000000000", preserveOnHpcUntil: "invalid" });
-    expect(resolveHpcPreservation(project).invalid).toBe(true);
+  test.each([undefined, "invalid", "", 0, "2027-01-01", until, false, {}, [], [null]])(
+    "hydration and public JSON preserve invalid BSON type %p", (value) => {
+      const project = Project.hydrate({ _id: "64f1c0000000000000000000", preserveOnHpcUntil: value });
+      expect(resolveHpcPreservation(project).invalid).toBe(true);
+      const json = project.toJSON();
+      expect(json.storage.hpcPreservationInvalid).toBe(true);
+      expect(json.preserveOnHpcUntil).toBeNull();
+    },
+  );
+
+  test("deprecated BSON undefined remains invalid before and after model hydration", () => {
+    // Encode BSON type 6 directly: normal JS serialization omits it or writes
+    // null, but a legacy/manual database value can still have this type.
+    const key = Buffer.from("preserveOnHpcUntil\0");
+    const bytes = Buffer.concat([Buffer.alloc(4), Buffer.from([6]), key, Buffer.from([0])]);
+    bytes.writeInt32LE(bytes.length, 0);
+    const raw = new (require("bson").BSON)().deserialize(bytes);
+    expect(Object.prototype.hasOwnProperty.call(raw, "preserveOnHpcUntil")).toBe(true);
+    expect(raw.preserveOnHpcUntil).toBeUndefined();
+    expect(resolveHpcPreservation(raw).invalid).toBe(true);
+    expect(resolveHpcPreservation(Project.hydrate(raw)).invalid).toBe(true);
+    expect(Project.hydrate(raw).toJSON().storage.hpcPreservationInvalid).toBe(true);
+    expect(resolveHpcPreservation(Project.hydrate({})).invalid).toBe(false);
   });
 
   test("public Project JSON includes the date but hides its administrative audit", () => {
     const project = Project.hydrate({
-      _id: "64f1c0000000000000000000", preserveOnHpcUntil: until,
+      _id: "64f1c0000000000000000000", preserveOnHpcUntil: new Date(until),
       hpcPreservationHistory: [{ at: new Date(), by: "admin", previousUntil: null, until }],
     });
     const json = JSON.parse(JSON.stringify(project));

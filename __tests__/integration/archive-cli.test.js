@@ -341,18 +341,28 @@ test("real CLI retains HPC preservation through copying and refuses deletion or 
   expect(await fs.readFile(`${source}/a.fastq`)).toEqual(originalBytes);
   expect((await project()).storage).toEqual(verified.storage);
 
-  // Bypass casting only in the disposable database to prove the real spawned
-  // process/Mongoose loader does not mistake corruption for an absent hold.
-  await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: "not-a-date" } });
-  const invalidStatus = await cli("status", "--json");
-  expectSuccess(invalidStatus);
-  expect(JSON.parse(invalidStatus.stdout).hpcPreservationInvalid).toBe(true);
-  const invalid = await cli("deletion-command");
-  expect(invalid.code).toBe(1);
-  expect(invalid.stdout).not.toContain("rm -rf");
-  expect(invalid.stderr).toContain("Invalid preserveOnHpcUntil");
-  expect((await fs.stat(source)).isDirectory()).toBe(true);
-  expect((await project()).storage).toEqual(verified.storage);
+  // Bypass casting only in the disposable database. In particular empty
+  // strings, zero and parseable ISO strings used to become null/valid Dates
+  // through Mongoose hydration and permit deletion checks to continue.
+  for (const malformed of ["not-a-date", "", 0, "2020-01-01", "2020-01-01T23:59:59.999Z", true, false, {}, [], [null]]) {
+    await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: malformed } });
+    const before = await project();
+    const invalidStatus = await cli("status", "--json");
+    expectSuccess(invalidStatus);
+    expect(JSON.parse(invalidStatus.stdout).hpcPreservationInvalid).toBe(true);
+    for (const [command, flags] of [
+      ["deletion-command", []],
+      ["confirm-absent", ["--confirmed-by", "alice", "--execute"]],
+    ]) {
+      const invalid = await cli(command, ...flags);
+      expect(invalid.code).toBe(1);
+      expect(invalid.stdout).not.toContain("rm -rf");
+      expect(invalid.stderr).toContain("Invalid preserveOnHpcUntil");
+      expect(await project()).toEqual(before);
+    }
+    expect((await fs.stat(source)).isDirectory()).toBe(true);
+    expect((await project()).storage).toEqual(verified.storage);
+  }
 });
 
 test("real failed transfer preserves source and resumes with sealed storage class", async () => {

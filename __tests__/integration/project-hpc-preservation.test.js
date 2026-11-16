@@ -26,7 +26,7 @@ let projectId;
 const storedProject = () => db().collection("projects").findOne({ _id: projectId });
 const preserve = (value, expected = null) => request(app)
   .put("/project/hpc-preservation")
-  .send({ _id: String(projectId), preserveOnHpcUntil: value, expectedPreserveOnHpcUntil: expected });
+  .send({ _id: String(projectId), preserveOnHpcUntil: value, expectedPreserveOnHpcUntil: expected, hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis" });
 
 beforeAll(async () => {
   // The suite deletes scratch fixtures. Never allow the ordinary application
@@ -75,14 +75,14 @@ test("setting and clearing persist BSON Dates and audit atomically while public 
   const start = new Date();
   const set = await preserve(until);
   expect(set.status).toBe(200);
-  expect(set.body).toEqual({ projectId: String(projectId), preserveOnHpcUntil: until });
+  expect(set.body).toMatchObject({ projectId: String(projectId), preserveOnHpcUntil: until, hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis" });
   const withDate = await storedProject();
   expect(withDate.preserveOnHpcUntil).toEqual(new Date(until));
   expect(withDate.storage).toEqual(before.storage);
   expect(withDate.path).toBe(before.path);
   expect(withDate.hpcPreservationHistory).toHaveLength(1);
   expect(withDate.hpcPreservationHistory[0]).toEqual({
-    at: expect.any(Date), by: "deeks", previousUntil: null, until: new Date(until),
+    at: expect.any(Date), by: "deeks", previousUntil: null, until: new Date(until), requestedBy: "Owner", reason: "Ongoing analysis",
   });
   expect(withDate.hpcPreservationHistory[0].at.getTime()).toBeGreaterThanOrEqual(start.getTime());
   const normal = await Project.findById(projectId);
@@ -102,7 +102,7 @@ test("setting and clearing persist BSON Dates and audit atomically while public 
   expect(after.hpcPreservationHistory).toHaveLength(2);
   expect(after.hpcPreservationHistory[0]).toEqual(withDate.hpcPreservationHistory[0]);
   expect(after.hpcPreservationHistory[1]).toEqual({
-    at: expect.any(Date), by: "deeks", previousUntil: new Date(until), until: null,
+    at: expect.any(Date), by: "deeks", previousUntil: new Date(until), until: null, requestedBy: null, reason: "Ongoing analysis",
   });
   expect(after.storage).toEqual(before.storage);
   expect(await db().collection("newsitems").countDocuments()).toBe(0);
@@ -156,4 +156,40 @@ test("retention remains editable on a reconciled verified archive without changi
   for (const field of ["storage", "archiveMigration", "reconciliation", "path", "name"]) expect(after[field]).toEqual(before[field]);
   expect(after.preserveOnHpcUntil).toEqual(new Date(until));
   expect(after.hpcPreservationHistory).toHaveLength(1);
+});
+
+
+test.each(["", 0, "2027-01-01", "2027-01-01T23:59:59.999Z", false, NaN, Infinity, /legacy/i, {}, [], [null], [new Date(until)]])(
+  "repairs raw invalid BSON %p, preserves raw history, and refuses the null/date fence", async value => {
+    await db().collection("projects").updateOne({ _id: projectId }, { $set: { preserveOnHpcUntil: value } });
+    const json = (await Project.findById(projectId)).toJSON();
+    expect(json.storage.hpcPreservationInvalid).toBe(true);
+    expect((await preserve(until)).status).toBe(409);
+    expect((await preserve(until, until)).status).toBe(409);
+    expect((await preserve(until, "invalid")).status).toBe(200);
+    const after = await storedProject();
+    expect(after.preserveOnHpcUntil).toEqual(new Date(until));
+    expect(after.hpcPreservationHistory[0].previousUntil).toBe(typeof value === "string" ? value : require("util").inspect(value, { depth: null, maxArrayLength: null, breakLength: Infinity }));
+    expect((await preserve(null, "invalid")).status).toBe(409);
+  },
+);
+
+test("metadata backfill retains an expired date and clearing keeps only the audit reason", async () => {
+  const expired = "2020-01-01T00:00:00.000Z";
+  await db().collection("projects").updateOne({ _id: projectId }, { $set: { preserveOnHpcUntil: new Date(expired) } });
+  expect((await preserve(expired, expired)).status).toBe(200);
+  let stored = await storedProject();
+  expect(stored.hpcPreservationRequestedBy).toBe("Owner");
+  expect(stored.hpcPreservationHistory[0].previousUntil).toEqual(new Date(expired));
+  expect((await preserve(null, expired)).status).toBe(200);
+  stored = await storedProject();
+  expect(stored.hpcPreservationRequestedBy).toBeNull();
+  expect(stored.hpcPreservationReason).toBeNull();
+  expect(stored.hpcPreservationHistory[1].reason).toBe("Ongoing analysis");
+});
+
+test("invalid sentinel cannot replace missing, null or valid dates", async () => {
+  expect((await preserve(until, "invalid")).status).toBe(409);
+  await db().collection("projects").updateOne({ _id: projectId }, { $set: { preserveOnHpcUntil: null } });
+  expect((await preserve(until, "invalid")).status).toBe(409);
 });

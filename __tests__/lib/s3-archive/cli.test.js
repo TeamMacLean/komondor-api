@@ -776,6 +776,18 @@ describe("archive CLI operator flow", () => {
 });
 
 describe("database migration fence", () => {
+  test("the project loader keeps raw BSON types for preservation checks", async () => {
+    const { loadProject } = jest.requireActual("../../../lib/s3-archive/state");
+    const raw = { _id: PROJECT_ID, preserveOnHpcUntil: "" };
+    const exec = jest.fn().mockResolvedValue(raw);
+    const lean = jest.fn().mockReturnValue({ exec });
+    const select = jest.fn().mockReturnValue({ lean });
+    const Project = { findById: jest.fn().mockReturnValue({ select }) };
+    expect(await loadProject(Project, PROJECT_ID)).toBe(raw);
+    expect(select).toHaveBeenCalledWith("+archiveMigration");
+    expect(lean).toHaveBeenCalledTimes(1);
+  });
+
   test("raises the mutation exit code when compare-and-set matches no project", async () => {
     const { fencedUpdate } = jest.requireActual(
       "../../../lib/s3-archive/state",
@@ -956,7 +968,7 @@ describe("archive CLI interrupted copy and resume", () => {
     state.fencedUpdate.mockClear();
   };
 
-  test.each([new Date(NOW + 86400000), "not-a-date"])(
+  test.each([undefined, new Date(NOW + 86400000), "not-a-date", "", 0, "2020-01-01", "2020-01-01T23:59:59.999Z", true, false, {}, [], [null]])(
     "preservation %s blocks deletion and confirm-absent without command output", async (until) => {
       await finishCopy();
       currentProject.preserveOnHpcUntil = until;
@@ -1011,7 +1023,10 @@ describe("archive CLI interrupted copy and resume", () => {
     const context = dependencies();
     context.fs = { lstat: jest.fn().mockRejectedValue(Object.assign(new Error("absent"), { code: "ENOENT" })) };
     expect(await runCli(["confirm-absent", "--project-id", PROJECT_ID, "--confirmed-by", "alice", "--execute"], context)).toBe(0);
-    expect(state.fencedUpdate).toHaveBeenCalledWith(Project, expect.objectContaining({ preserveOnHpcUntil: new Date(NOW - 1) }), expect.any(Object), expect.any(String));
+    expect(state.fencedUpdate).toHaveBeenCalledWith(Project, expect.objectContaining({
+      preserveOnHpcUntil: new Date(NOW - 1),
+      $expr: { $in: [{ $type: "$preserveOnHpcUntil" }, ["date", "null", "missing"]] },
+    }), expect.any(Object), expect.any(String));
   });
 
   test("a copy that dies mid-file records the error and authorises no deletion", async () => {

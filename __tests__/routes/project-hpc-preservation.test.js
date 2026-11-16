@@ -26,12 +26,12 @@ app.use(router);
 describe("PUT /project/hpc-preservation", () => {
   const id = "64f1c0000000000000000000";
   const until = "2027-11-13T23:59:59.999Z";
-  const body = { _id: id, preserveOnHpcUntil: until, expectedPreserveOnHpcUntil: null };
+  const body = { _id: id, preserveOnHpcUntil: until, expectedPreserveOnHpcUntil: null, hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis" };
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockUser = { username: "deeks", isAdmin: true };
-    Project.findOneAndUpdate.mockResolvedValue({ _id: id, preserveOnHpcUntil: new Date(until) });
+    Project.findOneAndUpdate.mockResolvedValue({ _id: id, preserveOnHpcUntil: new Date(until), hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis" });
   });
 
   test.each([
@@ -50,10 +50,22 @@ describe("PUT /project/hpc-preservation", () => {
     { expectedPreserveOnHpcUntil: "2027-11-13" },
     { storage: { state: "hpc" } }, { hpcPreservationHistory: [] },
     { owner: "somebody-else" },
+    { hpcPreservationRequestedBy: " " }, { hpcPreservationRequestedBy: "x".repeat(201) },
+    { hpcPreservationReason: " " }, { hpcPreservationReason: "x".repeat(1001) },
+    { preserveOnHpcUntil: "2027-11-13T00:00:00.000Z" },
   ])("rejects invalid input or unrelated field injection before database access (%p)", async (changes) => {
     expect((await request(app).put("/project/hpc-preservation").send({ ...body, ...changes })).status).toBe(400);
     expect(Project.findOneAndUpdate).not.toHaveBeenCalled();
     expect(Project.findById).not.toHaveBeenCalled();
+  });
+
+  test("repairs deprecated BSON undefined with an exact type fence and readable audit", async () => {
+    Project.findById.mockReturnValue({ select: jest.fn().mockReturnValue({ lean: jest.fn().mockResolvedValue({ _id: id, preserveOnHpcUntil: undefined }) }) });
+    const result = await request(app).put("/project/hpc-preservation").send({ ...body, expectedPreserveOnHpcUntil: "invalid" });
+    expect(result.status).toBe(200);
+    const [filter, update] = Project.findOneAndUpdate.mock.calls[0];
+    expect(filter.$expr.$and).toContainEqual({ $eq: [{ $type: "$preserveOnHpcUntil" }, "undefined"] });
+    expect(update.$push.hpcPreservationHistory.previousUntil).toBe("undefined");
   });
 
   test("requires the expected prior value even for a new hold", async () => {
@@ -64,11 +76,11 @@ describe("PUT /project/hpc-preservation", () => {
   test("atomically sets a public date and actor-stamped private history, without changing lifecycle", async () => {
     const result = await request(app).put("/project/hpc-preservation").send(body);
     expect(result.status).toBe(200);
-    expect(result.body).toEqual({ projectId: id, preserveOnHpcUntil: until });
+    expect(result.body).toMatchObject({ projectId: id, preserveOnHpcUntil: until, hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis", hpcPreservationInvalid: false });
     expect(Project.findOneAndUpdate).toHaveBeenCalledWith(
-      { _id: id, preserveOnHpcUntil: null },
-      { $set: { preserveOnHpcUntil: new Date(until) }, $push: {
-        hpcPreservationHistory: { at: expect.any(Date), by: "deeks", previousUntil: null, until: new Date(until) },
+      expect.objectContaining({ _id: id, preserveOnHpcUntil: null }),
+      { $set: { preserveOnHpcUntil: new Date(until), hpcPreservationRequestedBy: "Owner", hpcPreservationReason: "Ongoing analysis" }, $push: {
+        hpcPreservationHistory: { at: expect.any(Date), by: "deeks", previousUntil: null, until: new Date(until), requestedBy: "Owner", reason: "Ongoing analysis" },
       } },
       { new: true, runValidators: true },
     );
@@ -81,17 +93,17 @@ describe("PUT /project/hpc-preservation", () => {
     expect(result.status).toBe(200);
     expect(result.body.preserveOnHpcUntil).toBeNull();
     const [filter, update] = Project.findOneAndUpdate.mock.calls[0];
-    expect(filter).toEqual({ _id: id, preserveOnHpcUntil: new Date(until) });
+    expect(filter).toMatchObject({ _id: id, preserveOnHpcUntil: new Date(until) });
     expect(update.$push.hpcPreservationHistory).toMatchObject({ previousUntil: new Date(until), until: null, by: "deeks" });
-    expect(update.$set).toEqual({ preserveOnHpcUntil: null });
+    expect(update.$set).toEqual({ preserveOnHpcUntil: null, hpcPreservationRequestedBy: null, hpcPreservationReason: null });
   });
 
-  test("allows recording an expired date without extending protection", async () => {
+  test("rejects setting a new expired date", async () => {
     const expired = "2020-01-01T23:59:59.999Z";
     Project.findOneAndUpdate.mockResolvedValue({ _id: id, preserveOnHpcUntil: new Date(expired) });
     const result = await request(app).put("/project/hpc-preservation").send({ ...body, preserveOnHpcUntil: expired });
-    expect(result.status).toBe(200);
-    expect(result.body.preserveOnHpcUntil).toBe(expired);
+    expect(result.status).toBe(400);
+    expect(Project.findOneAndUpdate).not.toHaveBeenCalled();
   });
 
   test("returns 409 when a stale page no longer matches; it never retries an overwrite", async () => {

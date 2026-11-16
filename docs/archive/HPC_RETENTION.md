@@ -2,7 +2,8 @@
 
 Updated 16 November 2026 from George's instructions. This page records active
 manual deletion exclusions, the keep dates George is to set, and the application
-feature (deployed 16 November). It does not verify today's filesystem.
+feature (deployed 16 November). The retention follow-up below is implemented
+on review branches, not deployed. This page does not verify today's filesystem.
 
 ## Active manual exclusions
 
@@ -14,7 +15,11 @@ No code reads this register. The CLI refuses a Project only once its
 `preserveOnHpcUntil` date is set, so these five also appear in the
 [keep dates to set](#keep-dates-to-set-george) below. Keep this register as
 the reason until the [follow-up](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md)
-records requester and reason on the Project itself. See the
+is deployed and every hold's requester and reason have been backfilled and
+reviewed. Then the Project's `preserveOnHpcUntil`,
+`hpcPreservationRequestedBy` and `hpcPreservationReason` are the current record;
+`hpc-retention-holds.json` remains unchanged as history. Until then, continue
+checking the manual register as well. See the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
 [deletion checklist](HPC_DELETION_CHECKLIST.md).
 
@@ -136,3 +141,51 @@ Implementation references:
 [public summaries](../../lib/storage-state.js),
 [native deletion checks](../../lib/s3-archive/cli.js), and
 [API contract](../../openapi.yaml).
+
+
+## Retention follow-up — implemented on review branches, not deployed
+
+Deploy the follow-up API and web together, **API first**. The API now requires a
+requester (1–200 non-blank characters) and reason (1–1000) when setting a keep
+date, including a metadata-only edit of the current date. A clear requires a
+reason, removes both public metadata fields, and retains that explanation in
+the private history. Each entry records the token's administrator, requester,
+reason, old/new dates and time. Existing expired holds can have their metadata
+backfilled without extending the date; setting a different date requires a
+future canonical end-of-day UTC timestamp. The public form explains that the
+date, requester and reason are visible to every project reader.
+
+Raw stored values other than BSON Date, null or a missing field are invalid,
+including strings that Mongoose would cast into dates. They block deletion and
+are visibly flagged. Administrators repair them through the same form using an
+explicit invalid-value expectation; history retains the previous value as a
+string. Stale expected dates still return 409.
+
+Archiving is due after `HPC_RETENTION_YEARS` (default **5**) calendar years from
+the later of Project creation and its newest Run's creation (Run → Sample →
+Project). A missing `createdAt` uses that record's ObjectId timestamp. UTC
+calendar arithmetic clamps 29 February to 28 February where necessary. Dates
+are computed in the asynchronous storage-locations response and never stored.
+The date is visible from project creation. Keep dates block HPC deletion only;
+they never delay copying to AWS. Archiving makes the project read-only.
+
+For HPC/migrating projects, deletion review is due at the later of the archive
+date and keep date; an AWS copy is still required first. For verified copies
+awaiting HPC deletion, it is the later of `s3VerifiedAt` and the keep date;
+newer age calculations do not undo the October batch decisions. An invalid
+keep date has no deletion eligibility; completed `aws` projects have no HPC
+copy to remove. Every date permits **review only**, never automatic deletion.
+
+Read-only action buttons remain visible, disabled with an explanatory tooltip
+and accessible reason; the banner and API write guards remain in force.
+`HPC_RETENTION_CONTACT_EMAIL` is web runtime configuration for the George Deeks
+mailto link, with the project name and URL filled in. When unset, the name is
+shown without a link. Owners email George; there is no self-service approval
+flow and no owner email from the report.
+
+The [deletion-due report](../S3_PROJECT_ARCHIVAL_RUNBOOK.md#deletion-due-review-report)
+lists overdue and upcoming review candidates plus invalid dates, including
+existing manual-disposal dispositions. It can email George using
+`HPC_DUE_REPORT_TO`; its proposed 1 January / 1 July schedule must be installed
+by George separately. This implementation sets no production dates, installs
+no schedule and sends no real email.

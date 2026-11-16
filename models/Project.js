@@ -58,13 +58,14 @@ const ArchiveMigrationSchema = new mongoose.Schema(
 );
 
 const projectToJson = (_doc, ret) => {
-  ret.storage = publicStorageSummary(ret);
+  ret.storage = publicStorageSummary(_doc);
   // This is operational audit state, not part of the public API contract.
   delete ret.archiveMigration;
   delete ret.registrationProvenance;
   delete ret.reconciliationHistory;
   delete ret.hpcPreservationHistory;
-  ret.preserveOnHpcUntil = ret.preserveOnHpcUntil || null;
+  ret.preserveOnHpcUntil = ret.storage.preserveOnHpcUntil;
+  ret.hpcPreservationInvalid = ret.storage.hpcPreservationInvalid;
   return ret;
 };
 
@@ -111,11 +112,16 @@ const schema = new mongoose.Schema(
     // Independent of archive lifecycle: copying to AWS must not discard this
     // administrator-set protection for the retained HPC copy.
     preserveOnHpcUntil: Date,
+    hpcPreservationRequestedBy: { type: String, maxlength: 200 },
+    hpcPreservationReason: { type: String, maxlength: 1000 },
     hpcPreservationHistory: {
       type: [new mongoose.Schema({
         at: { type: Date, required: true },
         by: { type: String, required: true },
-        previousUntil: Date,
+        // Malformed legacy BSON values are recorded as strings when repaired.
+        previousUntil: mongoose.Schema.Types.Mixed,
+        requestedBy: String,
+        reason: String,
         until: Date,
       }, { _id: false })],
       default: undefined,
@@ -141,6 +147,11 @@ const schema = new mongoose.Schema(
     toJSON: { virtuals: true, transform: projectToJson },
   },
 );
+
+schema.pre("init", function (raw) {
+  this.$locals.rawHpcPreservation = raw.preserveOnHpcUntil;
+  this.$locals.rawHpcPreservationPresent = Object.prototype.hasOwnProperty.call(raw, "preserveOnHpcUntil");
+});
 
 schema.index({ "storage.state": 1 });
 installRegistrationGuards(schema);

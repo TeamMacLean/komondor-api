@@ -1031,12 +1031,17 @@ paths:
       summary: Set or clear the HPC preservation date. Admin only.
       description: |
         Requires isAdmin=true and an authenticated username. Works for archived
-        and HPC Projects; changes only preserveOnHpcUntil and its private audit
-        history, never the storage lifecycle or files. Canonical UTC timestamps
-        include milliseconds (YYYY-MM-DDTHH:mm:ss.sssZ); invalid calendar dates
-        are refused. Null clears the date. The expected previous value is a
-        compare-and-set fence; null also matches a legacy missing field.
-        The web date picker retains through 23:59:59.999 UTC on its selected day.
+        and HPC Projects; changes only the preservation date, requester, reason
+        and private audit history, never the storage lifecycle or files.
+        A new or changed date must be a future real calendar date at exactly
+        YYYY-MM-DDT23:59:59.999Z. Null explicitly clears the date and both metadata
+        fields, and requires a reason kept only in history. Setting a date
+        requires non-blank requester and reason, visible to all project readers.
+        An unchanged date allows metadata backfill even after expiry.
+        The expected previous value is a compare-and-set fence; null matches
+        only null or missing. The literal "invalid" matches only non-date,
+        non-null stored BSON and permits repair, auditing its raw prior value
+        as a string. Stale dates return 409.
         Expiry only permits manual review; it does not delete files or waive
         separate manual retention instructions.
       requestBody:
@@ -1046,7 +1051,7 @@ paths:
             schema:
               type: object
               additionalProperties: false
-              required: [_id, preserveOnHpcUntil, expectedPreserveOnHpcUntil]
+              required: [_id, preserveOnHpcUntil, expectedPreserveOnHpcUntil, hpcPreservationReason]
               properties:
                 _id:
                   $ref: "#/components/schemas/ObjectId"
@@ -1055,7 +1060,16 @@ paths:
                   format: date-time
                 expectedPreserveOnHpcUntil:
                   type: [string, "null"]
-                  format: date-time
+                  description: Previous canonical UTC timestamp, null, or the literal invalid.
+                hpcPreservationRequestedBy:
+                  type: [string, "null"]
+                  maxLength: 200
+                  description: Non-blank requester name or username, required when a date is set.
+                hpcPreservationReason:
+                  type: string
+                  minLength: 1
+                  maxLength: 1000
+                  description: Non-blank reason; required for setting, editing or clearing.
       responses:
         "200":
           description: Date and audit entry saved atomically.
@@ -1070,8 +1084,14 @@ paths:
                   preserveOnHpcUntil:
                     type: [string, "null"]
                     format: date-time
+                  hpcPreservationRequestedBy:
+                    type: [string, "null"]
+                  hpcPreservationReason:
+                    type: [string, "null"]
+                  hpcPreservationInvalid:
+                    type: boolean
         "400":
-          description: Invalid ID, date, missing expected value or unsupported field.
+          description: Invalid ID, date, metadata, missing expected value or unsupported field.
         "401":
           $ref: "#/components/responses/Unauthenticated"
         "403":
@@ -3283,6 +3303,15 @@ components:
           type: [string, "null"]
           format: date-time
           description: Derived from the Project-level preservation date, independent of archive state.
+        hpcPreservationInvalid:
+          type: boolean
+          description: Stored policy is not a BSON date, null or missing; administrator attention required.
+        hpcPreservationRequestedBy:
+          type: [string, "null"]
+          maxLength: 200
+        hpcPreservationReason:
+          type: [string, "null"]
+          maxLength: 1000
         migrationHealth:
           type: [string, "null"]
           enum: [active, needs_attention, null]
@@ -3295,6 +3324,20 @@ components:
         AWS status is recorded transfer evidence, not a live S3 query. Unknown
         is used when mount/access/path errors prevent a reliable observation.
       properties:
+        ageBasisAt:
+          type: [string, "null"]
+          format: date-time
+          description: Later of Project creation and newest Run creation, with ObjectId fallback.
+        archiveDueAt:
+          type: [string, "null"]
+          format: date-time
+          description: Age basis plus HPC_RETENTION_YEARS (default 5).
+        hpcDeletionEligibleAt:
+          type: [string, "null"]
+          format: date-time
+          description: Manual review date; never an automatic deletion. Null for aws or invalid keep policy.
+        hpcPreservationInvalid:
+          type: boolean
         hpc:
           type: object
           properties:
@@ -3533,6 +3576,15 @@ components:
           type: [string, "null"]
           format: date-time
           description: Preserve the HPC copy while this timestamp is in the future. Null means no dated protection; separate manual exclusions may still apply.
+        hpcPreservationInvalid:
+          type: boolean
+          description: Stored policy is not a BSON date, null or missing; administrator attention required.
+        hpcPreservationRequestedBy:
+          type: [string, "null"]
+          maxLength: 200
+        hpcPreservationReason:
+          type: [string, "null"]
+          maxLength: 1000
         storage:
           $ref: "#/components/schemas/StorageSummary"
         nudges:
