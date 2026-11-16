@@ -62,13 +62,9 @@ const buildReport = async ({
   if (!webAppUrl || !/^https?:\/\//.test(webAppUrl)) throw new Error("WEB_APP_URL must be an http(s) URL");
   const nowAt = new Date(now);
   const windowEnd = addUtcMonths(nowAt, withinMonths);
-  const projects = await Project.find({ $or: [
-    // The shared resolver treats absent/null/empty legacy state as HPC when
-    // there is no conflicting storage evidence. Resolve again below.
-    { "storage.state": null },
-    { "storage.state": "" },
-    { "storage.state": { $in: ["hpc", "migrating", "aws_pending_hpc_deletion"] } },
-  ] }).populate("group", "name").lean();
+  // Read every active Project, then resolve its lifecycle. Filtering only by
+  // known state strings would silently discard corrupt states needing review.
+  const projects = await Project.find({}).populate("group", "name").lean();
   // Existing operational ledger, read only. No schema/model initialization on
   // this collection and no new disposition markers or owner contact.
   const ledger = projects.length ? await db.collection("archiveReconciliations").find({
@@ -81,27 +77,43 @@ const buildReport = async ({
     dispositions.get(key).push(entry);
   }
   const rows = [];
-  const counts = { overdue: 0, dueWithinWindow: 0, notYetOnAws: 0, keepDatesExpiring: 0, invalid: 0 };
+  const counts = { overdue: 0, dueWithinWindow: 0, notYetOnAws: 0, keepDatesExpiring: 0, invalid: 0, unknownEligibility: 0 };
   for (const project of projects) {
-    const state = resolveStorageState(project).state;
-    if (!["hpc", "migrating", "aws_pending_hpc_deletion"].includes(state)) continue;
+    const storage = resolveStorageState(project);
+    const state = storage.state;
+    // Only a valid completed lifecycle is enough to omit the HPC review row.
+    if (state === "aws") continue;
     const dates = await projectRetentionDates(project, { Sample, Run, now: nowAt, retentionYears: years });
     const preservation = resolveHpcPreservation(project, nowAt);
     const eligible = dates.hpcDeletionEligibleAt;
-    if (!preservation.invalid && (!eligible || +new Date(eligible) > +windowEnd)) continue;
+    if (eligible && +new Date(eligible) > +windowEnd) continue;
     const onAws = state === "aws_pending_hpc_deletion" &&
       typeof project.storage.s3Uri === "string" && project.storage.s3Uri.startsWith("s3://") &&
       !!recordedDate(project.storage.s3VerifiedAt);
     const overdue = eligible !== null && +new Date(eligible) <= +nowAt;
     const notes = [];
     if (preservation.invalid) { notes.push("invalid keep date"); counts.invalid++; }
+    if (!eligible) {
+      if (!preservation.invalid) counts.unknownEligibility++;
+      const reasons = [];
+      if (state === "invalid") {
+        reasons.push("invalid storage state; HPC copy presence unknown");
+      }
+      if (project.storage?.state === "aws_pending_hpc_deletion" && !recordedDate(project.storage.s3VerifiedAt)) {
+        reasons.push("verification timestamp missing or unreadable");
+      }
+      if (["hpc", "migrating"].includes(state) && !dates.ageBasisAt) reasons.push("age basis unavailable");
+      notes.push(`eligibility unknown${reasons.length ? ": " + reasons.join("; ") : ""}; administrator review required`);
+    }
     for (const entry of dispositions.get(String(project._id)) || []) {
       notes.push(`reconciliation ${entry.entryId || ""}: ${entry.disposition || "unspecified"} (${entry.executionStatus || "unknown"})`);
       if (entry.disposition === "existing-approved-direct-disposal") {
         notes.push("manual disposal without an AWS copy; separate review, not ordinary archive backlog; do not use archive CLI");
       }
     }
-    if (!onAws && !notes.some((note) => note.includes("manual disposal"))) notes.push("copy to AWS required before deletion review");
+    if (!onAws && state !== "invalid" && !notes.some((note) => note.includes("manual disposal"))) {
+      notes.push("copy to AWS required before deletion review");
+    }
     if (overdue) counts.overdue++;
     else if (eligible) counts.dueWithinWindow++;
     if (!onAws) counts.notYetOnAws++;
@@ -111,7 +123,7 @@ const buildReport = async ({
       project_name: project.name || "", project_url: `${webAppUrl.replace(/\/+$/, "")}/project?id=${encodeURIComponent(String(project._id))}`,
       eligible_from: dateOnly(eligible), project_id: String(project._id), storage_state: state,
       on_aws: onAws ? "yes" : "no", overdue: overdue ? "yes" : "no",
-      hpc_path: displayHpcPath(project, readsRoot), keep_until: dateOnly(preservation.until),
+      hpc_path: state === "invalid" ? "" : displayHpcPath(project, readsRoot), keep_until: dateOnly(preservation.until),
       keep_requested_by: project.hpcPreservationRequestedBy || "", keep_reason: project.hpcPreservationReason || "",
       age_basis_at: dates.ageBasisAt || "", notes: notes.join("; "),
       // Used to order timestamps within a UTC date; omitted by toCsv.
@@ -128,7 +140,7 @@ const emailReport = async (report, { sendEmail, recipients = process.env.HPC_DUE
   const { counts } = report;
   await sendEmail({
     to,
-    subject: `Komondor: ${report.rows.length} projects due for HPC deletion review by ${dateOnly(report.windowEnd)}`,
+    subject: `Komondor: ${counts.overdue + counts.dueWithinWindow} projects due for HPC deletion review by ${dateOnly(report.windowEnd)}`,
     message: [
       "This is a review list, not a deletion instruction. Nothing is deleted automatically.",
       `Overdue: ${counts.overdue}`,
@@ -136,7 +148,9 @@ const emailReport = async (report, { sendEmail, recipients = process.env.HPC_DUE
       `Not yet on AWS: ${counts.notYetOnAws}`,
       `Keep dates expiring within the window: ${counts.keepDatesExpiring}`,
       `Invalid keep dates (administrator attention required): ${counts.invalid}`,
-      "Counts can overlap. Invalid dates are listed separately from dated review candidates.",
+      `Eligibility unknown (administrator attention required): ${counts.unknownEligibility}`,
+      "The subject counts dated review candidates only. Invalid keep dates and other unknown eligibility rows are attention items, not confirmed due projects.",
+      "Other counts can overlap. Unknown eligibility excludes rows already counted as invalid keep dates.",
       "Manual-disposal dispositions in notes require their separate review. Owners are not emailed by this report.",
     ].join("\n"),
     attachments: [{ filename: `hpc-deletion-due-${dateOnly(report.windowEnd)}.csv`, content: report.csv, contentType: "text/csv; charset=utf-8" }],
@@ -169,7 +183,7 @@ const main = async (args = process.argv.slice(2)) => {
       useUnifiedTopology: true, serverSelectionTimeoutMS: 10000,
     });
     const report = await buildReport({ Project, Sample, Run, db: mongoose.connection.db, ...options, years });
-    if (options.out) await fs.writeFile(options.out, report.csv, "utf8");
+    if (options.out) await fs.writeFile(options.out, report.csv, { encoding: "utf8", flag: "wx", mode: 0o600 });
     else process.stdout.write(report.csv);
     if (options.email) {
       // sendEmail's development/test diagnostics must not corrupt CSV stdout.

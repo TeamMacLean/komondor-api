@@ -536,3 +536,15 @@ describe("TLS warnings", () => {
     expect(result.warnings).toEqual([]);
   });
 });
+
+
+describe("HPC retention startup configuration", () => {
+  test.each(["five", "", " ", "0", "-1", "1.5"])("rejects invalid retention years %p before serving requests", async value => {
+    const result = await validateEnv(validEnv({ HPC_RETENTION_YEARS: value }));
+    expect(result.ok).toBe(false);
+    expect(errorFor(result, "HPC_RETENTION_YEARS")).toMatch(/positive whole number/);
+  });
+  test.each([undefined, "5", "1"])("accepts the default or positive integral retention years %p", async value => {
+    expect((await validateEnv(validEnv({ HPC_RETENTION_YEARS: value }))).ok).toBe(true);
+  });
+});

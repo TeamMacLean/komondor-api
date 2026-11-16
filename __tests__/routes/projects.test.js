@@ -169,6 +169,25 @@ describe("GET /project?id=:id", () => {
   });
 
   describe("successful retrieval", () => {
+    test("a failed due-date lookup does not turn an authorized project page into a 500", async () => {
+      const query = { populate: jest.fn(), exec: jest.fn().mockResolvedValue(mockProject) };
+      query.populate.mockReturnValue(query);
+      Project.findById = jest.fn().mockReturnValue(query);
+      Group.GroupsIAmIn.mockResolvedValue([{ _id: { toString: () => mockGroupId } }]);
+      mockProjectStorageLocations.mockImplementationOnce(project =>
+        jest.requireActual("../../lib/project-storage-locations").projectStorageLocations(project, {
+          datastoreRoot: null,
+          retentionDates: async () => { throw new Error("Synthetic Run lookup failure"); },
+        }));
+      const warning = jest.spyOn(console, "warn").mockImplementation(() => {});
+      try {
+        const response = await request(app).get(`/project?id=${mockProjectId}`);
+        expect(response.status).toBe(200);
+        expect(response.body.project._id).toBe(mockProjectId);
+        expect(response.body.storageLocations).toMatchObject({ archiveDueAt: null, hpcDeletionEligibleAt: null, ageBasisAt: null });
+      } finally { warning.mockRestore(); }
+    });
+
     test("should return project with group info when ID is valid and user has permission", async () => {
       // Mock Project.findById chain
       Project.findById = jest.fn().mockReturnValue({

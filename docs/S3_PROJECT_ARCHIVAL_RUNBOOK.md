@@ -417,10 +417,13 @@ API first), generate the read-only list:
 node scripts/hpc-deletion-due-report.js --within-months 6 --out /tmp/hpc-deletion-due.csv
 ```
 
-Without `--out`, CSV goes to stdout. `--within-months` is a non-negative whole
-number, default 6; zero lists already-due projects and invalid keep dates. The
+Without `--out`, CSV goes to stdout. `--out` creates a new owner-only file
+(mode 0600) and refuses to overwrite an existing path; choose a fresh filename
+for each retained report. `--within-months` is a non-negative whole number,
+default 6; zero lists already-due projects and attention rows. The
 window uses UTC calendar months, clamping month-end days. `HPC_RETENTION_YEARS`
-is a positive whole number, default 5, shared with the project page.
+is a positive whole number, default 5 when unset, shared with the project page.
+An explicitly empty or invalid value stops API startup and the report CLI.
 `WEB_APP_URL` supplies project links and `READS_ROOT_PATH` (default
 `/tsl/data/reads`) supplies the same displayed HPC path as the page. The script
 uses normal model queries to exclude retired Projects, Samples and Runs,
@@ -428,7 +431,11 @@ reads raw keep-date types, and disables automatic collection/index creation.
 It performs no database writes, filesystem presence checks or AWS operations.
 
 The CSV includes all eligible projects through the window, **including
-already overdue projects**, followed by projects with invalid keep dates. A
+already overdue projects**, followed by attention rows with no eligibility
+date: invalid keep dates, invalid storage state, missing/unreadable verification
+time, or an unavailable age basis. Invalid storage does not establish that an
+HPC copy exists; its notes explicitly say presence is unknown. Missing or
+unreadable creation timestamps use the record's ObjectId timestamp. A
 keep date that expires between two reports therefore remains visible. For
 unarchived projects, review eligibility uses the later of the age-based archive
 date and keep date, and an AWS copy is required first. Pending verified copies
@@ -449,9 +456,11 @@ holds and invalid-value checks. A report row never authorises deletion.
 To email this single CSV attachment to George, set `HPC_DUE_REPORT_TO` to the
 approved comma-separated recipient list in the API environment, then add
 `--email`. This never uses project owners or `ENA_ADMIN_EMAILS` as recipients.
-The subject gives the project count and window-end UTC date. The body counts
-overdue, due within the window, not yet on AWS, keep dates expiring within the
-window, and invalid values. These categories can overlap. It explicitly says
+The subject counts only dated projects due by the window-end UTC date, excluding
+attention rows. The body counts overdue, due within the window, not yet on AWS,
+keep dates expiring, invalid keep values, and other unknown-eligibility rows.
+The last category excludes rows already counted as invalid keep values; other
+categories can overlap. It explicitly says
 this is a review list, not a deletion instruction. Missing report recipients
 fail closed. Development/test mode logs instead of sending; no real email was
 sent by this implementation.
@@ -467,8 +476,11 @@ absolute paths writable by tsldata. The script reads the checkout's `.env`.
 
 ```cron
 # tsldata user crontab; 09:00 server-local time on 1 January and 1 July.
-0 9 1 1,7 * cd /absolute/path/to/komondor-api && NODE_ENV=production /storage/.nvm/versions/node/v24.11.1/bin/node scripts/hpc-deletion-due-report.js --within-months 6 --email --out /absolute/path/to/reports/hpc-deletion-due.csv >> /absolute/path/to/logs/hpc-deletion-due.log 2>&1
+0 9 1 1,7 * cd /absolute/path/to/komondor-api && NODE_ENV=production /storage/.nvm/versions/node/v24.11.1/bin/node scripts/hpc-deletion-due-report.js --within-months 6 --email > /dev/null 2>> /absolute/path/to/logs/hpc-deletion-due.log
 ```
 
+This schedule emails the CSV attachment and discards the duplicate CSV stdout;
+it does not reuse a fixed `--out` filename or log its free-text reasons. Run the
+manual command above with a fresh filename when a local CSV is needed.
 This documents a schedule only; no cron entry is installed. Confirm the host's
 timezone when choosing the send time. George writes any owner emails himself.

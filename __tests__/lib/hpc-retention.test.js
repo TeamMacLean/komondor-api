@@ -85,3 +85,12 @@ test.each([null, "", 0, false, {}, "not-a-date"])("invalid verification timestam
     state: "aws_pending_hpc_deletion", s3Uri: "s3://test/project", s3VerifiedAt: value,
   } }).hpcDeletionEligibleAt).toBeNull();
 });
+
+
+test.each(["garbage", "", {}, new Date(NaN)])("unreadable creation date %p falls back identically before and after hydration", (createdAt) => {
+  const _id = ObjectId.createFromTime(Date.parse("2010-01-01T00:00:00.000Z") / 1000);
+  const raw = { _id, createdAt };
+  const hydrated = require("../../models/Project").hydrate(raw);
+  expect(creationDate(raw)).toEqual(new Date("2010-01-01T00:00:00.000Z"));
+  expect(creationDate(hydrated)).toEqual(creationDate(raw));
+});

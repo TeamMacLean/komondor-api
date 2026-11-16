@@ -200,3 +200,24 @@ describe("server.js startup wiring, spawned as a real process", () => {
     expect(stdout).not.toMatch(/API running on/);
   }, 20000);
 });
+
+
+describe("HPC retention startup configuration in the real server", () => {
+  test.each(["five", ""])("refuses invalid HPC_RETENTION_YEARS=%p before listening", async value => {
+    const { execFile } = require("child_process");
+    const { promisify } = require("util");
+    const path = require("path");
+    let result;
+    try {
+      await promisify(execFile)(process.execPath, [path.join(__dirname, "../../server.js")], {
+        cwd: path.join(__dirname, "../.."), timeout: 3000, killSignal: "SIGKILL",
+        env: { ...process.env, NODE_ENV: "test", HOST: "127.0.0.1", PORT: "0", HPC_RETENTION_YEARS: value },
+      });
+    } catch (error) { result = error; }
+    expect(result).toBeDefined();
+    expect(result.code).toBe(1);
+    expect(result.stderr).toMatch(/Refusing to start/);
+    expect(result.stderr).toMatch(/HPC_RETENTION_YEARS.*positive whole number/);
+    expect(result.stdout).not.toMatch(/API running on/);
+  });
+});

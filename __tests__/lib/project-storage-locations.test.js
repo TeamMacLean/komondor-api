@@ -86,3 +86,16 @@ test("async retention snapshot distinguishes BSON undefined from a missing hold"
   expect(malformed.hpcPreservationInvalid).toBe(true);
   expect(malformed.hpcDeletionEligibleAt).toBeNull();
 });
+
+
+test("failed retention lookup leaves date fields unavailable and preserves location evidence and invalid-hold flag", async () => {
+  const warning = jest.spyOn(console, "warn").mockImplementation(() => {});
+  try {
+    await fs.mkdir(path.join(root, "group/project"), { recursive: true });
+    const result = await observe({ ...project("aws_pending_hpc_deletion"), preserveOnHpcUntil: "bad" }, {
+      retentionDates: async () => { throw new Error("Synthetic Run lookup failure"); },
+    });
+    expect(result).toMatchObject({ archiveDueAt: null, hpcDeletionEligibleAt: null, ageBasisAt: null, hpcPreservationInvalid: true,
+      hpc: { status: "present" }, aws: { status: "verified" } });
+  } finally { warning.mockRestore(); }
+});

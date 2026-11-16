@@ -193,3 +193,14 @@ test("invalid sentinel cannot replace missing, null or valid dates", async () =>
   await db().collection("projects").updateOne({ _id: projectId }, { $set: { preserveOnHpcUntil: null } });
   expect((await preserve(until, "invalid")).status).toBe(409);
 });
+
+
+test("stale metadata backfill and stale clear both refuse without adding history", async () => {
+  expect((await preserve(until)).status).toBe(200);
+  const changed = "2028-11-13T23:59:59.999Z";
+  expect((await preserve(changed, until)).status).toBe(200);
+  const before = await storedProject();
+  expect((await preserve(until, until)).status).toBe(409);
+  expect((await preserve(null, until)).status).toBe(409);
+  expect(await storedProject()).toEqual(before);
+});

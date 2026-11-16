@@ -27,7 +27,7 @@ test("includes overdue and window dates, excludes dates after window, counts inv
     { ...base, _id: "5", storage: { state: "aws_pending_hpc_deletion", s3Uri: "s3://test/project", s3VerifiedAt: new Date("2026-10-01Z") } },
   ]);
   expect(result.rows.map((row) => row.project_id)).toEqual([base._id, "5", "2", "4"]);
-  expect(result.counts).toEqual({ overdue: 2, dueWithinWindow: 1, notYetOnAws: 3, keepDatesExpiring: 1, invalid: 1 });
+  expect(result.counts).toEqual({ overdue: 2, dueWithinWindow: 1, notYetOnAws: 3, keepDatesExpiring: 1, invalid: 1, unknownEligibility: 0 });
   expect(result.rows[3]).toMatchObject({ eligible_from: "", notes: expect.stringContaining("invalid keep date") });
   expect(result.rows[0]).toMatchObject({ group_name: "Group", hpc_path: "/tsl/data/reads/group/project", project_url: `https://example.test/project?id=${base._id}` });
 });
@@ -72,4 +72,42 @@ test.each([0, false, {}, "not-a-date"])("invalid verification timestamp %p never
   } }]);
   expect(result.rows).toHaveLength(1);
   expect(result.rows[0].on_aws).toBe("no");
+});
+
+
+test("retains corrupt creation dates through ObjectId fallback instead of silently omitting old projects", async () => {
+  const _id = require("mongoose").Types.ObjectId.createFromTime(Date.parse("2010-01-01Z") / 1000);
+  const result = await report([{ ...base, _id, createdAt: "garbage" }]);
+  expect(result.rows).toHaveLength(1);
+  expect(result.rows[0]).toMatchObject({ eligible_from: "2015-01-01", age_basis_at: "2010-01-01T00:00:00.000Z", overdue: "yes" });
+});
+
+test.each([
+  ["missing verification", { storage: { state: "aws_pending_hpc_deletion", s3Uri: "s3://test/project" } }, /verification timestamp/],
+  ["numeric verification", { storage: { state: "aws_pending_hpc_deletion", s3Uri: "s3://test/project", s3VerifiedAt: 0 } }, /verification timestamp/],
+  ["invalid storage", { storage: { state: "broken" } }, /HPC copy presence unknown/],
+  ["invalid aws storage", { storage: { state: "aws" } }, /HPC copy presence unknown/],
+  ["missing age basis", { _id: "invalid-id", createdAt: "garbage" }, /age basis/],
+])("keeps %s as an undated attention row, never as due", async (_label, changes, reason) => {
+  const result = await report([{ ...base, ...changes }]);
+  expect(result.rows).toHaveLength(1);
+  expect(result.rows[0]).toMatchObject({ eligible_from: "", overdue: "no", on_aws: "no" });
+  expect(result.rows[0].notes).toMatch(/eligibility unknown/);
+  expect(result.rows[0].notes).toMatch(reason);
+  expect(result.counts).toMatchObject({ overdue: 0, dueWithinWindow: 0, unknownEligibility: 1 });
+});
+
+test("email subject counts only due projects while body accounts for invalid and unknown rows", async () => {
+  const result = await report([
+    base,
+    { ...base, _id: "2", preserveOnHpcUntil: "invalid" },
+    { ...base, _id: "3", storage: { state: "broken" } },
+  ]);
+  const sendEmail = jest.fn();
+  await emailReport(result, { sendEmail, recipients: "review@example.test" });
+  expect(sendEmail.mock.calls[0][0]).toMatchObject({
+    subject: "Komondor: 1 projects due for HPC deletion review by 2027-05-16",
+    message: expect.stringContaining("Eligibility unknown (administrator attention required): 1"),
+  });
+  expect(sendEmail.mock.calls[0][0].message).toContain("Invalid keep dates (administrator attention required): 1");
 });

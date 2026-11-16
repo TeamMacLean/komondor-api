@@ -1077,7 +1077,7 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [projectId, preserveOnHpcUntil]
+                required: [projectId, preserveOnHpcUntil, hpcPreservationRequestedBy, hpcPreservationReason, hpcPreservationInvalid]
                 properties:
                   projectId:
                     $ref: "#/components/schemas/ObjectId"
@@ -3302,7 +3302,7 @@ components:
         preserveOnHpcUntil:
           type: [string, "null"]
           format: date-time
-          description: Derived from the Project-level preservation date, independent of archive state.
+          description: Derived from the Project-level preservation date, independent of archive state. Null means no dated protection only when hpcPreservationInvalid is false; invalid stored policy also returns null.
         hpcPreservationInvalid:
           type: boolean
           description: Stored policy is not a BSON date, null or missing; administrator attention required.
@@ -3327,15 +3327,15 @@ components:
         ageBasisAt:
           type: [string, "null"]
           format: date-time
-          description: Later of Project creation and newest Run creation, with ObjectId fallback.
+          description: Later of Project creation and newest Run creation, with ObjectId fallback for missing or unreadable timestamps. Null if no age basis can be determined or date lookup fails.
         archiveDueAt:
           type: [string, "null"]
           format: date-time
-          description: Age basis plus HPC_RETENTION_YEARS (default 5).
+          description: Age basis plus HPC_RETENTION_YEARS (default 5). Null when age basis or calculation is unavailable.
         hpcDeletionEligibleAt:
           type: [string, "null"]
           format: date-time
-          description: Manual review date; never an automatic deletion. Null for aws or invalid keep policy.
+          description: Manual review date; never an automatic deletion. Null for aws, invalid keep policy or storage state, missing or unreadable verification time on a pending archive, unavailable age basis on an unarchived project, or a date lookup/calculation failure.
         hpcPreservationInvalid:
           type: boolean
         hpc:
@@ -3575,7 +3575,7 @@ components:
         preserveOnHpcUntil:
           type: [string, "null"]
           format: date-time
-          description: Preserve the HPC copy while this timestamp is in the future. Null means no dated protection; separate manual exclusions may still apply.
+          description: Preserve the HPC copy while this timestamp is in the future. Null means no dated protection only when hpcPreservationInvalid is false; invalid stored policy also returns null. Separate manual exclusions may still apply.
         hpcPreservationInvalid:
           type: boolean
           description: Stored policy is not a BSON date, null or missing; administrator attention required.

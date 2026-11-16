@@ -76,7 +76,7 @@ test("joins newest Runs, hides retired records, retains invalid BSON and manual 
   expect(report.rows.map((row) => row.project_name)).toEqual([
     "Manual disposal", "Retired run ignored", "Pending verified", "Old active", "Invalid zero", "Invalid string",
   ]);
-  expect(report.counts).toEqual({ overdue: 4, dueWithinWindow: 0, notYetOnAws: 5, keepDatesExpiring: 0, invalid: 2 });
+  expect(report.counts).toEqual({ overdue: 4, dueWithinWindow: 0, notYetOnAws: 5, keepDatesExpiring: 0, invalid: 2, unknownEligibility: 0 });
   expect(report.rows.find((row) => row.project_name === "Manual disposal").notes).toContain("manual disposal without an AWS copy");
   expect(report.rows.find((row) => row.project_name === "Pending verified")).toMatchObject({
     eligible_from: "2026-10-01", age_basis_at: "2026-02-01T00:00:00.000Z", on_aws: "yes",
@@ -110,4 +110,36 @@ test("storage locations exposes asynchronous retention dates and raw malformed v
   expect(result).toMatchObject({ ageBasisAt: "2026-01-01T00:00:00.000Z", archiveDueAt: "2031-01-01T00:00:00.000Z", hpcDeletionEligibleAt: "2031-01-01T00:00:00.000Z" });
   const invalid = await Project.findById(projects[2]._id);
   expect(await projectStorageLocations(invalid)).toMatchObject({ hpcPreservationInvalid: true, hpcDeletionEligibleAt: null });
+});
+
+
+test("report retains malformed age and verification records plus invalid storage as review attention", async () => {
+  const projects = await seed();
+  await Project.collection.updateOne({ _id: projects[0]._id }, { $set: { createdAt: "garbage" }, $unset: { preserveOnHpcUntil: "" } });
+  await Project.collection.updateOne({ _id: projects[5]._id }, { $set: { storage: { state: "unexpected" } } });
+  await Project.collection.updateOne({ _id: projects[6]._id }, { $set: { "storage.s3VerifiedAt": 0 } });
+  const before = await snapshot();
+  const result = await buildReport({ Project, Sample, Run, db: mongoose.connection.db,
+    now: new Date("2026-11-16T12:00:00.000Z"), webAppUrl: "https://example.test", years: 5 });
+  expect(result.rows.find((row) => row.project_name === "Old active")).toMatchObject({ eligible_from: "2015-01-01" });
+  expect(result.rows.find((row) => row.project_name === "Manual disposal")).toMatchObject({ eligible_from: "", notes: expect.stringContaining("HPC copy presence unknown") });
+  expect(result.rows.find((row) => row.project_name === "Pending verified")).toMatchObject({ eligible_from: "", on_aws: "no", notes: expect.stringContaining("verification timestamp missing or unreadable") });
+  expect(result.counts.unknownEligibility).toBe(2);
+  const page = await require("../../lib/project-storage-locations").projectStorageLocations(await Project.findById(projects[0]._id));
+  expect(page.archiveDueAt.slice(0, 10)).toBe(result.rows.find((row) => row.project_name === "Old active").eligible_from);
+  expect(await snapshot()).toBe(before);
+});
+
+test("--out creates a private CSV and refuses to replace existing content", async () => {
+  await seed();
+  const script = path.resolve(__dirname, "../../scripts/hpc-deletion-due-report.js");
+  const env = { ...process.env, NODE_ENV: "test", WEB_APP_URL: "https://example.test", HPC_RETENTION_YEARS: "5" };
+  const out = path.join(configured.base, "private-report.csv");
+  await execute(process.execPath, [script, "--out", out], { env });
+  const mode = (await fs.stat(out)).mode & 0o777;
+  const original = "existing review notes, must survive\n";
+  await fs.writeFile(out, original);
+  await expect(execute(process.execPath, [script, "--out", out], { env })).rejects.toMatchObject({ code: 1, stderr: expect.stringContaining("EEXIST") });
+  expect(await fs.readFile(out, "utf8")).toBe(original);
+  expect(mode).toBe(0o600);
 });

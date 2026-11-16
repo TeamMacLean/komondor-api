@@ -148,9 +148,9 @@ Implementation references:
 Deploy the follow-up API and web together, **API first**. The API now requires a
 requester (1–200 non-blank characters) and reason (1–1000) when setting a keep
 date, including a metadata-only edit of the current date. A clear requires a
-reason, removes both public metadata fields, and retains that explanation in
-the private history. Each entry records the token's administrator, requester,
-reason, old/new dates and time. Existing expired holds can have their metadata
+fresh release reason in a separate, initially empty field, removes both public
+metadata fields, and retains that explanation in the private history. Each entry
+records the token's administrator, requester, reason, old/new dates and time. Existing expired holds can have their metadata
 backfilled without extending the date; setting a different date requires a
 future canonical end-of-day UTC timestamp. The public form explains that the
 date, requester and reason are visible to every project reader.
@@ -163,11 +163,14 @@ string. Stale expected dates still return 409.
 
 Archiving is due after `HPC_RETENTION_YEARS` (default **5**) calendar years from
 the later of Project creation and its newest Run's creation (Run → Sample →
-Project). A missing `createdAt` uses that record's ObjectId timestamp. UTC
-calendar arithmetic clamps 29 February to 28 February where necessary. Dates
+Project). A missing or unreadable `createdAt` uses that record's ObjectId
+timestamp. UTC calendar arithmetic clamps 29 February to 28 February where necessary. Dates
 are computed in the asynchronous storage-locations response and never stored.
-The date is visible from project creation. Keep dates block HPC deletion only;
-they never delay copying to AWS. Archiving makes the project read-only.
+The date is visible from project creation. Invalid `HPC_RETENTION_YEARS` fails
+startup. If a later date lookup/calculation fails, the page retains project and
+storage details with unavailable dates; it never treats missing dates as
+permission to delete. Keep dates block HPC deletion only; they never delay
+copying to AWS. Archiving makes the project read-only.
 
 For HPC/migrating projects, deletion review is due at the later of the archive
 date and keep date; an AWS copy is still required first. For verified copies
@@ -184,7 +187,8 @@ shown without a link. Owners email George; there is no self-service approval
 flow and no owner email from the report.
 
 The [deletion-due report](../S3_PROJECT_ARCHIVAL_RUNBOOK.md#deletion-due-review-report)
-lists overdue and upcoming review candidates plus invalid dates, including
+lists overdue and upcoming review candidates plus invalid/unknown-eligibility
+attention rows (not counted as due in email subjects), including
 existing manual-disposal dispositions. It can email George using
 `HPC_DUE_REPORT_TO`; its proposed 1 January / 1 July schedule must be installed
 by George separately. This implementation sets no production dates, installs

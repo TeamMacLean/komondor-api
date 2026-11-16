@@ -1,5 +1,37 @@
 # Breaking changes — hardening refactor
 
+## HPC retention follow-up (16 November 2026; review branch, not deployed)
+
+**Affected consumers:** komondor-web and scripts calling
+`PUT /project/hpc-preservation`. Power and Nudge do not call this endpoint.
+
+Saving a date now requires non-blank `hpcPreservationRequestedBy` (at most 200
+characters) and `hpcPreservationReason` (at most 1000). Clearing requires a
+release reason and clears both public fields; the reason remains in history.
+New or changed dates must be future UTC end-of-day timestamps
+(`YYYY-MM-DDT23:59:59.999Z`). Keeping an existing exact timestamp while editing
+its metadata remains supported, including expired or legacy timestamps.
+`expectedPreserveOnHpcUntil` also accepts the literal `invalid` to repair
+malformed stored BSON, with the previous raw value retained in history.
+
+The previously deployed web omits the new fields, so **its preservation saves
+receive HTTP 400 against this API**. Deploy the matching API and web together,
+API first, within one coordinated maintenance window; do not leave mixed
+versions serving preservation edits. No database migration or automatic hold
+backfill is performed by deployment. Administrators backfill requester/reason
+manually. This entry records the compatibility requirement, not deployment
+approval.
+
+Public `preserveOnHpcUntil: null` is ambiguous on its own: check
+`hpcPreservationInvalid` to distinguish no hold from malformed stored policy.
+Computed retention dates can be null when unavailable and must not be treated
+as deletion permission. `HPC_RETENTION_YEARS` defaults to 5 only when unset;
+an explicitly empty, non-integral or non-positive value now refuses startup.
+
+**Rollback:** revert API and web together to a compatible reviewed pair, keeping
+stored preservation fields and audit history intact. The older API does not
+enforce these requester/reason requirements or provide the new repair behavior.
+
 ## Administrative archive registrations (22 October 2026)
 
 Projects created by the new administrative registration CLI retain exact existing

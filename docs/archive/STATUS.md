@@ -87,6 +87,10 @@ dated 3 November; this update performs no new live check.
    `HPC_RETENTION_CONTACT_EMAIL`, checks a report by hand, and separately installs
    the documented January/July schedule. `HPC_RETENTION_YEARS` defaults to 5.
    No production fields, email delivery or cron installation were changed.
+   Review fixes require a fresh release reason, validate retention years at
+   startup, keep pages available when date lookups fail, and list uncertain
+   eligibility separately from due candidates. CSV files refuse overwrites.
+   Compatibility details are in [BREAKING_CHANGES.md](../../BREAKING_CHANGES.md).
    Once backfilled and reviewed, Project date/requester/reason are the current
    hold record and `hpc-retention-holds.json` is historical.
 7. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
