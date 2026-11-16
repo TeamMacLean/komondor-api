@@ -1,8 +1,9 @@
 # Gargy — candidate for George's HPC preservation test
 
 Prepared 13 November 2026. **Not executed. No production date has been set.**
-George will test the project-page control after the reviewed API and web
-feature branches are deployed. He suggested approximately a year and will
+The API and web feature was deployed on 16 November
+([record](DEPLOYMENT_2026-11-16.md)); George will now test the project-page
+control. He suggested approximately a year and will
 choose the actual date himself.
 
 ## Exact candidate
@@ -58,7 +59,7 @@ release that existing instruction. Keep its source tree and S3 archive intact.
 
 - Chosen preserve-through date (UTC): not set
 - Test performed at: pending
-- API/web deployed heads: pending
+- API/web deployed heads: API `f2e464c`, web `5e7bcf2` (16 November)
 - Admin save and reload: pending
 - Reader-visible notice / no reader editing control: pending
 - AWS/HPC location observations: pending

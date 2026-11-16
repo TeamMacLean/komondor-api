@@ -1,9 +1,9 @@
 # Spec: HPC retention follow-up — 16 November 2026
 
 Written by Claude from George's decisions, for ChatGPT/Codex to implement. It
-builds on the `preserveOnHpcUntil` feature, which was merged to master on
-16 November (API `85178ce`, web `5e7bcf2`) but is **not deployed**. Production
-still runs API `4bb4f36` and web `e9e183c`.
+builds on the `preserveOnHpcUntil` feature, which was merged and deployed on
+16 November: production runs API `f2e464c` and web `5e7bcf2`
+([record](DEPLOYMENT_2026-11-16.md)).
 
 Read first: [HPC_RETENTION.md](HPC_RETENTION.md), the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
@@ -179,7 +179,8 @@ expected.
 
 ## Constraints
 
-- **Branches.** Start from current master (API `85178ce`, web `5e7bcf2`).
+- **Branches.** Start from current master (API at or after `f2e464c`, web
+  `5e7bcf2`).
   Create new branches and push them. Do not merge to master and do not deploy.
 - **Production.** No production database, credentials or data changes. Do not
   install cron.
@@ -197,17 +198,11 @@ expected.
 
 ## George's steps (not code)
 
-**Now, with the merged feature:**
+**Now, with the deployed feature (deployed 16 November):**
 
-1. Deploy API `85178ce`, then web `5e7bcf2`.
+1. Set keep dates on the five manual holds and the 11 Kamoun KEEP Projects
+   ([list with IDs](HPC_RETENTION.md#keep-dates-to-set-george)).
 2. Run the checklist's type check.
-3. Set keep dates on the five manual holds (Gargy plus Gulnara's four) and on
-   each of the 11 Kamoun KEEP entries in the
-   [outcome table](batches/2026-10-16/reconciliation-production-2026-10-22/OUTCOMES.md)
-   that is a Komondor Project:
-   - five years ahead for KEEPs;
-   - George's choice for Gargy;
-   - far future for Gulnara's four until her copy is verified and released.
 
 **After this work deploys:**
 

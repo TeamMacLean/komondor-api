@@ -12,8 +12,9 @@ record why.
 
 ## Once, before the first deletion of a session
 
-- [ ] **The reviewed preservation feature is deployed** (API before web). Without
-  it, `deletion-command` cannot see `preserveOnHpcUntil` at all.
+- [ ] **The reviewed preservation feature is still deployed** (deployed
+  16 November; API before web on any redeploy). Without it, `deletion-command`
+  cannot see `preserveOnHpcUntil` at all.
 - [ ] **The five manual holds also carry a preservation date.** The
   [retention register](hpc-retention-holds.json) is not read by any code: today
   `deletion-command` would print a command for the four Gulnara sources, and for

@@ -10,9 +10,11 @@ dated 3 November; this update performs no new live check.
 
 ## Done
 
-- **Production code.** API `4bb4f36`, Web `e9e183c`, Power `d98fab1`, Nudge
-  `3791969`, all on their GitHub default branches.
-  [Deployment record](DEPLOYMENT_2026-11-03.md).
+- **Production code.** API `f2e464c`, Web `5e7bcf2`, Power `d98fab1`, Nudge
+  `3791969`, all on their GitHub default branches. API and Web were deployed on
+  16 November with the HPC keep-date feature
+  ([record](DEPLOYMENT_2026-11-16.md)); Power and Nudge are unchanged since
+  3 November ([record](DEPLOYMENT_2026-11-03.md)).
 - **Database reconciliation (22 October).** 22 unregistered directories were
   registered as Projects, then 26,724 operations corrected paths, added
   13,052 File/AdditionalFile pairs, retired two empty Projects and recorded
@@ -45,35 +47,41 @@ dated 3 November; this update performs no new live check.
 
 ## Remaining
 
-1. **HPC deletion review for the 170 archived Projects outside the five holds.** For
+1. **Set the keep dates (George, manual).** Five holds plus the 11 Kamoun KEEP
+   Projects, from each project page. The
+   [list with IDs and suggested dates](HPC_RETENTION.md#keep-dates-to-set-george)
+   is in the retention page. Do Gargy first, as the
+   [test](GARGY_HPC_PRESERVATION_TEST.md). Finish the five holds before step 2
+   starts.
+2. **HPC deletion review for the 170 archived Projects outside the five holds.** For
    each: a fresh source/S3 check immediately before deletion, manual deletion by
    George, then `confirm-absent`. No waiting period: George set the pre-deletion
    hold to zero on 23 October. The pilot restore passed the same day. Check the
    [current retention register](HPC_RETENTION.md) first; these are review
    candidates, not approved deletion targets. Work through the
    [per-Project deletion checklist](HPC_DELETION_CHECKLIST.md).
-2. **The six manual-disposal entries.** Deleted by George outside the archive
+3. **The six manual-disposal entries.** Deleted by George outside the archive
    CLI, with no S3 copy. See the outcome table and
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md).
-3. **Gulnara's ENA reassignment.** The four Lichen CoCulture source Projects
+4. **Gulnara's ENA reassignment.** The four Lichen CoCulture source Projects
    stay on HPC until the copy into the destination Project is done and
    verified. [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). They can join
-   step 1 only after their release is explicitly reviewed and recorded.
-4. **Gargy HPC retention.** Preserve
+   step 2 only after their release is explicitly reviewed and recorded, and
+   their keep dates are cleared.
+5. **Gargy HPC retention.** Preserve
    `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` (Project
    `5fc012bda3efcb29338b7d58`) until George explicitly releases it. No end date
    supplied; this is independent of Gulnara. The
    [retention requirements](HPC_RETENTION.md) describe the application
    feature: independent AWS/HPC indicators and the admin-editable
-   `preserveOnHpcUntil` date. It was merged to master on 16 November (API
-   `85178ce`, web `5e7bcf2`) and is **not yet deployed**; George's
-   [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) follows deployment.
-   These five exclusions are manual; no production hold is installed.
-5. **Follow-up feature.** Record who asked for each keep date and why, show
+   `preserveOnHpcUntil` date. It was deployed on 16 November. George's
+   [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) is step 1. Until the dates are
+   set, these five exclusions are manual only.
+6. **Follow-up feature.** Record who asked for each keep date and why, show
    disabled buttons on read-only projects, show when each project is due, and
    email George a twice-yearly deletion-due list.
    [Spec for ChatGPT](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md).
-6. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
+7. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
 
 ## Standing rules
 

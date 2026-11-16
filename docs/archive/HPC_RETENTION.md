@@ -1,8 +1,8 @@
 # HPC retention and storage locations
 
-Updated 13 November 2026 from George's instructions. This page records active
-manual deletion exclusions and the application feature prepared locally for review.
-It does not install a production/database hold or verify today's filesystem.
+Updated 16 November 2026 from George's instructions. This page records active
+manual deletion exclusions, the keep dates George is to set, and the application
+feature (deployed 16 November). It does not verify today's filesystem.
 
 ## Active manual exclusions
 
@@ -10,9 +10,11 @@ It does not install a production/database hold or verify today's filesystem.
 Consult the [machine-readable register](hpc-retention-holds.json) by Project ID
 and exact relative path, in addition to the normal archive checks.
 
-No code reads this register. Once the preservation feature is deployed, also set
-`preserveOnHpcUntil` on all five (a far-future date for open-ended holds) so the
-CLI refuses them, keeping this register as the reason. See the
+No code reads this register. The CLI refuses a Project only once its
+`preserveOnHpcUntil` date is set, so these five also appear in the
+[keep dates to set](#keep-dates-to-set-george) below. Keep this register as
+the reason until the [follow-up](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md)
+records requester and reason on the Project itself. See the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
 [deletion checklist](HPC_DELETION_CHECKLIST.md).
 
@@ -43,7 +45,49 @@ are superseded by this list; preserve those records unchanged as history.
 The batch-wide seven-day waiting period remains removed. These are specific
 Project retention instructions, not a renewed waiting period for the batch.
 
-## Application feature — merged 16 November, deployment pending
+## Keep dates to set (George)
+
+George sets these himself on each project page as administrator. **None is set
+as of 16 November.** The dates below are suggestions; George chooses the actual
+ones. A date means "keep on HPC through 23:59:59.999 UTC that day". When it
+passes, the Project becomes eligible for deletion *review* only.
+
+Set Gargy first: it doubles as the
+[Gargy test](GARGY_HPC_PRESERVATION_TEST.md), where George suggested about a
+year. The five holds matter now, because they already have verified AWS copies
+and `deletion-command` would otherwise print a command for them. The 11 Kamoun
+KEEP Projects are still HPC-only. Their date records the "please keep" decision
+for when they are archived. Copying them to AWS stays allowed and makes them
+read-only in Komondor.
+
+| Project | Project ID | Suggested keep-until | Why |
+| --- | --- | --- | --- |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | about a year, e.g. 30 Nov 2027 | George's hold (13 Nov) |
+| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
+| Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
+| Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
+| Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
+| Sequencing of Mini-chromosomes of M. oryzae 2018 | `5fc012bda3efcb29338b7d5b` | 30 Nov 2031 | Kamoun KEEP (skamoun-006) |
+| Wheat Blast - Zambia 2018-2020 | `6054ba49d7661b6ec22a06f6` | 30 Nov 2031 | Kamoun KEEP (skamoun-007) |
+| Ronny_Helen_Pinfestans_Pmirabilis_timecourse | `5fc012bda3efcb29338b7d70` | 30 Nov 2031 | Kamoun KEEP (skamoun-008) |
+| Pangenome of rice-infecting Magnaporthe oryzae | `61a758113545d74de71ebbec` | 30 Nov 2031 | Kamoun KEEP (skamoun-028) |
+| Blast fungi collected from wild grasses in Germany | `61ee798cdecd27242ab8adb1` | 30 Nov 2031 | Kamoun KEEP (skamoun-029) |
+| Illumina sequencing of Hi-C libraries from selected Magnaporthe oryzae lineages | `61fd5d59decd27242ab8adf3` | 30 Nov 2031 | Kamoun KEEP (skamoun-030) |
+| Italian blast fungus isolates from wild grasses | `6502df19d32c7a7e4b174fe8` | 30 Nov 2031 | Kamoun KEEP (skamoun-033) |
+| Wheat Blast - Bolivia 2023-24 | `6863b1c7dc823951803ac3a4` | 30 Nov 2031 | Kamoun KEEP (skamoun-034) |
+| Wheat Blast - Zambia 2023 | `65f06e07e372f7554d754873` | 30 Nov 2031 | Kamoun KEEP (skamoun-035) |
+| Wheat Blast - Paraguay 2023 | `6863e922dc823951803ac406` | 30 Nov 2031 | Kamoun KEEP (skamoun-036) |
+| PacBio HiFi and LinkPrep sequencing of Stapelia leendertziae | `69a81b4920a8c93a2306efc6` | 30 Nov 2031 | Kamoun KEEP (skamoun-037) |
+
+The KEEP IDs come from the
+[batch action plan](batches/2026-10-16/action-plan.csv) (`db_project_id`).
+After setting them, run the checklist's type check. It should return `[]`.
+Then record the dates actually chosen here.
+
+Until the follow-up feature makes the Project's own fields the record, an expired
+date does not release Gargy or Gulnara: the manual register above still applies.
+
+## Application feature — deployed 16 November
 
 The project page shows separate HPC and AWS locations. HPC shows the result and
 time of a directory presence check; it does not claim every payload file was
@@ -76,14 +120,14 @@ HPC is a discrepancy to investigate. Do not reuse earlier printed commands:
 manual review must always check the latest date and exclusions.
 
 **Expiry or clearing permits fresh review only. It never deletes files or
-releases the separate manual Gargy/Gulnara exclusions above.** No production date
-has been set by this implementation. The current UI implements dated retention;
+releases the separate manual Gargy/Gulnara exclusions above.** Deployment set no
+production date; George sets them (see [keep dates to set](#keep-dates-to-set-george)). The current UI implements dated retention;
 indefinite, condition-based exclusions remain in this manual register. It does
 not automatically import them or add a batch-wide waiting interval.
 
 [Gargy production test candidate](GARGY_HPC_PRESERVATION_TEST.md) records the
-exact identity and the manual checks George will perform after deploying the
-reviewed API and web changes. No test date has been chosen on George's behalf.
+exact identity and the manual checks George will perform now that the API and
+web changes are deployed. No test date has been chosen on George's behalf.
 
 Implementation references:
 [Project schema](../../models/Project.js),
