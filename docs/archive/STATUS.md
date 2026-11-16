@@ -1,4 +1,4 @@
-# Archive status — updated 13 November 2026
+# Archive status — updated 16 November 2026
 
 This is the current position of the HPC-to-S3 archive work. Older plans,
 previews and snapshots under `docs/archive/` are historical; where they disagree
@@ -63,12 +63,17 @@ dated 3 November; this update performs no new live check.
    `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` (Project
    `5fc012bda3efcb29338b7d58`) until George explicitly releases it. No end date
    supplied; this is independent of Gulnara. The
-   [retention requirements](HPC_RETENTION.md) also record the pending application
-   work prepared locally: independent AWS/HPC indicators and the admin-editable
-   `preserveOnHpcUntil` date. Deployment and George's
-   [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) are pending.
+   [retention requirements](HPC_RETENTION.md) describe the application
+   feature: independent AWS/HPC indicators and the admin-editable
+   `preserveOnHpcUntil` date. It was merged to master on 16 November (API
+   `85178ce`, web `5e7bcf2`) and is **not yet deployed**; George's
+   [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) follows deployment.
    These five exclusions are manual; no production hold is installed.
-5. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
+5. **Follow-up feature.** Record who asked for each keep date and why, show
+   disabled buttons on read-only projects, show when each project is due, and
+   email George a twice-yearly deletion-due list.
+   [Spec for ChatGPT](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md).
+6. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
 
 ## Standing rules
 

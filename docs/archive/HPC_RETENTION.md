@@ -43,7 +43,7 @@ are superseded by this list; preserve those records unchanged as history.
 The batch-wide seven-day waiting period remains removed. These are specific
 Project retention instructions, not a renewed waiting period for the batch.
 
-## Application feature — implemented locally, deployment pending
+## Application feature — merged 16 November, deployment pending
 
 The project page shows separate HPC and AWS locations. HPC shows the result and
 time of a directory presence check; it does not claim every payload file was
