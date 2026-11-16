@@ -26,6 +26,12 @@ into gates.
 | Web tests (`vitest run`) | 599 passed, 25 files |
 | Web production build (`nuxt build`) | passed |
 | Probes of stored-value handling through the real `Project` model | findings 2 and 3 |
+| Re-check, 16 November (no branch had moved) | 2,193 passed in 15 of 16 full API runs; web 599 passed |
+
+The one failing run was `__tests__/routes/read-file.test.js` ("passes a normal user
+with real group membership": `socket hang up`). That file is untouched by these
+branches and passed 25 of 25 runs on its own on master, so it is a pre-existing
+flaky test under parallel load, not a finding.
 
 Dependencies came from the existing lockfiles (`yarn install --frozen-lockfile`);
 neither lockfile changed. Integration tests and probes used a throwaway `mongod`
