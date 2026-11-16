@@ -19,7 +19,7 @@
   - computed archive and deletion-review dates;
   - `scripts/hpc-deletion-due-report.js`;
   - the documents since `f2e464c`.
-- **Web.** Three changes:
+- **Web.** Four changes:
   - the home page projects sidebar tidy-up (`c80879c`);
   - the borderless three-column project layout (`a82a65d`);
   - the retention follow-up (`ed9be93`, `1e9f04f`);
