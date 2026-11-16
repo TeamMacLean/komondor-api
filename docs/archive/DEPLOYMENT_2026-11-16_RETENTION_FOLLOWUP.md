@@ -1,12 +1,25 @@
 # Deployment — HPC retention follow-up, 16 November 2026
 
-**Pending.** This records the procedure Claude supplied for the second
+**In progress.** This records the procedure Claude supplied for the second
 16 November deployment. Update it with what George observes.
+
+George deployed API `48bcd53` and web `92d6794` the same evening. On the live
+page he found two problems, fixed in web `284f762` and deployed as a web-only
+update:
+
+- the retention text sat in a separate block below the columns; it now sits in
+  the third (AWS) column, which always shows;
+- readers saw the internal name "Komondor"; user-facing text now says
+  "Sequence Store".
+
+The keep-date form appears only for the local `admin` account, the only
+account the API marks `isAdmin` (`lib/utils/getUserForToken.js`). George's
+LDAP login is an ENA admin, not an administrator.
 
 | Repo | Before (production) | After (master) | Restart |
 | --- | --- | --- | --- |
 | komondor-api | `f2e464c` | master: `7225374` plus documentation commits | yes, **first** |
-| komondor-web | `5e7bcf2` | `92d6794` | yes, after `yarn build` |
+| komondor-web | `5e7bcf2` | `92d6794`, then `284f762` | yes, after `yarn build` |
 | komondor-power | `d98fab1` | unchanged | no |
 | komondor-nudge | `3791969` | unchanged | no |
 
