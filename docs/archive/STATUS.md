@@ -102,6 +102,11 @@ dated 3 November; this update performs no new live check.
    Once backfilled and reviewed, Project date/requester/reason are the current
    hold record and `hpc-retention-holds.json` is historical.
 7. **Housekeeping.** Optionally set `READS_ROOT_PATH` in the API `.env`.
+8. **Rename and describe the 22 AI-registered Projects (George).** These are
+   the 22 Projects registered on 22 October: 16 Talbot, Courville and five
+   Kamoun/Saunders. Each still has its directory name as its name, plus generated
+   short and long descriptions. There is no edit form for this yet. The checklist,
+   with a link to each Project, is in [PROJECT_NAME_TIDY.md](PROJECT_NAME_TIDY.md).
 
 ## Standing rules
 
