@@ -1,10 +1,16 @@
 # Gargy — candidate for George's HPC preservation test
 
-Prepared 13 November 2026. **Not executed. No production date has been set.**
-The API and web feature was deployed on 16 November
-([record](DEPLOYMENT_2026-11-16.md)); George will now test the project-page
-control. He suggested approximately a year and will
-choose the actual date himself.
+Prepared 13 November; documentation refreshed 26 November 2026. **No test
+result or chosen production date is recorded here.** Current production fields
+have not been checked in this update; inspect them before making any change.
+George reported the feature and retention follow-up deployed on 16 November
+([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+
+George earlier suggested approximately a year for this test. On 26 November
+he proposed a five-year default for keep dates followed by stakeholder
+notifications, explicitly as a provisional idea. Neither is a chosen date for
+Gargy. Confirm its actual date and preserve the independent release condition
+below; see the [open keep-date decision](HPC_RETENTION.md#keep-dates-to-set-george).
 
 ## Exact candidate
 
@@ -30,18 +36,20 @@ release that existing instruction. Keep its source tree and S3 archive intact.
 
 ## Manual test after deployment
 
-1. Open the project page for the exact ID above as an administrator. Confirm
-   the project identity and both displayed paths. AWS should show its recorded
+1. Open the project page for the exact ID above as local `admin` (George's
+   LDAP/ENA-admin login does not have this permission). Read any existing
+   keep date, requester and reason first. Confirm the current deployed versions,
+   project identity and both displayed paths. AWS should show its recorded
    verification date. HPC should show a current directory presence observation;
    if it is unknown or absent, investigate before treating the copy as present.
 2. In **Preserve on HPC until**, choose the desired future date, fill in
-   **Requested by** and **Reason** (required once the retention follow-up is
-   deployed), and save. The date is inclusive through the end of that UTC day.
+   **Requested by** and **Reason** (required by the deployed follow-up), and
+   save. The date is inclusive through the end of that UTC day.
    No MongoDB shell edits or storage-state changes are required.
 3. Reload the page. Confirm the saved date persists, both location indicators
    remain independent, and the notice tells users to contact **George Deeks**
-   if they need longer HPC retention. After the follow-up deployment, the
-   requester and reason also show, and the name is a `mailto:` link if the web
+   if they need longer HPC retention. The requester and reason must also
+   show, and the name is a `mailto:` link if the web
    `HPC_RETENTION_CONTACT_EMAIL` is set.
 4. View the same project as a non-admin user who has access. Confirm the date
    and extension notice are visible, and the editing controls are absent.
@@ -60,9 +68,10 @@ release that existing instruction. Keep its source tree and S3 archive intact.
 
 ## Result — awaiting George
 
-- Chosen preserve-through date (UTC): not set
-- Test performed at: pending
-- API/web deployed heads: API `f2e464c`, web `5e7bcf2` (16 November)
+- Chosen preserve-through date (UTC): not recorded; read production first
+- Test performed at: not recorded
+- API/web deployed heads: latest reported API `48bcd53`, web `284f762`
+  (16 November); record the actual running heads when testing
 - Admin save and reload: pending
 - Reader-visible notice / no reader editing control: pending
 - AWS/HPC location observations: pending

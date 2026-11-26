@@ -1,11 +1,12 @@
 # HPC retention and storage locations
 
-Updated 16 November 2026 from George's instructions. This page records active
-manual deletion exclusions, the keep dates George is to set, and the application
-feature (deployed 16 November). The retention follow-up below was reviewed and
-merged to master on 16 November; its deployment is pending
-([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). This page does not
-verify today's filesystem.
+Updated 26 November 2026 from George's instructions and the deployment record.
+This page records active manual deletion exclusions, keep dates still needing
+confirmation or entry, and the application feature. George reported the
+retention follow-up deployed on 16 November: API `48bcd53`, web `92d6794` then
+web-only `284f762` ([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+This update makes no live production or filesystem check. The current saved
+keep dates, requesters and reasons must be read back before acting.
 
 ## Active manual exclusions
 
@@ -13,12 +14,13 @@ verify today's filesystem.
 Consult the [machine-readable register](hpc-retention-holds.json) by Project ID
 and exact relative path, in addition to the normal archive checks.
 
-No code reads this register. The CLI refuses a Project only once its
-`preserveOnHpcUntil` date is set, so these five also appear in the
+No code reads this register. The CLI's automatic retention fence blocks an
+active or malformed `preserveOnHpcUntil` value; the manual JSON exclusion alone
+does not trigger it. These five therefore also appear in the
 [keep dates to set](#keep-dates-to-set-george) below. Keep this register as
-the reason until the [follow-up](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md)
-is deployed and every hold's requester and reason have been backfilled and
-reviewed. Then the Project's `preserveOnHpcUntil`,
+the reason until every hold's date, requester and reason have been checked,
+backfilled where needed and reviewed on the deployed
+[follow-up](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md). Then the Project's `preserveOnHpcUntil`,
 `hpcPreservationRequestedBy` and `hpcPreservationReason` are the current record;
 `hpc-retention-holds.json` remains unchanged as history. Until then, continue
 checking the manual register as well. See the
@@ -54,50 +56,71 @@ Project retention instructions, not a renewed waiting period for the batch.
 
 ## Keep dates to set (George)
 
-George sets these himself on each project page as administrator. **None is set
-as of 16 November.** The dates below are suggestions; George chooses the actual
-ones. A date means "keep on HPC through 23:59:59.999 UTC that day". When it
-passes, the Project becomes eligible for deletion *review* only.
+George sets these himself on each project page using the local `admin`
+account. His LDAP/ENA-admin login does not have this permission. The 16 November
+notes recorded no dates set; **current production values are unconfirmed**.
+Read them back first and preserve any decisions already recorded.
 
-Set them after the follow-up is deployed. The form then also asks **Requested
-by** (who asked) and **Reason**; the "Why" column below is a starting point for
-the reason. Both are shown to everyone who can see the project, so nothing
-needs backfilling later.
+On 26 November George said the dates still need asking for or placing, and
+suggested a **five-year default followed by telling each stakeholder**. He
+explicitly described this as pencilled in. It is a proposal, not adopted policy
+or an instruction to fill dates or send messages. Before using it, decide its
+scope, when the five years starts, whether stakeholders are asked first or
+informed after assignment, and any exceptions. No exact dates are chosen here.
+This must not silently grant every archived Project another five years on HPC.
 
-Set Gargy first: it doubles as the
-[Gargy test](GARGY_HPC_PRESERVATION_TEST.md), where George suggested about a
-year. The five holds matter now, because they already have verified AWS copies
-and `deletion-command` would otherwise print a command for them. The 11 Kamoun
-KEEP Projects are still HPC-only. Their date records the "please keep" decision
-for when they are archived. Copying them to AWS stays allowed and makes them
+This proposed preservation period is separate from the implemented
+`HPC_RETENTION_YEARS` default of 5, which calculates archive eligibility from
+the later Project/newest Run creation date. It does not populate
+`preserveOnHpcUntil` or resolve the outstanding manual holds.
+
+A chosen keep date means "keep on HPC through 23:59:59.999 UTC that day".
+Expiry permits deletion *review* only and does not release the explicit
+Gargy/Gulnara conditions above. The deployed form also asks **Requested by**
+(who asked) and **Reason**; the "Why" column below is a starting point. All
+project readers see these fields. Backfill or correct them only after reading
+and confirming the current record.
+
+Use Gargy first as the [manual test](GARGY_HPC_PRESERVATION_TEST.md) once its
+actual date is chosen. George's earlier suggestion of about a year and the
+16 November example dates were planning examples, not saved dates or an
+adopted default. They are replaced below with "To decide" to avoid treating
+them as instructions.
+
+The five holds matter now because their AWS transfers are recorded as verified;
+without an active date the retention fence alone would not stop command
+preparation. The 11 Kamoun KEEP Projects were recorded as HPC-only; recheck
+their current state. Their date records the "please keep" decision for when
+they are archived. Copying them to AWS stays allowed and makes them
 read-only in Komondor.
 
-| Project | Project ID | Suggested keep-until | Why |
+| Project | Project ID | Keep-until decision | Why |
 | --- | --- | --- | --- |
-| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | about a year, e.g. 30 Nov 2027 | George's hold (13 Nov) |
-| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
-| Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
-| Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
-| Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | 30 Nov 2031; clear when released | Gulnara reassignment pending |
-| Sequencing of Mini-chromosomes of M. oryzae 2018 | `5fc012bda3efcb29338b7d5b` | 30 Nov 2031 | Kamoun KEEP (skamoun-006) |
-| Wheat Blast - Zambia 2018-2020 | `6054ba49d7661b6ec22a06f6` | 30 Nov 2031 | Kamoun KEEP (skamoun-007) |
-| Ronny_Helen_Pinfestans_Pmirabilis_timecourse | `5fc012bda3efcb29338b7d70` | 30 Nov 2031 | Kamoun KEEP (skamoun-008) |
-| Pangenome of rice-infecting Magnaporthe oryzae | `61a758113545d74de71ebbec` | 30 Nov 2031 | Kamoun KEEP (skamoun-028) |
-| Blast fungi collected from wild grasses in Germany | `61ee798cdecd27242ab8adb1` | 30 Nov 2031 | Kamoun KEEP (skamoun-029) |
-| Illumina sequencing of Hi-C libraries from selected Magnaporthe oryzae lineages | `61fd5d59decd27242ab8adf3` | 30 Nov 2031 | Kamoun KEEP (skamoun-030) |
-| Italian blast fungus isolates from wild grasses | `6502df19d32c7a7e4b174fe8` | 30 Nov 2031 | Kamoun KEEP (skamoun-033) |
-| Wheat Blast - Bolivia 2023-24 | `6863b1c7dc823951803ac3a4` | 30 Nov 2031 | Kamoun KEEP (skamoun-034) |
-| Wheat Blast - Zambia 2023 | `65f06e07e372f7554d754873` | 30 Nov 2031 | Kamoun KEEP (skamoun-035) |
-| Wheat Blast - Paraguay 2023 | `6863e922dc823951803ac406` | 30 Nov 2031 | Kamoun KEEP (skamoun-036) |
-| PacBio HiFi and LinkPrep sequencing of Stapelia leendertziae | `69a81b4920a8c93a2306efc6` | 30 Nov 2031 | Kamoun KEEP (skamoun-037) |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | To decide; explicit release still required | George's hold (13 Nov) |
+| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | To decide; explicit release still required | Gulnara reassignment pending |
+| Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | To decide; explicit release still required | Gulnara reassignment pending |
+| Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | To decide; explicit release still required | Gulnara reassignment pending |
+| Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | To decide; explicit release still required | Gulnara reassignment pending |
+| Sequencing of Mini-chromosomes of M. oryzae 2018 | `5fc012bda3efcb29338b7d5b` | To decide | Kamoun KEEP (skamoun-006) |
+| Wheat Blast - Zambia 2018-2020 | `6054ba49d7661b6ec22a06f6` | To decide | Kamoun KEEP (skamoun-007) |
+| Ronny_Helen_Pinfestans_Pmirabilis_timecourse | `5fc012bda3efcb29338b7d70` | To decide | Kamoun KEEP (skamoun-008) |
+| Pangenome of rice-infecting Magnaporthe oryzae | `61a758113545d74de71ebbec` | To decide | Kamoun KEEP (skamoun-028) |
+| Blast fungi collected from wild grasses in Germany | `61ee798cdecd27242ab8adb1` | To decide | Kamoun KEEP (skamoun-029) |
+| Illumina sequencing of Hi-C libraries from selected Magnaporthe oryzae lineages | `61fd5d59decd27242ab8adf3` | To decide | Kamoun KEEP (skamoun-030) |
+| Italian blast fungus isolates from wild grasses | `6502df19d32c7a7e4b174fe8` | To decide | Kamoun KEEP (skamoun-033) |
+| Wheat Blast - Bolivia 2023-24 | `6863b1c7dc823951803ac3a4` | To decide | Kamoun KEEP (skamoun-034) |
+| Wheat Blast - Zambia 2023 | `65f06e07e372f7554d754873` | To decide | Kamoun KEEP (skamoun-035) |
+| Wheat Blast - Paraguay 2023 | `6863e922dc823951803ac406` | To decide | Kamoun KEEP (skamoun-036) |
+| PacBio HiFi and LinkPrep sequencing of Stapelia leendertziae | `69a81b4920a8c93a2306efc6` | To decide | Kamoun KEEP (skamoun-037) |
 
 The KEEP IDs come from the
 [batch action plan](batches/2026-10-16/action-plan.csv) (`db_project_id`).
 After setting them, run the checklist's type check. It should return `[]`.
 Then record the dates actually chosen here.
 
-Until the follow-up feature makes the Project's own fields the record, an expired
-date does not release Gargy or Gulnara: the manual register above still applies.
+An expired or cleared date does not release Gargy or Gulnara. Their explicit
+release conditions must remain recorded and be checked even after their
+Project fields have been backfilled.
 
 ## Application feature — deployed 16 November
 
@@ -150,9 +173,12 @@ Implementation references:
 [API contract](../../openapi.yaml).
 
 
-## Retention follow-up — merged 16 November, deployment pending
+## Retention follow-up — deployment reported 16 November
 
-Deploy the follow-up API and web together, **API first**. The API now requires a
+The [deployment record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md) reports
+API `48bcd53` and web `284f762` after the same-day web correction. Confirm the
+running versions before relying on these controls. On any redeploy, deploy API
+and web together, **API first**. The API now requires a
 requester (1–200 non-blank characters) and reason (1–1000) when setting a keep
 date, including a metadata-only edit of the current date. A clear requires a
 fresh release reason in a separate, initially empty field, removes both public

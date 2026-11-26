@@ -1,13 +1,20 @@
 # Spec: HPC retention follow-up — 16 November 2026
 
 Written by Claude from George's decisions, for ChatGPT/Codex to implement. It
-builds on the `preserveOnHpcUntil` feature, which was merged and deployed on
-16 November: production runs API `f2e464c` and web `5e7bcf2`
-([record](DEPLOYMENT_2026-11-16.md)).
+builds on the `preserveOnHpcUntil` feature, initially deployed on 16 November
+as API `f2e464c` and web `5e7bcf2`
+([initial record](DEPLOYMENT_2026-11-16.md)).
 
-**Status:** implemented, reviewed and merged to master on 16 November
-([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)); deployment pending
-([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+**Status, reconciled 26 November:** implemented, reviewed, merged and reported
+deployed on 16 November. The latest reported heads are API `48bcd53` and web
+`284f762`, following the same-day web correction
+([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md),
+[deployment record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). No live
+production check was made for this documentation update. The specification
+below preserves the 16 November decisions. George's separate, provisional
+26 November idea for default keep dates is recorded in
+[HPC_RETENTION.md](HPC_RETENTION.md#keep-dates-to-set-george); it does not change
+the implemented five-year archive-age calculation or authorise setting dates.
 
 Read first: [HPC_RETENTION.md](HPC_RETENTION.md), the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the

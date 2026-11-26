@@ -1,7 +1,11 @@
 # Deployment — HPC retention follow-up, 16 November 2026
 
-**In progress.** This records the procedure Claude supplied for the second
-16 November deployment. Update it with what George observes.
+**Deployment reported complete on 16 November.** This records the procedure
+Claude supplied for the second same-day deployment and George's reported
+outcome below. Status wording reconciled on 26 November; no new live check was
+made. The procedure and checks remain as the deployment record, not a request
+to deploy again. The individual log/check results below have not been filled
+in and should not be read as independently verified observations.
 
 George deployed API `48bcd53` and web `92d6794` the same evening. On the live
 page he found two problems, fixed in web `284f762` and deployed as a web-only
@@ -16,12 +20,18 @@ The keep-date form appears only for the local `admin` account, the only
 account the API marks `isAdmin` (`lib/utils/getUserForToken.js`). George's
 LDAP login is an ENA admin, not an administrator.
 
-| Repo | Before (production) | After (master) | Restart |
+| Repo | Before (production) | Reported deployed | Restart |
 | --- | --- | --- | --- |
-| komondor-api | `f2e464c` | master: `7225374` plus documentation commits | yes, **first** |
+| komondor-api | `f2e464c` | `48bcd53` (includes `7225374` plus documentation) | yes, **first** |
 | komondor-web | `5e7bcf2` | `92d6794`, then `284f762` | yes, after `yarn build` |
 | komondor-power | `d98fab1` | unchanged | no |
 | komondor-nudge | `3791969` | unchanged | no |
+
+As inspected on 26 November, API origin/master `550074e` differs from the
+reported deployed `48bcd53` only under `docs/`; web origin/master is `284f762`.
+Local web `6905b26` clarifies the recorded AWS verification label but is
+unpushed and not recorded as deployed. Current production keep dates and the
+Gargy test result remain to be checked; see [STATUS.md](STATUS.md).
 
 ## What ships
 

@@ -1,7 +1,8 @@
 # HPC deletion checklist (per Project)
 
-Written 14 November 2026 from the [preservation feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md).
-It collects every gate for removing one archived Project's HPC tree in one
+Written 14 November 2026 from the [preservation feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md),
+updated 26 November against the [recorded deployment](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md).
+This update performs no live check. It collects every gate for removing one archived Project's HPC tree in one
 place. The [runbook](../S3_PROJECT_ARCHIVAL_RUNBOOK.md#4-review-and-delete-manually)
 remains the reference for each command; this page is the order to work in and
 the traps found so far.
@@ -12,30 +13,34 @@ record why.
 
 ## Once, before the first deletion of a session
 
-- [ ] **The reviewed preservation feature is still deployed** (deployed
-  16 November; API before web on any redeploy). Without it, `deletion-command`
-  cannot see `preserveOnHpcUntil` at all.
-- [ ] **The five manual holds also carry a preservation date.** The
-  [retention register](hpc-retention-holds.json) is not read by any code: today
-  `deletion-command` would print a command for the four Gulnara sources, and for
-  Gargy until its date is saved. Set `preserveOnHpcUntil` on all five from their
-  project pages (a far-future date for open-ended holds) so the CLI refuses
-  them. After deploying the follow-up, backfill and review the requester and
-  reason too. Once all fields are populated, the Project's date, requester and
-  reason are the current record and `hpc-retention-holds.json` becomes history.
+- [ ] **The reviewed preservation follow-up is still deployed.** The latest
+  reported 16 November heads are API `48bcd53` and web `284f762`; confirm the
+  current running code contains the controls. API precedes web on any
+  redeploy. The original feature blocks active dates; the follow-up also
+  checks malformed raw BSON values and records requester/reason history.
+- [ ] **The five manual holds also carry a confirmed preservation date,
+  requester and reason.** The [retention register](hpc-retention-holds.json)
+  is not read by any code. Without a saved active date, that register alone
+  cannot make `deletion-command` refuse. Read the current fields before
+  choosing or backfilling them from the project pages as local `admin`.
+  Agree the actual dates with George: his proposed five-year default is still
+  provisional ([decision record](HPC_RETENTION.md#keep-dates-to-set-george)).
+  Once all fields are populated and reviewed, they are the current record and
+  the JSON register remains history. Preserve and check the explicit
+  Gargy/Gulnara release conditions; date expiry alone does not release them.
 - [ ] **No stored date has a non-date type.** The follow-up checks raw BSON
   before Mongoose casting, flags invalid values publicly, and blocks deletion.
-  Until it is deployed, Mongoose can silently convert hand-edited `""`, `0` or
-  bare date strings. Continue this read-only check on v1333:
+  Its deployment is reported complete, but confirm the running version and
+  continue this read-only check on v1333:
 
   ```bash
   mongosh --quiet mongodb://localhost:28015/komondor --eval 'printjson(db.projects.find({ $expr: { $not: [{ $in: [{ $type: "$preserveOnHpcUntil" }, ["date", "null", "missing"]] }] } }, { name: 1, path: 1, preserveOnHpcUntil: 1 }).toArray())'
   ```
 
   Expected: `[]`. Anything listed needs an administrator to fix it before any
-  deletion review. With the follow-up deployed, the project page flags it and
-  an administrator may repair it with a requester and reason; the raw previous
-  value is retained in history. The older page cannot repair it.
+  deletion review. The follow-up project page flags it and an administrator
+  may repair it with a requester and reason; the raw previous value is
+  retained in history. Do not use an older page for the repair.
 - [ ] **The mount roots are confirmed.** The project page shows
   `READS_ROOT_PATH` (default `/tsl/data/reads`), but its presence check and the
   CLI use `DATASTORE_ROOT` on the archive host (recorded as `/mnt/reads`).
