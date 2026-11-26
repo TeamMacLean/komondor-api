@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-26T12:13:50.511931+00:00",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "action": "independent-staged-copy",
+  "externalWritersFrozen": true,
+  "authority": "George authorized execution of the reviewed Gulnara plan in this chat on 26 November 2026",
+  "writerConfirmation": "No writers are active; keep these projects frozen",
+  "consumerPathConfirmation": "HPC /tsl/data/reads is mounted on v1333 as /mnt/reads; likely HPC submission host",
+  "retainedOriginals": true
+}

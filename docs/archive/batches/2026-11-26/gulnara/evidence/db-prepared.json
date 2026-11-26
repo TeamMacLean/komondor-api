@@ -1,0 +1,11 @@
+{
+  "preparedPlanSha256": "70cc7e48bbddf541d505949365b314c3d6d60b950c52ab0608c3ffe35af7e4c1",
+  "planSha256": "70cc7e48bbddf541d505949365b314c3d6d60b950c52ab0608c3ffe35af7e4c1",
+  "reviewedPlanSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "operations": 64,
+  "planFile": "/storage/komondor-gulnara-20261126/db-evidence/prepared-plan.json",
+  "at": "2026-11-26T12:46:25.377Z",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "copyReceiptSha256": "d9d62d7686775b5d859adc5ff86f926d0f139de29e3c5fdbc16b9adf88121c06",
+  "runtimeSealSha256": "774c5f2792655dd2203ae26147eb91a8f7944f811778ec356bc8d0f2c086b23e"
+}

@@ -1,9 +1,12 @@
 # Gulnara reassignment — read-only preflight and execution plan
 
-**26 November 2026: data preflight passed; execution is not approved or performed.**
-This records the scope and a plan for building the execution tooling, not a
-tested reassignment executor. No production files, database records, services or
-S3 objects were changed by the preflight. No ENA submission was made.
+**26 November 2026: staged copy verified; operator window pending.**
+George confirmed that no external writers are active and that the five affected
+project trees will remain frozen. The preflight itself was read-only. The
+execution tooling has since been implemented and rehearsed; all 70 focused tests and independent runtime/recovery reviews passed. The complete
+41.43 GB staged copy and fresh BSON database plan are sealed for the maintenance window.
+No database reassignment, service stop, source deletion or ENA submission has
+occurred at this checkpoint. See [execution progress](EXECUTION.md).
 
 ## Confirmed scope
 
@@ -36,7 +39,7 @@ Derived review artifacts:
 - [Copy manifest](copy-manifest.json): old/new paths, bytes and sealed checksums.
 - [ENA FASTQ preview](ena-fastq-preview.json): the 24 intended sequence files.
 
-## Execution sequence to implement and rehearse
+## Reviewed execution sequence
 
 1. **Repeat the read-only checks immediately before execution.** Refuse identity,
    state, path, file inventory, checksum-evidence or destination changes. Confirm
@@ -53,11 +56,17 @@ Derived review artifacts:
 3. **Enter a short controlled maintenance window.** George operates services from
    his `tsldata` terminal with the recorded `PM2_HOME=/storage/.pm2`. Confirm API,
    ingest/background workers, direct API clients and relevant external writers
-   are quiesced. Recheck the complete graph and filesystem observations, then
-   capture fresh BSON-preserving before-images and a digest-pinned change journal.
-   Publish the verified staged sample directories with atomic no-overwrite
-   semantics only after the destination writers are frozen. Moving staging
-   directories into place is allowed; moving the originals is not.
+   are quiesced. Recheck the complete graph and filesystem observations against the freshly
+   sealed BSON-preserving before-images, then start the digest-pinned change
+   journal with the actual execution time.
+   Publish the verified staged sample directories only after the destination
+   writers are frozen. This NFS mount rejects `RENAME_NOREPLACE`, so the tested
+   implementation exclusively creates each final sample root with mode0700,
+   records ownership of that new directory, and renames only the exact staged
+   children into absent names inside it. It checks the claim and paused window
+   before each step, then restores the intended directory metadata. Existing
+   destination roots are never adopted without matching operation evidence.
+   Moving staging directories into place is allowed; moving originals is not.
 4. **Apply the 64 reviewed changes using compare-and-swap checks.** Update
    `samples.project`, the 12 Sample paths, the 12 Run paths and the 40 File paths.
    Runs retain their Sample IDs; there is no `runs.project` field. The executor
@@ -106,24 +115,29 @@ before any submission; the JSON FASTQ preview is not a submitted or validated CS
 
 On `v1333`, the verified filesystem root is **`/mnt/reads`**. The API's
 `DATASTORE_ROOT` uses it. `READS_ROOT_PATH` is unset, so display/consumer paths
-default to **`/tsl/data/reads`**, which is absent on this host. Check the actual
-consumer's mount before using exported paths; do not assume a v1333 path works
-on another machine or silently change production configuration.
+default to **`/tsl/data/reads`**, which is absent on this host. George confirmed on 26 November that these are two mounts of the same HPC
+storage and that the likely transfer consumer is HPC. The scoped export will
+therefore use `/tsl/data/reads`; the VM variant will use `/mnt/reads`. No
+production environment change is required. Consumer access remains to be tested
+when the ENA transfer is actually run.
 
-## Work required before execution approval
+## Execution readiness and operator step
 
-Build the copy/verification executor and BSON-preserving, journalled database
-executor, including explicit identity-pin transitions. Rehearse against isolated
-fixtures or a restored scoped database: missing files, checksum mismatch, target
-collision, concurrent record change, failure after partial writes, safe resume
-and conditional rollback. Independently review the exact commands and test
-receipts. Prepare the bounded service window, including a failure path that keeps
-services paused when the graph is incomplete. Only then present the concrete
-execution pack to George; the read-only tools here are not that pack.
+The copy and BSON-preserving database executors have been built. The isolated
+real-Mongo rehearsal using the actual scoped records passed 64 conditional
+updates, idempotent adoption, interrupted updates, safe continuation and reversal.
+Copy tests cover integrity failures, target collisions and publication recovery.
+The separate service controller is operated by George as `tsldata`; it requires
+sealed readiness evidence, checks work before stopping services and permits
+reopening only after an independent consistent-graph check. An elapsed deadline
+alone cannot reopen a partial reassignment. Final runtime integration/recovery
+review, full staged-copy completion and a fresh prepared database snapshot must
+pass before that controller command is supplied. The execution authorization is
+already given; the terminal step is required by the service-control arrangement.
 
 ## Evidence and limits
 
-The final observations are `database-02.json`, `filesystem-02.json` and
+The initial read-only preflight observations are `database-02.json`, `filesystem-02.json` and
 `environment-01.json` in the private Mac evidence directory
 `/Users/deeks/.codex/artifacts/gulnara-preflight-20261126/`. Component receipts
 record output/script/scope SHA-256 digests. Database/filesystem observations were
@@ -133,11 +147,13 @@ contain the review scope. The clean API checkout observed was `550074e`; this
 read-only check did not independently establish the process's loaded code head.
 
 Four local sealed source/verification evidence sets were checked against their
-recorded digests and identities. **No payload was rehashed and no fresh AWS
-inventory/object request was made.** Metadata equality is not fresh content
-verification; the planned copy phase supplies that check. Capacity excludes user
-or group quotas and later allocations. External writer inactivity, application
-behaviour and ENA consumer path access remain execution-time checks.
+recorded digests and identities during that initial preflight. **That preflight
+did not rehash payloads or request fresh AWS inventory/objects.** The subsequent
+completed copy independently hashed every source and staged destination against
+the sealed checksums; its receipts are linked in [execution progress](EXECUTION.md).
+No AWS request was needed for this HPC-to-HPC copy. Capacity observations exclude
+user/group quotas and later allocations. George confirmed the writer freeze;
+application behaviour and actual ENA consumer access remain later checks.
 
 The four source HPC exclusions remain in force. Reassignment does not release
 them. A completed archive cannot be edited in place by the existing CLI: design

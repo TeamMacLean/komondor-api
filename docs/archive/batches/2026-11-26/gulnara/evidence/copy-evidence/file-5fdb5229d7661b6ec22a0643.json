@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-26T12:31:53.180Z",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "copyDigest": "59c4ab3ff351cb1e5b3180d942cf0be8142aea1c1741fe36db5121d3ae8d3655",
+  "fileId": "5fdb5229d7661b6ec22a0643",
+  "source": "/mnt/reads/ntalbot/lichen_coculture_i_42_days/42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+  "stage": "/mnt/reads/ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99/42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+  "destination": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+  "sourceDigest": {
+    "bytes": 100,
+    "sha256": "e05f7a15a9dc33a2e0c2c160b674156420d9f0663560ecb8532ae755cb11276f",
+    "crc64nvme": "e3t3beJEZqk="
+  },
+  "destinationDigest": {
+    "bytes": 100,
+    "sha256": "e05f7a15a9dc33a2e0c2c160b674156420d9f0663560ecb8532ae755cb11276f",
+    "crc64nvme": "e3t3beJEZqk=",
+    "metadata": {
+      "dev": 42,
+      "ino": 61817691136,
+      "size": 100,
+      "mode": 33272,
+      "uid": 11449,
+      "gid": 12318,
+      "nlink": 1,
+      "mtimeMs": 1608208937967.999,
+      "ctimeMs": 1795696313175.891,
+      "type": "file"
+    }
+  },
+  "sourceMetadata": {
+    "dev": 42,
+    "ino": 17897875277,
+    "size": 100,
+    "mode": 33272,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 1,
+    "mtimeMs": 1608208937968.343,
+    "ctimeMs": 1621889194615.066,
+    "type": "file"
+  }
+}
