@@ -1,6 +1,10 @@
 # Manual HPC keep-date batch — 26 November 2026
 
-Prepared and tested locally; **not executed in production by this preparation**.
+**Production read-back supplied by George passed on 26 November: 12/12.**
+The [saved output and evidence limits](../../evidence/hpc-retention-20261126/README.md)
+record the stored dates, requesters, reasons, BSON types and matching audit checks.
+Preparation was local; George operated the production commands. The procedures
+below are retained for provenance, not an instruction to apply the batch again.
 George requested one operator-run mongosh batch and a separate read-back command.
 The [retention decision](../../HPC_RETENTION.md#keep-dates-to-set-george) defines
 the scope: Sara's Gargy through **26 November 2027**, and Joe Win's eleven
@@ -14,7 +18,9 @@ email, service change or archive finalization is performed.
 
 ## Operator procedure
 
-Run as `deeks` in the API repository on **v1333**. Fetch the reviewed branch,
+Run as `deeks` in the API repository on **v1333**. Use `/usr/bin/env mongosh`
+to bypass shell aliases/functions that may add a host or port alongside the URI.
+Fetch the reviewed branch,
 then extract `keep-dates.mongosh.js` from its exact reviewed commit into a
 fresh temporary file. This avoids changing the production checkout or requiring
 an application deployment. Retain the shell variable pointing to that file for

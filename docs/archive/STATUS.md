@@ -4,13 +4,21 @@ This is the current documented position of the HPC-to-S3 archive work. Older
 plans, previews and snapshots under `docs/archive/` are historical; where they
 disagree with this page, this page and the records it links to win.
 
-This update reconciles the repository and deployment notes. It makes **no new
-live production check**. Transfer observations are dated 3 November; the latest
-recorded deployment is 16 November. Production keep dates and any later manual
-operations must be checked before proceeding.
+This update includes George's **26 November production keep-date verification
+output**, checked against the reviewed batch. There was no direct agent access
+to production. Transfer observations remain dated 3 November and the latest
+recorded deployment is 16 November; running heads, website behaviour and
+filesystem/S3 state were not rechecked by this read-back.
 
 ## Done
 
+- **Twelve HPC keep dates saved and verified.** George supplied a successful
+  read-back on 26 November: Sara's Gargy through **26 November 2027**, and Joe
+  Win's eleven Kamoun KEEP Projects through **26 November 2031**. All twelve
+  have BSON dates, the expected requester/reason and one matching audit entry.
+  [Verification evidence](evidence/hpc-retention-20261126/README.md). Gulnara's
+  destination and four source Projects read back with no manual keep date;
+  their five records are outside this batch's writes. Website checks remain.
 - **Recorded production deployment.** George reported API `48bcd53` and web
   `92d6794` deployed on 16 November, followed by web-only `284f762`. Power
   `d98fab1` and Nudge `3791969` were unchanged. The
@@ -59,22 +67,21 @@ operations must be checked before proceeding.
 
 ## Remaining
 
-1. **Read back production before making changes.** Confirm running API/web
-   heads, the archive-host mount roots, and each relevant Project's current
-   date, requester and reason. The 16 November notes recorded no dates set;
-   that is not proof they remain unset. No Gargy production-test result has
-   been recorded. The keep-date editor requires the local `admin` account;
-   George's LDAP/ENA-admin login is not an API administrator.
-2. **Record the scoped keep-date decisions (George, manual).** The
-   [retention page](HPC_RETENTION.md#keep-dates-to-set-george) now distinguishes
-   Sara's Gargy (one year; working date 26 November 2027) and Joe Win's 11
-   Kamoun KEEP Projects (five years from today, 26 November 2031). George will
-   email Joe; no message or production date change is performed by this update.
-   Gulnara has one destination under the normal five-year archive-age policy,
-   whose computed date needs a live read. That is 13 long-term Projects, with
-   12 specific manual dates; her four old source holds are temporary safeguards,
-   not four five-year commitments. Test Gargy first and record actual saved
-   values. Keep all five original-batch exclusions in force for now.
+1. **Check the website display.** Open Gargy and one Joe Project; confirm the
+   saved date, requester and reason display after reload, including for a reader.
+   The [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) records the passed database
+   check separately from these pending browser checks. Confirm running API/web
+   heads and mount roots before later operations. Editing requires local `admin`;
+   George's LDAP/ENA-admin login does not have this permission. No repeat batch
+   or date save is needed merely to view the result. George plans to email Joe;
+   no email is recorded as sent.
+2. **Gulnara's ENA reassignment.** Her destination
+   (`6ae4ac89a6b876c643741d27`) exists in the supplied read-back; use that identity.
+   Its normal five-year archive-age eligibility still needs reading after the
+   reassignment. The four old source Projects remain temporarily excluded until
+   independent copies, reassignment checks and explicit release review succeed.
+   [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). No reassignment execution is
+   recorded; any active temporary dates must be cleared only on agreed release.
 3. **HPC deletion review for the 170 archived Projects outside the five holds.**
    These remain candidates from the recorded batch, not approved targets.
    Check the [retention register](HPC_RETENTION.md) and the
@@ -83,24 +90,16 @@ operations must be checked before proceeding.
    subsequent `confirm-absent`. No blanket waiting period applies: George
    removed the seven-day hold on 23 October and the pilot restore passed that
    day. No deletion or finalization is authorised by this documentation update.
-4. **Gulnara's ENA reassignment.** The four Lichen CoCulture source Projects
-   stay on HPC until the copy into the destination Project is done and
-   verified. [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). No execution is
-   recorded. The one destination (`6ae4ac89a6b876c643741d27`) already existed
-   in the 30 October snapshot; verify it rather than creating a duplicate.
-   Sources can join deletion review after reassignment/copy verification and
-   explicit release review, with any active temporary dates cleared.
-5. **Gargy HPC retention.** Preserve
+4. **Gargy HPC retention.** Preserve
    `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` (Project
    `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless she asks
-   otherwise. The working date is 26 November 2027; check it against the earlier
-   promise before saving. This replaces the unspecified duration, remains
-   independent of Gulnara and requires fresh manual review before later deletion.
-6. **The six manual-disposal entries.** These are separate from the archive
+   otherwise. The saved date is **26 November 2027**. This remains independent
+   of Gulnara and requires fresh manual review before later deletion.
+5. **The six manual-disposal entries.** These are separate from the archive
    workflow: George deletes manually with no S3 copy. See the outcome table
    and [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md).
    Recheck their current state before acting.
-7. **Report/contact setup, if requested.** Confirm or set `HPC_DUE_REPORT_TO`
+6. **Report/contact setup, if requested.** Confirm or set `HPC_DUE_REPORT_TO`
    and web `HPC_RETENTION_CONTACT_EMAIL`, and check the read-only report by
    hand. The documented January/July report schedule remains a separate
    installation step; there is no recorded production report/email test or
@@ -108,7 +107,7 @@ operations must be checked before proceeding.
    messages. Once hold fields are populated and reviewed, they are the current
    record; retain `hpc-retention-holds.json` unchanged as history and preserve
    its explicit release conditions.
-8. **Unpublished web wording follow-up.** Local commit `6905b26` in
+7. **Unpublished web wording follow-up.** Local commit `6905b26` in
    `komondor-web-hpc-preservation-fixes-20261126` clarifies that the AWS label
    means recorded transfer verification, not a fresh S3 check. As inspected
    on 26 November it is one commit ahead of origin/master `284f762`, unpushed

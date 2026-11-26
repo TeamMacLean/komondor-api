@@ -1,0 +1,198 @@
+/usr/bin/env mongosh --quiet 'mongodb://localhost:28015/komondor?directConnection=true' \
+  --eval 'load(process.env.KOMONDOR_KEEP_SCRIPT); komondorKeepDates("verify")'
+{
+  mode: 'verify',
+  ok: true,
+  verified: 12,
+  expected: 12,
+  projects: [
+    {
+      id: '5fc012bda3efcb29338b7d58',
+      name: 'Gargy-2019_RNAseq',
+      path: '/two_blades/gargy_2019_rnaseq',
+      expectedDate: '2027-11-26T23:59:59.999Z',
+      actualDate: ISODate('2027-11-26T23:59:59.999Z'),
+      requestedBy: 'Sara',
+      reason: 'One year of HPC retention agreed with Sara; retain through 26 November 2027 unless an extension is requested.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d58'
+    },
+    {
+      id: '5fc012bda3efcb29338b7d5b',
+      name: 'Sequencing of Mini-chromosomes of M. oryzae 2018',
+      path: '/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d5b'
+    },
+    {
+      id: '6054ba49d7661b6ec22a06f6',
+      name: 'Wheat Blast - Zambia 2018-2020',
+      path: '/skamoun/wheat_blast___zambia_2018_2020',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=6054ba49d7661b6ec22a06f6'
+    },
+    {
+      id: '5fc012bda3efcb29338b7d70',
+      name: 'Ronny_Helen_Pinfestans_Pmirabilis_timecourse',
+      path: '/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d70'
+    },
+    {
+      id: '61a758113545d74de71ebbec',
+      name: 'Pangenome of rice-infecting Magnaporthe oryzae',
+      path: '/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=61a758113545d74de71ebbec'
+    },
+    {
+      id: '61ee798cdecd27242ab8adb1',
+      name: 'Blast fungi collected from wild grasses in Germany',
+      path: '/skamoun/blast_fungi_collected_from_wild_grasses_in_germany',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=61ee798cdecd27242ab8adb1'
+    },
+    {
+      id: '61fd5d59decd27242ab8adf3',
+      name: 'Illumina sequencing of Hi-C libraries from selected Magnaporthe oryzae lineages',
+      path: '/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=61fd5d59decd27242ab8adf3'
+    },
+    {
+      id: '6502df19d32c7a7e4b174fe8',
+      name: 'Italian blast fungus isolates from wild grasses',
+      path: '/skamoun/italian_blast_fungus_isolates_from_wild_grasses',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=6502df19d32c7a7e4b174fe8'
+    },
+    {
+      id: '6863b1c7dc823951803ac3a4',
+      name: 'Wheat Blast - Bolivia 2023-24',
+      path: '/skamoun/wheat_blast___bolivia_2023_24',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=6863b1c7dc823951803ac3a4'
+    },
+    {
+      id: '65f06e07e372f7554d754873',
+      name: 'Wheat Blast - Zambia 2023',
+      path: '/skamoun/wheat_blast___zambia_2023',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=65f06e07e372f7554d754873'
+    },
+    {
+      id: '6863e922dc823951803ac406',
+      name: 'Wheat Blast - Paraguay 2023',
+      path: '/skamoun/wheat_blast___paraguay_2023',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=6863e922dc823951803ac406'
+    },
+    {
+      id: '69a81b4920a8c93a2306efc6',
+      name: 'PacBio HiFi and LinkPrep sequencing of Stapelia leendertziae',
+      path: '/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae',
+      expectedDate: '2031-11-26T23:59:59.999Z',
+      actualDate: ISODate('2031-11-26T23:59:59.999Z'),
+      requestedBy: 'Joe Win',
+      reason: 'Keep on HPC per the Kamoun review. George assigned five years from 26 November 2026; Joe Win will be contacted and may request changes.',
+      bsonType: 'date',
+      historyEntries: 1,
+      ok: true,
+      url: 'https://sequences.tsl.ac.uk/project?id=69a81b4920a8c93a2306efc6'
+    }
+  ],
+  gulnara: [
+    {
+      id: '6ae4ac89a6b876c643741d27',
+      name: 'Xanthoria parietina mycobiont RNAseq',
+      preserveOnHpcUntil: null,
+      writtenByThisCommand: false
+    },
+    {
+      id: '61204424e788b405b6ce6bde',
+      name: 'Lichen CoCulture_I 2 days',
+      preserveOnHpcUntil: null,
+      writtenByThisCommand: false
+    },
+    {
+      id: '611ff26de788b405b6ce6a4c',
+      name: 'Lichen CoCulture_I 9 days',
+      preserveOnHpcUntil: null,
+      writtenByThisCommand: false
+    },
+    {
+      id: '5fd1ed55d8dd4a63058cc1c9',
+      name: 'Lichen CoCulture_I 21 days',
+      preserveOnHpcUntil: null,
+      writtenByThisCommand: false
+    },
+    {
+      id: '5fdb2d62d7661b6ec22a0571',
+      name: 'Lichen CoCulture_I 42 days',
+      preserveOnHpcUntil: null,
+      writtenByThisCommand: false
+    }
+  ]
+}

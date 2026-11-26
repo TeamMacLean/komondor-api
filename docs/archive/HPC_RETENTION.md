@@ -1,12 +1,14 @@
 # HPC retention and storage locations
 
 Updated 26 November 2026 from George's instructions and the deployment record.
-This page records active manual deletion exclusions, keep dates still needing
-production confirmation or entry, and the application feature. George reported the
+This page records active manual deletion exclusions, the twelve keep dates
+verified in George's supplied 26 November read-back, and the application feature. George reported the
 retention follow-up deployed on 16 November: API `48bcd53`, web `92d6794` then
 web-only `284f762` ([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
-This update makes no live production or filesystem check. The current saved
-keep dates, requesters and reasons must be read back before acting.
+The [verification evidence](evidence/hpc-retention-20261126/README.md) is
+user-supplied production output, not a direct agent check. It confirms the
+retention fields and matching latest audit entries, not website behaviour,
+filesystem presence or a fresh S3 inventory. Recheck current holds before deletion.
 
 ## Active manual exclusions
 
@@ -20,14 +22,15 @@ does not trigger it. The five IDs remain excluded today. The
 [26 November decisions](#keep-dates-to-set-george) distinguish Gargy's one-year
 retention from the four temporary Gulnara source holds and supersede the JSON
 snapshot's unspecified Gargy duration. Preserve that snapshot unchanged. Read
-the current Project date/requester/reason as well as these manual conditions;
-no production date is established by this documentation. See the
+the current Project date/requester/reason as well as these manual conditions.
+The supplied read-back confirms Gargy's saved date; the four Gulnara source
+holds remain manual, with null preservation dates in that output. See the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
 [deletion checklist](HPC_DELETION_CHECKLIST.md).
 
 | Project | Project ID | Keep HPC path | Release condition |
 | --- | --- | --- | --- |
-| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | One year for Sara; planned through 26 Nov 2027, then fresh manual review |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | One year for Sara; saved through 26 Nov 2027, then fresh manual review |
 | Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | `/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/` | Gulnara copies independently verified and release explicitly reviewed/recorded |
 | Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | `/tsl/data/reads/ntalbot/lichen_coculture_i_9_days/` | Same Gulnara condition |
 | Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | `/tsl/data/reads/ntalbot/lichen_coculture_i_21_days/` | Same Gulnara condition |
@@ -54,20 +57,21 @@ Project retention instructions, not a renewed waiting period for the batch.
 
 ## Keep dates to set (George)
 
-George sets these himself on each project page using the local `admin`
-account. His LDAP/ENA-admin login does not have this permission. The 16 November
-notes recorded no dates set; **current production values are unconfirmed**.
-Read them back first and preserve any decisions already recorded.
+**Completed for the twelve explicit dates.** George supplied successful
+production verification on 26 November: `ok: true`, `verified: 12`, `expected: 12`.
+Every record has the expected BSON date, requester/reason and one matching
+history entry. [Evidence](evidence/hpc-retention-20261126/README.md).
+For later individual changes, use the local `admin` account; George's
+LDAP/ENA-admin login does not have that permission.
 
 George clarified the plan on 26 November:
 
-- **Sara / Gargy:** one year, unless Sara asks otherwise. The working date is
-  **26 November 2027**, measuring from today; the date of George's earlier
-  message to Sara was not supplied. Check that it matches the intended promise
-  before saving.
+- **Sara / Gargy:** one year, unless Sara asks otherwise. **26 November 2027**
+  is now saved, inclusive through the end of that UTC day. The actual read-back
+  name is `Gargy-2019_RNAseq`.
 - **Joe Win / the 11 Kamoun KEEP Projects:** **26 November 2031**, five years
-  from today. George intends to email Joe shortly. No email has been sent by
-  this task, and no production dates have been set or verified here.
+  from today, now saved for all eleven. George intends to email Joe shortly;
+  no email is recorded as sent.
 - **Gulnara:** one destination Project under the normal five-year archive-age
   policy. The four old source Projects need temporary protection during the
   reassignment, not five-year keep dates.
@@ -85,11 +89,12 @@ the later Project/newest Run creation date. It does not populate
 A chosen keep date means "keep on HPC through 23:59:59.999 UTC that day".
 Expiry permits fresh deletion review only, never automatic deletion. The
 form also asks **Requested by** and **Reason**, visible to all project readers.
-Use Gargy first as the [manual test](GARGY_HPC_PRESERVATION_TEST.md).
+The database portion of the [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) passed;
+website display checks remain.
 
-| Project | Project ID | Requested by | Planned keep-until / policy |
+| Project | Project ID | Requested by | Verified keep-until / policy |
 | --- | --- | --- | --- |
-| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | Sara | 26 Nov 2027; one-year working date above |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | Sara | 26 Nov 2027 |
 | Xanthoria parietina mycobiont RNAseq | `6ae4ac89a6b876c643741d27` | Gulnara | Normal five-year archive-age policy; read live computed date |
 | Sequencing of Mini-chromosomes of M. oryzae 2018 | `5fc012bda3efcb29338b7d5b` | Joe Win | 26 Nov 2031 |
 | Wheat Blast - Zambia 2018-2020 | `6054ba49d7661b6ec22a06f6` | Joe Win | 26 Nov 2031 |
@@ -114,15 +119,18 @@ the completed 175-Project batch. The four temporary source holds are listed
 above and remain until independent copies, reassignment checks and explicit
 release review are complete; see the [Gulnara plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
 
-After saving the agreed dates, run the checklist's type check (expected `[]`)
-and record the actual production values and test results. Earlier five-year
-suggestions for all 16 Projects are superseded by this scoped decision.
+The read-back confirms BSON type `date` for all twelve targets. This is not
+the checklist's database-wide malformed-date scan, which remains a pre-deletion
+check. Earlier five-year suggestions for all 16 Projects are superseded by this
+scoped decision.
 
 George requested a single manual mongosh batch for the twelve explicit dates.
 The [prepared batch and separate verification](batches/2026-11-26/README.md)
 preserve history, refuse unexpected prior values and leave Gulnara's five
-records untouched. Preparation and local tests do not establish execution or
-saved production dates.
+records outside its writes. The subsequent user-supplied verification confirms
+all twelve saved values and shows null manual dates on all five Gulnara records.
+The apply receipt, exact application time and full before/after backups were not
+included in the pasted output; no independent before/after comparison is claimed here.
 
 ## Application feature — deployed 16 November
 
@@ -158,13 +166,15 @@ manual review must always check the latest date and exclusions.
 
 **Expiry or clearing permits fresh review only. It never deletes files. The
 four Gulnara source exclusions require the separate verified release above.** Deployment set no
-production date; George sets them (see [keep dates to set](#keep-dates-to-set-george)). The current UI implements dated retention;
+production date; George subsequently supplied verification of the twelve saved
+dates above (see [keep dates](#keep-dates-to-set-george)). The current UI implements dated retention;
 indefinite, condition-based exclusions remain in this manual register. It does
 not automatically import them or add a batch-wide waiting interval.
 
 [Gargy production test candidate](GARGY_HPC_PRESERVATION_TEST.md) records the
 exact identity and the manual checks George will perform now that the API and
-web changes are deployed. The planned one-year date is recorded above; the production result is still pending.
+web changes are deployed. Its database date and audit verification passed;
+its browser and optional native refusal checks remain pending.
 
 Implementation references:
 [Project schema](../../models/Project.js),

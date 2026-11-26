@@ -1,17 +1,17 @@
 # Gargy — candidate for George's HPC preservation test
 
-Prepared 13 November; documentation refreshed 26 November 2026. **No test
-result or saved production date is recorded here.** Current production fields
-have not been checked in this update; inspect them before making any change.
+Prepared 13 November; updated 26 November 2026. **Database retention verification
+passed in George's supplied output; browser checks remain pending.** The
+[evidence](evidence/hpc-retention-20261126/README.md) is a user-supplied read-back,
+not a direct agent production check.
 George reported the feature and retention follow-up deployed on 16 November
 ([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
 
 On 26 November George confirmed he had told **Sara one year unless she asks
-otherwise**. Use **26 November 2027** as the working preserve-through date,
-measuring from today; the date of the earlier message was not supplied, so check
-that this matches the intended promise before saving. Requested by: **Sara**.
-Reason: "One year of HPC retention as agreed with Sara; contact George for an
-extension." This replaces the earlier unspecified duration and five-year
+otherwise**. The saved preserve-through date is **26 November 2027**, inclusive
+through 23:59:59.999 UTC. Requested by: **Sara**.
+Saved reason: "One year of HPC retention agreed with Sara; retain through
+26 November 2027 unless an extension is requested." This replaces the earlier unspecified duration and five-year
 suggestion; see the [keep-date decision](HPC_RETENTION.md#keep-dates-to-set-george).
 
 ## Exact candidate
@@ -19,7 +19,7 @@ suggestion; see the [keep-date decision](HPC_RETENTION.md#keep-dates-to-set-geor
 | Field | Value |
 | --- | --- |
 | Project ID | `5fc012bda3efcb29338b7d58` |
-| Project | Gargy 2019 RNAseq |
+| Project | `Gargy-2019_RNAseq` in the production read-back |
 | Requested HPC directory | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` |
 | Recorded archive-host root | `/mnt/reads/two_blades/gargy_2019_rnaseq` |
 | S3 prefix | `s3://tsl-hpc-reads/two_blades/gargy_2019_rnaseq` |
@@ -45,10 +45,10 @@ fresh manual review only.
    project identity and both displayed paths. AWS should show its recorded
    verification date. HPC should show a current directory presence observation;
    if it is unknown or absent, investigate before treating the copy as present.
-2. In **Preserve on HPC until**, choose the desired future date, fill in
-   **Requested by** and **Reason** (required by the deployed follow-up), and
-   save. The date is inclusive through the end of that UTC day.
-   No MongoDB shell edits or storage-state changes are required.
+2. Inspect **Preserve on HPC until**, **Requested by** and **Reason** against
+   the saved values above. The audited batch already set them; no repeat save
+   is needed for this display check. A later deliberate change can test the
+   admin save path separately and must be recorded as such.
 3. Reload the page. Confirm the saved date persists, both location indicators
    remain independent, and the notice tells users to contact **George Deeks**
    if they need longer HPC retention. The requester and reason must also
@@ -69,14 +69,15 @@ fresh manual review only.
    below. Leave the date set after the test. Any later release of the separate
    manual exclusion needs an explicit recorded decision from George.
 
-## Result — awaiting George
+## Result — database passed; browser checks pending
 
-- Planned preserve-through date (UTC): 26 November 2027, subject to the one-year promise check above
-- Saved production date/requester/reason: not recorded; read production first
-- Test performed at: not recorded
+- Saved preserve-through date (UTC): `2027-11-26T23:59:59.999Z`
+- Saved requester/reason: Sara and the exact reason above; verified
+- BSON date type: `date`; history entries: 1; matching latest audit: passed
+- Database verification evidence supplied: 26 November 2026; exact apply/verification time not present in the output
 - API/web deployed heads: latest reported API `48bcd53`, web `284f762`
   (16 November); record the actual running heads when testing
-- Admin save and reload: pending
+- Admin form save path: not exercised by the mongosh batch; browser reload/display: pending
 - Reader-visible notice / no reader editing control: pending
 - AWS/HPC location observations: pending
 - Optional deletion-command refusal: pending
