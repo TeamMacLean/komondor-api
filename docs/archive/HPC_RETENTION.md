@@ -118,6 +118,12 @@ After saving the agreed dates, run the checklist's type check (expected `[]`)
 and record the actual production values and test results. Earlier five-year
 suggestions for all 16 Projects are superseded by this scoped decision.
 
+George requested a single manual mongosh batch for the twelve explicit dates.
+The [prepared batch and separate verification](batches/2026-11-26/README.md)
+preserve history, refuse unexpected prior values and leave Gulnara's five
+records untouched. Preparation and local tests do not establish execution or
+saved production dates.
+
 ## Application feature — deployed 16 November
 
 The project page shows separate HPC and AWS locations. HPC shows the result and
