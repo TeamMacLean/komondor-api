@@ -35,15 +35,50 @@ ENA submission was performed. See the [completion receipt](batches/2026-11-26/gu
 and [execution record](batches/2026-11-26/gulnara/EXECUTION.md) for seals,
 checks and both earlier safely restored attempts.
 
+## Sign-off before cleanup — 26 November 2026
+
+Keep the ENA review CSV for now as the small review/handover inventory. George
+will request Gulnara's sign-off by email before separately reviewing source and
+staging cleanup. No sign-off or cleanup release is recorded here, and **nothing
+is to be removed now**. Sign-off permits that review; it does not automatically
+delete data or release the four manual source exclusions.
+
+The original source files are still retained on HPC and in their verified AWS
+archives. If their HPC originals are later removed, retrieving those original
+archives from AWS will involve restore waiting time and charges. The new
+destination HPC copies stay in place and are unaffected by a properly scoped
+source cleanup. Keep all 40 staging links until their own reviewed cleanup;
+they share the destination's copied inodes and use no extra 41.43 GB of payload
+space. Any link removal changes the recorded inode metadata and must preserve
+the destination files and an auditable before/after record.
+
+Retain the working CSV until sign-off. If an expendable working copy is later
+removed, preserve the sealed repository CSV, completion receipts, checksum
+registers and other execution evidence as the permanent audit record. This
+does not authorize changing or removing the S3 archives.
+
+Legacy MD5 status labels will not automatically clear because the copy passed
+SHA-256 and CRC64NVME checks. Read-only inspection found that all **16 original
+`MD5.txt` sidecars** match their sealed sizes and SHA-256 values. Their preserved
+entries identify all **24 FASTQs** uniquely by sample and basename, with valid
+32-hex expected MD5 values, agreeing duplicates and no extra entries. These are
+available expected checksums, **not yet a fresh MD5 verification of the FASTQs**.
+Next calculate current FASTQ MD5 values, compare them with those original
+entries, then review any database backfill. No MD5 database fields or status
+labels have been changed. The small-file transfer verified the sidecar file's
+own bytes; it did not verify the FASTQ contents against its embedded MD5 values.
+
 ## HPC retention todo — clarified 26 November 2026
 
 Gulnara needs **one destination Project** for longer-term use, under the normal
 five-year archive-age policy. The four old source Projects are not five-year
 retention requests. Keep their original HPC trees temporarily until independent
 copies, reassignment checks and explicit release review are complete. The copy
-and reassignment checks have now passed; **release/archive-revision review is
-still outstanding**. Editing the sample associations does not itself release or
-delete their source trees.
+and reassignment checks have now passed; **Gulnara's sign-off and the separately
+reviewed source/staging cleanup are still outstanding**. Keep the four manual
+exclusions until a fresh source/archive review and explicit release are
+recorded. Editing the sample associations does not itself release or delete
+their source trees. Any AWS revision remains a separate review.
 
 **Gargy is separate:** preserve `/tsl/data/reads/two_blades/gargy_2019_rnaseq/`
 (Project `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless
@@ -131,6 +166,7 @@ deletion exclusion has been installed by this note.
 ## Completed procedure and remaining AWS review
 
 Steps 1–3 and the website/scoped-export checks in step 4 completed on 26 November.
+Gulnara's sign-off precedes any separately reviewed source/staging cleanup.
 Actual ENA consumer access/submission and step 5 remain separate work. Do not
 repeat the copy or reassignment; the list records the reviewed boundaries.
 

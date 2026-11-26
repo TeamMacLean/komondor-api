@@ -31,7 +31,7 @@ holds remain manual, with null preservation dates in that output. See the
 | Project | Project ID | Keep HPC path | Release condition |
 | --- | --- | --- | --- |
 | Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | One year for Sara; saved through 26 Nov 2027, then fresh manual review |
-| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | `/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/` | Gulnara copies independently verified and release explicitly reviewed/recorded |
+| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | `/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/` | Copies verified; await Gulnara's sign-off, then fresh source/archive checks and explicitly reviewed/recorded release |
 | Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | `/tsl/data/reads/ntalbot/lichen_coculture_i_9_days/` | Same Gulnara condition |
 | Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | `/tsl/data/reads/ntalbot/lichen_coculture_i_21_days/` | Same Gulnara condition |
 | Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | `/tsl/data/reads/ntalbot/lichen_coculture_i_42_days/` | Same Gulnara condition |
@@ -55,6 +55,34 @@ are superseded by this list; preserve those records unchanged as history.
 The batch-wide seven-day waiting period remains removed. These are specific
 Project retention instructions, not a renewed waiting period for the batch.
 
+### Gulnara cleanup decision — 26 November 2026
+
+The independent copy and 64-document reassignment have completed and passed
+verification. George will request Gulnara's sign-off by email before any
+separately reviewed source/staging cleanup. **No removal is authorized now.**
+The four source exclusions remain manual instructions, with null
+`preserveOnHpcUntil` values; no new date or database hold was installed. Sign-off
+alone does not automatically release them or issue deletion commands. Record
+the subsequent fresh checks, exact paths and explicit release before George's
+manual deletion step.
+
+All four original source trees are still on HPC and have their verified AWS
+archives. Later recovery of removed HPC originals from AWS would incur restore
+time and charges. The new Xanthoria destination HPC copies remain available and
+must be excluded from source cleanup. All 40 staging links also remain until
+their separate review; they share the new copied inodes rather than allocating
+another 41.43 GB. Cleanup must retain the destination files and record the
+expected link-count/metadata changes.
+
+Keep the ENA working CSV for review/handover until sign-off. Preserve the sealed
+repository CSV and completion evidence permanently even if a disposable working
+copy is later removed. Legacy MD5 status labels have not been corrected and do
+not clear automatically after the successful SHA-256/CRC64NVME copy checks.
+The 16 original sidecars match sealed sizes/SHA-256 and provide unambiguous
+expected MD5 values for all 24 FASTQs. Actual FASTQ MD5s still need calculating
+and comparison before any reviewed backfill; no MD5 database changes have been
+made. This does not certify those FASTQs as MD5-verified yet.
+
 ## Keep dates to set (George)
 
 **Completed for the twelve explicit dates.** George supplied successful
@@ -73,13 +101,14 @@ George clarified the plan on 26 November:
   from today, now saved for all eleven. George intends to email Joe shortly;
   no email is recorded as sent.
 - **Gulnara:** one destination Project under the normal five-year archive-age
-  policy. The four old source Projects need temporary protection during the
-  reassignment, not five-year keep dates.
+  policy. Reassignment is complete. The four old source Projects retain their
+  manual exclusions through sign-off and separately reviewed cleanup, not
+  five-year keep dates.
 
 This is **13 long-term Projects** (Sara 1, Joe 11, Gulnara 1), with **12 specific
 manual dates** and Gulnara's destination following the normal policy. The four
-source exclusions remain in addition until the work is verified and their
-release recorded. No original-batch exclusion is released by this update.
+source exclusions remain in addition until Gulnara signs off and their separate
+release review is recorded. No original-batch exclusion is released by this update.
 
 The implemented `HPC_RETENTION_YEARS=5` rule calculates archive eligibility from
 the later Project/newest Run creation date. It does not populate

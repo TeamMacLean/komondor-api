@@ -197,6 +197,45 @@ The CSV uses HPC `/tsl/data/reads`; `vm-paths.txt` records the equivalent
 belongs to the submission workflow. **This is a validated review export, not an
 ENA submission.**
 
+## MD5 follow-up and sign-off — 26 November 2026
+
+The original and reassigned snapshots have no stored processing/MD5 status
+fields on the 12 selected Runs, and no expected or calculated MD5 values on
+31 associated Read records. Model defaults explain the legacy pending labels;
+these records do not match the background verification queue. Waiting alone
+will not clear the labels. The successful SHA-256/CRC64NVME copy verification
+is independent of those fields.
+
+A subsequent [read-only sidecar review](evidence/md5-review-20261126/sidecar-review.json)
+checked all 16 published `MD5.txt` files against sealed sizes and SHA-256 values.
+They contain valid 32-hex expected checksums covering all 24 FASTQs, uniquely
+matched by Sample and basename; duplicate sidecars agree. This establishes
+usable historical checksum evidence, not a new FASTQ MD5 verification. The
+FASTQ MD5s have not yet been calculated and no database fields were changed.
+
+Next, calculate the current FASTQ MD5s read-only, compare them with these
+preserved expected values, then prepare a scoped, reviewed import with exact
+Read/File identity checks and before-images. Preserve expected versus
+calculated values and record mismatches honestly. Do not simply set a verified
+status, generate both sides of a comparison from the current file, or queue
+legacy runs blindly. There is no dedicated legacy backfill command; background
+verification can send owner notifications. The seven MD5 sidecars represented
+as Reads must not be mistaken for FASTQs or used to claim all Reads verified.
+
+George will ask Gulnara to confirm the 12 Samples, 12 Runs, their pairings and
+metadata, and whether the original source HPC copies are still needed. The
+email is a draft only. Retain the ENA review CSV through sign-off; an expendable
+working copy may later be removed, but keep the sealed repository CSV and
+completion receipts as audit evidence. The CSV is a handover inventory, not a
+payload, backup or completed ENA submission.
+
+Original source HPC copies and their existing AWS archives remain intact.
+Removing source HPC copies, if later released and reviewed, would leave the
+new destination copies on HPC; recovering an old source copy from AWS can
+incur retrieval charges and take time. Gulnara's sign-off is an input to the
+separate cleanup/archive-revision review, not automatic deletion approval.
+No source file, staging link or review CSV was removed during this follow-up.
+
 ## Remaining work
 
 Retain all original sources, staged links and every receipt. Removing either
