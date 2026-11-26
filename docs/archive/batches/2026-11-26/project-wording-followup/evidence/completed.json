@@ -1,0 +1,95 @@
+{
+  "at": "2026-11-26T18:03:10.386Z",
+  "planSha256": "deb8e1eb804f87f3416f5f57748ada871be257921f4233018b495df6bb8f583c",
+  "projects": 7,
+  "renamed": 7,
+  "modelValidationPassed": true,
+  "allOtherProjectFieldsUnchanged": true,
+  "priorAuditHistoryUnchanged": true,
+  "dependentRecords": {
+    "samples": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "runs": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "files": {
+      "count": 156,
+      "sha256": "75a5317e43a2df2978718c83839e25be72e09f7ca42ab9f9901ed4f70d31f284"
+    },
+    "reads": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "additionalfiles": {
+      "count": 156,
+      "sha256": "6bf71f4735955af038fac8f5dd1319c08e39a38b01de8935d9a3f394d92eeed8"
+    }
+  },
+  "fileLocations": {
+    "count": 156,
+    "sha256": "663045567042857fe04d56369f0678fdbae7fd2a9f425e2397173affc966a4cd"
+  },
+  "retainedHpcRoots": 7,
+  "productionCodeChanged": false,
+  "results": [
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "oldName": "project_945",
+      "name": "Wheat blast isolate sequencing",
+      "path": "/ntalbot/project_945",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_945",
+      "shortDesc": "Sequence alignments and assemblies from wheat blast isolates."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "oldName": "project_2012",
+      "name": "Sequence assemblies and gene annotations",
+      "path": "/ntalbot/project_2012",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2012",
+      "shortDesc": "Sequence assemblies, read alignments and predicted protein/transcript files for multiple strain labels."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "oldName": "project_930",
+      "name": "Wheat blast assembly and gene analysis",
+      "path": "/ntalbot/project_930",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_930",
+      "shortDesc": "Wheat blast isolate sequence analysis, with assembly statistics and gene-prediction outputs."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "oldName": "project_1566",
+      "name": "MG bulk read alignment",
+      "path": "/ntalbot/project_1566",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1566",
+      "shortDesc": "A read alignment labelled MG bulk; the study identity is unconfirmed."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "oldName": "project_592_593",
+      "name": "Buf mutant bulk segregant analysis",
+      "path": "/ntalbot/project_592_593",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_592_593",
+      "shortDesc": "Read alignments and a report labelled as bulk segregant analysis of the Buf mutant."
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "oldName": "project_2171",
+      "name": "Guy11 paired-end read alignment",
+      "path": "/ntalbot/project_2171",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2171",
+      "shortDesc": "A paired-end read alignment labelled Guy11_v3."
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "oldName": "project_230",
+      "name": "Mycelium RNA-seq expression tables",
+      "path": "/ntalbot/project_230",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_230",
+      "shortDesc": "Expression tables labelled M. oryzae mycelium and Guy11 CM/GMM."
+    }
+  ]
+}

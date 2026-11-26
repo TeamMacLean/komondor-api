@@ -15,9 +15,9 @@ All other Project fields are unchanged, including physical paths, safe names, ow
 - All 763 generated file-location URIs remained identical; all 15 original HPC root directories were still present. This was a metadata/path check, not another S3 inventory or payload checksum sweep.
 - The signed-in Sequences page for [PKC1 inhibition RNA-seq](https://sequences.tsl.ac.uk/project?id=6ada6c4457c017ae17122650) visibly showed its new title, short/long descriptions, retained `project_2035` HPC/S3 paths and additional-file listing after completion.
 
-## Deferred
+## Initially deferred — now completed
 
-No changes to 930 and 945 (wheat-blast titles need distinction), 2012 and 1566 (missing scientific context), or 592/593, 2171 and 230 (filename-based suggestions need confirmation). See the [naming review](../../../PROJECT_NAME_REVIEW_2026-11-26.md).
+The following seven were subsequently explicitly approved and [completed at 18:03 UTC](../project-wording-followup/README.md). This first pass made no changes to 930 and 945 (wheat-blast titles need distinction), 2012 and 1566 (missing scientific context), or 592/593, 2171 and 230 (filename-based suggestions need confirmation). See the [naming review](../../../PROJECT_NAME_REVIEW_2026-11-26.md).
 
 ## Evidence and recovery
 

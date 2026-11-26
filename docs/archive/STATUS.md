@@ -81,13 +81,15 @@ separate web work. The S3 batch completion observations remain dated 3 November.
 
 ## Remaining
 
-The [26 November naming review](PROJECT_NAME_REVIEW_2026-11-26.md) led to
-**14 production title changes, 15 short descriptions and nine long descriptions**
-at 17:35 UTC. Paths, storage, keep dates, 763 File records and 763 AdditionalFile
-records were unchanged; the website spot check passed. Prior names and history
-are retained. [Execution evidence](batches/2026-11-26/project-wording/README.md).
-Seven entries remain deferred: wheat-blast 930/945, unknown 2012/1566, and
-filename-only 592/593, 2171 and 230.
+The [26 November naming review](PROJECT_NAME_REVIEW_2026-11-26.md) is complete.
+Across two approved passes, **21 Projects were renamed, 22 short descriptions
+and 11 long descriptions improved**; Courville kept its title. All 919 File
+records, 919 associated AdditionalFile records and generated file locations
+were unchanged, along with physical paths, archive state and keep dates.
+All 22 HPC roots remain present. Prior names and history are retained.
+[First pass](batches/2026-11-26/project-wording/README.md),
+[remaining seven completed at 18:03 UTC](batches/2026-11-26/project-wording-followup/README.md).
+No naming entries remain deferred.
 
 1. **Retention presentation follow-up is separate.** George confirmed the
    functionality on 26 November and has Claude working on web presentation.

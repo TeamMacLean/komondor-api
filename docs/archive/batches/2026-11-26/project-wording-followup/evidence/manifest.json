@@ -1,0 +1,36 @@
+{
+  "sourceServer": "/storage/komondor-project-wording-followup-20261126-01",
+  "macBackup": "/Users/deeks/.codex/artifacts/project-wording-followup-20261126-01",
+  "files": [
+    {
+      "file": "after.bson",
+      "bytes": 39820,
+      "sha256": "6284a6ea758b0813f4d40abe10e948f191fd966dfc34509018c9a9e79beca404"
+    },
+    {
+      "file": "before.bson",
+      "bytes": 28039,
+      "sha256": "f109a3693658b292a5a8b957e065900a09c3e1b074012fa3b8feb66fdfd25d2f"
+    },
+    {
+      "file": "completed.json",
+      "bytes": 3486,
+      "sha256": "2f796a3cf9a3c8a77e55feabd3703ab5a0e29fed67a5214eb438f0aa20b87f2b"
+    },
+    {
+      "file": "execution.json",
+      "bytes": 53246,
+      "sha256": "2187afe9febb75fb43f44da95f756cc830fef6316e9c7ec96eda60f6edbda1ec"
+    },
+    {
+      "file": "journal.jsonl",
+      "bytes": 672,
+      "sha256": "a63af4fa9eac939508b0280d225bfffb339bf971be52f0d829605f30d0750b86"
+    },
+    {
+      "file": "plan.json",
+      "bytes": 52982,
+      "sha256": "deb8e1eb804f87f3416f5f57748ada871be257921f4233018b495df6bb8f583c"
+    }
+  ]
+}

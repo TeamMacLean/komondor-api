@@ -1,0 +1,244 @@
+{
+  "status": "approved seven-project follow-up",
+  "decisionAuthority": "George explicitly approved all seven conservative names in the archive chat on 26 November 2026",
+  "candidates": [
+    {
+      "entryId": "ntalbot-018",
+      "projectId": "6ada6c4457c017ae17122651",
+      "recordedName": "project_945",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_945",
+      "recordedPath": "/ntalbot/project_945",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-018",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Wheat blast isolate sequencing",
+      "proposedShortDesc": "Sequence alignments and assemblies from wheat blast isolates.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "Scientific subject comes from a note stored under Project 930, which explicitly identifies Project 945 and matching sample labels. Cross-check before a write.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 8,
+          "entryId": "ntalbot-028",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_930/additional/Wheat blast sequences summary.docx",
+          "documentSha256": "4a525a43078844bae9630e31de4f86ae03b69a6e38fca6776101a705683c310a",
+          "clues": [
+            "Wheat BLAST sequences; table explicitly associates PY0925, PY25.1 and PY35.3 with Project 945.",
+            "Project 945 inventory has matching PY0925 assembly and alignment filenames."
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13578,
+          "originalRelativePath": "sample_945/sample_945/processed/PY0925_contigs.fa",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13586,
+          "originalRelativePath": "sample_945/sample_945/processed/Sample_PY0925_out.sorted.rmdup.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": "Wheat blast isolate sequence alignments and assemblies. The wheat blast summary retained in Project 930 explicitly links Project 945 to isolate labels that also occur in this project’s files. Historical project number: 945.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven",
+      "titleSimilarityReview": "Defer final wording: these two wheat-blast proposals are similar to each other and several existing wheat-blast Projects. Find a supported cohort/isolate distinction before applying."
+    },
+    {
+      "entryId": "ntalbot-024",
+      "projectId": "6ada6c4457c017ae17122652",
+      "recordedName": "project_2012",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2012",
+      "recordedPath": "/ntalbot/project_2012",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-024",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Sequence assemblies and gene annotations",
+      "proposedShortDesc": "Sequence assemblies, read alignments and predicted protein/transcript files for multiple strain labels.",
+      "confidence": "low",
+      "recommendation": "hold",
+      "uncertainty": "Filenames support file types only. The strain_summary.xlsx and de_novo_assembly_stats.xlsx contents were not examined; no organism or scientific purpose is established.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13773,
+          "originalRelativePath": "additional/de_novo_assembly_stats.xlsx",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13774,
+          "originalRelativePath": "additional/strain_summary.xlsx",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13795,
+          "originalRelativePath": "sample_all/sample_all/processed/Br62_contigs_2.all.maker.proteins.fasta",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven"
+    },
+    {
+      "entryId": "ntalbot-028",
+      "projectId": "6ada6c4457c017ae17122654",
+      "recordedName": "project_930",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_930",
+      "recordedPath": "/ntalbot/project_930",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-028",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Wheat blast assembly and gene analysis",
+      "proposedShortDesc": "Wheat blast isolate sequence analysis, with assembly statistics and gene-prediction outputs.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The summary also covers Project 945; retain both historical numbers and avoid implying every listed isolate belongs exclusively to Project 930.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 8,
+          "entryId": "ntalbot-028",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_930/additional/Wheat blast sequences summary.docx",
+          "documentSha256": "4a525a43078844bae9630e31de4f86ae03b69a6e38fca6776101a705683c310a",
+          "clues": [
+            "Wheat BLAST sequences",
+            "Sample ",
+            "Project"
+          ]
+        }
+      ],
+      "proposedLongDesc": "Sequence analysis of wheat blast isolates, including assembly statistics and gene-prediction outputs. The supporting summary also refers to Project 945; these remain separate project records. Historical project number: 930.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven",
+      "titleSimilarityReview": "Defer final wording: these two wheat-blast proposals are similar to each other and several existing wheat-blast Projects. Find a supported cohort/isolate distinction before applying."
+    },
+    {
+      "entryId": "ntalbot-037",
+      "projectId": "6ada6c4457c017ae17122658",
+      "recordedName": "project_1566",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_1566",
+      "recordedPath": "/ntalbot/project_1566",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-037",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "MG bulk read alignment",
+      "proposedShortDesc": "A read alignment labelled MG bulk; the study identity is unconfirmed.",
+      "confidence": "low",
+      "recommendation": "hold",
+      "uncertainty": "The only inventoried file is Sample_MG_bulk_out.sorted.rmdup.bam. Do not expand MG, infer an organism, or invent a study title.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14146,
+          "originalRelativePath": "sample_mg/sample_mg/processed/Sample_MG_bulk_out.sorted.rmdup.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven"
+    },
+    {
+      "entryId": "ntalbot-040",
+      "projectId": "6ada6c4457c017ae17122659",
+      "recordedName": "project_592_593",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_592_593",
+      "recordedPath": "/ntalbot/project_592_593",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-040",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Buf mutant bulk segregant analysis",
+      "proposedShortDesc": "Read alignments and a report labelled as bulk segregant analysis of the Buf mutant.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "The subject is from Bulk segregant analysis of Buf mutant.doc filename only; the document text has not been examined. Keep both numbers.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14152,
+          "originalRelativePath": "additional/Bulk segregant analysis of Buf mutant.doc",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven"
+    },
+    {
+      "entryId": "ntalbot-044",
+      "projectId": "6ada6c4457c017ae1712265a",
+      "recordedName": "project_2171",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2171",
+      "recordedPath": "/ntalbot/project_2171",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-044",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Guy11 paired-end read alignment",
+      "proposedShortDesc": "A paired-end read alignment labelled Guy11_v3.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "The only file is Guy11_v3_PE_align_sorted.bam; the label supports Guy11 and alignment, but not a full study identity or equivalence with Project 539.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14185,
+          "originalRelativePath": "guy11/guy11/processed/Guy11_v3_PE_align_sorted.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven"
+    },
+    {
+      "entryId": "ntalbot-050",
+      "projectId": "6ada6c4557c017ae1712265d",
+      "recordedName": "project_230",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_230",
+      "recordedPath": "/ntalbot/project_230",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-050",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Mycelium RNA-seq expression tables",
+      "proposedShortDesc": "Expression tables labelled M. oryzae mycelium and Guy11 CM/GMM.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "Descriptions are based on filenames only. The contents and meaning of CM/GMM and AL1–AL3 were not inspected; do not infer conditions or experiment design.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14243,
+          "originalRelativePath": "additional/Guy11_CM_FPKM.txt",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14245,
+          "originalRelativePath": "additional/Guy11_GMM_FPKM.txt",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14246,
+          "originalRelativePath": "additional/dmsoanes_moryzae_mycelium_RNA-Seq.xls",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "approved by George, archive chat, 26 November 2026: approve all seven"
+    }
+  ]
+}
