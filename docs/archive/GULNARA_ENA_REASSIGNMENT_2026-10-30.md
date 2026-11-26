@@ -6,23 +6,34 @@ the procedures manually later. The purpose is to gather the samples for
 Gulnara's paper into one project for ENA submission, with consistent website,
 HPC and eventual S3 locations.
 
-## HPC retention todo — updated 13 November 2026
+## HPC retention todo — clarified 26 November 2026
 
-Keep the four source Projects below on HPC until the independent destination
-copies are verified and release is explicitly reviewed/recorded. **Also preserve
-`/tsl/data/reads/two_blades/gargy_2019_rnaseq/` on HPC until George explicitly
-releases it; no end date was supplied.** Gargy is Project
-`5fc012bda3efcb29338b7d58` and is a separate retention request, not part of the
-12-sample reassignment. Finishing Gulnara does not release Gargy's hold.
+Gulnara needs **one destination Project** for longer-term use, under the normal
+five-year archive-age policy. The four old source Projects are not five-year
+retention requests. Keep their original HPC trees temporarily until independent
+copies, reassignment checks and explicit release review are complete. Editing
+the sample associations does not itself release or delete their source trees.
+
+**Gargy is separate:** preserve `/tsl/data/reads/two_blades/gargy_2019_rnaseq/`
+(Project `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless
+she asks otherwise. The working date is 26 November 2027, subject to checking
+the earlier promise's start date. Finishing Gulnara does not release Gargy.
 
 The [current retention register and application requirements](HPC_RETENTION.md)
-cover all five exclusions. These remain manual review instructions; no
-production database flag, CLI guard or filesystem protection is installed.
+cover the five current exclusions. The application safeguards were reportedly
+deployed on 16 November, but this documentation does not install or verify any
+production date or filesystem protection. The four source exclusions remain
+manual instructions unless separately backed by agreed temporary dates.
 
 ## Destination and confirmed scope
 
 Destination: **Xanthoria parietina mycobiont RNAseq**, project
-`6ae4ac89a6b876c643741d27`, currently `hpc`.
+`6ae4ac89a6b876c643741d27`, already present and `hpc` in the 30 October snapshot.
+Recheck and use this identity rather than creating a duplicate. It is outside
+the completed 175-Project archive batch. Its normal archive eligibility is the
+later Project/newest Run creation date plus five years; read the current
+computed date after reassignment. No specific `preserveOnHpcUntil` override is
+chosen here, and the normal rule does not automatically populate that field.
 Its stored path is `/ntalbot/xanthoria_parietina_mycobiont_rnaseq`.
 On the archive host's recorded `/mnt/reads` mount, the proposed destination is
 `/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/`.

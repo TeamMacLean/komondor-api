@@ -11,10 +11,11 @@ deployed on 16 November. The latest reported heads are API `48bcd53` and web
 ([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md),
 [deployment record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). No live
 production check was made for this documentation update. The specification
-below preserves the 16 November decisions. George's separate, provisional
-26 November idea for default keep dates is recorded in
-[HPC_RETENTION.md](HPC_RETENTION.md#keep-dates-to-set-george); it does not change
-the implemented five-year archive-age calculation or authorise setting dates.
+below preserves the 16 November decisions. George's separate
+26 November decisions on project keep dates are recorded in
+[HPC_RETENTION.md](HPC_RETENTION.md#keep-dates-to-set-george). They do not change
+the implemented five-year archive-age calculation; saved keep dates still
+require the separate manual production step.
 
 Read first: [HPC_RETENTION.md](HPC_RETENTION.md), the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the

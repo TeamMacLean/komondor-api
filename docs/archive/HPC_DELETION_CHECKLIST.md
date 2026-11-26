@@ -18,16 +18,16 @@ record why.
   current running code contains the controls. API precedes web on any
   redeploy. The original feature blocks active dates; the follow-up also
   checks malformed raw BSON values and records requester/reason history.
-- [ ] **The five manual holds also carry a confirmed preservation date,
-  requester and reason.** The [retention register](hpc-retention-holds.json)
-  is not read by any code. Without a saved active date, that register alone
-  cannot make `deletion-command` refuse. Read the current fields before
-  choosing or backfilling them from the project pages as local `admin`.
-  Agree the actual dates with George: his proposed five-year default is still
-  provisional ([decision record](HPC_RETENTION.md#keep-dates-to-set-george)).
-  Once all fields are populated and reviewed, they are the current record and
-  the JSON register remains history. Preserve and check the explicit
-  Gargy/Gulnara release conditions; date expiry alone does not release them.
+- [ ] **The five current exclusions are protected.** The historical
+  [retention register](hpc-retention-holds.json) is not read by code; consult
+  the [current decision](HPC_RETENTION.md#keep-dates-to-set-george) and live
+  Project fields. Gargy's one-year date/requester/reason must be checked and
+  recorded. Gulnara's four sources remain temporarily excluded until the copy,
+  reassignment checks and release review are complete; they do not need
+  five-year commitments. Any temporary dates used as an additional CLI guard
+  need an agreed date and reason. Without a saved active date, the manual
+  exclusion alone cannot make `deletion-command` refuse. Do not prepare or run
+  deletion commands for these five while their holds apply.
 - [ ] **No stored date has a non-date type.** The follow-up checks raw BSON
   before Mongoose casting, flags invalid values publicly, and blocks deletion.
   Its deployment is reported complete, but confirm the running version and
@@ -51,7 +51,9 @@ record why.
 1. [ ] **No active hold**, checking the Project's date, requester and reason.
    Until the production fields are populated and reviewed, also check the five
    holds in [HPC_RETENTION.md](HPC_RETENTION.md), by Project ID *and* relative path. Gulnara's four are released only
-   by a recorded review after her copies are verified; Gargy only by George.
+   by a recorded review after her copy/reassignment is verified. Gargy's
+   one-year period must have ended (or an earlier release be explicitly agreed),
+   with any extension checked and fresh manual review completed.
 2. [ ] **Not one of the six manual-disposal entries.** Those follow
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md):
    no S3 copy and no archive CLI.

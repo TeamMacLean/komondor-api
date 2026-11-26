@@ -1,16 +1,18 @@
 # Gargy — candidate for George's HPC preservation test
 
 Prepared 13 November; documentation refreshed 26 November 2026. **No test
-result or chosen production date is recorded here.** Current production fields
+result or saved production date is recorded here.** Current production fields
 have not been checked in this update; inspect them before making any change.
 George reported the feature and retention follow-up deployed on 16 November
 ([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
 
-George earlier suggested approximately a year for this test. On 26 November
-he proposed a five-year default for keep dates followed by stakeholder
-notifications, explicitly as a provisional idea. Neither is a chosen date for
-Gargy. Confirm its actual date and preserve the independent release condition
-below; see the [open keep-date decision](HPC_RETENTION.md#keep-dates-to-set-george).
+On 26 November George confirmed he had told **Sara one year unless she asks
+otherwise**. Use **26 November 2027** as the working preserve-through date,
+measuring from today; the date of the earlier message was not supplied, so check
+that this matches the intended promise before saving. Requested by: **Sara**.
+Reason: "One year of HPC retention as agreed with Sara; contact George for an
+extension." This replaces the earlier unspecified duration and five-year
+suggestion; see the [keep-date decision](HPC_RETENTION.md#keep-dates-to-set-george).
 
 ## Exact candidate
 
@@ -31,8 +33,9 @@ That is historical transfer evidence, not a fresh presence check. The two HPC
 mount roots must not be substituted blindly.
 
 Gargy remains in the [manual retention exclusions](HPC_RETENTION.md), independent
-of Gulnara. Testing the UI, clearing a date, or letting a date expire does not
-release that existing instruction. Keep its source tree and S3 archive intact.
+of Gulnara. Keep its source tree for the agreed year and preserve the S3
+archive. Testing or clearing the date is not deletion approval; expiry permits
+fresh manual review only.
 
 ## Manual test after deployment
 
@@ -68,7 +71,8 @@ release that existing instruction. Keep its source tree and S3 archive intact.
 
 ## Result — awaiting George
 
-- Chosen preserve-through date (UTC): not recorded; read production first
+- Planned preserve-through date (UTC): 26 November 2027, subject to the one-year promise check above
+- Saved production date/requester/reason: not recorded; read production first
 - Test performed at: not recorded
 - API/web deployed heads: latest reported API `48bcd53`, web `284f762`
   (16 November); record the actual running heads when testing

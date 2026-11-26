@@ -65,19 +65,16 @@ operations must be checked before proceeding.
    that is not proof they remain unset. No Gargy production-test result has
    been recorded. The keep-date editor requires the local `admin` account;
    George's LDAP/ENA-admin login is not an API administrator.
-2. **Agree and record the keep dates (George, manual).** The
-   [retention page](HPC_RETENTION.md#keep-dates-to-set-george) lists the five
-   archived holds and 11 Kamoun KEEP Projects. Dates still need asking for or
-   choosing, then setting or checking in production. On 26 November George
-   proposed a five-year default followed by telling each stakeholder, but
-   explicitly described it as pencilled in. It is **not an adopted policy**:
-   scope, start date and whether to ask first or assign then notify remain
-   undecided. It does not set any dates or authorise notifications. The
-   existing `HPC_RETENTION_YEARS=5` archive-age rule is a separate calculation.
-   Use Gargy as the [manual test](GARGY_HPC_PRESERVATION_TEST.md) after choosing
-   its actual date. Confirm the five archived holds' date/requester/reason
-   records before starting deletion review; retain their explicit release
-   conditions.
+2. **Record the scoped keep-date decisions (George, manual).** The
+   [retention page](HPC_RETENTION.md#keep-dates-to-set-george) now distinguishes
+   Sara's Gargy (one year; working date 26 November 2027) and Joe Win's 11
+   Kamoun KEEP Projects (five years from today, 26 November 2031). George will
+   email Joe; no message or production date change is performed by this update.
+   Gulnara has one destination under the normal five-year archive-age policy,
+   whose computed date needs a live read. That is 13 long-term Projects, with
+   12 specific manual dates; her four old source holds are temporary safeguards,
+   not four five-year commitments. Test Gargy first and record actual saved
+   values. Keep all five original-batch exclusions in force for now.
 3. **HPC deletion review for the 170 archived Projects outside the five holds.**
    These remain candidates from the recorded batch, not approved targets.
    Check the [retention register](HPC_RETENTION.md) and the
@@ -89,13 +86,16 @@ operations must be checked before proceeding.
 4. **Gulnara's ENA reassignment.** The four Lichen CoCulture source Projects
    stay on HPC until the copy into the destination Project is done and
    verified. [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). No execution is
-   recorded. They can join deletion review only after their release is
-   explicitly reviewed and recorded, and any active keep dates are cleared.
+   recorded. The one destination (`6ae4ac89a6b876c643741d27`) already existed
+   in the 30 October snapshot; verify it rather than creating a duplicate.
+   Sources can join deletion review after reassignment/copy verification and
+   explicit release review, with any active temporary dates cleared.
 5. **Gargy HPC retention.** Preserve
    `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` (Project
-   `5fc012bda3efcb29338b7d58`) until George explicitly releases it. This is
-   independent of Gulnara. Choosing, expiring or clearing a dated hold does
-   not itself release the manual instruction.
+   `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless she asks
+   otherwise. The working date is 26 November 2027; check it against the earlier
+   promise before saving. This replaces the unspecified duration, remains
+   independent of Gulnara and requires fresh manual review before later deletion.
 6. **The six manual-disposal entries.** These are separate from the archive
    workflow: George deletes manually with no S3 copy. See the outcome table
    and [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md).
@@ -119,7 +119,7 @@ operations must be checked before proceeding.
 
 - Silence is consent for projects on the three plus-5-years exports. Owners are
   contacted only about a genuine new discrepancy, with a short deadline.
-  The tentative stakeholder notifications about future keep dates do not
+  George's planned email to Joe about the scoped keep dates does not
   retroactively change that batch policy.
 - Deletion is always manual. Never hand-edit `storage.*` or `archiveMigration.*`.
 - Kamoun's "keep on HPC" decisions stand, including *Wheat Blast - Zambia
