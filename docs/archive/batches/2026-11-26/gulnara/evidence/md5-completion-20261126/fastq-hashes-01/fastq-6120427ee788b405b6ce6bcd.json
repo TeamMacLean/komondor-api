@@ -1,0 +1,28 @@
+{
+  "sampleId": "612041f4e788b405b6ce6bc6",
+  "fileId": "6120427ee788b405b6ce6bcd",
+  "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/KS21XB1_2.fq.gz",
+  "bytes": 1779889359,
+  "sealedSha256": "52923cf0b82e39dca2273ca31d61ecb3d46a544845515e21855100b3199b2f36",
+  "expectedMd5FromSidecars": "bc44a021966a3c8877b88d0fd4b94bde",
+  "sidecarFileIds": [
+    "612041f4e788b405b6ce6bc8",
+    "6120427ee788b405b6ce6bce"
+  ],
+  "md5": "bc44a021966a3c8877b88d0fd4b94bde",
+  "sha256": "52923cf0b82e39dca2273ca31d61ecb3d46a544845515e21855100b3199b2f36",
+  "metadata": {
+    "dev": "42",
+    "ino": "61617662478",
+    "mode": "33272",
+    "nlink": "2",
+    "uid": "11449",
+    "gid": "12318",
+    "size": "1779889359",
+    "mtime_ns": "1629504134950000000",
+    "ctime_ns": "1795699470467387000"
+  },
+  "at": "2026-11-26T14:14:36.119204+00:00",
+  "verified": true,
+  "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+}

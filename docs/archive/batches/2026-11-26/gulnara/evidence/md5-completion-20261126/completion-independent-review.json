@@ -1,0 +1,70 @@
+{
+  "kind": "gulnara-md5-independent-completion-review",
+  "at": "2026-11-26T14:30:41.902Z",
+  "allChecksPassed": true,
+  "scope": "Local saved evidence only; no production connection or mutation",
+  "snapshotDirectory": "/Users/deeks/.codex/artifacts/gulnara-md5-20261126/server-completed-snapshot-01",
+  "register": {
+    "files": 63,
+    "bytes": 1216236,
+    "sha256": "0512dac175eec5d49c6449938787b9113f4e6b37b7c4fd843980dc26ce2fd24a",
+    "allMatched": true
+  },
+  "operationId": "d40a4195-b46c-415f-9e55-6d4e2564ceeb",
+  "inputSha256": "361a42cb5df5a56edf45ee0699de3fb2877564eb83fe890f9a32cd372c43e39b",
+  "planSha256": "d8468905032584761418efecbf82d12fbb395ec7327cdcf95dcfe6b94f5b5024",
+  "executionSha256": "6d80e9a8022df44a7d830d0faab5bdc5bc30446e3ceee42319fc362f31b20574",
+  "toolSha256": "585a411959b83aeb61d38f4a56691fc828fffff40f510902b56aaca9dbdb245d",
+  "journalSha256": "56ab8fcaf9bac1f40e6f6839d5c4ecf7494c59e07c84a4a07430894c7d5d7568",
+  "journalEvents": 86,
+  "changedDocuments": {
+    "reads": 31,
+    "runs": 12,
+    "total": 43
+  },
+  "allowedChangedFields": {
+    "reads": [
+      "MD5",
+      "destinationMd5",
+      "md5Mismatch",
+      "MD5LastChecked",
+      "updatedAt"
+    ],
+    "runs": [
+      "status",
+      "md5VerificationStatus",
+      "md5VerificationAttempts",
+      "md5VerificationLastAttempt",
+      "md5VerificationCompletedAt",
+      "md5VerificationResult",
+      "updatedAt"
+    ]
+  },
+  "allOtherTypedBsonFieldsUnchanged": true,
+  "unchangedControlCollections": [
+    "projects",
+    "samples",
+    "additionalfiles",
+    "files",
+    "ingestjobs"
+  ],
+  "reconciliationPathsStorageAndGraphUnchanged": true,
+  "proofComparisons": {
+    "historicalSidecarFastqs": 24,
+    "independentRetainedOriginalSidecars": 7,
+    "allMatched": true,
+    "nativeSidecarReceipts": 16
+  },
+  "allTwelveApplicationSummariesPassed": true,
+  "queueCount": 0,
+  "afterImageOrderDifferences": 43,
+  "notes": [
+    "MongoDB ordered newly added fields differently from planned after-image serialization; all values and BSON types match. Every original nonallowlisted field retains exact serialization.",
+    "Python proof timestamps are normalized to BSON Date millisecond precision; original finer precision remains in immutable native receipts."
+  ],
+  "limitations": [
+    "Checks evidence integrity and typed before/after images; does not independently re-read payloads or contact production.",
+    "Controller and service state are outside this metadata-only snapshot; the sealed importer does not import any service-control path."
+  ],
+  "issues": []
+}

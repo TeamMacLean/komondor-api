@@ -1,0 +1,17 @@
+✔ exact43 metadata writes: true31 comparisons, terminal12 runs, numeric pins/controls preserved (1018.119625ms)
+✔ interrupted Read write resumes only its exact after-image without queueing (462.465ms)
+✔ extra live graph record or control storage mutation refuses writes (46.717167ms)
+✔ hash mismatch, duplicate native proof and unsafe target cannot prepare (247.759916ms)
+✔ changed file metadata blocks import; added document field never overwritten (103.080625ms)
+✔ mid-import graph drift prevents any terminal Run transition (281.783125ms)
+✔ metadata rejects unsafe nanosecond numbers; CAS fences absent fields and BSON types (0.516541ms)
+✔ auxiliary checksum mapping rejects a swapped cross-sample Read reference (29.515375ms)
+✔ verification requires the complete, intact write-ahead journal (436.390416ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2783.621208

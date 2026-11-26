@@ -1,0 +1,10 @@
+{
+  "pid": 2729522,
+  "installed": {
+    "hash-fastqs.py": "0cd2328ce7a16689957f1df8cd86ffb70c31db352db784528381d2768958e03b",
+    "hash-auxiliary.py": "86ebb466c24bd38ac2b0ce43230c9cd1254f5362d230b334e9103006d7347925",
+    "sidecar-review.json": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563",
+    "copy-manifest.json": "0a2efc9c49c37c5da0a402d0a4906355583e50684331a2c02abd451e9768371e",
+    "auxiliary-source-scope.json": "3d5a401780a9f8074c3b802c1662091c4559c35787ca7c4889891f43fdc1ba89"
+  }
+}

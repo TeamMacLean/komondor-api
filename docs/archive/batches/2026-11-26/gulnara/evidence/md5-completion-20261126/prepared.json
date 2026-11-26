@@ -1,0 +1,11 @@
+{
+  "planSha256": "d8468905032584761418efecbf82d12fbb395ec7327cdcf95dcfe6b94f5b5024",
+  "operations": 43,
+  "scope": {
+    "reads": 31,
+    "runs": 12,
+    "fastqs": 24,
+    "auxiliarySidecars": 7
+  },
+  "snapshotSha256": "e6d47f89201cb6ee96de932acd1fdd02e59b32bd9d79b296f94634b1e4b9fa24"
+}

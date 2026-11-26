@@ -1,0 +1,145 @@
+{
+  "kind": "gulnara-md5-application-readback",
+  "at": "2026-11-26T14:27:01.220Z",
+  "projectId": "6ae4ac89a6b876c643741d27",
+  "allRunsPassed": true,
+  "runCount": 12,
+  "readCount": 31,
+  "fastqCount": 24,
+  "auxiliarySidecarReads": 7,
+  "queuedIngestJobs": 0,
+  "runSummaries": [
+    {
+      "runId": "5fd205a8d8dd4a63058cc28b",
+      "name": "S_21XB1",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 2,
+      "verified": 2,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "5fd20673d8dd4a63058cc295",
+      "name": "S_21XB3",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 2,
+      "verified": 2,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "5fdb5229d7661b6ec22a0641",
+      "name": "S_42XB1",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 2,
+      "verified": 2,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "5fdb5387d7661b6ec22a064b",
+      "name": "S_42XB2",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 2,
+      "verified": 2,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "5fdb543bd7661b6ec22a0655",
+      "name": "S_42XB3",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 2,
+      "verified": 2,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "612014e8e788b405b6ce6b46",
+      "name": "KS9XB1",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "612019d5e788b405b6ce6b52",
+      "name": "KS9XB2",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "61201af1e788b405b6ce6b5e",
+      "name": "KS9XB3",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "6120427ee788b405b6ce6bca",
+      "name": "KS21XB1",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "61214ec2e788b405b6ce6cca",
+      "name": "KS48XB1",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "61214f77e788b405b6ce6cd4",
+      "name": "KS48XB2",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    },
+    {
+      "runId": "61215030e788b405b6ce6cde",
+      "name": "KS48XB3",
+      "status": "complete",
+      "md5VerificationStatus": "complete",
+      "total": 3,
+      "verified": 3,
+      "mismatches": 0,
+      "skipped": 0,
+      "state": "passed"
+    }
+  ]
+}

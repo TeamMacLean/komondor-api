@@ -4,20 +4,27 @@ This is the current documented position of the HPC-to-S3 archive work. Older
 plans, previews and snapshots under `docs/archive/` are historical; where they
 disagree with this page, this page and the records it links to win.
 
-This update includes George's **26 November production keep-date verification
-output**, checked against the reviewed batch. There was no direct agent access
-to production. Transfer observations remain dated 3 November and the latest
-recorded deployment is 16 November; running heads, website behaviour and
-filesystem/S3 state were not rechecked by this read-back.
-
-A separate **26 November Gulnara read-only preflight** subsequently checked its
-five Project records and twelve selected sample trees directly on v1333. That
-scoped observation does not refresh the other archive Projects. George also
-confirmed retention functionality works; Claude is handling display polish as
-separate web work.
+The twelve keep dates were verified from George's supplied **26 November
+production read-back**, without a new agent query for that batch. Separate
+Gulnara work subsequently used direct scoped access to v1333: reassignment and
+MD5 verification completed on 26 November, as recorded below. Those checks do
+not refresh source/S3 deletion evidence for the other archive Projects.
+George confirmed retention functionality works; Claude's display polish remains
+separate web work. The S3 batch completion observations remain dated 3 November.
 
 ## Done
 
+- **Gulnara reassignment and MD5 follow-up completed.** All 12 Samples,
+  12 Runs and 40 files / 41.43 GB now resolve under the existing Xanthoria
+  destination. The 64 association/path updates and independent file copies
+  passed verification; all services were restored at 13:25 UTC. The later
+  24-FASTQ MD5/SHA-256 scan passed, seven auxiliary Reads were checked against
+  retained originals, and all 31 Read checksum results plus 12 Run statuses
+  were saved and verified. All 12 Runs pass the application's checksum summary.
+  [Execution record](batches/2026-11-26/gulnara/EXECUTION.md),
+  [MD5 completion evidence](batches/2026-11-26/gulnara/evidence/md5-completion-20261126/COMPLETED.json).
+  This technical work is done for now; George sent Gulnara the review email.
+  No source deletion, exclusion release, AWS revision or ENA submission occurred.
 - **Twelve HPC keep dates saved and verified.** George supplied a successful
   read-back on 26 November: Sara's Gargy through **26 November 2027**, and Joe
   Win's eleven Kamoun KEEP Projects through **26 November 2031**. All twelve
@@ -80,19 +87,14 @@ separate web work.
    operations; the Gulnara observer found clean API checkout `550074e` and
    datastore root `/mnt/reads`, not the running process's loaded code version.
    George plans to email Joe; no email is recorded as sent.
-2. **Gulnara's ENA reassignment.** Her destination
-   (`6ae4ac89a6b876c643741d27`) exists in the supplied read-back; use that identity.
-   A fresh [preflight and execution plan](batches/2026-11-26/gulnara/README.md)
-   confirms an empty destination and 40 files / 41.43 GB across the selected
-   12 Samples and 12 Runs. It specifies 64 record changes and journalled recovery
-   for standalone MongoDB. Seven checksum text files would enter the current
-   ENA export as Reads; validate the separate 24-FASTQ submission list. Copy/apply
-   tooling must be built and rehearsed before execution. Its expected normal
-   archive-age date is 30 October 2031, subject to rechecking after reassignment.
-   The four old source Projects remain temporarily excluded until
-   independent copies, reassignment checks and explicit release review succeed.
-   [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). No reassignment execution is
-   recorded; any active temporary dates must be cleared only on agreed release.
+2. **Await Gulnara's reply/sign-off.** The reassignment and MD5 work are
+   complete for destination `6ae4ac89a6b876c643741d27`; do not repeat them.
+   George sent the review email on 26 November. Keep the four source Projects
+   excluded from HPC deletion, retain the new destination copies and all
+   staging links, and retain the 12-row / 24-FASTQ ENA review CSV. Her reply
+   precedes a separate cleanup/archive-revision review; actual ENA submission
+   remains in its own workflow. The destination's normal archive-age date was
+   confirmed as 30 October 2031. [Record](GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
 3. **HPC deletion review for the 170 archived Projects outside the five holds.**
    These remain candidates from the recorded batch, not approved targets.
    Check the [retention register](HPC_RETENTION.md) and the

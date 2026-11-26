@@ -1,7 +1,7 @@
 # Gulnara ENA project reassignment
 
-Recorded 30 October; updated 26 November 2026. **The HPC copy and database
-reassignment are complete.** The 12 Samples and 12 Runs now resolve under the
+Recorded 30 October; updated 26 November 2026. **The technical reassignment and
+MD5 follow-up are done for now; awaiting Gulnara's reply/sign-off.** The 12 Samples and 12 Runs now resolve under the
 existing Xanthoria destination, with all 40 files verified and published. All
 four applications were restored at **13:25:06 UTC**. The scoped ENA CSV is
 validated but has not been submitted. Original source HPC trees, manual deletion exclusions
@@ -21,7 +21,9 @@ verified the completed graph and copies before restoring services.
 
 The **64 document updates** affected 12 Samples, 12 Runs and 40 Files, advancing
 16 existing identity pins and establishing 48 more while preserving history.
-No Project, Read or AdditionalFile document was written. The live website showed
+During that reassignment, no Project, Read or AdditionalFile document was
+written; the separate MD5 follow-up below subsequently updated checksum/status
+fields on 31 Reads and 12 Runs. The live website showed
 the 12 destination Samples and the correct representative Sample/Run paths.
 A published 100-byte MD5 file transferred over SSH to the Mac matched its
 sealed size and both checksums; no browser HTTP download was available in the
@@ -38,9 +40,10 @@ checks and both earlier safely restored attempts.
 ## Sign-off before cleanup — 26 November 2026
 
 Keep the ENA review CSV for now as the small review/handover inventory. George
-will request Gulnara's sign-off by email before separately reviewing source and
-staging cleanup. No sign-off or cleanup release is recorded here, and **nothing
-is to be removed now**. Sign-off permits that review; it does not automatically
+confirmed that he **sent the sign-off email to Gulnara on 26 November 2026**.
+Her reply/sign-off is pending before the separate source/staging cleanup review.
+No sign-off or cleanup release is recorded here, and **nothing is to be removed
+now**. Sign-off permits that review; it does not automatically
 delete data or release the four manual source exclusions.
 
 The original source files are still retained on HPC and in their verified AWS
@@ -57,16 +60,33 @@ removed, preserve the sealed repository CSV, completion receipts, checksum
 registers and other execution evidence as the permanent audit record. This
 does not authorize changing or removing the S3 archives.
 
-Legacy MD5 status labels will not automatically clear because the copy passed
-SHA-256 and CRC64NVME checks. Read-only inspection found that all **16 original
-`MD5.txt` sidecars** match their sealed sizes and SHA-256 values. Their preserved
-entries identify all **24 FASTQs** uniquely by sample and basename, with valid
-32-hex expected MD5 values, agreeing duplicates and no extra entries. These are
-available expected checksums, **not yet a fresh MD5 verification of the FASTQs**.
-Next calculate current FASTQ MD5 values, compare them with those original
-entries, then review any database backfill. No MD5 database fields or status
-labels have been changed. The small-file transfer verified the sidecar file's
-own bytes; it did not verify the FASTQ contents against its embedded MD5 values.
+## MD5 follow-up completed — 26 November 2026
+
+The SHA-256/CRC64NVME copy checks did not themselves clear legacy MD5 status.
+George authorized a separate verification and reviewed import. The **16
+original `MD5.txt` sidecars** matched sealed sizes/SHA-256; their preserved
+entries provided unambiguous expected MD5 values for all 24 FASTQs, with
+agreeing duplicates and no extra entries.
+
+Fresh hashing completed at **14:24:18.645 UTC**. All **24 FASTQs /
+41,432,633,829 bytes** matched both their original expected MD5 values and
+sealed SHA-256 values. The seven sidecar files represented as auxiliary Read
+records also matched retained original files on distinct inodes by fresh MD5
+and sealed SHA-256. The 16 sidecars total 1,588 bytes; the complete published
+scope remains 40 files / 41,432,635,417 bytes.
+
+The production import completed at **14:26:15.692 UTC**: **43 exact conditional
+writes, comprising 31 Reads and 12 Runs**. A separate verification at
+**14:26:39.564 UTC** found all 43 records in the expected after-state, zero
+divergent records and no control-record changes; the journal contains 86 events.
+Only reviewed checksum/status fields and `updatedAt` changed. No hooks, jobs,
+emails, service changes or payload deletion were triggered. See the
+[MD5 completion receipt](batches/2026-11-26/gulnara/evidence/md5-completion-20261126/COMPLETED.json).
+
+The technical reassignment and MD5 follow-up are complete for now. Await
+Gulnara's reply/sign-off; keep the review CSV, original source HPC/AWS copies,
+new destination HPC copies and all staging links. No manual source exclusion
+has been released and no cleanup or ENA submission has occurred.
 
 ## HPC retention todo — clarified 26 November 2026
 

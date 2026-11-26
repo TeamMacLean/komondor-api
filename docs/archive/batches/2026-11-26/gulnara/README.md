@@ -12,6 +12,17 @@ A final native verification passed at **13:28:15 UTC**, and a small published
 file transferred over SSH to the Mac matched its sealed size and both checksums.
 See the [completion receipt](evidence/completion-r3/COMPLETED.json).
 
+The separate **MD5 follow-up also completed on 26 November**: all 24 FASTQs
+matched original expected MD5 and sealed SHA-256 values, and seven auxiliary
+Reads matched their retained original sidecars. All 31 Read results and 12 Run
+statuses were saved and independently verified; all 12 application summaries
+pass. See [MD5 completion evidence](evidence/md5-completion-20261126/COMPLETED.json).
+George has sent the review email. The technical Gulnara work is done for now,
+awaiting her reply/sign-off before separately reviewed cleanup. Keep the ENA
+review CSV and all source/destination/staging files; no exclusion is released.
+The original r3 database snapshot predates these legitimate checksum updates;
+do not rerun the completed reassignment or its old full-database verifier.
+
 During the previous second operator window the old publisher
 created one empty directory, but NFS returned UID 11449 (`tsldata`) and mode
 `0770` despite `deeks` requesting `0700`. The safety assertion stopped execution

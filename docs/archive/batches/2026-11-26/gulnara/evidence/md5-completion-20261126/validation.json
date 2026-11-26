@@ -1,0 +1,22 @@
+{
+  "kind": "gulnara-md5-tool-validation",
+  "readOnlyHasherTests": 7,
+  "importerTests": 9,
+  "allPassed": true,
+  "realMongoCasLegacyDocuments": 43,
+  "concurrentAddedFieldRejections": 43,
+  "bsonTypeDriftRejections": 1,
+  "fullActualScopeRehearsal": {
+    "exactWrites": 43,
+    "applicationRunSummariesPassed": 12,
+    "productionConnection": false
+  },
+  "independentReviewPassed": true,
+  "toolSha256": {
+    "hash-auxiliary.py": "86ebb466c24bd38ac2b0ce43230c9cd1254f5362d230b334e9103006d7347925",
+    "hash-fastqs.py": "0cd2328ce7a16689957f1df8cd86ffb70c31db352db784528381d2768958e03b",
+    "test_hash_fastqs.py": "cfe74746e27038521b8e76df57f08b65f6897625ca3a2e026dd4f9acfb438996",
+    "import-md5.cjs": "585a411959b83aeb61d38f4a56691fc828fffff40f510902b56aaca9dbdb245d",
+    "import-md5.test.cjs": "eac4b231484059c9c365551d710e180f8bb18bb7562e67ca6ad35da45d3c0db3"
+  }
+}

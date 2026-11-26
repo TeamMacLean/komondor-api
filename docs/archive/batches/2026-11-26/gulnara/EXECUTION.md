@@ -197,44 +197,57 @@ The CSV uses HPC `/tsl/data/reads`; `vm-paths.txt` records the equivalent
 belongs to the submission workflow. **This is a validated review export, not an
 ENA submission.**
 
-## MD5 follow-up and sign-off — 26 November 2026
+## MD5 follow-up completed — 26 November 2026
 
-The original and reassigned snapshots have no stored processing/MD5 status
-fields on the 12 selected Runs, and no expected or calculated MD5 values on
-31 associated Read records. Model defaults explain the legacy pending labels;
-these records do not match the background verification queue. Waiting alone
-will not clear the labels. The successful SHA-256/CRC64NVME copy verification
-is independent of those fields.
+**The technical reassignment and MD5 follow-up are done for now.** George has
+sent the review email to Gulnara; her reply/sign-off is pending. The separate
+[MD5 completion receipt](evidence/md5-completion-20261126/COMPLETED.json) records
+the work, with [native checksum and validation evidence](evidence/md5-completion-20261126/).
 
-A subsequent [read-only sidecar review](evidence/md5-review-20261126/sidecar-review.json)
-checked all 16 published `MD5.txt` files against sealed sizes and SHA-256 values.
-They contain valid 32-hex expected checksums covering all 24 FASTQs, uniquely
-matched by Sample and basename; duplicate sidecars agree. This establishes
-usable historical checksum evidence, not a new FASTQ MD5 verification. The
-FASTQ MD5s have not yet been calculated and no database fields were changed.
+All **24 FASTQs / 41,432,633,829 bytes** passed independently calculated MD5
+against the preserved historical sidecars, and SHA-256 against the sealed copy
+manifest, at **14:24:18.645 UTC**. All 16 sidecars also matched their sealed
+size/SHA-256. For the seven sidecars represented as Reads, MD5 was independently
+calculated from both the retained original and copied file; they matched and
+the original/copy inodes were distinct. Those seven expected MD5s are explicitly
+source-derived, not claimed as provider-supplied sidecar checksums.
 
-Next, calculate the current FASTQ MD5s read-only, compare them with these
-preserved expected values, then prepare a scoped, reviewed import with exact
-Read/File identity checks and before-images. Preserve expected versus
-calculated values and record mismatches honestly. Do not simply set a verified
-status, generate both sides of a comparison from the current file, or queue
-legacy runs blindly. There is no dedicated legacy backfill command; background
-verification can send owner notifications. The seven MD5 sidecars represented
-as Reads must not be mistaken for FASTQs or used to claim all Reads verified.
+The scoped importer conditionally updated **31 Reads and 12 Runs** at
+**14:26:15.692 UTC**. Reads received expected/calculated MD5, comparison and
+check timestamps; Runs received terminal processing/checksum status and actual
+result counts. Only those fields and `updatedAt` changed. All before-images,
+after-images and 86 write-ahead journal events were retained. A separate native
+verification at **14:26:39.564 UTC** confirmed all 43 exact after-images, zero
+divergent records and no control-record changes. The deployed application's
+verification summary, freshly evaluated against the saved records at
+**14:27:01.220 UTC**, passed all 12 Runs and all 31 Reads. Auxiliary file rows
+remain `N/A` by extension in the Read-list UI; their source-to-copy comparisons
+are nevertheless recorded honestly in the Run totals. No browser check was
+performed for this follow-up.
 
-George will ask Gulnara to confirm the 12 Samples, 12 Runs, their pairings and
-metadata, and whether the original source HPC copies are still needed. The
-email is a draft only. Retain the ENA review CSV through sign-off; an expendable
-working copy may later be removed, but keep the sealed repository CSV and
-completion receipts as audit evidence. The CSV is a handover inventory, not a
-payload, backup or completed ENA submission.
+The importer passed nine focused tests and independent review; the read-only
+hasher passed seven tests. A real isolated MongoDB rehearsal accepted all 43
+actual legacy before-images, rejected added-field drift in every case and
+rejected BSON-type drift. A complete isolated import using the actual scope
+and completed proof receipts also passed all 43 writes and all 12 application
+summaries before production execution. No model hooks, queues, email delivery,
+service changes, payload writes or archive changes were used.
 
-Original source HPC copies and their existing AWS archives remain intact.
-Removing source HPC copies, if later released and reviewed, would leave the
-new destination copies on HPC; recovering an old source copy from AWS can
-incur retrieval charges and take time. Gulnara's sign-off is an input to the
-separate cleanup/archive-revision review, not automatic deletion approval.
-No source file, staging link or review CSV was removed during this follow-up.
+The original and reassigned snapshots lacked legacy Run/Read MD5 fields, so
+waiting alone could not have cleared the pending labels. The new operation
+records actual comparisons; it does not rewrite the historical r3 completion
+snapshot. Preserve those earlier receipts unchanged. The old r3 full-database
+verifier predates these legitimate checksum-field updates; use the MD5
+follow-up evidence for the current metadata state rather than rerunning the
+completed reassignment.
+
+Keep the ENA review CSV pending Gulnara's sign-off; an expendable working copy
+may later be removed while the sealed repository CSV and audit receipts remain.
+Original source HPC copies and AWS archives remain intact. Later removal of
+source HPC copies would leave the new destination copies on HPC; restoring an
+old source copy from AWS can incur retrieval charges and take time. Sign-off
+precedes a separate cleanup/archive-revision review, not automatic deletion.
+No source file, staging link or review CSV was removed.
 
 ## Remaining work
 

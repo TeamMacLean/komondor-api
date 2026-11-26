@@ -1,0 +1,98 @@
+{
+  "kind": "gulnara-md5-followup-completed",
+  "date": "2026-11-26",
+  "projectId": "6ae4ac89a6b876c643741d27",
+  "operationId": "d40a4195-b46c-415f-9e55-6d4e2564ceeb",
+  "status": "complete-awaiting-gulnara-reply-before-cleanup",
+  "fastqVerification": {
+    "count": 24,
+    "bytes": 41432633829,
+    "completedAt": "2026-11-26T14:24:18.645579+00:00",
+    "md5MatchesHistoricalSidecars": true,
+    "sha256MatchesSealedCopyManifest": true
+  },
+  "auxiliaryReadVerification": {
+    "count": 7,
+    "expectedSource": "independently calculated MD5 of retained original HPC sidecar",
+    "destinationMatchesOriginal": true,
+    "bothSha256MatchSealedManifest": true,
+    "originalAndCopyInodesIndependent": true
+  },
+  "database": {
+    "appliedAt": "2026-11-26T14:26:15.692Z",
+    "verifiedAt": "2026-11-26T14:26:39.564Z",
+    "readUpdates": 31,
+    "runUpdates": 12,
+    "counts": {
+      "before": 0,
+      "after": 43,
+      "diverged": 0
+    },
+    "unexpectedDifferences": [],
+    "applicationReadbackAt": "2026-11-26T14:27:01.220Z",
+    "all12RunsPassed": true,
+    "journalEvents": 86,
+    "journalSha256": "56ab8fcaf9bac1f40e6f6839d5c4ecf7494c59e07c84a4a07430894c7d5d7568",
+    "changedFields": {
+      "reads": [
+        "MD5",
+        "destinationMd5",
+        "md5Mismatch",
+        "MD5LastChecked",
+        "updatedAt"
+      ],
+      "runs": [
+        "status",
+        "md5VerificationStatus",
+        "md5VerificationAttempts",
+        "md5VerificationLastAttempt",
+        "md5VerificationCompletedAt",
+        "md5VerificationResult",
+        "updatedAt"
+      ]
+    }
+  },
+  "seals": {
+    "importerSha256": "585a411959b83aeb61d38f4a56691fc828fffff40f510902b56aaca9dbdb245d",
+    "inputSha256": "361a42cb5df5a56edf45ee0699de3fb2877564eb83fe890f9a32cd372c43e39b",
+    "planSha256": "d8468905032584761418efecbf82d12fbb395ec7327cdcf95dcfe6b94f5b5024",
+    "initialSnapshotSha256": "e0a2a00900da52229a0f13c256d3c364832e4daea95a73491c4b36a3a96e9ec9",
+    "postSnapshotSha256": "964fd3f322666bb2f2004de64ac620c3cdee9a92f51b316332fed0e8f78c5601",
+    "executionSha256": "6d80e9a8022df44a7d830d0faab5bdc5bc30446e3ceee42319fc362f31b20574"
+  },
+  "boundaries": {
+    "payloadFilesChanged": false,
+    "filesDeleted": false,
+    "identityPathsReconciliationOrStorageChanged": false,
+    "servicesChanged": false,
+    "jobsQueued": 0,
+    "agentEmailsSent": 0,
+    "enaSubmitted": false
+  },
+  "followUp": {
+    "georgeSentGulnaraEmail": true,
+    "gulnaraReplyPending": true,
+    "keepOriginalSourceHpcTrees": true,
+    "keepNewDestinationHpcFiles": true,
+    "keepStagingLinksUntilSeparateReview": true,
+    "keepEnaReviewCsvForNow": true,
+    "manualSourceExclusionsReleased": false
+  },
+  "privateEvidence": {
+    "serverPack": "/storage/komondor-gulnara-md5-20261126-01",
+    "macSnapshot": "/Users/deeks/.codex/artifacts/gulnara-md5-20261126/server-completed-snapshot-01",
+    "receivedFiles": 63,
+    "allReceivedFileHashesVerified": true,
+    "notPublished": [
+      "initial-db-snapshot.json",
+      "post-db-snapshot.json",
+      "db-evidence/plan.json",
+      "db-evidence/execution.json"
+    ]
+  },
+  "independentCompletionReview": {
+    "passed": true,
+    "receipt": "completion-independent-review.json",
+    "sha256": "e5f8e912a56ca1f5782a21ccebd1e4396ef0ec53367ab033e88715699c3d248d"
+  }
+}

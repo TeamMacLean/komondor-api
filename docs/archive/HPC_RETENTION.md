@@ -57,9 +57,11 @@ Project retention instructions, not a renewed waiting period for the batch.
 
 ### Gulnara cleanup decision — 26 November 2026
 
-The independent copy and 64-document reassignment have completed and passed
-verification. George will request Gulnara's sign-off by email before any
-separately reviewed source/staging cleanup. **No removal is authorized now.**
+The independent copy, 64-document reassignment and separate MD5 follow-up have
+completed and passed verification. **Gulnara's technical work is done for now.**
+George confirmed that the sign-off email was sent to Gulnara on
+**26 November 2026**; her reply/sign-off is pending before any separately
+reviewed source/staging cleanup. **No removal is authorized now.**
 The four source exclusions remain manual instructions, with null
 `preserveOnHpcUntil` values; no new date or database hold was installed. Sign-off
 alone does not automatically release them or issue deletion commands. Record
@@ -76,12 +78,16 @@ expected link-count/metadata changes.
 
 Keep the ENA working CSV for review/handover until sign-off. Preserve the sealed
 repository CSV and completion evidence permanently even if a disposable working
-copy is later removed. Legacy MD5 status labels have not been corrected and do
-not clear automatically after the successful SHA-256/CRC64NVME copy checks.
-The 16 original sidecars match sealed sizes/SHA-256 and provide unambiguous
-expected MD5 values for all 24 FASTQs. Actual FASTQ MD5s still need calculating
-and comparison before any reviewed backfill; no MD5 database changes have been
-made. This does not certify those FASTQs as MD5-verified yet.
+copy is later removed. Legacy MD5 status required a separate verification and
+import after the SHA-256/CRC64NVME copy checks. All 24 FASTQs now match fresh MD5
+values against the preserved original expectations and sealed SHA-256 values;
+the seven auxiliary Read sidecar files also match their retained originals.
+The reviewed import updated only checksum/status fields and `updatedAt` on
+31 Reads and 12 Runs. Separate verification at **14:26:39.564 UTC on
+26 November** confirmed all 43 expected results, zero divergence and no
+control-record changes. The [MD5 completion receipt](batches/2026-11-26/gulnara/evidence/md5-completion-20261126/COMPLETED.json)
+records that result. It does not release the source exclusions, remove staging
+links, change any keep date or authorize cleanup.
 
 ## Keep dates to set (George)
 
