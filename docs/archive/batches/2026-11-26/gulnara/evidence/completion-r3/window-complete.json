@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-26T13:25:03.610Z",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "runId": "2d9b913a-062b-416a-8f22-9c4762ce2ad1",
+  "recoveryId": null,
+  "attemptId": "5bd75f8a-565e-4a87-b8c4-7f973cd1cb5e",
+  "mutatorPid": 2671394,
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "preparedPlanSha256": "37fe42d9d183c880204beecb333a8a07d8f9caa948dd2549512ad6d4b35e4e1f",
+  "state": "applied"
+}

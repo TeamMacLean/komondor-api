@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-26T13:23:39.566Z",
+  "runId": "2d9b913a-062b-416a-8f22-9c4762ce2ad1",
+  "controllerPid": 2670431,
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "preparedPlanSha256": "37fe42d9d183c880204beecb333a8a07d8f9caa948dd2549512ad6d4b35e4e1f",
+  "copyReceiptSha256": "d9d62d7686775b5d859adc5ff86f926d0f139de29e3c5fdbc16b9adf88121c06",
+  "windowOperator": "tsldata",
+  "externalWritersFrozen": true,
+  "directApiCallersFrozen": true,
+  "allApiInstancesStopped": true,
+  "powerPaused": true,
+  "nudgePaused": true,
+  "webPaused": true,
+  "expiresAt": "2026-11-26T13:42:39.566Z",
+  "reviewAfterAt": "2026-11-26T13:43:39.566Z",
+  "services": [
+    {
+      "name": "komondor-api",
+      "id": 9,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-power",
+      "id": 8,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-nudge",
+      "id": 2,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-web",
+      "id": 0,
+      "pid": 0,
+      "status": "stopped"
+    }
+  ]
+}

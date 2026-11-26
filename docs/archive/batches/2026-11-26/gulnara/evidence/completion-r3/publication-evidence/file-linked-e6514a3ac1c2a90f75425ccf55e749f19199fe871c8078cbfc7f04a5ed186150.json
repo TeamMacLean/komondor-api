@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "copyDigest": "59c4ab3ff351cb1e5b3180d942cf0be8142aea1c1741fe36db5121d3ae8d3655",
+  "at": "2026-11-26T13:24:28.614Z",
+  "fileId": "5fd205a8d8dd4a63058cc28e",
+  "source": "/mnt/reads/ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99/21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+  "destination": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+  "intentSha256": "cec728a01c11880c95b05fe3a2e721e6152e6ff80e2459c2c148446046b96279",
+  "metadata": {
+    "dev": 42,
+    "ino": 61622890253,
+    "size": 1805995784,
+    "mode": 33272,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 2,
+    "mtimeMs": 1607599538609.999,
+    "ctimeMs": 1795699468608.944
+  },
+  "sha256": "44771c2ee207f61feafb2e53587f26a76693d18dcb31510a67dd0e5a42ce4aa7"
+}

@@ -1,35 +1,49 @@
 # Gulnara ENA project reassignment
 
-Recorded 30 October 2026. **Pending manual CLI work; no reassignment or file
-movement has been performed by this planning work.** George is willing to run
-the procedures manually later. The purpose is to gather the samples for
-Gulnara's paper into one project for ENA submission, with consistent website,
-HPC and eventual S3 locations.
+Recorded 30 October; updated 26 November 2026. **The HPC copy and database
+reassignment are complete.** The 12 Samples and 12 Runs now resolve under the
+existing Xanthoria destination, with all 40 files verified and published. All
+four applications were restored at **13:25:06 UTC**. The scoped ENA CSV is
+validated but has not been submitted. Original source HPC trees, manual deletion exclusions
+and sealed S3 archives remain intact; AWS revision and hold release are separate
+future reviews.
 
-## Read-only preflight completed — 26 November 2026
+## Execution completed — 26 November 2026
 
 The [fresh preflight and execution plan](batches/2026-11-26/gulnara/README.md)
-confirms the 12 Samples and 12 Runs, an empty existing destination, and **40
-files / 41,432,635,417 bytes**. Database relationships, physical file inventory,
-sealed manifest digests and selected tree metadata match. No reassignment,
-payload copy, service change or S3 change was performed. Full content checks
-belong to the planned copy verification, not this metadata observation.
+confirmed the 12 Samples and 12 Runs, an initially empty existing destination,
+and **40 files / 41,432,635,417 bytes**. Independent copies completed at 12:45
+UTC, with every source and separately reread staged copy matching sealed
+SHA-256 and CRC64NVME values. After two safely restored attempts, the reviewed
+r3 publisher completed on the actual NFS mount and the executor applied all
+64 conditional changes with zero divergent records. The controller independently
+verified the completed graph and copies before restoring services.
 
-The exact plan has **64 document updates**, including 16 File records with
-existing protected identities. MongoDB is standalone, requiring a journalled
-conditional update/recovery procedure. The current ENA exporter would include
-seven `MD5.txt` files recorded as Reads; the plan includes a separate 24-FASTQ
-preview and an explicit submission-list validation gate. Preserve all 40 files
-and existing Read associations. Execution tooling still needs implementation,
-rehearsal and review before execution. The four source exclusions remain active.
+The **64 document updates** affected 12 Samples, 12 Runs and 40 Files, advancing
+16 existing identity pins and establishing 48 more while preserving history.
+No Project, Read or AdditionalFile document was written. The live website showed
+the 12 destination Samples and the correct representative Sample/Run paths.
+A published 100-byte MD5 file transferred over SSH to the Mac matched its
+sealed size and both checksums; no browser HTTP download was available in the
+current UI. Final native verification passed at **13:28:15 UTC**.
+
+The [validated ENA review CSV](batches/2026-11-26/gulnara/evidence/completion-r3/ena-export-20261126-01/gulnara-ena.csv)
+contains **12 rows / 24 paired FASTQs**. It excludes seven `MD5.txt` Read entries
+only from the output, preserving all 40 files and existing associations. The
+native exporter still includes those sidecars; no application export fix or
+ENA submission was performed. See the [completion receipt](batches/2026-11-26/gulnara/evidence/completion-r3/COMPLETED.json)
+and [execution record](batches/2026-11-26/gulnara/EXECUTION.md) for seals,
+checks and both earlier safely restored attempts.
 
 ## HPC retention todo — clarified 26 November 2026
 
 Gulnara needs **one destination Project** for longer-term use, under the normal
 five-year archive-age policy. The four old source Projects are not five-year
 retention requests. Keep their original HPC trees temporarily until independent
-copies, reassignment checks and explicit release review are complete. Editing
-the sample associations does not itself release or delete their source trees.
+copies, reassignment checks and explicit release review are complete. The copy
+and reassignment checks have now passed; **release/archive-revision review is
+still outstanding**. Editing the sample associations does not itself release or
+delete their source trees.
 
 **Gargy is separate:** preserve `/tsl/data/reads/two_blades/gargy_2019_rnaseq/`
 (Project `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless
@@ -39,29 +53,32 @@ she asks otherwise. The saved keep date was verified on 26 November as
 The [current retention register and application requirements](HPC_RETENTION.md)
 cover the five current exclusions. The application safeguards were reportedly
 deployed on 16 November; George confirmed retention functionality on 26 November.
-The four Gulnara source exclusions remain manual instructions, with no manual
-date set in the fresh read-only database observation.
+The four Gulnara source exclusions remain manual instructions. Their
+`preserveOnHpcUntil` values were null in the baseline and remain unchanged;
+no database hold or keep date was added by the reassignment.
 
 ## Destination and confirmed scope
 
 Destination: **Xanthoria parietina mycobiont RNAseq**, project
-`6ae4ac89a6b876c643741d27`, already present and `hpc` in the 30 October snapshot.
-Recheck and use this identity rather than creating a duplicate. It is outside
+`6ae4ac89a6b876c643741d27`, reused for the completed reassignment and still `hpc`.
+No duplicate Project was created. It is outside
 the completed 175-Project archive batch. Its normal archive eligibility is the
-later Project/newest Run creation date plus five years; read the current
-computed date after reassignment. No specific `preserveOnHpcUntil` override is
-chosen here, and the normal rule does not automatically populate that field.
+later Project/newest Run creation date plus five years. After reassignment the
+live page showed **30 October 2031** (creation-based timestamp 14:41:13.635 UTC).
+No `preserveOnHpcUntil` override was added, and the normal rule does not
+automatically populate that field.
 Its stored path is `/ntalbot/xanthoria_parietina_mycobiont_rnaseq`.
-On the archive host's recorded `/mnt/reads` mount, the proposed destination is
+On v1333's verified `/mnt/reads` mount, the completed destination is
 `/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/`.
-Verify that mount and destination before use.
+George confirmed this is the same HPC storage exposed as `/tsl/data/reads` to
+the likely ENA transfer consumer. Test that consumer's access during submission.
 
 The source workbook `data_for_release.xlsx`, `Sheet1!A1:C13`, specifies 12 samples
 and 12 runs. George ran the read-only coverage check in production `komondor` and
 supplied its output on 30 October. Each project/name resolved uniquely; each
 sample had exactly its listed run. `unexpectedRuns`, `missingOrAmbiguous` and
-`invalidReferences` were empty. Repeat this check immediately before execution;
-any newly discovered run must be flagged before the move proceeds.
+`invalidReferences` were empty. Fresh checks on 26 November confirmed the exact
+scope before execution; the unusual sample/run pairing below was preserved.
 
 | Source project suffix | Sample | Run |
 | --- | --- | --- |
@@ -82,7 +99,7 @@ All source names start with `Lichen CoCulture_I `. The apparently unusual
 `21X_BMM2_KS` to `KS21XB1` pairing matches both the workbook and production output.
 The [scope snapshot](evidence/release-planning-20261030/gulnara-scope.json) retains
 the exact sample/run IDs, existing paths, source archive identities and target.
-Use those IDs when constructing the eventual commands.
+Those IDs were retained throughout the completed operation.
 
 ## Source archive state
 
@@ -100,7 +117,9 @@ destination share group `5fc012bda3efcb29338b7cf2` (`ntalbot`).
 S3 is already authoritative for these source projects. The website blocks normal
 ingest writes before HPC deletion; ordinary archival is not a backup-only upload.
 The pending state means HPC absence has not been confirmed, not proof the files
-are still present. The requested per-sample disk check has no result recorded here.
+are still present. The 26 November execution checked the source trees and
+independently copied all selected files; originals were retained and their
+metadata remained unchanged after publication.
 
 The sources belong to the initial archive selection. The separate
 [coverage note](INITIAL_MIGRATION_COVERAGE_2026-10-30.md) records the batch's
@@ -109,7 +128,11 @@ HPC deletion to remain a separate, hands-on decision. This active paper and ENA
 request must be considered during that review; no production hold or automated
 deletion exclusion has been installed by this note.
 
-## Procedure to prepare for manual execution
+## Completed procedure and remaining AWS review
+
+Steps 1–3 and the website/scoped-export checks in step 4 completed on 26 November.
+Actual ENA consumer access/submission and step 5 remain separate work. Do not
+repeat the copy or reassignment; the list records the reviewed boundaries.
 
 1. Recheck project states, complete run coverage, source directories, destination
    collisions and space. Inventory linked reads, sample/run additional files and
@@ -125,7 +148,8 @@ deletion exclusion has been installed by this note.
    `runs.path` and associated `files.path`. Runs retain their sample IDs; there is
    no `runs.project` field. Preserve IDs, accessions, other associations and group
    membership. Mongosh does not run Mongoose hooks or move physical files.
-4. Check website navigation, all new paths and the ENA export/submission. Keep
+4. Check website navigation, all new paths and the ENA review export; perform
+   the actual submission separately. Keep
    the destination in `hpc` while active ENA work requires that behaviour. Backups
    and old-path copies provide the recovery basis until verification succeeds.
 5. Prepare the AWS revision separately so its final layout follows the corrected
@@ -136,19 +160,24 @@ deletion exclusion has been installed by this note.
    operation for editing a completed archive in place. Do not reset storage
    fields manually or silently rewrite sealed evidence.
 
-Temporary HPC duplication is deliberate. Preserve the original trees during
-the copy; `mv` or hardlink copies change the metadata checked by the existing
-archive deletion workflow. Archiving the new project while keeping the old S3
+Temporary HPC duplication is deliberate. The original trees remain independent
+of the new copied inodes; no original was moved or hardlinked. R3 published
+hardlinks **from the already independently copied staging files**, retaining all
+40 staging links until separate cleanup review. Staging/final links share each
+copied inode, so retaining them does not consume another 41.43 GB of payload
+space. Removing either link changes its verification metadata and must not be
+done as an unreviewed cleanup. Archiving the new project while keeping the old S3
 snapshots would also duplicate these samples in S3. Permanent S3 duplication has
 not been chosen as the final outcome. Removing old S3 keys invalidates their
 existing manifests, so cleanup belongs to the verified AWS revision, not a simple
 rename/delete step. Normal archival of the destination will make it S3-authoritative.
 
-Waiting until Tuesday **3 November 2026** was discussed because the rest of the
+Historically, waiting until Tuesday **3 November 2026** was discussed because the rest of the
 initial batch was expected to finish then. That date is an estimate, not an
 execution appointment: confirm actual completion and ENA timing. These four
 source uploads were already verified, so waiting for the whole batch is an
-operational convenience. No reminder or future execution has been scheduled.
+operational convenience. The actual reassignment was completed on 26 November.
+No reminder or future execution has been scheduled.
 
 ## Evidence and implementation references
 
@@ -156,7 +185,8 @@ operational convenience. No reminder or future execution has been scheduled.
   `01a18d95-6c20-7f01-8fe8-21999f9cb0a6`, 30 October 2026.
 - [Scope snapshot](evidence/release-planning-20261030/gulnara-scope.json): selected
   fields transcribed from George's production coverage output, with the original
-  workbook digest. File inventory and byte verification remain outstanding.
+  workbook digest. File inventory, byte verification and reassignment were
+  subsequently completed in the linked 26 November execution record.
 - [Storage state and inherited locations](../../lib/storage-state.js).
 - [Sample relationships](../../models/Sample.js), [run relationships](../../models/Run.js),
   [file paths](../../models/File.js) and [additional files](../../models/AdditionalFile.js).

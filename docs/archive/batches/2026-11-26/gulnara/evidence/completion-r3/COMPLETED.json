@@ -1,0 +1,60 @@
+{
+  "at": "2026-11-26T13:29:11.449449+00:00",
+  "kind": "gulnara-reassignment-completion",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "runId": "2d9b913a-062b-416a-8f22-9c4762ce2ad1",
+  "restoredAt": "2026-11-26T13:25:06.331Z",
+  "state": "applied",
+  "counts": {
+    "before": 0,
+    "applied": 64,
+    "reversed": 0,
+    "diverged": 0
+  },
+  "differences": [],
+  "files": 40,
+  "bytes": 41432635417,
+  "retainedStageFiles": 40,
+  "originalSourcesIntact": true,
+  "s3ArchivesChanged": false,
+  "enaSubmitted": false,
+  "services": [
+    {
+      "name": "komondor-api",
+      "id": 9,
+      "pid": 2672554,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "id": 8,
+      "pid": 2672823,
+      "status": "online"
+    },
+    {
+      "name": "komondor-nudge",
+      "id": 2,
+      "pid": 2672841,
+      "status": "online"
+    },
+    {
+      "name": "komondor-web",
+      "id": 0,
+      "pid": 2672805,
+      "status": "online"
+    }
+  ],
+  "enaReviewRows": 12,
+  "enaReviewFastqs": 24,
+  "browserChecked": true,
+  "privateCompleteSnapshot": "/Users/deeks/.codex/artifacts/gulnara-preflight-20261126/r3-completed-snapshot-01",
+  "privateSnapshotFiles": 257,
+  "privateSnapshotBytes": 2266989,
+  "allSnapshotHashesVerified": true,
+  "holdReleasePerformed": false,
+  "cleanupPerformed": false,
+  "postBrowserNativeVerificationAt": "2026-11-26T13:28:15.575Z",
+  "smallFileDownloadVerifiedOnMac": true,
+  "smallFileDownloadTransport": "SSH from published VM path",
+  "sourceProtection": "Documented manual deletion exclusions; no preserveOnHpcUntil fields were changed."
+}

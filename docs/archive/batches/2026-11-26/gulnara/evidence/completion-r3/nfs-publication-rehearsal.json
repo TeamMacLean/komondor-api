@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-26T13:22:12.003Z",
+  "kind": "actual-nfs-publication-rehearsal",
+  "root": "/mnt/reads/ntalbot/.gulnara-publication-rehearsal-20261126-ad432153-47a4-4b4b-803d-31f342d9db7a",
+  "uid": 11449,
+  "gid": 12318,
+  "mode": 16888,
+  "results": [
+    {
+      "scenario": "full",
+      "passed": true,
+      "publishedFiles": 4,
+      "retainedStageFiles": 4,
+      "ordinaryPayloadRehash": false
+    },
+    {
+      "scenario": "interrupted-link",
+      "passed": true,
+      "interruptedFilesRehashed": 1,
+      "resumedWithoutOverwrite": true
+    },
+    {
+      "scenario": "foreign-collision",
+      "passed": true,
+      "foreignBytesPreserved": true
+    }
+  ],
+  "syntheticOnly": true,
+  "syntheticFilesRemoved": true,
+  "productionPayloadsTouched": false
+}

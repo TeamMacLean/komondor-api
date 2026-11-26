@@ -1,0 +1,7 @@
+AssertionError [ERR_ASSERTION]: Publication must own its private destination root
+
+11449 !== 14014
+
+    at assertClaim (/storage/komondor-gulnara-20261126/exec/copy.cjs:244:14)
+    at async Object.publishSamples (/storage/komondor-gulnara-20261126/exec/copy.cjs:249:10)
+    at async main (/storage/komondor-gulnara-20261126/runner.cjs:222:5)

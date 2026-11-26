@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-26T13:03:03.739Z",
+  "controllerPid": 2643997,
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "stopped": true,
+  "reason": "two-consecutive-connection-refusals",
+  "host": "127.0.0.1",
+  "port": 3061,
+  "elapsedMs": 203,
+  "attempts": [
+    {
+      "attempt": 1,
+      "at": "2026-11-26T13:03:03.539Z",
+      "state": "refused",
+      "code": "ECONNREFUSED",
+      "elapsedMs": 3
+    },
+    {
+      "attempt": 2,
+      "at": "2026-11-26T13:03:03.739Z",
+      "state": "refused",
+      "code": "ECONNREFUSED",
+      "elapsedMs": 0
+    }
+  ]
+}

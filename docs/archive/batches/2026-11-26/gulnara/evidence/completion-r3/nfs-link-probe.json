@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-26T13:14:39.487Z",
+  "kind": "isolated-nfs-atomic-link-probe",
+  "root": "/mnt/reads/ntalbot/.gulnara-link-probe-20261126-f0274588-09fe-47d2-9610-62c6891e8fde",
+  "rootIdentity": {
+    "dev": 42,
+    "ino": 61621574704,
+    "uid": 11449,
+    "gid": 12318,
+    "mode": 16888,
+    "nlink": 2,
+    "size": 0,
+    "mtimeMs": 1795698879391.548,
+    "ctimeMs": 1795698879391.548
+  },
+  "before": {
+    "dev": 42,
+    "ino": 61622180396,
+    "uid": 11449,
+    "gid": 12318,
+    "mode": 33272,
+    "nlink": 1,
+    "size": 256,
+    "mtimeMs": 1795698879403.331,
+    "ctimeMs": 1795698879403.331
+  },
+  "linkedStage": {
+    "dev": 42,
+    "ino": 61622180396,
+    "uid": 11449,
+    "gid": 12318,
+    "mode": 33272,
+    "nlink": 2,
+    "size": 256,
+    "mtimeMs": 1795698879403.331,
+    "ctimeMs": 1795698879450.414
+  },
+  "linkedFinal": {
+    "dev": 42,
+    "ino": 61622180396,
+    "uid": 11449,
+    "gid": 12318,
+    "mode": 33272,
+    "nlink": 2,
+    "size": 256,
+    "mtimeMs": 1795698879403.331,
+    "ctimeMs": 1795698879450.414
+  },
+  "after": {
+    "dev": 42,
+    "ino": 61622180396,
+    "uid": 11449,
+    "gid": 12318,
+    "mode": 33272,
+    "nlink": 1,
+    "size": 256,
+    "mtimeMs": 1795698879403.331,
+    "ctimeMs": 1795698879469.848
+  },
+  "sameInode": true,
+  "rejectedExistingSameFile": true,
+  "rejectedExistingForeignFile": true,
+  "foreignFileUnchanged": true,
+  "syntheticFilesRemoved": true,
+  "productionPayloadsTouched": false
+}
