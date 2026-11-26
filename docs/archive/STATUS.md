@@ -10,6 +10,12 @@ to production. Transfer observations remain dated 3 November and the latest
 recorded deployment is 16 November; running heads, website behaviour and
 filesystem/S3 state were not rechecked by this read-back.
 
+A separate **26 November Gulnara read-only preflight** subsequently checked its
+five Project records and twelve selected sample trees directly on v1333. That
+scoped observation does not refresh the other archive Projects. George also
+confirmed retention functionality works; Claude is handling display polish as
+separate web work.
+
 ## Done
 
 - **Twelve HPC keep dates saved and verified.** George supplied a successful
@@ -18,7 +24,8 @@ filesystem/S3 state were not rechecked by this read-back.
   have BSON dates, the expected requester/reason and one matching audit entry.
   [Verification evidence](evidence/hpc-retention-20261126/README.md). Gulnara's
   destination and four source Projects read back with no manual keep date;
-  their five records are outside this batch's writes. Website checks remain.
+  their five records are outside this batch's writes. George subsequently
+  confirmed the functionality works; UI presentation is separate ongoing work.
 - **Recorded production deployment.** George reported API `48bcd53` and web
   `92d6794` deployed on 16 November, followed by web-only `284f762`. Power
   `d98fab1` and Nudge `3791969` were unchanged. The
@@ -67,18 +74,22 @@ filesystem/S3 state were not rechecked by this read-back.
 
 ## Remaining
 
-1. **Check the website display.** Open Gargy and one Joe Project; confirm the
-   saved date, requester and reason display after reload, including for a reader.
-   The [Gargy test](GARGY_HPC_PRESERVATION_TEST.md) records the passed database
-   check separately from these pending browser checks. Confirm running API/web
-   heads and mount roots before later operations. Editing requires local `admin`;
-   George's LDAP/ENA-admin login does not have this permission. No repeat batch
-   or date save is needed merely to view the result. George plans to email Joe;
-   no email is recorded as sent.
+1. **Retention presentation follow-up is separate.** George confirmed the
+   functionality on 26 November and has Claude working on web presentation.
+   No repeat date save is needed. Confirm running API/web heads before later
+   operations; the Gulnara observer found clean API checkout `550074e` and
+   datastore root `/mnt/reads`, not the running process's loaded code version.
+   George plans to email Joe; no email is recorded as sent.
 2. **Gulnara's ENA reassignment.** Her destination
    (`6ae4ac89a6b876c643741d27`) exists in the supplied read-back; use that identity.
-   Its normal five-year archive-age eligibility still needs reading after the
-   reassignment. The four old source Projects remain temporarily excluded until
+   A fresh [preflight and execution plan](batches/2026-11-26/gulnara/README.md)
+   confirms an empty destination and 40 files / 41.43 GB across the selected
+   12 Samples and 12 Runs. It specifies 64 record changes and journalled recovery
+   for standalone MongoDB. Seven checksum text files would enter the current
+   ENA export as Reads; validate the separate 24-FASTQ submission list. Copy/apply
+   tooling must be built and rehearsed before execution. Its expected normal
+   archive-age date is 30 October 2031, subject to rechecking after reassignment.
+   The four old source Projects remain temporarily excluded until
    independent copies, reassignment checks and explicit release review succeed.
    [Plan](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). No reassignment execution is
    recorded; any active temporary dates must be cleared only on agreed release.

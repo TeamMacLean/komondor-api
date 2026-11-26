@@ -6,6 +6,23 @@ the procedures manually later. The purpose is to gather the samples for
 Gulnara's paper into one project for ENA submission, with consistent website,
 HPC and eventual S3 locations.
 
+## Read-only preflight completed — 26 November 2026
+
+The [fresh preflight and execution plan](batches/2026-11-26/gulnara/README.md)
+confirms the 12 Samples and 12 Runs, an empty existing destination, and **40
+files / 41,432,635,417 bytes**. Database relationships, physical file inventory,
+sealed manifest digests and selected tree metadata match. No reassignment,
+payload copy, service change or S3 change was performed. Full content checks
+belong to the planned copy verification, not this metadata observation.
+
+The exact plan has **64 document updates**, including 16 File records with
+existing protected identities. MongoDB is standalone, requiring a journalled
+conditional update/recovery procedure. The current ENA exporter would include
+seven `MD5.txt` files recorded as Reads; the plan includes a separate 24-FASTQ
+preview and an explicit submission-list validation gate. Preserve all 40 files
+and existing Read associations. Execution tooling still needs implementation,
+rehearsal and review before execution. The four source exclusions remain active.
+
 ## HPC retention todo — clarified 26 November 2026
 
 Gulnara needs **one destination Project** for longer-term use, under the normal
@@ -16,14 +33,14 @@ the sample associations does not itself release or delete their source trees.
 
 **Gargy is separate:** preserve `/tsl/data/reads/two_blades/gargy_2019_rnaseq/`
 (Project `5fc012bda3efcb29338b7d58`) for the one year George told Sara, unless
-she asks otherwise. The working date is 26 November 2027, subject to checking
-the earlier promise's start date. Finishing Gulnara does not release Gargy.
+she asks otherwise. The saved keep date was verified on 26 November as
+26 November 2027. Finishing Gulnara does not release Gargy.
 
 The [current retention register and application requirements](HPC_RETENTION.md)
 cover the five current exclusions. The application safeguards were reportedly
-deployed on 16 November, but this documentation does not install or verify any
-production date or filesystem protection. The four source exclusions remain
-manual instructions unless separately backed by agreed temporary dates.
+deployed on 16 November; George confirmed retention functionality on 26 November.
+The four Gulnara source exclusions remain manual instructions, with no manual
+date set in the fresh read-only database observation.
 
 ## Destination and confirmed scope
 

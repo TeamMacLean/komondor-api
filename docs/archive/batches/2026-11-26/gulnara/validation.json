@@ -1,0 +1,34 @@
+{
+  "recordedAt": "2026-11-26T11:42:42.614464+00:00",
+  "scope": "Local preflight tooling and derived execution-plan review only; no execution tool or production mutation tested.",
+  "checks": [
+    {
+      "command": "node --test docs/archive/batches/2026-11-26/gulnara/db-preflight.test.cjs docs/archive/batches/2026-11-26/gulnara/fs-preflight.test.cjs",
+      "passed": true,
+      "nodeTestCases": 22,
+      "databaseScenarios": 21,
+      "filesystemScenarios": 6
+    },
+    {
+      "check": "Python AST parsing, deterministic reconstruction of all four review JSON files, and relative documentation links",
+      "passed": true
+    },
+    {
+      "check": "Independent comparison of exact scope IDs, 64 update mappings, 40 copy entries/bytes, 16 existing identity pins, 48 proposed new pins, and 24 paired FASTQs against observations",
+      "passed": true
+    }
+  ],
+  "fileSha256": {
+    "README.md": "393436c16c6d1c89909c2a1d2c3fd77772d471605112cfa718962e2c5dcc76e0",
+    "build-review.py": "59a51c0d5737d8f914ae4902bfa8209f402e291c014add2108dd9bf7d9135cec",
+    "change-plan.json": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+    "copy-manifest.json": "0a2efc9c49c37c5da0a402d0a4906355583e50684331a2c02abd451e9768371e",
+    "db-preflight.cjs": "4ad1c45b6c7e991d08e1e99ca447d43ecd6504ce0b945f4335ca0831c0ae9be0",
+    "db-preflight.test.cjs": "884dc9921d4d197e093d1997dd0742d6c7e96f3e37a517eca9d8197bcc3e48fd",
+    "ena-fastq-preview.json": "edddc2fd4153ea510625de3bd0aa85ab0228aba2db8572d1f6527e48b8485169",
+    "fs-preflight.cjs": "523420f652be0181cd0744d8286bdd88f69501974b0b43785dcb3a085e3adb08",
+    "fs-preflight.test.cjs": "bd2e0cb2e0de500740bbd9394d26391e22afd4653842d2c5ad6fa30714dc7726",
+    "preflight-summary.json": "56df3a4e323cc32a63406c2ea392e8ea8c56ba8ab334871445346010276ac4c8",
+    "run-preflight.py": "df437d3d8bb9a50488824912f252f2b59d6c5c2d2a932345ea2e71ff22def7b9"
+  }
+}
