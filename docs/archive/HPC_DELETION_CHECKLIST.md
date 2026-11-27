@@ -15,12 +15,11 @@ record why.
 - [ ] **The reviewed preservation feature is still deployed** (deployed
   16 November; API before web on any redeploy). Without it, `deletion-command`
   cannot see `preserveOnHpcUntil` at all.
-- [ ] **The five manual holds also carry a preservation date.** The
-  [retention register](hpc-retention-holds.json) is not read by any code: today
-  `deletion-command` would print a command for the four Gulnara sources, and for
-  Gargy until its date is saved. Set `preserveOnHpcUntil` on all five from their
-  project pages (a far-future date for open-ended holds) so the CLI refuses
-  them. After deploying the follow-up, backfill and review the requester and
+- [x] **Gargy's hold carries a preservation date** (26 Nov 2027, set in
+  production by 27 November), so the CLI refuses it. The
+  [retention register](hpc-retention-holds.json) is not read by any code. The
+  four Gulnara sources are no longer held: George did the reassignment and
+  removed them from HPC (reported 27 November). After deploying the follow-up, backfill and review the requester and
   reason too. Once all fields are populated, the Project's date, requester and
   reason are the current record and `hpc-retention-holds.json` becomes history.
 - [ ] **No stored date has a non-date type.** The follow-up checks raw BSON
@@ -44,9 +43,9 @@ record why.
 ## For each Project
 
 1. [ ] **No active hold**, checking the Project's date, requester and reason.
-   Until the production fields are populated and reviewed, also check the five
-   holds in [HPC_RETENTION.md](HPC_RETENTION.md), by Project ID *and* relative path. Gulnara's four are released only
-   by a recorded review after her copies are verified; Gargy only by George.
+   Also check the Gargy hold in [HPC_RETENTION.md](HPC_RETENTION.md), by
+   Project ID *and* relative path; only George releases it. Gulnara's four were
+   released and removed by George (reported 27 November).
 2. [ ] **Not one of the six manual-disposal entries.** Those follow
    [KAMOUN_DELETE_TARGETS.md](batches/2026-10-16/KAMOUN_DELETE_TARGETS.md):
    no S3 copy and no archive CLI.

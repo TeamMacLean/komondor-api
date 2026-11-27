@@ -1,5 +1,11 @@
 # Gulnara ENA project reassignment
 
+**Update, 27 November 2026: done, as George reported.** He has made the new
+Project for Gulnara's samples and then removed the four source Projects from
+HPC, having had no reply from her. The sources' verified AWS copies remain.
+This page holds no record of the commands, checks or final IDs; everything
+below is the original plan, kept as history.
+
 Recorded 30 October 2026. **Pending manual CLI work; no reassignment or file
 movement has been performed by this planning work.** George is willing to run
 the procedures manually later. The purpose is to gather the samples for

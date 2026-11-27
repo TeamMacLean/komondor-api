@@ -1,6 +1,6 @@
 # Breaking changes — hardening refactor
 
-## Archive CLI: lock refuses Projects not yet due (27 November 2026; not deployed)
+## Archive CLI: lock refuses Projects not yet due (27 November 2026; deployed that day)
 
 **Affected consumers:** operators and scripts running
 `scripts/move-project-to-s3.js lock`. No API route, database field or other
@@ -14,7 +14,7 @@ output only and is not stored on the Project. `plan` gains a `reviewDate`
 object and never refuses on it. Projects already locked or later in a migration
 are unaffected.
 
-## HPC retention follow-up (16 November 2026; review branch, not deployed)
+## HPC retention follow-up (16 November 2026; deployed)
 
 **Affected consumers:** komondor-web and scripts calling
 `PUT /project/hpc-preservation`. Power and Nudge do not call this endpoint.

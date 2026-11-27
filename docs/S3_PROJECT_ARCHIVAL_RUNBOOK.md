@@ -1,15 +1,19 @@
 # S3 archive operator runbook
 
-**Start here every six months.** Projects are selected and archived manually;
-there is no automatic archiving or HPC deletion. The optional January/July
-email schedule below sends a review report only.
+**Start here for each archive batch.** Batches are ad hoc: George runs one
+when he chooses, somewhere between twice a year and once every five years.
+Twice a year is the ideal, not a requirement, and nothing is overdue if a
+review is skipped. Projects are selected and archived manually; there is no
+automatic archiving or HPC deletion. George intends to make this
+semi-automated at some point; nothing is built yet. The optional email
+schedule below sends a review report only.
 
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
 - Before every batch: [renew SSO login](#before-each-archive-batch).
-- Routine batch: [semi-annual procedure](#semi-annual-procedure).
+- Routine batch: [batch procedure](#batch-procedure).
 - Original scope and KEEP decisions: [16 October 2026 register](archive/batches/2026-10-16/README.md).
 - Initial batch coverage on 30 October: [175 of 366 project records, 47.8%](archive/INITIAL_MIGRATION_COVERAGE_2026-10-30.md).
-- Pending manual work: [Gulnara's ENA project reassignment](archive/GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
+- Done, as George reported on 27 November: [Gulnara's ENA project reassignment](archive/GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
 - Each selected project: [archive one project](#archive-one-project).
 - Interrupted or failed work: [recovery](#recovery).
 - Retrieve data: [restore a real archived file](#restore-a-real-archived-file).
@@ -48,11 +52,11 @@ batch, log in again under the same Linux user and follow [recovery](#recovery)
 for the existing migration. A tmux session protects against SSH disconnects,
 not credential expiry.
 
-## Semi-annual procedure
+## Batch procedure
 
-The administrator schedules two manual reviews per year, roughly six months
-apart. Record the next due date in the team's operational calendar; this
-runbook does not create an automation.
+George runs this whenever he decides to review, with no fixed calendar (see the
+top of this page). Projects simply stay on HPC past their review date until the
+next batch. This runbook does not create an automation.
 
 1. **Open a batch record outside the datastore.** Record date, operator/reviewer,
    deployed commits, AWS CLI version, account/role/bucket/base prefix, last
@@ -245,8 +249,9 @@ Work through the [per-Project HPC deletion checklist](archive/HPC_DELETION_CHECK
 which puts every gate below in order and lists known traps. First check the [current HPC retention exclusions](archive/HPC_RETENTION.md)
 by Project ID and exact path. Skip held Projects before preparing deletion
 commands. The deployed CLI does not enforce this manual register; a successful
-`deletion-command` result does not override a hold. As of 13 November 2026,
-Gargy 2019 RNAseq and the four Gulnara source Projects must be retained.
+`deletion-command` result does not override a hold. As of 27 November 2026,
+Gargy 2019 RNAseq must be retained; George has released and removed the four
+Gulnara source Projects.
 
 Also inspect the latest Project's `preserveOnHpcUntil` (visible on its page and
 in native `status --json`). The preservation feature blocks `deletion-command`
@@ -478,9 +483,11 @@ this is a review list, not a deletion instruction. Missing report recipients
 fail closed. Development/test mode logs instead of sending; no real email was
 sent by this implementation.
 
-### Proposed twice-yearly schedule — not installed
+### Optional twice-yearly email schedule — not installed, not required
 
-George installs this only after checking a report manually. Use **tsldata's
+Reviews are ad hoc, so this schedule is a convenience only: run the manual
+command above whenever a review is wanted. If George does want the reminder,
+he installs this only after checking a report manually. Use **tsldata's
 user crontab**, not root or deeks. The last recorded PM2 Node interpreter is
 `/storage/.nvm/versions/node/v24.11.1/bin/node` (see the
 [service-control record](archive/STAGE3_APPLICATION_REHEARSAL_2026-10-16.md#readiness-and-service-control));
