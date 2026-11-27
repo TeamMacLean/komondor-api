@@ -1,0 +1,10 @@
+{
+  "projectId": "611ff26de788b405b6ce6a4c",
+  "startedAt": "2026-11-27T14:10:55.259Z",
+  "finishedAt": "2026-11-27T14:12:57.995Z",
+  "exitCode": 0,
+  "stdout": "# Project 611ff26de788b405b6ce6a4c \"Lichen CoCulture_I 9 days\" — migration 6adb34be2f2b2c46efb0e274 — verified in S3 2026-10-27T19:07:09.277Z\n# 122 files, 103438441044 bytes. This removes the HPC copy. S3 is authoritative.\nrm -rf -- '/mnt/reads/ntalbot/lichen_coculture_i_9_days'\n",
+  "stderr": "",
+  "uncopied": [],
+  "reviewPassed": true
+}

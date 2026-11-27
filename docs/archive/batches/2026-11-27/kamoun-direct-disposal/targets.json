@@ -1,0 +1,125 @@
+{
+  "targets": [
+    {
+      "entryId": "skamoun-002",
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "relativeRoot": "skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+      "expectedFiles": 260,
+      "expectedBytes": 48614994012
+    },
+    {
+      "entryId": "skamoun-003",
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "relativeRoot": "skamoun/saunderd_pstriiformis_South_African_isolates",
+      "expectedFiles": 24,
+      "expectedBytes": 109802811903
+    },
+    {
+      "entryId": "skamoun-005",
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "relativeRoot": "skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+      "expectedFiles": 106,
+      "expectedBytes": 72013629033
+    },
+    {
+      "entryId": "skamoun-013",
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "relativeRoot": "skamoun/xiao_scr74",
+      "expectedFiles": 62,
+      "expectedBytes": 161447455740
+    },
+    {
+      "entryId": "skamoun-015",
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "relativeRoot": "skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+      "expectedFiles": 641,
+      "expectedBytes": 239985996303
+    },
+    {
+      "entryId": "skamoun-016",
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "relativeRoot": "skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+      "expectedFiles": 124,
+      "expectedBytes": 158139688071
+    }
+  ],
+  "protected": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "relativeRoot": "two_blades/gargy_2019_rnaseq",
+      "date": "2027-11-26T23:59:59.999Z",
+      "requestedBy": "Sara"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5b",
+      "relativeRoot": "skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "6054ba49d7661b6ec22a06f6",
+      "relativeRoot": "skamoun/wheat_blast___zambia_2018_2020",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d70",
+      "relativeRoot": "skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "61a758113545d74de71ebbec",
+      "relativeRoot": "skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "61ee798cdecd27242ab8adb1",
+      "relativeRoot": "skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "61fd5d59decd27242ab8adf3",
+      "relativeRoot": "skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "6502df19d32c7a7e4b174fe8",
+      "relativeRoot": "skamoun/italian_blast_fungus_isolates_from_wild_grasses",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "6863b1c7dc823951803ac3a4",
+      "relativeRoot": "skamoun/wheat_blast___bolivia_2023_24",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "65f06e07e372f7554d754873",
+      "relativeRoot": "skamoun/wheat_blast___zambia_2023",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "6863e922dc823951803ac406",
+      "relativeRoot": "skamoun/wheat_blast___paraguay_2023",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "69a81b4920a8c93a2306efc6",
+      "relativeRoot": "skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
+      "date": "2031-11-26T23:59:59.999Z",
+      "requestedBy": "Joe Win"
+    },
+    {
+      "projectId": "6ae4ac89a6b876c643741d27",
+      "relativeRoot": "ntalbot/xanthoria_parietina_mycobiont_rnaseq"
+    }
+  ],
+  "apiHead": "2474c4a4b070041a4e42f4148a25f8c7832137eb"
+}

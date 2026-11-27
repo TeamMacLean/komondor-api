@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-27T14:41:44.495Z",
+  "projectId": "61204424e788b405b6ce6bde",
+  "args": [
+    "confirm-absent",
+    "--project-id",
+    "61204424e788b405b6ce6bde",
+    "--confirmed-by",
+    "deeks"
+  ],
+  "exitCode": 0,
+  "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34bc2f2b2c46efb0e26a\"\n}\n",
+  "stderr": ""
+}

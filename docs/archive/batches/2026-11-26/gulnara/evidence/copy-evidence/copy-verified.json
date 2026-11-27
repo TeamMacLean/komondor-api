@@ -1,0 +1,178 @@
+{
+  "at": "2026-11-26T12:45:18.516Z",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "copyDigest": "59c4ab3ff351cb1e5b3180d942cf0be8142aea1c1741fe36db5121d3ae8d3655",
+  "stageRoot": "/mnt/reads/ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "files": 40,
+  "bytes": 41432635417,
+  "allVerified": true,
+  "sourceFinal": {
+    "at": "2026-11-26T12:45:18.484Z",
+    "samples": 12,
+    "files": 40,
+    "unchanged": true
+  },
+  "receiptDigests": [
+    {
+      "fileId": "5fd205a8d8dd4a63058cc28f",
+      "digest": "bea08b82b24955477957469138c7d793192a6f3e530184cee16600e34326a1f6"
+    },
+    {
+      "fileId": "5fd205a8d8dd4a63058cc28d",
+      "digest": "c549cb9c544b8e7641a92d97eef36168b83ef2720163efef10a32ee5d2c0ec93"
+    },
+    {
+      "fileId": "5fd205a8d8dd4a63058cc28e",
+      "digest": "7c65171112c150586af03ff62a353ce50f210b3f9431b7aa8d235ac0468ead9f"
+    },
+    {
+      "fileId": "612041f4e788b405b6ce6bc8",
+      "digest": "f803359fe5fef12bfe725c18c9976edfbba0c3004ec01b32bf2a0e2fc33a4265"
+    },
+    {
+      "fileId": "6120427ee788b405b6ce6bcc",
+      "digest": "f6e88416b252d11c4e9d0269ee25a08e0a1ef9881d1bec7507ad482e9205d189"
+    },
+    {
+      "fileId": "6120427ee788b405b6ce6bcd",
+      "digest": "fce533af28d2b9cd0215a016ed08850968d2b239ddf3891353c31020e24181f6"
+    },
+    {
+      "fileId": "6120427ee788b405b6ce6bce",
+      "digest": "6af23014a081b775ecf3dee990d9a6951ee83b349eaedbac87b2efcdbd9d1cd9"
+    },
+    {
+      "fileId": "5fd20673d8dd4a63058cc297",
+      "digest": "6d4fd72262f836a5caac6bcb46ff2fbc8cfdf9b099351fbe265fd71c086d52ee"
+    },
+    {
+      "fileId": "5fd20673d8dd4a63058cc298",
+      "digest": "e38a1c05a008fe771c8ba56be39da50f4f23bae51fd8ccc8a7e1266aa12c1f69"
+    },
+    {
+      "fileId": "5fd20673d8dd4a63058cc299",
+      "digest": "481920f3982d6108f867667c16d0fe25d40adeaece297b1ff743c74810bfdec5"
+    },
+    {
+      "fileId": "61214ec2e788b405b6ce6ccc",
+      "digest": "f79be087b9fdae711fb3bba53e776c06ea38b00ca76a7702d704f542db9f69af"
+    },
+    {
+      "fileId": "61214ec2e788b405b6ce6ccd",
+      "digest": "7042d36a2b672a35227087f4b37d9114d96768f478cc9d2d5d39707280374fef"
+    },
+    {
+      "fileId": "61214ec2e788b405b6ce6cce",
+      "digest": "94e2ef78bbcd6fabe9b01660dead932d2f1332b379aeb567e8958ffd4ff39c9e"
+    },
+    {
+      "fileId": "61214f77e788b405b6ce6cd6",
+      "digest": "e9d51ab22ba09ca2936a4aeb3ed316292d601792c313b74d7c867c1159d632f2"
+    },
+    {
+      "fileId": "61214f77e788b405b6ce6cd7",
+      "digest": "18d97d21af0b65325d65902c5893170c933157c498e6efa6cbf9911897740398"
+    },
+    {
+      "fileId": "61214f77e788b405b6ce6cd8",
+      "digest": "3e0ad70914792d2d917f556e85279e72edc71e644fe121e96864ad13a93286ea"
+    },
+    {
+      "fileId": "61215030e788b405b6ce6ce0",
+      "digest": "205fd3c43573f5f6c9d0c1025af5125d0381a973d730aa645f0e6a1b1d2ad178"
+    },
+    {
+      "fileId": "61215030e788b405b6ce6ce1",
+      "digest": "955a02ce15673c43442a29f57fd7be63769c32af9d80acf1c32a315ed66eb88c"
+    },
+    {
+      "fileId": "61215030e788b405b6ce6ce2",
+      "digest": "88c2c1d6c2b05efbc9cb9ea74fff18e00446d3f6288989695f15a06ffe6ae17e"
+    },
+    {
+      "fileId": "5fdb5229d7661b6ec22a0643",
+      "digest": "9c94d86793a707516b952c19acc31601da15b6387b874437d6f8acd97d35d28a"
+    },
+    {
+      "fileId": "5fdb5229d7661b6ec22a0645",
+      "digest": "ae7f3a9791c18fee83f39f4f77e648467ed4b742d08e5f3fedb5551bd717de45"
+    },
+    {
+      "fileId": "5fdb5229d7661b6ec22a0646",
+      "digest": "95fb636820725c1160b1ae658e26ab06136a1c6e3098a8d20032e743d0652a85"
+    },
+    {
+      "fileId": "5fdb5388d7661b6ec22a064f",
+      "digest": "81cab42c1d510529c16cc9bd1b5be2d9c0131cde47f57c7fdba3a09b334547fd"
+    },
+    {
+      "fileId": "5fdb5388d7661b6ec22a064d",
+      "digest": "dae29275ced7ccf1ee2a85156a8ab1a4302ac958a1be6fed8cad02037d1909d7"
+    },
+    {
+      "fileId": "5fdb5388d7661b6ec22a064e",
+      "digest": "a4e3f204f97eb92d5a98516aedd72a68d00cb90663572a100b62d6b60172cd04"
+    },
+    {
+      "fileId": "5fdb543bd7661b6ec22a0659",
+      "digest": "4737e05b0381f03ec1516861ac4cc592aa42e48cee208c2d0adafeb7997b45e7"
+    },
+    {
+      "fileId": "5fdb543bd7661b6ec22a0657",
+      "digest": "79703309bceb1de09625fb3311631509cb7fd7b1637a160113d05cab4ecc05a8"
+    },
+    {
+      "fileId": "5fdb543bd7661b6ec22a0658",
+      "digest": "9a84a566edae525fccd122ad0a6489e3667a7f871d27710a855f84a57bb01ab8"
+    },
+    {
+      "fileId": "6120146fe788b405b6ce6b44",
+      "digest": "9b0738a0ae5a400f5eed08944feb7896be97dcb3a814298e7db048aaf5a06a91"
+    },
+    {
+      "fileId": "612014e8e788b405b6ce6b48",
+      "digest": "ab69a788358253826300e1b19e8477e84f42e5e3420467abdca397ec8d2274ec"
+    },
+    {
+      "fileId": "612014e8e788b405b6ce6b49",
+      "digest": "7289b5b5383472f2270ad67945c6a2ba40abaf8e01dd9b01745183b9f28e6fa1"
+    },
+    {
+      "fileId": "612014e8e788b405b6ce6b4a",
+      "digest": "10b7dc575e0bc1e46345d9d0b9b1a80ec37de5a9f2bbee56878fe96b42ac1a3a"
+    },
+    {
+      "fileId": "61201564e788b405b6ce6b50",
+      "digest": "828616bea3722725e00fe6d03229f679197c7fa4eed2a43bc87fb9438154b154"
+    },
+    {
+      "fileId": "612019d6e788b405b6ce6b54",
+      "digest": "4e28e31e09298172a00118751c1e91e2667455696bdb83de5548479c33e01653"
+    },
+    {
+      "fileId": "612019d6e788b405b6ce6b55",
+      "digest": "9edb504ee505a958e7b7255a4d51b2fd6be34aed16d409e74e4c4db8112a596e"
+    },
+    {
+      "fileId": "612019d6e788b405b6ce6b56",
+      "digest": "591a3084517f254fc50a75b6cdef0422629114fe9e39a61bc0f175f36d62e914"
+    },
+    {
+      "fileId": "61201a4de788b405b6ce6b5c",
+      "digest": "fbc5e2d5d6566645267b826086356a99458b30c9c3da827e8c76b0e02ae16801"
+    },
+    {
+      "fileId": "61201af1e788b405b6ce6b60",
+      "digest": "9fca0733e4a9d5e385ee866d2b197f16087d6d27a7f0dfa604964822be4fb5c5"
+    },
+    {
+      "fileId": "61201af1e788b405b6ce6b61",
+      "digest": "2aaad1c6dca834c4a82d6fcfa295870c170e21964ad649abe38f8eb216483bba"
+    },
+    {
+      "fileId": "61201af1e788b405b6ce6b62",
+      "digest": "32ffb1bc3a2e0b81c3d50158078c5db814eb107790327016daf4b2bd738c2aea"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{"at": "2026-11-27T15:20:04.651947+00:00", "event": "started", "execute": true, "host": "t384n8", "mount": {"device": 230, "mountAncestor": "/tsl/data"}, "noS3Copy": true, "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55", "retirementReceiptSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a", "slurmJobId": "25342010", "stage": "kamoun-six-no-s3", "uid": 14014}
+{"at": "2026-11-27T15:20:05.000600+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:05.068017+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:05.184593+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:05.303927+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:05.830764+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:05.909703+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:05.942211+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:14.812697+00:00", "bytes": 48614994012, "event": "deleted", "files": 260, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:14.835481+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:17.752712+00:00", "bytes": 109802811903, "event": "deleted", "files": 24, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:17.794476+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:21.190545+00:00", "bytes": 72013629033, "event": "deleted", "files": 106, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:21.227645+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/xiao_scr74", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:23.637542+00:00", "bytes": 161447455740, "event": "deleted", "files": 62, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/xiao_scr74", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:23.843252+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:53.293631+00:00", "bytes": 239985996303, "event": "deleted", "files": 641, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:53.347171+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:56.697703+00:00", "bytes": 158139688071, "event": "deleted", "files": 124, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:56.704036+00:00", "bytes": 790004575062, "event": "complete", "files": 1217, "independentAbsenceConfirmationRequired": true, "noS3Copy": true, "projects": 6, "protectedRootsIntact": true, "retiredRecordsRetained": true}

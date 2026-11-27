@@ -1,0 +1,9 @@
+{
+  "name": "komondor",
+  "host": "localhost",
+  "port": 28015,
+  "collectionUuid": "1da9952fc11d4854b103f203238b8bdb",
+  "datastoreRoot": "/mnt/reads",
+  "activeIngest": 0,
+  "activeRuns": 0
+}

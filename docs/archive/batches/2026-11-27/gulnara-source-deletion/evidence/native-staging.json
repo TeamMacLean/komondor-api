@@ -1,0 +1,9 @@
+{
+  "serverPack": "/storage/komondor-gulnara-source-review-20261127-01",
+  "files": {
+    "review-native.cjs": "dc836735fa6fe095017cdc706756b843fbe57a0f6f9b6e32a86d64676e114268",
+    "register.json": "557a299be606cce3bef82f8db7963e7a4c7a88485a1229633a7293b98c576c8c",
+    "hold-release.json": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0"
+  },
+  "launched": false
+}

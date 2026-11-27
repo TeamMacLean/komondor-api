@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-27T15:06:41.253Z",
+  "runId": "debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb",
+  "controllerPid": 3675097,
+  "operationId": "kamoun-six-retirement-20261127-01",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "apiReady": true,
+  "graphState": "applied",
+  "services": [
+    {
+      "name": "komondor-api",
+      "id": 9,
+      "pid": 3677932,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "id": 8,
+      "pid": 3677979,
+      "status": "online"
+    },
+    {
+      "name": "komondor-nudge",
+      "id": 2,
+      "pid": 3677997,
+      "status": "online"
+    },
+    {
+      "name": "komondor-web",
+      "id": 0,
+      "pid": 3677961,
+      "status": "online"
+    }
+  ],
+  "consistency": {
+    "at": "2026-11-27T15:06:39.486Z",
+    "runId": "debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb",
+    "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+    "apiHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+    "state": "applied",
+    "counts": {
+      "before": 0,
+      "applied": 2459,
+      "diverged": 0
+    },
+    "records": 2459,
+    "protectedProjectsUnchanged": true,
+    "mutationInProgress": false,
+    "safeToReopen": true
+  }
+}

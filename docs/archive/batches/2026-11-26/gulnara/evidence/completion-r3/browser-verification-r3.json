@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-26T13:27:00Z",
+  "kind": "observed-authenticated-browser-check",
+  "projectUrl": "https://sequences.tsl.ac.uk/project?id=6ae4ac89a6b876c643741d27",
+  "adminSignedIn": true,
+  "visibleSamples": 12,
+  "projectStorage": "On HPC (directory present)",
+  "hpcPath": "/tsl/data/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq",
+  "normalArchiveDateShown": "30 October 2031",
+  "sampleChecked": {
+    "id": "612041f4e788b405b6ce6bc6",
+    "name": "21X_BMM2_KS",
+    "projectLinkCorrect": true
+  },
+  "runChecked": {
+    "id": "6120427ee788b405b6ce6bca",
+    "name": "KS21XB1",
+    "path": "/tsl/data/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1",
+    "fastqRows": [
+      "KS21XB1_1.fq.gz",
+      "KS21XB1_2.fq.gz"
+    ],
+    "md5SidecarPresent": true
+  },
+  "copyPathSuccessToastObserved": true,
+  "limitations": [
+    "Browser clipboard reader returned empty; exact clipboard bytes were not verified.",
+    "Current UI exposed copy-path controls, no small-file download control. Small-file download verified separately over SSH.",
+    "Legacy run displayed Verifying Checksums and No MD5; no MD5 fields were modified by this reassignment."
+  ],
+  "browserActionsChangedRecords": false
+}

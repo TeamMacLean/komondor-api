@@ -1,0 +1,2 @@
+/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_
+/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2

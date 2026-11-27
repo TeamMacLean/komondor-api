@@ -1,0 +1,4 @@
+/tsl/data/reads/ntalbot/lichen_coculture_i_21_days
+/tsl/data/reads/ntalbot/lichen_coculture_i_2_days
+/tsl/data/reads/ntalbot/lichen_coculture_i_42_days
+/tsl/data/reads/ntalbot/lichen_coculture_i_9_days

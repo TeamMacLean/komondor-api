@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-27T13:34:05.358284+00:00",
+  "serverRunner": "/storage/komondor-slurm-bulk-confirm-runner-20261127T133404Z",
+  "helperSha256": "aa8bcdfc3a81b5bdcf335ee405a04ed8f8839d2b6fc96ecb2c3446e94ff8849b",
+  "independentReview": "passed; all 334 sealed local source/verification controls match plan; native writes and failure handling reviewed",
+  "launched": false
+}

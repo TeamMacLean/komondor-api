@@ -1,0 +1,19 @@
+{
+  "reviewedAt": "2026-11-26T19:39:03.997Z",
+  "projects": 170,
+  "bytes": 12691261135021,
+  "files": 14886,
+  "heldProjectIds": [
+    "5fc012bda3efcb29338b7d58",
+    "5fd1ed55d8dd4a63058cc1c9",
+    "5fdb2d62d7661b6ec22a0571",
+    "611ff26de788b405b6ce6a4c",
+    "61204424e788b405b6ce6bde"
+  ],
+  "blocked": [],
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "targetsSha256": "188830e82403b540df940d1464726ad0ccbaa2d1284564cdd792cbf62be2cbc9",
+  "independentEvidenceValidationPassed": true,
+  "deletionPerformed": false,
+  "finalizationPerformed": false
+}

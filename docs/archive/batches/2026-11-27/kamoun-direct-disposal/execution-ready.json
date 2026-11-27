@@ -1,0 +1,29 @@
+{
+  "kind": "kamoun-disposal-window-v1",
+  "version": 1,
+  "operationId": "kamoun-six-retirement-20261127-01",
+  "planFile": "retirement-plan.json",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "backupPlanFile": "/storage/komondor-kamoun-disposal-backup-20261127-01/retirement-plan.json",
+  "apiHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "webHead": "536c87446dbe71b4bbd15f9f867a23d4a255960d",
+  "files": {
+    "window.cjs": "7db541fa41fe1ae652000866979e8b891269d0445f38613aee17770dc982b57e",
+    "listener-probe.cjs": "c9edae04d2ff8fb333c755f914363152fee5e95b8507bb0f7fdd7e80e57887e2",
+    "state-probe.cjs": "89d095a8eeabf5c3b8a086c76db004e3c56216f4c06434e99d43e0a9100c8dc1",
+    "retirement.cjs": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+    "inventory_direct_disposal.py": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+    "sealed-source-baseline.json": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+    "retirement-plan.json": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+    "held-paths.json": "d4dba5d9c801ab1dbfb2f3950fd5270b9482c0d0ce4a9d51e7ec2cd355b1bb12"
+  },
+  "windowMinutes": 20,
+  "projectIds": [
+    "5fc012bda3efcb29338b7cf9",
+    "5fc012bda3efcb29338b7cf5",
+    "5fc012bda3efcb29338b7d5c",
+    "5fc012bda3efcb29338b7d7a",
+    "5fc012bda3efcb29338b7d0d",
+    "5fc012bda3efcb29338b7cf8"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "recordedAt": "2026-11-27T15:22:34.991000+00:00",
+  "source": "George supplied Slurm final accounting in this chat",
+  "slurmJobId": "25342010",
+  "state": "COMPLETED",
+  "exitCode": "0:0",
+  "runtimeSeconds": 52,
+  "startedAtReported": "2026-11-27 15:20:04",
+  "finishedAtReported": "2026-11-27 15:20:56",
+  "stepsSucceeded": [
+    "batch",
+    "extern"
+  ],
+  "monitorStopped": true,
+  "schedulerQueriedDirectlyByCodex": false,
+  "rawJobLogsStillRequired": true
+}

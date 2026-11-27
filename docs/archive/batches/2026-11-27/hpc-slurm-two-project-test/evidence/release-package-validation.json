@@ -1,0 +1,9 @@
+{
+  "package": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released",
+  "projects": 167,
+  "planSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+  "pilotAcceptanceSha256": "a723e49ec3eb21e66ed5b8bc556f4c101a84f5a397efa8cd112401f4e98982ae",
+  "releaseStateSha256": "cb30e8d1e4b9e674d2ecbb0afa473cb17415dbaa2aebe604e7bb9ee1ca1a59e8",
+  "expiresAt": "2026-11-27T18:22:07.856000+00:00",
+  "submitted": false
+}

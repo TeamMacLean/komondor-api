@@ -1,0 +1,74 @@
+{
+  "at": "2026-11-27T11:05:02.979Z",
+  "projectId": "5fc012bda3efcb29338b7d4b",
+  "name": "Plant Capture Enhancer",
+  "operator": "deeks",
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "storage": {
+    "state": "aws",
+    "s3Uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+    "s3VerifiedAt": "2026-10-23T08:30:52.069Z",
+    "archivedAt": "2026-11-27T11:04:54.790Z",
+    "hpcVerifiedAbsentAt": "2026-11-27T11:04:54.790Z"
+  },
+  "phase": "completed",
+  "locations": {
+    "hpc": {
+      "status": "absent",
+      "uri": "/tsl/data/reads/jjones/plant_capture_enhancer",
+      "checkedAt": "2026-11-27T11:04:54.790Z",
+      "reason": "absence_recorded"
+    },
+    "aws": {
+      "status": "verified",
+      "uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+      "verifiedAt": "2026-10-23T08:30:52.069Z"
+    },
+    "ageBasisAt": "2020-11-26T20:40:36.814Z",
+    "archiveDueAt": "2025-11-26T20:40:36.814Z",
+    "hpcDeletionEligibleAt": null,
+    "hpcPreservationInvalid": false
+  },
+  "counts": {
+    "samples": 1,
+    "runs": 1,
+    "unfinishedJobs": 0,
+    "reads": 2,
+    "additionalFiles": 1
+  },
+  "associatedRecordsUnchanged": true,
+  "serverEvidence": "/storage/komondor-plant-capture-confirm-20261127T110444Z",
+  "commands": [
+    {
+      "at": "2026-11-27T11:04:50.170Z",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4b",
+        "--confirmed-by",
+        "deeks"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T11:04:54.801Z",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4b",
+        "--confirmed-by",
+        "deeks",
+        "--execute"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\"\n}\n",
+      "stderr": ""
+    }
+  ]
+}

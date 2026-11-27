@@ -1,0 +1,1 @@
+{"at":"2026-11-27T15:23:13.336Z","runId":"debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb","planSha256":"47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e","apiHead":"5a707a16e5843fc18b7ada016dce962a393c432b","state":"applied","counts":{"before":0,"applied":2459,"diverged":0},"records":2459,"protectedProjectsUnchanged":true,"mutationInProgress":false,"safeToReopen":true}

@@ -1,0 +1,134 @@
+{
+  "kind": "gulnara-source-deletion-job-audit-v1",
+  "success": true,
+  "jobId": "25340876",
+  "planSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+  "projects": 4,
+  "files": 452,
+  "bytes": 482738413472,
+  "exactTargets": [
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days",
+      "files": 142,
+      "bytes": 173734125362
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days",
+      "files": 99,
+      "bytes": 105611175618
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days",
+      "files": 89,
+      "bytes": 99954671448
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days",
+      "files": 122,
+      "bytes": 103438441044
+    }
+  ],
+  "events": {
+    "started": 1,
+    "preflightPassed": 4,
+    "deletionStarted": 4,
+    "deleted": 4,
+    "complete": 1,
+    "total": 14
+  },
+  "eventCounts": {
+    "started": 1,
+    "preflight-passed": 4,
+    "deletion-started": 4,
+    "deleted": 4,
+    "complete": 1
+  },
+  "exactPlanOrder": true,
+  "allPreflightsBeforeFirstDeletion": true,
+  "noDuplicateMissingOrUnexpectedEvents": true,
+  "rawEmbeddedAuditExactlyMatchesJsonl": true,
+  "noFailureEventsOrDiagnosticErrors": true,
+  "protectedCopiesIntact": true,
+  "databaseConfirmationRequired": true,
+  "execute": true,
+  "allEventsWithinReview": true,
+  "processExitCode": 0,
+  "host": "t384n8",
+  "uid": 14014,
+  "operator": "deeks",
+  "reviewCompletedAt": "2026-11-27T14:13:23.753Z",
+  "expiresAt": "2026-11-27T20:13:23.753000+00:00",
+  "startedAt": "2026-11-27T14:24:34.643429+00:00",
+  "completedAt": "2026-11-27T14:25:04.031273+00:00",
+  "runnerElapsedSeconds": 29.387844,
+  "packageChecksumChecksPassed": [
+    "HELD_PATHS.txt",
+    "HPC_PATHS.txt",
+    "PROJECTS.tsv",
+    "README.md",
+    "delete-reviewed-projects.py",
+    "delete.sbatch",
+    "deletion-plan.json",
+    "destination-check.json",
+    "hold-release.json",
+    "summary.json"
+  ],
+  "allocation": {
+    "nodes": 1,
+    "tasks": 1,
+    "cpusPerTask": 1,
+    "memoryPerNodeMiB": 1024,
+    "timeLimit": "02:00:00"
+  },
+  "gnuTime": {
+    "userCpuSeconds": 0.51,
+    "systemCpuSeconds": 0.44,
+    "cpuPercent": 3,
+    "wallClock": "0:30.39",
+    "maximumResidentKiB": 18176,
+    "swaps": 0,
+    "signalsDelivered": 0,
+    "processExitStatus": 0
+  },
+  "slurmLaunchSnapshot": {
+    "state": "RUNNING",
+    "exitCode": "0:0",
+    "finalAccounting": false
+  },
+  "slurmStatus": {
+    "source": "user-reported",
+    "state": "COMPLETED",
+    "exitCode": "0:0",
+    "startedAtReported": "2026-11-27T14:24:32",
+    "finishedAtReported": "2026-11-27T14:25:04",
+    "runtimeSecondsReported": 32
+  },
+  "schedulerFinalStateIndependentlyVerified": false,
+  "issues": [],
+  "limits": [
+    "Final Slurm accounting is user-reported; raw runner completion and GNU time exit 0 are independently verified.",
+    "This audit checks execution receipts. Mounted-source absence and native database confirmation require separate evidence."
+  ],
+  "inputs": [
+    {
+      "name": "deletion-plan.json",
+      "sha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+      "bytes": 110455
+    },
+    {
+      "name": "deletion-25340876.jsonl",
+      "sha256": "1785d078472494643f88f7247727074edb4ef77da35b9cfdaf8b36588d29edcc",
+      "bytes": 2304
+    },
+    {
+      "name": "komondor-gulnara-4-25340876.log",
+      "sha256": "936c03f9e7b616ef19e3bea79a7fdffe73c628624544d31e878bf8faf22f0d85",
+      "bytes": 5148
+    }
+  ],
+  "at": "2026-11-27T14:38:52.994566+00:00"
+}

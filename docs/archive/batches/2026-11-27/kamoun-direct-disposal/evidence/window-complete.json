@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-27T15:06:37.669Z",
+  "runId": "debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb",
+  "operationId": "kamoun-six-retirement-20261127-01",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "completedReceiptSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+  "retiredProjects": 6,
+  "retiredRecords": 2459
+}

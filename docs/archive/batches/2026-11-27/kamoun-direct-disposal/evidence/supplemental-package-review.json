@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-27T15:13:10.266983+00:00",
+  "reviewer": "independent cleanup-review agent",
+  "passed": true,
+  "builderTestsPassed": 8,
+  "allTwelveMembersAndSealsVerified": true,
+  "exactSixTargetsAndThirteenProtected": true,
+  "archiveSha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19",
+  "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+  "productionActions": false,
+  "blockingFindings": []
+}

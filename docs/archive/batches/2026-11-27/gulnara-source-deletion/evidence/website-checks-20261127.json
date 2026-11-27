@@ -1,0 +1,55 @@
+{
+  "at": "2026-11-27T14:44:20.999376+00:00",
+  "method": "Direct live browser UI/DOM inspection in authenticated Sequences Store",
+  "sourcePages": [
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "url": "https://sequences.tsl.ac.uk/project?id=61204424e788b405b6ce6bde",
+      "hpcLabel": "HPC removal confirmed",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesVisible": true
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "url": "https://sequences.tsl.ac.uk/project?id=611ff26de788b405b6ce6a4c",
+      "hpcLabel": "HPC removal confirmed",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesVisible": true
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fd1ed55d8dd4a63058cc1c9",
+      "hpcLabel": "HPC removal confirmed",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesVisible": true
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fdb2d62d7661b6ec22a0571",
+      "hpcLabel": "HPC removal confirmed",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesVisible": true
+    }
+  ],
+  "destination": {
+    "projectId": "6ae4ac89a6b876c643741d27",
+    "name": "Xanthoria parietina mycobiont RNAseq",
+    "url": "https://sequences.tsl.ac.uk/project?id=6ae4ac89a6b876c643741d27",
+    "hpcLabel": "On HPC (directory present)",
+    "samplesVisible": 12,
+    "scheduledArchiveDate": "2031-10-30"
+  },
+  "gargy": {
+    "projectId": "5fc012bda3efcb29338b7d58",
+    "url": "https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d58",
+    "hpcLabel": "On HPC (directory present)",
+    "awsLabel": "Transfer verified in AWS",
+    "preservationDate": "2027-11-26"
+  },
+  "websiteChangesByThisCheck": 0,
+  "note": "AWS UI label reports stored transfer verification; fresh archive checks are in the separate native pre-deletion evidence."
+}

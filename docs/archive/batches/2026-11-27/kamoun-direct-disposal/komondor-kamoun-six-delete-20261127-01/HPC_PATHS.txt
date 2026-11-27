@@ -1,0 +1,6 @@
+/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01
+/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates
+/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68
+/tsl/data/reads/skamoun/xiao_scr74
+/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01
+/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83

@@ -1,0 +1,1 @@
+{"at":"2026-11-27T15:04:19.156Z","runId":"read-only-preflight-r2-20261127","planSha256":"47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e","apiHead":"5a707a16e5843fc18b7ada016dce962a393c432b","state":"before","counts":{"before":2459,"applied":0,"diverged":0},"records":2459,"protectedProjectsUnchanged":true,"mutationInProgress":false,"safeToReopen":true}

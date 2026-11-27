@@ -1,0 +1,10 @@
+{
+  "kind": "kamoun-retirement-execution-v1",
+  "runId": "debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb",
+  "pid": 3676427,
+  "controllerPid": 3675097,
+  "executionAt": "2026-11-27T15:05:51.418Z",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "apiHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "outputDir": "/storage/komondor-kamoun-retirement-20261127-01"
+}

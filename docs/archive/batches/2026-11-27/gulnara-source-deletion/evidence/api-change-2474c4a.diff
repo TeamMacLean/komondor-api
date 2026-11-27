@@ -1,0 +1,392 @@
+diff --git a/BREAKING_CHANGES.md b/BREAKING_CHANGES.md
+index 8bf11dc..5008300 100644
+--- a/BREAKING_CHANGES.md
++++ b/BREAKING_CHANGES.md
+@@ -1,5 +1,19 @@
+ # Breaking changes — hardening refactor
+ 
++## Archive CLI: lock refuses Projects not yet due (27 November 2026; not deployed)
++
++**Affected consumers:** operators and scripts running
++`scripts/move-project-to-s3.js lock`. No API route, database field or other
++application changes.
++
++`lock` now refuses a Project whose HPC deletion-review date (the later of its
++age-based archive date and any keep date) is in the future or unknown,
++including when the stored keep date is invalid. Pass
++`--before-review-date "<reason>"` to copy early; the reason appears in the lock
++output only and is not stored on the Project. `plan` gains a `reviewDate`
++object and never refuses on it. Projects already locked or later in a migration
++are unaffected.
++
+ ## HPC retention follow-up (16 November 2026; review branch, not deployed)
+ 
+ **Affected consumers:** komondor-web and scripts calling
+diff --git a/__tests__/integration/archive-cli.test.js b/__tests__/integration/archive-cli.test.js
+index 7f5bb59..6da3bf7 100644
+--- a/__tests__/integration/archive-cli.test.js
++++ b/__tests__/integration/archive-cli.test.js
+@@ -109,7 +109,9 @@ beforeEach(async () => {
+   id = new mongo.mongoose.Types.ObjectId();
+   await db()
+     .collection("projects")
+-    .insertOne({ _id: id, name: "Archive test", path: "/group/project" });
++    .insertOne({ _id: id, name: "Archive test", path: "/group/project",
++      // Old enough that the 5-year HPC deletion-review date has passed.
++      createdAt: new Date("2019-01-01T00:00:00.000Z") });
+   await db().collection("users").insertOne({ username: "alice" });
+   await writeStore({ objects: {}, uploads: [] });
+ });
+@@ -307,7 +309,17 @@ test("real CLI retains HPC preservation through copying and refuses deletion or
+   const until = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+   await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: until } });
+   const originalBytes = await fs.readFile(`${source}/a.fastq`);
+-  expectSuccess(await lock());
++  // Policy: a future keep date defers the AWS copy unless a reason is given.
++  const early = await lock();
++  expect(early.code).not.toBe(0);
++  expect(early.stderr).toMatch(/not due for AWS until .*--before-review-date/s);
++  expect((await project()).archiveMigration).toBeUndefined();
++  const planned = JSON.parse((await cli("plan", "--json")).stdout);
++  expect(planned.reviewDate).toMatchObject({ passed: false, eligibleFrom: until.toISOString(), earlyCopyReason: null });
++  const overridden = await cli("lock", "--moved-by", "alice", "--acknowledge-known-anomalies",
++    "--before-review-date", "owner asked for an early archive", "--execute");
++  expectSuccess(overridden);
++  expect(overridden.stdout).toContain("owner asked for an early archive");
+   expect((await project()).preserveOnHpcUntil).toEqual(until);
+   expectSuccess(await copy());
+   const verified = await project();
+diff --git a/__tests__/lib/s3-archive/cli.test.js b/__tests__/lib/s3-archive/cli.test.js
+index 971459e..176a31d 100644
+--- a/__tests__/lib/s3-archive/cli.test.js
++++ b/__tests__/lib/s3-archive/cli.test.js
+@@ -30,6 +30,17 @@ jest.mock("../../../lib/s3-archive/upload", () => ({
+   verifyManifestObjects: jest.fn(),
+ }));
+ 
++// The real lookup queries Sample and Run; these tests have no database.
++jest.mock("../../../lib/hpc-retention", () => {
++  const actual = jest.requireActual("../../../lib/hpc-retention");
++  return {
++    ...actual,
++    // A plain function: jest.resetAllMocks() would strip a jest.fn body.
++    projectRetentionDates: async (project, options) =>
++      actual.computeRetentionDates(project, { now: options.now }),
++  };
++});
++
+ const inventory = require("../../../lib/s3-archive/inventory");
+ const preflight = require("../../../lib/s3-archive/preflight");
+ const state = require("../../../lib/s3-archive/state");
+@@ -325,6 +336,92 @@ describe("archive CLI operator flow", () => {
+     expect(dependencies.stderr).not.toHaveBeenCalled();
+   });
+ 
++  describe("AWS only after the HPC deletion-review date", () => {
++    const recent = (extra = {}) => ({
++      _id: PROJECT_ID,
++      name: "Project One",
++      path: "group/project",
++      createdAt: "2025-01-01T00:00:00.000Z",
++      ...extra,
++    });
++    const lockArgs = (...extra) => [
++      "lock", "--project-id", PROJECT_ID, "--moved-by", "alice", ...extra,
++    ];
++
++    test("lock refuses a Project whose review date is still ahead", async () => {
++      state.loadProject.mockResolvedValue(recent());
++      const dependencies = makeDependencies();
++      const code = await runCli(lockArgs("--execute"), dependencies);
++      expect(code).not.toBe(0);
++      expect(dependencies.stderr.mock.calls.join("")).toMatch(
++        /not due for AWS until 2030-01-01T00:00:00.000Z.*--before-review-date/s,
++      );
++      expect(preflight.apiAppearsStopped).not.toHaveBeenCalled();
++      expect(state.lockProject).not.toHaveBeenCalled();
++    });
++
++    test("a future keep date defers an otherwise old Project", async () => {
++      state.loadProject.mockResolvedValue(recent({
++        createdAt: "2015-01-01T00:00:00.000Z",
++        preserveOnHpcUntil: new Date("2027-06-30T23:59:59.999Z"),
++      }));
++      const dependencies = makeDependencies();
++      expect(await runCli(lockArgs(), dependencies)).not.toBe(0);
++      expect(dependencies.stderr.mock.calls.join("")).toContain(
++        "2027-06-30T23:59:59.999Z",
++      );
++    });
++
++    test("an invalid keep date refuses because the review date is unknown", async () => {
++      state.loadProject.mockResolvedValue(recent({
++        createdAt: "2015-01-01T00:00:00.000Z",
++        preserveOnHpcUntil: "2027-06-30",
++      }));
++      const dependencies = makeDependencies();
++      expect(await runCli(lockArgs(), dependencies)).not.toBe(0);
++      expect(dependencies.stderr.mock.calls.join("")).toContain(
++        "Invalid preserveOnHpcUntil",
++      );
++    });
++
++    test("an explicit reason allows an early copy and is echoed", async () => {
++      state.loadProject.mockResolvedValue(recent());
++      const dependencies = makeDependencies();
++      const code = await runCli(
++        lockArgs("--before-review-date", " owner request "),
++        dependencies,
++      );
++      expect(code).toBe(0);
++      expect(JSON.parse(dependencies.stdout.mock.calls[0][0]).reviewDate).toEqual({
++        eligibleFrom: "2030-01-01T00:00:00.000Z",
++        archiveDueAt: "2030-01-01T00:00:00.000Z",
++        passed: false,
++        earlyCopyReason: "owner request",
++      });
++    });
++
++    test("a blank reason is rejected", async () => {
++      state.loadProject.mockResolvedValue(recent());
++      const dependencies = makeDependencies();
++      expect(
++        await runCli(lockArgs("--before-review-date", "  "), dependencies),
++      ).not.toBe(0);
++      expect(dependencies.stderr.mock.calls.join("")).toContain(
++        "--before-review-date requires a reason",
++      );
++    });
++
++    test("plan reports the review date without refusing", async () => {
++      state.loadProject.mockResolvedValue(recent());
++      const dependencies = makeDependencies();
++      const code = await runCli(["plan", "--project-id", PROJECT_ID], dependencies);
++      expect(code).toBe(0);
++      expect(JSON.parse(dependencies.stdout.mock.calls[0][0]).reviewDate).toMatchObject({
++        eligibleFrom: "2030-01-01T00:00:00.000Z", passed: false, earlyCopyReason: null,
++      });
++    });
++  });
++
+   test("executes a locked migration through source sealing, copy, verification and the final fence", async () => {
+     const sourceRoot = "/srv/komondor/datastore/group/project";
+     const initialProject = {
+diff --git a/docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md b/docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md
+index 608e1d3..fc2c202 100644
+--- a/docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md
++++ b/docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md
+@@ -82,9 +82,16 @@ runbook does not create an automation.
+    pending group decisions before treating an earmarked entry as archive-approved.
+    Direct-disposal requests need their own agreed procedure; this archive runbook
+    does not execute them. KEEP entries must remain excluded.
+-   For later batches, agree and record the minimum age/cutoff and date evidence
+-   before building a shortlist. Ten years is currently a proposal, not a settled
+-   rule, and must not be applied retroactively to the initial supplied list.
++   For later batches, shortlist only Projects whose HPC deletion-review date
++   has passed: the later of the age-based archive date (`HPC_RETENTION_YEARS`,
++   default 5) and any keep date. These are the overdue, not-yet-on-AWS rows of
++   the [deletion-due report](#deletion-due-review-report). This is George's
++   [27 November 2026 policy](archive/HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed);
++   it replaces the earlier ten-year proposal and is not applied retroactively
++   to the initial supplied list. `plan` reports the date under `reviewDate`,
++   and `lock` refuses a Project that is not yet due. A deliberate early copy
++   needs `lock --before-review-date "<reason>"`; keep the lock output, which
++   echoes the reason, in the batch record.
+    A small recent project is not a substitute for an in-scope project; neither
+    the CLI nor a clean plan establishes policy eligibility. Reconcile each source
+    row with its live project ID and canonical path. Then confirm that it is
+@@ -169,6 +176,12 @@ A failed readiness probe alone is not proof of quiescence: verify processes and
+ queues as well. `KOMONDOR_READY_URL` must name the real local API, not an unused
+ port. The CLI refuses lock if it receives any HTTP response.
+ 
++Lock also refuses a Project whose HPC deletion-review date has not passed (the
++later of its age-based archive date and any keep date), or whose date is
++unknown. `plan` shows the date under `reviewDate`. For a deliberate early copy,
++add `--before-review-date "<reason>"` to both lock commands below; the reason
++is echoed in `lock.json`.
++
+ Preview the lock, then execute it:
+ 
+ ```bash
+diff --git a/docs/archive/HPC_RETENTION.md b/docs/archive/HPC_RETENTION.md
+index d99b461..82a34da 100644
+--- a/docs/archive/HPC_RETENTION.md
++++ b/docs/archive/HPC_RETENTION.md
+@@ -7,6 +7,29 @@ merged to master on 16 November; its deployment is pending
+ ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). This page does not
+ verify today's filesystem.
+ 
++## Policy from 27 November 2026: AWS only after the HPC date has passed
++
++George's instruction, 27 November 2026. **A Project is copied to AWS only once
++its HPC deletion-review date has passed**: the later of its age-based archive
++date (`HPC_RETENTION_YEARS`, default 5) and its keep date, if one is set. The
++copy and the HPC deletion review then happen together in the same batch. A
++Project with a future keep date therefore stays HPC-only, and writable, until
++that date passes.
++
++The archive CLI enforces this at `lock`, the first step that changes anything
++(API master, not yet deployed). `lock` refuses a Project whose date is still
++ahead, unknown, or blocked by an invalid keep date. George can still send a
++Project to AWS early as a deliberate exception by adding
++`--before-review-date "<reason>"`; the reason is printed in the lock output, so
++save that output in the batch record. `plan` never refuses but reports the date
++and whether it has passed under `reviewDate`. Until this is deployed, the rule
++is a selection rule for the operator only. The keep date itself still blocks
++`deletion-command` and `confirm-absent` as before.
++
++It applies from now on. The 175 Projects of the October 2026 batch are already
++on AWS and stay as they are, including the five holds below, which are on both
++AWS and HPC.
++
+ ## Active manual exclusions
+ 
+ **Do not prepare or run HPC deletion commands for these five Projects.**
+@@ -69,8 +92,10 @@ Set Gargy first: it doubles as the
+ year. The five holds matter now, because they already have verified AWS copies
+ and `deletion-command` would otherwise print a command for them. The 11 Kamoun
+ KEEP Projects are still HPC-only. Their date records the "please keep" decision
+-for when they are archived. Copying them to AWS stays allowed and makes them
+-read-only in Komondor.
++and, under the [27 November policy](#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed),
++they are not copied to AWS until it has passed. An earlier copy needs
++`lock --before-review-date "<reason>"` and makes the Project read-only in
++Komondor.
+ 
+ | Project | Project ID | Suggested keep-until | Why |
+ | --- | --- | --- | --- |
+@@ -176,8 +201,12 @@ are computed in the asynchronous storage-locations response and never stored.
+ The date is visible from project creation. Invalid `HPC_RETENTION_YEARS` fails
+ startup. If a later date lookup/calculation fails, the page retains project and
+ storage details with unavailable dates; it never treats missing dates as
+-permission to delete. Keep dates block HPC deletion only; they never delay
+-copying to AWS. Archiving makes the project read-only.
++permission to delete. As deployed on 16 November, keep dates block HPC deletion
++only. By
++[policy since 27 November](#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed),
++a Project is not copied to AWS until its deletion-review date has passed, and
++`lock` refuses it without a recorded reason. Archiving makes the project
++read-only.
+ 
+ For HPC/migrating projects, deletion review is due at the later of the archive
+ date and keep date; an AWS copy is still required first. For verified copies
+diff --git a/docs/archive/STATUS.md b/docs/archive/STATUS.md
+index e6be11f..7bd2421 100644
+--- a/docs/archive/STATUS.md
++++ b/docs/archive/STATUS.md
+@@ -117,6 +117,12 @@ dated 3 November; this update performs no new live check.
+ 
+ ## Standing rules
+ 
++- **AWS only after the HPC date has passed (George, 27 November 2026).** A
++  Project is selected for copying to AWS only once its deletion-review date,
++  the later of its 5-year archive date and any keep date, has passed. `lock`
++  refuses earlier copies unless given `--before-review-date "<reason>"` (API
++  master, not yet deployed). The October batch is unaffected.
++  [Details](HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed).
+ - Silence is consent for projects on the three plus-5-years exports. Owners are
+   contacted only about a genuine new discrepancy, with a short deadline.
+ - Deletion is always manual. Never hand-edit `storage.*` or `archiveMigration.*`.
+diff --git a/lib/s3-archive/cli.js b/lib/s3-archive/cli.js
+index bfaa2bb..45e94ca 100644
+--- a/lib/s3-archive/cli.js
++++ b/lib/s3-archive/cli.js
+@@ -3,6 +3,7 @@ const os = require("os");
+ const { crc64Nvme } = require("../utils/crc64nvme");
+ const { resolveStorageState } = require("../storage-state");
+ const { resolveHpcPreservation } = require("../hpc-preservation");
++const { projectRetentionDates } = require("../hpc-retention");
+ const { joinKey, s3Uri } = require("./config");
+ const {
+   ArchiveConfigurationError,
+@@ -80,6 +81,7 @@ const VALUE_OPTIONS = new Set([
+   "aborted-by",
+   "restarted-by",
+   "migration-id",
++  "before-review-date",
+   ...REPEATABLE_OPTIONS,
+ ]);
+ 
+@@ -510,8 +512,57 @@ const printObject = (context, value, { json = false } = {}) => {
+   context.stdout(`${JSON.stringify(value, null, 2)}\n`);
+ };
+ 
++// Policy (27 November 2026): a Project goes to AWS only once its HPC
++// deletion-review date has passed, i.e. the later of its age-based archive
++// date and any keep date. An earlier copy needs an explicit, recorded reason.
++const reviewDatePolicy = async (context, options, project) => {
++  const supplied = options["before-review-date"];
++  if (supplied !== undefined && (typeof supplied !== "string" || !supplied.trim())) {
++    throw new ArchiveConfigurationError(
++      "--before-review-date requires a reason",
++    );
++  }
++  const earlyCopyReason = supplied === undefined ? null : supplied.trim();
++  const now = new Date(context.now());
++  let dates = null;
++  let unavailable = null;
++  try {
++    dates = await projectRetentionDates(project, {
++      Sample: context.models.Sample,
++      Run: context.models.Run,
++      now,
++    });
++  } catch (error) {
++    unavailable = error.message;
++  }
++  const eligibleFrom = dates?.hpcDeletionEligibleAt ?? null;
++  const passed = eligibleFrom !== null && +new Date(eligibleFrom) <= +now;
++  return {
++    eligibleFrom,
++    archiveDueAt: dates?.archiveDueAt ?? null,
++    passed,
++    ...(dates?.hpcPreservationInvalid ? { keepDateInvalid: true } : {}),
++    ...(unavailable ? { unavailable } : {}),
++    earlyCopyReason,
++  };
++};
++
++const requireReviewDatePassed = (policy) => {
++  if (policy.passed || policy.earlyCopyReason) return;
++  const why = policy.eligibleFrom
++    ? `Project is not due for AWS until ${policy.eligibleFrom}, the later of its age-based archive date and its keep date`
++    : policy.keepDateInvalid
++      ? "Invalid preserveOnHpcUntil, so the HPC deletion-review date is unknown"
++      : `HPC deletion-review date is unavailable${policy.unavailable ? ` (${policy.unavailable})` : ""}`;
++  throw new ArchiveRefusalError(
++    `${why}. To copy it early as a deliberate exception, pass --before-review-date "<reason>"`,
++    { reviewDate: policy },
++  );
++};
++
+ const plan = async (context, options, project) => {
+   ensureState(project, ["hpc"]);
++  const reviewDate = await reviewDatePolicy(context, options, project);
+   const environment = await projectEnvironment(context, project);
+   const database = await databasePreflight(context, project);
+   // Planning is structural and therefore quick even for a multi-terabyte
+@@ -532,6 +583,7 @@ const plan = async (context, options, project) => {
+       context.config.dataPrefixFor(environment.sourceRelativeRoot),
+     ),
+     hpcSnapshot: inventory.hpcSnapshot,
++    reviewDate,
+     summary: buildSummary(inventory.entries, overlay.anomalies),
+     checksumInventory: "deferred to copy --execute",
+     anomalies: overlay.anomalies,
+@@ -546,6 +598,8 @@ const lock = async (context, options, project) => {
+   ensureState(project, ["hpc"]);
+   const movedBy = requireOption(options, "moved-by");
+   await requireKomondorUser(context.models.User, movedBy);
++  const reviewDate = await reviewDatePolicy(context, options, project);
++  requireReviewDatePassed(reviewDate);
+   await apiAppearsStopped(context.config.readyUrl);
+   const environment = await projectEnvironment(context, project);
+   const database = await databasePreflight(context, project);
+@@ -590,6 +644,7 @@ const lock = async (context, options, project) => {
+     identity: identitySummary(context, project, migrationId),
+     sourceRoot: environment.sourceRoot,
+     destination: s3Uri(context.config.bucket, dataKeyPrefix),
++    reviewDate,
+     anomalies: overlay.anomalies,
+     execute: Boolean(options.execute),
+   };

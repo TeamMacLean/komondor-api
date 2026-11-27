@@ -1,0 +1,63 @@
+{
+  "at": "2026-11-26T12:34:37.438610+00:00",
+  "kind": "gulnara-executor-validation",
+  "tests": {
+    "passed": 70,
+    "failed": 0,
+    "logSha256": "6cb1cc34ffa80720e217eb1be40e815cbb833b1c809953a8519006d1fb2a99c6"
+  },
+  "realMongoRehearsal": {
+    "at": "2026-11-26T12:15:49.496Z",
+    "database": "komondor-gulnara-rehearsal-c024b15a",
+    "sourceSnapshotAt": "2026-11-26T12:04:44.515Z",
+    "results": [
+      {
+        "name": "complete-and-reverse",
+        "passed": true,
+        "interruptedAfter": null
+      },
+      {
+        "name": "interrupted-and-resume",
+        "passed": true,
+        "interruptedAfter": 5
+      },
+      {
+        "name": "interrupted-and-reverse",
+        "passed": true,
+        "interruptedAfter": 17
+      }
+    ],
+    "allPassed": true
+  },
+  "runtimeSealSha256": "774c5f2792655dd2203ae26147eb91a8f7944f811778ec356bc8d0f2c086b23e",
+  "files": {
+    "copy-runner.cjs": "d315ff9817639ac85cfa0f24041e5f5e9f114be4cc4aa7de354ab8a8fb54154b",
+    "db-preflight.cjs": "4ad1c45b6c7e991d08e1e99ca447d43ecd6504ce0b945f4335ca0831c0ae9be0",
+    "db-preflight.test.cjs": "884dc9921d4d197e093d1997dd0742d6c7e96f3e37a517eca9d8197bcc3e48fd",
+    "exec/copy-recovery.cjs": "d35ba69d5f65f5ee16a38b3380d8cf92e7192cf66f2eca42447678b483501ebe",
+    "exec/copy-recovery.test.cjs": "3358a665d746117fee1fa0e86c8eb946b1aa41aba330208c0ae8b34298e0b5fb",
+    "exec/copy.cjs": "b88a35e4d16e307a3e6cd690a8008abad5d1e17b00d5a9f722bdf9ad4544e754",
+    "exec/copy.test.cjs": "b1af8f9a767ed3837d99c23eeae061ef17671b4d685a7197f2aef383b2af3925",
+    "exec/database.cjs": "2c99987c19097fa838511f5f657503885e18aed46f4f382099decae5ac6e9d59",
+    "exec/database.test.cjs": "fd8a20c1d74ffeda948bb0fbb5189900e19520c32a70136918ed6f0cc585c4f3",
+    "exec/ena.cjs": "df3595aff52e7f7ada3a433e507bf8f86a92a80cabbe7e826cb791be32879ac4",
+    "exec/ena.test.cjs": "b0c4d88f002968b3e4874b15f248045dc3f16a3eb78aa2a21814902fb61d5284",
+    "exec/rehearse-database.cjs": "a7f077d2bb190594380d02888a247dcf70d76e8a5106c85f16d590af1bc81ce6",
+    "exec/window.cjs": "bd279b1bf0bae019b83bd1b5441b0ce9027b4cae0337259a88c862ff3d6a9a09",
+    "exec/window.test.cjs": "51933283b37eeee0c5b9986892c5ed247cd8c31404ae5872491f41151b265606",
+    "fs-preflight.cjs": "523420f652be0181cd0744d8286bdd88f69501974b0b43785dcb3a085e3adb08",
+    "fs-preflight.test.cjs": "bd2e0cb2e0de500740bbd9394d26391e22afd4653842d2c5ad6fa30714dc7726",
+    "runner.cjs": "24125ac9d2550a2cda485e2b3cbc58a35771578d5c5aad15ade121eee68a3f5b",
+    "runner.test.cjs": "64af1e57d2f09cf47fc290ec2b9316e01eb9389a3ad990ddddee041bfbb70cda"
+  },
+  "independentReviews": [
+    "copy/publication and execution integration",
+    "database BSON/CAS/journal and recovery integration",
+    "operator window/reopen fences and ENA export"
+  ],
+  "limitations": [
+    "Private partially published 0700 roots require separate inspected recovery; never automatically grant access or restart.",
+    "Website and final export checks still pending actual reassignment.",
+    "No service control, database apply or ENA submission performed by this validation."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+    "Bytes": 17209559,
+    "Class": "DEEP_ARCHIVE",
+    "CRC64NVME": "LNflJKcrReM=",
+    "Type": "FULL_OBJECT",
+    "Version": "OodHZDTRQlq8j_wuypQ01_IxXn6xPhTX"
+}
+{
+    "Bytes": 17160504,
+    "Class": "DEEP_ARCHIVE",
+    "CRC64NVME": "oRBpuyK1qpc=",
+    "Type": "FULL_OBJECT",
+    "Version": "tk9F6g_6dCTG34Sr34Flj.hPI8Q_.I56"
+}
+total 41M
+-rwxrwx--- 1 root root 17M Mar 13  2019 PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz
+-rwxrwx--- 1 root root 17M Mar 13  2019 PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz
+e7a9e2fed3b1d8d4dc1c22de343c7a3cdd2bb7c8f147488bc21a22a5e8adccf9  /mnt/reads/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz
+4f4edbdd626b9e8afbd7cafaeff2ee97a262610d123ea17a63d2bd07beedae64  /mnt/reads/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz
+{
+  "at": "2026-10-23T16:49:16.352Z",
+  "projectId": "5fc012bda3efcb29338b7d4b",
+  "migrationId": "6adb1abcbed8ab3ef3948eb3",
+  "key": "jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+  "bytes": 17209559,
+  "sha256": "e7a9e2fed3b1d8d4dc1c22de343c7a3cdd2bb7c8f147488bc21a22a5e8adccf9",
+  "crc64nvme": "LNflJKcrReM=",
+  "sourceManifestSha256": "53d3a4a89236ddbff477eac5a63f1acc302992fbc9029cadb54629f665312f08",
+  "versionId": "OodHZDTRQlq8j_wuypQ01_IxXn6xPhTX",
+  "verified": true,
+  "hpcOriginalsRetained": true
+}

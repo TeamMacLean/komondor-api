@@ -1,0 +1,92 @@
+{
+  "at": "2026-11-27T13:34:22.496932+00:00",
+  "kind": "komondor-slurm-deletion-log-audit-v1",
+  "jobId": "25340024",
+  "success": true,
+  "inputs": {
+    "deletionReceipt": {
+      "path": "evidence/deletion-25340024.jsonl",
+      "sha256": "9a9a9f7f7ea14e37a1e3bc22046afebfc1005b860585162ca7c0405b187f7970",
+      "bytes": 82400
+    },
+    "jobLog": {
+      "path": "evidence/komondor-remaining-167-25340024.log",
+      "sha256": "6578a177aa011e19b3f6e16ab3a7fbfced9efc3b4295a18870e67505b88f28be",
+      "bytes": 85274
+    },
+    "releasedPlan": {
+      "path": "remaining-167-released/deletion-plan.json",
+      "sha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+      "bytes": 4054284
+    }
+  },
+  "planSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+  "projects": 167,
+  "filesRepresentedByPlan": 14860,
+  "deletedBytes": 12690838486686,
+  "eventCounts": {
+    "started": 1,
+    "preflight-passed": 167,
+    "deletion-started": 167,
+    "deleted": 167,
+    "complete": 1
+  },
+  "totalEvents": 503,
+  "exactProjectIdentitiesPathsAndBytes": true,
+  "exactPlanOrder": true,
+  "allPreflightsBeforeFirstDeletion": true,
+  "noDuplicateMissingOrUnexpectedEvents": true,
+  "noFailureEventsOrDiagnosticErrors": true,
+  "rawEmbeddedAuditExactlyMatchesJsonl": true,
+  "allFiveHeldAndThreeCompletedProjectsExcluded": true,
+  "runnerStartedAt": "2026-11-27T13:14:32.366997+00:00",
+  "runnerCompletedAt": "2026-11-27T13:24:17.630041+00:00",
+  "runnerElapsedSeconds": 585.263044,
+  "reviewCompletedAt": "2026-11-27T12:22:07.856Z",
+  "reviewExpiresAt": "2026-11-27T18:22:07.856000+00:00",
+  "allEventsWithinOriginalReviewWindow": true,
+  "host": "t384n18",
+  "uid": 14014,
+  "operator": "deeks",
+  "packageChecksumChecksPassed": [
+    "HELD_PATHS.txt",
+    "HPC_PATHS.txt",
+    "PROJECTS.tsv",
+    "README.md",
+    "delete-reviewed-projects.py",
+    "delete.sbatch",
+    "deletion-plan.json",
+    "fresh-release-state.json",
+    "pilot-acceptance.json"
+  ],
+  "allocation": {
+    "nodes": 1,
+    "tasks": 1,
+    "cpusPerTask": 1,
+    "memoryPerNodeMiB": 1024,
+    "timeLimit": "02:00:00",
+    "partition": "tsl-compute",
+    "account": "tsl"
+  },
+  "gnuTime": {
+    "userCpuSeconds": 6.11,
+    "systemCpuSeconds": 7.1,
+    "cpuPercent": 2,
+    "wallClock": "9:46.05",
+    "maximumResidentKiB": 32192,
+    "swaps": 0,
+    "processExitStatus": 0
+  },
+  "slurmLaunchSnapshot": {
+    "state": "RUNNING",
+    "exitCode": "0:0",
+    "startTime": "2026-11-27T13:14:31",
+    "scheduledTimeLimitEnd": "2026-11-27T15:14:31"
+  },
+  "schedulerFinalStateIndependentlyVerified": false,
+  "limits": [
+    "Raw job log contains a startup scontrol snapshot, not final sacct accounting. Native runner complete and GNU time process exit 0 are independently verified; final Slurm COMPLETED/0:0 remains separately reported by the user.",
+    "This audit validates deletion receipts against the sealed plan; independent mounted-source absence and native database confirmations are separate evidence."
+  ],
+  "databaseConfirmationRequired": true
+}

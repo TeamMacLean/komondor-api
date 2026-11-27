@@ -1,0 +1,197 @@
+{
+  "at": "2026-11-27T12:59:06.341Z",
+  "operator": "deeks",
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "planSha256": "79778948f8d92ae888a3c8ba275c2245d248bbdf41c717c094a1043a23269489",
+  "observations": {
+    "at": "2026-11-27T12:59:06.343Z",
+    "mount": {
+      "target": "/mnt/reads",
+      "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+      "fstype": "nfs"
+    },
+    "bothPilotRootsAbsent": true,
+    "fiveHeldRootsPresent": true,
+    "plantCaptureAbsent": true
+  },
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "name": "MiSeq RenSeq of Brassica accessions ",
+      "migrationId": "6adb34882f2b2c46efb0e138",
+      "storage": {
+        "state": "aws",
+        "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+        "s3VerifiedAt": "2026-10-23T10:38:53.748Z",
+        "archivedAt": "2026-11-27T12:58:32.049Z",
+        "hpcVerifiedAbsentAt": "2026-11-27T12:58:32.049Z"
+      },
+      "phase": "completed",
+      "locations": {
+        "hpc": {
+          "status": "absent",
+          "uri": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_",
+          "checkedAt": "2026-11-27T12:58:32.049Z",
+          "reason": "absence_recorded"
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+          "verifiedAt": "2026-10-23T10:38:53.748Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.819Z",
+        "archiveDueAt": "2025-11-26T20:40:36.819Z",
+        "hpcDeletionEligibleAt": null,
+        "hpcPreservationInvalid": false
+      },
+      "counts": {
+        "samples": 2,
+        "runs": 1,
+        "unfinishedJobs": 0,
+        "reads": 2,
+        "additionalFiles": 14
+      },
+      "associatedRecordsUnchanged": true,
+      "s3VerifiedAtUnchanged": true,
+      "onlyNativeConfirmationFieldsChanged": true
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "name": "Resistance to Albugo laibachii in Sf-2",
+      "migrationId": "6adb34932f2b2c46efb0e186",
+      "storage": {
+        "state": "aws",
+        "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+        "s3VerifiedAt": "2026-10-23T10:37:23.125Z",
+        "archivedAt": "2026-11-27T12:58:55.185Z",
+        "hpcVerifiedAbsentAt": "2026-11-27T12:58:55.185Z"
+      },
+      "phase": "completed",
+      "locations": {
+        "hpc": {
+          "status": "absent",
+          "uri": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+          "checkedAt": "2026-11-27T12:58:55.185Z",
+          "reason": "absence_recorded"
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+          "verifiedAt": "2026-10-23T10:37:23.125Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.822Z",
+        "archiveDueAt": "2025-11-26T20:40:36.822Z",
+        "hpcDeletionEligibleAt": null,
+        "hpcPreservationInvalid": false
+      },
+      "counts": {
+        "samples": 1,
+        "runs": 1,
+        "unfinishedJobs": 0,
+        "reads": 2,
+        "additionalFiles": 5
+      },
+      "associatedRecordsUnchanged": true,
+      "s3VerifiedAtUnchanged": true,
+      "onlyNativeConfirmationFieldsChanged": true
+    }
+  ],
+  "reportedSlurm": {
+    "jobId": "25339708",
+    "provenance": "User report; raw job logs and scheduler accounting not inspected by this script",
+    "reportedProcessExitCode": 0,
+    "schedulerState": "not-yet-inspected",
+    "reportedDeletedProjects": 2,
+    "reportedDeletedBytes": 388000992,
+    "rawLogsInspected": false,
+    "schedulerAccountingIndependentlyVerified": false
+  },
+  "serverEvidence": "/storage/komondor-slurm-pilot-confirm-20261127T125812Z",
+  "remaining167Released": false,
+  "commands": [
+    {
+      "at": "2026-11-27T12:58:20.885Z",
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d13",
+        "--confirmed-by",
+        "deeks"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T12:58:27.334Z",
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4e",
+        "--confirmed-by",
+        "deeks"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T12:58:32.057Z",
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d13",
+        "--confirmed-by",
+        "deeks",
+        "--execute"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T12:58:50.540Z",
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "args": [
+        "status",
+        "--project-id",
+        "5fc012bda3efcb29338b7d13",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"status\",\n  \"identity\": {\n    \"projectId\": \"5fc012bda3efcb29338b7d13\",\n    \"projectName\": \"MiSeq RenSeq of Brassica accessions \",\n    \"migrationId\": \"6adb34882f2b2c46efb0e138\",\n    \"osUser\": \"deeks\",\n    \"awsArn\": \"arn:aws:sts::958120753368:assumed-role/KomondorArchiveV1333/706484f53ed8b3701e379922ea7105f456f71b\",\n    \"awsAccountId\": \"958120753368\",\n    \"bucket\": \"tsl-hpc-reads\",\n    \"basePrefix\": \"\"\n  },\n  \"state\": \"aws\",\n  \"preserveOnHpcUntil\": null,\n  \"hpcPreservationActive\": false,\n  \"hpcPreservationInvalid\": false,\n  \"phase\": \"completed\",\n  \"migration\": {\n    \"id\": \"6adb34882f2b2c46efb0e138\",\n    \"movedBy\": \"deeks\",\n    \"startedAt\": \"2026-10-23T10:18:50.576Z\",\n    \"updatedAt\": \"2026-11-27T12:58:32.049Z\",\n    \"lastError\": null,\n    \"resumeCount\": 0,\n    \"restartedFrom\": [],\n    \"manifests\": {\n      \"fileCount\": 16,\n      \"skippedEntries\": 0,\n      \"sourceS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/source-manifest.v1.json\",\n      \"sourceSealedAt\": \"2026-10-23T10:37:39.793Z\",\n      \"sourceSha256\": \"3dc1f4185755712801d902c3750d0530b1e3bef759c7cec0a220c824ad718050\",\n      \"totalBytes\": 298166898,\n      \"version\": 1,\n      \"verificationS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/verification-report.v1.json\",\n      \"verificationSealedAt\": \"2026-10-23T10:38:53.748Z\",\n      \"verificationSha256\": \"0513d2ee9c7201a8ae59c95401806cceafc625732899789705f3960536d69087\"\n    }\n  },\n  \"sourceManifest\": {\n    \"exists\": true,\n    \"digestMatches\": true\n  },\n  \"objects\": {\n    \"total\": 16,\n    \"owned\": [\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/.JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/.PIP-362_Data_Summary.csv.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/.PRO647_repeat.pdf.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/.sample_indexes.txt.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt\",\n        \"size\": 2887282,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt.md5\",\n        \"size\": 32,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/PIP-362_Data_Summary.csv\",\n        \"size\": 3854,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/PIP-362_Data_Summary.csv.md5\",\n        \"size\": 32,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/PRO647_repeat.pdf\",\n        \"size\": 159390,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/PRO647_repeat.pdf.md5\",\n        \"size\": 32,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/sample_indexes.txt\",\n        \"size\": 2601,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/additional/sample_indexes.txt.md5\",\n        \"size\": 32,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/brassica_rapa_chiifu/brassica_rapa_chiifu/raw/.index_8nt_325_CCTCCGGT_L001_R1.fastq.gz.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/brassica_rapa_chiifu/brassica_rapa_chiifu/raw/.index_8nt_325_CCTCCGGT_L001_R2.fastq.gz.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/brassica_rapa_chiifu/brassica_rapa_chiifu/raw/index_8nt_325_CCTCCGGT_L001_R1.fastq.gz\",\n        \"size\": 145308003,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      },\n      {\n        \"key\": \"jjones/miseq_renseq_of_brassica_accessions_/brassica_rapa_chiifu/brassica_rapa_chiifu/raw/index_8nt_325_CCTCCGGT_L001_R2.fastq.gz\",\n        \"size\": 149805640,\n        \"migrationId\": \"6adb34882f2b2c46efb0e138\"\n      }\n    ],\n    \"prior\": [],\n    \"foreign\": []\n  },\n  \"multipartUploads\": [],\n  \"controlObjects\": [\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/source-manifest.v1.json\",\n      \"size\": 40010\n    },\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d13/6adb34882f2b2c46efb0e138/verification-report.v1.json\",\n      \"size\": 9032\n    }\n  ],\n  \"hpcExists\": false,\n  \"cleanupWarning\": null,\n  \"cleanupCommands\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T12:58:55.188Z",
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "args": [
+        "confirm-absent",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4e",
+        "--confirmed-by",
+        "deeks",
+        "--execute"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "at": "2026-11-27T12:59:06.326Z",
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "args": [
+        "status",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4e",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"status\",\n  \"identity\": {\n    \"projectId\": \"5fc012bda3efcb29338b7d4e\",\n    \"projectName\": \"Resistance to Albugo laibachii in Sf-2\",\n    \"migrationId\": \"6adb34932f2b2c46efb0e186\",\n    \"osUser\": \"deeks\",\n    \"awsArn\": \"arn:aws:sts::958120753368:assumed-role/KomondorArchiveV1333/706484f53ed8b3701e379922ea7105f456f71b\",\n    \"awsAccountId\": \"958120753368\",\n    \"bucket\": \"tsl-hpc-reads\",\n    \"basePrefix\": \"\"\n  },\n  \"state\": \"aws\",\n  \"preserveOnHpcUntil\": null,\n  \"hpcPreservationActive\": false,\n  \"hpcPreservationInvalid\": false,\n  \"phase\": \"completed\",\n  \"migration\": {\n    \"id\": \"6adb34932f2b2c46efb0e186\",\n    \"movedBy\": \"deeks\",\n    \"startedAt\": \"2026-10-23T10:19:01.478Z\",\n    \"updatedAt\": \"2026-11-27T12:58:55.185Z\",\n    \"lastError\": null,\n    \"resumeCount\": 1,\n    \"restartedFrom\": [],\n    \"manifests\": {\n      \"fileCount\": 7,\n      \"skippedEntries\": 0,\n      \"sourceS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/source-manifest.v1.json\",\n      \"sourceSealedAt\": \"2026-10-23T10:29:22.995Z\",\n      \"sourceSha256\": \"ec00bdeb850a4634060bf4562d41796882f7ec035cb7f1c335a809cf081e9ff6\",\n      \"totalBytes\": 89834094,\n      \"version\": 1,\n      \"verificationS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/verification-report.v1.json\",\n      \"verificationSealedAt\": \"2026-10-23T10:37:23.125Z\",\n      \"verificationSha256\": \"af187aea99d5b89d0504d9825c3376aa70c13d304d123fbb088aa00eb8b83dfb\"\n    }\n  },\n  \"sourceManifest\": {\n    \"exists\": true,\n    \"digestMatches\": true\n  },\n  \"objects\": {\n    \"total\": 7,\n    \"owned\": [\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/.S1_AACCAACG_L001_R1.fastq.gz.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/.S1_AACCAACG_L001_R2.fastq.gz.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/S1_AACCAACG_L001_R1.fastq.gz\",\n        \"size\": 42952130,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/S1_AACCAACG_L001_R2.fastq.gz\",\n        \"size\": 46663696,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/additional/.PRO1067_S1_HS_TS.pdf.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/additional/PRO1067_S1_HS_TS.pdf\",\n        \"size\": 218236,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      },\n      {\n        \"key\": \"jjones/resistance_to_albugo_laibachii_in_sf_2/additional/PRO1067_S1_HS_TS.pdf.md5\",\n        \"size\": 32,\n        \"migrationId\": \"6adb34932f2b2c46efb0e186\"\n      }\n    ],\n    \"prior\": [],\n    \"foreign\": []\n  },\n  \"multipartUploads\": [],\n  \"controlObjects\": [\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/source-manifest.v1.json\",\n      \"size\": 20985\n    },\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d4e/6adb34932f2b2c46efb0e186/verification-report.v1.json\",\n      \"size\": 5000\n    }\n  ],\n  \"hpcExists\": false,\n  \"cleanupWarning\": null,\n  \"cleanupCommands\": []\n}\n",
+      "stderr": ""
+    }
+  ]
+}

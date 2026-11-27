@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-27T15:00:51.858Z",
+  "success": true,
+  "planSha256": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed",
+  "helperSha256": "33ca63c0f7edd82379ab42e056d7f3531d930d28fc2e53307afe8f2bb1fef371",
+  "scratchDatabase": "komondor_disposal_rehearsal_edbe610a96404a20aec12791c682b7d8",
+  "records": 2459,
+  "exactTypedBsonRoundTrip": true,
+  "allConditionalWritesPassed": true,
+  "allNormalModelsExcludeRetired": true,
+  "protectedProjectsUnchanged": true,
+  "uninspectedRepeatRefused": true,
+  "inspectedResumeAdoptedWithoutWrites": true,
+  "journalEntries": 2461,
+  "durationMs": 6220,
+  "productionWrites": 0,
+  "payloadWrites": 0,
+  "servicesChanged": false,
+  "nativeQuiescenceAndInventoryExercised": false,
+  "scratchDatabaseRemoved": true
+}

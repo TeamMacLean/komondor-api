@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-27T11:44:27.950117+00:00",
+  "mode": "read-only guard check through VM mount; not HPC execution",
+  "total": 169,
+  "passed": 169,
+  "failed": []
+}

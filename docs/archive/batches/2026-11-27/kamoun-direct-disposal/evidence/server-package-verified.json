@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-27T15:04:00.724177+00:00",
+  "success": true,
+  "pack": "/storage/komondor-kamoun-disposal-20261127-01",
+  "files": {
+    "window.cjs": "7db541fa41fe1ae652000866979e8b891269d0445f38613aee17770dc982b57e",
+    "listener-probe.cjs": "c9edae04d2ff8fb333c755f914363152fee5e95b8507bb0f7fdd7e80e57887e2",
+    "state-probe.cjs": "89d095a8eeabf5c3b8a086c76db004e3c56216f4c06434e99d43e0a9100c8dc1",
+    "retirement.cjs": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+    "inventory_direct_disposal.py": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+    "sealed-source-baseline.json": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+    "retirement-plan.json": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+    "held-paths.json": "d4dba5d9c801ab1dbfb2f3950fd5270b9482c0d0ce4a9d51e7ec2cd355b1bb12"
+  },
+  "readySha256": "cc57ffef067ebabda5df3daef939cf6078283de88e926893164f16391ce22f85",
+  "backupFile": "/storage/komondor-kamoun-disposal-backup-20261127-01/retirement-plan.json",
+  "backupSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "group": "linux_admin_v1333",
+  "directories": "2770",
+  "filesMode": "0640",
+  "separateBackupInode": true,
+  "productionDatabaseWrites": 0,
+  "servicesChanged": false
+}

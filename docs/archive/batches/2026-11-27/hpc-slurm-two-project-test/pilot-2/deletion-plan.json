@@ -1,0 +1,235 @@
+{
+  "kind": "komondor-reviewed-hpc-deletion-v1",
+  "hpcRoot": "/tsl/data/reads",
+  "reviewCompletedAt": "2026-11-27T12:22:07.856Z",
+  "expiresAt": "2026-11-27T18:22:07.856000+00:00",
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "reviewSummarySha256": "cf89624641d063cb8b0c49a9dd127ae099070c3dcb2a6fa3dac011dd20a99ce2",
+  "held": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "name": "Gargy-2019_RNAseq",
+      "relativeRoot": "two_blades/gargy_2019_rnaseq"
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_21_days"
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_2_days"
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_9_days"
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_42_days"
+    }
+  ],
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "name": "MiSeq RenSeq of Brassica accessions ",
+      "relativeRoot": "jjones/miseq_renseq_of_brassica_accessions_",
+      "hpcPath": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "migrationId": "6adb34882f2b2c46efb0e138",
+      "sourceSha256": "3dc1f4185755712801d902c3750d0530b1e3bef759c7cec0a220c824ad718050",
+      "verificationSha256": "0513d2ee9c7201a8ae59c95401806cceafc625732899789705f3960536d69087",
+      "s3VerifiedAt": "2026-10-23T10:38:53.748Z",
+      "fileCount": 16,
+      "bytes": 298166898,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T12:17:30.847Z",
+      "files": [
+        {
+          "path": "additional/.JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729105714.8682,
+          "ctimeMs": 1621617770251.862,
+          "ino": 21003556376
+        },
+        {
+          "path": "additional/.PIP-362_Data_Summary.csv.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729105770.215,
+          "ctimeMs": 1621617770377.083,
+          "ino": 20649244619
+        },
+        {
+          "path": "additional/.PRO647_repeat.pdf.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729105824.0537,
+          "ctimeMs": 1621617770466.417,
+          "ino": 20649244620
+        },
+        {
+          "path": "additional/.sample_indexes.txt.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729105844.381,
+          "ctimeMs": 1621617770490.825,
+          "ino": 20822045979
+        },
+        {
+          "path": "additional/JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt",
+          "bytes": 2887282,
+          "mtimeMs": 1485095773296.4812,
+          "ctimeMs": 1621617770177.58,
+          "ino": 20737830251
+        },
+        {
+          "path": "additional/JH2JJ_Baits_v3-1_BrRenSeq_v1_baits.txt.md5",
+          "bytes": 32,
+          "mtimeMs": 1507652407768.011,
+          "ctimeMs": 1621617770437.557,
+          "ino": 20822045978
+        },
+        {
+          "path": "additional/PIP-362_Data_Summary.csv",
+          "bytes": 3854,
+          "mtimeMs": 1485095773249.6233,
+          "ctimeMs": 1621617770557.478,
+          "ino": 20737830253
+        },
+        {
+          "path": "additional/PIP-362_Data_Summary.csv.md5",
+          "bytes": 32,
+          "mtimeMs": 1507651925519.4827,
+          "ctimeMs": 1621617770345.801,
+          "ino": 20737830252
+        },
+        {
+          "path": "additional/PRO647_repeat.pdf",
+          "bytes": 159390,
+          "mtimeMs": 1485095773341.0347,
+          "ctimeMs": 1621617770617.157,
+          "ino": 20649244621
+        },
+        {
+          "path": "additional/PRO647_repeat.pdf.md5",
+          "bytes": 32,
+          "mtimeMs": 1507651951553.0312,
+          "ctimeMs": 1621617770229.549,
+          "ino": 20649244618
+        },
+        {
+          "path": "additional/sample_indexes.txt",
+          "bytes": 2601,
+          "mtimeMs": 1485095773354.5796,
+          "ctimeMs": 1621617770294.094,
+          "ino": 19755993858
+        },
+        {
+          "path": "additional/sample_indexes.txt.md5",
+          "bytes": 32,
+          "mtimeMs": 1507651925519.9026,
+          "ctimeMs": 1621617770077.193,
+          "ino": 21003556375
+        },
+        {
+          "path": "brassica_rapa_chiifu/brassica_rapa_chiifu/raw/.index_8nt_325_CCTCCGGT_L001_R1.fastq.gz.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729108040.3853,
+          "ctimeMs": 1621617769940.412,
+          "ino": 20822045976
+        },
+        {
+          "path": "brassica_rapa_chiifu/brassica_rapa_chiifu/raw/.index_8nt_325_CCTCCGGT_L001_R2.fastq.gz.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729111933.4087,
+          "ctimeMs": 1621617768316.374,
+          "ino": 20737830250
+        },
+        {
+          "path": "brassica_rapa_chiifu/brassica_rapa_chiifu/raw/index_8nt_325_CCTCCGGT_L001_R1.fastq.gz",
+          "bytes": 145308003,
+          "mtimeMs": 1485096931151.6396,
+          "ctimeMs": 1621617769206.537,
+          "ino": 21003556373
+        },
+        {
+          "path": "brassica_rapa_chiifu/brassica_rapa_chiifu/raw/index_8nt_325_CCTCCGGT_L001_R2.fastq.gz",
+          "bytes": 149805640,
+          "mtimeMs": 1485096932676.8215,
+          "ctimeMs": 1621617769915.471,
+          "ino": 20649244617
+        }
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "name": "Resistance to Albugo laibachii in Sf-2",
+      "relativeRoot": "jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "migrationId": "6adb34932f2b2c46efb0e186",
+      "sourceSha256": "ec00bdeb850a4634060bf4562d41796882f7ec035cb7f1c335a809cf081e9ff6",
+      "verificationSha256": "af187aea99d5b89d0504d9825c3376aa70c13d304d123fbb088aa00eb8b83dfb",
+      "s3VerifiedAt": "2026-10-23T10:37:23.125Z",
+      "fileCount": 7,
+      "bytes": 89834094,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T12:20:33.005Z",
+      "files": [
+        {
+          "path": "329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/.S1_AACCAACG_L001_R1.fastq.gz.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729227279.8916,
+          "ctimeMs": 1621617320208.001,
+          "ino": 20737829996
+        },
+        {
+          "path": "329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/.S1_AACCAACG_L001_R2.fastq.gz.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729227909.4143,
+          "ctimeMs": 1621617320232.72,
+          "ino": 20649244368
+        },
+        {
+          "path": "329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/S1_AACCAACG_L001_R1.fastq.gz",
+          "bytes": 42952130,
+          "mtimeMs": 1485273983442.7908,
+          "ctimeMs": 1621617320179.385,
+          "ino": 20737829995
+        },
+        {
+          "path": "329_x_sf_2_nc14_f2_susceptible_bulk/329_x_sf_2_nc14_f2_susceptible_bulk/raw/S1_AACCAACG_L001_R2.fastq.gz",
+          "bytes": 46663696,
+          "mtimeMs": 1485273983936.7808,
+          "ctimeMs": 1621617320792.977,
+          "ino": 20822045733
+        },
+        {
+          "path": "additional/.PRO1067_S1_HS_TS.pdf.md5",
+          "bytes": 0,
+          "mtimeMs": 1507729228138.4414,
+          "ctimeMs": 1621617321077.26,
+          "ino": 19755993628
+        },
+        {
+          "path": "additional/PRO1067_S1_HS_TS.pdf",
+          "bytes": 218236,
+          "mtimeMs": 1485273564454.3674,
+          "ctimeMs": 1621617321149.647,
+          "ino": 20796913831
+        },
+        {
+          "path": "additional/PRO1067_S1_HS_TS.pdf.md5",
+          "bytes": 32,
+          "mtimeMs": 1507651967848.2673,
+          "ctimeMs": 1621617321045.44,
+          "ino": 19755993627
+        }
+      ]
+    }
+  ],
+  "stage": "pilot-2",
+  "parentPlanSha256": "4f81e4b7188e3de52ea4c0eff7d26bc0925aa30f3da0bddf319f3440eac69ad9",
+  "releaseStatus": "ready-for-user-submission"
+}

@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-27T14:28:16.277558+00:00",
+  "success": true,
+  "jobId": "25340876",
+  "sourceRootsAbsent": 4,
+  "protectedFilesIntact": 40,
+  "gargyPresent": true,
+  "destinationAndStagingPresent": true,
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "databaseWrites": 0
+}

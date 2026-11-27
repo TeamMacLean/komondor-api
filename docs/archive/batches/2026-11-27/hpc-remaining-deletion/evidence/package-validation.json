@@ -1,0 +1,14 @@
+{
+  "projects": 169,
+  "files": 14883,
+  "bytes": 12691226487678,
+  "reviewCompletedAt": "2026-11-27T12:22:07.856Z",
+  "expiresAt": "2026-11-27T18:22:07.856000+00:00",
+  "planSha256": "4f81e4b7188e3de52ea4c0eff7d26bc0925aa30f3da0bddf319f3440eac69ad9",
+  "evidenceTarSha256": "64dd0fb8c431eb67bb5f9f93b90e24195895c2bc6466c1bfa47f5e6355258ee1",
+  "packageChecksumsPassed": true,
+  "bashSyntaxPassed": true,
+  "pythonSyntaxPassed": true,
+  "sourceGuardProjectsPassed": 169,
+  "linuxSafeguardTestsPassed": 11
+}

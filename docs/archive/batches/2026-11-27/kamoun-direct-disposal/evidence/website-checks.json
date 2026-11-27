@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-27T15:07:59.289943+00:00",
+  "method": "Read-only signed-in administrator browser inspection after all four services restored",
+  "observations": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "result": "Project not found"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "result": "Project not found"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "result": "Gargy visible, HPC directory present, AWS transfer verified, preservation through 26 November 2027"
+    },
+    {
+      "projectId": "6ae4ac89a6b876c643741d27",
+      "result": "Xanthoria visible, HPC directory present, 12 sample links, normal archive date 30 October 2031"
+    }
+  ],
+  "browserMutations": false
+}

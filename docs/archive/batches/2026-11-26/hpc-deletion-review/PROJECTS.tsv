@@ -1,0 +1,171 @@
+project_id	name	hpc_path	bytes	files	s3_verified_at	reviewed_at
+5fc012bda3efcb29338b7d10	AJ_PathSeq	/tsl/data/reads/jjones/aj_pathseq	110493830761	823	2026-10-28T06:17:31.471Z	2026-11-26T19:37:13.225Z
+5fc012bda3efcb29338b7d29	albugo_candida	/tsl/data/reads/jjones/albugo_candida	359930630710	525	2026-10-31T16:57:12.698Z	2026-11-26T19:37:09.348Z
+5fc012bda3efcb29338b7d77	AMR4 Mapping	/tsl/data/reads/jjones/amr4_mapping	5110227961	12	2026-10-23T11:46:41.393Z	2026-11-26T19:37:28.833Z
+5fc012bda3efcb29338b7d60	Arabidopsis PacBio RenSeq	/tsl/data/reads/jjones/arabidopsis_pacbio_renseq	1215896390	51	2026-10-23T10:57:46.114Z	2026-11-26T19:37:34.946Z
+5fc012bda3efcb29338b7d17	ATAC_cseq	/tsl/data/reads/jjones/atac_cseq	675008621	232	2026-10-23T11:16:26.002Z	2026-11-26T19:37:35.512Z
+5fc012bda3efcb29338b7d5a	CCG Expression	/tsl/data/reads/jjones/ccg_expression	72453154755	8	2026-10-26T04:56:32.915Z	2026-11-26T19:37:15.437Z
+5fc012bda3efcb29338b7d40	cDNA PenSeq of 4 P. infestans isoaltes	/tsl/data/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes	21003151360	1	2026-10-23T16:14:42.013Z	2026-11-26T19:37:21.223Z
+5fc012bda3efcb29338b7d0f	Col-0 RPP2 Fast Neutron Mutant RenSeq	/tsl/data/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq	618589074	16	2026-10-23T10:40:37.060Z	2026-11-26T19:37:37.573Z
+5fc012bda3efcb29338b7d11	dingp_Ath_ATACseq_2019_1	/tsl/data/reads/jjones/dingp_ath_atacseq_2019_1	109121636160	87	2026-10-28T03:39:29.944Z	2026-11-26T19:37:12.778Z
+5fc012bda3efcb29338b7d64	dingp_Ath_mutants_FANSATACCapSeq_20170630_NextSeq500_PE_MidOutput	/tsl/data/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput	14327908887	1080	2026-10-25T10:33:18.589Z	2026-11-26T19:37:23.658Z
+5fc012bda3efcb29338b7d7c	dingp_Ath_mutants_RNACapSeq_20170602_NextSeq500_HiOutput	/tsl/data/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput	29761259708	860	2026-10-25T12:02:48.579Z	2026-11-26T19:37:19.300Z
+5fc012bda3efcb29338b7d36	dingp_rnaseq_bgiseq500_gh_eti_2018	/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018	9649016353	21	2026-10-23T13:27:19.994Z	2026-11-26T19:37:23.877Z
+5fc012bda3efcb29338b7d6e	dingp_rnaseq_bgiseq500_seti_eti_2018	/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018	8502152467	21	2026-10-23T12:40:00.948Z	2026-11-26T19:37:25.934Z
+5fc012bda3efcb29338b7d31	dingp_rnaseq_Novogene_strand-specific_seti_gh_eti_2020	/tsl/data/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020	32167515043	25	2026-10-24T23:05:32.037Z	2026-11-26T19:37:18.555Z
+5fc012bda3efcb29338b7d81	furzero_hpa_emwa1_illumina	/tsl/data/reads/jjones/furzero_hpa_emwa1_illumina	3873656200	22	2026-10-23T11:27:25.093Z	2026-11-26T19:37:32.072Z
+5fc012bda3efcb29338b7d78	Genetic Variation in Albugo laibachii	/tsl/data/reads/jjones/genetic_variation_in_albugo_laibachii	24445469078	40	2026-10-24T18:23:35.076Z	2026-11-26T19:37:20.505Z
+5fc012bda3efcb29338b7d27	HiSeq on Solanum cDNA	/tsl/data/reads/jjones/hiseq_on_solanum_cdna	4102243516	8	2026-10-23T11:32:00.234Z	2026-11-26T19:37:30.558Z
+5fc012bda3efcb29338b7d68	HK_amr10	/tsl/data/reads/jjones/hk_amr10	10055314240	34	2026-10-23T14:02:22.644Z	2026-11-26T19:37:23.167Z
+5fc012bda3efcb29338b7d34	HK_amr5	/tsl/data/reads/jjones/hk_amr5	64299925771	160	2026-10-25T22:25:47.687Z	2026-11-26T19:37:16.565Z
+5fc012bda3efcb29338b7d1b	HK_PacBio	/tsl/data/reads/jjones/hk_pacbio	550447162305	868	2026-11-02T11:46:21.380Z	2026-11-26T19:37:07.493Z
+5fc012bda3efcb29338b7d4a	HK_renseq	/tsl/data/reads/jjones/hk_renseq	24941668725	140	2026-10-24T18:48:44.239Z	2026-11-26T19:37:19.747Z
+5fc012bda3efcb29338b7d44	HR-5_Loss_of_Ex1_Resistance_M2_sequencing	/tsl/data/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing	8808616053	65	2026-10-23T12:56:03.051Z	2026-11-26T19:37:26.098Z
+5fc012bda3efcb29338b7d35	LOP-868 PacBio RenSeq	/tsl/data/reads/jjones/lop_868_pacbio_renseq	285483141	4	2026-10-23T10:37:18.160Z	2026-11-26T19:37:39.142Z
+5fc012bda3efcb29338b7d01	MiSeq RenSeq of Arabidopsis thaliana accessions 	/tsl/data/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_	6953929735	68	2026-10-23T12:19:28.348Z	2026-11-26T19:37:27.678Z
+5fc012bda3efcb29338b7d13	MiSeq RenSeq of Brassica accessions 	/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_	298166898	16	2026-10-23T10:38:53.748Z	2026-11-26T19:37:56.183Z
+5fc012bda3efcb29338b7d47	MiSeq RenSeq on various Solanum 	/tsl/data/reads/jjones/miseq_renseq_on_various_solanum_	2200967737	4	2026-10-23T11:10:13.098Z	2026-11-26T19:37:32.709Z
+5fc012bda3efcb29338b7d1a	Non-host resistance to Ac2V in Wu-0	/tsl/data/reads/jjones/non_host_resistance_to_ac2v_in_wu_0	4995073219	11	2026-10-23T11:43:14.621Z	2026-11-26T19:37:29.892Z
+5fc012bda3efcb29338b7cfb	PacBio PenSeq on Phytophthora infestans	/tsl/data/reads/jjones/pacbio_penseq_on_phytophthora_infestans	847658798	8	2026-10-23T10:48:59.518Z	2026-11-26T19:37:34.978Z
+5fc012bda3efcb29338b7d4b	Plant Capture Enhancer	/tsl/data/reads/jjones/plant_capture_enhancer	34647343	3	2026-10-23T08:30:52.069Z	2026-11-26T19:37:55.270Z
+61375deae788b405b6ce6da8	RenSeq on S. americanum populations 2021	/tsl/data/reads/jjones/renseq_on_s__americanum_populations_2021	12775990456	74	2026-10-23T14:42:47.361Z	2026-11-26T19:37:22.632Z
+5fc012bda3efcb29338b7d49	Resistance to Albugo candida Ac7v in Sf-2	/tsl/data/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2	655616074	17	2026-10-23T10:40:49.854Z	2026-11-26T19:38:02.939Z
+5fc012bda3efcb29338b7d2a	Resistance to Albugo candida AcEx1 in HR-5 Oy-0 C24 and Lz-0	/tsl/data/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0	1685058123	16	2026-10-23T11:06:14.583Z	2026-11-26T19:37:34.218Z
+5fc012bda3efcb29338b7d56	Resistance to Albugo laibachii in HR-5	/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_hr_5	5337064647	26	2026-10-23T11:56:39.857Z	2026-11-26T19:37:28.258Z
+5fc012bda3efcb29338b7d4e	Resistance to Albugo laibachii in Sf-2	/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2	89834094	7	2026-10-23T10:37:23.125Z	2026-11-26T19:37:40.649Z
+5fc012bda3efcb29338b7d12	Resistance to P. infestans in S. americanum line SP2273 - Rpi-amr2	/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2	6419055524	24	2026-10-23T12:07:40.501Z	2026-11-26T19:37:28.146Z
+5fc012bda3efcb29338b7d3a	Resistance to P. infestans in S. americanum line SP2273 (Rpi-amr1 and Rpi-amr2) 	/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__	154231387866	56	2026-10-29T06:43:11.238Z	2026-11-26T19:37:11.507Z
+5fc012bda3efcb29338b7d37	Resistance to PLRV from Solanum tuberosum ssp. andigena (Rl-adg)	/tsl/data/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_	9244025241	12	2026-10-23T13:07:06.944Z	2026-11-26T19:37:25.477Z
+5fc012bda3efcb29338b7d38	Resistance to PVY from S. stoloniferum (Rysto)	/tsl/data/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_	42992833523	17	2026-10-25T04:39:11.584Z	2026-11-26T19:37:17.516Z
+5fc012bda3efcb29338b7d2b	Rice RenSeq	/tsl/data/reads/jjones/rice_renseq	108509578131	432	2026-10-28T01:59:05.989Z	2026-11-26T19:37:14.398Z
+5fc012bda3efcb29338b7d59	Rpc-amr1; resistance to P. capsici from S. americanum SP1102	/tsl/data/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102	1999188163	6	2026-10-23T11:08:15.089Z	2026-11-26T19:37:33.145Z
+5fc012bda3efcb29338b7d3c	Rpi-amr2 in SP3675 (BC2F2 of SP2273) 	/tsl/data/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__	2271599624	5	2026-10-23T11:12:45.653Z	2026-11-26T19:37:32.674Z
+60b78429e788b405b6ce66aa	S. americanum nanopore cDNA-RenSeq	/tsl/data/reads/jjones/s__americanum_nanopore_cdna_renseq	162591239741	29	2026-10-29T11:25:13.197Z	2026-11-26T19:37:10.097Z
+60ba0530e788b405b6ce66f2	S. americanum SP1102 cDNA nanopore	/tsl/data/reads/jjones/s__americanum_sp1102_cdna_nanopore	120693731678	22	2026-10-28T08:04:50.822Z	2026-11-26T19:37:12.130Z
+5fc012bda3efcb29338b7d39	Sequencing of NLRs from tetraploid wheat lines	/tsl/data/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines	577790849790	424	2026-11-02T20:55:20.889Z	2026-11-26T19:37:10.080Z
+5fc012bda3efcb29338b7d6d	Solanum americanum nanopore sequencing	/tsl/data/reads/jjones/solanum_americanum_nanopore_sequencing	48063375008	1202	2026-10-25T14:07:07.321Z	2026-11-26T19:37:21.822Z
+5fc012bda3efcb29338b7d28	Solynta sequencing	/tsl/data/reads/jjones/solynta_sequencing	4044941281	15	2026-10-23T11:28:49.655Z	2026-11-26T19:37:30.893Z
+5fc012bda3efcb29338b7d42	White Rust Resistance gene cloning using RenSeq	/tsl/data/reads/jjones/white_rust_resistance_gene_cloning_using_renseq	336972337	4	2026-10-23T10:38:49.317Z	2026-11-26T19:38:03.857Z
+5fc012bda3efcb29338b7d0a	Whole genome Shotgun of Solanum americanum	/tsl/data/reads/jjones/whole_genome_shotgun_of_solanum_americanum	377051587961	186	2026-10-31T22:42:06.554Z	2026-11-26T19:37:07.966Z
+5fc012bda3efcb29338b7d26	witekk_jupef_solanum	/tsl/data/reads/jjones/witekk_jupef_solanum	49905834495	39	2026-10-25T16:14:42.467Z	2026-11-26T19:37:16.468Z
+5fc012bda3efcb29338b7d6b	witekk_s_americanum_gDNA_bgi	/tsl/data/reads/jjones/witekk_s_americanum_gDNA_bgi	319776477622	135	2026-10-31T11:07:04.131Z	2026-11-26T19:37:10.208Z
+5fc012bda3efcb29338b7d1e	witekk_s_pimpinellifolium_cf_ecp2	/tsl/data/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2	4725542901	21	2026-10-23T11:40:23.793Z	2026-11-26T19:37:30.471Z
+5fc012bda3efcb29338b7d66	witekk_s_pimpinellifolium_qcdata	/tsl/data/reads/jjones/witekk_s_pimpinellifolium_qcdata	103435674582	27	2026-10-27T17:21:58.181Z	2026-11-26T19:37:14.327Z
+5fc012bda3efcb29338b7d71	witekk_s_tuberosum_dm_ber2	/tsl/data/reads/jjones/witekk_s_tuberosum_dm_ber2	8210369537	16	2026-10-23T12:30:03.510Z	2026-11-26T19:37:26.606Z
+5fc012bda3efcb29338b7cfc	witekk_tomato_renseq_miseq	/tsl/data/reads/jjones/witekk_tomato_renseq_miseq	9528073071	22	2026-10-23T13:25:54.466Z	2026-11-26T19:37:24.618Z
+5fc012bda3efcb29338b7d24	XL_PacBio_RLP_K_Seq_2019	/tsl/data/reads/jjones/xl_pacbio_rlp_k_seq_2019	79718025620	18	2026-10-27T00:26:51.497Z	2026-11-26T19:37:14.780Z
+5fc012bda3efcb29338b7d57	Cell cycle	/tsl/data/reads/ntalbot/cell_cycle	12147621942	12	2026-10-23T14:24:47.962Z	2026-11-26T19:38:15.387Z
+606c3308d7661b6ec22a0793	ChIP-seq data Hox7-3XFlag mycelium	/tsl/data/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium	9339040375	13	2026-10-23T13:15:01.393Z	2026-11-26T19:38:16.508Z
+605b441ad7661b6ec22a076a	ChIP-seq data Mst12-GFP mycelium	/tsl/data/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium	4808078917	6	2026-10-23T11:38:19.603Z	2026-11-26T19:38:18.957Z
+60619edfd7661b6ec22a076e	DAP-seq Mst12 and Hox7 	/tsl/data/reads/ntalbot/dap_seq_mst12_and_hox7_	4448038873	9	2026-10-23T11:33:55.537Z	2026-11-26T19:38:19.890Z
+6116c323e788b405b6ce69f6	Generational Experiment 	/tsl/data/reads/ntalbot/generational_experiment_	36630086564	18	2026-10-25T01:18:02.267Z	2026-11-26T19:38:07.053Z
+5fc012bda3efcb29338b7d2f	Global transcriptional analysis of surface perception	/tsl/data/reads/ntalbot/global_transcriptional_analysis_of_surface_perception	35075963678	28	2026-10-25T00:35:09.291Z	2026-11-26T19:38:08.576Z
+5fc012bda3efcb29338b7d7b	KE002 infection on rice RNA-seq timecourse	/tsl/data/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse	85999414527	128	2026-10-27T04:18:10.758Z	2026-11-26T19:38:01.296Z
+5fc012bda3efcb29338b7d4c	Lichen Tissue RNA1	/tsl/data/reads/ntalbot/lichen_tissue_rna1	65384995837	58	2026-10-26T00:40:12.458Z	2026-11-26T19:38:04.498Z
+5fc012bda3efcb29338b7d33	NADPH oxidase project	/tsl/data/reads/ntalbot/nadph_oxidase_project	52231000289	75	2026-10-25T18:37:11.296Z	2026-11-26T19:38:05.371Z
+5fc012bda3efcb29338b7d3e	Pmk1 MAPKinase pathway appressorium development 	/tsl/data/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_	423593913251	269	2026-11-01T11:18:20.619Z	2026-11-26T19:37:58.020Z
+6ada6c4457c017ae17122658	MG bulk read alignment	/tsl/data/reads/ntalbot/project_1566	8982368958	1	2026-10-23T12:53:12.385Z	2026-11-26T19:38:16.667Z
+6ada6c4457c017ae17122657	Nim1 mutant and revertant sequencing	/tsl/data/reads/ntalbot/project_1622	10629370636	15	2026-10-23T14:10:43.983Z	2026-11-26T19:38:16.011Z
+6ada6c4457c017ae17122656	Smo1 bulk segregant analysis	/tsl/data/reads/ntalbot/project_2009	14852621710	28	2026-10-23T14:55:49.728Z	2026-11-26T19:38:14.610Z
+6ada6c4457c017ae17122652	Sequence assemblies and gene annotations	/tsl/data/reads/ntalbot/project_2012	31629123970	72	2026-10-24T22:05:11.532Z	2026-11-26T19:38:10.123Z
+6ada6c4457c017ae17122650	PKC1 inhibition RNA-seq	/tsl/data/reads/ntalbot/project_2035	75397724663	97	2026-10-26T19:55:25.168Z	2026-11-26T19:38:03.003Z
+6ada6c4457c017ae1712265a	Guy11 paired-end read alignment	/tsl/data/reads/ntalbot/project_2171	3557810271	1	2026-10-23T11:22:04.867Z	2026-11-26T19:38:20.765Z
+6ada6c4557c017ae1712265d	Mycelium RNA-seq expression tables	/tsl/data/reads/ntalbot/project_230	8728408	7	2026-10-23T10:28:43.410Z	2026-11-26T19:38:24.021Z
+6ada6c4457c017ae17122655	pmk1AS leaf-sheath infection RNA-seq	/tsl/data/reads/ntalbot/project_2323	22039506100	40	2026-10-23T16:35:53.982Z	2026-11-26T19:38:13.096Z
+6ada6c4457c017ae1712264f	LacO insertion-site analysis	/tsl/data/reads/ntalbot/project_2370	78243529352	11	2026-10-26T23:17:10.626Z	2026-11-26T19:38:02.339Z
+6ada6c4457c017ae1712265c	Lichen genome annotation	/tsl/data/reads/ntalbot/project_2561	1523739906	34	2026-10-23T11:03:17.585Z	2026-11-26T19:38:22.699Z
+6ada6c4457c017ae1712265b	Guy11 36-base paired-end genome sequencing	/tsl/data/reads/ntalbot/project_539	2914165083	8	2026-10-23T11:15:25.687Z	2026-11-26T19:38:21.990Z
+6ada6c4457c017ae17122659	Buf mutant bulk segregant analysis	/tsl/data/reads/ntalbot/project_592_593	5229182384	3	2026-10-23T11:48:21.658Z	2026-11-26T19:38:18.632Z
+6ada6c4557c017ae1712265e	M. oryzae T-DNA insertion-site analysis	/tsl/data/reads/ntalbot/project_758	119591	4	2026-10-23T10:27:52.930Z	2026-11-26T19:38:54.211Z
+6ada6c4457c017ae17122653	Smo1 mutant and progeny sequencing	/tsl/data/reads/ntalbot/project_809	27090686963	6	2026-10-24T19:04:10.913Z	2026-11-26T19:38:10.919Z
+6ada6c4457c017ae17122654	Wheat blast assembly and gene analysis	/tsl/data/reads/ntalbot/project_930	22742214458	52	2026-10-23T16:58:45.281Z	2026-11-26T19:38:12.256Z
+6ada6c4457c017ae17122651	Wheat blast isolate sequencing	/tsl/data/reads/ntalbot/project_945	38737500366	20	2026-10-25T02:03:25.627Z	2026-11-26T19:38:06.775Z
+60804e0b837a8a261f0133ee	RNA-seq Mycelium cultures Guy11, Dhox7 and Dmst12	/tsl/data/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12	35736656386	18	2026-10-25T00:56:29.727Z	2026-11-26T19:38:07.552Z
+5fc012bda3efcb29338b7d09	RNA-seq of various mutants	/tsl/data/reads/ntalbot/rna_seq_of_various_mutants	58826618808	50	2026-10-25T19:30:22.872Z	2026-11-26T19:38:05.069Z
+5fc012bda3efcb29338b7d50	Sequencing Magnaporthe oryzae Guy11 	/tsl/data/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_	51087911	2	2026-10-23T10:28:32.444Z	2026-11-26T19:38:23.371Z
+5fc012bda3efcb29338b7d06	Sequencing melanin biosynthesis pathway CRISPR mutants in Guy11 background	/tsl/data/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background	19142588085	24	2026-10-23T15:27:14.521Z	2026-11-26T19:38:13.708Z
+5fc012bda3efcb29338b7d79	Sequencing of 5 strains of Kenyan Magnaporthe oryzae 	/tsl/data/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_	23114728859	30	2026-10-23T17:17:00.572Z	2026-11-26T19:38:11.811Z
+5fc012bda3efcb29338b7d1d	Sequencing of Magnaporthe oryzae isolates from Kenya	/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya	16867382244	42	2026-10-23T15:13:21.371Z	2026-11-26T19:38:13.914Z
+5fc012bda3efcb29338b7d25	Sequencing of Magnaporthe oryzae KE002	/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002	57901188	2	2026-10-23T10:29:04.696Z	2026-11-26T19:38:22.966Z
+5fc012bda3efcb29338b7cfa	Sequencing of Sub-Saharan Africa Magnaporthe oryzae isolates	/tsl/data/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates	34152118080	97	2026-10-25T00:13:20.600Z	2026-11-26T19:38:09.322Z
+5fc012bda3efcb29338b7d03	Sequencing PWL2 mutants in Guy11 background	/tsl/data/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background	7545919237	2	2026-10-23T12:27:42.310Z	2026-11-26T19:38:17.687Z
+5fc012bda3efcb29338b7cf7	Study of pmk1AS mutant in presence and absence of an inhibitor	/tsl/data/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor	41849908492	39	2026-10-25T03:45:45.451Z	2026-11-26T19:38:11.512Z
+5fc012bda3efcb29338b7d46	Transcription profiling during rice plant infection	/tsl/data/reads/ntalbot/transcription_profiling_during_rice_plant_infection	457914621055	657	2026-11-01T18:57:12.746Z	2026-11-26T19:37:57.220Z
+5fc012bda3efcb29338b7d43	Transcriptional regulation of melanin in Magnaporthe oryzae	/tsl/data/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae	32153599360	14	2026-10-24T22:24:15.576Z	2026-11-26T19:38:09.515Z
+6116c220e788b405b6ce69f2	Transcriptomics Appressorial Assay Dhox7 TF	/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf	6209130977	3	2026-10-23T12:02:54.702Z	2026-11-26T19:38:18.116Z
+6116bf17e788b405b6ce69e8	Transcriptomics Appressorial Assay Dznf1 TF	/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf	42891475718	21	2026-10-25T04:11:38.598Z	2026-11-26T19:38:05.938Z
+5fc012bda3efcb29338b7d7f	Turgor project	/tsl/data/reads/ntalbot/turgor_project	3039086281	8	2026-10-23T11:18:30.540Z	2026-11-26T19:38:21.162Z
+5fc012bda3efcb29338b7d04	UV_mutagenesis	/tsl/data/reads/ntalbot/uv_mutagenesis	184379087191	267	2026-10-29T22:18:17.990Z	2026-11-26T19:37:59.000Z
+5fc012bda3efcb29338b7d41	Wheat blast project	/tsl/data/reads/ntalbot/wheat_blast_project	106623504945	95	2026-10-27T23:52:16.353Z	2026-11-26T19:38:00.742Z
+5fc012bda3efcb29338b7d21	Wsc1 project	/tsl/data/reads/ntalbot/wsc1_project	3744179136	15	2026-10-23T11:23:46.163Z	2026-11-26T19:38:20.397Z
+5fc012bda3efcb29338b7d02	WT_Guy11 and Guy11_PWL2_mutant infection on Eragrostis curvula RNA-seq timecourse	/tsl/data/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse	141690619948	18	2026-10-28T19:39:11.778Z	2026-11-26T19:37:59.598Z
+613b733ee788b405b6ce6eb8	 Differential gene expression analysis of Tol9 CRISPR mutants	/tsl/data/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants	66190383789	22	2026-10-26T01:37:25.471Z	2026-11-26T19:38:58.975Z
+5fc012bda3efcb29338b7d30	Halioticida_Haliocrustida	/tsl/data/reads/skamoun/halioticida_haliocrustida	9129	2	2026-10-23T10:27:45.121Z	2026-11-26T19:38:52.740Z
+5fc012bda3efcb29338b7d32	Halioticida_Haliphthoros	/tsl/data/reads/skamoun/halioticida_haliphthoros	5332457063	18	2026-10-23T11:53:15.824Z	2026-11-26T19:38:51.116Z
+5fc012bda3efcb29338b7d3d	janderso_rsolani	/tsl/data/reads/skamoun/janderso_rsolani	161890791630	40	2026-10-29T09:04:14.901Z	2026-11-26T19:38:52.143Z
+5fc012bda3efcb29338b7d73	Nanopore sequences from Italian rice blast fungal isolates	/tsl/data/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates	61328719175	13	2026-10-25T20:22:53.949Z	2026-11-26T19:38:53.195Z
+5fc012bda3efcb29338b7d0c	Rice Blast	/tsl/data/reads/skamoun/rice_blast	408575806056	84	2026-11-01T04:49:38.347Z	2026-11-26T19:38:29.819Z
+60defd3ae788b405b6ce68db	RNA-Seq data from lettuce (Lactuca sativa)	/tsl/data/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_	50687234252	17	2026-10-25T16:58:35.319Z	2026-11-26T19:38:53.895Z
+611bcc57e788b405b6ce69fc	RNA-Seq data from N. benthamiana expressing WT and DV mutant M. polymorpha CNL	/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl	9739985962	4	2026-10-23T13:41:23.978Z	2026-11-26T19:38:57.759Z
+611be0c6e788b405b6ce6a3c	RNA-Seq data from N. benthamiana expressing WT and DV mutant of NbRoq1	/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1	9377213032	4	2026-10-23T13:16:19.190Z	2026-11-26T19:38:58.403Z
+61572b1b36105e13c15d58ac	RNA-Seq data from N. benthamiana transiently expressing WT and autoactive TNL	/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl	29715892569	12	2026-10-24T19:41:24.823Z	2026-11-26T19:38:59.275Z
+60c8b1d3e788b405b6ce6845	RNA-Seq data from N. benthamiana WT and NRC234 KO mutants	/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants	123144455087	42	2026-10-28T10:03:09.749Z	2026-11-26T19:38:55.514Z
+610fd90de788b405b6ce6946	RNA-Seq data from N. benthamiana WT and ZAR1 mutants	/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants	149454437756	60	2026-10-29T02:15:24.194Z	2026-11-26T19:38:56.715Z
+611bd783e788b405b6ce6a0c	RNA-Seq data from NRC2/3/4 KO N. benthamiana expressing activated NLRs	/tsl/data/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs	33201255555	14	2026-10-24T23:25:13.498Z	2026-11-26T19:38:57.074Z
+60d1f3a0e788b405b6ce68a1	RNA-Seq data from Spinach (Spinacia oleracea)	/tsl/data/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_	47942838875	16	2026-10-25T05:57:42.621Z	2026-11-26T19:38:54.753Z
+60e4528be788b405b6ce6917	RNA-Seq data from tomato LA1792 (incl. HERO)	/tsl/data/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_	39838925625	12	2026-10-25T02:26:49.563Z	2026-11-26T19:38:56.219Z
+64c13517d32c7a7e4b174f20	RNAseq_PikobodiesMADA	/tsl/data/reads/skamoun/rnaseq_pikobodiesmada	72238981053	63	2026-10-26T03:55:36.349Z	2026-11-26T19:39:00.739Z
+6ada6c4557c017ae1712265f	P. striiformis TCS (JIC.CL.20130409.01)	/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01	65286846255	268	2026-10-25T23:40:42.508Z	2026-11-26T19:39:03.992Z
+6ada6c4557c017ae17122660	P. striiformis TCS (TSL.DS.20130809.01, 113)	/tsl/data/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113	32165487135	38	2026-10-24T22:44:55.251Z	2026-11-26T19:39:01.264Z
+6ada6c4557c017ae17122661	P. striiformis TCS 99 (TSL.DS.20130722.01)	/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99	6156498502	16	2026-10-23T11:59:36.131Z	2026-11-26T19:39:01.933Z
+6ada6c4557c017ae17122662	P. striiformis TCS 105 (TSL.DS.20130730.01)	/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105	41786044848	34	2026-10-25T03:18:53.147Z	2026-11-26T19:39:02.636Z
+6ada6c4557c017ae17122663	P. striiformis TCS 144 (TSL.DS.20131010.01rev2)	/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144	27554681601	64	2026-10-24T19:23:58.163Z	2026-11-26T19:39:03.174Z
+6452a72c525e070698932583	Sequencing of Br62 and I54 blast fungus isolates	/tsl/data/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates	7449731477	8	2026-10-23T12:20:05.113Z	2026-11-26T19:38:59.850Z
+5fc012bda3efcb29338b7d23	Wheat Blast	/tsl/data/reads/skamoun/wheat_blast	61698523958	68	2026-10-25T21:20:50.254Z	2026-11-26T19:38:50.558Z
+5fc012bda3efcb29338b7cff	Wheat Blast 2017	/tsl/data/reads/skamoun/wheat_blast_2017	66261978234	228	2026-10-26T02:49:30.278Z	2026-11-26T19:38:49.506Z
+60be4bafe788b405b6ce6726	2021_Gargy_accessions_WGS	/tsl/data/reads/two_blades/2021_gargy_accessions_wgs	225146340583	59	2026-10-30T08:17:57.809Z	2026-11-26T19:36:43.166Z
+6ada6c4457c017ae1712264e	Courville	/tsl/data/reads/two_blades/Courville	298805448427	100	2026-10-31T06:06:05.886Z	2026-11-26T19:36:40.900Z
+5fc012bda3efcb29338b7d0b	 Re-sequencing genomic DNA BGI	/tsl/data/reads/two_blades/_re_sequencing_genomic_dna_bgi	139553461709	87	2026-10-28T16:43:43.048Z	2026-11-26T19:36:47.904Z
+6051c37ad7661b6ec22a06e3	AdPop7_Parents_WGS_Illumina	/tsl/data/reads/two_blades/adpop7_parents_wgs_illumina	77132674232	6	2026-10-26T22:10:24.828Z	2026-11-26T19:36:54.985Z
+606d815ed7661b6ec22a0799	AdPop7_Progeny_BSA_Illumina	/tsl/data/reads/two_blades/adpop7_progeny_bsa_illumina	97868724548	8	2026-10-27T08:20:37.567Z	2026-11-26T19:36:52.503Z
+606eb043d7661b6ec22a07a3	AdPop7_RefAssembly_HiFi	/tsl/data/reads/two_blades/adpop7_refassembly_hifi	46103572077	2	2026-10-25T05:30:05.554Z	2026-11-26T19:36:58.813Z
+604f7072d7661b6ec22a06cf	AdvPop7_cDNA_Nanopore	/tsl/data/reads/two_blades/advpop7_cdna_nanopore	20841174602	2	2026-10-23T15:39:49.817Z	2026-11-26T19:37:02.017Z
+60bf4a7be788b405b6ce6763	Ant_Project_RNAseq data	/tsl/data/reads/two_blades/ant_project_rnaseq_data	31061957907	21	2026-10-24T21:40:34.384Z	2026-11-26T19:37:01.681Z
+5fc012bda3efcb29338b7d52	ASR_sequencing_10xgenomics	/tsl/data/reads/two_blades/asr_sequencing_10xgenomics	77051692759	16	2026-10-26T21:01:37.507Z	2026-11-26T19:36:55.089Z
+5fc012bda3efcb29338b7d51	ASR_sequencing_illumina	/tsl/data/reads/two_blades/asr_sequencing_illumina	72453177309	7	2026-10-26T18:43:50.948Z	2026-11-26T19:36:56.638Z
+5fc012bda3efcb29338b7d19	Bulks ASR_3 screen	/tsl/data/reads/two_blades/bulks_asr_3_screen	33872870524	10	2026-10-24T23:45:13.220Z	2026-11-26T19:37:01.087Z
+5fc012bda3efcb29338b7d7e	Cajanus_70x_genomicData_reads_Illumina	/tsl/data/reads/two_blades/cajanus_70x_genomicdata_reads_illumina	150156064373	84	2026-10-29T04:28:03.232Z	2026-11-26T19:36:45.662Z
+5fc012bda3efcb29338b7d05	Dovetail_Re-sequencing of Gargy_11_parent of 2BL-NI-Gargy_Fam1	/tsl/data/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1	271991566056	41	2026-10-30T16:18:09.890Z	2026-11-26T19:36:40.809Z
+5fc012bda3efcb29338b7d18	exome_capture_field_samples_jan2018	/tsl/data/reads/two_blades/exome_capture_field_samples_jan2018	49872696933	345	2026-10-25T15:30:10.440Z	2026-11-26T19:36:57.568Z
+5fc012bda3efcb29338b7d62	FOC_CR1.	/tsl/data/reads/two_blades/foc_cr1_	100272415170	50	2026-10-27T11:23:19.029Z	2026-11-26T19:36:52.410Z
+5fc012bda3efcb29338b7d2c	FOC_ST4	/tsl/data/reads/two_blades/foc_st4	89668270245	50	2026-10-27T05:37:36.927Z	2026-11-26T19:36:52.747Z
+5fc012bda3efcb29338b7d07	Gargy-2019_IsoSeq	/tsl/data/reads/two_blades/gargy_2019_isoseq	123255416179	11	2026-10-28T12:12:03.676Z	2026-11-26T19:36:48.261Z
+6130d23de788b405b6ce6d93	Genotyping by Sequencing Advanced Population 8	/tsl/data/reads/two_blades/genotyping_by_sequencing_advanced_population_8	81147190680	14	2026-10-27T01:37:30.993Z	2026-11-26T19:36:54.775Z
+5fc012bda3efcb29338b7d3f	GLTp-RNASeq-CintiaKawashima	/tsl/data/reads/two_blades/gltp_rnaseq_cintiakawashima	37991753431	10	2026-10-25T01:39:52.084Z	2026-11-26T19:36:59.695Z
+5fc012bda3efcb29338b7d2d	GLTp-WGS-CintiaKawashima	/tsl/data/reads/two_blades/gltp_wgs_cintiakawashima	40690750463	11	2026-10-25T02:53:10.339Z	2026-11-26T19:36:59.583Z
+5fc012bda3efcb29338b7d67	japanse_isolate_timecourse	/tsl/data/reads/two_blades/japanse_isolate_timecourse	145459637100	50	2026-10-28T21:51:31.928Z	2026-11-26T19:36:47.854Z
+5fc012bda3efcb29338b7d63	LegumeEnrichmentCapture_RaParent	/tsl/data/reads/two_blades/legumeenrichmentcapture_raparent	8833478265	4	2026-10-23T12:47:24.492Z	2026-11-26T19:37:03.981Z
+5fc012bda3efcb29338b7d22	LegumeEnrichmentCapture_Rd	/tsl/data/reads/two_blades/legumeenrichmentcapture_rd	9850699379	4	2026-10-23T13:44:05.738Z	2026-11-26T19:37:03.249Z
+5fc012bda3efcb29338b7d3b	LegumeEnrichmentCapture_S48	/tsl/data/reads/two_blades/legumeenrichmentcapture_s48	9238905532	4	2026-10-23T13:04:13.485Z	2026-11-26T19:37:03.906Z
+5fc012bda3efcb29338b7d45	LegumeEnrichmentCapture_SBulk_CcRpp2	/tsl/data/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2	23555304813	4	2026-10-23T17:30:34.759Z	2026-11-26T19:37:01.827Z
+5fc012bda3efcb29338b7d5d	Medicago Trucatala  genome sequences	/tsl/data/reads/two_blades/medicago_trucatala__genome_sequences	133328625562	20	2026-10-28T14:23:44.721Z	2026-11-26T19:36:47.915Z
+5fc012bda3efcb29338b7d6f	Mtruncatula_BGI_gDNA_parents_TwoF2susceptiblebulks	/tsl/data/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks	89741146441	56	2026-10-27T06:57:23.715Z	2026-11-26T19:36:52.775Z
+5fc012bda3efcb29338b7d1c	Mtruncatula_BGI_RNAseq_parents	/tsl/data/reads/two_blades/mtruncatula_bgi_rnaseq_parents	51726945153	10	2026-10-25T17:43:14.769Z	2026-11-26T19:36:57.143Z
+5fc012bda3efcb29338b7d00	Pacbio_genome_sequencing_PPUFV02	/tsl/data/reads/two_blades/pacbio_genome_sequencing_ppufv02	521252084820	374	2026-11-02T02:48:41.097Z	2026-11-26T19:36:41.004Z
+5fc012bda3efcb29338b7d16	Phakopsora pachyrhizi GA05-1 complete infection transcriptome	/tsl/data/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome	249579426855	266	2026-10-30T12:22:24.920Z	2026-11-26T19:36:43.363Z
+5fc012bda3efcb29338b7d5f	PhilMacCLean_EnrichedPacBio_EarlhamInstitute	/tsl/data/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute	214088937044	239	2026-10-30T01:48:49.426Z	2026-11-26T19:36:43.661Z
+5fc012bda3efcb29338b7d5e	PKG-ENQ-698NadineIlk	/tsl/data/reads/two_blades/pkg_enq_698nadineilk	168220436830	74	2026-10-29T16:29:39.479Z	2026-11-26T19:36:45.635Z
+5fc012bda3efcb29338b7d80	PKG-ENQ-832.01NadineIlk	/tsl/data/reads/two_blades/pkg_enq_832_01nadineilk	75672305	1	2026-10-23T10:29:10.709Z	2026-11-26T19:37:06.217Z
+5fc012bda3efcb29338b7d7d	ppufv02_gDNA_bgi	/tsl/data/reads/two_blades/ppufv02_gdna_bgi	49736660585	7	2026-10-25T09:15:18.316Z	2026-11-26T19:36:57.284Z
+5fc012bda3efcb29338b7d55	ppufv02_nanopore_sequencing	/tsl/data/reads/two_blades/ppufv02_nanopore_sequencing	106000044545	4	2026-10-27T22:14:31.479Z	2026-11-26T19:36:50.091Z
+5fc012bda3efcb29338b7d6c	ppufv02_timecourse	/tsl/data/reads/two_blades/ppufv02_timecourse	148918476355	64	2026-10-29T00:02:38.969Z	2026-11-26T19:36:46.049Z
+5fc012bda3efcb29338b7cfd	ppufv02_transcriptome	/tsl/data/reads/two_blades/ppufv02_transcriptome	298625577302	867	2026-10-31T01:42:29.976Z	2026-11-26T19:36:41.321Z
+5fc012bda3efcb29338b7d74	RNAseq_2BL-NI-Gargy_Fam1	/tsl/data/reads/two_blades/rnaseq_2bl_ni_gargy_fam1	7270673459	5	2026-10-23T12:12:52.447Z	2026-11-26T19:37:05.541Z
+5fc012bda3efcb29338b7d54	RNASeq BGI Cajanus cajan inf	/tsl/data/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf	85588402376	60	2026-10-27T02:54:06.437Z	2026-11-26T19:36:54.570Z
+5fc012bda3efcb29338b7d65	Rnaseq M.trun	/tsl/data/reads/two_blades/rnaseq_m_trun	8236352627	12	2026-10-23T12:36:29.818Z	2026-11-26T19:37:04.418Z
+5fc012bda3efcb29338b7d08	RNAseq of differential isolates of ASR	/tsl/data/reads/two_blades/rnaseq_of_differential_isolates_of_asr	103376057393	22	2026-10-27T15:52:15.836Z	2026-11-26T19:36:50.286Z
+5fc012bda3efcb29338b7d20	RNAseqP.sa	/tsl/data/reads/two_blades/rnaseqp_sa	166467707030	70	2026-10-29T13:59:25.290Z	2026-11-26T19:36:45.509Z
+5fc012bda3efcb29338b7cfe	Sequencing and de novo assembly of Glycine latifolia 	/tsl/data/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_	219297530739	30	2026-10-30T04:54:46.286Z	2026-11-26T19:36:43.277Z
+5fc012bda3efcb29338b7d48	sequencing_field_isolates_of_phakopsora	/tsl/data/reads/two_blades/sequencing_field_isolates_of_phakopsora	102821725130	44	2026-10-27T14:22:29.645Z	2026-11-26T19:36:50.229Z
+5fc012bda3efcb29338b7d15	soybean_rust_dovetail_hic	/tsl/data/reads/two_blades/soybean_rust_dovetail_hic	44801395583	11	2026-10-25T05:04:53.355Z	2026-11-26T19:36:59.404Z
+5fc012bda3efcb29338b7d1f	Whole-Genome-Shotgun Illumina sequencing of Gargy_11, Gargy_04 and bulk susecptibles	/tsl/data/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles	100282185901	19	2026-10-27T12:52:04.687Z	2026-11-26T19:36:50.333Z

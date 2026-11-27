@@ -1,0 +1,9 @@
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-reviewed-projects.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK
+fresh-release-state.json: OK
+pilot-acceptance.json: OK

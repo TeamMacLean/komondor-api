@@ -1,0 +1,14 @@
+test_active_or_invalid_retention_and_missing_source_rejected (test_release.ReleaseChecks.test_active_or_invalid_retention_and_missing_source_rejected) ... ok
+test_completed_roots_and_catalogue_must_still_pass (test_release.ReleaseChecks.test_completed_roots_and_catalogue_must_still_pass) ... ok
+test_exact_unchanged_remaining_scope_and_exclusions (test_release.ReleaseChecks.test_exact_unchanged_remaining_scope_and_exclusions) ... ok
+test_expired_review_or_extended_expiry_rejected (test_release.ReleaseChecks.test_expired_review_or_extended_expiry_rejected) ... ok
+test_live_identity_drift_rejected (test_release.ReleaseChecks.test_live_identity_drift_rejected) ... ok
+test_missing_or_altered_acceptance_file_rejected (test_release.ReleaseChecks.test_missing_or_altered_acceptance_file_rejected) ... ok
+test_same_count_wrong_id_or_completed_project_rejected (test_release.ReleaseChecks.test_same_count_wrong_id_or_completed_project_rejected) ... ok
+test_unaccepted_or_unconfirmed_pilot_rejected (test_release.ReleaseChecks.test_unaccepted_or_unconfirmed_pilot_rejected) ... ok
+test_valid_receipts_and_every_package_checksum (test_release.ReleaseChecks.test_valid_receipts_and_every_package_checksum) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.420s
+
+OK

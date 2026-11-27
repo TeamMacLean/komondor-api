@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "copyDigest": "59c4ab3ff351cb1e5b3180d942cf0be8142aea1c1741fe36db5121d3ae8d3655",
+  "at": "2026-11-26T13:24:23.907Z",
+  "destination": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/raw",
+  "intentSha256": "a336687f21775017de07113010bb2cc1a2e813e95716e245440280e8b160df29",
+  "metadata": {
+    "dev": 42,
+    "ino": 61615864132,
+    "size": 0,
+    "mode": 16888,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 2,
+    "mtimeMs": 1795699463905.781,
+    "ctimeMs": 1795699463905.781
+  },
+  "sha256": "5472fc56bb018b6eb133d8cf7e9cf921a3526eeef0bdf39ce32a25c91ed04e8d"
+}

@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-27T14:45:28.799723+00:00",
+  "success": true,
+  "reviewer": "independent subagent gulnara_native_review",
+  "copiedEvidenceFilesRehashed": 46,
+  "archiveHashMatched": true,
+  "nativeDryRuns": 4,
+  "nativeConfirmations": 4,
+  "allNativeExitsZero": true,
+  "sourceAssociationsUnchanged": {
+    "samples": 113,
+    "runs": 113,
+    "reads": 283,
+    "additionalFiles": 129
+  },
+  "typedBsonGraphRecordsCompared": 109,
+  "onlyExpectedSourceProjectConfirmationFieldsChanged": true,
+  "protectedProjectSnapshotsIdentical": true,
+  "rawJobAuditRecomputed": true,
+  "cohortIdsPathsAndTransferDatesMatchedOriginalRegister": 175,
+  "awsOnly": 174,
+  "gargyOnlyRemainingOnHpc": true,
+  "issues": []
+}

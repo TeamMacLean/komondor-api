@@ -1,0 +1,106 @@
+{
+  "at": "2026-11-27T13:46:16.930665+00:00",
+  "kind": "komondor-bulk-hpc-deletion-completed-v1",
+  "jobId": "25340024",
+  "success": true,
+  "bulkProjectsRemovedAndConfirmed": 167,
+  "originalBatch": {
+    "total": 175,
+    "awsOnly": 170,
+    "retainedOnHpcAndAws": 5
+  },
+  "logicalBytesRemovedThisJob": 12690838486686,
+  "filesInThisJob": 14860,
+  "nativeCompletedAt": "2026-11-27T13:44:28.951Z",
+  "independentNativeAuditPassed": true,
+  "rawDeletionLogAuditPassed": true,
+  "representativeWebsiteChecksPassed": true,
+  "associatedRecordsUnchanged": {
+    "samples": 1288,
+    "runs": 1563,
+    "unfinishedJobs": 0,
+    "reads": 2844,
+    "additionalFiles": 12016
+  },
+  "heldProjects": [
+    "5fc012bda3efcb29338b7d58",
+    "61204424e788b405b6ce6bde",
+    "611ff26de788b405b6ce6a4c",
+    "5fd1ed55d8dd4a63058cc1c9",
+    "5fdb2d62d7661b6ec22a0571"
+  ],
+  "doNotRerunCompletedPackages": true,
+  "evidence": [
+    {
+      "file": "deletion-25340024.jsonl",
+      "bytes": 82400,
+      "sha256": "9a9a9f7f7ea14e37a1e3bc22046afebfc1005b860585162ca7c0405b187f7970"
+    },
+    {
+      "file": "komondor-remaining-167-25340024.log",
+      "bytes": 85274,
+      "sha256": "6578a177aa011e19b3f6e16ab3a7fbfced9efc3b4295a18870e67505b88f28be"
+    },
+    {
+      "file": "job-25340024-audit.json",
+      "bytes": 3071,
+      "sha256": "1538fa933566abdbfcc7595466e35563e4655a67c8d21c0e8606b33610ff3d85"
+    },
+    {
+      "file": "bulk-native-confirmation-server-20261127.tar.gz",
+      "bytes": 9774589,
+      "sha256": "8b345727c83f7eee455392540a083c4a3f3c1d7e0f60d239fd8ce1aedd7c1824"
+    },
+    {
+      "file": "bulk-native-confirmation.json",
+      "bytes": 164715,
+      "sha256": "e35ad539995f70b6fbb7b2790e00cbe2bbc77c4fac8402380cef1e572263946c"
+    },
+    {
+      "file": "bulk-native-final-audit.json",
+      "bytes": 163854,
+      "sha256": "57adbd8421a7dd1b06ff3aae8077f94b4a77909b0064a19d23341b35d7d03217"
+    },
+    {
+      "file": "bulk-native-commands.json",
+      "bytes": 144625,
+      "sha256": "cd28fb693e3530029506320bfcb41deb7407078d35b70549a259e4ff4b53fa3f"
+    },
+    {
+      "file": "bulk-native-evidence-copy.json",
+      "bytes": 506,
+      "sha256": "dd1640bfaaddc31fe3c96de733098ef63adef897b14052f93f45d35b48a84b6f"
+    },
+    {
+      "file": "bulk-native-confirmation-audit.json",
+      "bytes": 1674,
+      "sha256": "abbd012b492ca1b9a73b71d6bec213b87eacde00982d3383251be212fa93dca0"
+    },
+    {
+      "file": "bulk-website-checks-20261127.json",
+      "bytes": 1882,
+      "sha256": "0ec68acff86fc6e5276974f49c4987f62465cd71b9de05b0cd681e02ac861f05"
+    },
+    {
+      "file": "bulk-confirmation-runner-review.json",
+      "bytes": 684,
+      "sha256": "a8593cdb0183ea2f8e7bb91151bce9cc4ead6f0d8a130cda58d4d46870504b34"
+    },
+    {
+      "file": "bulk-confirmation-staging.json",
+      "bytes": 376,
+      "sha256": "9a7ac0d49dca091fe46cd22223ceff7bc3a09b81a0eb391d6d853660eb9e7c52"
+    },
+    {
+      "file": "bulk-confirmation-launch.json",
+      "bytes": 217,
+      "sha256": "f95bdcd8136caf1d0a9144fd033e0a1fde66d405fa5546fa93006b1fadaf9310"
+    }
+  ],
+  "notes": [
+    "Final Slurm COMPLETED/0:0 accounting is user-reported; copied logs independently prove runner completion and GNU time exit status 0.",
+    "No S3 payload mutation or filesystem deletion performed by this confirmation task.",
+    "Logical removed bytes are not a measurement of quota reclamation or snapshot retention.",
+    "Docs and evidence are local; not committed or pushed in this task."
+  ]
+}

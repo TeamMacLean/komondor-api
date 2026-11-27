@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "operationId": "d40a4195-b46c-415f-9e55-6d4e2564ceeb",
+  "targetProjectId": "6ae4ac89a6b876c643741d27",
+  "toolSha256": "585a411959b83aeb61d38f4a56691fc828fffff40f510902b56aaca9dbdb245d",
+  "snapshot": {
+    "file": "initial-db-snapshot.json",
+    "sha256": "e0a2a00900da52229a0f13c256d3c364832e4daea95a73491c4b36a3a96e9ec9"
+  },
+  "fastqProof": {
+    "file": "fastq-hashes-01/completed.json",
+    "sha256": "85494ebc040f71684a7f42d6ceda56e5c1f9d7f76b3e2a9b2aee10d243cffa7d"
+  },
+  "sidecarReview": {
+    "file": "sidecar-review.json",
+    "sha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+  },
+  "copyManifest": {
+    "file": "copy-manifest.json",
+    "sha256": "0a2efc9c49c37c5da0a402d0a4906355583e50684331a2c02abd451e9768371e"
+  },
+  "auxProof": {
+    "file": "aux-proof.json",
+    "sha256": "7938614f1b0b5130bc0ca60cdeb32dcf1317c927727ac83a8f6649ed00a82733"
+  }
+}

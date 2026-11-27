@@ -1,0 +1,78 @@
+{
+  "kind": "gulnara-deletion-package-readonly-validation-v1",
+  "startedAt": "2026-11-27T14:22:05.733862+00:00",
+  "package": "/storage/komondor-gulnara-source-delete-20261127-01",
+  "planSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+  "runnerSha256": "378a88ee3f7a487c33c21ec7de6983763cd99661e4900d082e8b8e3de686f7d0",
+  "databaseWrites": 0,
+  "awsOperations": 0,
+  "sourceDeletions": 0,
+  "payloadWrites": 0,
+  "scope": "Read-only VM mount validation; no Slurm submission or deletion",
+  "success": true,
+  "projects": [
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "vmPath": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days",
+      "files": 142,
+      "bytes": 173734125362,
+      "sourceMetadataMatched": true
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "vmPath": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days",
+      "files": 99,
+      "bytes": 105611175618,
+      "sourceMetadataMatched": true
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "vmPath": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days",
+      "files": 89,
+      "bytes": 99954671448,
+      "sourceMetadataMatched": true
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "vmPath": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days",
+      "files": 122,
+      "bytes": 103438441044,
+      "sourceMetadataMatched": true
+    }
+  ],
+  "projectCount": 4,
+  "files": 452,
+  "bytes": 482738413472,
+  "protectedCopiesIntact": true,
+  "sealedPackageUnchanged": true,
+  "reviewCompletedAt": "2026-11-27T14:13:23.753Z",
+  "expiresAt": "2026-11-27T20:13:23.753000+00:00",
+  "mountBefore": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "mountAfter": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "packageSha256": {
+    "HELD_PATHS.txt": "1cffabe6b3f75cfe3150181d9069e70d2b2282fc6b06235ab641924e56074021",
+    "HPC_PATHS.txt": "2e0487981de5cbf1374518e4cd5715dff0875c93af0aa03416674e190e81cf82",
+    "PROJECTS.tsv": "5c89a2ce7751a278354c356480f90143ef870b98a70e339d9d6b010d24da07eb",
+    "README.md": "26770c41e79aa2330b8071696df7c4ef19eae9f0abe0c072d53a11a943d8ae8e",
+    "SHA256SUMS": "3714355d9092cacca323ef58e888942ad7daefe5519c402b67bf4e6df49abbca",
+    "delete-reviewed-projects.py": "378a88ee3f7a487c33c21ec7de6983763cd99661e4900d082e8b8e3de686f7d0",
+    "delete.sbatch": "6d220b0d72353548a9aeb28dd626251f9c8f15308d53944c99ea69dba9c95d42",
+    "deletion-plan.json": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+    "destination-check.json": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+    "hold-release.json": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+    "summary.json": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41"
+  },
+  "at": "2026-11-27T14:22:06.476442+00:00"
+}

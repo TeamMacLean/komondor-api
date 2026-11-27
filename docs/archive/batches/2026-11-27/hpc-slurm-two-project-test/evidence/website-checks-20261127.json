@@ -1,0 +1,30 @@
+{
+  "observedOn": "2026-11-27",
+  "method": "Actual production Chrome pages refreshed after native confirmation; accessibility text inspected",
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d13",
+      "title": "MiSeq RenSeq of Brassica accessions",
+      "archiveLabel": "Archived in AWS",
+      "hpcLabel": "HPC removal confirmed",
+      "absenceDisplayed": "27 November 2026 at 12:58 UTC",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesStillVisible": ["Brassica oleracea A12", "Brassica rapa Chiifu"],
+      "additionalFilesStillVisible": true
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d4e",
+      "title": "Resistance to Albugo laibachii in Sf-2",
+      "archiveLabel": "Archived in AWS",
+      "hpcLabel": "HPC removal confirmed",
+      "absenceDisplayed": "27 November 2026 at 12:58 UTC",
+      "awsLabel": "Transfer verified in AWS",
+      "samplesStillVisible": ["329 x Sf-2 Nc14 F2 susceptible bulk"],
+      "additionalFilesStillVisible": true
+    }
+  ],
+  "remaining167Released": false,
+  "outstanding": "Raw Slurm logs and sacct output requested from George; CPU/memory accounting not yet inspected"
+}

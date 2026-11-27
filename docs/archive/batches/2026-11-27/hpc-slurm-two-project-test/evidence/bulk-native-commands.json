@@ -1,0 +1,4845 @@
+[
+  {
+    "at": "2026-11-27T13:34:38.623Z",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d60",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34632f2b2c46efb0e076\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:38.672Z",
+    "projectId": "5fc012bda3efcb29338b7d29",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d29",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:38.712Z",
+    "projectId": "5fc012bda3efcb29338b7d77",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d77",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb342f2f2b2c46efb0df22\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:38.849Z",
+    "projectId": "5fc012bda3efcb29338b7d10",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d10",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33c92f2b2c46efb0db76\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:43.733Z",
+    "projectId": "5fc012bda3efcb29338b7d17",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d17",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb346c2f2b2c46efb0e0c5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:43.824Z",
+    "projectId": "5fc012bda3efcb29338b7d5a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33e22f2b2c46efb0dc3f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:43.854Z",
+    "projectId": "5fc012bda3efcb29338b7d40",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d40",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33ff2f2b2c46efb0dd57\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:43.979Z",
+    "projectId": "5fc012bda3efcb29338b7d0f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34712f2b2c46efb0e102\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:48.866Z",
+    "projectId": "5fc012bda3efcb29338b7d11",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d11",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33d42f2b2c46efb0dbc0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:49.089Z",
+    "projectId": "5fc012bda3efcb29338b7d7c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33f62f2b2c46efb0dcfb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:49.194Z",
+    "projectId": "5fc012bda3efcb29338b7d36",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d36",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb340f2f2b2c46efb0dde0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:49.258Z",
+    "projectId": "5fc012bda3efcb29338b7d64",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d64",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34072f2b2c46efb0ddaa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:54.142Z",
+    "projectId": "5fc012bda3efcb29338b7d6e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb341d2f2b2c46efb0de6e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:54.258Z",
+    "projectId": "5fc012bda3efcb29338b7d31",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d31",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33f22f2b2c46efb0dcd6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:54.344Z",
+    "projectId": "5fc012bda3efcb29338b7d81",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d81",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb344f2f2b2c46efb0dfb0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:54.373Z",
+    "projectId": "5fc012bda3efcb29338b7d78",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d78",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33ff2f2b2c46efb0dd50\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:59.160Z",
+    "projectId": "5fc012bda3efcb29338b7d27",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d27",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb344c2f2b2c46efb0df8f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:59.180Z",
+    "projectId": "5fc012bda3efcb29338b7d68",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d68",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb340e2f2b2c46efb0ddcd\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:59.397Z",
+    "projectId": "5fc012bda3efcb29338b7d34",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d34",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33e32f2b2c46efb0dc49\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:34:59.444Z",
+    "projectId": "5fc012bda3efcb29338b7d1b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:04.483Z",
+    "projectId": "5fc012bda3efcb29338b7d44",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d44",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb341c2f2b2c46efb0de5a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:04.680Z",
+    "projectId": "5fc012bda3efcb29338b7d4a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d4a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33f62f2b2c46efb0dd05\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:04.720Z",
+    "projectId": "5fc012bda3efcb29338b7d35",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d35",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb348a2f2b2c46efb0e151\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:05.021Z",
+    "projectId": "5fc012bda3efcb29338b7d01",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d01",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34242f2b2c46efb0debb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:09.445Z",
+    "projectId": "5fc012bda3efcb29338b7d47",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d47",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb345b2f2b2c46efb0e017\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:09.635Z",
+    "projectId": "5fc012bda3efcb29338b7d1a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34322f2b2c46efb0df43\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:09.772Z",
+    "projectId": "5fc012bda3efcb29338b7cfb",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfb",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34692f2b2c46efb0e0a3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:10.084Z",
+    "projectId": "61375deae788b405b6ce6da8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "61375deae788b405b6ce6da8",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34052f2b2c46efb0dd7c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:14.549Z",
+    "projectId": "5fc012bda3efcb29338b7d49",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d49",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb346d2f2b2c46efb0e0cf\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:14.690Z",
+    "projectId": "5fc012bda3efcb29338b7d2a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb345f2f2b2c46efb0e053\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:14.835Z",
+    "projectId": "5fc012bda3efcb29338b7d56",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d56",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb342b2f2b2c46efb0defa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:15.089Z",
+    "projectId": "5fc012bda3efcb29338b7d12",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d12",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb342a2f2b2c46efb0dee7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:19.538Z",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33c52f2b2c46efb0db3c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:19.663Z",
+    "projectId": "5fc012bda3efcb29338b7d37",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d37",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34162f2b2c46efb0de37\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:19.792Z",
+    "projectId": "5fc012bda3efcb29338b7d38",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d38",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33f12f2b2c46efb0dccc\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:20.233Z",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33d62f2b2c46efb0dbd9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:24.649Z",
+    "projectId": "5fc012bda3efcb29338b7d59",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d59",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb345d2f2b2c46efb0e02b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:24.856Z",
+    "projectId": "5fc012bda3efcb29338b7d3c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34552f2b2c46efb0dfea\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:24.907Z",
+    "projectId": "60b78429e788b405b6ce66aa",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60b78429e788b405b6ce66aa",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33c42f2b2c46efb0db28\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:25.342Z",
+    "projectId": "60ba0530e788b405b6ce66f2",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60ba0530e788b405b6ce66f2",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33c52f2b2c46efb0db3b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:29.799Z",
+    "projectId": "5fc012bda3efcb29338b7d39",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d39",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da2d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:30.005Z",
+    "projectId": "5fc012bda3efcb29338b7d28",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d28",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34512f2b2c46efb0dfb9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:30.081Z",
+    "projectId": "5fc012bda3efcb29338b7d6d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33e72f2b2c46efb0dc8b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:30.432Z",
+    "projectId": "5fc012bda3efcb29338b7d42",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d42",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34862f2b2c46efb0e11f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:35.260Z",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:36.743Z",
+    "projectId": "5fc012bda3efcb29338b7d1e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb343a2f2b2c46efb0df56\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:40.194Z",
+    "projectId": "5fc012bda3efcb29338b7d66",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d66",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33d42f2b2c46efb0dbb6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:35:48.083Z",
+    "projectId": "5fc012bda3efcb29338b7d26",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d26",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33e52f2b2c46efb0dc62\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:14.401Z",
+    "projectId": "5fc012bda3efcb29338b7d71",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d71",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34212f2b2c46efb0de98\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:18.296Z",
+    "projectId": "5fc012bda3efcb29338b7d24",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d24",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33d82f2b2c46efb0dbf2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:19.267Z",
+    "projectId": "5fc012bda3efcb29338b7d57",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d57",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35542f2b2c46efb0e535\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:23.216Z",
+    "projectId": "606c3308d7661b6ec22a0793",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606c3308d7661b6ec22a0793",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb355e2f2b2c46efb0e577\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:23.595Z",
+    "projectId": "5fc012bda3efcb29338b7d6b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33b52f2b2c46efb0da99\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:24.190Z",
+    "projectId": "605b441ad7661b6ec22a076a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "605b441ad7661b6ec22a076a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb358b2f2b2c46efb0e618\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:27.865Z",
+    "projectId": "5fc012bda3efcb29338b7cfc",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfc",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34132f2b2c46efb0de0a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:28.296Z",
+    "projectId": "60619edfd7661b6ec22a076e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60619edfd7661b6ec22a076e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb358a2f2b2c46efb0e608\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:28.738Z",
+    "projectId": "6116c323e788b405b6ce69f6",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116c323e788b405b6ce69f6",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb351c2f2b2c46efb0e3d4\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:29.795Z",
+    "projectId": "5fc012bda3efcb29338b7d2f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35202f2b2c46efb0e3ff\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:56.070Z",
+    "projectId": "5fc012bda3efcb29338b7d4c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d4c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34cf2f2b2c46efb0e311\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:58.148Z",
+    "projectId": "5fc012bda3efcb29338b7d7b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34ca2f2b2c46efb0e2e3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:59.055Z",
+    "projectId": "5fc012bda3efcb29338b7d3e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34972f2b2c46efb0e1b6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:36:59.776Z",
+    "projectId": "5fc012bda3efcb29338b7d33",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d33",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34da2f2b2c46efb0e35a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:01.135Z",
+    "projectId": "6ada6c4457c017ae17122658",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122658",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35602f2b2c46efb0e589\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:03.543Z",
+    "projectId": "6ada6c4457c017ae17122657",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122657",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb355b2f2b2c46efb0e559\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:04.269Z",
+    "projectId": "6ada6c4457c017ae17122656",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122656",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35502f2b2c46efb0e512\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:05.230Z",
+    "projectId": "6ada6c4457c017ae17122652",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122652",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb352a2f2b2c46efb0e445\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:06.540Z",
+    "projectId": "6ada6c4457c017ae17122650",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122650",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34ce2f2b2c46efb0e2fd\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:08.570Z",
+    "projectId": "6ada6c4457c017ae1712265a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265a",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35932f2b2c46efb0e64b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:09.236Z",
+    "projectId": "6ada6c4557c017ae1712265d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35bb2f2b2c46efb0e6ed\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:10.256Z",
+    "projectId": "6ada6c4457c017ae17122655",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122655",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35442f2b2c46efb0e4c1\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:11.532Z",
+    "projectId": "6ada6c4457c017ae1712264f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712264f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34cc2f2b2c46efb0e2e9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:13.662Z",
+    "projectId": "6ada6c4457c017ae1712265c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35a42f2b2c46efb0e685\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:14.415Z",
+    "projectId": "6ada6c4457c017ae1712265b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ac2f2b2c46efb0e68b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:15.446Z",
+    "projectId": "6ada6c4457c017ae17122659",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122659",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35832f2b2c46efb0e5d5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:16.697Z",
+    "projectId": "6ada6c4557c017ae1712265e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35bf2f2b2c46efb0e70e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:18.887Z",
+    "projectId": "6ada6c4457c017ae17122653",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122653",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb352f2f2b2c46efb0e461\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:19.675Z",
+    "projectId": "6ada6c4457c017ae17122654",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122654",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35392f2b2c46efb0e4ad\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:20.706Z",
+    "projectId": "6ada6c4457c017ae17122651",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122651",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34dd2f2b2c46efb0e385\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:21.954Z",
+    "projectId": "60804e0b837a8a261f0133ee",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60804e0b837a8a261f0133ee",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35142f2b2c46efb0e3c2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:24.055Z",
+    "projectId": "5fc012bda3efcb29338b7d09",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d09",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34d92f2b2c46efb0e351\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:24.687Z",
+    "projectId": "5fc012bda3efcb29338b7d50",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d50",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ba2f2b2c46efb0e6e7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:25.886Z",
+    "projectId": "5fc012bda3efcb29338b7d06",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d06",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35472f2b2c46efb0e4db\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:27.074Z",
+    "projectId": "5fc012bda3efcb29338b7d79",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d79",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35362f2b2c46efb0e49e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:29.331Z",
+    "projectId": "5fc012bda3efcb29338b7d1d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb354d2f2b2c46efb0e4f8\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:30.060Z",
+    "projectId": "5fc012bda3efcb29338b7d25",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d25",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ae2f2b2c46efb0e694\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:31.147Z",
+    "projectId": "5fc012bda3efcb29338b7cfa",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfa",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35222f2b2c46efb0e408\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:32.301Z",
+    "projectId": "5fc012bda3efcb29338b7d03",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d03",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35632f2b2c46efb0e5a7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:34.662Z",
+    "projectId": "5fc012bda3efcb29338b7cf7",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cf7",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35302f2b2c46efb0e473\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:35.409Z",
+    "projectId": "5fc012bda3efcb29338b7d46",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d46",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34952f2b2c46efb0e19e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:36.523Z",
+    "projectId": "5fc012bda3efcb29338b7d43",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d43",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35272f2b2c46efb0e436\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:42.974Z",
+    "projectId": "6116c220e788b405b6ce69f2",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116c220e788b405b6ce69f2",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb357c2f2b2c46efb0e5cf\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:44.102Z",
+    "projectId": "6116bf17e788b405b6ce69e8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116bf17e788b405b6ce69e8",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34dd2f2b2c46efb0e37f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:44.773Z",
+    "projectId": "5fc012bda3efcb29338b7d7f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35992f2b2c46efb0e676\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:45.695Z",
+    "projectId": "5fc012bda3efcb29338b7d04",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d04",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34c02f2b2c46efb0e296\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:48.113Z",
+    "projectId": "5fc012bda3efcb29338b7d41",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d41",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34b32f2b2c46efb0e224\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:49.261Z",
+    "projectId": "5fc012bda3efcb29338b7d21",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d21",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35912f2b2c46efb0e63c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:49.984Z",
+    "projectId": "5fc012bda3efcb29338b7d02",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d02",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb34b22f2b2c46efb0e20b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:50.838Z",
+    "projectId": "613b733ee788b405b6ce6eb8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "613b733ee788b405b6ce6eb8",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb361f2f2b2c46efb0e91f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:53.142Z",
+    "projectId": "5fc012bda3efcb29338b7d30",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d30",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36072f2b2c46efb0e841\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:54.450Z",
+    "projectId": "5fc012bda3efcb29338b7d32",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d32",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35cf2f2b2c46efb0e79e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:55.149Z",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36022f2b2c46efb0e823\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:56.081Z",
+    "projectId": "5fc012bda3efcb29338b7d73",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d73",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ca2f2b2c46efb0e76e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:58.425Z",
+    "projectId": "5fc012bda3efcb29338b7d0c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35c02f2b2c46efb0e717\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:37:59.773Z",
+    "projectId": "60defd3ae788b405b6ce68db",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60defd3ae788b405b6ce68db",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35fc2f2b2c46efb0e7f3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:00.408Z",
+    "projectId": "611bcc57e788b405b6ce69fc",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611bcc57e788b405b6ce69fc",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36172f2b2c46efb0e8d5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:01.358Z",
+    "projectId": "611be0c6e788b405b6ce6a3c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611be0c6e788b405b6ce6a3c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb361a2f2b2c46efb0e8f5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:03.965Z",
+    "projectId": "61572b1b36105e13c15d58ac",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "61572b1b36105e13c15d58ac",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36242f2b2c46efb0e93d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:05.262Z",
+    "projectId": "60c8b1d3e788b405b6ce6845",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60c8b1d3e788b405b6ce6845",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb360b2f2b2c46efb0e867\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:05.949Z",
+    "projectId": "610fd90de788b405b6ce6946",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "610fd90de788b405b6ce6946",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36112f2b2c46efb0e89e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:06.861Z",
+    "projectId": "611bd783e788b405b6ce6a0c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611bd783e788b405b6ce6a0c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36152f2b2c46efb0e8be\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:09.068Z",
+    "projectId": "60d1f3a0e788b405b6ce68a1",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60d1f3a0e788b405b6ce68a1",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ea2f2b2c46efb0e7df\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:10.635Z",
+    "projectId": "60e4528be788b405b6ce6917",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60e4528be788b405b6ce6917",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36092f2b2c46efb0e855\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:11.074Z",
+    "projectId": "64c13517d32c7a7e4b174f20",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "64c13517d32c7a7e4b174f20",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36302f2b2c46efb0e961\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:12.101Z",
+    "projectId": "6ada6c4557c017ae1712265f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36482f2b2c46efb0e990\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:14.298Z",
+    "projectId": "6ada6c4557c017ae17122660",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122660",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb364c2f2b2c46efb0e9a4\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:15.779Z",
+    "projectId": "6ada6c4557c017ae17122661",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122661",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb364b2f2b2c46efb0e99e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:16.268Z",
+    "projectId": "6ada6c4557c017ae17122662",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122662",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb364e2f2b2c46efb0e9aa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:17.377Z",
+    "projectId": "6ada6c4557c017ae17122663",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122663",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36592f2b2c46efb0e9be\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:19.557Z",
+    "projectId": "6452a72c525e070698932583",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6452a72c525e070698932583",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb36262f2b2c46efb0e951\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:21.252Z",
+    "projectId": "5fc012bda3efcb29338b7d23",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d23",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ce2f2b2c46efb0e794\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:21.750Z",
+    "projectId": "5fc012bda3efcb29338b7cff",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cff",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb35ca2f2b2c46efb0e764\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:22.746Z",
+    "projectId": "60be4bafe788b405b6ce6726",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60be4bafe788b405b6ce6726",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e255f563cce90e7448d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:24.820Z",
+    "projectId": "6ada6c4457c017ae1712264e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712264e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e0b5f563cce90e7440f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:26.623Z",
+    "projectId": "5fc012bda3efcb29338b7d0b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e565f563cce90e74594\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:27.084Z",
+    "projectId": "6051c37ad7661b6ec22a06e3",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6051c37ad7661b6ec22a06e3",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e9b5f563cce90e74722\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:27.911Z",
+    "projectId": "606d815ed7661b6ec22a0799",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606d815ed7661b6ec22a0799",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e845f563cce90e746a7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:35.455Z",
+    "projectId": "5fc012bda3efcb29338b7d52",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d52",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eaf5f563cce90e74791\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:38.034Z",
+    "projectId": "606eb043d7661b6ec22a07a3",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606eb043d7661b6ec22a07a3",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2ed75f563cce90e7481f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:39.721Z",
+    "projectId": "604f7072d7661b6ec22a06cf",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "604f7072d7661b6ec22a06cf",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2f005f563cce90e74926\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:40.481Z",
+    "projectId": "5fc012bda3efcb29338b7d51",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d51",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eb05f563cce90e7479a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:43.044Z",
+    "projectId": "5fc012bda3efcb29338b7d19",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d19",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eef5f563cce90e748cb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:44.887Z",
+    "projectId": "5fc012bda3efcb29338b7d7e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e3e5f563cce90e74519\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:45.634Z",
+    "projectId": "5fc012bda3efcb29338b7d05",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d05",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e245f563cce90e74483\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:47.976Z",
+    "projectId": "60bf4a7be788b405b6ce6763",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60bf4a7be788b405b6ce6763",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eec5f563cce90e748a5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:48.533Z",
+    "projectId": "5fc012bda3efcb29338b7d18",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d18",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eb85f563cce90e747c9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:50.319Z",
+    "projectId": "5fc012bda3efcb29338b7d62",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d62",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e845f563cce90e74696\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:51.035Z",
+    "projectId": "5fc012bda3efcb29338b7d2c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e995f563cce90e7470f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:53.133Z",
+    "projectId": "5fc012bda3efcb29338b7d07",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d07",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e6c5f563cce90e74609\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:53.753Z",
+    "projectId": "6130d23de788b405b6ce6d93",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6130d23de788b405b6ce6d93",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e9a5f563cce90e74719\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:55.502Z",
+    "projectId": "5fc012bda3efcb29338b7d3f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eec5f563cce90e7489b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:56.154Z",
+    "projectId": "5fc012bda3efcb29338b7d2d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eda5f563cce90e74845\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:58.216Z",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d67",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e555f563cce90e7458b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:38:58.855Z",
+    "projectId": "5fc012bda3efcb29338b7d63",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d63",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2f075f563cce90e74963\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:00.677Z",
+    "projectId": "5fc012bda3efcb29338b7d22",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d22",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2f005f563cce90e7491d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:01.256Z",
+    "projectId": "5fc012bda3efcb29338b7d3b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3b",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2f035f563cce90e7494c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:03.657Z",
+    "projectId": "5fc012bda3efcb29338b7d45",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d45",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2ef25f563cce90e748e2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:04.155Z",
+    "projectId": "5fc012bda3efcb29338b7d5d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e565f563cce90e7459e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:06.140Z",
+    "projectId": "5fc012bda3efcb29338b7d6f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e845f563cce90e746a8\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:06.565Z",
+    "projectId": "5fc012bda3efcb29338b7d1c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2eb75f563cce90e747c0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:08.863Z",
+    "projectId": "5fc012bda3efcb29338b7d00",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d00",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e0c5f563cce90e74418\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:09.343Z",
+    "projectId": "5fc012bda3efcb29338b7d16",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d16",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e255f563cce90e74494\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:11.200Z",
+    "projectId": "5fc012bda3efcb29338b7d5f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e3d5f563cce90e744ff\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:11.704Z",
+    "projectId": "5fc012bda3efcb29338b7d5e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5e",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e3d5f563cce90e74509\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:31.179Z",
+    "projectId": "5fc012bda3efcb29338b7d80",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d80",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da29\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:31.628Z",
+    "projectId": "5fc012bda3efcb29338b7d7d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7d",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2ed65f563cce90e74816\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:33.717Z",
+    "projectId": "5fc012bda3efcb29338b7d55",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d55",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74612\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:34.367Z",
+    "projectId": "5fc012bda3efcb29338b7d6c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6c",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e555f563cce90e74581\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:36.840Z",
+    "projectId": "5fc012bda3efcb29338b7cfd",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfd",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e0c5f563cce90e74422\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:37.165Z",
+    "projectId": "5fc012bda3efcb29338b7d74",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d74",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da2b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:39.045Z",
+    "projectId": "5fc012bda3efcb29338b7d54",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d54",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e9c5f563cce90e7472b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:39.678Z",
+    "projectId": "5fc012bda3efcb29338b7d65",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d65",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da12\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:42.054Z",
+    "projectId": "5fc012bda3efcb29338b7d08",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d08",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74626\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:42.384Z",
+    "projectId": "5fc012bda3efcb29338b7d20",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d20",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e3e5f563cce90e7450f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:44.300Z",
+    "projectId": "5fc012bda3efcb29338b7cfe",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfe",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e275f563cce90e7449d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:44.932Z",
+    "projectId": "5fc012bda3efcb29338b7d48",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d48",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74625\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:47.193Z",
+    "projectId": "5fc012bda3efcb29338b7d15",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d15",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2edd5f563cce90e7484f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:47.480Z",
+    "projectId": "5fc012bda3efcb29338b7d1f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1f",
+      "--confirmed-by",
+      "deeks"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"would\": \"finalize project as aws\",\n  \"migrationId\": \"6adb2e825f563cce90e7468d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:52.759Z",
+    "projectId": "5fc012bda3efcb29338b7d77",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d77",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb342f2f2b2c46efb0df22\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:52.849Z",
+    "projectId": "5fc012bda3efcb29338b7d60",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d60",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34632f2b2c46efb0e076\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:53.097Z",
+    "projectId": "5fc012bda3efcb29338b7d29",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d29",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:39:53.107Z",
+    "projectId": "5fc012bda3efcb29338b7d10",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d10",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33c92f2b2c46efb0db76\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:00.528Z",
+    "projectId": "5fc012bda3efcb29338b7d40",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d40",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33ff2f2b2c46efb0dd57\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:00.669Z",
+    "projectId": "5fc012bda3efcb29338b7d0f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34712f2b2c46efb0e102\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:03.557Z",
+    "projectId": "5fc012bda3efcb29338b7d17",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d17",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb346c2f2b2c46efb0e0c5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:03.622Z",
+    "projectId": "5fc012bda3efcb29338b7d5a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33e22f2b2c46efb0dc3f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:06.103Z",
+    "projectId": "5fc012bda3efcb29338b7d11",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d11",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33d42f2b2c46efb0dbc0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:06.590Z",
+    "projectId": "5fc012bda3efcb29338b7d64",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d64",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34072f2b2c46efb0ddaa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:09.395Z",
+    "projectId": "5fc012bda3efcb29338b7d36",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d36",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb340f2f2b2c46efb0dde0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:09.516Z",
+    "projectId": "5fc012bda3efcb29338b7d7c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33f62f2b2c46efb0dcfb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:11.447Z",
+    "projectId": "5fc012bda3efcb29338b7d6e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb341d2f2b2c46efb0de6e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:12.165Z",
+    "projectId": "5fc012bda3efcb29338b7d31",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d31",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33f22f2b2c46efb0dcd6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:14.519Z",
+    "projectId": "5fc012bda3efcb29338b7d81",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d81",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb344f2f2b2c46efb0dfb0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:14.885Z",
+    "projectId": "5fc012bda3efcb29338b7d78",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d78",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33ff2f2b2c46efb0dd50\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:16.522Z",
+    "projectId": "5fc012bda3efcb29338b7d27",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d27",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb344c2f2b2c46efb0df8f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:17.329Z",
+    "projectId": "5fc012bda3efcb29338b7d68",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d68",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb340e2f2b2c46efb0ddcd\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:19.699Z",
+    "projectId": "5fc012bda3efcb29338b7d34",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d34",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33e32f2b2c46efb0dc49\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:20.232Z",
+    "projectId": "5fc012bda3efcb29338b7d1b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:21.841Z",
+    "projectId": "5fc012bda3efcb29338b7d4a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d4a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33f62f2b2c46efb0dd05\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:22.661Z",
+    "projectId": "5fc012bda3efcb29338b7d44",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d44",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb341c2f2b2c46efb0de5a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:24.981Z",
+    "projectId": "5fc012bda3efcb29338b7d35",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d35",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb348a2f2b2c46efb0e151\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:25.668Z",
+    "projectId": "5fc012bda3efcb29338b7d01",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d01",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34242f2b2c46efb0debb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:27.091Z",
+    "projectId": "5fc012bda3efcb29338b7d47",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d47",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb345b2f2b2c46efb0e017\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:27.807Z",
+    "projectId": "5fc012bda3efcb29338b7d1a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34322f2b2c46efb0df43\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:30.267Z",
+    "projectId": "5fc012bda3efcb29338b7cfb",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfb",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34692f2b2c46efb0e0a3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:31.021Z",
+    "projectId": "61375deae788b405b6ce6da8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "61375deae788b405b6ce6da8",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34052f2b2c46efb0dd7c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:32.459Z",
+    "projectId": "5fc012bda3efcb29338b7d49",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d49",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb346d2f2b2c46efb0e0cf\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:33.385Z",
+    "projectId": "5fc012bda3efcb29338b7d2a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb345f2f2b2c46efb0e053\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:40.114Z",
+    "projectId": "5fc012bda3efcb29338b7d56",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d56",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb342b2f2b2c46efb0defa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:40.781Z",
+    "projectId": "5fc012bda3efcb29338b7d12",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d12",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb342a2f2b2c46efb0dee7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:41.692Z",
+    "projectId": "5fc012bda3efcb29338b7d3a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33c52f2b2c46efb0db3c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:43.063Z",
+    "projectId": "5fc012bda3efcb29338b7d37",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d37",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34162f2b2c46efb0de37\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:45.295Z",
+    "projectId": "5fc012bda3efcb29338b7d38",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d38",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33f12f2b2c46efb0dccc\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:46.217Z",
+    "projectId": "5fc012bda3efcb29338b7d2b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33d62f2b2c46efb0dbd9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:46.871Z",
+    "projectId": "5fc012bda3efcb29338b7d59",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d59",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb345d2f2b2c46efb0e02b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:48.406Z",
+    "projectId": "5fc012bda3efcb29338b7d3c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34552f2b2c46efb0dfea\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:50.467Z",
+    "projectId": "60b78429e788b405b6ce66aa",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60b78429e788b405b6ce66aa",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33c42f2b2c46efb0db28\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:51.526Z",
+    "projectId": "60ba0530e788b405b6ce66f2",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60ba0530e788b405b6ce66f2",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33c52f2b2c46efb0db3b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:52.185Z",
+    "projectId": "5fc012bda3efcb29338b7d39",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d39",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da2d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:53.881Z",
+    "projectId": "5fc012bda3efcb29338b7d6d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33e72f2b2c46efb0dc8b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:55.633Z",
+    "projectId": "5fc012bda3efcb29338b7d28",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d28",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34512f2b2c46efb0dfb9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:56.824Z",
+    "projectId": "5fc012bda3efcb29338b7d42",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d42",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34862f2b2c46efb0e11f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:57.638Z",
+    "projectId": "5fc012bda3efcb29338b7d0a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33b62f2b2c46efb0dab7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:40:59.197Z",
+    "projectId": "5fc012bda3efcb29338b7d26",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d26",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33e52f2b2c46efb0dc62\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:00.864Z",
+    "projectId": "5fc012bda3efcb29338b7d6b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33b52f2b2c46efb0da99\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:02.247Z",
+    "projectId": "5fc012bda3efcb29338b7d1e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb343a2f2b2c46efb0df56\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:03.082Z",
+    "projectId": "5fc012bda3efcb29338b7d66",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d66",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33d42f2b2c46efb0dbb6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:04.728Z",
+    "projectId": "5fc012bda3efcb29338b7d71",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d71",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34212f2b2c46efb0de98\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:06.421Z",
+    "projectId": "5fc012bda3efcb29338b7cfc",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfc",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34132f2b2c46efb0de0a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:07.579Z",
+    "projectId": "5fc012bda3efcb29338b7d24",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d24",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33d82f2b2c46efb0dbf2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:08.295Z",
+    "projectId": "5fc012bda3efcb29338b7d57",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d57",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35542f2b2c46efb0e535\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:09.841Z",
+    "projectId": "606c3308d7661b6ec22a0793",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606c3308d7661b6ec22a0793",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb355e2f2b2c46efb0e577\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:11.480Z",
+    "projectId": "605b441ad7661b6ec22a076a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "605b441ad7661b6ec22a076a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb358b2f2b2c46efb0e618\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:12.736Z",
+    "projectId": "60619edfd7661b6ec22a076e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60619edfd7661b6ec22a076e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb358a2f2b2c46efb0e608\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:13.400Z",
+    "projectId": "6116c323e788b405b6ce69f6",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116c323e788b405b6ce69f6",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb351c2f2b2c46efb0e3d4\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:14.941Z",
+    "projectId": "5fc012bda3efcb29338b7d2f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35202f2b2c46efb0e3ff\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:16.733Z",
+    "projectId": "5fc012bda3efcb29338b7d7b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34ca2f2b2c46efb0e2e3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:17.994Z",
+    "projectId": "5fc012bda3efcb29338b7d4c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d4c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34cf2f2b2c46efb0e311\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:18.556Z",
+    "projectId": "5fc012bda3efcb29338b7d33",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d33",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34da2f2b2c46efb0e35a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:20.152Z",
+    "projectId": "5fc012bda3efcb29338b7d3e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34972f2b2c46efb0e1b6\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:21.940Z",
+    "projectId": "6ada6c4457c017ae17122658",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122658",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35602f2b2c46efb0e589\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:23.133Z",
+    "projectId": "6ada6c4457c017ae17122657",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122657",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb355b2f2b2c46efb0e559\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:23.623Z",
+    "projectId": "6ada6c4457c017ae17122656",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122656",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35502f2b2c46efb0e512\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:30.008Z",
+    "projectId": "6ada6c4457c017ae17122652",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122652",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb352a2f2b2c46efb0e445\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:33.369Z",
+    "projectId": "6ada6c4557c017ae1712265d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35bb2f2b2c46efb0e6ed\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:35.215Z",
+    "projectId": "6ada6c4457c017ae17122655",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122655",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35442f2b2c46efb0e4c1\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:37.311Z",
+    "projectId": "6ada6c4457c017ae1712265a",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265a",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35932f2b2c46efb0e64b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:38.724Z",
+    "projectId": "6ada6c4457c017ae1712264f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712264f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34cc2f2b2c46efb0e2e9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:48.100Z",
+    "projectId": "6ada6c4457c017ae1712265b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ac2f2b2c46efb0e68b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:48.131Z",
+    "projectId": "6ada6c4457c017ae1712265c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712265c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35a42f2b2c46efb0e685\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:53.073Z",
+    "projectId": "6ada6c4457c017ae17122659",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122659",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35832f2b2c46efb0e5d5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:53.261Z",
+    "projectId": "6ada6c4457c017ae17122653",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122653",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb352f2f2b2c46efb0e461\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:53.278Z",
+    "projectId": "6ada6c4557c017ae1712265e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35bf2f2b2c46efb0e70e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:53.785Z",
+    "projectId": "6ada6c4457c017ae17122650",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122650",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34ce2f2b2c46efb0e2fd\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:58.342Z",
+    "projectId": "6ada6c4457c017ae17122651",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122651",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34dd2f2b2c46efb0e385\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:58.421Z",
+    "projectId": "6ada6c4457c017ae17122654",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae17122654",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35392f2b2c46efb0e4ad\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:58.541Z",
+    "projectId": "60804e0b837a8a261f0133ee",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60804e0b837a8a261f0133ee",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35142f2b2c46efb0e3c2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:41:58.972Z",
+    "projectId": "5fc012bda3efcb29338b7d09",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d09",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34d92f2b2c46efb0e351\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:03.618Z",
+    "projectId": "5fc012bda3efcb29338b7d50",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d50",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ba2f2b2c46efb0e6e7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:03.805Z",
+    "projectId": "5fc012bda3efcb29338b7d06",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d06",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35472f2b2c46efb0e4db\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:03.894Z",
+    "projectId": "5fc012bda3efcb29338b7d79",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d79",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35362f2b2c46efb0e49e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:04.423Z",
+    "projectId": "5fc012bda3efcb29338b7d1d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb354d2f2b2c46efb0e4f8\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:08.801Z",
+    "projectId": "5fc012bda3efcb29338b7d25",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d25",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ae2f2b2c46efb0e694\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:08.991Z",
+    "projectId": "5fc012bda3efcb29338b7cfa",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfa",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35222f2b2c46efb0e408\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:09.130Z",
+    "projectId": "5fc012bda3efcb29338b7d03",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d03",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35632f2b2c46efb0e5a7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:09.562Z",
+    "projectId": "5fc012bda3efcb29338b7cf7",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cf7",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35302f2b2c46efb0e473\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:14.212Z",
+    "projectId": "5fc012bda3efcb29338b7d46",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d46",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34952f2b2c46efb0e19e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:14.224Z",
+    "projectId": "5fc012bda3efcb29338b7d43",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d43",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35272f2b2c46efb0e436\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:14.435Z",
+    "projectId": "6116c220e788b405b6ce69f2",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116c220e788b405b6ce69f2",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb357c2f2b2c46efb0e5cf\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:14.826Z",
+    "projectId": "6116bf17e788b405b6ce69e8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6116bf17e788b405b6ce69e8",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34dd2f2b2c46efb0e37f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:19.535Z",
+    "projectId": "5fc012bda3efcb29338b7d7f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35992f2b2c46efb0e676\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:19.693Z",
+    "projectId": "5fc012bda3efcb29338b7d41",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d41",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34b32f2b2c46efb0e224\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:19.703Z",
+    "projectId": "5fc012bda3efcb29338b7d04",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d04",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34c02f2b2c46efb0e296\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:19.964Z",
+    "projectId": "5fc012bda3efcb29338b7d21",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d21",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35912f2b2c46efb0e63c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:24.661Z",
+    "projectId": "5fc012bda3efcb29338b7d02",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d02",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34b22f2b2c46efb0e20b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:24.843Z",
+    "projectId": "613b733ee788b405b6ce6eb8",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "613b733ee788b405b6ce6eb8",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb361f2f2b2c46efb0e91f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:25.091Z",
+    "projectId": "5fc012bda3efcb29338b7d30",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d30",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36072f2b2c46efb0e841\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:25.101Z",
+    "projectId": "5fc012bda3efcb29338b7d32",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d32",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35cf2f2b2c46efb0e79e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:29.845Z",
+    "projectId": "5fc012bda3efcb29338b7d3d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36022f2b2c46efb0e823\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:30.010Z",
+    "projectId": "5fc012bda3efcb29338b7d73",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d73",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ca2f2b2c46efb0e76e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:30.291Z",
+    "projectId": "5fc012bda3efcb29338b7d0c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35c02f2b2c46efb0e717\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:30.349Z",
+    "projectId": "60defd3ae788b405b6ce68db",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60defd3ae788b405b6ce68db",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35fc2f2b2c46efb0e7f3\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:35.526Z",
+    "projectId": "611bcc57e788b405b6ce69fc",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611bcc57e788b405b6ce69fc",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36172f2b2c46efb0e8d5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:35.712Z",
+    "projectId": "61572b1b36105e13c15d58ac",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "61572b1b36105e13c15d58ac",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36242f2b2c46efb0e93d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:35.717Z",
+    "projectId": "611be0c6e788b405b6ce6a3c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611be0c6e788b405b6ce6a3c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb361a2f2b2c46efb0e8f5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:36.027Z",
+    "projectId": "60c8b1d3e788b405b6ce6845",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60c8b1d3e788b405b6ce6845",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb360b2f2b2c46efb0e867\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:40.847Z",
+    "projectId": "610fd90de788b405b6ce6946",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "610fd90de788b405b6ce6946",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36112f2b2c46efb0e89e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:40.873Z",
+    "projectId": "60d1f3a0e788b405b6ce68a1",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60d1f3a0e788b405b6ce68a1",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ea2f2b2c46efb0e7df\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:40.909Z",
+    "projectId": "611bd783e788b405b6ce6a0c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "611bd783e788b405b6ce6a0c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36152f2b2c46efb0e8be\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:49.356Z",
+    "projectId": "64c13517d32c7a7e4b174f20",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "64c13517d32c7a7e4b174f20",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36302f2b2c46efb0e961\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:49.411Z",
+    "projectId": "6ada6c4557c017ae17122660",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122660",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb364c2f2b2c46efb0e9a4\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:54.087Z",
+    "projectId": "6ada6c4557c017ae1712265f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae1712265f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36482f2b2c46efb0e990\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:54.472Z",
+    "projectId": "6ada6c4557c017ae17122662",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122662",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb364e2f2b2c46efb0e9aa\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:54.506Z",
+    "projectId": "6ada6c4557c017ae17122661",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122661",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb364b2f2b2c46efb0e99e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:59.140Z",
+    "projectId": "6ada6c4557c017ae17122663",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4557c017ae17122663",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36592f2b2c46efb0e9be\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:59.425Z",
+    "projectId": "6452a72c525e070698932583",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6452a72c525e070698932583",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36262f2b2c46efb0e951\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:59.595Z",
+    "projectId": "5fc012bda3efcb29338b7d23",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d23",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ce2f2b2c46efb0e794\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:42:59.986Z",
+    "projectId": "60e4528be788b405b6ce6917",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60e4528be788b405b6ce6917",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb36092f2b2c46efb0e855\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:04.752Z",
+    "projectId": "5fc012bda3efcb29338b7cff",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cff",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb35ca2f2b2c46efb0e764\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:05.080Z",
+    "projectId": "60be4bafe788b405b6ce6726",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60be4bafe788b405b6ce6726",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e255f563cce90e7448d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:05.243Z",
+    "projectId": "6ada6c4457c017ae1712264e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6ada6c4457c017ae1712264e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e0b5f563cce90e7440f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:05.600Z",
+    "projectId": "5fc012bda3efcb29338b7d0b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d0b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e565f563cce90e74594\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:09.940Z",
+    "projectId": "6051c37ad7661b6ec22a06e3",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6051c37ad7661b6ec22a06e3",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e9b5f563cce90e74722\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:10.342Z",
+    "projectId": "606d815ed7661b6ec22a0799",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606d815ed7661b6ec22a0799",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e845f563cce90e746a7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:10.444Z",
+    "projectId": "606eb043d7661b6ec22a07a3",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "606eb043d7661b6ec22a07a3",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2ed75f563cce90e7481f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:10.805Z",
+    "projectId": "604f7072d7661b6ec22a06cf",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "604f7072d7661b6ec22a06cf",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2f005f563cce90e74926\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:15.270Z",
+    "projectId": "60bf4a7be788b405b6ce6763",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "60bf4a7be788b405b6ce6763",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eec5f563cce90e748a5\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:15.546Z",
+    "projectId": "5fc012bda3efcb29338b7d52",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d52",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eaf5f563cce90e74791\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:15.777Z",
+    "projectId": "5fc012bda3efcb29338b7d51",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d51",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eb05f563cce90e7479a\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:16.108Z",
+    "projectId": "5fc012bda3efcb29338b7d19",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d19",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eef5f563cce90e748cb\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:20.474Z",
+    "projectId": "5fc012bda3efcb29338b7d7e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e3e5f563cce90e74519\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:20.835Z",
+    "projectId": "5fc012bda3efcb29338b7d05",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d05",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e245f563cce90e74483\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:21.188Z",
+    "projectId": "5fc012bda3efcb29338b7d18",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d18",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eb85f563cce90e747c9\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:21.432Z",
+    "projectId": "5fc012bda3efcb29338b7d62",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d62",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e845f563cce90e74696\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:25.983Z",
+    "projectId": "5fc012bda3efcb29338b7d2c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e995f563cce90e7470f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:26.157Z",
+    "projectId": "5fc012bda3efcb29338b7d07",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d07",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e6c5f563cce90e74609\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:26.607Z",
+    "projectId": "6130d23de788b405b6ce6d93",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "6130d23de788b405b6ce6d93",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e9a5f563cce90e74719\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:26.850Z",
+    "projectId": "5fc012bda3efcb29338b7d3f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eec5f563cce90e7489b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:31.402Z",
+    "projectId": "5fc012bda3efcb29338b7d2d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d2d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eda5f563cce90e74845\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:31.569Z",
+    "projectId": "5fc012bda3efcb29338b7d67",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d67",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e555f563cce90e7458b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:31.876Z",
+    "projectId": "5fc012bda3efcb29338b7d63",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d63",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2f075f563cce90e74963\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:32.150Z",
+    "projectId": "5fc012bda3efcb29338b7d22",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d22",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2f005f563cce90e7491d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:36.943Z",
+    "projectId": "5fc012bda3efcb29338b7d3b",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d3b",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2f035f563cce90e7494c\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:37.361Z",
+    "projectId": "5fc012bda3efcb29338b7d45",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d45",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2ef25f563cce90e748e2\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:37.597Z",
+    "projectId": "5fc012bda3efcb29338b7d5d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e565f563cce90e7459e\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:37.823Z",
+    "projectId": "5fc012bda3efcb29338b7d6f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e845f563cce90e746a8\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:42.205Z",
+    "projectId": "5fc012bda3efcb29338b7d1c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2eb75f563cce90e747c0\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:42.699Z",
+    "projectId": "5fc012bda3efcb29338b7d00",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d00",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e0c5f563cce90e74418\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:42.850Z",
+    "projectId": "5fc012bda3efcb29338b7d16",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d16",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e255f563cce90e74494\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:43.138Z",
+    "projectId": "5fc012bda3efcb29338b7d5f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e3d5f563cce90e744ff\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:47.460Z",
+    "projectId": "5fc012bda3efcb29338b7d5e",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d5e",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e3d5f563cce90e74509\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:48.002Z",
+    "projectId": "5fc012bda3efcb29338b7d80",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d80",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da29\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:48.176Z",
+    "projectId": "5fc012bda3efcb29338b7d7d",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d7d",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2ed65f563cce90e74816\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:48.349Z",
+    "projectId": "5fc012bda3efcb29338b7d55",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d55",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74612\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:52.723Z",
+    "projectId": "5fc012bda3efcb29338b7d6c",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d6c",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e555f563cce90e74581\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:53.342Z",
+    "projectId": "5fc012bda3efcb29338b7cfd",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfd",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e0c5f563cce90e74422\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:53.373Z",
+    "projectId": "5fc012bda3efcb29338b7d74",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d74",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da2b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:43:53.552Z",
+    "projectId": "5fc012bda3efcb29338b7d54",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d54",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e9c5f563cce90e7472b\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:01.521Z",
+    "projectId": "5fc012bda3efcb29338b7d65",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d65",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb33a62f2b2c46efb0da12\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:02.465Z",
+    "projectId": "5fc012bda3efcb29338b7d20",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d20",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e3e5f563cce90e7450f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:06.623Z",
+    "projectId": "5fc012bda3efcb29338b7d48",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d48",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74625\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:11.496Z",
+    "projectId": "5fc012bda3efcb29338b7d1f",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d1f",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e825f563cce90e7468d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:20.664Z",
+    "projectId": "5fc012bda3efcb29338b7d08",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d08",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e6d5f563cce90e74626\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:24.964Z",
+    "projectId": "5fc012bda3efcb29338b7d15",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7d15",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2edd5f563cce90e7484f\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "at": "2026-11-27T13:44:27.161Z",
+    "projectId": "5fc012bda3efcb29338b7cfe",
+    "args": [
+      "confirm-absent",
+      "--project-id",
+      "5fc012bda3efcb29338b7cfe",
+      "--confirmed-by",
+      "deeks",
+      "--execute"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb2e275f563cce90e7449d\"\n}\n",
+    "stderr": ""
+  }
+]

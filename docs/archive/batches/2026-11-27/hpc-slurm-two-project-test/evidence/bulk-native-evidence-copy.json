@@ -1,0 +1,12 @@
+{
+  "copiedAt": "2026-11-27T13:45:07.124609+00:00",
+  "remote": "/storage/komondor-slurm-bulk-confirm-20261127T133428Z-evidence.tar.gz",
+  "local": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
+  "sha256": "8b345727c83f7eee455392540a083c4a3f3c1d7e0f60d239fd8ce1aedd7c1824",
+  "bytes": 9774589,
+  "completedAt": "2026-11-27T13:44:28.951Z",
+  "success": true,
+  "confirmed": 167,
+  "verified": 167,
+  "protectedProjectsUnchanged": 8
+}

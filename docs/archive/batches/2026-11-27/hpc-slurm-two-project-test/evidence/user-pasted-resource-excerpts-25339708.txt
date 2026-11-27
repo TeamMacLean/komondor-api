@@ -1,0 +1,48 @@
+Provenance: excerpts copied from George's pasted stdout and sacct output.
+The original HPC log files remain in /hpc-home/deeks/komondor-pilot2.MeCiIF/pilot-2.
+These excerpts are not a byte-for-byte download of the original stdout file.
+
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-reviewed-projects.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK
+Job=25339708 Tasks=1 CPUsPerTask=1 Nodes=1 MemoryPerNodeMB=1024
+t384n18
+Python 3.9.25
+rm (GNU coreutils) 8.32
+JobId=25339708 JobName=komondor-pilot-2
+   UserId=deeks(14014) GroupId=TSL_20(11045) MCS_label=N/A
+   Priority=10898 Nice=0 Account=tsl QOS=normal WCKey=*bioinformatics_core
+   JobState=RUNNING Reason=None Dependency=(null)
+   RunTime=00:00:01 TimeLimit=02:00:00 TimeMin=N/A
+   SubmitTime=2026-11-27T12:53:11 EligibleTime=2026-11-27T12:53:11
+   StartTime=2026-11-27T12:53:11 EndTime=2026-11-27T14:53:11 Deadline=N/A
+   Partition=tsl-compute AllocNode:Sid=localhost:1313141
+   NodeList=t384n18
+   BatchHost=t384n18
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=1,mem=1G,node=1,billing=1
+   AllocTRES=cpu=1,mem=1G,node=1,billing=1
+   AdminComment=** partition (tsl-short) **
+
+User time (seconds): 0.09
+System time (seconds): 0.02
+Percent of CPU this job got: 3%
+Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.82
+Maximum resident set size (kbytes): 16640
+Swaps: 0
+Exit status: 0
+
+JobID           JobName      State ExitCode    Elapsed  AllocCPUS   TotalCPU     MaxRSS     ReqMem        NodeList
+------------ ---------- ---------- -------- ---------- ---------- ---------- ---------- ---------- ---------------
+25339708     komondor-+  COMPLETED      0:0   00:00:05          1  00:00.175                    1G         t384n18
+25339708.ba+      batch  COMPLETED      0:0   00:00:05          1  00:00.173          0                    t384n18
+25339708.ex+     extern  COMPLETED      0:0   00:00:05          1  00:00.002       116K                    t384n18
+
+Interpretation: scontrol was captured while the job was running; sacct records
+the final COMPLETED state. GNU time reports 16,640 KiB peak memory; the batch
+sacct MaxRSS=0 is not treated as real zero memory consumption. The test-only
+job25339707 start forecast is separate from actual job25339708, which ran today.

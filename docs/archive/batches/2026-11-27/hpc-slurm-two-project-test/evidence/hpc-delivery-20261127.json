@@ -1,0 +1,14 @@
+{
+  "recordedAt": "2026-11-27T12:51:52Z",
+  "userReportedCopySucceeded": true,
+  "hpcPackagePath": "/hpc-home/deeks/komondor-pilot2.MeCiIF/pilot-2",
+  "sourcePackagePath": "/storage/komondor-hpc-delete-split-20261127-01/hpc-slurm-two-project-test/pilot-2",
+  "transport": "HPC scp from v1333",
+  "serverHostKeyFingerprint": "SHA256:6yKXcCzLOdjmAKwy39xIwqP3SbLAFLmn/547F8at1n8",
+  "serverHostKeyIndependentlyMatched": true,
+  "serverPackageChecksumsPassed": true,
+  "bothSourceProjectRootsStillPresent": true,
+  "hpcPackageChecksumsVerified": false,
+  "slurmSubmissionReported": false,
+  "nextStep": "George verifies HPC package checksums, validates scheduler request with sbatch --test-only, then submits the two-project job."
+}

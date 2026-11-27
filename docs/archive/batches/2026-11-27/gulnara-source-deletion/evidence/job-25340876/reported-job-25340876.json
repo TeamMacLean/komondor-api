@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-27T14:28:16.395036+00:00",
+  "jobId": "25340876",
+  "testOnlyJobId": "25340875",
+  "provenance": "User supplied submission output and scheduler completion report",
+  "checksumChecksPassed": 10,
+  "reportedState": "COMPLETED",
+  "reportedExitCode": "0:0",
+  "reportedElapsed": "00:00:32",
+  "reportedStartedAt": "2026-11-27T14:24:32Z",
+  "reportedFinishedAt": "2026-11-27T14:25:04Z",
+  "rawLogsInspected": false,
+  "schedulerAccountingIndependentlyVerified": false,
+  "testOnlyEstimate": "2026-11-28T18:24:30",
+  "testOnlyEstimateSupersededByReportedActualTimes": true
+}

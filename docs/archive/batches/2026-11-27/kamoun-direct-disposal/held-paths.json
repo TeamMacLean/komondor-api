@@ -1,0 +1,54 @@
+[
+  {
+    "projectId": "5fc012bda3efcb29338b7d58",
+    "relativeRoot": "two_blades/gargy_2019_rnaseq"
+  },
+  {
+    "projectId": "5fc012bda3efcb29338b7d5b",
+    "relativeRoot": "skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018"
+  },
+  {
+    "projectId": "6054ba49d7661b6ec22a06f6",
+    "relativeRoot": "skamoun/wheat_blast___zambia_2018_2020"
+  },
+  {
+    "projectId": "5fc012bda3efcb29338b7d70",
+    "relativeRoot": "skamoun/ronny_helen_pinfestans_pmirabilis_timecourse"
+  },
+  {
+    "projectId": "61a758113545d74de71ebbec",
+    "relativeRoot": "skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae"
+  },
+  {
+    "projectId": "61ee798cdecd27242ab8adb1",
+    "relativeRoot": "skamoun/blast_fungi_collected_from_wild_grasses_in_germany"
+  },
+  {
+    "projectId": "61fd5d59decd27242ab8adf3",
+    "relativeRoot": "skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages"
+  },
+  {
+    "projectId": "6502df19d32c7a7e4b174fe8",
+    "relativeRoot": "skamoun/italian_blast_fungus_isolates_from_wild_grasses"
+  },
+  {
+    "projectId": "6863b1c7dc823951803ac3a4",
+    "relativeRoot": "skamoun/wheat_blast___bolivia_2023_24"
+  },
+  {
+    "projectId": "65f06e07e372f7554d754873",
+    "relativeRoot": "skamoun/wheat_blast___zambia_2023"
+  },
+  {
+    "projectId": "6863e922dc823951803ac406",
+    "relativeRoot": "skamoun/wheat_blast___paraguay_2023"
+  },
+  {
+    "projectId": "69a81b4920a8c93a2306efc6",
+    "relativeRoot": "skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae"
+  },
+  {
+    "projectId": "6ae4ac89a6b876c643741d27",
+    "relativeRoot": "ntalbot/xanthoria_parietina_mycobiont_rnaseq"
+  }
+]

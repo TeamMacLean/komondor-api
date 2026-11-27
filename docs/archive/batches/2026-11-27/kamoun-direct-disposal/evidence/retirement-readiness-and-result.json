@@ -1,0 +1,19 @@
+{
+  "metadataRetirementCompleted": true,
+  "completedAt": "2026-11-27T15:06:00.331Z",
+  "servicesRestoredAt": "2026-11-27T15:06:41.253Z",
+  "retiredProjects": 6,
+  "retiredRecords": 2459,
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "physicalDeletionSubmitted": false,
+  "physicalDeletionCompleted": false,
+  "protectedProjects": 13,
+  "joeHoldDatesVerified": 11,
+  "joeKeepThrough": "2031-11-26T23:59:59.999Z",
+  "gargyKeepThrough": "2027-11-26T23:59:59.999Z",
+  "emailsRequired": false,
+  "gulnaraFollowUpRequired": false,
+  "futureReportingAndCleanup": "ad hoc",
+  "publication": "at end, not yet committed or pushed",
+  "evidenceArchive": "evidence/retirement-evidence-20261127T150600Z.tar.gz"
+}

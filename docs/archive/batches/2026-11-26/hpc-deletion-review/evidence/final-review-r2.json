@@ -1,0 +1,3080 @@
+{
+  "at": "2026-11-26T19:39:03.997Z",
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "total": 170,
+  "passed": 170,
+  "failed": [],
+  "representatives": [
+    "5fc012bda3efcb29338b7d39",
+    "5fc012bda3efcb29338b7d6d",
+    "6ada6c4557c017ae1712265f",
+    "5fc012bda3efcb29338b7d4b"
+  ],
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d05",
+      "name": "Dovetail_Re-sequencing of Gargy_11_parent of 2BL-NI-Gargy_Fam1",
+      "at": "2026-11-26T19:36:40.809Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "vmPath": "/mnt/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+      "bytes": 271991566056,
+      "files": 41,
+      "emptyOrStructuralDirectories": 31,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "name": "Courville",
+      "at": "2026-11-26T19:36:40.900Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/Courville",
+      "vmPath": "/mnt/reads/two_blades/Courville",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/Courville",
+      "bytes": 298805448427,
+      "files": 100,
+      "emptyOrStructuralDirectories": 4,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d00",
+      "name": "Pacbio_genome_sequencing_PPUFV02",
+      "at": "2026-11-26T19:36:41.004Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "vmPath": "/mnt/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pacbio_genome_sequencing_ppufv02",
+      "bytes": 521252084820,
+      "files": 374,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfd",
+      "name": "ppufv02_transcriptome",
+      "at": "2026-11-26T19:36:41.321Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/ppufv02_transcriptome",
+      "vmPath": "/mnt/reads/two_blades/ppufv02_transcriptome",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_transcriptome",
+      "bytes": 298625577302,
+      "files": 867,
+      "emptyOrStructuralDirectories": 99,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60be4bafe788b405b6ce6726",
+      "name": "2021_Gargy_accessions_WGS",
+      "at": "2026-11-26T19:36:43.166Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/2021_gargy_accessions_wgs",
+      "vmPath": "/mnt/reads/two_blades/2021_gargy_accessions_wgs",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/2021_gargy_accessions_wgs",
+      "bytes": 225146340583,
+      "files": 59,
+      "emptyOrStructuralDirectories": 23,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfe",
+      "name": "Sequencing and de novo assembly of Glycine latifolia ",
+      "at": "2026-11-26T19:36:43.277Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "vmPath": "/mnt/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+      "bytes": 219297530739,
+      "files": 30,
+      "emptyOrStructuralDirectories": 13,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d16",
+      "name": "Phakopsora pachyrhizi GA05-1 complete infection transcriptome",
+      "at": "2026-11-26T19:36:43.363Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "vmPath": "/mnt/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+      "bytes": 249579426855,
+      "files": 266,
+      "emptyOrStructuralDirectories": 169,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5f",
+      "name": "PhilMacCLean_EnrichedPacBio_EarlhamInstitute",
+      "at": "2026-11-26T19:36:43.661Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "vmPath": "/mnt/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+      "bytes": 214088937044,
+      "files": 239,
+      "emptyOrStructuralDirectories": 38,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d20",
+      "name": "RNAseqP.sa",
+      "at": "2026-11-26T19:36:45.509Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/rnaseqp_sa",
+      "vmPath": "/mnt/reads/two_blades/rnaseqp_sa",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseqp_sa",
+      "bytes": 166467707030,
+      "files": 70,
+      "emptyOrStructuralDirectories": 18,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5e",
+      "name": "PKG-ENQ-698NadineIlk",
+      "at": "2026-11-26T19:36:45.635Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/pkg_enq_698nadineilk",
+      "vmPath": "/mnt/reads/two_blades/pkg_enq_698nadineilk",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_698nadineilk",
+      "bytes": 168220436830,
+      "files": 74,
+      "emptyOrStructuralDirectories": 62,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7e",
+      "name": "Cajanus_70x_genomicData_reads_Illumina",
+      "at": "2026-11-26T19:36:45.662Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "vmPath": "/mnt/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+      "bytes": 150156064373,
+      "files": 84,
+      "emptyOrStructuralDirectories": 68,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6c",
+      "name": "ppufv02_timecourse",
+      "at": "2026-11-26T19:36:46.049Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/ppufv02_timecourse",
+      "vmPath": "/mnt/reads/two_blades/ppufv02_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_timecourse",
+      "bytes": 148918476355,
+      "files": 64,
+      "emptyOrStructuralDirectories": 41,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "name": "japanse_isolate_timecourse",
+      "at": "2026-11-26T19:36:47.854Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/japanse_isolate_timecourse",
+      "vmPath": "/mnt/reads/two_blades/japanse_isolate_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/japanse_isolate_timecourse",
+      "bytes": 145459637100,
+      "files": 50,
+      "emptyOrStructuralDirectories": 54,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0b",
+      "name": " Re-sequencing genomic DNA BGI",
+      "at": "2026-11-26T19:36:47.904Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "vmPath": "/mnt/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/_re_sequencing_genomic_dna_bgi",
+      "bytes": 139553461709,
+      "files": 87,
+      "emptyOrStructuralDirectories": 36,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5d",
+      "name": "Medicago Trucatala  genome sequences",
+      "at": "2026-11-26T19:36:47.915Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/medicago_trucatala__genome_sequences",
+      "vmPath": "/mnt/reads/two_blades/medicago_trucatala__genome_sequences",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/medicago_trucatala__genome_sequences",
+      "bytes": 133328625562,
+      "files": 20,
+      "emptyOrStructuralDirectories": 32,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d07",
+      "name": "Gargy-2019_IsoSeq",
+      "at": "2026-11-26T19:36:48.261Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/gargy_2019_isoseq",
+      "vmPath": "/mnt/reads/two_blades/gargy_2019_isoseq",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_isoseq",
+      "bytes": 123255416179,
+      "files": 11,
+      "emptyOrStructuralDirectories": 13,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d55",
+      "name": "ppufv02_nanopore_sequencing",
+      "at": "2026-11-26T19:36:50.091Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/ppufv02_nanopore_sequencing",
+      "vmPath": "/mnt/reads/two_blades/ppufv02_nanopore_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_nanopore_sequencing",
+      "bytes": 106000044545,
+      "files": 4,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d48",
+      "name": "sequencing_field_isolates_of_phakopsora",
+      "at": "2026-11-26T19:36:50.229Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "vmPath": "/mnt/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/sequencing_field_isolates_of_phakopsora",
+      "bytes": 102821725130,
+      "files": 44,
+      "emptyOrStructuralDirectories": 25,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d08",
+      "name": "RNAseq of differential isolates of ASR",
+      "at": "2026-11-26T19:36:50.286Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "vmPath": "/mnt/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+      "bytes": 103376057393,
+      "files": 22,
+      "emptyOrStructuralDirectories": 58,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1f",
+      "name": "Whole-Genome-Shotgun Illumina sequencing of Gargy_11, Gargy_04 and bulk susecptibles",
+      "at": "2026-11-26T19:36:50.333Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "vmPath": "/mnt/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+      "bytes": 100282185901,
+      "files": 19,
+      "emptyOrStructuralDirectories": 31,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d62",
+      "name": "FOC_CR1.",
+      "at": "2026-11-26T19:36:52.410Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/foc_cr1_",
+      "vmPath": "/mnt/reads/two_blades/foc_cr1_",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/foc_cr1_",
+      "bytes": 100272415170,
+      "files": 50,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "606d815ed7661b6ec22a0799",
+      "name": "AdPop7_Progeny_BSA_Illumina",
+      "at": "2026-11-26T19:36:52.503Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/adpop7_progeny_bsa_illumina",
+      "vmPath": "/mnt/reads/two_blades/adpop7_progeny_bsa_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_progeny_bsa_illumina",
+      "bytes": 97868724548,
+      "files": 8,
+      "emptyOrStructuralDirectories": 10,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2c",
+      "name": "FOC_ST4",
+      "at": "2026-11-26T19:36:52.747Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/foc_st4",
+      "vmPath": "/mnt/reads/two_blades/foc_st4",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/foc_st4",
+      "bytes": 89668270245,
+      "files": 50,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6f",
+      "name": "Mtruncatula_BGI_gDNA_parents_TwoF2susceptiblebulks",
+      "at": "2026-11-26T19:36:52.775Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "vmPath": "/mnt/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+      "bytes": 89741146441,
+      "files": 56,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d54",
+      "name": "RNASeq BGI Cajanus cajan inf",
+      "at": "2026-11-26T19:36:54.570Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "vmPath": "/mnt/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+      "bytes": 85588402376,
+      "files": 60,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6130d23de788b405b6ce6d93",
+      "name": "Genotyping by Sequencing Advanced Population 8",
+      "at": "2026-11-26T19:36:54.775Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "vmPath": "/mnt/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+      "bytes": 81147190680,
+      "files": 14,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6051c37ad7661b6ec22a06e3",
+      "name": "AdPop7_Parents_WGS_Illumina",
+      "at": "2026-11-26T19:36:54.985Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/adpop7_parents_wgs_illumina",
+      "vmPath": "/mnt/reads/two_blades/adpop7_parents_wgs_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_parents_wgs_illumina",
+      "bytes": 77132674232,
+      "files": 6,
+      "emptyOrStructuralDirectories": 8,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d52",
+      "name": "ASR_sequencing_10xgenomics",
+      "at": "2026-11-26T19:36:55.089Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/asr_sequencing_10xgenomics",
+      "vmPath": "/mnt/reads/two_blades/asr_sequencing_10xgenomics",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_10xgenomics",
+      "bytes": 77051692759,
+      "files": 16,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d51",
+      "name": "ASR_sequencing_illumina",
+      "at": "2026-11-26T19:36:56.638Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/asr_sequencing_illumina",
+      "vmPath": "/mnt/reads/two_blades/asr_sequencing_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_illumina",
+      "bytes": 72453177309,
+      "files": 7,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1c",
+      "name": "Mtruncatula_BGI_RNAseq_parents",
+      "at": "2026-11-26T19:36:57.143Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "vmPath": "/mnt/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+      "bytes": 51726945153,
+      "files": 10,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7d",
+      "name": "ppufv02_gDNA_bgi",
+      "at": "2026-11-26T19:36:57.284Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/ppufv02_gdna_bgi",
+      "vmPath": "/mnt/reads/two_blades/ppufv02_gdna_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ppufv02_gdna_bgi",
+      "bytes": 49736660585,
+      "files": 7,
+      "emptyOrStructuralDirectories": 12,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d18",
+      "name": "exome_capture_field_samples_jan2018",
+      "at": "2026-11-26T19:36:57.568Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/exome_capture_field_samples_jan2018",
+      "vmPath": "/mnt/reads/two_blades/exome_capture_field_samples_jan2018",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/exome_capture_field_samples_jan2018",
+      "bytes": 49872696933,
+      "files": 345,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "606eb043d7661b6ec22a07a3",
+      "name": "AdPop7_RefAssembly_HiFi",
+      "at": "2026-11-26T19:36:58.813Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/adpop7_refassembly_hifi",
+      "vmPath": "/mnt/reads/two_blades/adpop7_refassembly_hifi",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/adpop7_refassembly_hifi",
+      "bytes": 46103572077,
+      "files": 2,
+      "emptyOrStructuralDirectories": 4,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d15",
+      "name": "soybean_rust_dovetail_hic",
+      "at": "2026-11-26T19:36:59.404Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/soybean_rust_dovetail_hic",
+      "vmPath": "/mnt/reads/two_blades/soybean_rust_dovetail_hic",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/soybean_rust_dovetail_hic",
+      "bytes": 44801395583,
+      "files": 11,
+      "emptyOrStructuralDirectories": 12,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2d",
+      "name": "GLTp-WGS-CintiaKawashima",
+      "at": "2026-11-26T19:36:59.583Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/gltp_wgs_cintiakawashima",
+      "vmPath": "/mnt/reads/two_blades/gltp_wgs_cintiakawashima",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gltp_wgs_cintiakawashima",
+      "bytes": 40690750463,
+      "files": 11,
+      "emptyOrStructuralDirectories": 16,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3f",
+      "name": "GLTp-RNASeq-CintiaKawashima",
+      "at": "2026-11-26T19:36:59.695Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "vmPath": "/mnt/reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/gltp_rnaseq_cintiakawashima",
+      "bytes": 37991753431,
+      "files": 10,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d19",
+      "name": "Bulks ASR_3 screen",
+      "at": "2026-11-26T19:37:01.087Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/bulks_asr_3_screen",
+      "vmPath": "/mnt/reads/two_blades/bulks_asr_3_screen",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/bulks_asr_3_screen",
+      "bytes": 33872870524,
+      "files": 10,
+      "emptyOrStructuralDirectories": 9,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60bf4a7be788b405b6ce6763",
+      "name": "Ant_Project_RNAseq data",
+      "at": "2026-11-26T19:37:01.681Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/ant_project_rnaseq_data",
+      "vmPath": "/mnt/reads/two_blades/ant_project_rnaseq_data",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/ant_project_rnaseq_data",
+      "bytes": 31061957907,
+      "files": 21,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d45",
+      "name": "LegumeEnrichmentCapture_SBulk_CcRpp2",
+      "at": "2026-11-26T19:37:01.827Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "vmPath": "/mnt/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+      "bytes": 23555304813,
+      "files": 4,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "604f7072d7661b6ec22a06cf",
+      "name": "AdvPop7_cDNA_Nanopore",
+      "at": "2026-11-26T19:37:02.017Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/advpop7_cdna_nanopore",
+      "vmPath": "/mnt/reads/two_blades/advpop7_cdna_nanopore",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/advpop7_cdna_nanopore",
+      "bytes": 20841174602,
+      "files": 2,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d22",
+      "name": "LegumeEnrichmentCapture_Rd",
+      "at": "2026-11-26T19:37:03.249Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/legumeenrichmentcapture_rd",
+      "vmPath": "/mnt/reads/two_blades/legumeenrichmentcapture_rd",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_rd",
+      "bytes": 9850699379,
+      "files": 4,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3b",
+      "name": "LegumeEnrichmentCapture_S48",
+      "at": "2026-11-26T19:37:03.906Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/legumeenrichmentcapture_s48",
+      "vmPath": "/mnt/reads/two_blades/legumeenrichmentcapture_s48",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_s48",
+      "bytes": 9238905532,
+      "files": 4,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d63",
+      "name": "LegumeEnrichmentCapture_RaParent",
+      "at": "2026-11-26T19:37:03.981Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/legumeenrichmentcapture_raparent",
+      "vmPath": "/mnt/reads/two_blades/legumeenrichmentcapture_raparent",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_raparent",
+      "bytes": 8833478265,
+      "files": 4,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d65",
+      "name": "Rnaseq M.trun",
+      "at": "2026-11-26T19:37:04.418Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/rnaseq_m_trun",
+      "vmPath": "/mnt/reads/two_blades/rnaseq_m_trun",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_m_trun",
+      "bytes": 8236352627,
+      "files": 12,
+      "emptyOrStructuralDirectories": 15,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d74",
+      "name": "RNAseq_2BL-NI-Gargy_Fam1",
+      "at": "2026-11-26T19:37:05.541Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "vmPath": "/mnt/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+      "bytes": 7270673459,
+      "files": 5,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d80",
+      "name": "PKG-ENQ-832.01NadineIlk",
+      "at": "2026-11-26T19:37:06.217Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/two_blades/pkg_enq_832_01nadineilk",
+      "vmPath": "/mnt/reads/two_blades/pkg_enq_832_01nadineilk",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_832_01nadineilk",
+      "bytes": 75672305,
+      "files": 1,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1b",
+      "name": "HK_PacBio",
+      "at": "2026-11-26T19:37:07.493Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hk_pacbio",
+      "vmPath": "/mnt/reads/jjones/hk_pacbio",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_pacbio",
+      "bytes": 550447162305,
+      "files": 868,
+      "emptyOrStructuralDirectories": 108,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0a",
+      "name": "Whole genome Shotgun of Solanum americanum",
+      "at": "2026-11-26T19:37:07.966Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "vmPath": "/mnt/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+      "bytes": 377051587961,
+      "files": 186,
+      "emptyOrStructuralDirectories": 269,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "name": "albugo_candida",
+      "at": "2026-11-26T19:37:09.348Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/albugo_candida",
+      "vmPath": "/mnt/reads/jjones/albugo_candida",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/albugo_candida",
+      "bytes": 359930630710,
+      "files": 525,
+      "emptyOrStructuralDirectories": 180,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d39",
+      "name": "Sequencing of NLRs from tetraploid wheat lines",
+      "at": "2026-11-26T19:37:10.080Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+      "vmPath": "/mnt/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+      "bytes": 577790849790,
+      "files": 424,
+      "emptyOrStructuralDirectories": 661,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60b78429e788b405b6ce66aa",
+      "name": "S. americanum nanopore cDNA-RenSeq",
+      "at": "2026-11-26T19:37:10.097Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/s__americanum_nanopore_cdna_renseq",
+      "vmPath": "/mnt/reads/jjones/s__americanum_nanopore_cdna_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/s__americanum_nanopore_cdna_renseq",
+      "bytes": 162591239741,
+      "files": 29,
+      "emptyOrStructuralDirectories": 12,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6b",
+      "name": "witekk_s_americanum_gDNA_bgi",
+      "at": "2026-11-26T19:37:10.208Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_s_americanum_gDNA_bgi",
+      "vmPath": "/mnt/reads/jjones/witekk_s_americanum_gDNA_bgi",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_americanum_gDNA_bgi",
+      "bytes": 319776477622,
+      "files": 135,
+      "emptyOrStructuralDirectories": 41,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3a",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 (Rpi-amr1 and Rpi-amr2) ",
+      "at": "2026-11-26T19:37:11.507Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "vmPath": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+      "bytes": 154231387866,
+      "files": 56,
+      "emptyOrStructuralDirectories": 58,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60ba0530e788b405b6ce66f2",
+      "name": "S. americanum SP1102 cDNA nanopore",
+      "at": "2026-11-26T19:37:12.130Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/s__americanum_sp1102_cdna_nanopore",
+      "vmPath": "/mnt/reads/jjones/s__americanum_sp1102_cdna_nanopore",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/s__americanum_sp1102_cdna_nanopore",
+      "bytes": 120693731678,
+      "files": 22,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d11",
+      "name": "dingp_Ath_ATACseq_2019_1",
+      "at": "2026-11-26T19:37:12.778Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_ath_atacseq_2019_1",
+      "vmPath": "/mnt/reads/jjones/dingp_ath_atacseq_2019_1",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_atacseq_2019_1",
+      "bytes": 109121636160,
+      "files": 87,
+      "emptyOrStructuralDirectories": 206,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d10",
+      "name": "AJ_PathSeq",
+      "at": "2026-11-26T19:37:13.225Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/aj_pathseq",
+      "vmPath": "/mnt/reads/jjones/aj_pathseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/aj_pathseq",
+      "bytes": 110493830761,
+      "files": 823,
+      "emptyOrStructuralDirectories": 611,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d66",
+      "name": "witekk_s_pimpinellifolium_qcdata",
+      "at": "2026-11-26T19:37:14.327Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_qcdata",
+      "vmPath": "/mnt/reads/jjones/witekk_s_pimpinellifolium_qcdata",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_qcdata",
+      "bytes": 103435674582,
+      "files": 27,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2b",
+      "name": "Rice RenSeq",
+      "at": "2026-11-26T19:37:14.398Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/rice_renseq",
+      "vmPath": "/mnt/reads/jjones/rice_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rice_renseq",
+      "bytes": 108509578131,
+      "files": 432,
+      "emptyOrStructuralDirectories": 539,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d24",
+      "name": "XL_PacBio_RLP_K_Seq_2019",
+      "at": "2026-11-26T19:37:14.780Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/xl_pacbio_rlp_k_seq_2019",
+      "vmPath": "/mnt/reads/jjones/xl_pacbio_rlp_k_seq_2019",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/xl_pacbio_rlp_k_seq_2019",
+      "bytes": 79718025620,
+      "files": 18,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5a",
+      "name": "CCG Expression",
+      "at": "2026-11-26T19:37:15.437Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/ccg_expression",
+      "vmPath": "/mnt/reads/jjones/ccg_expression",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/ccg_expression",
+      "bytes": 72453154755,
+      "files": 8,
+      "emptyOrStructuralDirectories": 28,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d26",
+      "name": "witekk_jupef_solanum",
+      "at": "2026-11-26T19:37:16.468Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_jupef_solanum",
+      "vmPath": "/mnt/reads/jjones/witekk_jupef_solanum",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_jupef_solanum",
+      "bytes": 49905834495,
+      "files": 39,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d34",
+      "name": "HK_amr5",
+      "at": "2026-11-26T19:37:16.565Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hk_amr5",
+      "vmPath": "/mnt/reads/jjones/hk_amr5",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_amr5",
+      "bytes": 64299925771,
+      "files": 160,
+      "emptyOrStructuralDirectories": 56,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d38",
+      "name": "Resistance to PVY from S. stoloniferum (Rysto)",
+      "at": "2026-11-26T19:37:17.516Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+      "vmPath": "/mnt/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+      "bytes": 42992833523,
+      "files": 17,
+      "emptyOrStructuralDirectories": 56,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d31",
+      "name": "dingp_rnaseq_Novogene_strand-specific_seti_gh_eti_2020",
+      "at": "2026-11-26T19:37:18.555Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+      "vmPath": "/mnt/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+      "bytes": 32167515043,
+      "files": 25,
+      "emptyOrStructuralDirectories": 73,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7c",
+      "name": "dingp_Ath_mutants_RNACapSeq_20170602_NextSeq500_HiOutput",
+      "at": "2026-11-26T19:37:19.300Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+      "vmPath": "/mnt/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+      "bytes": 29761259708,
+      "files": 860,
+      "emptyOrStructuralDirectories": 619,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4a",
+      "name": "HK_renseq",
+      "at": "2026-11-26T19:37:19.747Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hk_renseq",
+      "vmPath": "/mnt/reads/jjones/hk_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_renseq",
+      "bytes": 24941668725,
+      "files": 140,
+      "emptyOrStructuralDirectories": 168,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d78",
+      "name": "Genetic Variation in Albugo laibachii",
+      "at": "2026-11-26T19:37:20.505Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/genetic_variation_in_albugo_laibachii",
+      "vmPath": "/mnt/reads/jjones/genetic_variation_in_albugo_laibachii",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/genetic_variation_in_albugo_laibachii",
+      "bytes": 24445469078,
+      "files": 40,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d40",
+      "name": "cDNA PenSeq of 4 P. infestans isoaltes",
+      "at": "2026-11-26T19:37:21.223Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+      "vmPath": "/mnt/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+      "bytes": 21003151360,
+      "files": 1,
+      "emptyOrStructuralDirectories": 1,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6d",
+      "name": "Solanum americanum nanopore sequencing",
+      "at": "2026-11-26T19:37:21.822Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/solanum_americanum_nanopore_sequencing",
+      "vmPath": "/mnt/reads/jjones/solanum_americanum_nanopore_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/solanum_americanum_nanopore_sequencing",
+      "bytes": 48063375008,
+      "files": 1202,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "61375deae788b405b6ce6da8",
+      "name": "RenSeq on S. americanum populations 2021",
+      "at": "2026-11-26T19:37:22.632Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/renseq_on_s__americanum_populations_2021",
+      "vmPath": "/mnt/reads/jjones/renseq_on_s__americanum_populations_2021",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/renseq_on_s__americanum_populations_2021",
+      "bytes": 12775990456,
+      "files": 74,
+      "emptyOrStructuralDirectories": 50,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d68",
+      "name": "HK_amr10",
+      "at": "2026-11-26T19:37:23.167Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hk_amr10",
+      "vmPath": "/mnt/reads/jjones/hk_amr10",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hk_amr10",
+      "bytes": 10055314240,
+      "files": 34,
+      "emptyOrStructuralDirectories": 45,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d64",
+      "name": "dingp_Ath_mutants_FANSATACCapSeq_20170630_NextSeq500_PE_MidOutput",
+      "at": "2026-11-26T19:37:23.658Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+      "vmPath": "/mnt/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+      "bytes": 14327908887,
+      "files": 1080,
+      "emptyOrStructuralDirectories": 384,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d36",
+      "name": "dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "at": "2026-11-26T19:37:23.877Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "vmPath": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "bytes": 9649016353,
+      "files": 21,
+      "emptyOrStructuralDirectories": 85,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfc",
+      "name": "witekk_tomato_renseq_miseq",
+      "at": "2026-11-26T19:37:24.618Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_tomato_renseq_miseq",
+      "vmPath": "/mnt/reads/jjones/witekk_tomato_renseq_miseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_tomato_renseq_miseq",
+      "bytes": 9528073071,
+      "files": 22,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d37",
+      "name": "Resistance to PLRV from Solanum tuberosum ssp. andigena (Rl-adg)",
+      "at": "2026-11-26T19:37:25.477Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+      "vmPath": "/mnt/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+      "bytes": 9244025241,
+      "files": 12,
+      "emptyOrStructuralDirectories": 35,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6e",
+      "name": "dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "at": "2026-11-26T19:37:25.934Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "vmPath": "/mnt/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "bytes": 8502152467,
+      "files": 21,
+      "emptyOrStructuralDirectories": 31,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d44",
+      "name": "HR-5_Loss_of_Ex1_Resistance_M2_sequencing",
+      "at": "2026-11-26T19:37:26.098Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+      "vmPath": "/mnt/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+      "bytes": 8808616053,
+      "files": 65,
+      "emptyOrStructuralDirectories": 87,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d71",
+      "name": "witekk_s_tuberosum_dm_ber2",
+      "at": "2026-11-26T19:37:26.606Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_s_tuberosum_dm_ber2",
+      "vmPath": "/mnt/reads/jjones/witekk_s_tuberosum_dm_ber2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_tuberosum_dm_ber2",
+      "bytes": 8210369537,
+      "files": 16,
+      "emptyOrStructuralDirectories": 14,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d01",
+      "name": "MiSeq RenSeq of Arabidopsis thaliana accessions ",
+      "at": "2026-11-26T19:37:27.678Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+      "vmPath": "/mnt/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+      "bytes": 6953929735,
+      "files": 68,
+      "emptyOrStructuralDirectories": 85,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d12",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 - Rpi-amr2",
+      "at": "2026-11-26T19:37:28.146Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+      "vmPath": "/mnt/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+      "bytes": 6419055524,
+      "files": 24,
+      "emptyOrStructuralDirectories": 19,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d56",
+      "name": "Resistance to Albugo laibachii in HR-5",
+      "at": "2026-11-26T19:37:28.258Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+      "vmPath": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+      "bytes": 5337064647,
+      "files": 26,
+      "emptyOrStructuralDirectories": 13,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d77",
+      "name": "AMR4 Mapping",
+      "at": "2026-11-26T19:37:28.833Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/amr4_mapping",
+      "vmPath": "/mnt/reads/jjones/amr4_mapping",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/amr4_mapping",
+      "bytes": 5110227961,
+      "files": 12,
+      "emptyOrStructuralDirectories": 37,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1a",
+      "name": "Non-host resistance to Ac2V in Wu-0",
+      "at": "2026-11-26T19:37:29.892Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+      "vmPath": "/mnt/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+      "bytes": 4995073219,
+      "files": 11,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1e",
+      "name": "witekk_s_pimpinellifolium_cf_ecp2",
+      "at": "2026-11-26T19:37:30.471Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+      "vmPath": "/mnt/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+      "bytes": 4725542901,
+      "files": 21,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d27",
+      "name": "HiSeq on Solanum cDNA",
+      "at": "2026-11-26T19:37:30.558Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/hiseq_on_solanum_cdna",
+      "vmPath": "/mnt/reads/jjones/hiseq_on_solanum_cdna",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/hiseq_on_solanum_cdna",
+      "bytes": 4102243516,
+      "files": 8,
+      "emptyOrStructuralDirectories": 25,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "name": "Solynta sequencing",
+      "at": "2026-11-26T19:37:30.893Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/solynta_sequencing",
+      "vmPath": "/mnt/reads/jjones/solynta_sequencing",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/solynta_sequencing",
+      "bytes": 4044941281,
+      "files": 15,
+      "emptyOrStructuralDirectories": 41,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d81",
+      "name": "furzero_hpa_emwa1_illumina",
+      "at": "2026-11-26T19:37:32.072Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/furzero_hpa_emwa1_illumina",
+      "vmPath": "/mnt/reads/jjones/furzero_hpa_emwa1_illumina",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/furzero_hpa_emwa1_illumina",
+      "bytes": 3873656200,
+      "files": 22,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3c",
+      "name": "Rpi-amr2 in SP3675 (BC2F2 of SP2273) ",
+      "at": "2026-11-26T19:37:32.674Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+      "vmPath": "/mnt/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+      "bytes": 2271599624,
+      "files": 5,
+      "emptyOrStructuralDirectories": 15,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d47",
+      "name": "MiSeq RenSeq on various Solanum ",
+      "at": "2026-11-26T19:37:32.709Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/miseq_renseq_on_various_solanum_",
+      "vmPath": "/mnt/reads/jjones/miseq_renseq_on_various_solanum_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_on_various_solanum_",
+      "bytes": 2200967737,
+      "files": 4,
+      "emptyOrStructuralDirectories": 19,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d59",
+      "name": "Rpc-amr1; resistance to P. capsici from S. americanum SP1102",
+      "at": "2026-11-26T19:37:33.145Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+      "vmPath": "/mnt/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+      "bytes": 1999188163,
+      "files": 6,
+      "emptyOrStructuralDirectories": 23,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2a",
+      "name": "Resistance to Albugo candida AcEx1 in HR-5 Oy-0 C24 and Lz-0",
+      "at": "2026-11-26T19:37:34.218Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+      "vmPath": "/mnt/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+      "bytes": 1685058123,
+      "files": 16,
+      "emptyOrStructuralDirectories": 25,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "name": "Arabidopsis PacBio RenSeq",
+      "at": "2026-11-26T19:37:34.946Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/arabidopsis_pacbio_renseq",
+      "vmPath": "/mnt/reads/jjones/arabidopsis_pacbio_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/arabidopsis_pacbio_renseq",
+      "bytes": 1215896390,
+      "files": 51,
+      "emptyOrStructuralDirectories": 135,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfb",
+      "name": "PacBio PenSeq on Phytophthora infestans",
+      "at": "2026-11-26T19:37:34.978Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+      "vmPath": "/mnt/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+      "bytes": 847658798,
+      "files": 8,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d17",
+      "name": "ATAC_cseq",
+      "at": "2026-11-26T19:37:35.512Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/atac_cseq",
+      "vmPath": "/mnt/reads/jjones/atac_cseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/atac_cseq",
+      "bytes": 675008621,
+      "files": 232,
+      "emptyOrStructuralDirectories": 239,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0f",
+      "name": "Col-0 RPP2 Fast Neutron Mutant RenSeq",
+      "at": "2026-11-26T19:37:37.573Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+      "vmPath": "/mnt/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+      "bytes": 618589074,
+      "files": 16,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d35",
+      "name": "LOP-868 PacBio RenSeq",
+      "at": "2026-11-26T19:37:39.142Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/lop_868_pacbio_renseq",
+      "vmPath": "/mnt/reads/jjones/lop_868_pacbio_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/lop_868_pacbio_renseq",
+      "bytes": 285483141,
+      "files": 4,
+      "emptyOrStructuralDirectories": 8,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "name": "Resistance to Albugo laibachii in Sf-2",
+      "at": "2026-11-26T19:37:40.649Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "vmPath": "/mnt/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+      "bytes": 89834094,
+      "files": 7,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4b",
+      "name": "Plant Capture Enhancer",
+      "at": "2026-11-26T19:37:55.270Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/plant_capture_enhancer",
+      "vmPath": "/mnt/reads/jjones/plant_capture_enhancer",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+      "bytes": 34647343,
+      "files": 3,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "name": "MiSeq RenSeq of Brassica accessions ",
+      "at": "2026-11-26T19:37:56.183Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "vmPath": "/mnt/reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+      "bytes": 298166898,
+      "files": 16,
+      "emptyOrStructuralDirectories": 9,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d46",
+      "name": "Transcription profiling during rice plant infection",
+      "at": "2026-11-26T19:37:57.220Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "vmPath": "/mnt/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+      "bytes": 457914621055,
+      "files": 657,
+      "emptyOrStructuralDirectories": 30,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3e",
+      "name": "Pmk1 MAPKinase pathway appressorium development ",
+      "at": "2026-11-26T19:37:58.020Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "vmPath": "/mnt/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+      "bytes": 423593913251,
+      "files": 269,
+      "emptyOrStructuralDirectories": 168,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d04",
+      "name": "UV_mutagenesis",
+      "at": "2026-11-26T19:37:59.000Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/uv_mutagenesis",
+      "vmPath": "/mnt/reads/ntalbot/uv_mutagenesis",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/uv_mutagenesis",
+      "bytes": 184379087191,
+      "files": 267,
+      "emptyOrStructuralDirectories": 119,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d02",
+      "name": "WT_Guy11 and Guy11_PWL2_mutant infection on Eragrostis curvula RNA-seq timecourse",
+      "at": "2026-11-26T19:37:59.598Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "vmPath": "/mnt/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+      "bytes": 141690619948,
+      "files": 18,
+      "emptyOrStructuralDirectories": 16,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d41",
+      "name": "Wheat blast project",
+      "at": "2026-11-26T19:38:00.742Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/wheat_blast_project",
+      "vmPath": "/mnt/reads/ntalbot/wheat_blast_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wheat_blast_project",
+      "bytes": 106623504945,
+      "files": 95,
+      "emptyOrStructuralDirectories": 121,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7b",
+      "name": "KE002 infection on rice RNA-seq timecourse",
+      "at": "2026-11-26T19:38:01.296Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "vmPath": "/mnt/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+      "bytes": 85999414527,
+      "files": 128,
+      "emptyOrStructuralDirectories": 23,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "name": "LacO insertion-site analysis",
+      "at": "2026-11-26T19:38:02.339Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2370",
+      "vmPath": "/mnt/reads/ntalbot/project_2370",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2370",
+      "bytes": 78243529352,
+      "files": 11,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d49",
+      "name": "Resistance to Albugo candida Ac7v in Sf-2",
+      "at": "2026-11-26T19:38:02.939Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+      "vmPath": "/mnt/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+      "bytes": 655616074,
+      "files": 17,
+      "emptyOrStructuralDirectories": 13,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "name": "PKC1 inhibition RNA-seq",
+      "at": "2026-11-26T19:38:03.003Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2035",
+      "vmPath": "/mnt/reads/ntalbot/project_2035",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2035",
+      "bytes": 75397724663,
+      "files": 97,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d42",
+      "name": "White Rust Resistance gene cloning using RenSeq",
+      "at": "2026-11-26T19:38:03.857Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+      "vmPath": "/mnt/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+      "s3Uri": "s3://tsl-hpc-reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+      "bytes": 336972337,
+      "files": 4,
+      "emptyOrStructuralDirectories": 13,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4c",
+      "name": "Lichen Tissue RNA1",
+      "at": "2026-11-26T19:38:04.498Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_tissue_rna1",
+      "vmPath": "/mnt/reads/ntalbot/lichen_tissue_rna1",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_tissue_rna1",
+      "bytes": 65384995837,
+      "files": 58,
+      "emptyOrStructuralDirectories": 96,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d09",
+      "name": "RNA-seq of various mutants",
+      "at": "2026-11-26T19:38:05.069Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/rna_seq_of_various_mutants",
+      "vmPath": "/mnt/reads/ntalbot/rna_seq_of_various_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_of_various_mutants",
+      "bytes": 58826618808,
+      "files": 50,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d33",
+      "name": "NADPH oxidase project",
+      "at": "2026-11-26T19:38:05.371Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/nadph_oxidase_project",
+      "vmPath": "/mnt/reads/ntalbot/nadph_oxidase_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/nadph_oxidase_project",
+      "bytes": 52231000289,
+      "files": 75,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6116bf17e788b405b6ce69e8",
+      "name": "Transcriptomics Appressorial Assay Dznf1 TF",
+      "at": "2026-11-26T19:38:05.938Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "vmPath": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+      "bytes": 42891475718,
+      "files": 21,
+      "emptyOrStructuralDirectories": 18,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "name": "Wheat blast isolate sequencing",
+      "at": "2026-11-26T19:38:06.775Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_945",
+      "vmPath": "/mnt/reads/ntalbot/project_945",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_945",
+      "bytes": 38737500366,
+      "files": 20,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6116c323e788b405b6ce69f6",
+      "name": "Generational Experiment ",
+      "at": "2026-11-26T19:38:07.053Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/generational_experiment_",
+      "vmPath": "/mnt/reads/ntalbot/generational_experiment_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/generational_experiment_",
+      "bytes": 36630086564,
+      "files": 18,
+      "emptyOrStructuralDirectories": 14,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60804e0b837a8a261f0133ee",
+      "name": "RNA-seq Mycelium cultures Guy11, Dhox7 and Dmst12",
+      "at": "2026-11-26T19:38:07.552Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "vmPath": "/mnt/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+      "bytes": 35736656386,
+      "files": 18,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2f",
+      "name": "Global transcriptional analysis of surface perception",
+      "at": "2026-11-26T19:38:08.576Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "vmPath": "/mnt/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+      "bytes": 35075963678,
+      "files": 28,
+      "emptyOrStructuralDirectories": 46,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfa",
+      "name": "Sequencing of Sub-Saharan Africa Magnaporthe oryzae isolates",
+      "at": "2026-11-26T19:38:09.322Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+      "bytes": 34152118080,
+      "files": 97,
+      "emptyOrStructuralDirectories": 81,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d43",
+      "name": "Transcriptional regulation of melanin in Magnaporthe oryzae",
+      "at": "2026-11-26T19:38:09.515Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "vmPath": "/mnt/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+      "bytes": 32153599360,
+      "files": 14,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "name": "Sequence assemblies and gene annotations",
+      "at": "2026-11-26T19:38:10.123Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2012",
+      "vmPath": "/mnt/reads/ntalbot/project_2012",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2012",
+      "bytes": 31629123970,
+      "files": 72,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "name": "Smo1 mutant and progeny sequencing",
+      "at": "2026-11-26T19:38:10.919Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_809",
+      "vmPath": "/mnt/reads/ntalbot/project_809",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_809",
+      "bytes": 27090686963,
+      "files": 6,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "name": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+      "at": "2026-11-26T19:38:11.512Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "vmPath": "/mnt/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+      "bytes": 41849908492,
+      "files": 39,
+      "emptyOrStructuralDirectories": 17,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d79",
+      "name": "Sequencing of 5 strains of Kenyan Magnaporthe oryzae ",
+      "at": "2026-11-26T19:38:11.811Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+      "bytes": 23114728859,
+      "files": 30,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "name": "Wheat blast assembly and gene analysis",
+      "at": "2026-11-26T19:38:12.256Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_930",
+      "vmPath": "/mnt/reads/ntalbot/project_930",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_930",
+      "bytes": 22742214458,
+      "files": 52,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "name": "pmk1AS leaf-sheath infection RNA-seq",
+      "at": "2026-11-26T19:38:13.096Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2323",
+      "vmPath": "/mnt/reads/ntalbot/project_2323",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2323",
+      "bytes": 22039506100,
+      "files": 40,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d06",
+      "name": "Sequencing melanin biosynthesis pathway CRISPR mutants in Guy11 background",
+      "at": "2026-11-26T19:38:13.708Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+      "bytes": 19142588085,
+      "files": 24,
+      "emptyOrStructuralDirectories": 31,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1d",
+      "name": "Sequencing of Magnaporthe oryzae isolates from Kenya",
+      "at": "2026-11-26T19:38:13.914Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+      "bytes": 16867382244,
+      "files": 42,
+      "emptyOrStructuralDirectories": 36,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "name": "Smo1 bulk segregant analysis",
+      "at": "2026-11-26T19:38:14.610Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2009",
+      "vmPath": "/mnt/reads/ntalbot/project_2009",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2009",
+      "bytes": 14852621710,
+      "files": 28,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d57",
+      "name": "Cell cycle",
+      "at": "2026-11-26T19:38:15.387Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/cell_cycle",
+      "vmPath": "/mnt/reads/ntalbot/cell_cycle",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/cell_cycle",
+      "bytes": 12147621942,
+      "files": 12,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "name": "Nim1 mutant and revertant sequencing",
+      "at": "2026-11-26T19:38:16.011Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_1622",
+      "vmPath": "/mnt/reads/ntalbot/project_1622",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1622",
+      "bytes": 10629370636,
+      "files": 15,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "606c3308d7661b6ec22a0793",
+      "name": "ChIP-seq data Hox7-3XFlag mycelium",
+      "at": "2026-11-26T19:38:16.508Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "vmPath": "/mnt/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+      "bytes": 9339040375,
+      "files": 13,
+      "emptyOrStructuralDirectories": 24,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "name": "MG bulk read alignment",
+      "at": "2026-11-26T19:38:16.667Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_1566",
+      "vmPath": "/mnt/reads/ntalbot/project_1566",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1566",
+      "bytes": 8982368958,
+      "files": 1,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d03",
+      "name": "Sequencing PWL2 mutants in Guy11 background",
+      "at": "2026-11-26T19:38:17.687Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+      "bytes": 7545919237,
+      "files": 2,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6116c220e788b405b6ce69f2",
+      "name": "Transcriptomics Appressorial Assay Dhox7 TF",
+      "at": "2026-11-26T19:38:18.116Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "vmPath": "/mnt/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+      "bytes": 6209130977,
+      "files": 3,
+      "emptyOrStructuralDirectories": 3,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "name": "Buf mutant bulk segregant analysis",
+      "at": "2026-11-26T19:38:18.632Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_592_593",
+      "vmPath": "/mnt/reads/ntalbot/project_592_593",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_592_593",
+      "bytes": 5229182384,
+      "files": 3,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "605b441ad7661b6ec22a076a",
+      "name": "ChIP-seq data Mst12-GFP mycelium",
+      "at": "2026-11-26T19:38:18.957Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "vmPath": "/mnt/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+      "bytes": 4808078917,
+      "files": 6,
+      "emptyOrStructuralDirectories": 12,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60619edfd7661b6ec22a076e",
+      "name": "DAP-seq Mst12 and Hox7 ",
+      "at": "2026-11-26T19:38:19.890Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "vmPath": "/mnt/reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/dap_seq_mst12_and_hox7_",
+      "bytes": 4448038873,
+      "files": 9,
+      "emptyOrStructuralDirectories": 12,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d21",
+      "name": "Wsc1 project",
+      "at": "2026-11-26T19:38:20.397Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/wsc1_project",
+      "vmPath": "/mnt/reads/ntalbot/wsc1_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/wsc1_project",
+      "bytes": 3744179136,
+      "files": 15,
+      "emptyOrStructuralDirectories": 26,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "name": "Guy11 paired-end read alignment",
+      "at": "2026-11-26T19:38:20.765Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2171",
+      "vmPath": "/mnt/reads/ntalbot/project_2171",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2171",
+      "bytes": 3557810271,
+      "files": 1,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7f",
+      "name": "Turgor project",
+      "at": "2026-11-26T19:38:21.162Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/turgor_project",
+      "vmPath": "/mnt/reads/ntalbot/turgor_project",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/turgor_project",
+      "bytes": 3039086281,
+      "files": 8,
+      "emptyOrStructuralDirectories": 18,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "name": "Guy11 36-base paired-end genome sequencing",
+      "at": "2026-11-26T19:38:21.990Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_539",
+      "vmPath": "/mnt/reads/ntalbot/project_539",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_539",
+      "bytes": 2914165083,
+      "files": 8,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "name": "Lichen genome annotation",
+      "at": "2026-11-26T19:38:22.699Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_2561",
+      "vmPath": "/mnt/reads/ntalbot/project_2561",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2561",
+      "bytes": 1523739906,
+      "files": 34,
+      "emptyOrStructuralDirectories": 6,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d25",
+      "name": "Sequencing of Magnaporthe oryzae KE002",
+      "at": "2026-11-26T19:38:22.966Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+      "bytes": 57901188,
+      "files": 2,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d50",
+      "name": "Sequencing Magnaporthe oryzae Guy11 ",
+      "at": "2026-11-26T19:38:23.371Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "vmPath": "/mnt/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+      "bytes": 51087911,
+      "files": 2,
+      "emptyOrStructuralDirectories": 11,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "name": "Mycelium RNA-seq expression tables",
+      "at": "2026-11-26T19:38:24.021Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_230",
+      "vmPath": "/mnt/reads/ntalbot/project_230",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_230",
+      "bytes": 8728408,
+      "files": 7,
+      "emptyOrStructuralDirectories": 1,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0c",
+      "name": "Rice Blast",
+      "at": "2026-11-26T19:38:29.819Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rice_blast",
+      "vmPath": "/mnt/reads/skamoun/rice_blast",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rice_blast",
+      "bytes": 408575806056,
+      "files": 84,
+      "emptyOrStructuralDirectories": 145,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cff",
+      "name": "Wheat Blast 2017",
+      "at": "2026-11-26T19:38:49.506Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/wheat_blast_2017",
+      "vmPath": "/mnt/reads/skamoun/wheat_blast_2017",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/wheat_blast_2017",
+      "bytes": 66261978234,
+      "files": 228,
+      "emptyOrStructuralDirectories": 121,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d23",
+      "name": "Wheat Blast",
+      "at": "2026-11-26T19:38:50.558Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/wheat_blast",
+      "vmPath": "/mnt/reads/skamoun/wheat_blast",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/wheat_blast",
+      "bytes": 61698523958,
+      "files": 68,
+      "emptyOrStructuralDirectories": 33,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d32",
+      "name": "Halioticida_Haliphthoros",
+      "at": "2026-11-26T19:38:51.116Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/halioticida_haliphthoros",
+      "vmPath": "/mnt/reads/skamoun/halioticida_haliphthoros",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliphthoros",
+      "bytes": 5332457063,
+      "files": 18,
+      "emptyOrStructuralDirectories": 24,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "name": "janderso_rsolani",
+      "at": "2026-11-26T19:38:52.143Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/janderso_rsolani",
+      "vmPath": "/mnt/reads/skamoun/janderso_rsolani",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/janderso_rsolani",
+      "bytes": 161890791630,
+      "files": 40,
+      "emptyOrStructuralDirectories": 7,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d30",
+      "name": "Halioticida_Haliocrustida",
+      "at": "2026-11-26T19:38:52.740Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/halioticida_haliocrustida",
+      "vmPath": "/mnt/reads/skamoun/halioticida_haliocrustida",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliocrustida",
+      "bytes": 9129,
+      "files": 2,
+      "emptyOrStructuralDirectories": 1,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d73",
+      "name": "Nanopore sequences from Italian rice blast fungal isolates",
+      "at": "2026-11-26T19:38:53.195Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+      "vmPath": "/mnt/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+      "bytes": 61328719175,
+      "files": 13,
+      "emptyOrStructuralDirectories": 65,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60defd3ae788b405b6ce68db",
+      "name": "RNA-Seq data from lettuce (Lactuca sativa)",
+      "at": "2026-11-26T19:38:53.895Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+      "bytes": 50687234252,
+      "files": 17,
+      "emptyOrStructuralDirectories": 21,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "name": "M. oryzae T-DNA insertion-site analysis",
+      "at": "2026-11-26T19:38:54.211Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/ntalbot/project_758",
+      "vmPath": "/mnt/reads/ntalbot/project_758",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_758",
+      "bytes": 119591,
+      "files": 4,
+      "emptyOrStructuralDirectories": 1,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60d1f3a0e788b405b6ce68a1",
+      "name": "RNA-Seq data from Spinach (Spinacia oleracea)",
+      "at": "2026-11-26T19:38:54.753Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+      "bytes": 47942838875,
+      "files": 16,
+      "emptyOrStructuralDirectories": 20,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60c8b1d3e788b405b6ce6845",
+      "name": "RNA-Seq data from N. benthamiana WT and NRC234 KO mutants",
+      "at": "2026-11-26T19:38:55.514Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+      "bytes": 123144455087,
+      "files": 42,
+      "emptyOrStructuralDirectories": 17,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "60e4528be788b405b6ce6917",
+      "name": "RNA-Seq data from tomato LA1792 (incl. HERO)",
+      "at": "2026-11-26T19:38:56.219Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+      "bytes": 39838925625,
+      "files": 12,
+      "emptyOrStructuralDirectories": 5,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "610fd90de788b405b6ce6946",
+      "name": "RNA-Seq data from N. benthamiana WT and ZAR1 mutants",
+      "at": "2026-11-26T19:38:56.715Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+      "bytes": 149454437756,
+      "files": 60,
+      "emptyOrStructuralDirectories": 30,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "611bd783e788b405b6ce6a0c",
+      "name": "RNA-Seq data from NRC2/3/4 KO N. benthamiana expressing activated NLRs",
+      "at": "2026-11-26T19:38:57.074Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+      "bytes": 33201255555,
+      "files": 14,
+      "emptyOrStructuralDirectories": 15,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "611bcc57e788b405b6ce69fc",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant M. polymorpha CNL",
+      "at": "2026-11-26T19:38:57.759Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+      "bytes": 9739985962,
+      "files": 4,
+      "emptyOrStructuralDirectories": 5,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "611be0c6e788b405b6ce6a3c",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant of NbRoq1",
+      "at": "2026-11-26T19:38:58.403Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+      "bytes": 9377213032,
+      "files": 4,
+      "emptyOrStructuralDirectories": 5,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "613b733ee788b405b6ce6eb8",
+      "name": " Differential gene expression analysis of Tol9 CRISPR mutants",
+      "at": "2026-11-26T19:38:58.975Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+      "vmPath": "/mnt/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+      "bytes": 66190383789,
+      "files": 22,
+      "emptyOrStructuralDirectories": 33,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "61572b1b36105e13c15d58ac",
+      "name": "RNA-Seq data from N. benthamiana transiently expressing WT and autoactive TNL",
+      "at": "2026-11-26T19:38:59.275Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+      "vmPath": "/mnt/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+      "bytes": 29715892569,
+      "files": 12,
+      "emptyOrStructuralDirectories": 19,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6452a72c525e070698932583",
+      "name": "Sequencing of Br62 and I54 blast fungus isolates",
+      "at": "2026-11-26T19:38:59.850Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+      "vmPath": "/mnt/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+      "bytes": 7449731477,
+      "files": 8,
+      "emptyOrStructuralDirectories": 10,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "64c13517d32c7a7e4b174f20",
+      "name": "RNAseq_PikobodiesMADA",
+      "at": "2026-11-26T19:39:00.739Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/rnaseq_pikobodiesmada",
+      "vmPath": "/mnt/reads/skamoun/rnaseq_pikobodiesmada",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/rnaseq_pikobodiesmada",
+      "bytes": 72238981053,
+      "files": 63,
+      "emptyOrStructuralDirectories": 44,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "name": "P. striiformis TCS (TSL.DS.20130809.01, 113)",
+      "at": "2026-11-26T19:39:01.264Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "vmPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "bytes": 32165487135,
+      "files": 38,
+      "emptyOrStructuralDirectories": 36,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "name": "P. striiformis TCS 99 (TSL.DS.20130722.01)",
+      "at": "2026-11-26T19:39:01.933Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "vmPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "bytes": 6156498502,
+      "files": 16,
+      "emptyOrStructuralDirectories": 8,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "name": "P. striiformis TCS 105 (TSL.DS.20130730.01)",
+      "at": "2026-11-26T19:39:02.636Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "vmPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "bytes": 41786044848,
+      "files": 34,
+      "emptyOrStructuralDirectories": 30,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "name": "P. striiformis TCS 144 (TSL.DS.20131010.01rev2)",
+      "at": "2026-11-26T19:39:03.174Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "vmPath": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "bytes": 27554681601,
+      "files": 64,
+      "emptyOrStructuralDirectories": 64,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "name": "P. striiformis TCS (JIC.CL.20130409.01)",
+      "at": "2026-11-26T19:39:03.992Z",
+      "passed": true,
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "vmPath": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "bytes": 65286846255,
+      "files": 268,
+      "emptyOrStructuralDirectories": 35,
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "multipart": []
+    }
+  ]
+}

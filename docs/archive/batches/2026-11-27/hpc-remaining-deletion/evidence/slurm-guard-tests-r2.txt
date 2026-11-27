@@ -1,0 +1,7 @@
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'
+tar: Ignoring unknown extended header keyword 'LIBARCHIVE.xattr.com.apple.provenance'
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.019s
+
+OK

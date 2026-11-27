@@ -1,0 +1,147 @@
+{
+  "kind": "kamoun-direct-disposal-job-audit-v1",
+  "success": true,
+  "jobId": "25342010",
+  "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+  "projects": 6,
+  "files": 1217,
+  "bytes": 790004575062,
+  "exactTargets": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+      "files": 260,
+      "bytes": 48614994012
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates",
+      "files": 24,
+      "bytes": 109802811903
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+      "files": 106,
+      "bytes": 72013629033
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "hpcPath": "/tsl/data/reads/skamoun/xiao_scr74",
+      "files": 62,
+      "bytes": 161447455740
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+      "files": 641,
+      "bytes": 239985996303
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "hpcPath": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+      "files": 124,
+      "bytes": 158139688071
+    }
+  ],
+  "events": {
+    "started": 1,
+    "preflightPassed": 6,
+    "deletionStarted": 6,
+    "deleted": 6,
+    "complete": 1,
+    "total": 20
+  },
+  "eventCounts": {
+    "started": 1,
+    "preflight-passed": 6,
+    "deletion-started": 6,
+    "deleted": 6,
+    "complete": 1
+  },
+  "exactPlanOrder": true,
+  "allPreflightsBeforeFirstDeletion": true,
+  "noDuplicateMissingOrUnexpectedEvents": true,
+  "rawEmbeddedAuditExactlyMatchesJsonl": true,
+  "noFailureEventsOrDiagnosticErrors": true,
+  "protectedRootsIntactAccordingToRunner": true,
+  "retiredRecordsRetainedAccordingToRunner": true,
+  "independentAbsenceConfirmationRequired": true,
+  "noS3Copy": true,
+  "retirementReceiptSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+  "execute": true,
+  "allEventsWithinReview": true,
+  "processExitCode": 0,
+  "host": "t384n8",
+  "uid": 14014,
+  "operator": "deeks",
+  "reviewCompletedAt": "2026-11-27T14:58:38.850548+00:00",
+  "expiresAt": "2026-11-27T20:58:38.850548+00:00",
+  "startedAt": "2026-11-27T15:20:04.651947+00:00",
+  "completedAt": "2026-11-27T15:20:56.704036+00:00",
+  "runnerElapsedSeconds": 52.052089,
+  "packageChecksumChecksPassed": [
+    "HELD_PATHS.txt",
+    "HPC_PATHS.txt",
+    "PROJECTS.tsv",
+    "README.md",
+    "delete-direct-disposal.py",
+    "delete.sbatch",
+    "deletion-plan.json",
+    "inventory.json",
+    "inventory_direct_disposal.py",
+    "retirement-receipt.json",
+    "sealed-source-baseline.json"
+  ],
+  "allocation": {
+    "nodes": 1,
+    "tasks": 1,
+    "cpusPerTask": 1,
+    "memoryPerNodeMiB": 1024,
+    "timeLimit": "02:00:00"
+  },
+  "gnuTime": {
+    "userCpuSeconds": 0.4,
+    "systemCpuSeconds": 0.27,
+    "cpuPercent": 1,
+    "wallClock": "0:52.24",
+    "maximumResidentKiB": 23468,
+    "swaps": 0,
+    "signalsDelivered": 0,
+    "processExitStatus": 0
+  },
+  "slurmLaunchSnapshot": {
+    "state": "RUNNING",
+    "exitCode": "0:0",
+    "finalAccounting": false
+  },
+  "slurmStatus": {
+    "source": "not-supplied",
+    "state": "UNKNOWN",
+    "exitCode": null
+  },
+  "schedulerFinalStateIndependentlyVerified": false,
+  "issues": [],
+  "limits": [
+    "Final Slurm accounting is separate; this audit verifies runner completion and GNU time exit 0 only.",
+    "This audit checks execution receipts. Mounted-source absence and protected-root presence require separate evidence. Retirement was already completed; this audit performs no database writes."
+  ],
+  "inputs": [
+    {
+      "name": "deletion-plan.json",
+      "sha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+      "bytes": 531091
+    },
+    {
+      "name": "deletion-25342010.jsonl",
+      "sha256": "26726e62b98deccd62f1a43e734238afa4b05a2f8db90e02986298982e269cee",
+      "bytes": 3955
+    },
+    {
+      "name": "komondor-kamoun-6-25342010.log",
+      "sha256": "7d85507685c9127f0cc9105d878532b427c4f3c0e46ff565a6b94ceb2b1618db",
+      "bytes": 6829
+    }
+  ],
+  "at": "2026-11-27T15:26:36.194953+00:00"
+}

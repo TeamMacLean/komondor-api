@@ -1,0 +1,150 @@
+{
+  "at": "2026-11-27T15:21:57.251972+00:00",
+  "slurmJobId": "25342010",
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "targets": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "path": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "path": "/mnt/reads/skamoun/saunderd_pstriiformis_South_African_isolates",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "path": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "path": "/mnt/reads/skamoun/xiao_scr74",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "path": "/mnt/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "path": "/mnt/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83",
+      "exists": false,
+      "directory": false,
+      "symlink": false
+    }
+  ],
+  "protected": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "path": "/mnt/reads/two_blades/gargy_2019_rnaseq",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5b",
+      "path": "/mnt/reads/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "6054ba49d7661b6ec22a06f6",
+      "path": "/mnt/reads/skamoun/wheat_blast___zambia_2018_2020",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d70",
+      "path": "/mnt/reads/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "61a758113545d74de71ebbec",
+      "path": "/mnt/reads/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "61ee798cdecd27242ab8adb1",
+      "path": "/mnt/reads/skamoun/blast_fungi_collected_from_wild_grasses_in_germany",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "61fd5d59decd27242ab8adf3",
+      "path": "/mnt/reads/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "6502df19d32c7a7e4b174fe8",
+      "path": "/mnt/reads/skamoun/italian_blast_fungus_isolates_from_wild_grasses",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "6863b1c7dc823951803ac3a4",
+      "path": "/mnt/reads/skamoun/wheat_blast___bolivia_2023_24",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "65f06e07e372f7554d754873",
+      "path": "/mnt/reads/skamoun/wheat_blast___zambia_2023",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "6863e922dc823951803ac406",
+      "path": "/mnt/reads/skamoun/wheat_blast___paraguay_2023",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "69a81b4920a8c93a2306efc6",
+      "path": "/mnt/reads/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    },
+    {
+      "projectId": "6ae4ac89a6b876c643741d27",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq",
+      "exists": true,
+      "directory": true,
+      "symlink": false
+    }
+  ],
+  "absentTargets": 6,
+  "protectedProjectsPresent": 13,
+  "schedulerStatusNotQueried": true,
+  "readOnly": true
+}

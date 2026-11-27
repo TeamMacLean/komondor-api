@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-27T15:05:03.509Z",
+  "runId": "debbf2ec-d1f9-4974-b9b3-9e8e0d67c1fb",
+  "controllerPid": 3675097,
+  "operationId": "kamoun-six-retirement-20261127-01",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "recordedAt": "2026-11-27T15:05:03.508Z",
+  "actor": "deeks",
+  "windowOperator": "tsldata",
+  "windowDirectory": "/storage/komondor-kamoun-disposal-20261127-01",
+  "projectIds": [
+    "5fc012bda3efcb29338b7cf9",
+    "5fc012bda3efcb29338b7cf5",
+    "5fc012bda3efcb29338b7d5c",
+    "5fc012bda3efcb29338b7d7a",
+    "5fc012bda3efcb29338b7d0d",
+    "5fc012bda3efcb29338b7cf8"
+  ],
+  "externalWritersFrozen": true,
+  "directApiCallersFrozen": true,
+  "allApiInstancesStopped": true,
+  "powerPaused": true,
+  "nudgePaused": true,
+  "webPaused": true,
+  "backupIndependentlyRetained": true,
+  "apiReadyUrls": [
+    "http://127.0.0.1:3061/ready"
+  ],
+  "expiresAt": "2026-11-27T15:24:03.508Z",
+  "reviewAfterAt": "2026-11-27T15:25:03.508Z",
+  "services": [
+    {
+      "name": "komondor-api",
+      "id": 9,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-power",
+      "id": 8,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-nudge",
+      "id": 2,
+      "pid": 0,
+      "status": "stopped"
+    },
+    {
+      "name": "komondor-web",
+      "id": 0,
+      "pid": 0,
+      "status": "stopped"
+    }
+  ]
+}

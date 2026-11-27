@@ -1,0 +1,3583 @@
+{
+  "kind": "komondor-reviewed-hpc-deletion-v1",
+  "hpcRoot": "/tsl/data/reads",
+  "stage": "gulnara-four-sources",
+  "releaseStatus": "ready-for-user-submission",
+  "reviewCompletedAt": "2026-11-27T14:13:23.753Z",
+  "expiresAt": "2026-11-27T20:13:23.753000+00:00",
+  "apiHead": "12e7f1da1537b693f60c86d692f0c3236edcf299",
+  "reviewSummarySha256": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41",
+  "destinationCheckSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+  "holdReleaseSha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+  "held": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "relativeRoot": "two_blades/gargy_2019_rnaseq"
+    },
+    {
+      "projectId": "6ae4ac89a6b876c643741d27",
+      "relativeRoot": "ntalbot/xanthoria_parietina_mycobiont_rnaseq"
+    }
+  ],
+  "protectedRoots": [
+    "ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+    "ntalbot/xanthoria_parietina_mycobiont_rnaseq",
+    "two_blades/gargy_2019_rnaseq"
+  ],
+  "protectedFiles": [
+    {
+      "path": "21x_bmm1_ks/s_21xb1/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61644618136,
+      "nlink": 2,
+      "mtimeMs": 1607599528532.999,
+      "ctimeMs": 1795699467354.659
+    },
+    {
+      "path": "21x_bmm1_ks/s_21xb1/raw/S_21XB1_1.fq.gz",
+      "bytes": 1753161275,
+      "ino": 61764415114,
+      "nlink": 2,
+      "mtimeMs": 1607599540660,
+      "ctimeMs": 1795699468014.082
+    },
+    {
+      "path": "21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+      "bytes": 1805995784,
+      "ino": 61622890253,
+      "nlink": 2,
+      "mtimeMs": 1607599538609.999,
+      "ctimeMs": 1795699468608.944
+    },
+    {
+      "path": "21x_bmm2_ks/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61689195162,
+      "nlink": 2,
+      "mtimeMs": 1629503988404,
+      "ctimeMs": 1795699469056.88
+    },
+    {
+      "path": "21x_bmm2_ks/ks21xb1/raw/KS21XB1_1.fq.gz",
+      "bytes": 1706933260,
+      "ino": 61616663352,
+      "nlink": 2,
+      "mtimeMs": 1629504137332.999,
+      "ctimeMs": 1795699469523.897
+    },
+    {
+      "path": "21x_bmm2_ks/ks21xb1/raw/KS21XB1_2.fq.gz",
+      "bytes": 1779889359,
+      "ino": 61617662478,
+      "nlink": 2,
+      "mtimeMs": 1629504134950,
+      "ctimeMs": 1795699470467.387
+    },
+    {
+      "path": "21x_bmm2_ks/ks21xb1/raw/MD5.txt",
+      "bytes": 100,
+      "ino": 61734074228,
+      "nlink": 2,
+      "mtimeMs": 1629504126428.999,
+      "ctimeMs": 1795699471053.264
+    },
+    {
+      "path": "21x_bmm3_ks/s_21xb3/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61765077758,
+      "nlink": 2,
+      "mtimeMs": 1607599731598,
+      "ctimeMs": 1795699471497.815
+    },
+    {
+      "path": "21x_bmm3_ks/s_21xb3/raw/S_21XB3_1.fq.gz",
+      "bytes": 1768462507,
+      "ino": 62039200056,
+      "nlink": 2,
+      "mtimeMs": 1607599742959,
+      "ctimeMs": 1795699471990.708
+    },
+    {
+      "path": "21x_bmm3_ks/s_21xb3/raw/S_21XB3_2.fq.gz",
+      "bytes": 1825854746,
+      "ino": 61645676010,
+      "nlink": 2,
+      "mtimeMs": 1607599745270.999,
+      "ctimeMs": 1795699472476.097
+    },
+    {
+      "path": "48x_bmm1_ks/ks48xb1/raw/KS48XB1_1.fq.gz",
+      "bytes": 1720079224,
+      "ino": 61609065392,
+      "nlink": 2,
+      "mtimeMs": 1629572811960,
+      "ctimeMs": 1795699472973.97
+    },
+    {
+      "path": "48x_bmm1_ks/ks48xb1/raw/KS48XB1_2.fq.gz",
+      "bytes": 1815256278,
+      "ino": 61586985710,
+      "nlink": 2,
+      "mtimeMs": 1629572813618.999,
+      "ctimeMs": 1795699473439.059
+    },
+    {
+      "path": "48x_bmm1_ks/ks48xb1/raw/MD5.txt",
+      "bytes": 100,
+      "ino": 61622433591,
+      "nlink": 2,
+      "mtimeMs": 1629572802944.999,
+      "ctimeMs": 1795699473871.152
+    },
+    {
+      "path": "48x_bmm2_ks/ks48xb2/raw/KS48XB2_1.fq.gz",
+      "bytes": 1753837292,
+      "ino": 61649146601,
+      "nlink": 2,
+      "mtimeMs": 1629572992388.999,
+      "ctimeMs": 1795699474315.42
+    },
+    {
+      "path": "48x_bmm2_ks/ks48xb2/raw/KS48XB2_2.fq.gz",
+      "bytes": 1860307985,
+      "ino": 61747508420,
+      "nlink": 2,
+      "mtimeMs": 1629572994779.999,
+      "ctimeMs": 1795699474950.754
+    },
+    {
+      "path": "48x_bmm2_ks/ks48xb2/raw/MD5.txt",
+      "bytes": 100,
+      "ino": 61645676014,
+      "nlink": 2,
+      "mtimeMs": 1629572983948.999,
+      "ctimeMs": 1795699475383.786
+    },
+    {
+      "path": "48x_bmm3_ks/ks48xb3/raw/KS48XB3_1.fq.gz",
+      "bytes": 1745187398,
+      "ino": 61817493851,
+      "nlink": 2,
+      "mtimeMs": 1629573179717.999,
+      "ctimeMs": 1795699475885.114
+    },
+    {
+      "path": "48x_bmm3_ks/ks48xb3/raw/KS48XB3_2.fq.gz",
+      "bytes": 1841578611,
+      "ino": 61817437693,
+      "nlink": 2,
+      "mtimeMs": 1629573176667.999,
+      "ctimeMs": 1795699476376.352
+    },
+    {
+      "path": "48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+      "bytes": 100,
+      "ino": 61587479711,
+      "nlink": 2,
+      "mtimeMs": 1629573168961.999,
+      "ctimeMs": 1795699476888.66
+    },
+    {
+      "path": "42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61817691136,
+      "nlink": 2,
+      "mtimeMs": 1608208937967.999,
+      "ctimeMs": 1795699477339.014
+    },
+    {
+      "path": "42x_bmm1_ks/s_42xb1/raw/S_42XB1_1.fq.gz",
+      "bytes": 1752377726,
+      "ino": 61632245604,
+      "nlink": 2,
+      "mtimeMs": 1608208948484.999,
+      "ctimeMs": 1795699477789.884
+    },
+    {
+      "path": "42x_bmm1_ks/s_42xb1/raw/S_42XB1_2.fq.gz",
+      "bytes": 1792521795,
+      "ino": 61622180375,
+      "nlink": 2,
+      "mtimeMs": 1608208947019.999,
+      "ctimeMs": 1795699478236.325
+    },
+    {
+      "path": "42x_bmm2_ks/s_42xb2/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61644618145,
+      "nlink": 2,
+      "mtimeMs": 1608209288329.999,
+      "ctimeMs": 1795699478706.831
+    },
+    {
+      "path": "42x_bmm2_ks/s_42xb2/raw/S_42XB2_1.fq.gz",
+      "bytes": 1353117852,
+      "ino": 61616663354,
+      "nlink": 2,
+      "mtimeMs": 1608209294107,
+      "ctimeMs": 1795699479143.649
+    },
+    {
+      "path": "42x_bmm2_ks/s_42xb2/raw/S_42XB2_2.fq.gz",
+      "bytes": 1380164410,
+      "ino": 61592170879,
+      "nlink": 2,
+      "mtimeMs": 1608209295831,
+      "ctimeMs": 1795699479607.369
+    },
+    {
+      "path": "42x_bmm3_ks/s_42xb3/additional/MD5.txt",
+      "bytes": 100,
+      "ino": 61680541791,
+      "nlink": 2,
+      "mtimeMs": 1608209467555.999,
+      "ctimeMs": 1795699480064.046
+    },
+    {
+      "path": "42x_bmm3_ks/s_42xb3/raw/S_42XB3_1.fq.gz",
+      "bytes": 1622463882,
+      "ino": 61619089275,
+      "nlink": 2,
+      "mtimeMs": 1608209477634.999,
+      "ctimeMs": 1795699480525.063
+    },
+    {
+      "path": "42x_bmm3_ks/s_42xb3/raw/S_42XB3_2.fq.gz",
+      "bytes": 1651967916,
+      "ino": 61589546301,
+      "nlink": 2,
+      "mtimeMs": 1608209476234.999,
+      "ctimeMs": 1795699480965.075
+    },
+    {
+      "path": "9x_bmm1_ks/additional/MD5.txt",
+      "bytes": 98,
+      "ino": 61620727457,
+      "nlink": 2,
+      "mtimeMs": 1629492335049,
+      "ctimeMs": 1795699481403.47
+    },
+    {
+      "path": "9x_bmm1_ks/ks9xb1/raw/KS9XB1_1.fq.gz",
+      "bytes": 1820529456,
+      "ino": 61598846124,
+      "nlink": 2,
+      "mtimeMs": 1629492466275,
+      "ctimeMs": 1795699481836.741
+    },
+    {
+      "path": "9x_bmm1_ks/ks9xb1/raw/KS9XB1_2.fq.gz",
+      "bytes": 1873106252,
+      "ino": 61818220380,
+      "nlink": 2,
+      "mtimeMs": 1629492465609.999,
+      "ctimeMs": 1795699482376.835
+    },
+    {
+      "path": "9x_bmm1_ks/ks9xb1/raw/MD5.txt",
+      "bytes": 98,
+      "ino": 61817172032,
+      "nlink": 2,
+      "mtimeMs": 1629492456591,
+      "ctimeMs": 1795699482808.64
+    },
+    {
+      "path": "9x_bmm2_ks/additional/MD5.txt",
+      "bytes": 98,
+      "ino": 62042080348,
+      "nlink": 2,
+      "mtimeMs": 1629492580105.999,
+      "ctimeMs": 1795699483301.446
+    },
+    {
+      "path": "9x_bmm2_ks/ks9xb2/raw/KS9XB2_1.fq.gz",
+      "bytes": 1533238728,
+      "ino": 61649556051,
+      "nlink": 2,
+      "mtimeMs": 1629493728266.999,
+      "ctimeMs": 1795699483737.924
+    },
+    {
+      "path": "9x_bmm2_ks/ks9xb2/raw/KS9XB2_2.fq.gz",
+      "bytes": 1572421169,
+      "ino": 61714946664,
+      "nlink": 2,
+      "mtimeMs": 1629493725994.999,
+      "ctimeMs": 1795699484176.212
+    },
+    {
+      "path": "9x_bmm2_ks/ks9xb2/raw/MD5.txt",
+      "bytes": 98,
+      "ino": 61618176056,
+      "nlink": 2,
+      "mtimeMs": 1629493718318,
+      "ctimeMs": 1795699484638.017
+    },
+    {
+      "path": "9x_bmm3_ks/additional/MD5.txt",
+      "bytes": 98,
+      "ino": 61645676019,
+      "nlink": 2,
+      "mtimeMs": 1629493837674.999,
+      "ctimeMs": 1795699485133.205
+    },
+    {
+      "path": "9x_bmm3_ks/ks9xb3/raw/KS9XB3_1.fq.gz",
+      "bytes": 1818369506,
+      "ino": 62042080349,
+      "nlink": 2,
+      "mtimeMs": 1629494012312.999,
+      "ctimeMs": 1795699485567.719
+    },
+    {
+      "path": "9x_bmm3_ks/ks9xb3/raw/KS9XB3_2.fq.gz",
+      "bytes": 1885811418,
+      "ino": 62042080350,
+      "nlink": 2,
+      "mtimeMs": 1629494014029.999,
+      "ctimeMs": 1795699486000.634
+    },
+    {
+      "path": "9x_bmm3_ks/ks9xb3/raw/MD5.txt",
+      "bytes": 98,
+      "ino": 61645676021,
+      "nlink": 2,
+      "mtimeMs": 1629494001811,
+      "ctimeMs": 1795699486433.603
+    }
+  ],
+  "projects": [
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_21_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+      "migrationId": "6adb34b02f2b2c46efb0e202",
+      "sourceSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "verificationSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "s3VerifiedAt": "2026-10-29T19:13:25.516Z",
+      "fileCount": 142,
+      "bytes": 173734125362,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T14:13:23.427Z",
+      "files": [
+        {
+          "path": "21c_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607593696228.487,
+          "ctimeMs": 1621884877484.478,
+          "ino": 18046415208
+        },
+        {
+          "path": "21c_bmm1_ks/additional/S_21CB1_1.fq.gz",
+          "bytes": 1595203186,
+          "mtimeMs": 1607593703171.413,
+          "ctimeMs": 1621884877402.223,
+          "ino": 17770717082
+        },
+        {
+          "path": "21c_bmm1_ks/additional/S_21CB1_2.fq.gz",
+          "bytes": 1626927339,
+          "mtimeMs": 1607593700569.969,
+          "ctimeMs": 1621884885477.813,
+          "ino": 17866463520
+        },
+        {
+          "path": "21c_bmm1_ks/s_21cb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608196783706.164,
+          "ctimeMs": 1621884867608.709,
+          "ino": 17865564990
+        },
+        {
+          "path": "21c_bmm1_ks/s_21cb1/raw/S_21CB1_1.fq.gz",
+          "bytes": 1595203186,
+          "mtimeMs": 1608196791432.129,
+          "ctimeMs": 1621884859394.304,
+          "ino": 17865564989
+        },
+        {
+          "path": "21c_bmm1_ks/s_21cb1/raw/S_21CB1_2.fq.gz",
+          "bytes": 1626927339,
+          "mtimeMs": 1608196788553.028,
+          "ctimeMs": 1621884867472.117,
+          "ino": 18544556415
+        },
+        {
+          "path": "21c_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607593822271.508,
+          "ctimeMs": 1621884787070.397,
+          "ino": 18046415209
+        },
+        {
+          "path": "21c_bmm2_ks/additional/S_21CB2_1.fq.gz",
+          "bytes": 1688547151,
+          "mtimeMs": 1607593830601.433,
+          "ctimeMs": 1621884794339.789,
+          "ino": 18046415210
+        },
+        {
+          "path": "21c_bmm2_ks/additional/S_21CB2_2.fq.gz",
+          "bytes": 1729496561,
+          "mtimeMs": 1607593832358.771,
+          "ctimeMs": 1621884786977.843,
+          "ino": 17770717085
+        },
+        {
+          "path": "21c_bmm2_ks/s_21cb2/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608196963714.388,
+          "ctimeMs": 1621884778499.099,
+          "ino": 17789725969
+        },
+        {
+          "path": "21c_bmm2_ks/s_21cb2/raw/S_21CB2_1.fq.gz",
+          "bytes": 1688547151,
+          "mtimeMs": 1608196972231.75,
+          "ctimeMs": 1621884778392.644,
+          "ino": 17865564993
+        },
+        {
+          "path": "21c_bmm2_ks/s_21cb2/raw/S_21CB2_2.fq.gz",
+          "bytes": 1729496561,
+          "mtimeMs": 1608196974677.014,
+          "ctimeMs": 1621884770800.281,
+          "ino": 17865564992
+        },
+        {
+          "path": "21c_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607593958793.29,
+          "ctimeMs": 1621885048381.847,
+          "ino": 18030872509
+        },
+        {
+          "path": "21c_bmm3_ks/additional/S_21CB3_1.fq.gz",
+          "bytes": 1805573880,
+          "mtimeMs": 1607593968017.383,
+          "ctimeMs": 1621885059734.308,
+          "ino": 18046415211
+        },
+        {
+          "path": "21c_bmm3_ks/additional/S_21CB3_2.fq.gz",
+          "bytes": 1871699075,
+          "mtimeMs": 1607593966629.678,
+          "ctimeMs": 1621885048276.582,
+          "ino": 18030872510
+        },
+        {
+          "path": "21c_bmm3_ks/s_21cb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608197139978.116,
+          "ctimeMs": 1621885039796.285,
+          "ino": 17865564995
+        },
+        {
+          "path": "21c_bmm3_ks/s_21cb3/raw/S_21CB3_1.fq.gz",
+          "bytes": 1805573880,
+          "mtimeMs": 1608197148709.185,
+          "ctimeMs": 1621885037424.66,
+          "ino": 18184879020
+        },
+        {
+          "path": "21c_bmm3_ks/s_21cb3/raw/S_21CB3_2.fq.gz",
+          "bytes": 1871699075,
+          "mtimeMs": 1608197151458.629,
+          "ctimeMs": 1621885028678.487,
+          "ino": 18184879019
+        },
+        {
+          "path": "21c_wa1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607594097363.792,
+          "ctimeMs": 1621884902998.136,
+          "ino": 18046415214
+        },
+        {
+          "path": "21c_wa1_ks/additional/S_21CW1_1.fq.gz",
+          "bytes": 1527069794,
+          "mtimeMs": 1607594107856.172,
+          "ctimeMs": 1621884918326.807,
+          "ino": 17866463521
+        },
+        {
+          "path": "21c_wa1_ks/additional/S_21CW1_2.fq.gz",
+          "bytes": 1567651826,
+          "mtimeMs": 1607594106654.973,
+          "ctimeMs": 1621884910515.27,
+          "ino": 17866463522
+        },
+        {
+          "path": "21c_wa1_ks/s_21cw1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608197337135.976,
+          "ctimeMs": 1621884902830.713,
+          "ino": 18422282089
+        },
+        {
+          "path": "21c_wa1_ks/s_21cw1/raw/S_21CW1_1.fq.gz",
+          "bytes": 1527069794,
+          "mtimeMs": 1608197343826.508,
+          "ctimeMs": 1621884902679.838,
+          "ino": 17865564998
+        },
+        {
+          "path": "21c_wa1_ks/s_21cw1/raw/S_21CW1_2.fq.gz",
+          "bytes": 1567651826,
+          "mtimeMs": 1608197345493.853,
+          "ctimeMs": 1621884894103.617,
+          "ino": 17865564997
+        },
+        {
+          "path": "21h_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607594279272.569,
+          "ctimeMs": 1621884959813.675,
+          "ino": 17770717088
+        },
+        {
+          "path": "21h_bmm3_ks/additional/S_21HB3_1.fq.gz",
+          "bytes": 2198906533,
+          "mtimeMs": 1607594291252.401,
+          "ctimeMs": 1621884984701.076,
+          "ino": 17866463523
+        },
+        {
+          "path": "21h_bmm3_ks/additional/S_21HB3_2.fq.gz",
+          "bytes": 2239546402,
+          "mtimeMs": 1607594289297.754,
+          "ctimeMs": 1621884971830.421,
+          "ino": 17866463524
+        },
+        {
+          "path": "21h_bmm3_ks/s_21hb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608197526713.114,
+          "ctimeMs": 1621884959651.342,
+          "ino": 17970551762
+        },
+        {
+          "path": "21h_bmm3_ks/s_21hb3/raw/S_21HB3_1.fq.gz",
+          "bytes": 2198906533,
+          "mtimeMs": 1608197538418.15,
+          "ctimeMs": 1621884959485.967,
+          "ino": 18251472268
+        },
+        {
+          "path": "21h_bmm3_ks/s_21hb3/raw/S_21HB3_2.fq.gz",
+          "bytes": 2239546402,
+          "mtimeMs": 1608197540399.399,
+          "ctimeMs": 1621884947565.475,
+          "ino": 18251472267
+        },
+        {
+          "path": "21n_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607594524350.66,
+          "ctimeMs": 1621885272533.857,
+          "ino": 17770717090
+        },
+        {
+          "path": "21n_bmm1_ks/additional/S_21NB1_1.fq.gz",
+          "bytes": 1742250184,
+          "mtimeMs": 1607594535400.873,
+          "ctimeMs": 1621885272337.527,
+          "ino": 17770717089
+        },
+        {
+          "path": "21n_bmm1_ks/additional/S_21NB1_2.fq.gz",
+          "bytes": 1783153781,
+          "mtimeMs": 1607594534282.171,
+          "ctimeMs": 1621885257453.96,
+          "ino": 17866463527
+        },
+        {
+          "path": "21n_bmm1_ks/s_21nb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608197967352.837,
+          "ctimeMs": 1621885248868.053,
+          "ino": 17910171129
+        },
+        {
+          "path": "21n_bmm1_ks/s_21nb1/raw/S_21NB1_1.fq.gz",
+          "bytes": 1742250184,
+          "mtimeMs": 1608197975698.461,
+          "ctimeMs": 1621885248738.486,
+          "ino": 17910171130
+        },
+        {
+          "path": "21n_bmm1_ks/s_21nb1/raw/S_21NB1_2.fq.gz",
+          "bytes": 1783153781,
+          "mtimeMs": 1608197977271.794,
+          "ctimeMs": 1621885237597.172,
+          "ino": 18529597591
+        },
+        {
+          "path": "21n_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607594668703.846,
+          "ctimeMs": 1621885002183.957,
+          "ino": 17770717093
+        },
+        {
+          "path": "21n_bmm2_ks/additional/S_21NB2_1.fq.gz",
+          "bytes": 1630251483,
+          "mtimeMs": 1607594678348.809,
+          "ctimeMs": 1621885018943.026,
+          "ino": 18030872511
+        },
+        {
+          "path": "21n_bmm2_ks/additional/S_21NB2_2.fq.gz",
+          "bytes": 1672988331,
+          "mtimeMs": 1607594677445.029,
+          "ctimeMs": 1621885011431.192,
+          "ino": 18046415215
+        },
+        {
+          "path": "21n_bmm2_ks/s_21nb2/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608198131679.119,
+          "ctimeMs": 1621885002056.147,
+          "ino": 18046415491
+        },
+        {
+          "path": "21n_bmm2_ks/s_21nb2/raw/S_21NB2_1.fq.gz",
+          "bytes": 1630251483,
+          "mtimeMs": 1608198138900.323,
+          "ctimeMs": 1621885001902.444,
+          "ino": 17910171133
+        },
+        {
+          "path": "21n_bmm2_ks/s_21nb2/raw/S_21NB2_2.fq.gz",
+          "bytes": 1672988331,
+          "mtimeMs": 1608198140417.928,
+          "ctimeMs": 1621884993091.337,
+          "ino": 17910171132
+        },
+        {
+          "path": "21t_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629503460983.23,
+          "ctimeMs": 1629503460983.23,
+          "ino": 21733258815
+        },
+        {
+          "path": "21t_bmm1_ks/ks21tb1/raw/KS21TB1_1.fq.gz",
+          "bytes": 1745141604,
+          "mtimeMs": 1629503612760.013,
+          "ctimeMs": 1629503612760.013,
+          "ino": 21743869345
+        },
+        {
+          "path": "21t_bmm1_ks/ks21tb1/raw/KS21TB1_2.fq.gz",
+          "bytes": 1799829945,
+          "mtimeMs": 1629503608982.269,
+          "ctimeMs": 1629503608982.269,
+          "ino": 21696860615
+        },
+        {
+          "path": "21t_bmm1_ks/ks21tb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629503601575.143,
+          "ctimeMs": 1629503601575.143,
+          "ino": 21710622663
+        },
+        {
+          "path": "21t_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629503738605.845,
+          "ctimeMs": 1629503738605.845,
+          "ino": 21733976113
+        },
+        {
+          "path": "21t_bmm2_ks/ks21tb2/raw/KS21TB2_1.fq.gz",
+          "bytes": 1723697544,
+          "mtimeMs": 1629503875851.628,
+          "ctimeMs": 1629503875851.628,
+          "ino": 21740303602
+        },
+        {
+          "path": "21t_bmm2_ks/ks21tb2/raw/KS21TB2_2.fq.gz",
+          "bytes": 1772071107,
+          "mtimeMs": 1629503874990.914,
+          "ctimeMs": 1629503874990.914,
+          "ino": 21743929252
+        },
+        {
+          "path": "21t_bmm2_ks/ks21tb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629503864096.251,
+          "ctimeMs": 1629503864096.251,
+          "ino": 21733224433
+        },
+        {
+          "path": "21t_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607594894549.696,
+          "ctimeMs": 1621884675312.289,
+          "ino": 18046415216
+        },
+        {
+          "path": "21t_bmm3_ks/additional/S_21TB3_1.fq.gz",
+          "bytes": 1783294153,
+          "mtimeMs": 1607594904976.499,
+          "ctimeMs": 1621884675196.921,
+          "ino": 17866463528
+        },
+        {
+          "path": "21t_bmm3_ks/additional/S_21TB3_2.fq.gz",
+          "bytes": 1807092244,
+          "mtimeMs": 1607594902842.004,
+          "ctimeMs": 1621884683608.879,
+          "ino": 17770717096
+        },
+        {
+          "path": "21t_bmm3_ks/s_21tb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608198333644.896,
+          "ctimeMs": 1621884665659.993,
+          "ino": 18172231174
+        },
+        {
+          "path": "21t_bmm3_ks/s_21tb3/raw/S_21TB3_1.fq.gz",
+          "bytes": 1783294153,
+          "mtimeMs": 1608198342415.488,
+          "ctimeMs": 1621884655685,
+          "ino": 18389793227
+        },
+        {
+          "path": "21t_bmm3_ks/s_21tb3/raw/S_21TB3_2.fq.gz",
+          "bytes": 1807092244,
+          "mtimeMs": 1608198344949.298,
+          "ctimeMs": 1621884665496.112,
+          "ino": 18389793226
+        },
+        {
+          "path": "21tc_bmm1_ks/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607595113444.377,
+          "ctimeMs": 1621884633747.803,
+          "ino": 18046415219
+        },
+        {
+          "path": "21tc_bmm1_ks/additional/S_21TCB1_1.fq.gz",
+          "bytes": 1567317765,
+          "mtimeMs": 1607595126173.205,
+          "ctimeMs": 1621884644622.253,
+          "ino": 17770717097
+        },
+        {
+          "path": "21tc_bmm1_ks/additional/S_21TCB1_2.fq.gz",
+          "bytes": 1596259352,
+          "mtimeMs": 1607595124291.175,
+          "ctimeMs": 1621884633645.257,
+          "ino": 17770717098
+        },
+        {
+          "path": "21tc_bmm1_ks/s_21tcb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608198626760.943,
+          "ctimeMs": 1621884622308.908,
+          "ino": 18066793531
+        },
+        {
+          "path": "21tc_bmm1_ks/s_21tcb1/raw/S_21TCB1_1.fq.gz",
+          "bytes": 1567317765,
+          "mtimeMs": 1608198635443.681,
+          "ctimeMs": 1621884622135.099,
+          "ino": 18059524827
+        },
+        {
+          "path": "21tc_bmm1_ks/s_21tcb1/raw/S_21TCB1_2.fq.gz",
+          "bytes": 1596259352,
+          "mtimeMs": 1608198633715.286,
+          "ctimeMs": 1621884612962.91,
+          "ino": 18059524828
+        },
+        {
+          "path": "21tc_bmm2_ks/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607595259388.412,
+          "ctimeMs": 1621885152242.14,
+          "ino": 18046415222
+        },
+        {
+          "path": "21tc_bmm2_ks/additional/S_21TCB2_1.fq.gz",
+          "bytes": 2254224827,
+          "mtimeMs": 1607595272958.481,
+          "ctimeMs": 1621885152141.509,
+          "ino": 17866463529
+        },
+        {
+          "path": "21tc_bmm2_ks/additional/S_21TCB2_2.fq.gz",
+          "bytes": 2294591802,
+          "mtimeMs": 1607595270870.684,
+          "ctimeMs": 1621885161377.303,
+          "ino": 18030872512
+        },
+        {
+          "path": "21tc_bmm2_ks/s_21tcb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608198804305.738,
+          "ctimeMs": 1621885142568.658,
+          "ino": 18059524830
+        },
+        {
+          "path": "21tc_bmm2_ks/s_21tcb2/raw/S_21TCB2_1.fq.gz",
+          "bytes": 2254224827,
+          "mtimeMs": 1608198818430.961,
+          "ctimeMs": 1621885130601.855,
+          "ino": 18869859054
+        },
+        {
+          "path": "21tc_bmm2_ks/s_21tcb2/raw/S_21TCB2_2.fq.gz",
+          "bytes": 2294591802,
+          "mtimeMs": 1608198816725.31,
+          "ctimeMs": 1621885142436.383,
+          "ino": 18529597592
+        },
+        {
+          "path": "21tc_bmm3_ks/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607595419633.454,
+          "ctimeMs": 1621885181227.019,
+          "ino": 17866463531
+        },
+        {
+          "path": "21tc_bmm3_ks/additional/S_21TCB3_1.fq.gz",
+          "bytes": 2031605117,
+          "mtimeMs": 1607595432630.056,
+          "ctimeMs": 1621885205576.912,
+          "ino": 17866463530
+        },
+        {
+          "path": "21tc_bmm3_ks/additional/S_21TCB3_2.fq.gz",
+          "bytes": 2079197804,
+          "mtimeMs": 1607595433999.877,
+          "ctimeMs": 1621885190719.138,
+          "ino": 18030872515
+        },
+        {
+          "path": "21tc_bmm3_ks/s_21tcb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608199006744.835,
+          "ctimeMs": 1621885181106.129,
+          "ino": 17719987312
+        },
+        {
+          "path": "21tc_bmm3_ks/s_21tcb3/raw/S_21TCB3_1.fq.gz",
+          "bytes": 2031605117,
+          "mtimeMs": 1608199018977.386,
+          "ctimeMs": 1621885180973.973,
+          "ino": 18869859057
+        },
+        {
+          "path": "21tc_bmm3_ks/s_21tcb3/raw/S_21TCB3_2.fq.gz",
+          "bytes": 2079197804,
+          "mtimeMs": 1608199017572.085,
+          "ctimeMs": 1621885170067.42,
+          "ino": 18869859058
+        },
+        {
+          "path": "21tc_wa1_ks/s_21tcw1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607596920773.136,
+          "ctimeMs": 1621884583719.813,
+          "ino": 18190018503
+        },
+        {
+          "path": "21tc_wa1_ks/s_21tcw1/raw/S_21TCW1_1.fq.gz",
+          "bytes": 1817432102,
+          "mtimeMs": 1607596930299.184,
+          "ctimeMs": 1621884570853.103,
+          "ino": 17820863198
+        },
+        {
+          "path": "21tc_wa1_ks/s_21tcw1/raw/S_21TCW1_2.fq.gz",
+          "bytes": 1861767169,
+          "mtimeMs": 1607596928435.365,
+          "ctimeMs": 1621884583576.341,
+          "ino": 18643817254
+        },
+        {
+          "path": "21tc_wa2_ks/s_21tcw2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607597214700.409,
+          "ctimeMs": 1621884812961.372,
+          "ino": 18190018507
+        },
+        {
+          "path": "21tc_wa2_ks/s_21tcw2/raw/S_21TCW2_1.fq.gz",
+          "bytes": 1855221652,
+          "mtimeMs": 1607597225009.151,
+          "ctimeMs": 1621884812798.535,
+          "ino": 18643817256
+        },
+        {
+          "path": "21tc_wa2_ks/s_21tcw2/raw/S_21TCW2_2.fq.gz",
+          "bytes": 1917464400,
+          "mtimeMs": 1607597223678.326,
+          "ctimeMs": 1621884804449.327,
+          "ino": 18643817257
+        },
+        {
+          "path": "21tn_bmm1_ks/s_21tnb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607597521802.562,
+          "ctimeMs": 1621885290573.773,
+          "ino": 17820863201
+        },
+        {
+          "path": "21tn_bmm1_ks/s_21tnb1/raw/S_21TNB1_1.fq.gz",
+          "bytes": 1776908179,
+          "mtimeMs": 1607597530418.194,
+          "ctimeMs": 1621885290416.965,
+          "ino": 18643817259
+        },
+        {
+          "path": "21tn_bmm1_ks/s_21tnb1/raw/S_21TNB1_2.fq.gz",
+          "bytes": 1826169658,
+          "mtimeMs": 1607597528981.409,
+          "ctimeMs": 1621885280827.639,
+          "ino": 17820863202
+        },
+        {
+          "path": "21tn_bmm2_ks/s_21tnb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607597743327.764,
+          "ctimeMs": 1621884720199.921,
+          "ino": 17820863204
+        },
+        {
+          "path": "21tn_bmm2_ks/s_21tnb2/raw/S_21TNB2_1.fq.gz",
+          "bytes": 1729809106,
+          "mtimeMs": 1607597752265.509,
+          "ctimeMs": 1621884720066.501,
+          "ino": 18643817262
+        },
+        {
+          "path": "21tn_bmm2_ks/s_21tnb2/raw/S_21TNB2_2.fq.gz",
+          "bytes": 1802079091,
+          "mtimeMs": 1607597755286.114,
+          "ctimeMs": 1621884711401.943,
+          "ino": 18643817261
+        },
+        {
+          "path": "21tn_bmm3_ks/s_21tnb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607597949794.417,
+          "ctimeMs": 1621884602256.674,
+          "ino": 18643817265
+        },
+        {
+          "path": "21tn_bmm3_ks/s_21tnb3/raw/S_21TNB3_1.fq.gz",
+          "bytes": 1962795325,
+          "mtimeMs": 1607597961283.321,
+          "ctimeMs": 1621884602131.302,
+          "ino": 18190018513
+        },
+        {
+          "path": "21tn_bmm3_ks/s_21tnb3/raw/S_21TNB3_2.fq.gz",
+          "bytes": 2015824297,
+          "mtimeMs": 1607597963274.009,
+          "ctimeMs": 1621884592443.763,
+          "ino": 17820863205
+        },
+        {
+          "path": "21x_bmm1_ks/s_21xb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607599528533.556,
+          "ctimeMs": 1621885310157.721,
+          "ino": 18643817281
+        },
+        {
+          "path": "21x_bmm1_ks/s_21xb1/raw/S_21XB1_1.fq.gz",
+          "bytes": 1753161275,
+          "mtimeMs": 1607599540660.554,
+          "ctimeMs": 1621885309964.925,
+          "ino": 18643817280
+        },
+        {
+          "path": "21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+          "bytes": 1805995784,
+          "mtimeMs": 1607599538610.064,
+          "ctimeMs": 1621885299619.994,
+          "ino": 18190018526
+        },
+        {
+          "path": "21x_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629503988404.835,
+          "ctimeMs": 1629503988404.835,
+          "ino": 21732379521
+        },
+        {
+          "path": "21x_bmm2_ks/ks21xb1/raw/KS21XB1_1.fq.gz",
+          "bytes": 1706933260,
+          "mtimeMs": 1629504137333.118,
+          "ctimeMs": 1629504137333.118,
+          "ino": 21711785322
+        },
+        {
+          "path": "21x_bmm2_ks/ks21xb1/raw/KS21XB1_2.fq.gz",
+          "bytes": 1779889359,
+          "mtimeMs": 1629504134950.574,
+          "ctimeMs": 1629504134950.574,
+          "ino": 21710622664
+        },
+        {
+          "path": "21x_bmm2_ks/ks21xb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629504126429.104,
+          "ctimeMs": 1629504126429.104,
+          "ino": 21733258818
+        },
+        {
+          "path": "21x_bmm3_ks/s_21xb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1607599731598.485,
+          "ctimeMs": 1621885119056.502,
+          "ino": 18190018528
+        },
+        {
+          "path": "21x_bmm3_ks/s_21xb3/raw/S_21XB3_1.fq.gz",
+          "bytes": 1768462507,
+          "mtimeMs": 1607599742959.031,
+          "ctimeMs": 1621885118930.8,
+          "ino": 18643817286
+        },
+        {
+          "path": "21x_bmm3_ks/s_21xb3/raw/S_21XB3_2.fq.gz",
+          "bytes": 1825854746,
+          "mtimeMs": 1607599745271.248,
+          "ctimeMs": 1621885111227.677,
+          "ino": 18643817285
+        },
+        {
+          "path": "21xa_bmm1_ks/s_21xab1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607598241289.942,
+          "ctimeMs": 1621885102424.948,
+          "ino": 17820863207
+        },
+        {
+          "path": "21xa_bmm1_ks/s_21xab1/raw/S_21XAB1_1.fq.gz",
+          "bytes": 2169015788,
+          "mtimeMs": 1607598258232.618,
+          "ctimeMs": 1621885102326.923,
+          "ino": 18643817268
+        },
+        {
+          "path": "21xa_bmm1_ks/s_21xab1/raw/S_21XAB1_2.fq.gz",
+          "bytes": 2204645757,
+          "mtimeMs": 1607598255762.037,
+          "ctimeMs": 1621885092685.383,
+          "ino": 17820863208
+        },
+        {
+          "path": "21xa_bmm2_ks/s_21xab2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607598516579.397,
+          "ctimeMs": 1621884740988.015,
+          "ino": 18190018517
+        },
+        {
+          "path": "21xa_bmm2_ks/s_21xab2/raw/S_21XAB2_1.fq.gz",
+          "bytes": 2511666925,
+          "mtimeMs": 1607598529429.841,
+          "ctimeMs": 1621884729843.004,
+          "ino": 18643817270
+        },
+        {
+          "path": "21xa_bmm2_ks/s_21xab2/raw/S_21XAB2_2.fq.gz",
+          "bytes": 2563505194,
+          "mtimeMs": 1607598533045.159,
+          "ctimeMs": 1621884740863.88,
+          "ino": 18643817269
+        },
+        {
+          "path": "21xa_bmm3_ks/s_21xab3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607598792236.646,
+          "ctimeMs": 1621884543058.398,
+          "ino": 18190018520
+        },
+        {
+          "path": "21xa_bmm3_ks/s_21xab3/raw/S_21XAB3_1.fq.gz",
+          "bytes": 2308064708,
+          "mtimeMs": 1607598807574.598,
+          "ctimeMs": 1621884542925.085,
+          "ino": 17820863211
+        },
+        {
+          "path": "21xa_bmm3_ks/s_21xab3/raw/S_21XAB3_2.fq.gz",
+          "bytes": 2366014250,
+          "mtimeMs": 1607598805521.059,
+          "ctimeMs": 1621884530782.085,
+          "ino": 17820863212
+        },
+        {
+          "path": "21xa_wa1_ks/s_21xaw1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607599025632.513,
+          "ctimeMs": 1621884702088.969,
+          "ino": 17820863216
+        },
+        {
+          "path": "21xa_wa1_ks/s_21xaw1/raw/S_21XAW1_1.fq.gz",
+          "bytes": 2162926820,
+          "mtimeMs": 1607599039663.675,
+          "ctimeMs": 1621884701954.464,
+          "ino": 18643817274
+        },
+        {
+          "path": "21xa_wa1_ks/s_21xaw1/raw/S_21XAW1_2.fq.gz",
+          "bytes": 2208282536,
+          "mtimeMs": 1607599037673.384,
+          "ctimeMs": 1621884692298.741,
+          "ino": 18643817275
+        },
+        {
+          "path": "21xa_wa2_ks/s_21xaw2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607599315341.732,
+          "ctimeMs": 1621884761437.743,
+          "ino": 18190018523
+        },
+        {
+          "path": "21xa_wa2_ks/s_21xaw2/raw/S_21XAW2_1.fq.gz",
+          "bytes": 2175572241,
+          "mtimeMs": 1607599329593.727,
+          "ctimeMs": 1621884750707.548,
+          "ino": 18643817277
+        },
+        {
+          "path": "21xa_wa2_ks/s_21xaw2/raw/S_21XAW2_2.fq.gz",
+          "bytes": 2218700803,
+          "mtimeMs": 1607599327119.147,
+          "ctimeMs": 1621884761262.104,
+          "ino": 18643817278
+        },
+        {
+          "path": "21xh_bmm1_ks/s_21xhb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607599991175.524,
+          "ctimeMs": 1621884849716.842,
+          "ino": 17820863222
+        },
+        {
+          "path": "21xh_bmm1_ks/s_21xhb1/raw/S_21XHB1_1.fq.gz",
+          "bytes": 1599574764,
+          "mtimeMs": 1607600001112.535,
+          "ctimeMs": 1621884849571.574,
+          "ino": 18190018530
+        },
+        {
+          "path": "21xh_bmm1_ks/s_21xhb1/raw/S_21XHB1_2.fq.gz",
+          "bytes": 1627341801,
+          "mtimeMs": 1607600002455.204,
+          "ctimeMs": 1621884841866.326,
+          "ino": 18190018529
+        },
+        {
+          "path": "21xh_bmm2_ks/s_21xhb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607600189744.094,
+          "ctimeMs": 1621885225591.209,
+          "ino": 18190018532
+        },
+        {
+          "path": "21xh_bmm2_ks/s_21xhb2/raw/S_21XHB2_1.fq.gz",
+          "bytes": 1847192458,
+          "mtimeMs": 1607600200177.521,
+          "ctimeMs": 1621885214510.693,
+          "ino": 18190018533
+        },
+        {
+          "path": "21xh_bmm2_ks/s_21xhb2/raw/S_21XHB2_2.fq.gz",
+          "bytes": 1887091036,
+          "mtimeMs": 1607600201716.784,
+          "ctimeMs": 1621885225427.548,
+          "ino": 17865564719
+        },
+        {
+          "path": "21xh_bmm3_ks/s_21xhb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607600650779.253,
+          "ctimeMs": 1621884496551.182,
+          "ino": 18612169951
+        },
+        {
+          "path": "21xh_bmm3_ks/s_21xhb3/raw/S_21XHB3_1.fq.gz",
+          "bytes": 1840591897,
+          "mtimeMs": 1607600656055.975,
+          "ctimeMs": 1621884496439.377,
+          "ino": 18640330603
+        },
+        {
+          "path": "21xh_bmm3_ks/s_21xhb3/raw/S_21XHB3_2.fq.gz",
+          "bytes": 1875713460,
+          "mtimeMs": 1619448068962.833,
+          "ctimeMs": 1621884486776.192,
+          "ino": 18640330602
+        },
+        {
+          "path": "21xh_wa1_ks/s_21xhw1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607600884770.106,
+          "ctimeMs": 1621885083148.731,
+          "ino": 18050759045
+        },
+        {
+          "path": "21xh_wa1_ks/s_21xhw1/raw/S_21XHW1_1.fq.gz",
+          "bytes": 2400634861,
+          "mtimeMs": 1607600897503.298,
+          "ctimeMs": 1621885071229.476,
+          "ino": 18640330607
+        },
+        {
+          "path": "21xh_wa1_ks/s_21xhw1/raw/S_21XHW1_2.fq.gz",
+          "bytes": 2433921156,
+          "mtimeMs": 1607600900284.797,
+          "ctimeMs": 1621885081933.781,
+          "ino": 18190018536
+        },
+        {
+          "path": "21xh_wa3_ks/s_21xhw3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607601100310.354,
+          "ctimeMs": 1621884936868.438,
+          "ino": 18640330610
+        },
+        {
+          "path": "21xh_wa3_ks/s_21xhw3/raw/S_21XHW3_1.fq.gz",
+          "bytes": 2430726232,
+          "mtimeMs": 1607601113086.863,
+          "ctimeMs": 1621884935394.588,
+          "ino": 18689369917
+        },
+        {
+          "path": "21xh_wa3_ks/s_21xhw3/raw/S_21XHW3_2.fq.gz",
+          "bytes": 2465858915,
+          "mtimeMs": 1607601115734.041,
+          "ctimeMs": 1621884925695.033,
+          "ino": 18190018537
+        },
+        {
+          "path": "21xt_bmm1_ks/s_21xtb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607616167520.408,
+          "ctimeMs": 1621884517609.394,
+          "ino": 17790179654
+        },
+        {
+          "path": "21xt_bmm1_ks/s_21xtb1/raw/S_21XTB1_1.fq.gz",
+          "bytes": 1741632422,
+          "mtimeMs": 1607616180607.793,
+          "ctimeMs": 1621884506012.185,
+          "ino": 18050759048
+        },
+        {
+          "path": "21xt_bmm1_ks/s_21xtb1/raw/S_21XTB1_2.fq.gz",
+          "bytes": 1783621322,
+          "mtimeMs": 1607616177162.005,
+          "ctimeMs": 1621884517471.643,
+          "ino": 18050759049
+        },
+        {
+          "path": "21xt_bmm2_ks/s_21xtb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607616382360.848,
+          "ctimeMs": 1621884561984.557,
+          "ino": 17822626968
+        },
+        {
+          "path": "21xt_bmm2_ks/s_21xtb2/raw/S_21XTB2_1.fq.gz",
+          "bytes": 2006540323,
+          "mtimeMs": 1607616395538.026,
+          "ctimeMs": 1621884561733.818,
+          "ino": 17730617516
+        },
+        {
+          "path": "21xt_bmm2_ks/s_21xtb2/raw/S_21XTB2_2.fq.gz",
+          "bytes": 2047944241,
+          "mtimeMs": 1607616393646.542,
+          "ctimeMs": 1621884552832.502,
+          "ino": 17730617517
+        },
+        {
+          "path": "21xt_bmm3_ks/s_21xtb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607616795300.636,
+          "ctimeMs": 1621884833602.636,
+          "ino": 18274936845
+        },
+        {
+          "path": "21xt_bmm3_ks/s_21xtb3/raw/S_21XTB3_1.fq.gz",
+          "bytes": 1665219375,
+          "mtimeMs": 1607616805775.13,
+          "ctimeMs": 1621884833464.217,
+          "ino": 18274936846
+        },
+        {
+          "path": "21xt_bmm3_ks/s_21xtb3/raw/S_21XTB3_2.fq.gz",
+          "bytes": 1700816623,
+          "mtimeMs": 1607616803907.638,
+          "ctimeMs": 1621884824333.475,
+          "ino": 18274936847
+        },
+        {
+          "path": "21xt_wa2_ks/s_21xtw2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1607617168520.455,
+          "ctimeMs": 1621884474679.172,
+          "ino": 17819884116
+        },
+        {
+          "path": "21xt_wa2_ks/s_21xtw2/raw/S_21XTW2_1.fq.gz",
+          "bytes": 1513597413,
+          "mtimeMs": 1607617176789.725,
+          "ctimeMs": 1621884474511.795,
+          "ino": 17822626970
+        },
+        {
+          "path": "21xt_wa2_ks/s_21xtw2/raw/S_21XTW2_2.fq.gz",
+          "bytes": 1539119693,
+          "mtimeMs": 1607617175018.467,
+          "ctimeMs": 1621884466595.288,
+          "ino": 17822626971
+        },
+        {
+          "path": "additional/X201SC20101376-Z01-F001_final_20201105180339.zip",
+          "bytes": 6382108,
+          "mtimeMs": 1607593302392.103,
+          "ctimeMs": 1621885310476.254,
+          "ino": 18269212824
+        }
+      ]
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_2_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+      "migrationId": "6adb34bc2f2b2c46efb0e26a",
+      "sourceSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "verificationSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "s3VerifiedAt": "2026-10-27T20:44:48.707Z",
+      "fileCount": 99,
+      "bytes": 105611175618,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T14:12:35.449Z",
+      "files": [
+        {
+          "path": "48a_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629504630806.284,
+          "ctimeMs": 1646145440927.159,
+          "ino": 21696860616
+        },
+        {
+          "path": "48a_bmm1_ks/ks48ab1/raw/KS48AB1_1.fq.gz",
+          "bytes": 1671424174,
+          "mtimeMs": 1629504792695.67,
+          "ctimeMs": 1629504792695.67,
+          "ino": 21708719365
+        },
+        {
+          "path": "48a_bmm1_ks/ks48ab1/raw/KS48AB1_2.fq.gz",
+          "bytes": 1700941462,
+          "mtimeMs": 1629504792739.018,
+          "ctimeMs": 1629504792739.018,
+          "ino": 21743929255
+        },
+        {
+          "path": "48a_bmm1_ks/ks48ab1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629504779397.993,
+          "ctimeMs": 1629504779397.993,
+          "ino": 21740303607
+        },
+        {
+          "path": "48a_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629504898490.715,
+          "ctimeMs": 1629504898490.715,
+          "ino": 21696860617
+        },
+        {
+          "path": "48a_bmm2_ks/ks48ab2/raw/KS48AB2_1.fq.gz",
+          "bytes": 1584252028,
+          "mtimeMs": 1629505028484.106,
+          "ctimeMs": 1629505028484.106,
+          "ino": 21743869351
+        },
+        {
+          "path": "48a_bmm2_ks/ks48ab2/raw/KS48AB2_2.fq.gz",
+          "bytes": 1619260420,
+          "mtimeMs": 1629505027904.652,
+          "ctimeMs": 1629505027904.652,
+          "ino": 21708719367
+        },
+        {
+          "path": "48a_bmm2_ks/ks48ab2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505018327.969,
+          "ctimeMs": 1629505018327.969,
+          "ino": 21710622666
+        },
+        {
+          "path": "48a_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505114844.848,
+          "ctimeMs": 1629505114844.848,
+          "ino": 21710622667
+        },
+        {
+          "path": "48a_bmm3_ks/ks48ab3/raw/KS48AB3_1.fq.gz",
+          "bytes": 1537992556,
+          "mtimeMs": 1629505250983.783,
+          "ctimeMs": 1629505250983.783,
+          "ino": 21672526664
+        },
+        {
+          "path": "48a_bmm3_ks/ks48ab3/raw/KS48AB3_2.fq.gz",
+          "bytes": 1575830764,
+          "mtimeMs": 1629505250006.055,
+          "ctimeMs": 1629505250006.055,
+          "ino": 21733258821
+        },
+        {
+          "path": "48a_bmm3_ks/ks48ab3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505241039.081,
+          "ctimeMs": 1629505241039.081,
+          "ino": 21708719369
+        },
+        {
+          "path": "48c_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505374897.519,
+          "ctimeMs": 1629505374897.519,
+          "ino": 21733258822
+        },
+        {
+          "path": "48c_bmm1_ks/ks48cb1/raw/KS48CB1_1.fq.gz",
+          "bytes": 1696988640,
+          "mtimeMs": 1629505503896.811,
+          "ctimeMs": 1629505503896.811,
+          "ino": 21733258823
+        },
+        {
+          "path": "48c_bmm1_ks/ks48cb1/raw/KS48CB1_2.fq.gz",
+          "bytes": 1779215365,
+          "mtimeMs": 1629505505561.134,
+          "ctimeMs": 1629505505561.134,
+          "ino": 21711785324
+        },
+        {
+          "path": "48c_bmm1_ks/ks48cb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505495809.475,
+          "ctimeMs": 1629505495809.475,
+          "ino": 21733224435
+        },
+        {
+          "path": "48c_bmm2_ks/ks48cb2/raw/KS48CB2_1.fq.gz",
+          "bytes": 1713520049,
+          "mtimeMs": 1629505729617.129,
+          "ctimeMs": 1629505729617.129,
+          "ino": 21708719370
+        },
+        {
+          "path": "48c_bmm2_ks/ks48cb2/raw/KS48CB2_2.fq.gz",
+          "bytes": 1799100262,
+          "mtimeMs": 1629505728999.53,
+          "ctimeMs": 1629505728999.53,
+          "ino": 21743869353
+        },
+        {
+          "path": "48c_bmm2_ks/ks48cb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505718073.763,
+          "ctimeMs": 1629505718073.763,
+          "ino": 21710622668
+        },
+        {
+          "path": "48c_bmm3_ks/ks48cb3/raw/KS48CB3_1.fq.gz",
+          "bytes": 1712044092,
+          "mtimeMs": 1629505934588.064,
+          "ctimeMs": 1629505934588.064,
+          "ino": 21710622670
+        },
+        {
+          "path": "48c_bmm3_ks/ks48cb3/raw/KS48CB3_2.fq.gz",
+          "bytes": 1781582896,
+          "mtimeMs": 1629505937860.591,
+          "ctimeMs": 1629505937866.565,
+          "ino": 21733224436
+        },
+        {
+          "path": "48c_bmm3_ks/ks48cb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629505926727.495,
+          "ctimeMs": 1629505926727.495,
+          "ino": 21733976118
+        },
+        {
+          "path": "48h_bmm1_ks/ks48hb1/raw/KS48HB1_1.fq.gz",
+          "bytes": 1664718874,
+          "mtimeMs": 1629506162618.103,
+          "ctimeMs": 1629506162618.103,
+          "ino": 21696860621
+        },
+        {
+          "path": "48h_bmm1_ks/ks48hb1/raw/KS48HB1_2.fq.gz",
+          "bytes": 1694965156,
+          "mtimeMs": 1629506159535.564,
+          "ctimeMs": 1629506159535.564,
+          "ino": 21711785325
+        },
+        {
+          "path": "48h_bmm1_ks/ks48hb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629506152440.736,
+          "ctimeMs": 1629506152440.736,
+          "ino": 21740303610
+        },
+        {
+          "path": "48h_bmm2_ks/ks48hb2/raw/KS48HB2_1.fq.gz",
+          "bytes": 1695476737,
+          "mtimeMs": 1629506408098.407,
+          "ctimeMs": 1629506408102.748,
+          "ino": 21708719373
+        },
+        {
+          "path": "48h_bmm2_ks/ks48hb2/raw/KS48HB2_2.fq.gz",
+          "bytes": 1741079641,
+          "mtimeMs": 1629506404392.633,
+          "ctimeMs": 1629506404392.633,
+          "ino": 21743869356
+        },
+        {
+          "path": "48h_bmm2_ks/ks48hb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629506395258.769,
+          "ctimeMs": 1629506395258.769,
+          "ino": 21743929257
+        },
+        {
+          "path": "48h_bmm3_ks/ks48hb3/raw/KS48HB3_1.fq.gz",
+          "bytes": 1582073422,
+          "mtimeMs": 1629506660646.671,
+          "ctimeMs": 1629506660646.671,
+          "ino": 21743929258
+        },
+        {
+          "path": "48h_bmm3_ks/ks48hb3/raw/KS48HB3_2.fq.gz",
+          "bytes": 1615319293,
+          "mtimeMs": 1629506657818.549,
+          "ctimeMs": 1629506657818.549,
+          "ino": 21733224439
+        },
+        {
+          "path": "48h_bmm3_ks/ks48hb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629506650798.715,
+          "ctimeMs": 1629506650798.715,
+          "ino": 21740303611
+        },
+        {
+          "path": "48n_bmm1_ks/ks48nb1/raw/KS48NB1_1.fq.gz",
+          "bytes": 1572910950,
+          "mtimeMs": 1629506986050.098,
+          "ctimeMs": 1629506986050.098,
+          "ino": 21711785327
+        },
+        {
+          "path": "48n_bmm1_ks/ks48nb1/raw/KS48NB1_2.fq.gz",
+          "bytes": 1634266165,
+          "mtimeMs": 1629506983244.165,
+          "ctimeMs": 1629506983244.165,
+          "ino": 21672526665
+        },
+        {
+          "path": "48n_bmm1_ks/ks48nb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629506975995.466,
+          "ctimeMs": 1629506975995.466,
+          "ino": 21743869359
+        },
+        {
+          "path": "48n_bmm2_ks/ks48nb2/raw/KS48NB2_1.fq.gz",
+          "bytes": 1629270925,
+          "mtimeMs": 1629507170276.625,
+          "ctimeMs": 1629507170276.625,
+          "ino": 21711785329
+        },
+        {
+          "path": "48n_bmm2_ks/ks48nb2/raw/KS48NB2_2.fq.gz",
+          "bytes": 1679605038,
+          "mtimeMs": 1629507173192.259,
+          "ctimeMs": 1629507173192.259,
+          "ino": 21710622673
+        },
+        {
+          "path": "48n_bmm2_ks/ks48nb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629507163008.331,
+          "ctimeMs": 1629507163008.331,
+          "ino": 21733976120
+        },
+        {
+          "path": "48t_bmm1_ks/ks48tb1/raw/KS48TB1_1.fq.gz",
+          "bytes": 1715990973,
+          "mtimeMs": 1629507402906.823,
+          "ctimeMs": 1629507402906.823,
+          "ino": 21733258858
+        },
+        {
+          "path": "48t_bmm1_ks/ks48tb1/raw/KS48TB1_2.fq.gz",
+          "bytes": 1798409019,
+          "mtimeMs": 1629507406895.108,
+          "ctimeMs": 1629507406895.108,
+          "ino": 21743869386
+        },
+        {
+          "path": "48t_bmm1_ks/ks48tb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629507395474.844,
+          "ctimeMs": 1629507395474.844,
+          "ino": 21696860623
+        },
+        {
+          "path": "48t_bmm2_ks/ks48tb2/raw/KS48TB2_1.fq.gz",
+          "bytes": 1614271417,
+          "mtimeMs": 1629507633032.934,
+          "ctimeMs": 1629507633032.934,
+          "ino": 21696860624
+        },
+        {
+          "path": "48t_bmm2_ks/ks48tb2/raw/KS48TB2_2.fq.gz",
+          "bytes": 1660271397,
+          "mtimeMs": 1629507635583.482,
+          "ctimeMs": 1629507635583.482,
+          "ino": 21711785331
+        },
+        {
+          "path": "48t_bmm2_ks/ks48tb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629507625676.838,
+          "ctimeMs": 1629507625676.838,
+          "ino": 21708719379
+        },
+        {
+          "path": "48tc_bmm1_ks/ks48tcb1/raw/KS48TCB1_1.fq.gz",
+          "bytes": 1796773246,
+          "mtimeMs": 1629570387773.459,
+          "ctimeMs": 1629570387784.036,
+          "ino": 21710622704
+        },
+        {
+          "path": "48tc_bmm1_ks/ks48tcb1/raw/KS48TCB1_2.fq.gz",
+          "bytes": 1875467649,
+          "mtimeMs": 1629570391886.777,
+          "ctimeMs": 1629570391886.777,
+          "ino": 21733449020
+        },
+        {
+          "path": "48tc_bmm1_ks/ks48tcb1/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629570380127.802,
+          "ctimeMs": 1629570380127.802,
+          "ino": 21651815374
+        },
+        {
+          "path": "48tc_bmm2_ks/ks48tcb2/raw/KS48TCB2_1.fq.gz",
+          "bytes": 1734528624,
+          "mtimeMs": 1629570992195.016,
+          "ctimeMs": 1629570992195.016,
+          "ino": 21691360755
+        },
+        {
+          "path": "48tc_bmm2_ks/ks48tcb2/raw/KS48TCB2_2.fq.gz",
+          "bytes": 1812350744,
+          "mtimeMs": 1629570988704.426,
+          "ctimeMs": 1629570988704.426,
+          "ino": 21652009809
+        },
+        {
+          "path": "48tc_bmm2_ks/ks48tcb2/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629570980462.63,
+          "ctimeMs": 1629570980462.63,
+          "ino": 21708719410
+        },
+        {
+          "path": "48tc_bmm3_ks/ks48tcb3/raw/KS48TCB3_1.fq.gz",
+          "bytes": 1695108399,
+          "mtimeMs": 1629571213574.079,
+          "ctimeMs": 1629571213574.079,
+          "ino": 21708719411
+        },
+        {
+          "path": "48tc_bmm3_ks/ks48tcb3/raw/KS48TCB3_2.fq.gz",
+          "bytes": 1796726836,
+          "mtimeMs": 1629571216805.349,
+          "ctimeMs": 1629571216805.349,
+          "ino": 21743869419
+        },
+        {
+          "path": "48tc_bmm3_ks/ks48tcb3/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629571206389.08,
+          "ctimeMs": 1629571206389.08,
+          "ino": 21651815375
+        },
+        {
+          "path": "48tn_bmm1_ks/ks48tnb1/raw/KS48TNB1_1.fq.gz",
+          "bytes": 1545274982,
+          "mtimeMs": 1629571422222.287,
+          "ctimeMs": 1629571422222.287,
+          "ino": 21696860645
+        },
+        {
+          "path": "48tn_bmm1_ks/ks48tnb1/raw/KS48TNB1_2.fq.gz",
+          "bytes": 1610252669,
+          "mtimeMs": 1629571419596.331,
+          "ctimeMs": 1629571419596.331,
+          "ino": 21710297638
+        },
+        {
+          "path": "48tn_bmm1_ks/ks48tnb1/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629571411808.023,
+          "ctimeMs": 1629571411808.023,
+          "ino": 21708719412
+        },
+        {
+          "path": "48tn_bmm2_ks/ks48tnb2/raw/KS48TNB2_1.fq.gz",
+          "bytes": 1672767935,
+          "mtimeMs": 1629571626424.093,
+          "ctimeMs": 1629571626424.093,
+          "ino": 21708719413
+        },
+        {
+          "path": "48tn_bmm2_ks/ks48tnb2/raw/KS48TNB2_2.fq.gz",
+          "bytes": 1721414669,
+          "mtimeMs": 1629571628771.504,
+          "ctimeMs": 1629571628771.504,
+          "ino": 21696860646
+        },
+        {
+          "path": "48tn_bmm2_ks/ks48tnb2/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629571619453.645,
+          "ctimeMs": 1629571619453.645,
+          "ino": 21708719414
+        },
+        {
+          "path": "48tn_bmm3_ks/ks48tnb3/raw/KS48TNB3_1.fq.gz",
+          "bytes": 1501178560,
+          "mtimeMs": 1629571814140.791,
+          "ctimeMs": 1629571814140.791,
+          "ino": 21743869421
+        },
+        {
+          "path": "48tn_bmm3_ks/ks48tnb3/raw/KS48TNB3_2.fq.gz",
+          "bytes": 1555657252,
+          "mtimeMs": 1629571816764.27,
+          "ctimeMs": 1629571816764.27,
+          "ino": 21696860647
+        },
+        {
+          "path": "48tn_bmm3_ks/ks48tnb3/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629571807239.413,
+          "ctimeMs": 1629571807239.413,
+          "ino": 21651815377
+        },
+        {
+          "path": "48x_bmm1_ks/ks48xb1/raw/KS48XB1_1.fq.gz",
+          "bytes": 1720079224,
+          "mtimeMs": 1629572811960.708,
+          "ctimeMs": 1629572811960.708,
+          "ino": 21710622708
+        },
+        {
+          "path": "48x_bmm1_ks/ks48xb1/raw/KS48XB1_2.fq.gz",
+          "bytes": 1815256278,
+          "mtimeMs": 1629572813619.244,
+          "ctimeMs": 1629572813619.244,
+          "ino": 21358115154
+        },
+        {
+          "path": "48x_bmm1_ks/ks48xb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629572802945.026,
+          "ctimeMs": 1629572802945.026,
+          "ino": 21691360762
+        },
+        {
+          "path": "48x_bmm2_ks/ks48xb2/raw/KS48XB2_1.fq.gz",
+          "bytes": 1753837292,
+          "mtimeMs": 1629572992389.945,
+          "ctimeMs": 1629572992389.945,
+          "ino": 21708719420
+        },
+        {
+          "path": "48x_bmm2_ks/ks48xb2/raw/KS48XB2_2.fq.gz",
+          "bytes": 1860307985,
+          "mtimeMs": 1629572994780.904,
+          "ctimeMs": 1629572994780.904,
+          "ino": 21743869424
+        },
+        {
+          "path": "48x_bmm2_ks/ks48xb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629572983949.699,
+          "ctimeMs": 1629572983949.699,
+          "ino": 21691360763
+        },
+        {
+          "path": "48x_bmm3_ks/ks48xb3/raw/KS48XB3_1.fq.gz",
+          "bytes": 1745187398,
+          "mtimeMs": 1629573179718.478,
+          "ctimeMs": 1629573179718.478,
+          "ino": 21743869425
+        },
+        {
+          "path": "48x_bmm3_ks/ks48xb3/raw/KS48XB3_2.fq.gz",
+          "bytes": 1841578611,
+          "mtimeMs": 1629573176668.658,
+          "ctimeMs": 1629573176668.658,
+          "ino": 21710297639
+        },
+        {
+          "path": "48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629573168962.923,
+          "ctimeMs": 1629573168962.923,
+          "ino": 21696860648
+        },
+        {
+          "path": "48xa_bmm1_ks/ks48xab1/raw/KS48XAB1_1.fq.gz",
+          "bytes": 1772874955,
+          "mtimeMs": 1629572054970.612,
+          "ctimeMs": 1629572054970.612,
+          "ino": 21652009813
+        },
+        {
+          "path": "48xa_bmm1_ks/ks48xab1/raw/KS48XAB1_2.fq.gz",
+          "bytes": 1824251866,
+          "mtimeMs": 1629572058706.653,
+          "ctimeMs": 1629572058706.653,
+          "ino": 21651815378
+        },
+        {
+          "path": "48xa_bmm1_ks/ks48xab1/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629572045741.622,
+          "ctimeMs": 1629572045741.622,
+          "ino": 21691360758
+        },
+        {
+          "path": "48xa_bmm2_ks/ks48xab2/raw/KS48XAB2_1.fq.gz",
+          "bytes": 1521168214,
+          "mtimeMs": 1629572398361.608,
+          "ctimeMs": 1629572398361.608,
+          "ino": 21710622706
+        },
+        {
+          "path": "48xa_bmm2_ks/ks48xab2/raw/KS48XAB2_2.fq.gz",
+          "bytes": 1587703121,
+          "mtimeMs": 1629572396163.258,
+          "ctimeMs": 1629572396163.258,
+          "ino": 21691360759
+        },
+        {
+          "path": "48xa_bmm2_ks/ks48xab2/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629572388526.514,
+          "ctimeMs": 1629572388526.514,
+          "ino": 21358115153
+        },
+        {
+          "path": "48xa_bmm3_ks/ks48xab3/raw/KS48XAB3_1.fq.gz",
+          "bytes": 1788731693,
+          "mtimeMs": 1629572627655.528,
+          "ctimeMs": 1629572627655.528,
+          "ino": 21652009814
+        },
+        {
+          "path": "48xa_bmm3_ks/ks48xab3/raw/KS48XAB3_2.fq.gz",
+          "bytes": 1958711566,
+          "mtimeMs": 1629572627874.54,
+          "ctimeMs": 1629572627894.348,
+          "ino": 21691360761
+        },
+        {
+          "path": "48xa_bmm3_ks/ks48xab3/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629572616570.512,
+          "ctimeMs": 1629572616570.512,
+          "ino": 21708719418
+        },
+        {
+          "path": "48xh_bmm1_ks/ks48xhb1/raw/KS48XHB1_1.fq.gz",
+          "bytes": 1749111716,
+          "mtimeMs": 1629573731139.555,
+          "ctimeMs": 1629573731139.555,
+          "ino": 21719925947
+        },
+        {
+          "path": "48xh_bmm1_ks/ks48xhb1/raw/KS48XHB1_2.fq.gz",
+          "bytes": 1792319125,
+          "mtimeMs": 1629573732331.41,
+          "ctimeMs": 1629573732331.41,
+          "ino": 21650855105
+        },
+        {
+          "path": "48xh_bmm1_ks/ks48xhb1/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629573722903.479,
+          "ctimeMs": 1629573722903.479,
+          "ino": 21707267723
+        },
+        {
+          "path": "48xh_bmm2_ks/ks48xhb2/raw/KS48XHB2_1.fq.gz",
+          "bytes": 1717638702,
+          "mtimeMs": 1629573961323.918,
+          "ctimeMs": 1629573961329.21,
+          "ino": 21732798467
+        },
+        {
+          "path": "48xh_bmm2_ks/ks48xhb2/raw/KS48XHB2_2.fq.gz",
+          "bytes": 1757532379,
+          "mtimeMs": 1629573959659.272,
+          "ctimeMs": 1629573959659.272,
+          "ino": 21732863961
+        },
+        {
+          "path": "48xh_bmm2_ks/ks48xhb2/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629573952074.903,
+          "ctimeMs": 1629573952074.903,
+          "ino": 21707267724
+        },
+        {
+          "path": "48xh_bmm3_ks/ks48xhb3/raw/KS48XHB3_1.fq.gz",
+          "bytes": 1812108857,
+          "mtimeMs": 1629574164713.259,
+          "ctimeMs": 1629574164713.259,
+          "ino": 21740522767
+        },
+        {
+          "path": "48xh_bmm3_ks/ks48xhb3/raw/KS48XHB3_2.fq.gz",
+          "bytes": 1897612037,
+          "mtimeMs": 1629574166805.472,
+          "ctimeMs": 1629574166805.472,
+          "ino": 21732798468
+        },
+        {
+          "path": "48xh_bmm3_ks/ks48xhb3/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629574157381.744,
+          "ctimeMs": 1629574157381.744,
+          "ino": 21711190743
+        },
+        {
+          "path": "48xt_bmm1_ks/ks48xtb1/raw/KS48XTB1_1.fq.gz",
+          "bytes": 1622496988,
+          "mtimeMs": 1629574348749.518,
+          "ctimeMs": 1629574348749.518,
+          "ino": 21719925949
+        },
+        {
+          "path": "48xt_bmm1_ks/ks48xtb1/raw/KS48XTB1_2.fq.gz",
+          "bytes": 1680264048,
+          "mtimeMs": 1629574348712.473,
+          "ctimeMs": 1629574348712.473,
+          "ino": 21733449028
+        },
+        {
+          "path": "48xt_bmm1_ks/ks48xtb1/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629574339646.087,
+          "ctimeMs": 1629574339646.087,
+          "ino": 21740522768
+        },
+        {
+          "path": "48xt_bmm2_ks/ks48xtb2/raw/KS48XTB2_1.fq.gz",
+          "bytes": 1542468544,
+          "mtimeMs": 1629574521003.159,
+          "ctimeMs": 1629574521003.159,
+          "ino": 21733334440
+        },
+        {
+          "path": "48xt_bmm2_ks/ks48xtb2/raw/KS48XTB2_2.fq.gz",
+          "bytes": 1583825495,
+          "mtimeMs": 1629574519943.575,
+          "ctimeMs": 1629574519943.575,
+          "ino": 21719925950
+        },
+        {
+          "path": "48xt_bmm2_ks/ks48xtb2/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629574512728.683,
+          "ctimeMs": 1629574512728.683,
+          "ino": 21732798470
+        },
+        {
+          "path": "48xt_bmm3_ks/ks48xtb3/raw/KS48XTB3_1.fq.gz",
+          "bytes": 1711289811,
+          "mtimeMs": 1629574703927.734,
+          "ctimeMs": 1629574703927.734,
+          "ino": 21732863964
+        },
+        {
+          "path": "48xt_bmm3_ks/ks48xtb3/raw/KS48XTB3_2.fq.gz",
+          "bytes": 1766493271,
+          "mtimeMs": 1629574702304.272,
+          "ctimeMs": 1629574702304.272,
+          "ino": 21650725521
+        },
+        {
+          "path": "48xt_bmm3_ks/ks48xtb3/raw/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1629574693808.2,
+          "ctimeMs": 1629574693808.2,
+          "ino": 21733449029
+        },
+        {
+          "path": "additional/Readme.html",
+          "bytes": 35206,
+          "mtimeMs": 1629504548077.129,
+          "ctimeMs": 1646747546749.713,
+          "ino": 21732379524
+        },
+        {
+          "path": "additional/checkSize.xls",
+          "bytes": 4426,
+          "mtimeMs": 1629504548078.007,
+          "ctimeMs": 1629504548078.007,
+          "ino": 21708719364
+        }
+      ]
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_42_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+      "migrationId": "6adb34c02f2b2c46efb0e295",
+      "sourceSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "verificationSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "s3VerifiedAt": "2026-10-27T09:52:39.091Z",
+      "fileCount": 89,
+      "bytes": 99954671448,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T14:12:24.762Z",
+      "files": [
+        {
+          "path": "42a_bmm1_ks/s_42ab1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608202933028.634,
+          "ctimeMs": 1621889341750.668,
+          "ino": 18640331747
+        },
+        {
+          "path": "42a_bmm1_ks/s_42ab1/raw/S_42AB1_1.fq.gz",
+          "bytes": 2163073495,
+          "mtimeMs": 1608202945962.898,
+          "ctimeMs": 1621889341624.324,
+          "ino": 18460320643
+        },
+        {
+          "path": "42a_bmm1_ks/s_42ab1/raw/S_42AB1_2.fq.gz",
+          "bytes": 2168478665,
+          "mtimeMs": 1608202947399.275,
+          "ctimeMs": 1621889330081.123,
+          "ino": 18640331746
+        },
+        {
+          "path": "42a_bmm2_ks/s_42ab2/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608203200303.146,
+          "ctimeMs": 1621889122052.24,
+          "ino": 18612170185
+        },
+        {
+          "path": "42a_bmm2_ks/s_42ab2/raw/S_42AB2_1.fq.gz",
+          "bytes": 1640468121,
+          "mtimeMs": 1608203209488.288,
+          "ctimeMs": 1621889121895.139,
+          "ino": 17823262139
+        },
+        {
+          "path": "42a_bmm2_ks/s_42ab2/raw/S_42AB2_2.fq.gz",
+          "bytes": 1638257349,
+          "mtimeMs": 1608203208111.987,
+          "ctimeMs": 1621889115850.031,
+          "ino": 17823262140
+        },
+        {
+          "path": "42a_bmm3_ks/s_42ab3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608203418062.062,
+          "ctimeMs": 1621889300135.076,
+          "ino": 17790179809
+        },
+        {
+          "path": "42a_bmm3_ks/s_42ab3/raw/S_42AB3_1.fq.gz",
+          "bytes": 1914150021,
+          "mtimeMs": 1608203430041.121,
+          "ctimeMs": 1621889299971.14,
+          "ino": 18066793553
+        },
+        {
+          "path": "42a_bmm3_ks/s_42ab3/raw/S_42AB3_2.fq.gz",
+          "bytes": 1935005202,
+          "mtimeMs": 1608203428557.429,
+          "ctimeMs": 1621889290774.821,
+          "ino": 17790179810
+        },
+        {
+          "path": "42a_wa1_ks/s_42aw1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608203645905.311,
+          "ctimeMs": 1621889384486.116,
+          "ino": 18640331752
+        },
+        {
+          "path": "42a_wa1_ks/s_42aw1/raw/S_42AW1_1.fq.gz",
+          "bytes": 1822819072,
+          "mtimeMs": 1608203656240.691,
+          "ctimeMs": 1621889372112.81,
+          "ino": 18640331753
+        },
+        {
+          "path": "42a_wa1_ks/s_42aw1/raw/S_42AW1_2.fq.gz",
+          "bytes": 1859165028,
+          "mtimeMs": 1608203656962.538,
+          "ctimeMs": 1621889384336.324,
+          "ino": 17866465388
+        },
+        {
+          "path": "42ax_bmm2_ks/s_42xab2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608204393616.364,
+          "ctimeMs": 1621889439734.993,
+          "ino": 17821985626
+        },
+        {
+          "path": "42ax_bmm2_ks/s_42xab2/raw/S_42AXB2_1.fq.gz",
+          "bytes": 1384037820,
+          "mtimeMs": 1608204399801.498,
+          "ctimeMs": 1621889432424.217,
+          "ino": 17776216307
+        },
+        {
+          "path": "42ax_bmm2_ks/s_42xab2/raw/S_42AXB2_2.fq.gz",
+          "bytes": 1386540314,
+          "mtimeMs": 1608204400666.861,
+          "ctimeMs": 1621889439558.187,
+          "ino": 17770717206
+        },
+        {
+          "path": "42ax_wa2_ks/s_42axw2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608204685086.797,
+          "ctimeMs": 1621888956651.426,
+          "ino": 17821985627
+        },
+        {
+          "path": "42ax_wa2_ks/s_42axw2/raw/S_42AXW2_1.fq.gz",
+          "bytes": 1776839563,
+          "mtimeMs": 1608204693349.66,
+          "ctimeMs": 1621888947833.224,
+          "ino": 17770717211
+        },
+        {
+          "path": "42ax_wa2_ks/s_42axw2/raw/S_42AXW2_2.fq.gz",
+          "bytes": 1790592927,
+          "mtimeMs": 1608204695724.288,
+          "ctimeMs": 1621888956453.992,
+          "ino": 17770717210
+        },
+        {
+          "path": "42c_wa1_ks/s_42cw1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608204960605.587,
+          "ctimeMs": 1621889228849.572,
+          "ino": 17821985630
+        },
+        {
+          "path": "42c_wa1_ks/s_42cw1/raw/S_42CW1_1.fq.gz",
+          "bytes": 1709751899,
+          "mtimeMs": 1608204970753.778,
+          "ctimeMs": 1621889220098.686,
+          "ino": 17770717213
+        },
+        {
+          "path": "42c_wa1_ks/s_42cw1/raw/S_42CW1_2.fq.gz",
+          "bytes": 1757212603,
+          "mtimeMs": 1608204969264.242,
+          "ctimeMs": 1621889228682.818,
+          "ino": 17821985631
+        },
+        {
+          "path": "42c_wa3_ks/s_42cw3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608205174078.778,
+          "ctimeMs": 1621889176245.86,
+          "ino": 17844136832
+        },
+        {
+          "path": "42c_wa3_ks/s_42cw3/raw/S_42CW3_1.fq.gz",
+          "bytes": 1796156364,
+          "mtimeMs": 1608205186828.893,
+          "ctimeMs": 1621889166506.291,
+          "ino": 17776216313
+        },
+        {
+          "path": "42c_wa3_ks/s_42cw3/raw/S_42CW3_2.fq.gz",
+          "bytes": 1820917141,
+          "mtimeMs": 1608205185892.438,
+          "ctimeMs": 1621889175061.095,
+          "ino": 17776216314
+        },
+        {
+          "path": "42h_bmm1_ks/s_42hb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608205460649.995,
+          "ctimeMs": 1621889138803.045,
+          "ino": 17821985634
+        },
+        {
+          "path": "42h_bmm1_ks/s_42hb1/raw/S_42HB1_1.fq.gz",
+          "bytes": 1883692783,
+          "mtimeMs": 1608205471955.983,
+          "ctimeMs": 1621889129169.42,
+          "ino": 17844136833
+        },
+        {
+          "path": "42h_bmm1_ks/s_42hb1/raw/S_42HB1_2.fq.gz",
+          "bytes": 1893587964,
+          "mtimeMs": 1608205469880.732,
+          "ctimeMs": 1621889138681.415,
+          "ino": 17844136834
+        },
+        {
+          "path": "42h_bmm3_ks/s_42hb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608205799540.805,
+          "ctimeMs": 1621889283036.711,
+          "ino": 17776216321
+        },
+        {
+          "path": "42h_bmm3_ks/s_42hb3/raw/S_42HB3_1.fq.gz",
+          "bytes": 2014386521,
+          "mtimeMs": 1608205808995.331,
+          "ctimeMs": 1621889272444.428,
+          "ino": 17821985637
+        },
+        {
+          "path": "42h_bmm3_ks/s_42hb3/raw/S_42HB3_2.fq.gz",
+          "bytes": 2011129771,
+          "mtimeMs": 1608205809653.624,
+          "ctimeMs": 1621889282908.19,
+          "ino": 17821985636
+        },
+        {
+          "path": "42t_bmm1_ks/s_42tb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608206170812.333,
+          "ctimeMs": 1621889035133.562,
+          "ino": 18046415518
+        },
+        {
+          "path": "42t_bmm1_ks/s_42tb1/raw/S_42TB1_1.fq.gz",
+          "bytes": 1654953606,
+          "mtimeMs": 1608206178047.477,
+          "ctimeMs": 1621889025405.703,
+          "ino": 17776216328
+        },
+        {
+          "path": "42t_bmm1_ks/s_42tb1/raw/S_42TB1_2.fq.gz",
+          "bytes": 1666505235,
+          "mtimeMs": 1608206175468.073,
+          "ctimeMs": 1621889035005.95,
+          "ino": 17776216329
+        },
+        {
+          "path": "42t_bmm2_ks/s_42tb2/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608206455821.769,
+          "ctimeMs": 1621889318623.704,
+          "ino": 18872557009
+        },
+        {
+          "path": "42t_bmm2_ks/s_42tb2/raw/S_42TB2_1.fq.gz",
+          "bytes": 1534334299,
+          "mtimeMs": 1608206463585.985,
+          "ctimeMs": 1621889318489.681,
+          "ino": 17920074681
+        },
+        {
+          "path": "42t_bmm2_ks/s_42tb2/raw/S_42TB2_2.fq.gz",
+          "bytes": 1559794625,
+          "mtimeMs": 1608206469300.706,
+          "ctimeMs": 1621889309920.351,
+          "ino": 17920074680
+        },
+        {
+          "path": "42t_bmm3_ks/s_42tb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608206790705.527,
+          "ctimeMs": 1621888993657.584,
+          "ino": 18377788796
+        },
+        {
+          "path": "42t_bmm3_ks/s_42tb3/raw/S_42TB3_1.fq.gz",
+          "bytes": 1771736516,
+          "mtimeMs": 1608206802815.208,
+          "ctimeMs": 1621888993489.811,
+          "ino": 18050759253
+        },
+        {
+          "path": "42t_bmm3_ks/s_42tb3/raw/S_42TB3_2.fq.gz",
+          "bytes": 1790596650,
+          "mtimeMs": 1608206801246.704,
+          "ctimeMs": 1621888986411.123,
+          "ino": 18050759254
+        },
+        {
+          "path": "42tc_bmm1_ks/s_42tcb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608207057945.188,
+          "ctimeMs": 1621889362918.401,
+          "ino": 18377788797
+        },
+        {
+          "path": "42tc_bmm1_ks/s_42tcb1/raw/S_42TCB1_1.fq.gz",
+          "bytes": 1852590327,
+          "mtimeMs": 1608207071105.009,
+          "ctimeMs": 1621889352348.641,
+          "ino": 18050759257
+        },
+        {
+          "path": "42tc_bmm1_ks/s_42tcb1/raw/S_42TCB1_2.fq.gz",
+          "bytes": 1885694942,
+          "mtimeMs": 1608207069508.867,
+          "ctimeMs": 1621889362764.246,
+          "ino": 17871087952
+        },
+        {
+          "path": "42tc_bmm2_ks/s_42tcb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608207275157.52,
+          "ctimeMs": 1621889460415.115,
+          "ino": 17871087955
+        },
+        {
+          "path": "42tc_bmm2_ks/s_42tcb2/raw/S_42TCB2_1.fq.gz",
+          "bytes": 1699205367,
+          "mtimeMs": 1608207285879.201,
+          "ctimeMs": 1621889460295.613,
+          "ino": 18050759259
+        },
+        {
+          "path": "42tc_bmm2_ks/s_42tcb2/raw/S_42TCB2_2.fq.gz",
+          "bytes": 1715181430,
+          "mtimeMs": 1608207284336.574,
+          "ctimeMs": 1621889447930.279,
+          "ino": 18050759260
+        },
+        {
+          "path": "42tc_bmm3_ks/s_42tcb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608207502428.487,
+          "ctimeMs": 1621889068838.015,
+          "ino": 18377788806
+        },
+        {
+          "path": "42tc_bmm3_ks/s_42tcb3/raw/S_42TCB3_1.fq.gz",
+          "bytes": 1658742825,
+          "mtimeMs": 1608207511097.945,
+          "ctimeMs": 1621889060985.621,
+          "ino": 18050759265
+        },
+        {
+          "path": "42tc_bmm3_ks/s_42tcb3/raw/S_42TCB3_2.fq.gz",
+          "bytes": 1700042967,
+          "mtimeMs": 1608207512864.599,
+          "ctimeMs": 1621889068665.108,
+          "ino": 18050759264
+        },
+        {
+          "path": "42tc_wa2_ks/s_42tcw2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608207721334.265,
+          "ctimeMs": 1621889156303.227,
+          "ino": 17871087959
+        },
+        {
+          "path": "42tc_wa2_ks/s_42tcw2/raw/S_42TCW2_1.fq.gz",
+          "bytes": 1512351993,
+          "mtimeMs": 1608207730704.061,
+          "ctimeMs": 1621889156157.147,
+          "ino": 18377788809
+        },
+        {
+          "path": "42tc_wa2_ks/s_42tcw2/raw/S_42TCW2_2.fq.gz",
+          "bytes": 1526015183,
+          "mtimeMs": 1608207728541.532,
+          "ctimeMs": 1621889148509.381,
+          "ino": 18377788810
+        },
+        {
+          "path": "42tc_wa3_ks/s_42tcw3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608207915643.603,
+          "ctimeMs": 1621889212478.665,
+          "ino": 18377788812
+        },
+        {
+          "path": "42tc_wa3_ks/s_42tcw3/raw/S_42TCW3_1.fq.gz",
+          "bytes": 1581363883,
+          "mtimeMs": 1608207924788.522,
+          "ctimeMs": 1621889204794.809,
+          "ino": 18197686825
+        },
+        {
+          "path": "42tc_wa3_ks/s_42tcw3/raw/S_42TCW3_2.fq.gz",
+          "bytes": 1604769684,
+          "mtimeMs": 1608207923348.042,
+          "ctimeMs": 1621889212364.098,
+          "ino": 18197686826
+        },
+        {
+          "path": "42tn_bmm2_ks/s_42tnb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608208359494.174,
+          "ctimeMs": 1621889262922.304,
+          "ino": 18872557014
+        },
+        {
+          "path": "42tn_bmm2_ks/s_42tnb2/raw/S_42TNB2_1.fq.gz",
+          "bytes": 1826027115,
+          "mtimeMs": 1608208369304.875,
+          "ctimeMs": 1621889252896.374,
+          "ino": 18030872896
+        },
+        {
+          "path": "42tn_bmm2_ks/s_42tnb2/raw/S_42TNB2_2.fq.gz",
+          "bytes": 1836480096,
+          "mtimeMs": 1608208368276.48,
+          "ctimeMs": 1621889262734.491,
+          "ino": 18030872897
+        },
+        {
+          "path": "42tn_bmm3_ks/s_42tnb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608208733851.044,
+          "ctimeMs": 1621888976245.523,
+          "ino": 18872557017
+        },
+        {
+          "path": "42tn_bmm3_ks/s_42tnb3/raw/S_42TNB3_1.fq.gz",
+          "bytes": 1776005535,
+          "mtimeMs": 1608208743363.973,
+          "ctimeMs": 1621888966439.797,
+          "ino": 17988750262
+        },
+        {
+          "path": "42tn_bmm3_ks/s_42tnb3/raw/S_42TNB3_2.fq.gz",
+          "bytes": 1806315708,
+          "mtimeMs": 1608208741701.15,
+          "ctimeMs": 1621888976103.391,
+          "ino": 17988750263
+        },
+        {
+          "path": "42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608208937968.343,
+          "ctimeMs": 1621889194615.066,
+          "ino": 17897875277
+        },
+        {
+          "path": "42x_bmm1_ks/s_42xb1/raw/S_42XB1_1.fq.gz",
+          "bytes": 1752377726,
+          "mtimeMs": 1608208948485.385,
+          "ctimeMs": 1621889194495.714,
+          "ino": 18661674554
+        },
+        {
+          "path": "42x_bmm1_ks/s_42xb1/raw/S_42XB1_2.fq.gz",
+          "bytes": 1792521795,
+          "mtimeMs": 1608208947020.847,
+          "ctimeMs": 1621889186419.375,
+          "ino": 17897875278
+        },
+        {
+          "path": "42x_bmm2_ks/s_42xb2/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608209288330.887,
+          "ctimeMs": 1621889018839.459,
+          "ino": 18066793564
+        },
+        {
+          "path": "42x_bmm2_ks/s_42xb2/raw/S_42XB2_1.fq.gz",
+          "bytes": 1353117852,
+          "mtimeMs": 1608209294107.06,
+          "ctimeMs": 1621889013021.362,
+          "ino": 17863877475
+        },
+        {
+          "path": "42x_bmm2_ks/s_42xb2/raw/S_42XB2_2.fq.gz",
+          "bytes": 1380164410,
+          "mtimeMs": 1608209295831.604,
+          "ctimeMs": 1621889018717.999,
+          "ino": 17863877474
+        },
+        {
+          "path": "42x_bmm3_ks/s_42xb3/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1608209467556.646,
+          "ctimeMs": 1621889007015.807,
+          "ino": 18184879042
+        },
+        {
+          "path": "42x_bmm3_ks/s_42xb3/raw/S_42XB3_1.fq.gz",
+          "bytes": 1622463882,
+          "mtimeMs": 1608209477635.708,
+          "ctimeMs": 1621889000426.887,
+          "ino": 18696091193
+        },
+        {
+          "path": "42x_bmm3_ks/s_42xb3/raw/S_42XB3_2.fq.gz",
+          "bytes": 1651967916,
+          "mtimeMs": 1608209476235.679,
+          "ctimeMs": 1621889006870.923,
+          "ino": 18696091194
+        },
+        {
+          "path": "42xh_wa1_ks/s_42xhw1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608209723196.252,
+          "ctimeMs": 1621889109257.947,
+          "ino": 17824604332
+        },
+        {
+          "path": "42xh_wa1_ks/s_42xhw1/raw/S_42XHW1_1.fq.gz",
+          "bytes": 1840094508,
+          "mtimeMs": 1608209728283.34,
+          "ctimeMs": 1621889098694.155,
+          "ino": 18529597612
+        },
+        {
+          "path": "42xh_wa1_ks/s_42xhw1/raw/S_42XHW1_2.fq.gz",
+          "bytes": 1862419275,
+          "mtimeMs": 1619448420447.899,
+          "ctimeMs": 1621889109104.039,
+          "ino": 18529597613
+        },
+        {
+          "path": "42xt_bmm1_ks/s_42xtb1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608210033525.514,
+          "ctimeMs": 1621889087073.955,
+          "ino": 17824819047
+        },
+        {
+          "path": "42xt_bmm1_ks/s_42xtb1/raw/S_42XTB1_1.fq.gz",
+          "bytes": 1557253526,
+          "mtimeMs": 1608210040745.574,
+          "ctimeMs": 1621889078519.59,
+          "ino": 18460320660
+        },
+        {
+          "path": "42xt_bmm1_ks/s_42xtb1/raw/S_42XTB1_2.fq.gz",
+          "bytes": 1616748866,
+          "mtimeMs": 1608210037757.568,
+          "ctimeMs": 1621889086935.2,
+          "ino": 18460320661
+        },
+        {
+          "path": "42xt_bmm2_ks/s_42xtb2/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608210222317.996,
+          "ctimeMs": 1621889052745.319,
+          "ino": 18197686827
+        },
+        {
+          "path": "42xt_bmm2_ks/s_42xtb2/raw/S_42XTB2_1.fq.gz",
+          "bytes": 1687662721,
+          "mtimeMs": 1608210234493.816,
+          "ctimeMs": 1621889052576.835,
+          "ino": 18377788833
+        },
+        {
+          "path": "42xt_bmm2_ks/s_42xtb2/raw/S_42XTB2_2.fq.gz",
+          "bytes": 1711778560,
+          "mtimeMs": 1608210236333.112,
+          "ctimeMs": 1621889044460.305,
+          "ino": 18377788832
+        },
+        {
+          "path": "42xt_bmm3_ks/s_42xtb3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608210425275.016,
+          "ctimeMs": 1621889243790.105,
+          "ino": 18689370142
+        },
+        {
+          "path": "42xt_bmm3_ks/s_42xtb3/raw/S_42XTB3_1.fq.gz",
+          "bytes": 1590986066,
+          "mtimeMs": 1608210435835.071,
+          "ctimeMs": 1621889236760.248,
+          "ino": 17790179834
+        },
+        {
+          "path": "42xt_bmm3_ks/s_42xtb3/raw/S_42XTB3_2.fq.gz",
+          "bytes": 1606112456,
+          "mtimeMs": 1608210433950.934,
+          "ctimeMs": 1621889243655.541,
+          "ino": 17790179835
+        },
+        {
+          "path": "42xt_wa1_ks/s_42xtw1/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608210590213.044,
+          "ctimeMs": 1621889424579.986,
+          "ino": 17790179837
+        },
+        {
+          "path": "42xt_wa1_ks/s_42xtw1/raw/S_42XTW1_1.fq.gz",
+          "bytes": 1525332207,
+          "mtimeMs": 1608210599496.452,
+          "ctimeMs": 1621889424330.201,
+          "ino": 18038980529
+        },
+        {
+          "path": "42xt_wa1_ks/s_42xtw1/raw/S_42XTW1_2.fq.gz",
+          "bytes": 1550773588,
+          "mtimeMs": 1608210601759.648,
+          "ctimeMs": 1621889413805.505,
+          "ino": 18038980528
+        },
+        {
+          "path": "42xt_wa3_ks/s_42xtw3/additional/MD5.txt",
+          "bytes": 102,
+          "mtimeMs": 1608210765793.574,
+          "ctimeMs": 1621889404103.307,
+          "ino": 18829692024
+        },
+        {
+          "path": "42xt_wa3_ks/s_42xtw3/raw/S_42XTW3_1.fq.gz",
+          "bytes": 1759424578,
+          "mtimeMs": 1608210779218.094,
+          "ctimeMs": 1621889394084.48,
+          "ino": 18172231211
+        },
+        {
+          "path": "42xt_wa3_ks/s_42xtw3/raw/S_42XTW3_2.fq.gz",
+          "bytes": 1768415333,
+          "mtimeMs": 1608210780459.656,
+          "ctimeMs": 1621889404000.18,
+          "ino": 18829692023
+        },
+        {
+          "path": "additional/X201SC20111181-Z01-F001_Report.html",
+          "bytes": 78899,
+          "mtimeMs": 1608199522788.71,
+          "ctimeMs": 1670269826600.46,
+          "ino": 18269213040
+        },
+        {
+          "path": "additional/checkSize.xls",
+          "bytes": 3745,
+          "mtimeMs": 1608199522802.663,
+          "ctimeMs": 1670269856153.762,
+          "ino": 18269213041
+        }
+      ]
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "relativeRoot": "ntalbot/lichen_coculture_i_9_days",
+      "hpcPath": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+      "migrationId": "6adb34be2f2b2c46efb0e274",
+      "sourceSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "verificationSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "s3VerifiedAt": "2026-10-27T19:07:09.277Z",
+      "fileCount": 122,
+      "bytes": 103438441044,
+      "nativeReviewPassed": true,
+      "nativeReviewAt": "2026-11-27T14:12:57.995Z",
+      "files": [
+        {
+          "path": "9a_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629504262725.594,
+          "ctimeMs": 1629504262725.594,
+          "ino": 21740303605
+        },
+        {
+          "path": "9a_bmm1_ks/ks9ab1/raw/KS9AB1_1.fq.gz",
+          "bytes": 1842287394,
+          "mtimeMs": 1629504398516.957,
+          "ctimeMs": 1629504398516.957,
+          "ino": 21733976115
+        },
+        {
+          "path": "9a_bmm1_ks/ks9ab1/raw/KS9AB1_2.fq.gz",
+          "bytes": 1917789041,
+          "mtimeMs": 1629504402479.512,
+          "ctimeMs": 1629504402479.512,
+          "ino": 21743869349
+        },
+        {
+          "path": "9a_bmm1_ks/ks9ab1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629504390562.448,
+          "ctimeMs": 1629504390562.448,
+          "ino": 21740303606
+        },
+        {
+          "path": "9a_bmm2_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629484391247.55,
+          "ctimeMs": 1629484391247.55,
+          "ino": 21733224423
+        },
+        {
+          "path": "9a_bmm2_ks/ks9ab2/raw/KS9AB2_1.fq.gz",
+          "bytes": 1493546422,
+          "mtimeMs": 1629485326246.173,
+          "ctimeMs": 1629485326246.173,
+          "ino": 21733448954
+        },
+        {
+          "path": "9a_bmm2_ks/ks9ab2/raw/KS9AB2_2.fq.gz",
+          "bytes": 1535783152,
+          "mtimeMs": 1629485328215.813,
+          "ctimeMs": 1629485328215.813,
+          "ino": 21732736421
+        },
+        {
+          "path": "9a_bmm2_ks/ks9ab2/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629485319224.086,
+          "ctimeMs": 1629485319224.086,
+          "ino": 21743929230
+        },
+        {
+          "path": "9a_bmm3_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629485549510.796,
+          "ctimeMs": 1629485549510.796,
+          "ino": 21710622652
+        },
+        {
+          "path": "9a_bmm3_ks/ks9ab3/raw/KS9AB3_1.fq.gz",
+          "bytes": 1918206362,
+          "mtimeMs": 1629485731626.246,
+          "ctimeMs": 1629485731626.246,
+          "ino": 21732863936
+        },
+        {
+          "path": "9a_bmm3_ks/ks9ab3/raw/KS9AB3_2.fq.gz",
+          "bytes": 1958429220,
+          "mtimeMs": 1629485730754.642,
+          "ctimeMs": 1629485730754.642,
+          "ino": 21732736422
+        },
+        {
+          "path": "9a_bmm3_ks/ks9ab3/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629485719964.492,
+          "ctimeMs": 1629485719964.492,
+          "ino": 21710622653
+        },
+        {
+          "path": "9c_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629485915785.863,
+          "ctimeMs": 1629485915785.863,
+          "ino": 21733139875
+        },
+        {
+          "path": "9c_bmm1_ks/ks9cb1/raw/KS9CB1_1.fq.gz",
+          "bytes": 1809655824,
+          "mtimeMs": 1629486070000.772,
+          "ctimeMs": 1629486070000.772,
+          "ino": 21733848495
+        },
+        {
+          "path": "9c_bmm1_ks/ks9cb1/raw/KS9CB1_2.fq.gz",
+          "bytes": 1881022835,
+          "mtimeMs": 1629486068328.981,
+          "ctimeMs": 1629486068328.981,
+          "ino": 21743929231
+        },
+        {
+          "path": "9c_bmm1_ks/ks9cb1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486060487.4,
+          "ctimeMs": 1629486060487.4,
+          "ino": 21710297605
+        },
+        {
+          "path": "9c_bmm2_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486186450.202,
+          "ctimeMs": 1629486186450.202,
+          "ino": 21732798430
+        },
+        {
+          "path": "9c_bmm2_ks/ks9cb2/raw/KS9CB2_1.fq.gz",
+          "bytes": 1735573188,
+          "mtimeMs": 1629486337929.589,
+          "ctimeMs": 1629486337929.589,
+          "ino": 21711190513
+        },
+        {
+          "path": "9c_bmm2_ks/ks9cb2/raw/KS9CB2_2.fq.gz",
+          "bytes": 1807335157,
+          "mtimeMs": 1629486338628.586,
+          "ctimeMs": 1629486338628.586,
+          "ino": 21743403193
+        },
+        {
+          "path": "9c_bmm2_ks/ks9cb2/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486328691.584,
+          "ctimeMs": 1629486328691.584,
+          "ino": 21732798431
+        },
+        {
+          "path": "9c_bmm3_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486427889.064,
+          "ctimeMs": 1629486427889.064,
+          "ino": 21743929233
+        },
+        {
+          "path": "9c_bmm3_ks/ks9cb3/raw/KS9CB3_1.fq.gz",
+          "bytes": 1543266227,
+          "mtimeMs": 1629486568343.296,
+          "ctimeMs": 1629486568343.296,
+          "ino": 21743403194
+        },
+        {
+          "path": "9c_bmm3_ks/ks9cb3/raw/KS9CB3_2.fq.gz",
+          "bytes": 1619464709,
+          "mtimeMs": 1629486569637.453,
+          "ctimeMs": 1629486569637.453,
+          "ino": 21711190514
+        },
+        {
+          "path": "9c_bmm3_ks/ks9cb3/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486560841.435,
+          "ctimeMs": 1629486560841.435,
+          "ino": 21732798433
+        },
+        {
+          "path": "9h_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486761074.862,
+          "ctimeMs": 1629486761074.862,
+          "ino": 21733139876
+        },
+        {
+          "path": "9h_bmm1_ks/ks9hb1/raw/KS9HB1_1.fq.gz",
+          "bytes": 1886112950,
+          "mtimeMs": 1629486967948.837,
+          "ctimeMs": 1629486967948.837,
+          "ino": 21711113954
+        },
+        {
+          "path": "9h_bmm1_ks/ks9hb1/raw/KS9HB1_2.fq.gz",
+          "bytes": 1926312561,
+          "mtimeMs": 1629486968386.389,
+          "ctimeMs": 1629486968386.389,
+          "ino": 21733139878
+        },
+        {
+          "path": "9h_bmm1_ks/ks9hb1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629486957007.774,
+          "ctimeMs": 1629486957007.774,
+          "ino": 21710622656
+        },
+        {
+          "path": "9h_bmm2_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487085458.921,
+          "ctimeMs": 1629487085458.921,
+          "ino": 21733448960
+        },
+        {
+          "path": "9h_bmm2_ks/ks9hb2/raw/KS9HB2_1.fq.gz",
+          "bytes": 1854117394,
+          "mtimeMs": 1629487236656.65,
+          "ctimeMs": 1629487236656.65,
+          "ino": 21733139880
+        },
+        {
+          "path": "9h_bmm2_ks/ks9hb2/raw/KS9HB2_2.fq.gz",
+          "bytes": 1872686797,
+          "mtimeMs": 1629487234698.254,
+          "ctimeMs": 1629487234698.254,
+          "ino": 21710297608
+        },
+        {
+          "path": "9h_bmm2_ks/ks9hb2/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487225916.599,
+          "ctimeMs": 1629487225916.599,
+          "ino": 21733448961
+        },
+        {
+          "path": "9h_bmm3_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487349092.181,
+          "ctimeMs": 1629487349092.181,
+          "ino": 21732798436
+        },
+        {
+          "path": "9h_bmm3_ks/ks9hb3/raw/KS9HB3_1.fq.gz",
+          "bytes": 1679521613,
+          "mtimeMs": 1629487522607.016,
+          "ctimeMs": 1629487522607.016,
+          "ino": 21732798437
+        },
+        {
+          "path": "9h_bmm3_ks/ks9hb3/raw/KS9HB3_2.fq.gz",
+          "bytes": 1724962149,
+          "mtimeMs": 1629487521515.628,
+          "ctimeMs": 1629487521515.628,
+          "ino": 21710297609
+        },
+        {
+          "path": "9h_bmm3_ks/ks9hb3/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487512525.755,
+          "ctimeMs": 1629487512525.755,
+          "ino": 21743929236
+        },
+        {
+          "path": "9n_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487755898.741,
+          "ctimeMs": 1629487755898.741,
+          "ino": 21710622657
+        },
+        {
+          "path": "9n_bmm1_ks/ks9nb1/raw/KS9NB1_1.fq.gz",
+          "bytes": 1515682185,
+          "mtimeMs": 1629487960855.686,
+          "ctimeMs": 1629487960855.686,
+          "ino": 21732863939
+        },
+        {
+          "path": "9n_bmm1_ks/ks9nb1/raw/KS9NB1_2.fq.gz",
+          "bytes": 1592925409,
+          "mtimeMs": 1629487960893.436,
+          "ctimeMs": 1629487960893.436,
+          "ino": 21732798438
+        },
+        {
+          "path": "9n_bmm1_ks/ks9nb1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629487951824.554,
+          "ctimeMs": 1629487951824.554,
+          "ino": 21732736425
+        },
+        {
+          "path": "9t_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488168156.068,
+          "ctimeMs": 1629488168156.068,
+          "ino": 21733848500
+        },
+        {
+          "path": "9t_bmm1_ks/ks9tb1/raw/KS9TB1_1.fq.gz",
+          "bytes": 1706367215,
+          "mtimeMs": 1629488337777.903,
+          "ctimeMs": 1629488337777.903,
+          "ino": 21711190518
+        },
+        {
+          "path": "9t_bmm1_ks/ks9tb1/raw/KS9TB1_2.fq.gz",
+          "bytes": 1741745605,
+          "mtimeMs": 1629488335831.661,
+          "ctimeMs": 1629488335831.661,
+          "ino": 21743929239
+        },
+        {
+          "path": "9t_bmm1_ks/ks9tb1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488324741.405,
+          "ctimeMs": 1629488324741.405,
+          "ino": 21732863942
+        },
+        {
+          "path": "9t_bmm2_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488429016.124,
+          "ctimeMs": 1629488429016.124,
+          "ino": 21711113957
+        },
+        {
+          "path": "9t_bmm2_ks/ks9tb2/raw/KS9TB2_1.fq.gz",
+          "bytes": 1763088261,
+          "mtimeMs": 1629488604687.653,
+          "ctimeMs": 1629488604687.653,
+          "ino": 21711190519
+        },
+        {
+          "path": "9t_bmm2_ks/ks9tb2/raw/KS9TB2_2.fq.gz",
+          "bytes": 1804759986,
+          "mtimeMs": 1629488602481.209,
+          "ctimeMs": 1629488602481.209,
+          "ino": 21743929240
+        },
+        {
+          "path": "9t_bmm2_ks/ks9tb2/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488593347.756,
+          "ctimeMs": 1629488593347.756,
+          "ino": 21710622659
+        },
+        {
+          "path": "9t_bmm3_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488776783.794,
+          "ctimeMs": 1629488776783.794,
+          "ino": 21732863944
+        },
+        {
+          "path": "9t_bmm3_ks/ks9tb3/raw/KS9TB3_1.fq.gz",
+          "bytes": 1504536937,
+          "mtimeMs": 1629488922431.174,
+          "ctimeMs": 1629488922431.174,
+          "ino": 21733448964
+        },
+        {
+          "path": "9t_bmm3_ks/ks9tb3/raw/KS9TB3_2.fq.gz",
+          "bytes": 1541338301,
+          "mtimeMs": 1629488923151.346,
+          "ctimeMs": 1629488923151.346,
+          "ino": 21710622661
+        },
+        {
+          "path": "9t_bmm3_ks/ks9tb3/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629488914460.228,
+          "ctimeMs": 1629488914460.228,
+          "ino": 21733848502
+        },
+        {
+          "path": "9tc_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629489163941.944,
+          "ctimeMs": 1629489163941.944,
+          "ino": 21733848503
+        },
+        {
+          "path": "9tc_bmm1_ks/ks9tcb1/raw/KS9TCB1_1.fq.gz",
+          "bytes": 1701187982,
+          "mtimeMs": 1629489321968.502,
+          "ctimeMs": 1629489321968.502,
+          "ino": 21732863946
+        },
+        {
+          "path": "9tc_bmm1_ks/ks9tcb1/raw/KS9TCB1_2.fq.gz",
+          "bytes": 1762262959,
+          "mtimeMs": 1629489323577.226,
+          "ctimeMs": 1629489323577.226,
+          "ino": 21733848504
+        },
+        {
+          "path": "9tc_bmm1_ks/ks9tcb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629489313282.027,
+          "ctimeMs": 1629489313282.027,
+          "ino": 21733448965
+        },
+        {
+          "path": "9tc_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629489531165.552,
+          "ctimeMs": 1629489531165.552,
+          "ino": 21743403198
+        },
+        {
+          "path": "9tc_bmm3_ks/ks9tcb3/raw/KS9TCB3_1.fq.gz",
+          "bytes": 1694035002,
+          "mtimeMs": 1629489674969.65,
+          "ctimeMs": 1629489674969.65,
+          "ino": 21733848505
+        },
+        {
+          "path": "9tc_bmm3_ks/ks9tcb3/raw/KS9TCB3_2.fq.gz",
+          "bytes": 1735025545,
+          "mtimeMs": 1629489675906.923,
+          "ctimeMs": 1629489675906.923,
+          "ino": 21711071810
+        },
+        {
+          "path": "9tc_bmm3_ks/ks9tcb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629489665666.778,
+          "ctimeMs": 1629489665666.778,
+          "ino": 21732798445
+        },
+        {
+          "path": "9tn_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629489912724.293,
+          "ctimeMs": 1629489912724.293,
+          "ino": 21743403199
+        },
+        {
+          "path": "9tn_bmm1_ks/ks9tnb1/raw/KS9TNB1_1.fq.gz",
+          "bytes": 1566008111,
+          "mtimeMs": 1629490073884.849,
+          "ctimeMs": 1629490073884.849,
+          "ino": 21732798447
+        },
+        {
+          "path": "9tn_bmm1_ks/ks9tnb1/raw/KS9TNB1_2.fq.gz",
+          "bytes": 1602488496,
+          "mtimeMs": 1629490076538.091,
+          "ctimeMs": 1629490076538.091,
+          "ino": 21711113960
+        },
+        {
+          "path": "9tn_bmm1_ks/ks9tnb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629490066686.362,
+          "ctimeMs": 1629490066686.362,
+          "ino": 21711190521
+        },
+        {
+          "path": "9tn_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629490750695.304,
+          "ctimeMs": 1629490750695.304,
+          "ino": 21740303583
+        },
+        {
+          "path": "9tn_bmm2_ks/ks9tnb2/raw/KS9TNB2_1.fq.gz",
+          "bytes": 1720642396,
+          "mtimeMs": 1629490893234.964,
+          "ctimeMs": 1629490893234.964,
+          "ino": 21701261795
+        },
+        {
+          "path": "9tn_bmm2_ks/ks9tnb2/raw/KS9TNB2_2.fq.gz",
+          "bytes": 1749489642,
+          "mtimeMs": 1629490892700.136,
+          "ctimeMs": 1629490892700.136,
+          "ino": 21734265581
+        },
+        {
+          "path": "9tn_bmm2_ks/ks9tnb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629490883013.092,
+          "ctimeMs": 1629490883013.092,
+          "ino": 21689661445
+        },
+        {
+          "path": "9tn_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491048788.941,
+          "ctimeMs": 1629491048788.941,
+          "ino": 21739739497
+        },
+        {
+          "path": "9tn_bmm3_ks/ks9tnb3/raw/KS9TNB3_1.fq.gz",
+          "bytes": 1957305675,
+          "mtimeMs": 1629491176624.982,
+          "ctimeMs": 1629491176624.982,
+          "ino": 21740522744
+        },
+        {
+          "path": "9tn_bmm3_ks/ks9tnb3/raw/KS9TNB3_2.fq.gz",
+          "bytes": 1982479686,
+          "mtimeMs": 1629491174921.815,
+          "ctimeMs": 1629491174921.815,
+          "ino": 21734265583
+        },
+        {
+          "path": "9tn_bmm3_ks/ks9tnb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491165485.231,
+          "ctimeMs": 1629491165485.231,
+          "ino": 21739739498
+        },
+        {
+          "path": "9x_bmm1_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629492335049.971,
+          "ctimeMs": 1629492335049.971,
+          "ino": 21437670187
+        },
+        {
+          "path": "9x_bmm1_ks/ks9xb1/raw/KS9XB1_1.fq.gz",
+          "bytes": 1820529456,
+          "mtimeMs": 1629492466275.242,
+          "ctimeMs": 1629492466275.242,
+          "ino": 21689661450
+        },
+        {
+          "path": "9x_bmm1_ks/ks9xb1/raw/KS9XB1_2.fq.gz",
+          "bytes": 1873106252,
+          "mtimeMs": 1629492465610.53,
+          "ctimeMs": 1629492465610.53,
+          "ino": 21740066539
+        },
+        {
+          "path": "9x_bmm1_ks/ks9xb1/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629492456591.775,
+          "ctimeMs": 1629492456591.775,
+          "ino": 21739739502
+        },
+        {
+          "path": "9x_bmm2_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629492580106.335,
+          "ctimeMs": 1629492580106.335,
+          "ino": 21740196094
+        },
+        {
+          "path": "9x_bmm2_ks/ks9xb2/raw/KS9XB2_1.fq.gz",
+          "bytes": 1533238728,
+          "mtimeMs": 1629493728267.454,
+          "ctimeMs": 1629493728267.454,
+          "ino": 21733848508
+        },
+        {
+          "path": "9x_bmm2_ks/ks9xb2/raw/KS9XB2_2.fq.gz",
+          "bytes": 1572421169,
+          "mtimeMs": 1629493725995.976,
+          "ctimeMs": 1629493725995.976,
+          "ino": 21713177153
+        },
+        {
+          "path": "9x_bmm2_ks/ks9xb2/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629493718318.954,
+          "ctimeMs": 1629493718318.954,
+          "ino": 21740522749
+        },
+        {
+          "path": "9x_bmm3_ks/additional/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629493837675.417,
+          "ctimeMs": 1629493837675.417,
+          "ino": 21713177155
+        },
+        {
+          "path": "9x_bmm3_ks/ks9xb3/raw/KS9XB3_1.fq.gz",
+          "bytes": 1818369506,
+          "mtimeMs": 1629494012313.669,
+          "ctimeMs": 1629494012313.669,
+          "ino": 21740522750
+        },
+        {
+          "path": "9x_bmm3_ks/ks9xb3/raw/KS9XB3_2.fq.gz",
+          "bytes": 1885811418,
+          "mtimeMs": 1629494014030.742,
+          "ctimeMs": 1629494014030.742,
+          "ino": 21713177157
+        },
+        {
+          "path": "9x_bmm3_ks/ks9xb3/raw/MD5.txt",
+          "bytes": 98,
+          "mtimeMs": 1629494001811.737,
+          "ctimeMs": 1629494001811.737,
+          "ino": 21711661406
+        },
+        {
+          "path": "9xa_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491344130.265,
+          "ctimeMs": 1629491344130.265,
+          "ino": 21740303584
+        },
+        {
+          "path": "9xa_bmm1_ks/ks9xab1/raw/KS9XAB1_1.fq.gz",
+          "bytes": 1562943972,
+          "mtimeMs": 1629491468384.529,
+          "ctimeMs": 1629491468384.529,
+          "ino": 21689661447
+        },
+        {
+          "path": "9xa_bmm1_ks/ks9xab1/raw/KS9XAB1_2.fq.gz",
+          "bytes": 1606804707,
+          "mtimeMs": 1629491471124.378,
+          "ctimeMs": 1629491471124.378,
+          "ino": 21708719358
+        },
+        {
+          "path": "9xa_bmm1_ks/ks9xab1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491458021.73,
+          "ctimeMs": 1629491458021.73,
+          "ino": 21437670186
+        },
+        {
+          "path": "9xa_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491812972.612,
+          "ctimeMs": 1629491812972.612,
+          "ino": 21739739500
+        },
+        {
+          "path": "9xa_bmm2_ks/ks9xab2/raw/KS9XAB2_1.fq.gz",
+          "bytes": 1586316697,
+          "mtimeMs": 1629491947106.017,
+          "ctimeMs": 1629491947106.017,
+          "ino": 21734265585
+        },
+        {
+          "path": "9xa_bmm2_ks/ks9xab2/raw/KS9XAB2_2.fq.gz",
+          "bytes": 1628817490,
+          "mtimeMs": 1629491945266.952,
+          "ctimeMs": 1629491945266.952,
+          "ino": 21734265586
+        },
+        {
+          "path": "9xa_bmm2_ks/ks9xab2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629491937853.897,
+          "ctimeMs": 1629491937853.897,
+          "ino": 21740066537
+        },
+        {
+          "path": "9xa_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629492080141.046,
+          "ctimeMs": 1629492080141.046,
+          "ino": 21689661448
+        },
+        {
+          "path": "9xa_bmm3_ks/ks9xab3/raw/KS9XAB3_1.fq.gz",
+          "bytes": 1562781672,
+          "mtimeMs": 1629492212881.63,
+          "ctimeMs": 1629492212881.63,
+          "ino": 21689661449
+        },
+        {
+          "path": "9xa_bmm3_ks/ks9xab3/raw/KS9XAB3_2.fq.gz",
+          "bytes": 1612965368,
+          "mtimeMs": 1629492211222.987,
+          "ctimeMs": 1629492211222.987,
+          "ino": 21740522747
+        },
+        {
+          "path": "9xa_bmm3_ks/ks9xab3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629492203654.299,
+          "ctimeMs": 1629492203654.299,
+          "ino": 21706684757
+        },
+        {
+          "path": "9xh_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494175094.979,
+          "ctimeMs": 1629494175094.979,
+          "ino": 21713177159
+        },
+        {
+          "path": "9xh_bmm1_ks/ks9xhb1/raw/KS9XHB1_1.fq.gz",
+          "bytes": 1792035110,
+          "mtimeMs": 1629494318403.324,
+          "ctimeMs": 1629494318403.324,
+          "ino": 21729268289
+        },
+        {
+          "path": "9xh_bmm1_ks/ks9xhb1/raw/KS9XHB1_2.fq.gz",
+          "bytes": 1854363700,
+          "mtimeMs": 1629494320804.118,
+          "ctimeMs": 1629494320804.118,
+          "ino": 21740732260
+        },
+        {
+          "path": "9xh_bmm1_ks/ks9xhb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494308632.837,
+          "ctimeMs": 1629494308632.837,
+          "ino": 21712240998
+        },
+        {
+          "path": "9xh_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494414596.398,
+          "ctimeMs": 1629494414596.398,
+          "ino": 21739279923
+        },
+        {
+          "path": "9xh_bmm2_ks/ks9xhb2/raw/KS9XHB2_1.fq.gz",
+          "bytes": 1495859946,
+          "mtimeMs": 1629494589069.041,
+          "ctimeMs": 1629494589085.178,
+          "ino": 21740522751
+        },
+        {
+          "path": "9xh_bmm2_ks/ks9xhb2/raw/KS9XHB2_2.fq.gz",
+          "bytes": 1534046540,
+          "mtimeMs": 1629494586321.608,
+          "ctimeMs": 1629494586321.608,
+          "ino": 21729268291
+        },
+        {
+          "path": "9xh_bmm2_ks/ks9xhb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494579173.792,
+          "ctimeMs": 1629494579173.792,
+          "ino": 21733848510
+        },
+        {
+          "path": "9xh_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494670884.736,
+          "ctimeMs": 1629494670884.736,
+          "ino": 21740522752
+        },
+        {
+          "path": "9xh_bmm3_ks/ks9xhb3/raw/KS9XHB3_1.fq.gz",
+          "bytes": 1816959295,
+          "mtimeMs": 1629494808294.577,
+          "ctimeMs": 1629494808294.577,
+          "ino": 21713177163
+        },
+        {
+          "path": "9xh_bmm3_ks/ks9xhb3/raw/KS9XHB3_2.fq.gz",
+          "bytes": 1860573972,
+          "mtimeMs": 1629494809190.54,
+          "ctimeMs": 1629494809190.54,
+          "ino": 21729268292
+        },
+        {
+          "path": "9xh_bmm3_ks/ks9xhb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629494796846.222,
+          "ctimeMs": 1629494796846.222,
+          "ino": 21711980938
+        },
+        {
+          "path": "9xt_bmm1_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495199057.988,
+          "ctimeMs": 1629495199057.988,
+          "ino": 21740303589
+        },
+        {
+          "path": "9xt_bmm1_ks/ks9xtb1/raw/KS9XTB1_1.fq.gz",
+          "bytes": 1739415839,
+          "mtimeMs": 1629495311366.592,
+          "ctimeMs": 1629495311366.592,
+          "ino": 21732703670
+        },
+        {
+          "path": "9xt_bmm1_ks/ks9xtb1/raw/KS9XTB1_2.fq.gz",
+          "bytes": 1775621633,
+          "mtimeMs": 1629495312338.056,
+          "ctimeMs": 1629495312338.056,
+          "ino": 21733224428
+        },
+        {
+          "path": "9xt_bmm1_ks/ks9xtb1/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495302627.296,
+          "ctimeMs": 1629495302627.296,
+          "ino": 21733334415
+        },
+        {
+          "path": "9xt_bmm2_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495387122.105,
+          "ctimeMs": 1629495387122.105,
+          "ino": 21732379515
+        },
+        {
+          "path": "9xt_bmm2_ks/ks9xtb2/raw/KS9XTB2_1.fq.gz",
+          "bytes": 1657139789,
+          "mtimeMs": 1629495510186.635,
+          "ctimeMs": 1629495510186.635,
+          "ino": 21743740076
+        },
+        {
+          "path": "9xt_bmm2_ks/ks9xtb2/raw/KS9XTB2_2.fq.gz",
+          "bytes": 1692763584,
+          "mtimeMs": 1629495512083.869,
+          "ctimeMs": 1629495512083.869,
+          "ino": 21734265592
+        },
+        {
+          "path": "9xt_bmm2_ks/ks9xtb2/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495502487.38,
+          "ctimeMs": 1629495502487.38,
+          "ino": 21733139886
+        },
+        {
+          "path": "9xt_bmm3_ks/additional/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495592558.914,
+          "ctimeMs": 1629495592558.914,
+          "ino": 21743740077
+        },
+        {
+          "path": "9xt_bmm3_ks/ks9xtb3/raw/KS9XTB3_1.fq.gz",
+          "bytes": 1728459272,
+          "mtimeMs": 1629495721927.717,
+          "ctimeMs": 1629495721927.717,
+          "ino": 21743869331
+        },
+        {
+          "path": "9xt_bmm3_ks/ks9xtb3/raw/KS9XTB3_2.fq.gz",
+          "bytes": 1779505032,
+          "mtimeMs": 1629495722994.386,
+          "ctimeMs": 1629495722994.386,
+          "ino": 21734265593
+        },
+        {
+          "path": "9xt_bmm3_ks/ks9xtb3/raw/MD5.txt",
+          "bytes": 100,
+          "mtimeMs": 1629495712551.029,
+          "ctimeMs": 1629495712551.029,
+          "ino": 21733334416
+        },
+        {
+          "path": "additional/X201SC21050311-Z01-F001_Report.html",
+          "bytes": 142449,
+          "mtimeMs": 1629483629933.658,
+          "ctimeMs": 1646145565538.735,
+          "ino": 21734265577
+        },
+        {
+          "path": "additional/checkSize66.xls",
+          "bytes": 124,
+          "mtimeMs": 1629483629932.043,
+          "ctimeMs": 1629483629932.043,
+          "ino": 21437670180
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-26T12:51:42.378Z",
+  "runId": "3c4d5ffa-e0ef-42e9-8ac7-62d4ebc4b9da",
+  "controllerPid": 2628213,
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+  "preparedPlanSha256": "70cc7e48bbddf541d505949365b314c3d6d60b950c52ab0608c3ffe35af7e4c1",
+  "copyReceiptSha256": "d9d62d7686775b5d859adc5ff86f926d0f139de29e3c5fdbc16b9adf88121c06",
+  "apiReady": true,
+  "graphState": "before",
+  "consistency": {
+    "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+    "runId": "3c4d5ffa-e0ef-42e9-8ac7-62d4ebc4b9da",
+    "recoveryId": null,
+    "planSha256": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+    "preparedPlanSha256": "70cc7e48bbddf541d505949365b314c3d6d60b950c52ab0608c3ffe35af7e4c1",
+    "copyReceiptSha256": "d9d62d7686775b5d859adc5ff86f926d0f139de29e3c5fdbc16b9adf88121c06",
+    "state": "before",
+    "counts": {
+      "before": 64,
+      "applied": 0,
+      "reversed": 0,
+      "diverged": 0
+    },
+    "differences": [],
+    "snapshotSha256": "5cb7892cada6bf65f860da22da8d3c2db195de42772e3dca09e7ac1f075a2ae9",
+    "journalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "physical": {
+      "at": "2026-11-26T12:51:34.624Z",
+      "copiesConsistent": true,
+      "state": "staged",
+      "stagedFiles": 40,
+      "publishedFiles": 0,
+      "claimedRoots": 0,
+      "privateRoots": 0,
+      "files": 40,
+      "bytes": 41432635417,
+      "payloadRehashed": false
+    },
+    "mutationInProgress": false,
+    "safeToReopen": true,
+    "copiesConsistent": true
+  },
+  "services": [
+    {
+      "name": "komondor-api",
+      "id": 9,
+      "pid": 2628311,
+      "status": "online"
+    },
+    {
+      "name": "komondor-power",
+      "id": 8,
+      "pid": 2628358,
+      "status": "online"
+    },
+    {
+      "name": "komondor-nudge",
+      "id": 2,
+      "pid": 2628376,
+      "status": "online"
+    },
+    {
+      "name": "komondor-web",
+      "id": 0,
+      "pid": 2628340,
+      "status": "online"
+    }
+  ]
+}

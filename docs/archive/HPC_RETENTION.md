@@ -1,11 +1,14 @@
 # HPC retention and storage locations
 
-Updated 27 November 2026 from George's instructions. This page records active
-manual deletion exclusions, the keep dates George is to set, and the application
-feature (deployed 16 November). The retention follow-up below is also deployed
-([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)); George reported API
-master `2474c4a` and web master `a470095` in production on 27 November. This
-page does not verify today's filesystem or the live hosts.
+Updated 27 November 2026 from George's instructions and the completed scoped
+execution checks. This page records the retained Projects, verified keep dates
+and application safeguards. The feature was deployed on 16 November; George
+reported API master `2474c4a` and web master `a470095` in production on
+27 November ([deployment](DEPLOYMENT_2026-11-03.md),
+[retention follow-up](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+Deployment reports and dated live observations are distinguished below.
+This documentation reconciliation makes no production change; its review-branch
+publication is pending merge.
 
 ## Policy from 27 November 2026: AWS only after the HPC date has passed
 
@@ -29,38 +32,45 @@ It applies from now on. The 175 Projects of the October 2026 batch are already
 on AWS and stay as they are, including Gargy, the one remaining hold, which is on both
 AWS and HPC.
 
-## Active manual exclusions
+## Current retention and completed exclusions
 
-**Only Gargy is still held.** George reported on 27 November 2026 that he removed the four Lichen CoCulture
-Projects from HPC himself, having had no reply from Gulnara, and that the
-new Project for her samples was already made. Their rows stay in the table below as history, marked released. Their verified
-AWS copies remain. This page does not record whether `confirm-absent` was run
-for them, and nothing here was checked against the filesystem or database.
+**Gargy is the only retained HPC copy from the original 175-Project archive
+batch.** All other 174 have completed HPC removal and native confirmation,
+including Gulnara's four source Projects. Their verified S3 copies are unchanged.
+The all-175 audit at **14:42:35 UTC on 27 November** found no discrepancy.
+[Final cohort check](batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/cohort-final.json).
 
-**Do not prepare or run HPC deletion commands for Gargy.** Its keep date
-(26 Nov 2027) is set in production, so the CLI also refuses.
-Consult the [machine-readable register](hpc-retention-holds.json) by Project ID
-and exact relative path, in addition to the normal archive checks.
+**Thirteen Projects remain protected in the wider work:** Gargy, Joe Win's
+11 Kamoun KEEP Projects and the Xanthoria destination. All thirteen roots were
+present in the independent check at **15:21:57 UTC**, after the separate six
+Kamoun no-S3 disposals. Those six disposals are complete, with their metadata
+retained, and no further removal is due.
+[Protected-root observation](batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010-observation-01.json),
+[disposal completion](batches/2026-11-27/kamoun-direct-disposal/evidence/COMPLETED.json).
 
-No code reads this register. The CLI refuses a Project only once its
-`preserveOnHpcUntil` date is set, so the held Projects also appear in the
-[keep dates to set](#keep-dates-to-set-george) below. Keep this register as
-the reason until the [follow-up](SPEC_HPC_RETENTION_FOLLOWUP_2026-11-16.md)
-is deployed and every hold's requester and reason have been backfilled and
-reviewed. Then the Project's `preserveOnHpcUntil`,
-`hpcPreservationRequestedBy` and `hpcPreservationReason` are the current record;
-`hpc-retention-holds.json` remains unchanged as history. Until then, continue
-checking the manual register as well. See the
-[feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the
-[deletion checklist](HPC_DELETION_CHECKLIST.md).
+**Do not prepare or run deletion commands for Gargy or the other retained
+Projects.** Gargy's saved date is **26 November 2027**; Joe's eleven dates are
+**26 November 2031**. The Xanthoria destination follows the normal age-based
+policy, currently **30 October 2031**, without a keep-date override. Expiry
+permits fresh review only; George still controls any eventual deletion.
+
+The Project's `preserveOnHpcUntil`, `hpcPreservationRequestedBy` and
+`hpcPreservationReason`, together with the documented current decisions, are
+the retention record. All twelve explicit dates, requesters and retained
+history were independently re-read at **14:54 UTC on 27 November**.
+The [original machine-readable register](hpc-retention-holds.json) is preserved
+unchanged as historical evidence; no application code reads it, and its old
+Gulnara exclusions are superseded by the completed source release below.
+Use the [deletion checklist](HPC_DELETION_CHECKLIST.md) and fresh live checks
+for any later operation.
 
 | Project | Project ID | Keep HPC path | Release condition |
 | --- | --- | --- | --- |
-| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | George explicitly releases the hold; no end date supplied |
-| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | `/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/` | **Released by George, 27 Nov 2026**: reassignment done, then removed from HPC |
-| Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | `/tsl/data/reads/ntalbot/lichen_coculture_i_9_days/` | **Released by George, 27 Nov 2026** |
-| Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | `/tsl/data/reads/ntalbot/lichen_coculture_i_21_days/` | **Released by George, 27 Nov 2026** |
-| Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | `/tsl/data/reads/ntalbot/lichen_coculture_i_42_days/` | **Released by George, 27 Nov 2026** |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` | Retain through **26 Nov 2027**; later deletion requires fresh review and George's manual action |
+| Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | `/tsl/data/reads/ntalbot/lichen_coculture_i_2_days/` | **Completed 27 Nov 2026**: reassignment verified, source removed and native absence confirmed |
+| Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | `/tsl/data/reads/ntalbot/lichen_coculture_i_9_days/` | **Completed 27 Nov 2026**: source removed and native absence confirmed |
+| Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | `/tsl/data/reads/ntalbot/lichen_coculture_i_21_days/` | **Completed 27 Nov 2026**: source removed and native absence confirmed |
+| Lichen CoCulture_I 42 days | `5fdb2d62d7661b6ec22a0571` | `/tsl/data/reads/ntalbot/lichen_coculture_i_42_days/` | **Completed 27 Nov 2026**: source removed and native absence confirmed |
 
 The [3 November completion register](evidence/transfer-completion-20261103/completed-project-register-20261103T121635Z.json)
 matches all five identities and records their verified S3 copies. Gargy's
@@ -72,33 +82,40 @@ before any future operation; do not assume these roots are interchangeable.
 
 Gargy's retention request is independent of the
 [Gulnara reassignment](GULNARA_ENA_REASSIGNMENT_2026-10-30.md). Completing Gulnara
-does not release Gargy. Preserve original trees and sealed archive evidence.
-Gargy's hold does not expire automatically. Of the original 175 verified
-Projects, 174 are outside the hold: the four Lichen Projects George has already
-removed, and **170 candidates for fresh deletion review**, not approved
-deletion targets. Older four-exclusion/171-candidate planning records are
-superseded by this list; preserve those records unchanged as history.
+does not release Gargy. Preserve Gargy's HPC tree and all sealed archive evidence.
+The four source exclusions were released only after fresh native source/archive
+checks, fresh destination checksums and George's explicit waiver of the reply
+wait. Job `25340876` removed them, and native confirmations completed at
+**14:42:13.902 UTC**. Their `aws` / `completed` state is recorded; there is no
+outstanding source hold or confirmation task.
+[Completed source release](batches/2026-11-27/gulnara-source-deletion/README.md).
 
+Earlier 170/171-candidate lists are historical. All 174 released HPC copies
+have now been removed; do not reuse those path lists or job packages.
 The batch-wide seven-day waiting period remains removed. These are specific
 Project retention instructions, not a renewed waiting period for the batch.
 
 ## Keep dates to set (George)
 
-**Twelve are set in production**, from George's mongosh listing of every
-Project with a date-typed `preserveOnHpcUntil`, pasted on 27 November 2026:
-Gargy and the 11 Kamoun KEEP Projects. A date means "keep on HPC through
-23:59:59.999 UTC that day". When it passes, the Project becomes eligible for
-deletion *review* only, and under the 27 November policy for its AWS copy.
+**All twelve dates are already set and independently verified.** George
+supplied the original 26 November read-back; the scoped live query at
+**14:54 UTC on 27 November** confirmed all twelve BSON dates, requesters and
+retained history without changing them. No repeat date save or Joe email is
+due. The heading is retained for existing links; this is now a completed register.
+A date means "keep on HPC through 23:59:59.999 UTC that day". When it passes,
+the Project becomes eligible for review only and, under the 27 November policy,
+for its AWS copy where one does not already exist.
 
-**The four Lichen CoCulture Projects never had a keep date.** George removed
-them from HPC on his own decision (reported 27 November), so none is needed.
+**The four Lichen CoCulture Projects never had a keep date.** Their temporary
+manual exclusions were separately released; deletion and native confirmations
+are complete. No date needs to be added to them.
 
 The 11 Kamoun KEEP Projects are still HPC-only; `lock` now refuses them until
 their date passes unless given `--before-review-date "<reason>"`.
 
 | Project | Project ID | Keep until (production, 27 Nov 2026) | Requested by | Why |
 | --- | --- | --- | --- | --- |
-| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | 26 Nov 2027 | Sara | George's hold (13 Nov) |
+| Gargy 2019 RNAseq | `5fc012bda3efcb29338b7d58` | 26 Nov 2027 | Sara | One year agreed with Sara; saved 26 Nov |
 | Lichen CoCulture_I 2 days | `61204424e788b405b6ce6bde` | none; removed from HPC | — | Released by George, 27 Nov 2026 |
 | Lichen CoCulture_I 9 days | `611ff26de788b405b6ce6a4c` | none; removed from HPC | — | Released by George, 27 Nov 2026 |
 | Lichen CoCulture_I 21 days | `5fd1ed55d8dd4a63058cc1c9` | none; removed from HPC | — | Released by George, 27 Nov 2026 |
@@ -117,11 +134,15 @@ their date passes unless given `--before-review-date "<reason>"`.
 
 The KEEP IDs come from the
 [batch action plan](batches/2026-10-16/action-plan.csv) (`db_project_id`).
-The listing matched on BSON type `date`, so these twelve are valid dates; it
-does not show whether any other Project holds a non-date value. The checklist's
-type check covers that and should return `[]`.
+The scoped read-back confirms BSON type `date` for these twelve; it is not a
+claim about every other Project's raw date type. Later deletion checks must
+still reject malformed dates and uncertain eligibility.
 
-An expired date does not by itself release Gargy: George releases it.
+Xanthoria (`6ae4ac89a6b876c643741d27`) is the thirteenth retained Project,
+outside the original archive batch. The existing Project was reused for the
+12 Samples and 12 Runs; no duplicate was created. Its normal age-based archive
+date is **30 October 2031**. No `preserveOnHpcUntil` override is required.
+[Reassignment and retention](GULNARA_ENA_REASSIGNMENT_2026-10-30.md).
 
 ## Application feature — deployed 16 November
 
@@ -155,15 +176,18 @@ additionally fences the date in its database update. A held Project missing from
 HPC is a discrepancy to investigate. Do not reuse earlier printed commands:
 manual review must always check the latest date and exclusions.
 
-**Expiry or clearing permits fresh review only. It never deletes files or
-releases the separate manual Gargy/Gulnara exclusions above.** Deployment set no
-production date; George set them later (see [keep dates](#keep-dates-to-set-george)). The current UI implements dated retention;
-indefinite, condition-based exclusions remain in this manual register. It does
-not automatically import them or add a batch-wide waiting interval.
+**Expiry or clearing permits fresh review only. It never deletes files.**
+The four Gulnara source exclusions were separately released and completed;
+this does not release Gargy, Joe's eleven Projects or the Xanthoria destination.
+Deployment set no production dates. George subsequently saved the dates above,
+and their current values were independently checked. Future condition-based
+exclusions need their own current record; the application does not import the
+historical manual register or add a batch-wide waiting interval.
 
-[Gargy production test candidate](GARGY_HPC_PRESERVATION_TEST.md) records the
-exact identity and the manual checks George will perform now that the API and
-web changes are deployed. No test date has been chosen on George's behalf.
+The [Gargy production test](GARGY_HPC_PRESERVATION_TEST.md) identifies the exact
+Project and original test plan. Its database date/history checks passed; the
+live page on 27 November showed both HPC/AWS locations and the saved keep date.
+This observation does not claim a rerun of the whole feature test matrix.
 
 Implementation references:
 [Project schema](../../models/Project.js),
@@ -225,6 +249,13 @@ The [deletion-due report](../S3_PROJECT_ARCHIVAL_RUNBOOK.md#deletion-due-review-
 lists overdue and upcoming review candidates plus invalid/unknown-eligibility
 attention rows (not counted as due in email subjects), including
 existing manual-disposal dispositions. It can email George using
-`HPC_DUE_REPORT_TO`. Reviews are ad hoc, so the 1 January / 1 July email
-schedule is optional and George installs it only if he wants the reminder. This implementation sets no production dates, installs
-no schedule and sends no real email.
+`HPC_DUE_REPORT_TO`; George reported that this and the web contact address now
+use his address. **Reviews are ad hoc.** The earlier January/July schedule is
+not requested and must not be installed as part of this work. A manual report
+check remains optional; no report email was sent by this completion update.
+
+Gulnara's technical work is complete for this task. No reply, chasing, Joe email
+or other stakeholder action is due. Preserve the destination, staging links,
+working ENA CSV and sealed evidence. Any optional cleanup, future archive batch
+or report is a separate ad-hoc decision. The completed execution evidence is
+being published on a review branch pending merge.

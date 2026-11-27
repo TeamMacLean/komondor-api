@@ -1,0 +1,14 @@
+{"at": "2026-11-27T14:24:34.643429+00:00", "event": "started", "execute": true, "host": "t384n8", "planSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf", "slurmJobId": "25340876", "stage": "gulnara-four-sources", "uid": 14014}
+{"at": "2026-11-27T14:24:35.122770+00:00", "event": "preflight-passed", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:35.468896+00:00", "event": "preflight-passed", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:35.993479+00:00", "event": "preflight-passed", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:36.389149+00:00", "event": "preflight-passed", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:24:36.492611+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:46.040193+00:00", "bytes": 173734125362, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:46.193124+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:51.235351+00:00", "bytes": 105611175618, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:51.381163+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:57.400909+00:00", "bytes": 99954671448, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:57.574100+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:25:03.948631+00:00", "bytes": 103438441044, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:25:04.031273+00:00", "databaseConfirmationRequired": true, "event": "complete", "projects": 4, "protectedCopiesIntact": true}

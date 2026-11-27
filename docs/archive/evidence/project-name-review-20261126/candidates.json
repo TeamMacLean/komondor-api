@@ -1,0 +1,837 @@
+{
+  "preparedDate": "2026-11-26",
+  "scope": "Read-only shortlist; no proposed text has been written to production. Current values here are the saved snapshot values, not a live refresh.",
+  "metadataSource": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+  "metadataSourceSha256": "08951145de250c0ffc3f51c1d8c0eb6147b24b77c91d357549c34ac14c833868",
+  "recordedMetadataDate": "2026-10-23",
+  "policy": "Propose display wording only. Implementation is undecided; Project.name is currently part of protected identity and normal saves derive physical paths from it. Preserve all stored paths, safe names, owners, retention, archive state and original provenance. Record before/after wording in any future approved correction.",
+  "excluded": [
+    {
+      "entryId": "ntalbot-031",
+      "legacyName": "project_2178",
+      "reason": "Consolidated under pre-existing Project 5fc012bda3efcb29338b7cf7; not one of the 22 new registrations."
+    },
+    {
+      "scope": "Five pre-existing Saunders Projects marked for manual disposal",
+      "reason": "These are separate disposal entries, not the five skamoun-extra registrations in this naming review."
+    }
+  ],
+  "candidates": [
+    {
+      "entryId": "two_blades-003",
+      "projectId": "6ada6c4457c017ae1712264e",
+      "recordedName": "Courville",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "Courville",
+      "recordedPath": "/two_blades/Courville",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: two_blades-003",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Courville",
+      "proposedShortDesc": "Infection RNA-seq data stored under the Courville project label.",
+      "confidence": "medium",
+      "recommendation": "retain-name",
+      "uncertainty": "The subdirectory Infection_RNAseq_data supports a broad description, but provides no organism or experiment identity; retain Courville pending stronger evidence.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 451,
+          "originalRelativePath": "Infection_RNAseq_data/allruns/raw/AH1_S25_L003_R1_001.fastq.gz",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-012",
+      "projectId": "6ada6c4457c017ae1712264f",
+      "recordedName": "project_2370",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2370",
+      "recordedPath": "/ntalbot/project_2370",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-012",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "LacO insertion-site analysis",
+      "proposedShortDesc": "Mapping of LacO insertion sites, with GFP–LacI–NLS construct information.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "Notes describe insert locations, but do not establish the complete experiment or a scientific owner.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 0,
+          "entryId": "ntalbot-012",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2370/additional/GFP_LACI_NLS.docx",
+          "documentSha256": "e0378e121c18de2a598018f7e51b790ba090eb16306b7d6bc9198d7514ec1149",
+          "clues": [
+            "ATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGAC",
+            "GGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTAC",
+            "GGCAAGCTGACCCTGAAGTTCATCTGCACCACCGGCAAGCTGCCCGTGCCCTGGCCCACC"
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 1,
+          "entryId": "ntalbot-012",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2370/additional/LacO_summary.docx",
+          "documentSha256": "097693624c43e88ebc7f14b69a197c150de377668d916f6a9a43246b9a487ef3",
+          "clues": [
+            "All reads - truncated seq2",
+            "Atg1Lac2 - supercont8.7393045",
+            "BufT1 - supercont8.31918934"
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 2,
+          "entryId": "ntalbot-012",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2370/additional/insertion_diagram.docx",
+          "documentSha256": "5b1cb0fec52400d9d9e9cfd3f8e130dccb203aa63c6e1fa12d424c63cb8d6211",
+          "clues": [
+            "Seq_2Seq_2Seq_1Seq_1SURSURLacO repeatsLacO repeatsRest of vectorRest of vectorgenomegenomegenomegenomeSURSURLacO repeatsLacO repeatsSeq_1Seq_1Seq_2Seq_2Rest of vectorRest of vectorgenomegenomegenomegenomeRest of vectorRest of vectorgenomegenomeLacO repeatsLacO repeatsSURSURgenomegenomeSeq_2Seq_2Seq_1Seq_1",
+            "Seq_2",
+            "Seq_2"
+          ]
+        }
+      ],
+      "proposedLongDesc": "LacO insertion-site mapping with a summary of insert positions and accompanying construct diagrams. The supporting files also contain GFP–LacI–NLS sequence information. Historical project number: 2370.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-013",
+      "projectId": "6ada6c4457c017ae17122650",
+      "recordedName": "project_2035",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2035",
+      "recordedPath": "/ntalbot/project_2035",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-013",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "PKC1 inhibition RNA-seq",
+      "proposedShortDesc": "RNA-seq of M. oryzae pkc1AS mycelium with and without the inhibitor 1NA-PP1.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The readme says three biological replicates while pkc_summary.docx says two per timepoint; omit a replicate count. No owner attribution is inferred.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 3,
+          "entryId": "ntalbot-013",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2035/additional/Project_2035_readme.txt",
+          "documentSha256": "c6f9dab2bef7f1b6c5220e916da554371ee4752d088ee94afc2f0b1415eec78f",
+          "clues": [
+            "A strain of M. oryzae was constructed in which the native PKC1 gene was replaced with an analogue-sensitive PKC1 allele (pkc1AS). This allele could be inhbited by the analogue 1NA-PP1. Global transcriptional profiling of mycelium following selective PKC inhibition identified significant changes in gene expression associated with cell wall re-modelling, autophagy, signal transduction and secondary metabolism. ",
+            "Mycelium was grown in the presence and absence (control) of the inhibitor 1NA-PP1 for a number of different times up to 24 hours.",
+            "A, B and D correspond to three biological replicates."
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 4,
+          "entryId": "ntalbot-013",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2035/additional/pkc_summary.docx",
+          "documentSha256": "ca89740a23c2d8f3c2661fb9db6aa10be0fe0ecdcc58b35cefda1387cdeafbce",
+          "clues": [
+            "Summary – RNA-seq of PKC data",
+            "Mycelium grown in shaking culture. PKC inhibitor added and samples of mycelium harvested at time intervals of up to 24 hours from which RNA was extracted (for RNA-Seq). Compared with control in which inhibitor was not added to mycelium. Two replicates for each timepoint. RNA-Seq analysis performed using DESeq.",
+            "Overall similarity of samples"
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 5,
+          "entryId": "ntalbot-013",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2035/additional/sample_summary_pkc.docx",
+          "documentSha256": "3ffe0214b0e605d97f09fc718d1eec02a5d6ba36e5ac3c9d9aa1d7918ed29485",
+          "clues": [
+            "Heat map showing distance between samples (replicates from same condition should cluster together)",
+            "Library problems",
+            "Low reads (less than 5,000,000)"
+          ]
+        }
+      ],
+      "proposedLongDesc": "RNA-seq of M. oryzae carrying an analogue-sensitive PKC1 allele (pkc1AS). Mycelium was sampled with and without 1NA-PP1 at time points up to 24 hours to examine transcriptional responses to PKC1 inhibition. Historical project number: 2035.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-018",
+      "projectId": "6ada6c4457c017ae17122651",
+      "recordedName": "project_945",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_945",
+      "recordedPath": "/ntalbot/project_945",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-018",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Wheat blast isolate sequencing",
+      "proposedShortDesc": "Sequence alignments and assemblies from wheat blast isolates.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "Scientific subject comes from a note stored under Project 930, which explicitly identifies Project 945 and matching sample labels. Cross-check before a write.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 8,
+          "entryId": "ntalbot-028",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_930/additional/Wheat blast sequences summary.docx",
+          "documentSha256": "4a525a43078844bae9630e31de4f86ae03b69a6e38fca6776101a705683c310a",
+          "clues": [
+            "Wheat BLAST sequences; table explicitly associates PY0925, PY25.1 and PY35.3 with Project 945.",
+            "Project 945 inventory has matching PY0925 assembly and alignment filenames."
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13578,
+          "originalRelativePath": "sample_945/sample_945/processed/PY0925_contigs.fa",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13586,
+          "originalRelativePath": "sample_945/sample_945/processed/Sample_PY0925_out.sorted.rmdup.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": "Wheat blast isolate sequence alignments and assemblies. The wheat blast summary retained in Project 930 explicitly links Project 945 to isolate labels that also occur in this project’s files. Historical project number: 945.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved",
+      "titleSimilarityReview": "Defer final wording: these two wheat-blast proposals are similar to each other and several existing wheat-blast Projects. Find a supported cohort/isolate distinction before applying."
+    },
+    {
+      "entryId": "ntalbot-024",
+      "projectId": "6ada6c4457c017ae17122652",
+      "recordedName": "project_2012",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2012",
+      "recordedPath": "/ntalbot/project_2012",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-024",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Project 2012",
+      "proposedShortDesc": "Sequence assemblies, read alignments and predicted protein/transcript files for multiple strain labels.",
+      "confidence": "low",
+      "recommendation": "hold",
+      "uncertainty": "Filenames support file types only. The strain_summary.xlsx and de_novo_assembly_stats.xlsx contents were not examined; no organism or scientific purpose is established.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13773,
+          "originalRelativePath": "additional/de_novo_assembly_stats.xlsx",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13774,
+          "originalRelativePath": "additional/strain_summary.xlsx",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 13795,
+          "originalRelativePath": "sample_all/sample_all/processed/Br62_contigs_2.all.maker.proteins.fasta",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-025",
+      "projectId": "6ada6c4457c017ae17122653",
+      "recordedName": "project_809",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_809",
+      "recordedPath": "/ntalbot/project_809",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-025",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Smo1 mutant and progeny sequencing",
+      "proposedShortDesc": "Sequence analysis of the Smo1 mutant parent and wild-type and mutant progeny bulks from a cross with TH3.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The note describes the cross and three sequenced samples; retain Project 809 separately from Project 2009 rather than assuming they are one project.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 6,
+          "entryId": "ntalbot-025",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_809/additional/Sequence differences between Smo1 mutant and parental types.docx",
+          "documentSha256": "91c77c6bc1077f58fa6f75a5bf07232ab03267227abdaa47d7efe770fdc938c8",
+          "clues": [
+            "Sequence differences between Smo1 mutant and parental types",
+            "MGG_12101.7 - RNA splicing factor Pad-1 (supercontig 8.6, 2,573,755-2,576,576, - strand)",
+            "Insertion – 3’ UTR: 2,574,122 (1 base T)"
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 7,
+          "entryId": "ntalbot-025",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_809/additional/Smo1.docx",
+          "documentSha256": "856b9522194515d06e5566f6d4e6ccc05ef992f872198b55d8d4c894a5c26831",
+          "clues": [
+            "Smo1",
+            "Cross between Smo1 mutant (background: weeping lovegrass pathogen – 4091-5-8) and TH3.",
+            "Three samples sequenced – 100 base paired-end on HiSeq:"
+          ]
+        }
+      ],
+      "proposedLongDesc": "Sequencing of a Smo1 mutant parent and pooled wild-type and mutant progeny from a cross with TH3. The project notes describe three samples sequenced as 100-base paired-end reads on HiSeq. Historical project number: 809.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-028",
+      "projectId": "6ada6c4457c017ae17122654",
+      "recordedName": "project_930",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_930",
+      "recordedPath": "/ntalbot/project_930",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-028",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Wheat blast isolate sequence analysis",
+      "proposedShortDesc": "Wheat blast isolate sequence analysis, with assembly statistics and gene-prediction outputs.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The summary also covers Project 945; retain both historical numbers and avoid implying every listed isolate belongs exclusively to Project 930.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 8,
+          "entryId": "ntalbot-028",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_930/additional/Wheat blast sequences summary.docx",
+          "documentSha256": "4a525a43078844bae9630e31de4f86ae03b69a6e38fca6776101a705683c310a",
+          "clues": [
+            "Wheat BLAST sequences",
+            "Sample ",
+            "Project"
+          ]
+        }
+      ],
+      "proposedLongDesc": "Sequence analysis of wheat blast isolates, including assembly statistics and gene-prediction outputs. The supporting summary also refers to Project 945; these remain separate project records. Historical project number: 930.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved",
+      "titleSimilarityReview": "Defer final wording: these two wheat-blast proposals are similar to each other and several existing wheat-blast Projects. Find a supported cohort/isolate distinction before applying."
+    },
+    {
+      "entryId": "ntalbot-029",
+      "projectId": "6ada6c4457c017ae17122655",
+      "recordedName": "project_2323",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2323",
+      "recordedPath": "/ntalbot/project_2323",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-029",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "pmk1AS leaf-sheath infection RNA-seq",
+      "proposedShortDesc": "RNA-seq of leaf sheaths infected with pmk1AS mutants, with and without the inhibitor 1NA-PP1.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The note explicitly names Project 2323 and pmk1AS treatment; leaf-sheath host species is not supplied in this title or description.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 9,
+          "entryId": "ntalbot-029",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2323/additional/Project 2323 summary.docx",
+          "documentSha256": "4c9a222eb7f27d4c1c8ae073fa3cf2935347931d498ba84b0b42d02c9d1b2cae",
+          "clues": [
+            "Project 2323 summary",
+            "RNA samples were obtained for leaf sheaths infected with pmk1AS mutants. 1NA-PP1 was added to inhibit PMK1 activity at 26 h and extracted RNA at 32 h. There are two treatments: minus (control) and plus (Pmk1 activity was inhibited by 1NA-PP1). Three replicates were done for each sample.",
+            "Read stats (indicative of % of fungal biomass)"
+          ]
+        }
+      ],
+      "proposedLongDesc": "RNA-seq of leaf sheaths infected with pmk1AS mutants, comparing treatment with 1NA-PP1 against an untreated control. The project summary records inhibitor addition at 26 hours and RNA sampling at 32 hours. Historical project number: 2323.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-033",
+      "projectId": "6ada6c4457c017ae17122656",
+      "recordedName": "project_2009",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2009",
+      "recordedPath": "/ntalbot/project_2009",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-033",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Smo1 bulk segregant analysis",
+      "proposedShortDesc": "Smo1 mapping and candidate-variant analysis using bulk segregant analysis and linked markers.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The retained report supports Smo1 mapping; it does not establish that this is identical to the separately registered Project 809.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 10,
+          "entryId": "ntalbot-033",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2009/additional/Smo1 summary for paper figure.docx",
+          "documentSha256": "7ce1c15515595219e5d7a847094119b5696a81da21904101ba67a93e5bafade1",
+          "clues": [
+            "Smo1 summary",
+            "supercont8.6 – 4133993 bases",
+            "Marker positions: pJH4.28 – 1397846 – 1398327"
+          ]
+        }
+      ],
+      "proposedLongDesc": "Bulk segregant mapping of Smo1 using linked markers and candidate-variant analysis. The retained report describes the mapped region and candidate genes. Historical project number: 2009.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-035",
+      "projectId": "6ada6c4457c017ae17122657",
+      "recordedName": "project_1622",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_1622",
+      "recordedPath": "/ntalbot/project_1622",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-035",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Nim1 mutant and revertant sequencing",
+      "proposedShortDesc": "Sequence comparison of Nim1 mutants and revertants against the 70-15 reference genome.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The document explicitly describes mutants, revertants and SNP comparisons; no scientific ownership is inferred.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 11,
+          "entryId": "ntalbot-035",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_1622/additional/Nim1 revertants.docx",
+          "documentSha256": "a9ed475aa9e0631e2377f2557fb08e8652fd7741f9b49f546dcbe4cccbf3b951",
+          "clues": [
+            "Nim1 revertants",
+            "Reads from Nim1 mutants and revertants aligned against 70-15 genome and SNPs between Nim1 mutant and revertants noted.",
+            "Sno3: 12 SNPs in total: "
+          ]
+        }
+      ],
+      "proposedLongDesc": "Sequence analysis of Nim1 mutants and revertants, aligned to the 70-15 reference genome. The project notes compare SNPs across mutant and revertant samples. Historical project number: 1622.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-037",
+      "projectId": "6ada6c4457c017ae17122658",
+      "recordedName": "project_1566",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_1566",
+      "recordedPath": "/ntalbot/project_1566",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-037",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Project 1566",
+      "proposedShortDesc": "A read alignment labelled MG bulk; the study identity is unconfirmed.",
+      "confidence": "low",
+      "recommendation": "hold",
+      "uncertainty": "The only inventoried file is Sample_MG_bulk_out.sorted.rmdup.bam. Do not expand MG, infer an organism, or invent a study title.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14146,
+          "originalRelativePath": "sample_mg/sample_mg/processed/Sample_MG_bulk_out.sorted.rmdup.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-040",
+      "projectId": "6ada6c4457c017ae17122659",
+      "recordedName": "project_592_593",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_592_593",
+      "recordedPath": "/ntalbot/project_592_593",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-040",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Buf mutant bulk segregant analysis",
+      "proposedShortDesc": "Read alignments and a report labelled as bulk segregant analysis of the Buf mutant.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "The subject is from Bulk segregant analysis of Buf mutant.doc filename only; the document text has not been examined. Keep both numbers.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14152,
+          "originalRelativePath": "additional/Bulk segregant analysis of Buf mutant.doc",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-044",
+      "projectId": "6ada6c4457c017ae1712265a",
+      "recordedName": "project_2171",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2171",
+      "recordedPath": "/ntalbot/project_2171",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-044",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Guy11 paired-end read alignment",
+      "proposedShortDesc": "A paired-end read alignment labelled Guy11_v3.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "The only file is Guy11_v3_PE_align_sorted.bam; the label supports Guy11 and alignment, but not a full study identity or equivalence with Project 539.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14185,
+          "originalRelativePath": "guy11/guy11/processed/Guy11_v3_PE_align_sorted.bam",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-046",
+      "projectId": "6ada6c4457c017ae1712265b",
+      "recordedName": "project_539",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_539",
+      "recordedPath": "/ntalbot/project_539",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-046",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Guy11 36-base paired-end genome sequencing",
+      "proposedShortDesc": "Guy11 paired-end sequencing and alignment summary against the version 6 reference genome.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The note explicitly names Guy11 sequencing and genome alignment; do not equate it with other Guy11 projects.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 12,
+          "entryId": "ntalbot-046",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_539/additional/Summary of Guy11 sequencing.docx",
+          "documentSha256": "46251a3732ff2a041f3678d7ec5432003b9e8eaec4adafe14647a12fa1690624",
+          "clues": [
+            "Summary of Guy11 sequencing",
+            "Version 1",
+            "36-base paired end reads "
+          ]
+        }
+      ],
+      "proposedLongDesc": "Guy11 genome sequencing using 36-base paired-end reads. The retained sequencing summary describes alignment against the version 6 reference genome. Historical project number: 539.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved",
+      "titleSimilarityReview": "36-base paired-end qualifier is supported by the source summary and distinguishes the existing Guy11 MinION/hybrid assembly project."
+    },
+    {
+      "entryId": "ntalbot-047",
+      "projectId": "6ada6c4457c017ae1712265c",
+      "recordedName": "project_2561",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_2561",
+      "recordedPath": "/ntalbot/project_2561",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-047",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Lichen genome annotation",
+      "proposedShortDesc": "Lichen assemblies and gene prediction, including Cladonia portentosa and Xanthoria parietina.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The stored tree includes cp, xpa and pa-prefixed outputs. Do not map every prefix to a species or imply only two organisms without further verification.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 13,
+          "entryId": "ntalbot-047",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2561/sample_all/sample_all/processed/Cladonia portentosa gene calling.docx",
+          "documentSha256": "184318dc6c506bd6f2078e0276c83d4ec5dd3d63c9313e226074f4862f5cfa7f",
+          "clues": [
+            "Cladonia portentosa gene calling",
+            "Run1 – using Swiss-Prot proteins to predict genes.",
+            "Run2 - Swiss-Prot proteins + A. nidulans proteins + Cladonia grayi proteins to call genes."
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 14,
+          "entryId": "ntalbot-047",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_2561/sample_all/sample_all/processed/Xanthoria parietina gene calling.docx",
+          "documentSha256": "a5eb3cb9c20333ec72889dcdc53d422c37457d47797b5c78b0f5214a1fbc1c9f",
+          "clues": [
+            "Xanthoria parietina gene calling",
+            "Run1 – using Swiss-Prot proteins to predict genes.",
+            "Run2 - Swiss-Prot proteins + A. nidulans proteins + Xanthoria parietina proteins to call genes."
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14202,
+          "originalRelativePath": "additional/Lichen DNA sequencing 2.pdf",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14222,
+          "originalRelativePath": "sample_all/sample_all/processed/pa_combined_contigs.fasta",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": "Lichen sequence assemblies and gene-prediction outputs, with annotation notes for Cladonia portentosa and Xanthoria parietina. The notes describe successive prediction runs using protein evidence; other file prefixes have not yet been assigned to species. Historical project number: 2561.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-050",
+      "projectId": "6ada6c4557c017ae1712265d",
+      "recordedName": "project_230",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_230",
+      "recordedPath": "/ntalbot/project_230",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-050",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "Mycelium RNA-seq expression tables",
+      "proposedShortDesc": "Expression tables labelled M. oryzae mycelium and Guy11 CM/GMM.",
+      "confidence": "medium",
+      "recommendation": "review",
+      "uncertainty": "Descriptions are based on filenames only. The contents and meaning of CM/GMM and AL1–AL3 were not inspected; do not infer conditions or experiment design.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14243,
+          "originalRelativePath": "additional/Guy11_CM_FPKM.txt",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14245,
+          "originalRelativePath": "additional/Guy11_GMM_FPKM.txt",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-files.jsonl",
+          "line": 14246,
+          "originalRelativePath": "additional/dmsoanes_moryzae_mycelium_RNA-Seq.xls",
+          "basis": "Recorded filename/path only; contents not newly inspected."
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "ntalbot-051",
+      "projectId": "6ada6c4557c017ae1712265e",
+      "recordedName": "project_758",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "project_758",
+      "recordedPath": "/ntalbot/project_758",
+      "recordedOwner": "shrestha",
+      "recordedShortDesc": "Administrative archive registration: ntalbot-051",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "M. oryzae T-DNA insertion-site analysis",
+      "proposedShortDesc": "Analysis of T-DNA insertion sites using pCAMBgfp border sequences in an M. oryzae insertional mutant library.",
+      "confidence": "high",
+      "recommendation": "shortlist",
+      "uncertainty": "The folder has analysis documents rather than the sequencing reads mentioned in those documents; the title describes analysis and does not promise raw reads.",
+      "evidence": [
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 15,
+          "entryId": "ntalbot-051",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_758/additional/Searching for insertion reads.docx",
+          "documentSha256": "8900131500537194c3c53f950cdc913d2ab49ed89735f544cdcea9fffd37ad5e",
+          "clues": [
+            "Sequence of the Transforming Plasmid: pCAMBgfp (9700 bp)",
+            "Green =end of area that reads map to",
+            "Red=supplied end of T-DNA – RB"
+          ]
+        },
+        {
+          "sourceFile": "docs/archive/batches/2026-10-16/reconciliation-preview-2026-10-22/live-evidence/ownership-notes.json",
+          "jsonArrayIndex": 16,
+          "entryId": "ntalbot-051",
+          "originalDocumentPath": "/mnt/reads/ntalbot/project_758/additional/Sequence of the pCAMBgfp.docx",
+          "documentSha256": "db8cccb2999da2f6cb0176ced659bdbca84f66b439776df20f3a287ab4806d1b",
+          "clues": [
+            "Sequence of the Transforming Plasmid: pCAMBgfp (9700 bp)",
+            "T-DNA transposon (3370Kb) integrated in the Genomic DNA of M.oryzae T-DNA insertional Mutant Library",
+            "Region in pink has alignments with M. oryzae genome version 6 (though not 8?)."
+          ]
+        }
+      ],
+      "proposedLongDesc": "Analysis documents for locating T-DNA insertion sites in an M. oryzae insertional mutant library using pCAMBgfp border sequences. The retained files are analysis documents; this description does not imply that the sequencing reads are present. Historical project number: 758.",
+      "proposedLongDescStatus": "draft",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "skamoun-extra-001",
+      "projectId": "6ada6c4557c017ae1712265f",
+      "recordedName": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "recordedPath": "/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "recordedOwner": "winj",
+      "recordedShortDesc": "Administrative archive registration: skamoun-extra-001",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "P. striiformis TCS (JIC.CL.20130409.01)",
+      "proposedShortDesc": "P. striiformis files labelled Clare Lewis, TCS and JIC.CL.20130409.01.",
+      "confidence": "medium",
+      "recommendation": "formatting-only",
+      "uncertainty": "This is a readable rendering of existing path labels; Clare Lewis is a historical label, not an ownership assignment. TCS is left unexpanded.",
+      "evidence": [
+        {
+          "sourceFile": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+          "basis": "Recorded Project name and path",
+          "name": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+          "path": "/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01"
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "skamoun-extra-002",
+      "projectId": "6ada6c4557c017ae17122660",
+      "recordedName": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "recordedPath": "/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "recordedOwner": "winj",
+      "recordedShortDesc": "Administrative archive registration: skamoun-extra-002",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "P. striiformis TCS (TSL.DS.20130809.01, 113)",
+      "proposedShortDesc": "P. striiformis files labelled Diane Saunders, TCS and TSL.DS.20130809.01, with identifier 113.",
+      "confidence": "medium",
+      "recommendation": "formatting-only",
+      "uncertainty": "Existing name supplies the labels. Do not silently convert trailing 113 into a confirmed TCS batch number or assign scientific ownership.",
+      "evidence": [
+        {
+          "sourceFile": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+          "basis": "Recorded Project name and path",
+          "name": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+          "path": "/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113"
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "skamoun-extra-003",
+      "projectId": "6ada6c4557c017ae17122661",
+      "recordedName": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "recordedPath": "/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "recordedOwner": "winj",
+      "recordedShortDesc": "Administrative archive registration: skamoun-extra-003",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "P. striiformis TCS 99 (TSL.DS.20130722.01)",
+      "proposedShortDesc": "P. striiformis files labelled TCS 99 and TSL.DS.20130722.01.",
+      "confidence": "medium",
+      "recommendation": "formatting-only",
+      "uncertainty": "Readable formatting of the existing label only; TCS meaning, scientific purpose and original ownership remain unconfirmed.",
+      "evidence": [
+        {
+          "sourceFile": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+          "basis": "Recorded Project name and path",
+          "name": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+          "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99"
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "skamoun-extra-004",
+      "projectId": "6ada6c4557c017ae17122662",
+      "recordedName": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "recordedPath": "/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "recordedOwner": "winj",
+      "recordedShortDesc": "Administrative archive registration: skamoun-extra-004",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "P. striiformis TCS 105 (TSL.DS.20130730.01)",
+      "proposedShortDesc": "P. striiformis files labelled TCS 105 and TSL.DS.20130730.01.",
+      "confidence": "medium",
+      "recommendation": "formatting-only",
+      "uncertainty": "Readable formatting of the existing label only; retain all historical date and batch identifiers.",
+      "evidence": [
+        {
+          "sourceFile": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+          "basis": "Recorded Project name and path",
+          "name": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+          "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105"
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    },
+    {
+      "entryId": "skamoun-extra-005",
+      "projectId": "6ada6c4557c017ae17122663",
+      "recordedName": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "recordedNameDate": "2026-10-23",
+      "recordedSafeName": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "recordedPath": "/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "recordedOwner": "winj",
+      "recordedShortDesc": "Administrative archive registration: skamoun-extra-005",
+      "recordedLongDesc": "Existing directory registered retrospectively for batch 2026-10-16. Custodian selected by George, archive review chat, 22 October 2026. Original scientific ownership remains unresolved; see retained reconciliation history.",
+      "proposedTitle": "P. striiformis TCS 144 (TSL.DS.20131010.01rev2)",
+      "proposedShortDesc": "P. striiformis files labelled TCS 144, TSL.DS.20131010.01rev2 and 1x Rapid Lane.",
+      "confidence": "medium",
+      "recommendation": "formatting-only",
+      "uncertainty": "The title retains rev2; the proposed short description retains 1x Rapid Lane. The label alone does not establish experiment design or scientific ownership.",
+      "evidence": [
+        {
+          "sourceFile": "/Users/deeks/.codex/artifacts/archive-batch-20261023/backup-paused-r2/projects.bson",
+          "basis": "Recorded Project name and path",
+          "name": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+          "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144"
+        }
+      ],
+      "proposedLongDesc": null,
+      "proposedLongDescStatus": "not drafted; keep existing field until independently reviewed",
+      "reviewStatus": "not approved"
+    }
+  ],
+  "status": "proposal-only; no production writes authorised or performed by this review",
+  "liveRefresh": {
+    "successful": true,
+    "observedAt": "2026-11-26T16:14:18.318Z",
+    "projectCount": 371,
+    "receipt": "docs/archive/evidence/project-name-review-20261126/live-name-check-20261126T161418Z.json",
+    "candidateNameDescriptionPathDifferences": 0
+  },
+  "metadataBackupStartedAt": "2026-10-23T10:14:18.110Z",
+  "metadataBackupCompletedAt": "2026-10-23T10:14:20.948Z",
+  "validation": {
+    "checkedAgainstSavedProjects": 362,
+    "candidateCount": 22,
+    "duplicateProposedTitles": 0,
+    "collisionsWithOtherSavedTitles": 0,
+    "sourceReferencesChecked": 32,
+    "liveUniquenessStillRequired": false,
+    "checkedAgainstLiveProjects": 371,
+    "recheckImmediatelyBeforeWrite": true,
+    "liveExactOrPunctuationNormalizedCollisions": 0
+  },
+  "titlePreference": "George requested removal of parenthetical historical Project numbers on 26 November. Keep the numbers in descriptions/history and existing paths. Batch codes in otherwise ambiguous Saunders titles remain useful identifiers."
+}

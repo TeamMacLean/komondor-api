@@ -1,0 +1,159 @@
+{
+  "at": "2026-11-26T17:35:03.569Z",
+  "planSha256": "3269f926cc17847ee5e2d3b2a58e84b022ada6588822224a830aabc7084f04c3",
+  "projects": 15,
+  "renamed": 14,
+  "modelValidationPassed": true,
+  "allOtherProjectFieldsUnchanged": true,
+  "priorAuditHistoryUnchanged": true,
+  "dependentRecords": {
+    "samples": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "runs": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "files": {
+      "count": 763,
+      "sha256": "5b7bf21bfcb813668d4801debec7032d6db1ca8c2f853bcf3737c0c02d6978f3"
+    },
+    "reads": {
+      "count": 0,
+      "sha256": "c7fa6b0f652c3aea4ad46b2506dedddc262675d8761c1faee8c407ab6558109e"
+    },
+    "additionalfiles": {
+      "count": 763,
+      "sha256": "78ff2cce4a1893fb6169a8bcf4ee0280854d376475ec0dcf8186e160babec4a1"
+    }
+  },
+  "fileLocations": {
+    "count": 763,
+    "sha256": "c150af11904b59e0fa56e92c5f5cf4f865880c3c672d7709fcd2ed1cc243ff04"
+  },
+  "retainedHpcRoots": 15,
+  "productionCodeChanged": false,
+  "results": [
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "oldName": "Courville",
+      "name": "Courville",
+      "path": "/two_blades/Courville",
+      "s3Uri": "s3://tsl-hpc-reads/two_blades/Courville",
+      "shortDesc": "Infection RNA-seq data stored under the Courville project label."
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "oldName": "project_2370",
+      "name": "LacO insertion-site analysis",
+      "path": "/ntalbot/project_2370",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2370",
+      "shortDesc": "Mapping of LacO insertion sites, with GFP–LacI–NLS construct information."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "oldName": "project_2035",
+      "name": "PKC1 inhibition RNA-seq",
+      "path": "/ntalbot/project_2035",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2035",
+      "shortDesc": "RNA-seq of M. oryzae pkc1AS mycelium with and without the inhibitor 1NA-PP1."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "oldName": "project_809",
+      "name": "Smo1 mutant and progeny sequencing",
+      "path": "/ntalbot/project_809",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_809",
+      "shortDesc": "Sequence analysis of the Smo1 mutant parent and wild-type and mutant progeny bulks from a cross with TH3."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "oldName": "project_2323",
+      "name": "pmk1AS leaf-sheath infection RNA-seq",
+      "path": "/ntalbot/project_2323",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2323",
+      "shortDesc": "RNA-seq of leaf sheaths infected with pmk1AS mutants, with and without the inhibitor 1NA-PP1."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "oldName": "project_2009",
+      "name": "Smo1 bulk segregant analysis",
+      "path": "/ntalbot/project_2009",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2009",
+      "shortDesc": "Smo1 mapping and candidate-variant analysis using bulk segregant analysis and linked markers."
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "oldName": "project_1622",
+      "name": "Nim1 mutant and revertant sequencing",
+      "path": "/ntalbot/project_1622",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_1622",
+      "shortDesc": "Sequence comparison of Nim1 mutants and revertants against the 70-15 reference genome."
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "oldName": "project_539",
+      "name": "Guy11 36-base paired-end genome sequencing",
+      "path": "/ntalbot/project_539",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_539",
+      "shortDesc": "Guy11 paired-end sequencing and alignment summary against the version 6 reference genome."
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "oldName": "project_2561",
+      "name": "Lichen genome annotation",
+      "path": "/ntalbot/project_2561",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_2561",
+      "shortDesc": "Lichen assemblies and gene prediction, including Cladonia portentosa and Xanthoria parietina."
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "oldName": "project_758",
+      "name": "M. oryzae T-DNA insertion-site analysis",
+      "path": "/ntalbot/project_758",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/project_758",
+      "shortDesc": "Analysis of T-DNA insertion sites using pCAMBgfp border sequences in an M. oryzae insertional mutant library."
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "oldName": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "name": "P. striiformis TCS (JIC.CL.20130409.01)",
+      "path": "/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+      "shortDesc": "P. striiformis files labelled Clare Lewis, TCS and JIC.CL.20130409.01."
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "oldName": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "name": "P. striiformis TCS (TSL.DS.20130809.01, 113)",
+      "path": "/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+      "shortDesc": "P. striiformis files labelled Diane Saunders, TCS and TSL.DS.20130809.01, with identifier 113."
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "oldName": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "name": "P. striiformis TCS 99 (TSL.DS.20130722.01)",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+      "shortDesc": "P. striiformis files labelled TCS 99 and TSL.DS.20130722.01."
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "oldName": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "name": "P. striiformis TCS 105 (TSL.DS.20130730.01)",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+      "shortDesc": "P. striiformis files labelled TCS 105 and TSL.DS.20130730.01."
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "oldName": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "name": "P. striiformis TCS 144 (TSL.DS.20131010.01rev2)",
+      "path": "/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "s3Uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+      "shortDesc": "P. striiformis files labelled TCS 144, TSL.DS.20131010.01rev2 and 1x Rapid Lane."
+    }
+  ]
+}

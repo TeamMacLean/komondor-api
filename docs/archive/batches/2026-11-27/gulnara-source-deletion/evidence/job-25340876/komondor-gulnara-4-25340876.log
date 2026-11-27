@@ -1,0 +1,81 @@
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-reviewed-projects.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK
+destination-check.json: OK
+hold-release.json: OK
+summary.json: OK
+Job=25340876 Tasks=1 CPUsPerTask=1 Nodes=1 MemoryPerNodeMB=1024
+t384n8
+Python 3.9.25
+rm (GNU coreutils) 8.32
+JobId=25340876 JobName=komondor-gulnara-4
+   UserId=deeks(14014) GroupId=TSL_20(11045) MCS_label=N/A
+   Priority=10889 Nice=0 Account=tsl QOS=normal WCKey=*bioinformatics_core
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:01 TimeLimit=02:00:00 TimeMin=N/A
+   SubmitTime=2026-11-27T14:24:30 EligibleTime=2026-11-27T14:24:30
+   AccrueTime=2026-11-27T14:24:30
+   StartTime=2026-11-27T14:24:32 EndTime=2026-11-27T16:24:32 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T14:24:32 Scheduler=Main
+   Partition=tsl-compute AllocNode:Sid=localhost:1313141
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=t384n8
+   BatchHost=t384n8
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=1,mem=1G,node=1,billing=1
+   AllocTRES=cpu=1,mem=1G,node=1,billing=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=1G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/hpc-home/deeks/komondor-gulnara4-20261127/komondor-gulnara-source-delete-20261127-01/delete.sbatch
+   WorkDir=/hpc-home/deeks/komondor-gulnara4-20261127/komondor-gulnara-source-delete-20261127-01
+   AdminComment=** partition (tsl-short) ** 
+   StdErr=/hpc-home/deeks/komondor-gulnara4-20261127/komondor-gulnara-source-delete-20261127-01/komondor-gulnara-4-25340876.log
+   StdIn=/dev/null
+   StdOut=/hpc-home/deeks/komondor-gulnara4-20261127/komondor-gulnara-source-delete-20261127-01/komondor-gulnara-4-25340876.log
+   Power=
+   
+
+{"at": "2026-11-27T14:24:34.643429+00:00", "event": "started", "execute": true, "host": "t384n8", "planSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf", "slurmJobId": "25340876", "stage": "gulnara-four-sources", "uid": 14014}
+{"at": "2026-11-27T14:24:35.122770+00:00", "event": "preflight-passed", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:35.468896+00:00", "event": "preflight-passed", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:35.993479+00:00", "event": "preflight-passed", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:36.389149+00:00", "event": "preflight-passed", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:24:36.492611+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:46.040193+00:00", "bytes": 173734125362, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days", "projectId": "5fd1ed55d8dd4a63058cc1c9"}
+{"at": "2026-11-27T14:24:46.193124+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:51.235351+00:00", "bytes": 105611175618, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days", "projectId": "61204424e788b405b6ce6bde"}
+{"at": "2026-11-27T14:24:51.381163+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:57.400909+00:00", "bytes": 99954671448, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days", "projectId": "5fdb2d62d7661b6ec22a0571"}
+{"at": "2026-11-27T14:24:57.574100+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:25:03.948631+00:00", "bytes": 103438441044, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days", "projectId": "611ff26de788b405b6ce6a4c"}
+{"at": "2026-11-27T14:25:04.031273+00:00", "databaseConfirmationRequired": true, "event": "complete", "projects": 4, "protectedCopiesIntact": true}
+	Command being timed: "python3 delete-reviewed-projects.py --plan deletion-plan.json --sha256 e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf --execute --log deletion-25340876.jsonl"
+	User time (seconds): 0.51
+	System time (seconds): 0.44
+	Percent of CPU this job got: 3%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:30.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 18176
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5857
+	Voluntary context switches: 5847
+	Involuntary context switches: 74
+	Swaps: 0
+	File system inputs: 128
+	File system outputs: 160
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

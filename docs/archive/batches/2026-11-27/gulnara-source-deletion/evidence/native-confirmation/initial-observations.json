@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-27T14:41:32.933Z",
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "absentTargets": 4,
+  "destinationFiles": 40,
+  "stagingFiles": 40,
+  "gargyPresent": true
+}

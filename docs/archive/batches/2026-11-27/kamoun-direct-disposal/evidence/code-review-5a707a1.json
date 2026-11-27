@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-27T15:03:22.919752+00:00",
+  "fromHead": "2474c4a4b070041a4e42f4148a25f8c7832137eb",
+  "toHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "changedFiles": [
+    "BREAKING_CHANGES.md",
+    "docs/S3_PROJECT_ARCHIVAL_RUNBOOK.md",
+    "docs/archive/GULNARA_ENA_REASSIGNMENT_2026-10-30.md",
+    "docs/archive/HPC_DELETION_CHECKLIST.md",
+    "docs/archive/HPC_RETENTION.md",
+    "docs/archive/STATUS.md"
+  ],
+  "runtimeCodeChanged": false,
+  "liveCheckStoppedBeforeMutation": true,
+  "originalPlanSha256": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed",
+  "originalPlanPreserved": "retirement-plan-r1.json"
+}

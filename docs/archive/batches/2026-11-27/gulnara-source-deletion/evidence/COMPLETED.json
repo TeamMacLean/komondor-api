@@ -1,0 +1,43 @@
+{
+  "kind": "gulnara-four-source-deletion-completed-v1",
+  "at": "2026-11-27T14:44:20.999376+00:00",
+  "success": true,
+  "jobId": "25340876",
+  "projects": 4,
+  "files": 452,
+  "bytes": 482738413472,
+  "reportedSlurmRuntimeSeconds": 32,
+  "nativeCompletedAt": "2026-11-27T14:42:13.902Z",
+  "cohortAuditedAt": "2026-11-27T14:42:35.192Z",
+  "originalBatch": {
+    "projects": 175,
+    "awsOnly": 174,
+    "hpcAndAws": 1,
+    "remainingProjectId": "5fc012bda3efcb29338b7d58",
+    "preserveOnHpcUntil": "2027-11-26T23:59:59.999Z"
+  },
+  "destinationFilesPreserved": 40,
+  "destinationBytesPreserved": 41432635417,
+  "destinationSamples": 12,
+  "destinationRuns": 12,
+  "sourceAndDestinationAssociationsUnchanged": true,
+  "originalArchiveIdentitiesAndTransferDatesUnchanged": true,
+  "gargyPreserved": true,
+  "stagingPreserved": true,
+  "enaWorkingCsvPreserved": true,
+  "s3ObjectsDeleted": 0,
+  "gulnaraSignoffReceived": false,
+  "replyCheckpointWaivedByGeorge": true,
+  "apiHeadDuringSourceReview": "12e7f1da1537b693f60c86d692f0c3236edcf299",
+  "apiHeadDuringConfirmation": "2474c4a4b070041a4e42f4148a25f8c7832137eb",
+  "firstConfirmationAttemptStoppedBeforeNativeCommands": true,
+  "evidence": {
+    "job-25340876/job-25340876-audit.json": "ce9e529ab8345b39e156b2c98a181dcb3b7035e40411b9d0a97489ea039ae9be",
+    "native-confirmation/completed.json": "cafd500b4af5e798548a1a623ac4502ccc89119d3a008a2c1a439f2f80ba0d82",
+    "native-confirmation/cohort-final.json": "d2426710c806a49d9881bfbe76e96e1530e6227e0fa6d43663e970cafcbb18e1",
+    "native-confirmation-copy.json": "97174b1df7fcaef2212fa94535a5a6de23826062858af32759ebb013b6e75deb",
+    "website-checks-20261127.json": "5e41844ed94782413ea2aa101bda9c052f9bd916d54621f2b664d0ae878bf1d0",
+    "api-change-review.json": "dde08a598d49cbe36edc147db13988a5e241462fe18978a12075c606edbfebfe",
+    "confirmation-attempt-1-failure.json": "3e6ba137dd48bf09516ca5c8864cb33220d46461026cba79d7c15e0e7a9477e5"
+  }
+}

@@ -1,0 +1,8 @@
+{"at": "2026-11-27T12:53:13.871492+00:00", "event": "started", "execute": true, "host": "t384n18", "planSha256": "79778948f8d92ae888a3c8ba275c2245d248bbdf41c717c094a1043a23269489", "slurmJobId": "25339708", "stage": "pilot-2", "uid": 14014}
+{"at": "2026-11-27T12:53:13.905081+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d13"}
+{"at": "2026-11-27T12:53:13.953284+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d4e"}
+{"at": "2026-11-27T12:53:13.962491+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_", "projectId": "5fc012bda3efcb29338b7d13"}
+{"at": "2026-11-27T12:53:15.432792+00:00", "bytes": 298166898, "event": "deleted", "path": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_", "projectId": "5fc012bda3efcb29338b7d13"}
+{"at": "2026-11-27T12:53:15.439924+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2", "projectId": "5fc012bda3efcb29338b7d4e"}
+{"at": "2026-11-27T12:53:16.604033+00:00", "bytes": 89834094, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2", "projectId": "5fc012bda3efcb29338b7d4e"}
+{"at": "2026-11-27T12:53:16.605276+00:00", "databaseConfirmationRequired": true, "event": "complete", "projects": 2}

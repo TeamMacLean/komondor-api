@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-27T15:12:49.296096+00:00",
+  "uid": 14014,
+  "checkedDirectories": 168,
+  "allWritableAndSearchable": true,
+  "failures": [],
+  "note": "Read-only access check on VM mount as deeks; HPC job independently repeats permissions before any deletion."
+}

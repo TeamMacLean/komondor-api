@@ -1,0 +1,4066 @@
+{
+  "kind": "komondor-archive-completion-publication-v1",
+  "at": "2026-11-27T15:31:32.531627+00:00",
+  "baseCommit": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "reviewBranch": "codex/archive-disposal-completion-20261127",
+  "sourceWorktree": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api",
+  "summary": {
+    "exclude-generated": {
+      "files": 16,
+      "bytes": 315318
+    },
+    "external-retained": {
+      "files": 18,
+      "bytes": 42427697
+    },
+    "include": {
+      "files": 376,
+      "bytes": 25251389
+    }
+  },
+  "rawEvidenceUnchanged": true,
+  "applicationCodeChanged": false,
+  "entries": [
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/HELD_PATHS.txt",
+      "size": 247,
+      "sha256": "d30d72539e7f7a09ac2eeaa4439b01cb495cd89dee66266ed0379bf65edee87b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 247,
+      "publishedSha256": "d30d72539e7f7a09ac2eeaa4439b01cb495cd89dee66266ed0379bf65edee87b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/HPC_PATHS.txt",
+      "size": 9970,
+      "sha256": "188830e82403b540df940d1464726ad0ccbaa2d1284564cdd792cbf62be2cbc9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9970,
+      "publishedSha256": "188830e82403b540df940d1464726ad0ccbaa2d1284564cdd792cbf62be2cbc9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/PROJECTS.tsv",
+      "size": 31340,
+      "sha256": "4b78b26b0722e3dbddfd27d615597ff80f088a675cbd90ee4456bafc1ca748cf",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 31340,
+      "publishedSha256": "4b78b26b0722e3dbddfd27d615597ff80f088a675cbd90ee4456bafc1ca748cf",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/README.md",
+      "size": 6769,
+      "sha256": "fa2724c2199ac50be449c01f732a231d05115189ea7c2dc42cef9812b38ebf19",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6769,
+      "publishedSha256": "fa2724c2199ac50be449c01f732a231d05115189ea7c2dc42cef9812b38ebf19",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/REVIEW.json",
+      "size": 569,
+      "sha256": "b307e2d14e4882ebba91275639061f9553f8cc05400e649d9c202628bdc1f053",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 569,
+      "publishedSha256": "b307e2d14e4882ebba91275639061f9553f8cc05400e649d9c202628bdc1f053",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/SHA256SUMS",
+      "size": 1212,
+      "sha256": "6f3e069bbe2dbdf69764a614538ae32a3045bedc098f9b77f5b6cc8738238532",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1212,
+      "publishedSha256": "6f3e069bbe2dbdf69764a614538ae32a3045bedc098f9b77f5b6cc8738238532",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/catalogue-final.json",
+      "size": 150008,
+      "sha256": "0375d7849b598b9dd7d22fd3666824edfd2d35c08995243577c11b6f95a5d84e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 150008,
+      "publishedSha256": "0375d7849b598b9dd7d22fd3666824edfd2d35c08995243577c11b6f95a5d84e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/final-review-r2.json",
+      "size": 106217,
+      "sha256": "d0996b49f6d51e334b25e18ebed93b35e6976932774bcad3cd127fb47ffe125b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 106217,
+      "publishedSha256": "d0996b49f6d51e334b25e18ebed93b35e6976932774bcad3cd127fb47ffe125b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/preflight.json",
+      "size": 180211,
+      "sha256": "d1536a224816025b2faba13f97fb7f499b27cfaeb5b4ade02fac15bbc6e24f26",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 180211,
+      "publishedSha256": "d1536a224816025b2faba13f97fb7f499b27cfaeb5b4ade02fac15bbc6e24f26",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz",
+      "size": 5965287,
+      "sha256": "b71f30a2344e3b69be0e4ee196dabe0ee79a9098fde1058b884bc8060ac6b71a",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz",
+      "registerAnchor": "artifact-1"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/summary.json",
+      "size": 43816,
+      "sha256": "6ab94c432197217e4bbf0ba435b8afaf5e96f2e72cb58bca3fb2a6bc117db935",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 43816,
+      "publishedSha256": "6ab94c432197217e4bbf0ba435b8afaf5e96f2e72cb58bca3fb2a6bc117db935",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/tools/audit.cjs",
+      "size": 6754,
+      "sha256": "30c9ab707b27220142162d61186b888eefb5ae5acbac2f8acb3654576f7350e9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6754,
+      "publishedSha256": "30c9ab707b27220142162d61186b888eefb5ae5acbac2f8acb3654576f7350e9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/tools/build_review.py",
+      "size": 8183,
+      "sha256": "e84455b0bf4fd1a7635303daed655dda9b1a467f9752bfaedaab05ba83f84a06",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8183,
+      "publishedSha256": "e84455b0bf4fd1a7635303daed655dda9b1a467f9752bfaedaab05ba83f84a06",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/tools/catalogue.cjs",
+      "size": 3758,
+      "sha256": "8204cbaa00b78a0f0a719c28278f4d467565dec0c39e99b828e2b7261ac83f79",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3758,
+      "publishedSha256": "8204cbaa00b78a0f0a719c28278f4d467565dec0c39e99b828e2b7261ac83f79",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/tools/final-check.cjs",
+      "size": 6635,
+      "sha256": "9eb1199429479b3915e4ece3a281b714219ea4db6e89753d7515f115f60c033b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6635,
+      "publishedSha256": "9eb1199429479b3915e4ece3a281b714219ea4db6e89753d7515f115f60c033b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/README.md",
+      "size": 8305,
+      "sha256": "366c2bd0a14092252685afa44c58431c9c30f82876e9bb9f1f199eeca25ab8e5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8305,
+      "publishedSha256": "366c2bd0a14092252685afa44c58431c9c30f82876e9bb9f1f199eeca25ab8e5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/confirm-plant-capture.cjs",
+      "size": 4652,
+      "sha256": "98859804da9f61bf2795234a724790ac89972f08037e32ed6f5eb6d1591bd531",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4652,
+      "publishedSha256": "98859804da9f61bf2795234a724790ac89972f08037e32ed6f5eb6d1591bd531",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/access-failure.json",
+      "size": 263,
+      "sha256": "c26d920024d29a002bb4df065ab75a95d71624e777166fcba9d730de36dc1998",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 263,
+      "publishedSha256": "c26d920024d29a002bb4df065ab75a95d71624e777166fcba9d730de36dc1998",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/manual-head-20261127.json",
+      "size": 766,
+      "sha256": "481ccf11b3f3090ccd6468c984d62b48745f6e2f6f885d99dbc9ece4da2a275e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 766,
+      "publishedSha256": "481ccf11b3f3090ccd6468c984d62b48745f6e2f6f885d99dbc9ece4da2a275e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-before-manual-deletion-20261127.json",
+      "size": 4808,
+      "sha256": "7f4998f9d1dcb763a10cbe1b689d48ee4923a3a7f0c16dafa37bdce09c3ae6d7",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4808,
+      "publishedSha256": "7f4998f9d1dcb763a10cbe1b689d48ee4923a3a7f0c16dafa37bdce09c3ae6d7",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz",
+      "size": 5090,
+      "sha256": "e4bcb23fc487ec454b1ce4e94c3b790483d5c6601526ffb1dfc139bb3fb7ba06",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz",
+      "registerAnchor": "artifact-2"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmed-20261127.json",
+      "size": 2186,
+      "sha256": "7055c6f80e414bfa5f36a30a5db946de41a1f8e6907ebfc8cd796dc4f99cdf85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2186,
+      "publishedSha256": "7055c6f80e414bfa5f36a30a5db946de41a1f8e6907ebfc8cd796dc4f99cdf85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-manual-inspection-20261127.txt",
+      "size": 1395,
+      "sha256": "a9c71389d50a55acbc8c4bf0955f9a1bd3935c3c51ab31035cf3bc04eff9b9fe",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1395,
+      "publishedSha256": "a9c71389d50a55acbc8c4bf0955f9a1bd3935c3c51ab31035cf3bc04eff9b9fe",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/prepared-20261127.json",
+      "size": 4636,
+      "sha256": "f676477bfb981196eace92a0821601fc65d78c15a9401da665f2640783d7ca0e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4636,
+      "publishedSha256": "f676477bfb981196eace92a0821601fc65d78c15a9401da665f2640783d7ca0e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/prepared-plant-capture-20261127.json",
+      "size": 4808,
+      "sha256": "ac840e0113dfd68523bc742b6852d1cfc39f833954cf8e10981dd45c69dd4a07",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4808,
+      "publishedSha256": "ac840e0113dfd68523bc742b6852d1cfc39f833954cf8e10981dd45c69dd4a07",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/raw-read-investigation-20261127.json",
+      "size": 18600,
+      "sha256": "c64f40580fd26964bd11625af27d900eb475c975f8b4f366833138f4168ad454",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 18600,
+      "publishedSha256": "c64f40580fd26964bd11625af27d900eb475c975f8b4f366833138f4168ad454",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/ssh-unavailable.stdout",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 0,
+      "publishedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/prepare-plant-capture.cjs",
+      "size": 3799,
+      "sha256": "76c7b6798c684886f1b825f910dcee9bb9c557b5bc97dfbbb78645d0aee59819",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3799,
+      "publishedSha256": "76c7b6798c684886f1b825f910dcee9bb9c557b5bc97dfbbb78645d0aee59819",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/prepare.cjs",
+      "size": 3811,
+      "sha256": "98cbab425d47dda9f5fd227fc4b8b44ae3a11c96a313126bb464cca41373bc17",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3811,
+      "publishedSha256": "98cbab425d47dda9f5fd227fc4b8b44ae3a11c96a313126bb464cca41373bc17",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/README.md",
+      "size": 10414,
+      "sha256": "1659463098f3aecdc0c36618478e809c5dcf4372ce593219d74e02f158b1921e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 10414,
+      "publishedSha256": "1659463098f3aecdc0c36618478e809c5dcf4372ce593219d74e02f158b1921e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/COMPLETED.json",
+      "size": 1955,
+      "sha256": "811336305dfab6b902c0b03d437a73e6d2d8297865af799cc4800053f1d4391d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1955,
+      "publishedSha256": "811336305dfab6b902c0b03d437a73e6d2d8297865af799cc4800053f1d4391d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/READY.json",
+      "size": 906,
+      "sha256": "4ddf5076724ffa6fb7a04a421ad710f7ecd76fe0f3ae7f3b0e232e3f7aa9412a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 906,
+      "publishedSha256": "4ddf5076724ffa6fb7a04a421ad710f7ecd76fe0f3ae7f3b0e232e3f7aa9412a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/api-change-2474c4a.diff",
+      "size": 19075,
+      "sha256": "2b5db88fcd94d5fe4646ce7ce3c11dd81462d5a9868d841be9d683d123cb6caf",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 19075,
+      "publishedSha256": "2b5db88fcd94d5fe4646ce7ce3c11dd81462d5a9868d841be9d683d123cb6caf",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/api-change-review.json",
+      "size": 409,
+      "sha256": "dde08a598d49cbe36edc147db13988a5e241462fe18978a12075c606edbfebfe",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 409,
+      "publishedSha256": "dde08a598d49cbe36edc147db13988a5e241462fe18978a12075c606edbfebfe",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/confirmation-attempt-1-failure.json",
+      "size": 612,
+      "sha256": "3e6ba137dd48bf09516ca5c8864cb33220d46461026cba79d7c15e0e7a9477e5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 612,
+      "publishedSha256": "3e6ba137dd48bf09516ca5c8864cb33220d46461026cba79d7c15e0e7a9477e5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-copy-receipt.json",
+      "size": 407,
+      "sha256": "a58b0a42bd37985c18f53103669522e21ac944d70b39c6eaa3cd41e37bd0d500",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 407,
+      "publishedSha256": "a58b0a42bd37985c18f53103669522e21ac944d70b39c6eaa3cd41e37bd0d500",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-launch.json",
+      "size": 287,
+      "sha256": "ce79bfcab11dde2af1b959e56a1db4f3c06050b23aae59872ecaff7003da4206",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 287,
+      "publishedSha256": "ce79bfcab11dde2af1b959e56a1db4f3c06050b23aae59872ecaff7003da4206",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz",
+      "size": 108392,
+      "sha256": "50e9dd13be4a06105b57448315540497a7142425ad8a53bc376db8fe87b547cb",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz",
+      "registerAnchor": "artifact-3"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/hold-release.json",
+      "size": 799,
+      "sha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 799,
+      "publishedSha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/independent-final-review.json",
+      "size": 709,
+      "sha256": "3e9294fdb0b0688ee09ac8bc8333e4f9c6896cbecd19d6f32fafe3a62f603628",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 709,
+      "publishedSha256": "3e9294fdb0b0688ee09ac8bc8333e4f9c6896cbecd19d6f32fafe3a62f603628",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/job-25340876/deletion-25340876.jsonl",
+      "size": 2304,
+      "sha256": "1785d078472494643f88f7247727074edb4ef77da35b9cfdaf8b36588d29edcc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2304,
+      "publishedSha256": "1785d078472494643f88f7247727074edb4ef77da35b9cfdaf8b36588d29edcc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/job-25340876/job-25340876-audit.json",
+      "size": 3764,
+      "sha256": "ce9e529ab8345b39e156b2c98a181dcb3b7035e40411b9d0a97489ea039ae9be",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3764,
+      "publishedSha256": "ce9e529ab8345b39e156b2c98a181dcb3b7035e40411b9d0a97489ea039ae9be",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/job-25340876/komondor-gulnara-4-25340876.log",
+      "size": 5148,
+      "sha256": "936c03f9e7b616ef19e3bea79a7fdffe73c628624544d31e878bf8faf22f0d85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5148,
+      "publishedSha256": "936c03f9e7b616ef19e3bea79a7fdffe73c628624544d31e878bf8faf22f0d85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/job-25340876/reported-job-25340876.json",
+      "size": 589,
+      "sha256": "20274b91d9b27bb0762876c0eee63a0d0794925ad781ea8623c47c7d43532ef1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 589,
+      "publishedSha256": "20274b91d9b27bb0762876c0eee63a0d0794925ad781ea8623c47c7d43532ef1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-after.json",
+      "size": 252534,
+      "sha256": "f0b2fd7904ad10d4b5961543c3c0dfebd2358891bb8efdc9d07a3fa949425815",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 252534,
+      "publishedSha256": "f0b2fd7904ad10d4b5961543c3c0dfebd2358891bb8efdc9d07a3fa949425815",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-before.json",
+      "size": 282259,
+      "sha256": "5b17377316d0d55458813c813e7d8ef58a1eb968fed10235529d87a72cf66f57",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 282259,
+      "publishedSha256": "5b17377316d0d55458813c813e7d8ef58a1eb968fed10235529d87a72cf66f57",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-completed.json",
+      "size": 1047,
+      "sha256": "05e283705457a718f8d31251d278e9b06f1a5b763279a6c3df5b56c3874aa8bb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1047,
+      "publishedSha256": "05e283705457a718f8d31251d278e9b06f1a5b763279a6c3df5b56c3874aa8bb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-confirmation.json",
+      "size": 416,
+      "sha256": "66eb9b0e1e689f8df3bf91437ea6601227a2420428c08f065436758fe63d06c6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 416,
+      "publishedSha256": "66eb9b0e1e689f8df3bf91437ea6601227a2420428c08f065436758fe63d06c6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-dry-run.json",
+      "size": 390,
+      "sha256": "18cc000d35539dad65ccac6f5605c0cba6d9b6fc7a7c19cedbd199b90f8108f9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 390,
+      "publishedSha256": "18cc000d35539dad65ccac6f5605c0cba6d9b6fc7a7c19cedbd199b90f8108f9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-source-manifest.v1.json",
+      "size": 290973,
+      "sha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 290973,
+      "publishedSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fd1ed55d8dd4a63058cc1c9-verification-report.v1.json",
+      "size": 66655,
+      "sha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 66655,
+      "publishedSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-after.json",
+      "size": 166316,
+      "sha256": "d4bc508074da43194b7e36b95d0e5f688bb31377178d65e146f71cbd6854c27e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 166316,
+      "publishedSha256": "d4bc508074da43194b7e36b95d0e5f688bb31377178d65e146f71cbd6854c27e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-before.json",
+      "size": 185224,
+      "sha256": "b8588f2b49823ec6d4414585dd1d748b0563be9903115ede33c6e27fc3eda15e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 185224,
+      "publishedSha256": "b8588f2b49823ec6d4414585dd1d748b0563be9903115ede33c6e27fc3eda15e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-completed.json",
+      "size": 1047,
+      "sha256": "56b93794cf5a96f15c061c1ad7f8ca42b9a8505d9f706b00622ffcc469dc267f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1047,
+      "publishedSha256": "56b93794cf5a96f15c061c1ad7f8ca42b9a8505d9f706b00622ffcc469dc267f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-confirmation.json",
+      "size": 416,
+      "sha256": "4ad62cda75f8bba49faa7c396f6632cd68f7914885459b6beb87752673b128c5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 416,
+      "publishedSha256": "4ad62cda75f8bba49faa7c396f6632cd68f7914885459b6beb87752673b128c5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-dry-run.json",
+      "size": 390,
+      "sha256": "fa12d70c90b47eecfae5e94205c9ccf4cc2197f6c82232b6a868f69cbef73eb5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 390,
+      "publishedSha256": "fa12d70c90b47eecfae5e94205c9ccf4cc2197f6c82232b6a868f69cbef73eb5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-source-manifest.v1.json",
+      "size": 197004,
+      "sha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 197004,
+      "publishedSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/5fdb2d62d7661b6ec22a0571-verification-report.v1.json",
+      "size": 42347,
+      "sha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 42347,
+      "publishedSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-after.json",
+      "size": 244758,
+      "sha256": "b49046b625841e7351fa68bfd9893feb1f318d4a2c72836b53c3eedb45e75674",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 244758,
+      "publishedSha256": "b49046b625841e7351fa68bfd9893feb1f318d4a2c72836b53c3eedb45e75674",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-before.json",
+      "size": 269563,
+      "sha256": "d604aa0202ebcb795f30748cb8fefe9bc69632380d1d72d072aa6e4e01dd51cc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 269563,
+      "publishedSha256": "d604aa0202ebcb795f30748cb8fefe9bc69632380d1d72d072aa6e4e01dd51cc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-completed.json",
+      "size": 1044,
+      "sha256": "57ec3bdcfdfc1da1c36e0cce53fb342d462c868251914370b021a69b7d0d950c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1044,
+      "publishedSha256": "57ec3bdcfdfc1da1c36e0cce53fb342d462c868251914370b021a69b7d0d950c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-confirmation.json",
+      "size": 416,
+      "sha256": "b1be28e798ad7b93521764047952c3892a6853ea879bd0ee8ddebf28d6d67b0b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 416,
+      "publishedSha256": "b1be28e798ad7b93521764047952c3892a6853ea879bd0ee8ddebf28d6d67b0b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-dry-run.json",
+      "size": 390,
+      "sha256": "4bfc6952385d7094ca464efbcf9957efbf4a38eea38375644479ff83a70ab8fb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 390,
+      "publishedSha256": "4bfc6952385d7094ca464efbcf9957efbf4a38eea38375644479ff83a70ab8fb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-source-manifest.v1.json",
+      "size": 269124,
+      "sha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 269124,
+      "publishedSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/611ff26de788b405b6ce6a4c-verification-report.v1.json",
+      "size": 55852,
+      "sha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 55852,
+      "publishedSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-after.json",
+      "size": 190263,
+      "sha256": "b179d229462fcb915881fb69c3bd4c681127458491a7de34f476c530e7c032a8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 190263,
+      "publishedSha256": "b179d229462fcb915881fb69c3bd4c681127458491a7de34f476c530e7c032a8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-before.json",
+      "size": 210956,
+      "sha256": "9984bbc611229993cd281a6f3bbf0b70bf6a570eea1bc406d357b3cecbbec339",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 210956,
+      "publishedSha256": "9984bbc611229993cd281a6f3bbf0b70bf6a570eea1bc406d357b3cecbbec339",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-completed.json",
+      "size": 1044,
+      "sha256": "d047a082a97d1afee3f51ded44705cfa0ef6982563d2eed5af1f9989b5278c97",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1044,
+      "publishedSha256": "d047a082a97d1afee3f51ded44705cfa0ef6982563d2eed5af1f9989b5278c97",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-confirmation.json",
+      "size": 416,
+      "sha256": "158b23ec66873a11513c2b6cd833bc490b8958507b2279d36299b670cefbc86c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 416,
+      "publishedSha256": "158b23ec66873a11513c2b6cd833bc490b8958507b2279d36299b670cefbc86c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-dry-run.json",
+      "size": 390,
+      "sha256": "26f83532a666c69a5c2fe5243df34fd567d9c7082a5a113d0e20f4efb2239b13",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 390,
+      "publishedSha256": "26f83532a666c69a5c2fe5243df34fd567d9c7082a5a113d0e20f4efb2239b13",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-source-manifest.v1.json",
+      "size": 207388,
+      "sha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 207388,
+      "publishedSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/61204424e788b405b6ce6bde-verification-report.v1.json",
+      "size": 46337,
+      "sha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 46337,
+      "publishedSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/all-before-snapshots-passed.json",
+      "size": 375,
+      "sha256": "3b1fb35c18d68e8d64e0b0c9a7618d53ea0c9c00692c9adea8538782279bd49f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 375,
+      "publishedSha256": "3b1fb35c18d68e8d64e0b0c9a7618d53ea0c9c00692c9adea8538782279bd49f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/all-dry-runs-passed.json",
+      "size": 375,
+      "sha256": "c631caa01f58e6da9a9bf8c05c054ab5faccaf32dd2a7ea984a892cbe9cbb47d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 375,
+      "publishedSha256": "c631caa01f58e6da9a9bf8c05c054ab5faccaf32dd2a7ea984a892cbe9cbb47d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/api-change-review.json",
+      "size": 409,
+      "sha256": "dde08a598d49cbe36edc147db13988a5e241462fe18978a12075c606edbfebfe",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 409,
+      "publishedSha256": "dde08a598d49cbe36edc147db13988a5e241462fe18978a12075c606edbfebfe",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/cohort-final.json",
+      "size": 77343,
+      "sha256": "d2426710c806a49d9881bfbe76e96e1530e6227e0fa6d43663e970cafcbb18e1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 77343,
+      "publishedSha256": "d2426710c806a49d9881bfbe76e96e1530e6227e0fa6d43663e970cafcbb18e1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/commands.json",
+      "size": 3467,
+      "sha256": "e356236645773a2d43abc523228938d478a3a4d40bde2c9708bdcdbbe529087c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3467,
+      "publishedSha256": "e356236645773a2d43abc523228938d478a3a4d40bde2c9708bdcdbbe529087c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/completed.json",
+      "size": 5883,
+      "sha256": "cafd500b4af5e798548a1a623ac4502ccc89119d3a008a2c1a439f2f80ba0d82",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5883,
+      "publishedSha256": "cafd500b4af5e798548a1a623ac4502ccc89119d3a008a2c1a439f2f80ba0d82",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/confirm-sources-r2.cjs",
+      "size": 23486,
+      "sha256": "3c4afa13a232879483ab1fca3b8df6dc8c87377adbdd72aaca367c2a8b8d2c93",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 23486,
+      "publishedSha256": "3c4afa13a232879483ab1fca3b8df6dc8c87377adbdd72aaca367c2a8b8d2c93",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/deletion-25340876.jsonl",
+      "size": 2304,
+      "sha256": "1785d078472494643f88f7247727074edb4ef77da35b9cfdaf8b36588d29edcc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2304,
+      "publishedSha256": "1785d078472494643f88f7247727074edb4ef77da35b9cfdaf8b36588d29edcc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/deletion-plan.json",
+      "size": 110455,
+      "sha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 110455,
+      "publishedSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-check.json",
+      "size": 61703,
+      "sha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 61703,
+      "publishedSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json",
+      "size": 258470,
+      "sha256": "44643780dd06713fcc381f9115c476068b52fabf9884c8e597cb7ee97aae0a3f",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json",
+      "registerAnchor": "artifact-4"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
+      "size": 258162,
+      "sha256": "bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
+      "registerAnchor": "artifact-5"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
+      "size": 258162,
+      "sha256": "6dc384471bae38a4e069bc87b096c7c99887c862e151bd7eff9c413ae8a54351",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
+      "registerAnchor": "artifact-6"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/initial-observations.json",
+      "size": 278,
+      "sha256": "e7cd1ffcef2e099ae43f3f4e9275f118817e5c79ba2c249404534d9f0fa81d7a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 278,
+      "publishedSha256": "e7cd1ffcef2e099ae43f3f4e9275f118817e5c79ba2c249404534d9f0fa81d7a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/job-25340876-audit.json",
+      "size": 3764,
+      "sha256": "ce9e529ab8345b39e156b2c98a181dcb3b7035e40411b9d0a97489ea039ae9be",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3764,
+      "publishedSha256": "ce9e529ab8345b39e156b2c98a181dcb3b7035e40411b9d0a97489ea039ae9be",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/komondor-gulnara-4-25340876.log",
+      "size": 5148,
+      "sha256": "936c03f9e7b616ef19e3bea79a7fdffe73c628624544d31e878bf8faf22f0d85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5148,
+      "publishedSha256": "936c03f9e7b616ef19e3bea79a7fdffe73c628624544d31e878bf8faf22f0d85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/protected-after.json",
+      "size": 298210,
+      "sha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 298210,
+      "publishedSha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/protected-before.json",
+      "size": 298210,
+      "sha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 298210,
+      "publishedSha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz",
+      "size": 443321,
+      "sha256": "b01ea88dcb253646f85a753c7bc9ea12b79088b92b87d1a620ca8db729f38ab4",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz",
+      "registerAnchor": "artifact-7"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-copy.json",
+      "size": 7122,
+      "sha256": "97174b1df7fcaef2212fa94535a5a6de23826062858af32759ebb013b6e75deb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7122,
+      "publishedSha256": "97174b1df7fcaef2212fa94535a5a6de23826062858af32759ebb013b6e75deb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-copy-receipt.json",
+      "size": 310,
+      "sha256": "6efbcc5eae6091182ad0cb263112f4b03e421e7833be3bdd3cfd7d74cf338d10",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 310,
+      "publishedSha256": "6efbcc5eae6091182ad0cb263112f4b03e421e7833be3bdd3cfd7d74cf338d10",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-file-hashes.json",
+      "size": 4299,
+      "sha256": "9df6be48192478bbbc86e27a3875e6f43a1a3c5e078f221660691ae78552cbdd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4299,
+      "publishedSha256": "9df6be48192478bbbc86e27a3875e6f43a1a3c5e078f221660691ae78552cbdd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-launch.json",
+      "size": 199,
+      "sha256": "21db14b04503c9b6923f1788a03afe8707eea8ec9d5cebaf80443ed1072b180c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 199,
+      "publishedSha256": "21db14b04503c9b6923f1788a03afe8707eea8ec9d5cebaf80443ed1072b180c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz",
+      "size": 279448,
+      "sha256": "f571e39a3338ae1661e2095c60840e5a2cb1c80ddeaf2af6415a18187e4548db",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz",
+      "registerAnchor": "artifact-8"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-staging.json",
+      "size": 387,
+      "sha256": "dfd06a704b718583c1542f26f8c65d652792dd03d3cb18292ce353b4e850339f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 387,
+      "publishedSha256": "dfd06a704b718583c1542f26f8c65d652792dd03d3cb18292ce353b4e850339f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/package-readonly.json",
+      "size": 3281,
+      "sha256": "aca2ea77b993abcaa8cdebd2e5c33b1d4a57582448e650d4e985f7915f4f6c4d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3281,
+      "publishedSha256": "aca2ea77b993abcaa8cdebd2e5c33b1d4a57582448e650d4e985f7915f4f6c4d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/package-staging.json",
+      "size": 303,
+      "sha256": "f7b7ecf819b63e82980ffa84a8c1275300e5874107aca80f734ce40f3a1095eb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 303,
+      "publishedSha256": "f7b7ecf819b63e82980ffa84a8c1275300e5874107aca80f734ce40f3a1095eb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/post-job-observation.json",
+      "size": 377,
+      "sha256": "03026e020bf8faf6147c00c071e8eafe929a02db3323195098adeba684831b19",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 377,
+      "publishedSha256": "03026e020bf8faf6147c00c071e8eafe929a02db3323195098adeba684831b19",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/post-job-tools-staging.json",
+      "size": 207,
+      "sha256": "fc6ead6606364d92ef20f321e88e9d07a8960f914e621d634bde10259e423dc6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 207,
+      "publishedSha256": "fc6ead6606364d92ef20f321e88e9d07a8960f914e621d634bde10259e423dc6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/register.json",
+      "size": 4084,
+      "sha256": "557a299be606cce3bef82f8db7963e7a4c7a88485a1229633a7293b98c576c8c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4084,
+      "publishedSha256": "557a299be606cce3bef82f8db7963e7a4c7a88485a1229633a7293b98c576c8c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/reported-job-25340876.json",
+      "size": 589,
+      "sha256": "20274b91d9b27bb0762876c0eee63a0d0794925ad781ea8623c47c7d43532ef1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 589,
+      "publishedSha256": "20274b91d9b27bb0762876c0eee63a0d0794925ad781ea8623c47c7d43532ef1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fd1ed55d8dd4a63058cc1c9/heads.jsonl",
+      "size": 111419,
+      "sha256": "7fb9e3606de95ea6deae281425e9f7cc2a794619ee6081b08ac9b100f9fe9161",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 111419,
+      "publishedSha256": "7fb9e3606de95ea6deae281425e9f7cc2a794619ee6081b08ac9b100f9fe9161",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fd1ed55d8dd4a63058cc1c9/result.json",
+      "size": 515,
+      "sha256": "07ac87929143ae11fa246a7b403b094f9b2799079591a5babb882800d6c61cb4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 515,
+      "publishedSha256": "07ac87929143ae11fa246a7b403b094f9b2799079591a5babb882800d6c61cb4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fd1ed55d8dd4a63058cc1c9/source-manifest.v1.json",
+      "size": 290973,
+      "sha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 290973,
+      "publishedSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fd1ed55d8dd4a63058cc1c9/verification-report.v1.json",
+      "size": 66655,
+      "sha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 66655,
+      "publishedSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fd1ed55d8dd4a63058cc1c9-before.json",
+      "size": 252377,
+      "sha256": "f5081362853c3ad0f08ed813fb621f3f4d3e4d089f7afb7db0973fcc015b1210",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 252377,
+      "publishedSha256": "f5081362853c3ad0f08ed813fb621f3f4d3e4d089f7afb7db0973fcc015b1210",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fdb2d62d7661b6ec22a0571/heads.jsonl",
+      "size": 69939,
+      "sha256": "4f2361f9c9f4ff96580a08ccb310b620ec0155923563ff541a44d34bebd9b5db",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 69939,
+      "publishedSha256": "4f2361f9c9f4ff96580a08ccb310b620ec0155923563ff541a44d34bebd9b5db",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fdb2d62d7661b6ec22a0571/result.json",
+      "size": 513,
+      "sha256": "a15c4ef86b5f5d91c556da0ba08cca03dc389c076de089bf5eabb86d34b56960",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 513,
+      "publishedSha256": "a15c4ef86b5f5d91c556da0ba08cca03dc389c076de089bf5eabb86d34b56960",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fdb2d62d7661b6ec22a0571/source-manifest.v1.json",
+      "size": 197004,
+      "sha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 197004,
+      "publishedSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fdb2d62d7661b6ec22a0571/verification-report.v1.json",
+      "size": 42347,
+      "sha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 42347,
+      "publishedSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/5fdb2d62d7661b6ec22a0571-before.json",
+      "size": 166159,
+      "sha256": "01bbcdf95a0340bcceff83dd05771b44b30765c7178817a1bb8558300e1e1639",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 166159,
+      "publishedSha256": "01bbcdf95a0340bcceff83dd05771b44b30765c7178817a1bb8558300e1e1639",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/611ff26de788b405b6ce6a4c/heads.jsonl",
+      "size": 94731,
+      "sha256": "0d0b72f4368f4f2b66c6705cfab089c7ca422cf9e05c29cb6ee67fa46d885fda",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 94731,
+      "publishedSha256": "0d0b72f4368f4f2b66c6705cfab089c7ca422cf9e05c29cb6ee67fa46d885fda",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/611ff26de788b405b6ce6a4c/result.json",
+      "size": 513,
+      "sha256": "51f5ac304056afda3c961a4ddbc807ed168383c8aea505d8c8274c06aa3789c8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 513,
+      "publishedSha256": "51f5ac304056afda3c961a4ddbc807ed168383c8aea505d8c8274c06aa3789c8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/611ff26de788b405b6ce6a4c/source-manifest.v1.json",
+      "size": 269124,
+      "sha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 269124,
+      "publishedSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/611ff26de788b405b6ce6a4c/verification-report.v1.json",
+      "size": 55852,
+      "sha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 55852,
+      "publishedSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/611ff26de788b405b6ce6a4c-before.json",
+      "size": 244601,
+      "sha256": "776993683cd051dc90764ff20c2b1962012dac4ef767c3f318099f46cc020f39",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 244601,
+      "publishedSha256": "776993683cd051dc90764ff20c2b1962012dac4ef767c3f318099f46cc020f39",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/61204424e788b405b6ce6bde/heads.jsonl",
+      "size": 77401,
+      "sha256": "36c04e16c35f0ebcdcc226deea4f111cc0313665c8edf0ef5347c0f7f7591f2e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 77401,
+      "publishedSha256": "36c04e16c35f0ebcdcc226deea4f111cc0313665c8edf0ef5347c0f7f7591f2e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/61204424e788b405b6ce6bde/result.json",
+      "size": 512,
+      "sha256": "23e80137bb0e1984cb4630b3e0dc4d226e8923e50826f325d5893e35548d570d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 512,
+      "publishedSha256": "23e80137bb0e1984cb4630b3e0dc4d226e8923e50826f325d5893e35548d570d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/61204424e788b405b6ce6bde/source-manifest.v1.json",
+      "size": 207388,
+      "sha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 207388,
+      "publishedSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/61204424e788b405b6ce6bde/verification-report.v1.json",
+      "size": 46337,
+      "sha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 46337,
+      "publishedSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/61204424e788b405b6ce6bde-before.json",
+      "size": 190106,
+      "sha256": "39b31251c43e1faecf6cd35daf610aaa8e1f8380068b335aff07148e71b50d0a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 190106,
+      "publishedSha256": "39b31251c43e1faecf6cd35daf610aaa8e1f8380068b335aff07148e71b50d0a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/catalogue-final.json",
+      "size": 33146,
+      "sha256": "e0d4b738ffe8d3f2616efd23aedcd6ceb14d7b19ec43be25bd36bc4233e5b527",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 33146,
+      "publishedSha256": "e0d4b738ffe8d3f2616efd23aedcd6ceb14d7b19ec43be25bd36bc4233e5b527",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-check.cjs",
+      "size": 14906,
+      "sha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14906,
+      "publishedSha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-check.json",
+      "size": 61703,
+      "sha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 61703,
+      "publishedSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/checker.cjs",
+      "size": 14906,
+      "sha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14906,
+      "publishedSha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-check.json",
+      "size": 61703,
+      "sha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 61703,
+      "publishedSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json",
+      "size": 258162,
+      "sha256": "bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json",
+      "registerAnchor": "artifact-9"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
+      "size": 258162,
+      "sha256": "f2fcefa6a8b4c80772604297fe458783869e95136af79d872c6074a2415bd13f",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
+      "registerAnchor": "artifact-10"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd205a8d8dd4a63058cc28d.json",
+      "size": 1296,
+      "sha256": "e7bba68dbcb81386453462795f7160095d869158f655edfbe609bd926ab8b850",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1296,
+      "publishedSha256": "e7bba68dbcb81386453462795f7160095d869158f655edfbe609bd926ab8b850",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd205a8d8dd4a63058cc28e.json",
+      "size": 1304,
+      "sha256": "fb0b8f7852f7ece699c17854b33132b6c02712c1a79ffe4491ca69a0fb631121",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "fb0b8f7852f7ece699c17854b33132b6c02712c1a79ffe4491ca69a0fb631121",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd205a8d8dd4a63058cc28f.json",
+      "size": 1274,
+      "sha256": "542782bfad2af7c730e7c5dbf05ef2b2b68b559febd4b04355673428a868a4ab",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1274,
+      "publishedSha256": "542782bfad2af7c730e7c5dbf05ef2b2b68b559febd4b04355673428a868a4ab",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd20673d8dd4a63058cc297.json",
+      "size": 1266,
+      "sha256": "055e1ba8f3180f74194cc66a74a62dc6e7481fb3c7aca67425a1d048c2fb42b8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1266,
+      "publishedSha256": "055e1ba8f3180f74194cc66a74a62dc6e7481fb3c7aca67425a1d048c2fb42b8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd20673d8dd4a63058cc298.json",
+      "size": 1294,
+      "sha256": "f4c264d5b8023328838a6797a126fb304e16f9e71be1f76869387d456297fa7e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1294,
+      "publishedSha256": "f4c264d5b8023328838a6797a126fb304e16f9e71be1f76869387d456297fa7e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd20673d8dd4a63058cc299.json",
+      "size": 1304,
+      "sha256": "9eb7a71dceb4153cb2186efbd3cfd6cd1e68347ab57c24d97216167f4545424f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "9eb7a71dceb4153cb2186efbd3cfd6cd1e68347ab57c24d97216167f4545424f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5229d7661b6ec22a0643.json",
+      "size": 1274,
+      "sha256": "366c3480c6b5030c0af91487d2333e2be160c229bcf72a40b81105765e7c9960",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1274,
+      "publishedSha256": "366c3480c6b5030c0af91487d2333e2be160c229bcf72a40b81105765e7c9960",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5229d7661b6ec22a0645.json",
+      "size": 1304,
+      "sha256": "c8ab35e671136e6ba0dafcf302435052243ff6d09976cd4b691bc8a75f6931e9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "c8ab35e671136e6ba0dafcf302435052243ff6d09976cd4b691bc8a75f6931e9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5229d7661b6ec22a0646.json",
+      "size": 1304,
+      "sha256": "99cf43b81feb10d85660c4ff264a4e451a904407b2e9db3e16432fa5d4e1e298",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "99cf43b81feb10d85660c4ff264a4e451a904407b2e9db3e16432fa5d4e1e298",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5388d7661b6ec22a064d.json",
+      "size": 1295,
+      "sha256": "9dd2588128c0f92c9939c66470a911f08565f631264da9dc448a279a93ae0f7e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1295,
+      "publishedSha256": "9dd2588128c0f92c9939c66470a911f08565f631264da9dc448a279a93ae0f7e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5388d7661b6ec22a064e.json",
+      "size": 1296,
+      "sha256": "c49ed9616da8f8167c86b1f9547ec90eb18cb19621063bd624afe740f2aeb65f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1296,
+      "publishedSha256": "c49ed9616da8f8167c86b1f9547ec90eb18cb19621063bd624afe740f2aeb65f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb5388d7661b6ec22a064f.json",
+      "size": 1274,
+      "sha256": "b2aa0634c8956ff43b7d0d7d3a4a3d702ce6b1baa3047fcc686b388d8ebe2e73",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1274,
+      "publishedSha256": "b2aa0634c8956ff43b7d0d7d3a4a3d702ce6b1baa3047fcc686b388d8ebe2e73",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb543bd7661b6ec22a0657.json",
+      "size": 1304,
+      "sha256": "51f14a338768efabf3d981802b03c721457c72a9a53e7d6a1c595935dd5260a0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "51f14a338768efabf3d981802b03c721457c72a9a53e7d6a1c595935dd5260a0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb543bd7661b6ec22a0658.json",
+      "size": 1304,
+      "sha256": "c14572fd18880d46b00ca9da722bb80197ec8277d9ed42ea0e3921b692ca4af9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "c14572fd18880d46b00ca9da722bb80197ec8277d9ed42ea0e3921b692ca4af9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fdb543bd7661b6ec22a0659.json",
+      "size": 1274,
+      "sha256": "0be16dc77c63ddf31d37f206e1a2f7fa498c232dd72067299c2ddfd3c6b48237",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1274,
+      "publishedSha256": "0be16dc77c63ddf31d37f206e1a2f7fa498c232dd72067299c2ddfd3c6b48237",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-6120146fe788b405b6ce6b44.json",
+      "size": 1232,
+      "sha256": "4ed837b15ce25561ae0a0118fb8b8a1af0a70c3477d16b5023bf11ef3c9aaa19",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1232,
+      "publishedSha256": "4ed837b15ce25561ae0a0118fb8b8a1af0a70c3477d16b5023bf11ef3c9aaa19",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612014e8e788b405b6ce6b48.json",
+      "size": 1286,
+      "sha256": "8efd7dd1caf60b26363812c7f4e3f2edf5b70bfc144c8bc6de0e7bca38ba23ad",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1286,
+      "publishedSha256": "8efd7dd1caf60b26363812c7f4e3f2edf5b70bfc144c8bc6de0e7bca38ba23ad",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612014e8e788b405b6ce6b49.json",
+      "size": 1292,
+      "sha256": "d0651015f16917e95936dd7721803d6b2fede3ff7686974e7d17df076279a7a5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1292,
+      "publishedSha256": "d0651015f16917e95936dd7721803d6b2fede3ff7686974e7d17df076279a7a5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612014e8e788b405b6ce6b4a.json",
+      "size": 1231,
+      "sha256": "1956792e76792d830c665d1c181d86f8b2a6c42523bccb584f5390657c7226de",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1231,
+      "publishedSha256": "1956792e76792d830c665d1c181d86f8b2a6c42523bccb584f5390657c7226de",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61201564e788b405b6ce6b50.json",
+      "size": 1242,
+      "sha256": "67fef4a654693dd99f06383c1965c468e8f8f4f49eeb1ed2b44b5423a82c9a12",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1242,
+      "publishedSha256": "67fef4a654693dd99f06383c1965c468e8f8f4f49eeb1ed2b44b5423a82c9a12",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612019d6e788b405b6ce6b54.json",
+      "size": 1294,
+      "sha256": "11a3450ec15e96f2210a532f5776cfee386e188900396670c1c9ec0c62a2d495",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1294,
+      "publishedSha256": "11a3450ec15e96f2210a532f5776cfee386e188900396670c1c9ec0c62a2d495",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612019d6e788b405b6ce6b55.json",
+      "size": 1294,
+      "sha256": "9984ce3f370ed2c03b656c83ada161d3b80d6eb5925127f9ed2afa6a2c4e26bd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1294,
+      "publishedSha256": "9984ce3f370ed2c03b656c83ada161d3b80d6eb5925127f9ed2afa6a2c4e26bd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612019d6e788b405b6ce6b56.json",
+      "size": 1233,
+      "sha256": "1012e31f1b55571db643405d9cb664df85499fc40cd853034af500de1ef31ff4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1233,
+      "publishedSha256": "1012e31f1b55571db643405d9cb664df85499fc40cd853034af500de1ef31ff4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61201a4de788b405b6ce6b5c.json",
+      "size": 1242,
+      "sha256": "25a7f3b251b85cc205f74fee413cc803977f7a7ca141cf5c8be2af77639ad6ef",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1242,
+      "publishedSha256": "25a7f3b251b85cc205f74fee413cc803977f7a7ca141cf5c8be2af77639ad6ef",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61201af1e788b405b6ce6b60.json",
+      "size": 1294,
+      "sha256": "3f99f7df56fd021ec79a6756981efc7d693d98839f2f8b8a2938c79e8c0ebf3b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1294,
+      "publishedSha256": "3f99f7df56fd021ec79a6756981efc7d693d98839f2f8b8a2938c79e8c0ebf3b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61201af1e788b405b6ce6b61.json",
+      "size": 1294,
+      "sha256": "21acd049b0d26de0463cacc644cb3d6e412902f6e401c8ba7f20081707e59a85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1294,
+      "publishedSha256": "21acd049b0d26de0463cacc644cb3d6e412902f6e401c8ba7f20081707e59a85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61201af1e788b405b6ce6b62.json",
+      "size": 1233,
+      "sha256": "6904c73586ae612eca42411a2dbfb9d2cbd7cc354c707f009a520ebac3133e7a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1233,
+      "publishedSha256": "6904c73586ae612eca42411a2dbfb9d2cbd7cc354c707f009a520ebac3133e7a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-612041f4e788b405b6ce6bc8.json",
+      "size": 1240,
+      "sha256": "cba976558c5521707d4ad546482d0f2d3b54d3c6e70f3a763dfe967993d1173b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1240,
+      "publishedSha256": "cba976558c5521707d4ad546482d0f2d3b54d3c6e70f3a763dfe967993d1173b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-6120427ee788b405b6ce6bcc.json",
+      "size": 1304,
+      "sha256": "3e644f3a645cde06ba52476e58a791386a2783c3ccf873d1b903dc91152874a5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1304,
+      "publishedSha256": "3e644f3a645cde06ba52476e58a791386a2783c3ccf873d1b903dc91152874a5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-6120427ee788b405b6ce6bcd.json",
+      "size": 1296,
+      "sha256": "59b13bb75fe354672a946b513ef2181e478405b22b95bd83755ae7fafc97c2bd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1296,
+      "publishedSha256": "59b13bb75fe354672a946b513ef2181e478405b22b95bd83755ae7fafc97c2bd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-6120427ee788b405b6ce6bce.json",
+      "size": 1252,
+      "sha256": "a0b71190d511d3a956a75d78015a58b7c14e9fcc452859e19b30caa38d34bcd8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1252,
+      "publishedSha256": "a0b71190d511d3a956a75d78015a58b7c14e9fcc452859e19b30caa38d34bcd8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214ec2e788b405b6ce6ccc.json",
+      "size": 1293,
+      "sha256": "9f2cbe5cf7f34253fb075aab80eef04c3ae8e56a36c0f0bb1b0ecab536625bd9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1293,
+      "publishedSha256": "9f2cbe5cf7f34253fb075aab80eef04c3ae8e56a36c0f0bb1b0ecab536625bd9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214ec2e788b405b6ce6ccd.json",
+      "size": 1303,
+      "sha256": "524326b7e398edb13964d15df8e27b1abd8a77fb89024ebcf72c6a9853e97daa",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1303,
+      "publishedSha256": "524326b7e398edb13964d15df8e27b1abd8a77fb89024ebcf72c6a9853e97daa",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214ec2e788b405b6ce6cce.json",
+      "size": 1251,
+      "sha256": "b28fd34c0975fae566dc6413ef0846682f76b046113de292ef973b40bebba606",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1251,
+      "publishedSha256": "b28fd34c0975fae566dc6413ef0846682f76b046113de292ef973b40bebba606",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214f77e788b405b6ce6cd6.json",
+      "size": 1301,
+      "sha256": "b0fffce0a3736478e1755cec7134d625942a160b31a566ea37d8078d710e41d4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1301,
+      "publishedSha256": "b0fffce0a3736478e1755cec7134d625942a160b31a566ea37d8078d710e41d4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214f77e788b405b6ce6cd7.json",
+      "size": 1303,
+      "sha256": "603d429a22a3b19bc7b9669d4c2a0eb30fa1ec6041bb5d2892ffe157f55d148e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1303,
+      "publishedSha256": "603d429a22a3b19bc7b9669d4c2a0eb30fa1ec6041bb5d2892ffe157f55d148e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61214f77e788b405b6ce6cd8.json",
+      "size": 1251,
+      "sha256": "add4315498cf6be99b816f01cf8d5adebc092487b3e96688bd9fc129e21191d2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1251,
+      "publishedSha256": "add4315498cf6be99b816f01cf8d5adebc092487b3e96688bd9fc129e21191d2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61215030e788b405b6ce6ce0.json",
+      "size": 1303,
+      "sha256": "58cb6d8498c7cf5ad8dba380a1281cfd2eb9c2bf79217d5fe288a78881533f4e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1303,
+      "publishedSha256": "58cb6d8498c7cf5ad8dba380a1281cfd2eb9c2bf79217d5fe288a78881533f4e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61215030e788b405b6ce6ce1.json",
+      "size": 1303,
+      "sha256": "2a15f2ce5c6587da44efba0dc5d6aac77c8bdb07dcc0cb649cc618c99e879217",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1303,
+      "publishedSha256": "2a15f2ce5c6587da44efba0dc5d6aac77c8bdb07dcc0cb649cc618c99e879217",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-61215030e788b405b6ce6ce2.json",
+      "size": 1249,
+      "sha256": "fb3e25720d32ce4a9ac1f6c9683e62a097cfebd228529733b13abc28e5af9d7b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1249,
+      "publishedSha256": "fb3e25720d32ce4a9ac1f6c9683e62a097cfebd228529733b13abc28e5af9d7b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/publication-after.json",
+      "size": 17121,
+      "sha256": "99c9f26f8fcfe6e1bd7611b7eb16aeed83cb683ad59104903f9c80232123ff2e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 17121,
+      "publishedSha256": "99c9f26f8fcfe6e1bd7611b7eb16aeed83cb683ad59104903f9c80232123ff2e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/publication-before.json",
+      "size": 17121,
+      "sha256": "93c049f27954e406dc741a8332a4dff88485c9b91c5ac3939e9385e033c72999",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 17121,
+      "publishedSha256": "93c049f27954e406dc741a8332a4dff88485c9b91c5ac3939e9385e033c72999",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-exit.json",
+      "size": 57,
+      "sha256": "510e584707575c6b366b6c61d53166dcbb67059607e588bfca4264367c3c9f38",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 57,
+      "publishedSha256": "510e584707575c6b366b6c61d53166dcbb67059607e588bfca4264367c3c9f38",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-launch.json",
+      "size": 300,
+      "sha256": "99f3cdfade588a353044da7a6bc8f085152666378fc016343deefcf9d2fb1794",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 300,
+      "publishedSha256": "99f3cdfade588a353044da7a6bc8f085152666378fc016343deefcf9d2fb1794",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination.log",
+      "size": 4609,
+      "sha256": "5cb0b69359535a1b33d92ea628761ca406137879e8f6b51715740405c1c3e9d4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4609,
+      "publishedSha256": "5cb0b69359535a1b33d92ea628761ca406137879e8f6b51715740405c1c3e9d4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/hold-release.json",
+      "size": 799,
+      "sha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 799,
+      "publishedSha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/native-exit.json",
+      "size": 57,
+      "sha256": "eda1f0d87c46d1a2ad2f869a4057cb66c5a74ab7781a4b4141a967bccf18cd11",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 57,
+      "publishedSha256": "eda1f0d87c46d1a2ad2f869a4057cb66c5a74ab7781a4b4141a967bccf18cd11",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/native-launch.json",
+      "size": 210,
+      "sha256": "fc5be47c33249d81897e28f1892991ece83ff3237a0a699f7ef6d0cdeb2f0971",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 210,
+      "publishedSha256": "fc5be47c33249d81897e28f1892991ece83ff3237a0a699f7ef6d0cdeb2f0971",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/native.log",
+      "size": 32394,
+      "sha256": "5fcc039ecfc8114906d6e748dd34038d7f5c9d43abbe53cf331551810a134e27",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 32394,
+      "publishedSha256": "5fcc039ecfc8114906d6e748dd34038d7f5c9d43abbe53cf331551810a134e27",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/preflight.json",
+      "size": 4459,
+      "sha256": "24889490e00d26d3417eecb0e1a8c9740d4cf7b5e6ae36b989150f4febc37996",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4459,
+      "publishedSha256": "24889490e00d26d3417eecb0e1a8c9740d4cf7b5e6ae36b989150f4febc37996",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/protected-after.json",
+      "size": 298210,
+      "sha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 298210,
+      "publishedSha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/protected-before.json",
+      "size": 298210,
+      "sha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 298210,
+      "publishedSha256": "bd2c325f7a4eaa27645f909ace006cda46ecfbb6ae4e4d539ec80c413fdcffcd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/register.json",
+      "size": 4084,
+      "sha256": "557a299be606cce3bef82f8db7963e7a4c7a88485a1229633a7293b98c576c8c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4084,
+      "publishedSha256": "557a299be606cce3bef82f8db7963e7a4c7a88485a1229633a7293b98c576c8c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/review-native.cjs",
+      "size": 12108,
+      "sha256": "dc836735fa6fe095017cdc706756b843fbe57a0f6f9b6e32a86d64676e114268",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12108,
+      "publishedSha256": "dc836735fa6fe095017cdc706756b843fbe57a0f6f9b6e32a86d64676e114268",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/summary.json",
+      "size": 35245,
+      "sha256": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 35245,
+      "publishedSha256": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/verify-package-readonly.py",
+      "size": 9470,
+      "sha256": "546c940681f3733cf177805481e931b03369b8bafd8ccb165fc2de0c3ccf7be4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9470,
+      "publishedSha256": "546c940681f3733cf177805481e931b03369b8bafd8ccb165fc2de0c3ccf7be4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/website-checks-20261127.json",
+      "size": 2111,
+      "sha256": "5e41844ed94782413ea2aa101bda9c052f9bd916d54621f2b664d0ae878bf1d0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2111,
+      "publishedSha256": "5e41844ed94782413ea2aa101bda9c052f9bd916d54621f2b664d0ae878bf1d0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/HELD_PATHS.txt",
+      "size": 193,
+      "sha256": "1cffabe6b3f75cfe3150181d9069e70d2b2282fc6b06235ab641924e56074021",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 193,
+      "publishedSha256": "1cffabe6b3f75cfe3150181d9069e70d2b2282fc6b06235ab641924e56074021",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/HPC_PATHS.txt",
+      "size": 202,
+      "sha256": "2e0487981de5cbf1374518e4cd5715dff0875c93af0aa03416674e190e81cf82",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 202,
+      "publishedSha256": "2e0487981de5cbf1374518e4cd5715dff0875c93af0aa03416674e190e81cf82",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/PROJECTS.tsv",
+      "size": 737,
+      "sha256": "5c89a2ce7751a278354c356480f90143ef870b98a70e339d9d6b010d24da07eb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 737,
+      "publishedSha256": "5c89a2ce7751a278354c356480f90143ef870b98a70e339d9d6b010d24da07eb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/README.md",
+      "size": 1761,
+      "sha256": "26770c41e79aa2330b8071696df7c4ef19eae9f0abe0c072d53a11a943d8ae8e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1761,
+      "publishedSha256": "26770c41e79aa2330b8071696df7c4ef19eae9f0abe0c072d53a11a943d8ae8e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/SHA256SUMS",
+      "size": 827,
+      "sha256": "3714355d9092cacca323ef58e888942ad7daefe5519c402b67bf4e6df49abbca",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 827,
+      "publishedSha256": "3714355d9092cacca323ef58e888942ad7daefe5519c402b67bf4e6df49abbca",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/delete-reviewed-projects.py",
+      "size": 15350,
+      "sha256": "378a88ee3f7a487c33c21ec7de6983763cd99661e4900d082e8b8e3de686f7d0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 15350,
+      "publishedSha256": "378a88ee3f7a487c33c21ec7de6983763cd99661e4900d082e8b8e3de686f7d0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/delete.sbatch",
+      "size": 912,
+      "sha256": "6d220b0d72353548a9aeb28dd626251f9c8f15308d53944c99ea69dba9c95d42",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 912,
+      "publishedSha256": "6d220b0d72353548a9aeb28dd626251f9c8f15308d53944c99ea69dba9c95d42",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/deletion-plan.json",
+      "size": 110455,
+      "sha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 110455,
+      "publishedSha256": "e136a50e1ac04046197eafb51f60e08bade81fa750c16d30870ec1366302f8cf",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/destination-check.json",
+      "size": 61703,
+      "sha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 61703,
+      "publishedSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/hold-release.json",
+      "size": 799,
+      "sha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 799,
+      "publishedSha256": "76e1ae65dd6126942c6383034b9a7d88d85dbb6c2ae1b5048a4060cdefb305f0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/komondor-gulnara-source-delete-20261127-01/summary.json",
+      "size": 35245,
+      "sha256": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 35245,
+      "publishedSha256": "51ff000f4aebac279f3a56c52a2e2da51ab30deedd1b09b69885a2ce90dafa41",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/__pycache__/build_job.cpython-314.pyc",
+      "size": 23922,
+      "sha256": "dcfc10bfbeb9e8b907b3267e8979e8643737c4cef3a51eba11ac1fd8806305c0",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/__pycache__/delete-gulnara-reviewed.cpython-314.pyc",
+      "size": 27462,
+      "sha256": "db3cee2a86ca82ca81f675b0d4c0b404a2fa296f5bc47d8b96704d6781378910",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/__pycache__/test_gulnara_guards.cpython-314.pyc",
+      "size": 22690,
+      "sha256": "f434a75bad4248e07125e48aebd05ea2408d66c638b825fa8dd1af289e310b5a",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/__pycache__/test_source_guards.cpython-314.pyc",
+      "size": 13823,
+      "sha256": "f6d7e48bea946c142d3b2e68e4f0ffd21b9b0ee2f415fa30ea262ec7814c4c4f",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/audit-job.py",
+      "size": 12679,
+      "sha256": "422cdf47299d273465c4de8e4df03c1e6d8bdfce26e1ec591ed5f8a9db4a19e2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12679,
+      "publishedSha256": "422cdf47299d273465c4de8e4df03c1e6d8bdfce26e1ec591ed5f8a9db4a19e2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/build_job.py",
+      "size": 14633,
+      "sha256": "375b1f61ac19a05f243fc026f3647ee90f47bbd62b6f6bafa373767fd48a818e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14633,
+      "publishedSha256": "375b1f61ac19a05f243fc026f3647ee90f47bbd62b6f6bafa373767fd48a818e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/confirm-sources-r2.cjs",
+      "size": 23486,
+      "sha256": "3c4afa13a232879483ab1fca3b8df6dc8c87377adbdd72aaca367c2a8b8d2c93",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 23486,
+      "publishedSha256": "3c4afa13a232879483ab1fca3b8df6dc8c87377adbdd72aaca367c2a8b8d2c93",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/confirm-sources.cjs",
+      "size": 22165,
+      "sha256": "7833e897259c114a13a7b8112807625560d2af3c14ee2b3fcf9323031c1e4359",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 22165,
+      "publishedSha256": "7833e897259c114a13a7b8112807625560d2af3c14ee2b3fcf9323031c1e4359",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/delete-gulnara-reviewed.py",
+      "size": 15166,
+      "sha256": "2facf831ed8c76e9ad572abcb3c688308803f0c94a4211ebded86660bb1c52e8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 15166,
+      "publishedSha256": "2facf831ed8c76e9ad572abcb3c688308803f0c94a4211ebded86660bb1c52e8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/destination-check.cjs",
+      "size": 14906,
+      "sha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14906,
+      "publishedSha256": "e54970f7cd35a0d1d16898893fde8763627fa6e59c6a72776ea8ab4886624d38",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/review-native.cjs",
+      "size": 12108,
+      "sha256": "dc836735fa6fe095017cdc706756b843fbe57a0f6f9b6e32a86d64676e114268",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12108,
+      "publishedSha256": "dc836735fa6fe095017cdc706756b843fbe57a0f6f9b6e32a86d64676e114268",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test-confirm-sources-r2.cjs",
+      "size": 5071,
+      "sha256": "06c064f9467b2602ff7c6d320d71cb9271978e5db69434bde852851aa5451fb1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5071,
+      "publishedSha256": "06c064f9467b2602ff7c6d320d71cb9271978e5db69434bde852851aa5451fb1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test-confirm-sources.cjs",
+      "size": 3990,
+      "sha256": "d333e123b3e6ae5d221eb309eb4e565bc47c1843344c9ca8d2b953baf3ee76fc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3990,
+      "publishedSha256": "d333e123b3e6ae5d221eb309eb4e565bc47c1843344c9ca8d2b953baf3ee76fc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test_audit_job.py",
+      "size": 6010,
+      "sha256": "00935b44c087c3e4d05f12f2011d77e538dbbdcc325824a569614f97a3d64716",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6010,
+      "publishedSha256": "00935b44c087c3e4d05f12f2011d77e538dbbdcc325824a569614f97a3d64716",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test_gulnara_guards.py",
+      "size": 9956,
+      "sha256": "290d609f9d095a1abd46cdf80eacd8eab6d8de779dba432a5cba02f7e25d9641",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9956,
+      "publishedSha256": "290d609f9d095a1abd46cdf80eacd8eab6d8de779dba432a5cba02f7e25d9641",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test_source_guards.py",
+      "size": 5463,
+      "sha256": "0f2170cec9c56b0dce698bfe67756609c54365fc458b55fce8cdb76607a499c2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5463,
+      "publishedSha256": "0f2170cec9c56b0dce698bfe67756609c54365fc458b55fce8cdb76607a499c2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/test_verify_package_readonly.py",
+      "size": 6642,
+      "sha256": "3a7e63bb726e5c1a1449c4123a93f3ad88e73c828fd5df1825ed20878cc8b3a7",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6642,
+      "publishedSha256": "3a7e63bb726e5c1a1449c4123a93f3ad88e73c828fd5df1825ed20878cc8b3a7",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/tools/verify-package-readonly.py",
+      "size": 9470,
+      "sha256": "546c940681f3733cf177805481e931b03369b8bafd8ccb165fc2de0c3ccf7be4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9470,
+      "publishedSha256": "546c940681f3733cf177805481e931b03369b8bafd8ccb165fc2de0c3ccf7be4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/HANDOVER.md",
+      "size": 6357,
+      "sha256": "5073f78b035dbad654e89c18b152920a3bd6d274d5dfc2d55d1c4266cbfb9192",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6300,
+      "publishedSha256": "b6dce030e4dae0699f8cfa1e51c88f8f1be66bd923a1d1c2d50dbac208c85718",
+      "narrativePublicationEdit": true
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/README.md",
+      "size": 5242,
+      "sha256": "5cc9c2260e8bb8a70bd5d48a892a6e0818d96fa2c1fda9f6ac313fccaa8d4b5c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5232,
+      "publishedSha256": "673b7331075881383223f1a5a5356e69d5c11a8760a2f6566ffe2fb506165a2e",
+      "narrativePublicationEdit": true
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/catalogue-final.json",
+      "size": 149246,
+      "sha256": "e5204c058dfdc5c23c8ab4d592be8347a638578a9ac25f108bcf1ce4dbe28d49",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 149246,
+      "publishedSha256": "e5204c058dfdc5c23c8ab4d592be8347a638578a9ac25f108bcf1ce4dbe28d49",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/catalogue-final.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 0,
+      "publishedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/catalogue-final.stdout",
+      "size": 79,
+      "sha256": "7cf70cffe57d83d53be41dc29221f35a31a169ddd3c6fea07b62630f4fd277c7",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 79,
+      "publishedSha256": "7cf70cffe57d83d53be41dc29221f35a31a169ddd3c6fea07b62630f4fd277c7",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/guard-source-preflight-vm.json",
+      "size": 167,
+      "sha256": "d71865a2ba7c5029be4eb651e949c3525b78aac4943ca69a8307c9e9b9481c71",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 167,
+      "publishedSha256": "d71865a2ba7c5029be4eb651e949c3525b78aac4943ca69a8307c9e9b9481c71",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/holds.json",
+      "size": 4861,
+      "sha256": "add297e4032f016c2827169da00f98dcc74fe6a76ebc5e1ff669b073b34d7364",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4861,
+      "publishedSha256": "add297e4032f016c2827169da00f98dcc74fe6a76ebc5e1ff669b073b34d7364",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz",
+      "size": 4794162,
+      "sha256": "64dd0fb8c431eb67bb5f9f93b90e24195895c2bc6466c1bfa47f5e6355258ee1",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz",
+      "registerAnchor": "artifact-11"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/package-validation.json",
+      "size": 507,
+      "sha256": "f5aceda29f0e08af0c49069114eae243afb885355e9580cc99d391b04030a20d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 507,
+      "publishedSha256": "f5aceda29f0e08af0c49069114eae243afb885355e9580cc99d391b04030a20d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/server-package-checks.txt",
+      "size": 141,
+      "sha256": "05c4ff1ba470debff1c3bf75dae6c7dcf79e84b5418105fd0d9810a341cd9a65",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 141,
+      "publishedSha256": "05c4ff1ba470debff1c3bf75dae6c7dcf79e84b5418105fd0d9810a341cd9a65",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/slurm-guard-tests-r2.txt",
+      "size": 282,
+      "sha256": "f2483d343cf208954dc6379b65c83be4441e8e44749637de316922b6e9f6ccac",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 282,
+      "publishedSha256": "f2483d343cf208954dc6379b65c83be4441e8e44749637de316922b6e9f6ccac",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/summary.json",
+      "size": 38171,
+      "sha256": "cf89624641d063cb8b0c49a9dd127ae099070c3dcb2a6fa3dac011dd20a99ce2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 38171,
+      "publishedSha256": "cf89624641d063cb8b0c49a9dd127ae099070c3dcb2a6fa3dac011dd20a99ce2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/HELD_PATHS.txt",
+      "size": 247,
+      "sha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 247,
+      "publishedSha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/HPC_PATHS.txt",
+      "size": 9924,
+      "sha256": "06e75c1975ef0c4400aa5dfb1efd978b52b867df1997ee363d76b3c261001931",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9924,
+      "publishedSha256": "06e75c1975ef0c4400aa5dfb1efd978b52b867df1997ee363d76b3c261001931",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/PROJECTS.tsv",
+      "size": 33313,
+      "sha256": "98a95cc52fdf8ed11f3f647dcb3a73d33ef5596b58545ea7b21c0008617ead69",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 33313,
+      "publishedSha256": "98a95cc52fdf8ed11f3f647dcb3a73d33ef5596b58545ea7b21c0008617ead69",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/README.md",
+      "size": 1860,
+      "sha256": "28cc600fa4117e226a05c25f08c8c19d10d2f13f300dc8aadfe827c3d97ddbb5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1860,
+      "publishedSha256": "28cc600fa4117e226a05c25f08c8c19d10d2f13f300dc8aadfe827c3d97ddbb5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/SHA256SUMS",
+      "size": 575,
+      "sha256": "989f937cbbd7723f248e0df179707774994f6b44488deb3805fd9b9f7929f5cb",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 575,
+      "publishedSha256": "989f937cbbd7723f248e0df179707774994f6b44488deb3805fd9b9f7929f5cb",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/delete-reviewed-projects.py",
+      "size": 8895,
+      "sha256": "e47ca4da930db90f4013a111b1e8a53c78f6a7f923927423d449c6b093d10333",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8895,
+      "publishedSha256": "e47ca4da930db90f4013a111b1e8a53c78f6a7f923927423d449c6b093d10333",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/delete.sbatch",
+      "size": 462,
+      "sha256": "b411120d147a6e929228d913776cdbd61374f0a2b0f0c14d3733112168e755e9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 462,
+      "publishedSha256": "b411120d147a6e929228d913776cdbd61374f0a2b0f0c14d3733112168e755e9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/job/deletion-plan.json",
+      "size": 4060737,
+      "sha256": "4f81e4b7188e3de52ea4c0eff7d26bc0925aa30f3da0bddf319f3440eac69ad9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4060737,
+      "publishedSha256": "4f81e4b7188e3de52ea4c0eff7d26bc0925aa30f3da0bddf319f3440eac69ad9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/tools/build_job.py",
+      "size": 9518,
+      "sha256": "3fc970e3574d62d19ec73398cb9f421b07882276f98b0c2043c2c4f90ec619b6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9518,
+      "publishedSha256": "3fc970e3574d62d19ec73398cb9f421b07882276f98b0c2043c2c4f90ec619b6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/tools/catalogue-final.cjs",
+      "size": 4490,
+      "sha256": "e69e01963bbcf9b96670eefd5508b7c1351c8da4fbc8fa0afc2aacd006236334",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4490,
+      "publishedSha256": "e69e01963bbcf9b96670eefd5508b7c1351c8da4fbc8fa0afc2aacd006236334",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/tools/delete-reviewed-projects.py",
+      "size": 8895,
+      "sha256": "e47ca4da930db90f4013a111b1e8a53c78f6a7f923927423d449c6b093d10333",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8895,
+      "publishedSha256": "e47ca4da930db90f4013a111b1e8a53c78f6a7f923927423d449c6b093d10333",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/tools/refresh.cjs",
+      "size": 7407,
+      "sha256": "fc4e3eebe4006f609fa1da10ca5b93ea424e51528e1c8c2d69136b362f3e3d27",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7407,
+      "publishedSha256": "fc4e3eebe4006f609fa1da10ca5b93ea424e51528e1c8c2d69136b362f3e3d27",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/tools/test_delete_reviewed.py",
+      "size": 5125,
+      "sha256": "d90564372c26cade1804c195a36a5f8e9055543e61dc40ddad3147156e7beb7e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5125,
+      "publishedSha256": "d90564372c26cade1804c195a36a5f8e9055543e61dc40ddad3147156e7beb7e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/README.md",
+      "size": 7635,
+      "sha256": "75dc4a4a01d9621709d974317e8aa2a5fbbd2d91b637005c6fffbc085e5b3b69",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7955,
+      "publishedSha256": "aaf333501194d85656bba1c5f7605cb34164ac5ae78f9f3cf7f557b8a6a948c1",
+      "narrativePublicationEdit": true
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-completion-20261127.json",
+      "size": 3500,
+      "sha256": "cf488ed41ce3ceb96d27b7cc7029a6eb66aa3d3aa46eca7af76ee3514a7bac67",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3500,
+      "publishedSha256": "cf488ed41ce3ceb96d27b7cc7029a6eb66aa3d3aa46eca7af76ee3514a7bac67",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-confirmation-launch.json",
+      "size": 217,
+      "sha256": "f95bdcd8136caf1d0a9144fd033e0a1fde66d405fa5546fa93006b1fadaf9310",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 217,
+      "publishedSha256": "f95bdcd8136caf1d0a9144fd033e0a1fde66d405fa5546fa93006b1fadaf9310",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-confirmation-runner-review.json",
+      "size": 684,
+      "sha256": "a8593cdb0183ea2f8e7bb91151bce9cc4ead6f0d8a130cda58d4d46870504b34",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 684,
+      "publishedSha256": "a8593cdb0183ea2f8e7bb91151bce9cc4ead6f0d8a130cda58d4d46870504b34",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-confirmation-staging.json",
+      "size": 376,
+      "sha256": "9a7ac0d49dca091fe46cd22223ceff7bc3a09b81a0eb391d6d853660eb9e7c52",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 376,
+      "publishedSha256": "9a7ac0d49dca091fe46cd22223ceff7bc3a09b81a0eb391d6d853660eb9e7c52",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-commands.json",
+      "size": 144625,
+      "sha256": "cd28fb693e3530029506320bfcb41deb7407078d35b70549a259e4ff4b53fa3f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 144625,
+      "publishedSha256": "cd28fb693e3530029506320bfcb41deb7407078d35b70549a259e4ff4b53fa3f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-audit.json",
+      "size": 1674,
+      "sha256": "abbd012b492ca1b9a73b71d6bec213b87eacde00982d3383251be212fa93dca0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1674,
+      "publishedSha256": "abbd012b492ca1b9a73b71d6bec213b87eacde00982d3383251be212fa93dca0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
+      "size": 9774589,
+      "sha256": "8b345727c83f7eee455392540a083c4a3f3c1d7e0f60d239fd8ce1aedd7c1824",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
+      "registerAnchor": "artifact-12"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation.json",
+      "size": 164715,
+      "sha256": "e35ad539995f70b6fbb7b2790e00cbe2bbc77c4fac8402380cef1e572263946c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 164715,
+      "publishedSha256": "e35ad539995f70b6fbb7b2790e00cbe2bbc77c4fac8402380cef1e572263946c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-evidence-copy.json",
+      "size": 506,
+      "sha256": "dd1640bfaaddc31fe3c96de733098ef63adef897b14052f93f45d35b48a84b6f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 506,
+      "publishedSha256": "dd1640bfaaddc31fe3c96de733098ef63adef897b14052f93f45d35b48a84b6f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-final-audit.json",
+      "size": 163854,
+      "sha256": "57adbd8421a7dd1b06ff3aae8077f94b4a77909b0064a19d23341b35d7d03217",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 163854,
+      "publishedSha256": "57adbd8421a7dd1b06ff3aae8077f94b4a77909b0064a19d23341b35d7d03217",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-website-checks-20261127.json",
+      "size": 1882,
+      "sha256": "0ec68acff86fc6e5276974f49c4987f62465cd71b9de05b0cd681e02ac861f05",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1882,
+      "publishedSha256": "0ec68acff86fc6e5276974f49c4987f62465cd71b9de05b0cd681e02ac861f05",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/deletion-25340024.jsonl",
+      "size": 82400,
+      "sha256": "9a9a9f7f7ea14e37a1e3bc22046afebfc1005b860585162ca7c0405b187f7970",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 82400,
+      "publishedSha256": "9a9a9f7f7ea14e37a1e3bc22046afebfc1005b860585162ca7c0405b187f7970",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/fresh-release-state.json",
+      "size": 135665,
+      "sha256": "cb30e8d1e4b9e674d2ecbb0afa473cb17415dbaa2aebe604e7bb9ee1ca1a59e8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 135665,
+      "publishedSha256": "cb30e8d1e4b9e674d2ecbb0afa473cb17415dbaa2aebe604e7bb9ee1ca1a59e8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/fresh-release-state.stderr",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 0,
+      "publishedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/hpc-delivery-20261127.json",
+      "size": 729,
+      "sha256": "674eff4db09e21ad949570bdb225c8b15f9ce1bbdd47d1781306db08af8bfa97",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 729,
+      "publishedSha256": "674eff4db09e21ad949570bdb225c8b15f9ce1bbdd47d1781306db08af8bfa97",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/job-25340024-audit.json",
+      "size": 3071,
+      "sha256": "1538fa933566abdbfcc7595466e35563e4655a67c8d21c0e8606b33610ff3d85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3071,
+      "publishedSha256": "1538fa933566abdbfcc7595466e35563e4655a67c8d21c0e8606b33610ff3d85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/komondor-remaining-167-25340024.log",
+      "size": 85274,
+      "sha256": "6578a177aa011e19b3f6e16ab3a7fbfced9efc3b4295a18870e67505b88f28be",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 85274,
+      "publishedSha256": "6578a177aa011e19b3f6e16ab3a7fbfced9efc3b4295a18870e67505b88f28be",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/linux-validation.txt",
+      "size": 1578,
+      "sha256": "90906352d8ae630c1ac64725e2a2c686df629f6b4cedd1f681f1320caf86ec34",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1578,
+      "publishedSha256": "90906352d8ae630c1ac64725e2a2c686df629f6b4cedd1f681f1320caf86ec34",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz",
+      "size": 36951,
+      "sha256": "e18a0fa6b83ba3bfae4980c3a20de35a7bcd8f848709460fb78c394eb16be364",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz",
+      "registerAnchor": "artifact-13"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation.json",
+      "size": 16040,
+      "sha256": "25b52a0f3a346b0d92029ce7bed0036f94d5655de2953736dca1bad174bf8281",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 16040,
+      "publishedSha256": "25b52a0f3a346b0d92029ce7bed0036f94d5655de2953736dca1bad174bf8281",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation.stderr",
+      "size": 307,
+      "sha256": "c40093a53c67ac5a1a4352e81d24188022fa9e81601505fd88e80748cc970e44",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 307,
+      "publishedSha256": "c40093a53c67ac5a1a4352e81d24188022fa9e81601505fd88e80748cc970e44",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/pilot-acceptance.json",
+      "size": 1674,
+      "sha256": "a723e49ec3eb21e66ed5b8bc556f4c101a84f5a397efa8cd112401f4e98982ae",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1674,
+      "publishedSha256": "a723e49ec3eb21e66ed5b8bc556f4c101a84f5a397efa8cd112401f4e98982ae",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/pilot-source-preflight-vm.json",
+      "size": 437,
+      "sha256": "115e29752999807cd556efca759a996e3e768aca20cd649766722a2762fbd90e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 437,
+      "publishedSha256": "115e29752999807cd556efca759a996e3e768aca20cd649766722a2762fbd90e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/release-package-validation.json",
+      "size": 534,
+      "sha256": "c9d2d98e3431250d313a08a847c054c8f69051ffabd2cea13db3ccb75e57199a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 534,
+      "publishedSha256": "c9d2d98e3431250d313a08a847c054c8f69051ffabd2cea13db3ccb75e57199a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/release-server-checks.txt",
+      "size": 196,
+      "sha256": "a44dd13976a5ee8329202184322b500d03e344b56d5979e324fc12b45fa145a5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 196,
+      "publishedSha256": "a44dd13976a5ee8329202184322b500d03e344b56d5979e324fc12b45fa145a5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/release-tests.txt",
+      "size": 1308,
+      "sha256": "6f87a7dd812719e73a60d9ca775b9b416041e9ec99e960e65c009ec01d9602ca",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1308,
+      "publishedSha256": "6f87a7dd812719e73a60d9ca775b9b416041e9ec99e960e65c009ec01d9602ca",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/selection-live.json",
+      "size": 3375,
+      "sha256": "bcafe1b776ee6702bd993e799f4d83cd8690f01aca2fa764bf8fd9c3fffe7e1e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3375,
+      "publishedSha256": "bcafe1b776ee6702bd993e799f4d83cd8690f01aca2fa764bf8fd9c3fffe7e1e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/split-validation.json",
+      "size": 869,
+      "sha256": "20a27e696057721afa2f607fcc9e4d40d927d64cfe7b690b7ce1dec459496c6e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 869,
+      "publishedSha256": "20a27e696057721afa2f607fcc9e4d40d927d64cfe7b690b7ce1dec459496c6e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/user-pasted-deletion-25339708.jsonl",
+      "size": 1345,
+      "sha256": "c57ca29afecbd640c1f91b1a04825680a113ec26ba2512ee3c6c491a2c49c450",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1345,
+      "publishedSha256": "c57ca29afecbd640c1f91b1a04825680a113ec26ba2512ee3c6c491a2c49c450",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/user-pasted-resource-excerpts-25339708.txt",
+      "size": 2294,
+      "sha256": "74f0e0e83f7bbd5aa1636f5907b803a5ebe5bde9bf1f2e9b4eb7cf8b235dc6d4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2294,
+      "publishedSha256": "74f0e0e83f7bbd5aa1636f5907b803a5ebe5bde9bf1f2e9b4eb7cf8b235dc6d4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/user-reported-completion-25340024.json",
+      "size": 530,
+      "sha256": "55c863002878c03c8e7c3b68a051b873c7d4a128a207a3c153fe47fd4ee55a81",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 530,
+      "publishedSha256": "55c863002878c03c8e7c3b68a051b873c7d4a128a207a3c153fe47fd4ee55a81",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/user-reported-job-25339708.json",
+      "size": 765,
+      "sha256": "1a6a4017904672012f97422cf3acbcc9cc93926b1e6af8bf970f367f32d0a4ae",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 765,
+      "publishedSha256": "1a6a4017904672012f97422cf3acbcc9cc93926b1e6af8bf970f367f32d0a4ae",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/user-reported-submission-25340024.json",
+      "size": 468,
+      "sha256": "7bbbc289c05ecb024bbff14fcc472c544a33af8d1432ba6ba0c08e9fa8564858",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 468,
+      "publishedSha256": "7bbbc289c05ecb024bbff14fcc472c544a33af8d1432ba6ba0c08e9fa8564858",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/website-checks-20261127.json",
+      "size": 1316,
+      "sha256": "13987c7985cdec3d257996d5bfe6341d03f531555a2c02b1ef69d1ab3035087c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1316,
+      "publishedSha256": "13987c7985cdec3d257996d5bfe6341d03f531555a2c02b1ef69d1ab3035087c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/HELD_PATHS.txt",
+      "size": 247,
+      "sha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 247,
+      "publishedSha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/HPC_PATHS.txt",
+      "size": 122,
+      "sha256": "67be6fd3d29027f99721e543a2169d3c01ea0489ece1b672c6c090c3d19bc30e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 122,
+      "publishedSha256": "67be6fd3d29027f99721e543a2169d3c01ea0489ece1b672c6c090c3d19bc30e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/PROJECTS.tsv",
+      "size": 444,
+      "sha256": "9f3ecb74823117a384aa7a7e466253e879eb47a8b0020595733bd7d7d7585433",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 444,
+      "publishedSha256": "9f3ecb74823117a384aa7a7e466253e879eb47a8b0020595733bd7d7d7585433",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/README.md",
+      "size": 2317,
+      "sha256": "55bb151f1e489c133cba85dfdc9a45c1a89913a6adcacf7e923f0e0926c7c582",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2317,
+      "publishedSha256": "55bb151f1e489c133cba85dfdc9a45c1a89913a6adcacf7e923f0e0926c7c582",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/SHA256SUMS",
+      "size": 575,
+      "sha256": "3997cef6eb1deea2c16a1b8c2a803435b0b7b92077b2d2082ee5c9b5111fbf58",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 575,
+      "publishedSha256": "3997cef6eb1deea2c16a1b8c2a803435b0b7b92077b2d2082ee5c9b5111fbf58",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/delete-reviewed-projects.py",
+      "size": 10237,
+      "sha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 10237,
+      "publishedSha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/delete.sbatch",
+      "size": 908,
+      "sha256": "faa21534684b23dccc5c06e27bfb096d16a93a29a05b7a3409698e772ed14721",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 908,
+      "publishedSha256": "faa21534684b23dccc5c06e27bfb096d16a93a29a05b7a3409698e772ed14721",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/pilot-2/deletion-plan.json",
+      "size": 8320,
+      "sha256": "79778948f8d92ae888a3c8ba275c2245d248bbdf41c717c094a1043a23269489",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8320,
+      "publishedSha256": "79778948f8d92ae888a3c8ba275c2245d248bbdf41c717c094a1043a23269489",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/HELD_PATHS.txt",
+      "size": 247,
+      "sha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 247,
+      "publishedSha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/HPC_PATHS.txt",
+      "size": 9802,
+      "sha256": "84f3dd45fa4124f03818e2c606e0b9294ab9ede4d189685df850ed5a8d8eb441",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9802,
+      "publishedSha256": "84f3dd45fa4124f03818e2c606e0b9294ab9ede4d189685df850ed5a8d8eb441",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/PROJECTS.tsv",
+      "size": 32911,
+      "sha256": "0a37130ee20f9c6a00cce666eeb38d3e690daa61801e95e92d66fdeeaf44b608",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 32911,
+      "publishedSha256": "0a37130ee20f9c6a00cce666eeb38d3e690daa61801e95e92d66fdeeaf44b608",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/README.md",
+      "size": 2345,
+      "sha256": "2af3931bc34e3dbc698ddd3ed6425437a85c295f16104bf40c54b82a40ee18a2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2345,
+      "publishedSha256": "2af3931bc34e3dbc698ddd3ed6425437a85c295f16104bf40c54b82a40ee18a2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/SHA256SUMS",
+      "size": 575,
+      "sha256": "7170877005ba119d45d8231d8b85d7e34cfe8299292e398e5e9e19996d7568f3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 575,
+      "publishedSha256": "7170877005ba119d45d8231d8b85d7e34cfe8299292e398e5e9e19996d7568f3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/delete-reviewed-projects.py",
+      "size": 10237,
+      "sha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 10237,
+      "publishedSha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/delete.sbatch",
+      "size": 920,
+      "sha256": "d97f8a5c71d3a1802568e36d11a8480f9f782ca2ba42ce50ec3a5547a1e79c78",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 920,
+      "publishedSha256": "d97f8a5c71d3a1802568e36d11a8480f9f782ca2ba42ce50ec3a5547a1e79c78",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167/deletion-plan.json",
+      "size": 4053912,
+      "sha256": "038bad960ea1a3fca7b9c445a9f3d603500aadee9c6725978dcccdefc474155c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4053912,
+      "publishedSha256": "038bad960ea1a3fca7b9c445a9f3d603500aadee9c6725978dcccdefc474155c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/HELD_PATHS.txt",
+      "size": 247,
+      "sha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 247,
+      "publishedSha256": "918292bf3a03e2f303863543e887d0d58b5c279090ed60322c4a0a8b424f1303",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/HPC_PATHS.txt",
+      "size": 9802,
+      "sha256": "84f3dd45fa4124f03818e2c606e0b9294ab9ede4d189685df850ed5a8d8eb441",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9802,
+      "publishedSha256": "84f3dd45fa4124f03818e2c606e0b9294ab9ede4d189685df850ed5a8d8eb441",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/PROJECTS.tsv",
+      "size": 32915,
+      "sha256": "44ad4d70fd59bdb3a2b0a59c021eae708c90407c26751c51550e3e35f902799d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 32915,
+      "publishedSha256": "44ad4d70fd59bdb3a2b0a59c021eae708c90407c26751c51550e3e35f902799d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/README.md",
+      "size": 1009,
+      "sha256": "dffb615a7cdb9861ef07871283c8eff1640aa95b5d02faef491ded4b3ad1844c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1009,
+      "publishedSha256": "dffb615a7cdb9861ef07871283c8eff1640aa95b5d02faef491ded4b3ad1844c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/SHA256SUMS",
+      "size": 754,
+      "sha256": "1455a2ecdf5ec758f752052f97130d8e2ff01b3fea913053180125d54ef9af34",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 754,
+      "publishedSha256": "1455a2ecdf5ec758f752052f97130d8e2ff01b3fea913053180125d54ef9af34",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/__pycache__/delete-reviewed-projects.cpython-314.pyc",
+      "size": 23241,
+      "sha256": "ee2db65fe5fdf12c585a21b66ce46a0a5d147268f1b805c765d55f612a57ff20",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/delete-reviewed-projects.py",
+      "size": 12497,
+      "sha256": "57be86a3356f1ab2e5ed8e57b8a21bdeaad077b5f428383ef7dab8b124064d8e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12497,
+      "publishedSha256": "57be86a3356f1ab2e5ed8e57b8a21bdeaad077b5f428383ef7dab8b124064d8e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/delete.sbatch",
+      "size": 920,
+      "sha256": "98012e1df212b214109aaac63bedd0ba429e0c1321b1727734e47426204068e0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 920,
+      "publishedSha256": "98012e1df212b214109aaac63bedd0ba429e0c1321b1727734e47426204068e0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/deletion-plan.json",
+      "size": 4054284,
+      "sha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4054284,
+      "publishedSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/fresh-release-state.json",
+      "size": 135665,
+      "sha256": "cb30e8d1e4b9e674d2ecbb0afa473cb17415dbaa2aebe604e7bb9ee1ca1a59e8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 135665,
+      "publishedSha256": "cb30e8d1e4b9e674d2ecbb0afa473cb17415dbaa2aebe604e7bb9ee1ca1a59e8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/remaining-167-released/pilot-acceptance.json",
+      "size": 1674,
+      "sha256": "a723e49ec3eb21e66ed5b8bc556f4c101a84f5a397efa8cd112401f4e98982ae",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1674,
+      "publishedSha256": "a723e49ec3eb21e66ed5b8bc556f4c101a84f5a397efa8cd112401f4e98982ae",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/audit-bulk-confirmation.cpython-314.pyc",
+      "size": 26994,
+      "sha256": "7233e592b7dfcd88c4df2c1ab01a9174a33af982bd822a0262e837360d23bd78",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/build_release.cpython-314.pyc",
+      "size": 16938,
+      "sha256": "0a29030f4741d2a91dd2dd6807e713bd6befe2cbe2d254fa570146640fc543a6",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/build_split.cpython-314.pyc",
+      "size": 13536,
+      "sha256": "a3898631f4604d19327d200b70a53f2b3177d53bf02a5adae92c59280bb51925",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/delete-remaining-reviewed.cpython-314.pyc",
+      "size": 23040,
+      "sha256": "4f3854cf1998633e06746c039cc901ac90dbbcaff51ef40f7b6d4ae2483a26e8",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/delete-reviewed-projects.cpython-314.pyc",
+      "size": 18707,
+      "sha256": "6e9d1573f41fc38107f0a26cd804cd543355aba09245781e280a2c01a958a6d5",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/test_release.cpython-314.pyc",
+      "size": 16569,
+      "sha256": "f9430ef6d6b94e9562c5f8938fc039d38e1f8e6c00829764e52746d895e5d365",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/__pycache__/test_split.cpython-314.pyc",
+      "size": 7378,
+      "sha256": "eaaa58494e3361c9dbf80ba55702c2b44c1d262e09461c0c2b393eb1056a4816",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/audit-bulk-confirmation.py",
+      "size": 17629,
+      "sha256": "92765be4ae0bb5281b6f703456b5e2517697381aaaac347cabc68e8dccb5034e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 17629,
+      "publishedSha256": "92765be4ae0bb5281b6f703456b5e2517697381aaaac347cabc68e8dccb5034e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/build_release.py",
+      "size": 9003,
+      "sha256": "2ba97f6a98a83976e782a229e7405226882c6dfd6d2294c82c29725504c98880",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 9003,
+      "publishedSha256": "2ba97f6a98a83976e782a229e7405226882c6dfd6d2294c82c29725504c98880",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/build_split.py",
+      "size": 7868,
+      "sha256": "51930b12504dd76457eaae035d2f84253e9712392d819fe1575899fbbeae3cfc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7868,
+      "publishedSha256": "51930b12504dd76457eaae035d2f84253e9712392d819fe1575899fbbeae3cfc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/check-release-state.cjs",
+      "size": 7040,
+      "sha256": "6a64a2b0194d91015886468f92e43aeb1040cbd401f4fdfd6c3ab557cce451ec",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7040,
+      "publishedSha256": "6a64a2b0194d91015886468f92e43aeb1040cbd401f4fdfd6c3ab557cce451ec",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/confirm-pilot.cjs",
+      "size": 13580,
+      "sha256": "1eeebbd24125b01a9feb5388f537c0ca0bd7cb01585ed2d3c2180ce1ed9a449d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 13580,
+      "publishedSha256": "1eeebbd24125b01a9feb5388f537c0ca0bd7cb01585ed2d3c2180ce1ed9a449d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/confirm-remaining.cjs",
+      "size": 17743,
+      "sha256": "aa8bcdfc3a81b5bdcf335ee405a04ed8f8839d2b6fc96ecb2c3446e94ff8849b",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 17743,
+      "publishedSha256": "aa8bcdfc3a81b5bdcf335ee405a04ed8f8839d2b6fc96ecb2c3446e94ff8849b",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/delete-remaining-reviewed.py",
+      "size": 12312,
+      "sha256": "b903380d2e860bb62e57612116f994b4b542894cdb470ed8a37c22633331ac77",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12312,
+      "publishedSha256": "b903380d2e860bb62e57612116f994b4b542894cdb470ed8a37c22633331ac77",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/delete-reviewed-projects.py",
+      "size": 10237,
+      "sha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 10237,
+      "publishedSha256": "71b574c12042b797cbd6f4c418b6cc645e41743302f3bd26a7e585fd87310797",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/test_delete_reviewed.py",
+      "size": 5149,
+      "sha256": "645956adb5b13b8aca1567665d64862eaf9795e3d9f54c55f60594684e496b44",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 5149,
+      "publishedSha256": "645956adb5b13b8aca1567665d64862eaf9795e3d9f54c55f60594684e496b44",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/test_release.py",
+      "size": 6998,
+      "sha256": "da3b165f0704cd566833391f43cb582eb43fb96b4743cd8978473f6a53b7d220",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6998,
+      "publishedSha256": "da3b165f0704cd566833391f43cb582eb43fb96b4743cd8978473f6a53b7d220",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/tools/test_split.py",
+      "size": 3059,
+      "sha256": "84c095e4c2997f9ce1ebcd65617244ca462a54aca0f7a97113667d38f2626226",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3059,
+      "publishedSha256": "84c095e4c2997f9ce1ebcd65617244ca462a54aca0f7a97113667d38f2626226",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/README.md",
+      "size": 7942,
+      "sha256": "b80d0bf2c2ce8f57648bb1626090193461003976ed6b19c26c87d9d0ec3025e4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8026,
+      "publishedSha256": "55868d3551c4a5eb627ddb9376016b03277ef6c19ac6b25cdc99feab89b95114",
+      "narrativePublicationEdit": true
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/COMPLETED.json",
+      "size": 3741,
+      "sha256": "74e4e6352cd1af3ba90e08ba223cf3013f6270911c72acdf7e58fa508dc193fa",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3741,
+      "publishedSha256": "74e4e6352cd1af3ba90e08ba223cf3013f6270911c72acdf7e58fa508dc193fa",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/INDEPENDENT_REVIEW.md",
+      "size": 2799,
+      "sha256": "fe1b2a956db111a7b6bc34161a79e27676a66e5635af8bc79ec37182576453ca",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2799,
+      "publishedSha256": "fe1b2a956db111a7b6bc34161a79e27676a66e5635af8bc79ec37182576453ca",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/code-review-5a707a1.json",
+      "size": 646,
+      "sha256": "89130d09341bbb7454376d732f0bdeb8072441c019eab001a87a4dc096261794",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 646,
+      "publishedSha256": "89130d09341bbb7454376d732f0bdeb8072441c019eab001a87a4dc096261794",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/database-identity-r2.json",
+      "size": 194,
+      "sha256": "9a5ec68d3f3cf34400d7c0bda9b79ace68d777e3fbf4fab26b99f746b4a5662e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 194,
+      "publishedSha256": "9a5ec68d3f3cf34400d7c0bda9b79ace68d777e3fbf4fab26b99f746b4a5662e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/database-identity.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 0,
+      "publishedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json",
+      "size": 5618890,
+      "sha256": "244a5582e7e54ee9f1b05d820f3c8a6f4be3aa4a98432d4972e850f84c12b4b5",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json",
+      "registerAnchor": "artifact-14"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/disposal-tests.txt",
+      "size": 121,
+      "sha256": "8a3d5134cc6a4be968fa64677cbee78da5487b6e64ffea6aebda23bf7be2a948",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 121,
+      "publishedSha256": "8a3d5134cc6a4be968fa64677cbee78da5487b6e64ffea6aebda23bf7be2a948",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/external-writer-freeze.json",
+      "size": 379,
+      "sha256": "3af230d665ff810683dc3291ca7033a39ecb5a6b492495ad04a4088352fab8d6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 379,
+      "publishedSha256": "3af230d665ff810683dc3291ca7033a39ecb5a6b492495ad04a4088352fab8d6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/filesystem-preflight-20261127.json",
+      "size": 535582,
+      "sha256": "5de30c5fa6cd1361b729fae8d5124bc36936df16c49844715207102a69f22c37",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 535582,
+      "publishedSha256": "5de30c5fa6cd1361b729fae8d5124bc36936df16c49844715207102a69f22c37",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/filesystem-preflight-r2-20261127.json",
+      "size": 535582,
+      "sha256": "99452c5916569166cbe36e07afa8fff550ddacd112787f6e73ee8e33e8d74d1c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 535582,
+      "publishedSha256": "99452c5916569166cbe36e07afa8fff550ddacd112787f6e73ee8e33e8d74d1c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/independent-retirement-completion-review.json",
+      "size": 3686,
+      "sha256": "b5aac73ce20a567bde7957f8bfed8ecf169825cbdb9935e8f06566ecbf1520b3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3686,
+      "publishedSha256": "b5aac73ce20a567bde7957f8bfed8ecf169825cbdb9935e8f06566ecbf1520b3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/independent-review.json",
+      "size": 6810,
+      "sha256": "d56568615f34e917a5106a34dce10c4b021db2e983d0575fe5f565d274ac6eff",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6810,
+      "publishedSha256": "d56568615f34e917a5106a34dce10c4b021db2e983d0575fe5f565d274ac6eff",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010/deletion-25342010.jsonl",
+      "size": 3955,
+      "sha256": "26726e62b98deccd62f1a43e734238afa4b05a2f8db90e02986298982e269cee",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 3955,
+      "publishedSha256": "26726e62b98deccd62f1a43e734238afa4b05a2f8db90e02986298982e269cee",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010/job-25342010-audit.json",
+      "size": 4414,
+      "sha256": "0f7b0aab1e7d4891f380ffeb48ab7a91a6503c0b14a83eaabcd21109aa0058ab",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4414,
+      "publishedSha256": "0f7b0aab1e7d4891f380ffeb48ab7a91a6503c0b14a83eaabcd21109aa0058ab",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010/komondor-kamoun-6-25342010.log",
+      "size": 6829,
+      "sha256": "7d85507685c9127f0cc9105d878532b427c4f3c0e46ff565a6b94ceb2b1618db",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6829,
+      "publishedSha256": "7d85507685c9127f0cc9105d878532b427c4f3c0e46ff565a6b94ceb2b1618db",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010-accounting-user-supplied.json",
+      "size": 470,
+      "sha256": "df97ccbdaed1971271fe60e3e15e7fa895cd82433c23fb1fee4b02ada963f13d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 470,
+      "publishedSha256": "df97ccbdaed1971271fe60e3e15e7fa895cd82433c23fb1fee4b02ada963f13d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010-database-after.json",
+      "size": 378,
+      "sha256": "ccd59574060339a3f9702ae876a6d3ecaeb4236104ab5ea0b9110097de1cd3cc",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 378,
+      "publishedSha256": "ccd59574060339a3f9702ae876a6d3ecaeb4236104ab5ea0b9110097de1cd3cc",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010-observation-01.json",
+      "size": 4376,
+      "sha256": "8ee398a09454fff623ab44e14fb9b35500dc0afc0095dad8df44fccf784b1660",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4376,
+      "publishedSha256": "8ee398a09454fff623ab44e14fb9b35500dc0afc0095dad8df44fccf784b1660",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/job-25342010-submission.json",
+      "size": 413,
+      "sha256": "b815a6368cdaa2b6fe9e6cb4344c28050c6d8ce827c40aeb8a4a8812eef4d9e5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 413,
+      "publishedSha256": "b815a6368cdaa2b6fe9e6cb4344c28050c6d8ce827c40aeb8a4a8812eef4d9e5",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/live-after-state.json",
+      "size": 378,
+      "sha256": "44ae5807619d5b5226e34e4b833fabec95c4d2487e4020a36f6fd08a9213030c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 378,
+      "publishedSha256": "44ae5807619d5b5226e34e4b833fabec95c4d2487e4020a36f6fd08a9213030c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/live-before-state-r2.json",
+      "size": 372,
+      "sha256": "bf76c8828eeb277b3d42b8842ba29018becb44db060a56f63acb9c263c5866b3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 372,
+      "publishedSha256": "bf76c8828eeb277b3d42b8842ba29018becb44db060a56f63acb9c263c5866b3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/live-before-state.json",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 0,
+      "publishedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/package-release.json",
+      "size": 1313,
+      "sha256": "8eeecebac7710cd3bd8012e157bec9685dd9a3fcb40dc2f4b082180a67ccb400",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1313,
+      "publishedSha256": "8eeecebac7710cd3bd8012e157bec9685dd9a3fcb40dc2f4b082180a67ccb400",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/package-root-review.json",
+      "size": 374,
+      "sha256": "4fd3448e77a3d9371c87cbd6313500c84789c62498e6f0d5a1b0d2d449379107",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 374,
+      "publishedSha256": "4fd3448e77a3d9371c87cbd6313500c84789c62498e6f0d5a1b0d2d449379107",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/rehearsal-01.json",
+      "size": 774,
+      "sha256": "b9078b5dcc2ec63526bc2c6d3907d01e94def20d9ecb1b58bffa70c4bd01a642",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 774,
+      "publishedSha256": "b9078b5dcc2ec63526bc2c6d3907d01e94def20d9ecb1b58bffa70c4bd01a642",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/rehearsal-final.json",
+      "size": 774,
+      "sha256": "fda305efaf0b270a227d9b03d17d7c879699273f3db31634a340eaa41b46adb8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 774,
+      "publishedSha256": "fda305efaf0b270a227d9b03d17d7c879699273f3db31634a340eaa41b46adb8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/rehearsal-plan-r2.json",
+      "size": 774,
+      "sha256": "05033af6fb0e65a7b85c89266ed11d5f3c8f1e0de3c39d15782d8e1f9da7f47d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 774,
+      "publishedSha256": "05033af6fb0e65a7b85c89266ed11d5f3c8f1e0de3c39d15782d8e1f9da7f47d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/removal-permissions-preflight.json",
+      "size": 267,
+      "sha256": "20debc126233bbfefc5f9a1bdd77345b34490cda8d738aa1610aa4e1d1a31d4e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 267,
+      "publishedSha256": "20debc126233bbfefc5f9a1bdd77345b34490cda8d738aa1610aa4e1d1a31d4e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-completed.json",
+      "size": 1135,
+      "sha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1135,
+      "publishedSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz",
+      "size": 1599735,
+      "sha256": "0e8556d081bba266e10a33c3f67beecea6a97a414e02b84921cac4d503dd56ef",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz",
+      "registerAnchor": "artifact-15"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-copy-verified.json",
+      "size": 218,
+      "sha256": "0205384ca47f883e044bc28167ccef1f65a03da24391ead6741f69b146ff54a3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 218,
+      "publishedSha256": "0205384ca47f883e044bc28167ccef1f65a03da24391ead6741f69b146ff54a3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-manifest.json",
+      "size": 443880,
+      "sha256": "a541fb188124caf0d5ae38b508d84d9ae0defcf46b6fd8077480664bbd5554bd",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 443880,
+      "publishedSha256": "a541fb188124caf0d5ae38b508d84d9ae0defcf46b6fd8077480664bbd5554bd",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-execution-01.stdout",
+      "size": 126,
+      "sha256": "ed0f94f3f687f22f1a9c64291f0830dca24dc0aa5e94e8a4c8bce5cf39ecf024",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 126,
+      "publishedSha256": "ed0f94f3f687f22f1a9c64291f0830dca24dc0aa5e94e8a4c8bce5cf39ecf024",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-execution.json",
+      "size": 396,
+      "sha256": "ef9918d9850809a8551ec7f9d1db6fb7126d64b9b8b4b312771c7276190bc768",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 396,
+      "publishedSha256": "ef9918d9850809a8551ec7f9d1db6fb7126d64b9b8b4b312771c7276190bc768",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-readiness-and-result.json",
+      "size": 741,
+      "sha256": "ae16c0158070ab2a3e94a173f1688c0898bae5710e490d9f784df16138e66909",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 741,
+      "publishedSha256": "ae16c0158070ab2a3e94a173f1688c0898bae5710e490d9f784df16138e66909",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/server-deletion-package.json",
+      "size": 376,
+      "sha256": "c66bbd15a4f8ddd2686c3590ec36ba1a2ab26dc317eebeec62f517cca0031fa9",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 376,
+      "publishedSha256": "c66bbd15a4f8ddd2686c3590ec36ba1a2ab26dc317eebeec62f517cca0031fa9",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/server-package-verified.json",
+      "size": 1333,
+      "sha256": "885b6d338fb44c31282880069b99e31beb34c15c5fd409c6163a60126f0e7fc8",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1333,
+      "publishedSha256": "885b6d338fb44c31282880069b99e31beb34c15c5fd409c6163a60126f0e7fc8",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/service-window/before.json",
+      "size": 809,
+      "sha256": "f2cc30a03443b7eb732ff62e08abdcace56d372aed984d0dec4945f8fa31add3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 809,
+      "publishedSha256": "f2cc30a03443b7eb732ff62e08abdcace56d372aed984d0dec4945f8fa31add3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/service-window/listener-probe-a.json",
+      "size": 488,
+      "sha256": "add38bf9b5099544736a65729ba88321211a8ca7263a41ae2e3a5cb51a72635c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 488,
+      "publishedSha256": "add38bf9b5099544736a65729ba88321211a8ca7263a41ae2e3a5cb51a72635c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/service-window/paused.json",
+      "size": 1415,
+      "sha256": "fb097ff0fb66de531b043c22394b0ed72607e7a5f6842c40bc52b16f736e4ce3",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1415,
+      "publishedSha256": "fb097ff0fb66de531b043c22394b0ed72607e7a5f6842c40bc52b16f736e4ce3",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/service-window/restart-reason.json",
+      "size": 299,
+      "sha256": "0d0196dda7e4063e2cf7086768a7e8cfd3edd873ccd6a62b026a1d60b9ddde9a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 299,
+      "publishedSha256": "0d0196dda7e4063e2cf7086768a7e8cfd3edd873ccd6a62b026a1d60b9ddde9a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/service-window/restored.json",
+      "size": 1235,
+      "sha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1235,
+      "publishedSha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/services-restored.json",
+      "size": 1235,
+      "sha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1235,
+      "publishedSha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/supplemental-package-review.json",
+      "size": 460,
+      "sha256": "e4db0a0b276683042e3829ce51631e8e6b4858abd9c58db22b3d067ba2300329",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 460,
+      "publishedSha256": "e4db0a0b276683042e3829ce51631e8e6b4858abd9c58db22b3d067ba2300329",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/website-checks.json",
+      "size": 743,
+      "sha256": "a1cc181cb1d0e924f6161b59be040e64642439bae6c88ba045679a78e76412b6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 743,
+      "publishedSha256": "a1cc181cb1d0e924f6161b59be040e64642439bae6c88ba045679a78e76412b6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/window-complete.json",
+      "size": 374,
+      "sha256": "91bdf11d929885b4fd01a987ef3e8acaa83ff242056f640e1988707c1a54107a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 374,
+      "publishedSha256": "91bdf11d929885b4fd01a987ef3e8acaa83ff242056f640e1988707c1a54107a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/window-tests.txt",
+      "size": 1334,
+      "sha256": "e1cfea7c1f316b18a7e2307dcfdc98a18bcd1a1754f2ccda2dc2f4bb9d92fd64",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1334,
+      "publishedSha256": "e1cfea7c1f316b18a7e2307dcfdc98a18bcd1a1754f2ccda2dc2f4bb9d92fd64",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/execution-ready.json",
+      "size": 1454,
+      "sha256": "cc57ffef067ebabda5df3daef939cf6078283de88e926893164f16391ce22f85",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1454,
+      "publishedSha256": "cc57ffef067ebabda5df3daef939cf6078283de88e926893164f16391ce22f85",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/held-paths.json",
+      "size": 1649,
+      "sha256": "d4dba5d9c801ab1dbfb2f3950fd5270b9482c0d0ce4a9d51e7ec2cd355b1bb12",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1649,
+      "publishedSha256": "d4dba5d9c801ab1dbfb2f3950fd5270b9482c0d0ce4a9d51e7ec2cd355b1bb12",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/HELD_PATHS.txt",
+      "size": 866,
+      "sha256": "fe3e9de5d8fa2095ad7933fda36aa0612d3b27a93f79fa3c9bfba537619c54f7",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 866,
+      "publishedSha256": "fe3e9de5d8fa2095ad7933fda36aa0612d3b27a93f79fa3c9bfba537619c54f7",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/HPC_PATHS.txt",
+      "size": 427,
+      "sha256": "1d17ad9acaecc51de33381d716cdb66a0ff51ce1ee9c6fa9b29229d91cd32f64",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 427,
+      "publishedSha256": "1d17ad9acaecc51de33381d716cdb66a0ff51ce1ee9c6fa9b29229d91cd32f64",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/PROJECTS.tsv",
+      "size": 789,
+      "sha256": "69bf7d081c0daf2f3f8bc12f821da7d4395ea3acf8ab08daca751ca698307f8e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 789,
+      "publishedSha256": "69bf7d081c0daf2f3f8bc12f821da7d4395ea3acf8ab08daca751ca698307f8e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/README.md",
+      "size": 2547,
+      "sha256": "d145eb8ab1fb9822eeacc2077aafd90ef5af2b7fde3f58ad38dfb5eb09691a6d",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2547,
+      "publishedSha256": "d145eb8ab1fb9822eeacc2077aafd90ef5af2b7fde3f58ad38dfb5eb09691a6d",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/SHA256SUMS",
+      "size": 933,
+      "sha256": "877605c0cc2de375f6439f7d9d5fd663c227033873c3d69c9dd51365228e5445",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 933,
+      "publishedSha256": "877605c0cc2de375f6439f7d9d5fd663c227033873c3d69c9dd51365228e5445",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/delete-direct-disposal.py",
+      "size": 11069,
+      "sha256": "5b0f71ffaf0e63c2626a46abf2100d308d11ad82f2cfa3ccce6e8798a58f01ec",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 11069,
+      "publishedSha256": "5b0f71ffaf0e63c2626a46abf2100d308d11ad82f2cfa3ccce6e8798a58f01ec",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/delete.sbatch",
+      "size": 982,
+      "sha256": "06ec65c27d23ab0881b1c780579d368588e1cf8f5cdf4da07ccdd01ab1403990",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 982,
+      "publishedSha256": "06ec65c27d23ab0881b1c780579d368588e1cf8f5cdf4da07ccdd01ab1403990",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/deletion-plan.json",
+      "size": 531091,
+      "sha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 531091,
+      "publishedSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/inventory.json",
+      "size": 535582,
+      "sha256": "99452c5916569166cbe36e07afa8fff550ddacd112787f6e73ee8e33e8d74d1c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 535582,
+      "publishedSha256": "99452c5916569166cbe36e07afa8fff550ddacd112787f6e73ee8e33e8d74d1c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/inventory_direct_disposal.py",
+      "size": 13785,
+      "sha256": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 13785,
+      "publishedSha256": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/retirement-receipt.json",
+      "size": 1135,
+      "sha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 1135,
+      "publishedSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01/sealed-source-baseline.json",
+      "size": 205631,
+      "sha256": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 205631,
+      "publishedSha256": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz",
+      "size": 98331,
+      "sha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19",
+      "recommendation": "external-retained",
+      "category": "sealed-binary-archive",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz",
+      "registerAnchor": "artifact-16"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz.sha256",
+      "size": 112,
+      "sha256": "66e2dd8af7f0ce22a73ad986b6a0e227f7f25f67b1fdf4f935cb7021ff60e3a1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 112,
+      "publishedSha256": "66e2dd8af7f0ce22a73ad986b6a0e227f7f25f67b1fdf4f935cb7021ff60e3a1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json",
+      "size": 6206137,
+      "sha256": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json",
+      "registerAnchor": "artifact-17"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
+      "size": 6206246,
+      "sha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+      "recommendation": "external-retained",
+      "category": "raw-database-graph",
+      "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
+      "registerAnchor": "artifact-18"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/targets.json",
+      "size": 4148,
+      "sha256": "85f8b5948f1a625fc014516952383439f18b319dfc7b55e37e8f3993507d9cec",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4148,
+      "publishedSha256": "85f8b5948f1a625fc014516952383439f18b319dfc7b55e37e8f3993507d9cec",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/__pycache__/audit-job.cpython-314.pyc",
+      "size": 24399,
+      "sha256": "43a54bd5f915cf12c2b106dde8ba20ec0a7bfa1914d9767f0ba42916867bcab9",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/__pycache__/delete-direct-disposal.cpython-314.pyc",
+      "size": 19339,
+      "sha256": "8ac223ea377f7e8d544ad53160e6681b75b053b1e3d996b8fd2dbfb1e1b67224",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/__pycache__/inventory_direct_disposal.cpython-314.pyc",
+      "size": 23626,
+      "sha256": "f49a24c27bbc8306ce99465155358b86316fe66f2e714801bd5a7c58a683db45",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/__pycache__/test_audit_job.cpython-314.pyc",
+      "size": 13654,
+      "sha256": "49db723c0027da85ee9770a005e87ca65953851597e60fb79e1434ac680d4d22",
+      "recommendation": "exclude-generated",
+      "category": "python-cache"
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/audit-job.py",
+      "size": 14048,
+      "sha256": "5d6b366b842201089621a7d77ee968134fea46d93dedb3c14f047d902b892bb6",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14048,
+      "publishedSha256": "5d6b366b842201089621a7d77ee968134fea46d93dedb3c14f047d902b892bb6",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/build_disposal_job.py",
+      "size": 14238,
+      "sha256": "26e56e9c3c68b9b8bd774460d522f8b676b02b26c29ba4a2f94afdd3507e412c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14238,
+      "publishedSha256": "26e56e9c3c68b9b8bd774460d522f8b676b02b26c29ba4a2f94afdd3507e412c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/capture-db.cjs",
+      "size": 7211,
+      "sha256": "f4b77da358d96bccb89317bb370d41dd361714969bba2b1d6bede742d3f95009",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7211,
+      "publishedSha256": "f4b77da358d96bccb89317bb370d41dd361714969bba2b1d6bede742d3f95009",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/delete-direct-disposal.py",
+      "size": 10891,
+      "sha256": "ed52f65c1ccd2b6a2a491142702752fbe236bbc24c91d542b89448459eae9209",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 10891,
+      "publishedSha256": "ed52f65c1ccd2b6a2a491142702752fbe236bbc24c91d542b89448459eae9209",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/delete.sbatch.in",
+      "size": 931,
+      "sha256": "707dd7b2dc246736fba79323a2f211af4c9a4f91f1b1817f051121a8d29ad42c",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 931,
+      "publishedSha256": "707dd7b2dc246736fba79323a2f211af4c9a4f91f1b1817f051121a8d29ad42c",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/inventory_direct_disposal.py",
+      "size": 13785,
+      "sha256": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 13785,
+      "publishedSha256": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/listener-probe.cjs",
+      "size": 2724,
+      "sha256": "c9edae04d2ff8fb333c755f914363152fee5e95b8507bb0f7fdd7e80e57887e2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2724,
+      "publishedSha256": "c9edae04d2ff8fb333c755f914363152fee5e95b8507bb0f7fdd7e80e57887e2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/prepare-plan.py",
+      "size": 2271,
+      "sha256": "fb6bcf3a5891da54ebfef3b310fe1f9aa4324465fadddfc93ad8e3ee051c8d78",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 2271,
+      "publishedSha256": "fb6bcf3a5891da54ebfef3b310fe1f9aa4324465fadddfc93ad8e3ee051c8d78",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/rehearse-retirement.cjs",
+      "size": 4347,
+      "sha256": "317e3c95757862fd930bdb2ef31583118852e76401321cf408940412ed0220e4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4347,
+      "publishedSha256": "317e3c95757862fd930bdb2ef31583118852e76401321cf408940412ed0220e4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/retirement.cjs",
+      "size": 27338,
+      "sha256": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 27338,
+      "publishedSha256": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/retirement.test.cjs",
+      "size": 12138,
+      "sha256": "2467fd44e6a6e6c0e61f2c1333c0b0bb50edc7cd06cdfa6c155f937237880ef0",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 12138,
+      "publishedSha256": "2467fd44e6a6e6c0e61f2c1333c0b0bb50edc7cd06cdfa6c155f937237880ef0",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/sealed-source-baseline.json",
+      "size": 205631,
+      "sha256": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 205631,
+      "publishedSha256": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/state-probe.cjs",
+      "size": 4790,
+      "sha256": "89d095a8eeabf5c3b8a086c76db004e3c56216f4c06434e99d43e0a9100c8dc1",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 4790,
+      "publishedSha256": "89d095a8eeabf5c3b8a086c76db004e3c56216f4c06434e99d43e0a9100c8dc1",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/test_audit_job.py",
+      "size": 6778,
+      "sha256": "7425382d6e731acbb221a7047f00dd3991a5820f8a514b14a28e036c90f256c2",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 6778,
+      "publishedSha256": "7425382d6e731acbb221a7047f00dd3991a5820f8a514b14a28e036c90f256c2",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/test_build_disposal_job.py",
+      "size": 7416,
+      "sha256": "9f035a43d5449c6abd14c27d6a2a8c8ac5d6faf6c5ebf9c19e4c9b0e1e364e94",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 7416,
+      "publishedSha256": "9f035a43d5449c6abd14c27d6a2a8c8ac5d6faf6c5ebf9c19e4c9b0e1e364e94",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/test_disposal_guards.py",
+      "size": 14480,
+      "sha256": "3dfd521be7444b72c74a59dccee744f8585ca6648c1eef1b7a9f9bb5aad8bd9f",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 14480,
+      "publishedSha256": "3dfd521be7444b72c74a59dccee744f8585ca6648c1eef1b7a9f9bb5aad8bd9f",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/window.cjs",
+      "size": 13575,
+      "sha256": "7db541fa41fe1ae652000866979e8b891269d0445f38613aee17770dc982b57e",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 13575,
+      "publishedSha256": "7db541fa41fe1ae652000866979e8b891269d0445f38613aee17770dc982b57e",
+      "narrativePublicationEdit": false
+    },
+    {
+      "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/tools/window.test.cjs",
+      "size": 8679,
+      "sha256": "a4e2197425e5c466aed2455a4001d6435da87261566c344870834a01096b34d5",
+      "recommendation": "include",
+      "category": "audit-evidence-or-tool",
+      "publishedSize": 8679,
+      "publishedSha256": "a4e2197425e5c466aed2455a4001d6435da87261566c344870834a01096b34d5",
+      "narrativePublicationEdit": false
+    }
+  ],
+  "incorporatedEvidenceBranch": {
+    "branch": "codex/archive-status-20261126",
+    "head": "4b0895a4fb9b23c0138a480f291239d1fcad6463",
+    "commitsBeyondCommonBase": 11,
+    "commonBase": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+    "alreadyOnMaster": false
+  }
+}

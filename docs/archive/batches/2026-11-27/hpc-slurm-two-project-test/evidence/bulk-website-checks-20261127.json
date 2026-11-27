@@ -1,0 +1,49 @@
+{
+  "observedAt": "2026-11-27T13:43:03.662373+00:00",
+  "method": "Actual production Chrome pages; accessibility text inspected after individual native confirmation receipts existed",
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d39",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d39",
+      "title": "Sequencing of NLRs from tetraploid wheat lines",
+      "selection": "largest bulk payload",
+      "archiveLabel": "Archived in AWS",
+      "hpcLabel": "HPC removal confirmed",
+      "absenceDisplayed": "27 November 2026 at 13:40 UTC",
+      "awsLabel": "Transfer verified in AWS",
+      "transferDisplayed": "2 November 2026 at 20:55 UTC",
+      "sampleExamplesStillVisible": [
+        "WR16",
+        "SF10_1040052",
+        "SF11_SrA"
+      ]
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6d",
+      "url": "https://sequences.tsl.ac.uk/project?id=5fc012bda3efcb29338b7d6d",
+      "title": "Solanum americanum nanopore sequencing",
+      "selection": "largest file count",
+      "archiveLabel": "Archived in AWS",
+      "hpcLabel": "HPC removal confirmed",
+      "absenceDisplayed": "27 November 2026 at 13:40 UTC",
+      "awsLabel": "Transfer verified in AWS",
+      "transferDisplayed": "25 October 2026 at 14:07 UTC",
+      "sampleExamplesStillVisible": [
+        "SP1102_D2",
+        "SP2273_D10"
+      ]
+    }
+  ],
+  "heldControl": {
+    "projectId": "5fc012bda3efcb29338b7d58",
+    "title": "Gargy-2019_RNAseq",
+    "hpcLabel": "On HPC (directory present)",
+    "awsLabel": "Transfer verified in AWS",
+    "preservationDisplayed": "Approved to stay on the HPC until 26 November 2027",
+    "sampleExamplesStillVisible": [
+      "Gargy_04_mock",
+      "Gargy_11_mock"
+    ]
+  },
+  "scope": "Representative website checks; all167 database/associated-record checks are separate native evidence. No browser edits made."
+}

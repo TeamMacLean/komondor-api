@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-27T11:01:33.494Z",
+  "projectId": "5fc012bda3efcb29338b7d4b",
+  "name": "Plant Capture Enhancer",
+  "createdAt": "2020-11-26T20:40:30.156Z",
+  "files": 3,
+  "bytes": 34647343,
+  "vmPath": "/mnt/reads/jjones/plant_capture_enhancer",
+  "hpcPath": "/tsl/data/reads/jjones/plant_capture_enhancer",
+  "migrationId": "6adb1abcbed8ab3ef3948eb3",
+  "s3Uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+  "s3VerifiedAt": "2026-10-23T08:30:52.069Z",
+  "preservation": {
+    "until": null,
+    "active": false,
+    "invalid": false
+  },
+  "gargyPreservation": {
+    "until": "2027-11-26T23:59:59.999Z",
+    "active": true,
+    "invalid": false
+  },
+  "manualExclusions": [
+    "5fc012bda3efcb29338b7d58",
+    "5fd1ed55d8dd4a63058cc1c9",
+    "5fdb2d62d7661b6ec22a0571",
+    "611ff26de788b405b6ce6a4c",
+    "61204424e788b405b6ce6bde"
+  ],
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "commands": [
+    {
+      "args": [
+        "status",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4b",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"status\",\n  \"identity\": {\n    \"projectId\": \"5fc012bda3efcb29338b7d4b\",\n    \"projectName\": \"Plant Capture Enhancer\",\n    \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\",\n    \"osUser\": \"deeks\",\n    \"awsArn\": \"arn:aws:sts::958120753368:assumed-role/KomondorArchiveV1333/706484f53ed8b3701e379922ea7105f456f71b\",\n    \"awsAccountId\": \"958120753368\",\n    \"bucket\": \"tsl-hpc-reads\",\n    \"basePrefix\": \"\"\n  },\n  \"state\": \"aws_pending_hpc_deletion\",\n  \"preserveOnHpcUntil\": null,\n  \"hpcPreservationActive\": false,\n  \"hpcPreservationInvalid\": false,\n  \"phase\": \"verified\",\n  \"migration\": {\n    \"id\": \"6adb1abcbed8ab3ef3948eb3\",\n    \"movedBy\": \"deeks\",\n    \"startedAt\": \"2026-10-23T08:28:45.825Z\",\n    \"updatedAt\": \"2026-10-23T08:30:52.069Z\",\n    \"lastError\": null,\n    \"resumeCount\": 0,\n    \"restartedFrom\": [],\n    \"manifests\": {\n      \"fileCount\": 3,\n      \"skippedEntries\": 0,\n      \"sourceS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/source-manifest.v1.json\",\n      \"sourceSealedAt\": \"2026-10-23T08:30:34.298Z\",\n      \"sourceSha256\": \"53d3a4a89236ddbff477eac5a63f1acc302992fbc9029cadb54629f665312f08\",\n      \"totalBytes\": 34647343,\n      \"version\": 1,\n      \"verificationS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/verification-report.v1.json\",\n      \"verificationSealedAt\": \"2026-10-23T08:30:52.069Z\",\n      \"verificationSha256\": \"472e6d76dd2cd29b8c2f6642c78ea4c20c1f57a0ff19a5554d0cf92252c59747\"\n    }\n  },\n  \"sourceManifest\": {\n    \"exists\": true,\n    \"digestMatches\": true\n  },\n  \"objects\": {\n    \"total\": 3,\n    \"owned\": [\n      {\n        \"key\": \"jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf\",\n        \"size\": 277280,\n        \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\"\n      },\n      {\n        \"key\": \"jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz\",\n        \"size\": 17209559,\n        \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\"\n      },\n      {\n        \"key\": \"jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz\",\n        \"size\": 17160504,\n        \"migrationId\": \"6adb1abcbed8ab3ef3948eb3\"\n      }\n    ],\n    \"prior\": [],\n    \"foreign\": []\n  },\n  \"multipartUploads\": [],\n  \"controlObjects\": [\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/source-manifest.v1.json\",\n      \"size\": 12398\n    },\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d4b/6adb1abcbed8ab3ef3948eb3/verification-report.v1.json\",\n      \"size\": 2613\n    }\n  ],\n  \"hpcExists\": true,\n  \"cleanupWarning\": null,\n  \"cleanupCommands\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "deletion-command",
+        "--project-id",
+        "5fc012bda3efcb29338b7d4b"
+      ],
+      "exitCode": 0,
+      "stdout": "# Project 5fc012bda3efcb29338b7d4b \"Plant Capture Enhancer\" — migration 6adb1abcbed8ab3ef3948eb3 — verified in S3 2026-10-23T08:30:52.069Z\n# 3 files, 34647343 bytes. This removes the HPC copy. S3 is authoritative.\nrm -rf -- '/mnt/reads/jjones/plant_capture_enhancer'\n",
+      "stderr": ""
+    }
+  ],
+  "deletionPerformed": false,
+  "finalizationPerformed": false,
+  "serverEvidence": "/storage/komondor-hpc-first-deletion-20261127T110133Z"
+}

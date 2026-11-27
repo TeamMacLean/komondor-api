@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-27T14:39:11.747Z",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '2474c4a4b070041a4e42f4148a25f8c7832137eb'\n- '12e7f1da1537b693f60c86d692f0c3236edcf299'\n\n    at main (/storage/komondor-gulnara-source-review-20261127-01/confirm-sources.cjs:208:35)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)",
+  "confirmedProjects": [],
+  "verifiedProjects": [],
+  "commands": [],
+  "continuationRequiresInspection": true,
+  "serverEvidence": "/storage/komondor-gulnara-source-confirm-20261127T143911Z"
+}

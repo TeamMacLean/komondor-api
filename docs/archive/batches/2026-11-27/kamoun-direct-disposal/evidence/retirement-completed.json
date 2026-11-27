@@ -1,0 +1,41 @@
+{
+  "kind": "komondor-direct-disposal-retirement-v1",
+  "success": true,
+  "operator": "deeks",
+  "projectIds": [
+    "5fc012bda3efcb29338b7cf5",
+    "5fc012bda3efcb29338b7cf8",
+    "5fc012bda3efcb29338b7cf9",
+    "5fc012bda3efcb29338b7d0d",
+    "5fc012bda3efcb29338b7d5c",
+    "5fc012bda3efcb29338b7d7a"
+  ],
+  "retiredProjects": 6,
+  "retiredRecords": 2459,
+  "counts": {
+    "projects": 6,
+    "samples": 9,
+    "runs": 10,
+    "reads": 8,
+    "additionalfiles": 1209,
+    "files": 1217,
+    "ingestjobs": 0,
+    "newsitems": 0
+  },
+  "written": 2459,
+  "adopted": 0,
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "executionAt": "2026-11-27T15:05:51.418Z",
+  "at": "2026-11-27T15:06:00.331Z",
+  "apiHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "dependentRecordsRetained": true,
+  "beforeImagesVerified": true,
+  "writesBlocked": true,
+  "externalWritersFrozen": true,
+  "noS3Copy": true,
+  "manualFilesystemDeletionRequired": true,
+  "sourceInventoryUnchanged": true,
+  "storageAndArchiveFieldsUnchanged": true,
+  "priorHistoryPreserved": true,
+  "physicalDeletionPerformed": false
+}

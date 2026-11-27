@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-27T13:35:10.468612+00:00",
+  "helper": "tools/confirm-remaining.cjs",
+  "helperSha256": "aa8bcdfc3a81b5bdcf335ee405a04ed8f8839d2b6fc96ecb2c3446e94ff8849b",
+  "syntax": "passed",
+  "independentReview": "passed",
+  "planSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+  "targetCount": 167,
+  "sealedSourceAndVerificationControlsChecked": 334,
+  "nativeWritesOnly": true,
+  "allDryRunsBeforeMutations": true,
+  "failureHandlingTest": "Isolated in-memory bounded worker test passed: max four started, no additional assignment after failure, in-flight workers awaited",
+  "excludedProjects": 8,
+  "newPayloadChecksumsOrS3Mutations": false
+}

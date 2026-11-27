@@ -1,0 +1,28 @@
+{
+  "sampleId": "61201563e788b405b6ce6b4e",
+  "fileId": "612019d6e788b405b6ce6b54",
+  "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/KS9XB2_1.fq.gz",
+  "bytes": 1533238728,
+  "sealedSha256": "e00a3c68d6ad4b71d8ecb6d2f95aac076eb0ff0c7495762b36e08be45425d6a1",
+  "expectedMd5FromSidecars": "9f96a6ed66e1e8437be6e775b867140d",
+  "sidecarFileIds": [
+    "61201564e788b405b6ce6b50",
+    "612019d6e788b405b6ce6b56"
+  ],
+  "md5": "9f96a6ed66e1e8437be6e775b867140d",
+  "sha256": "e00a3c68d6ad4b71d8ecb6d2f95aac076eb0ff0c7495762b36e08be45425d6a1",
+  "metadata": {
+    "dev": "42",
+    "ino": "61649556051",
+    "mode": "33272",
+    "nlink": "2",
+    "uid": "11449",
+    "gid": "12318",
+    "size": "1533238728",
+    "mtime_ns": "1629493728266999000",
+    "ctime_ns": "1795699483737924000"
+  },
+  "at": "2026-11-26T14:22:33.856662+00:00",
+  "verified": true,
+  "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+}

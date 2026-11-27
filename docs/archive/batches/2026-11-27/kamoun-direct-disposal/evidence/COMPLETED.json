@@ -1,0 +1,108 @@
+{
+  "kind": "komondor-kamoun-direct-disposal-completion-v1",
+  "recordedAt": "2026-11-27T15:29:26.744971+00:00",
+  "success": true,
+  "jobId": "25342010",
+  "projectIds": [
+    "5fc012bda3efcb29338b7cf5",
+    "5fc012bda3efcb29338b7cf8",
+    "5fc012bda3efcb29338b7cf9",
+    "5fc012bda3efcb29338b7d0d",
+    "5fc012bda3efcb29338b7d5c",
+    "5fc012bda3efcb29338b7d7a"
+  ],
+  "projects": 6,
+  "files": 1217,
+  "logicalFileBytesRemoved": 790004575062,
+  "retiredMetadataRecordsRetained": 2459,
+  "retirementCompletedAt": "2026-11-27T15:06:00.331Z",
+  "servicesRestoredAt": "2026-11-27T15:06:41.253Z",
+  "deletionStartedAt": "2026-11-27T15:20:04.651947+00:00",
+  "deletionCompletedAt": "2026-11-27T15:20:56.704036+00:00",
+  "runnerElapsedSeconds": 52.052089,
+  "runnerExitCode": 0,
+  "schedulerAccounting": {
+    "source": "George supplied final Slurm accounting in chat",
+    "state": "COMPLETED",
+    "exitCode": "0:0",
+    "runtimeSeconds": 52,
+    "queriedDirectly": false
+  },
+  "rawJobLogsAudited": true,
+  "independentFilesystemCheckAt": "2026-11-27T15:21:57.251972+00:00",
+  "independentDatabaseCheckAt": "2026-11-27T15:23:13.336Z",
+  "allSixRootsAbsent": true,
+  "allThirteenProtectedRootsPresent": true,
+  "protectedDatabaseRecordsUnchanged": true,
+  "protectedProjects": {
+    "joeWin": 11,
+    "gargy": 1,
+    "xanthoriaDestination": 1
+  },
+  "storageAndArchiveFieldsUnchanged": true,
+  "noS3Copy": true,
+  "archiveConfirmAbsentRequired": false,
+  "noAdditionalMutationRequired": true,
+  "issues": [],
+  "limits": [
+    "Logical source bytes are recorded; storage quota reclamation and filesystem snapshots were not measured.",
+    "Final scheduler accounting is user-supplied; copied job logs independently prove runner completion and exit 0."
+  ],
+  "instructions": [
+    "Do not resubmit the completed job, controller or retirement helper.",
+    "Retain all sealed execution evidence and database history.",
+    "Future reports, optional staging/CSV cleanup and deletion reviews are ad hoc; no email or Gulnara follow-up is due."
+  ],
+  "inputs": [
+    {
+      "path": "retirement-completed.json",
+      "bytes": 1135,
+      "sha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a"
+    },
+    {
+      "path": "independent-retirement-completion-review.json",
+      "bytes": 3686,
+      "sha256": "b5aac73ce20a567bde7957f8bfed8ecf169825cbdb9935e8f06566ecbf1520b3"
+    },
+    {
+      "path": "services-restored.json",
+      "bytes": 1235,
+      "sha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138"
+    },
+    {
+      "path": "website-checks.json",
+      "bytes": 743,
+      "sha256": "a1cc181cb1d0e924f6161b59be040e64642439bae6c88ba045679a78e76412b6"
+    },
+    {
+      "path": "job-25342010-accounting-user-supplied.json",
+      "bytes": 470,
+      "sha256": "df97ccbdaed1971271fe60e3e15e7fa895cd82433c23fb1fee4b02ada963f13d"
+    },
+    {
+      "path": "job-25342010-observation-01.json",
+      "bytes": 4376,
+      "sha256": "8ee398a09454fff623ab44e14fb9b35500dc0afc0095dad8df44fccf784b1660"
+    },
+    {
+      "path": "job-25342010-database-after.json",
+      "bytes": 378,
+      "sha256": "ccd59574060339a3f9702ae876a6d3ecaeb4236104ab5ea0b9110097de1cd3cc"
+    },
+    {
+      "path": "job-25342010/job-25342010-audit.json",
+      "bytes": 4414,
+      "sha256": "0f7b0aab1e7d4891f380ffeb48ab7a91a6503c0b14a83eaabcd21109aa0058ab"
+    },
+    {
+      "path": "job-25342010/deletion-25342010.jsonl",
+      "bytes": 3955,
+      "sha256": "26726e62b98deccd62f1a43e734238afa4b05a2f8db90e02986298982e269cee"
+    },
+    {
+      "path": "job-25342010/komondor-kamoun-6-25342010.log",
+      "bytes": 6829,
+      "sha256": "7d85507685c9127f0cc9105d878532b427c4f3c0e46ff565a6b94ceb2b1618db"
+    }
+  ]
+}

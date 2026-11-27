@@ -1,0 +1,5 @@
+projectId	name	hpcPath	bytes	fileCount	s3Uri
+5fd1ed55d8dd4a63058cc1c9	Lichen CoCulture_I 21 days	/tsl/data/reads/ntalbot/lichen_coculture_i_21_days	173734125362	142	s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days
+61204424e788b405b6ce6bde	Lichen CoCulture_I 2 days	/tsl/data/reads/ntalbot/lichen_coculture_i_2_days	105611175618	99	s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days
+5fdb2d62d7661b6ec22a0571	Lichen CoCulture_I 42 days	/tsl/data/reads/ntalbot/lichen_coculture_i_42_days	99954671448	89	s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days
+611ff26de788b405b6ce6a4c	Lichen CoCulture_I 9 days	/tsl/data/reads/ntalbot/lichen_coculture_i_9_days	103438441044	122	s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days

@@ -1,0 +1,24 @@
+✔ ready seals require exact plan and all safety tools (1.969417ms)
+✔ command requires explicit execution, writer freeze and pinned readiness (0.852875ms)
+✔ service inventory refuses duplicate API or wrong cwd (0.493458ms)
+✔ busy API or Power admission leaves services alone (0.755125ms)
+✔ stale retirement plan cannot begin a maintenance window (0.25475ms)
+✔ completed retirement restarts API before dependants and records bounded quiescence (1.823833ms)
+✔ deadline with unchanged graph safely reopens (1.386167ms)
+✔ partial graph never restarts and retains reopen lock (0.386ms)
+✔ active mutation blocks restart without clearing its lock (0.341083ms)
+✔ racing mutation after independent probe blocks restart (0.331167ms)
+✔ stop/listener failure restores only from independently unchanged graph (0.271083ms)
+✔ invalid completion identity cannot bypass graph admission (0.284916ms)
+✔ readiness failure leaves dependent services stopped (0.335916ms)
+✔ independent probe rejects missing identity, partial state and active PID (0.295125ms)
+✔ PID proof treats EPERM as alive and only ESRCH as exited (0.16975ms)
+✔ state classifier rejects partial, changed and extra scoped records (0.303416ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 83.028

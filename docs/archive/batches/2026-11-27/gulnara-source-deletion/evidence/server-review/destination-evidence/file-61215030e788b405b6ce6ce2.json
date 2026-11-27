@@ -1,0 +1,44 @@
+{
+  "fileId": "61215030e788b405b6ce6ce2",
+  "projectId": "61204424e788b405b6ce6bde",
+  "source": "/mnt/reads/ntalbot/lichen_coculture_i_2_days/48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+  "destination": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+  "stage": "/mnt/reads/ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99/48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+  "bytes": 100,
+  "sha256": "323f922a013298437d5ebfe29b25562d70d7ed8dac41e6b4965be894dcc056a0",
+  "md5": "9e83bebb1d6a1c755c99b7d7d19a9c39",
+  "md5ComparedToRead": true,
+  "sourceMetadata": {
+    "dev": 42,
+    "ino": 21696860648,
+    "size": 100,
+    "mode": 33272,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 1,
+    "mtimeMs": 1629573168962.923,
+    "ctimeMs": 1629573168962.923
+  },
+  "destinationMetadata": {
+    "dev": 42,
+    "ino": 61587479711,
+    "size": 100,
+    "mode": 33272,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 2,
+    "mtimeMs": 1629573168961.999,
+    "ctimeMs": 1795699476888.66
+  },
+  "stageMetadata": {
+    "dev": 42,
+    "ino": 61587479711,
+    "size": 100,
+    "mode": 33272,
+    "uid": 11449,
+    "gid": 12318,
+    "nlink": 2,
+    "mtimeMs": 1629573168961.999,
+    "ctimeMs": 1795699476888.66
+  }
+}

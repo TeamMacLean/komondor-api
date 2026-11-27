@@ -1,0 +1,20 @@
+{
+  "at": "2026-11-27T12:40:50.073216+00:00",
+  "readOnly": true,
+  "fiveHeldRootsPresent": true,
+  "plantCaptureAbsent": true,
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "sourcePresentAndUnchanged": true,
+      "files": 16,
+      "bytes": 298166898
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "sourcePresentAndUnchanged": true,
+      "files": 7,
+      "bytes": 89834094
+    }
+  ]
+}

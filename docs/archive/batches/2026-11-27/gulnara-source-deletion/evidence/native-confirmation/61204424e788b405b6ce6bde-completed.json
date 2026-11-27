@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-27T14:42:03.960Z",
+  "projectId": "61204424e788b405b6ce6bde",
+  "state": "aws",
+  "phase": "completed",
+  "storage": {
+    "state": "aws",
+    "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+    "s3VerifiedAt": "2026-10-27T20:44:48.707Z",
+    "archivedAt": "2026-11-27T14:42:03.835Z",
+    "hpcVerifiedAbsentAt": "2026-11-27T14:42:03.835Z"
+  },
+  "locations": {
+    "hpc": {
+      "status": "absent",
+      "uri": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days",
+      "checkedAt": "2026-11-27T14:42:03.835Z",
+      "reason": "absence_recorded"
+    },
+    "aws": {
+      "status": "verified",
+      "uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+      "verifiedAt": "2026-10-27T20:44:48.707Z"
+    },
+    "ageBasisAt": "2021-08-21T19:38:13.744Z",
+    "archiveDueAt": "2026-08-21T19:38:13.744Z",
+    "hpcDeletionEligibleAt": null,
+    "hpcPreservationInvalid": false
+  },
+  "associatedRecordsUnchanged": true,
+  "s3VerifiedAtUnchanged": true,
+  "onlyNativeConfirmationFieldsChanged": true
+}

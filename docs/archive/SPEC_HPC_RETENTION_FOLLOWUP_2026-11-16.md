@@ -1,13 +1,31 @@
 # Spec: HPC retention follow-up — 16 November 2026
 
 Written by Claude from George's decisions, for ChatGPT/Codex to implement. It
-builds on the `preserveOnHpcUntil` feature, which was merged and deployed on
-16 November: production runs API `f2e464c` and web `5e7bcf2`
-([record](DEPLOYMENT_2026-11-16.md)).
+builds on the `preserveOnHpcUntil` feature, initially deployed on 16 November
+as API `f2e464c` and web `5e7bcf2`
+([initial record](DEPLOYMENT_2026-11-16.md)).
 
-**Status:** implemented, reviewed and merged to master on 16 November
-([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)); deployment pending
-([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+**Status, reconciled 26 November:** implemented, reviewed, merged and reported
+deployed on 16 November. The reported heads for that deployment were API `48bcd53` and web
+`284f762`, following the same-day web correction
+([review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md),
+[deployment record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). No live
+production check was made for this documentation update. The specification
+below preserves the 16 November decisions. George's separate
+26 November decisions on project keep dates are recorded in
+[HPC_RETENTION.md](HPC_RETENTION.md#keep-dates-to-set-george). They do not change
+the implemented five-year archive-age calculation. The twelve agreed dates
+were subsequently saved and verified; do not repeat that operation.
+
+**Current-policy clarification, 27 November:** this is the historical
+16 November specification, not the current task list. The later policy requires
+AWS copying only after the later archive-age/keep date, enforced by `lock`
+with a recorded `--before-review-date "<reason>"` exception. Reviews and reports
+are ad hoc; no January/July schedule or owner email is requested. Gulnara's
+reassignment, source cleanup and native confirmations are complete. The earlier
+"back up early" and five-hold/setup instructions below are superseded where
+they conflict. Use [HPC_RETENTION.md](HPC_RETENTION.md) and [STATUS.md](STATUS.md)
+for current policy and completed work.
 
 Read first: [HPC_RETENTION.md](HPC_RETENTION.md), the
 [feature review](HPC_PRESERVATION_REVIEW_2026-11-14.md) and the

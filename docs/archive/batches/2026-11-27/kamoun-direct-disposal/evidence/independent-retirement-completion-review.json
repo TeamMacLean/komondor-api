@@ -1,0 +1,97 @@
+{
+  "kind": "kamoun-direct-disposal-independent-retirement-review-v1",
+  "at": "2026-11-27T15:10:49.538Z",
+  "success": true,
+  "reviewer": "independent-subagent-gulnara-native-review",
+  "scope": "Local retained execution archive and recorded independent live probes; no server actions",
+  "planSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+  "helperSha256": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+  "archiveSha256": "0e8556d081bba266e10a33c3f67beecea6a97a414e02b84921cac4d503dd56ef",
+  "archiveFilesVerified": 2466,
+  "projectIds": [
+    "5fc012bda3efcb29338b7cf5",
+    "5fc012bda3efcb29338b7cf8",
+    "5fc012bda3efcb29338b7cf9",
+    "5fc012bda3efcb29338b7d0d",
+    "5fc012bda3efcb29338b7d5c",
+    "5fc012bda3efcb29338b7d7a"
+  ],
+  "projects": 6,
+  "records": 2459,
+  "writeReceipts": 2459,
+  "counts": {
+    "projects": 6,
+    "samples": 9,
+    "runs": 10,
+    "reads": 8,
+    "additionalfiles": 1209,
+    "files": 1217,
+    "ingestjobs": 0,
+    "newsitems": 0
+  },
+  "preexistingReconciliations": 2432,
+  "priorHistoryEntriesPreserved": 2432,
+  "retirementHistoryEntriesAdded": 2459,
+  "fullTypedBeforeAfterMatch": true,
+  "onlyIntendedRetirementFieldsChanged": true,
+  "priorReconciliationIdentitiesPreserved": true,
+  "storageAndArchiveFieldsUnchanged": true,
+  "allSourcePathsAndAssociationsPreserved": true,
+  "exactSixProjectScope": true,
+  "unscopedWriteReceipts": 0,
+  "rawBsonFieldOrderDifferences": {
+    "count": 1,
+    "explanation": "Write receipts hash the planned after-image. MongoDB may reorder document fields when applying updates; every stored after-image was independently compared using canonical field order while preserving BSON types, and every receipt hash matches the planned after-image.",
+    "examples": [
+      {
+        "collection": "projects",
+        "id": "5fc012bda3efcb29338b7d7a",
+        "plannedSha256": "77a30531168ddfb7bd97405044fe95e0025eecf004ab62a7de71983fafc285c7",
+        "storedSha256": "e749ff4d59c8001a47f5a6d9d749110ce8e067f8f5a635dd84154beb66617c9d",
+        "topLevelOrderChanged": true
+      }
+    ]
+  },
+  "sourceInventoryUnchangedAccordingToExecutionReceipt": true,
+  "protectedProjects": 13,
+  "protectedProjectsUnchangedAccordingToIndependentLiveProbe": true,
+  "allNormalModelsExcludeRetiredAccordingToExecutionReceipt": true,
+  "externalWritersFrozen": true,
+  "allWritesWithinPausedWindow": true,
+  "executionAt": "2026-11-27T15:05:51.418Z",
+  "firstWriteAt": "2026-11-27T15:05:52.766Z",
+  "lastWriteAt": "2026-11-27T15:05:59.672Z",
+  "completedAt": "2026-11-27T15:06:00.331Z",
+  "servicesRestoredAt": "2026-11-27T15:06:41.253Z",
+  "servicesOnline": 4,
+  "physicalDeletionPerformed": false,
+  "noS3Copy": true,
+  "manualFilesystemDeletionStillRequired": true,
+  "inputs": [
+    {
+      "name": "retirement-evidence-20261127T150600Z.tar.gz",
+      "sha256": "0e8556d081bba266e10a33c3f67beecea6a97a414e02b84921cac4d503dd56ef"
+    },
+    {
+      "name": "retirement-evidence-manifest.json",
+      "sha256": "a541fb188124caf0d5ae38b508d84d9ae0defcf46b6fd8077480664bbd5554bd"
+    },
+    {
+      "name": "retirement-evidence-copy-verified.json",
+      "sha256": "0205384ca47f883e044bc28167ccef1f65a03da24391ead6741f69b146ff54a3"
+    },
+    {
+      "name": "live-after-state.json",
+      "sha256": "44ae5807619d5b5226e34e4b833fabec95c4d2487e4020a36f6fd08a9213030c"
+    },
+    {
+      "name": "services-restored.json",
+      "sha256": "3a46daebd20ebb530c48d431ff65b83617a277e0e8f221464a36570c19d28138"
+    },
+    {
+      "name": "code-review-5a707a1.json",
+      "sha256": "89130d09341bbb7454376d732f0bdeb8072441c019eab001a87a4dc096261794"
+    }
+  ],
+  "issues": []
+}

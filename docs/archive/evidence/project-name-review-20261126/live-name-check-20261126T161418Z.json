@@ -1,0 +1,1770 @@
+{
+  "observedAt": "2026-11-26T16:14:18.318Z",
+  "readOnly": true,
+  "host": "v1333.nbi.ac.uk",
+  "collection": "projects",
+  "projectCount": 371,
+  "queryProjection": [
+    "name",
+    "safeName",
+    "path",
+    "shortDesc",
+    "longDesc"
+  ],
+  "localFullSnapshotSha256": "9368fddae66ac4bcaf79e652f11bd80c0595119ec60aea21e0f83ca1df62608d",
+  "names": [
+    {
+      "projectId": "5fc012bda3efcb29338b7cf5",
+      "name": "saunderd_pstriiformis_South_African_isolates"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf6",
+      "name": "010612_ID140_0001_63BW7AAXX"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "name": "Study of pmk1AS mutant in presence and absence of an inhibitor"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf8",
+      "name": "saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf9",
+      "name": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfa",
+      "name": "Sequencing of Sub-Saharan Africa Magnaporthe oryzae isolates"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfb",
+      "name": "PacBio PenSeq on Phytophthora infestans"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfc",
+      "name": "witekk_tomato_renseq_miseq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfd",
+      "name": "ppufv02_transcriptome"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfe",
+      "name": "Sequencing and de novo assembly of Glycine latifolia "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cff",
+      "name": "Wheat Blast 2017"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d00",
+      "name": "Pacbio_genome_sequencing_PPUFV02"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d01",
+      "name": "MiSeq RenSeq of Arabidopsis thaliana accessions "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d02",
+      "name": "WT_Guy11 and Guy11_PWL2_mutant infection on Eragrostis curvula RNA-seq timecourse"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d03",
+      "name": "Sequencing PWL2 mutants in Guy11 background"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d04",
+      "name": "UV_mutagenesis"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d05",
+      "name": "Dovetail_Re-sequencing of Gargy_11_parent of 2BL-NI-Gargy_Fam1"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d06",
+      "name": "Sequencing melanin biosynthesis pathway CRISPR mutants in Guy11 background"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d07",
+      "name": "Gargy-2019_IsoSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d08",
+      "name": "RNAseq of differential isolates of ASR"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d09",
+      "name": "RNA-seq of various mutants"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0a",
+      "name": "Whole genome Shotgun of Solanum americanum"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0b",
+      "name": " Re-sequencing genomic DNA BGI"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0c",
+      "name": "Rice Blast"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0d",
+      "name": "saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0e",
+      "name": "Pc2/Vb oat"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0f",
+      "name": "Col-0 RPP2 Fast Neutron Mutant RenSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d10",
+      "name": "AJ_PathSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d11",
+      "name": "dingp_Ath_ATACseq_2019_1"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d12",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 - Rpi-amr2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "name": "MiSeq RenSeq of Brassica accessions "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d14",
+      "name": "bjornsom_ath_transcriPTIon"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d15",
+      "name": "soybean_rust_dovetail_hic"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d16",
+      "name": "Phakopsora pachyrhizi GA05-1 complete infection transcriptome"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d17",
+      "name": "ATAC_cseq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d18",
+      "name": "exome_capture_field_samples_jan2018"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d19",
+      "name": "Bulks ASR_3 screen"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1a",
+      "name": "Non-host resistance to Ac2V in Wu-0"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1b",
+      "name": "HK_PacBio"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1c",
+      "name": "Mtruncatula_BGI_RNAseq_parents"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1d",
+      "name": "Sequencing of Magnaporthe oryzae isolates from Kenya"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1e",
+      "name": "witekk_s_pimpinellifolium_cf_ecp2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1f",
+      "name": "Whole-Genome-Shotgun Illumina sequencing of Gargy_11, Gargy_04 and bulk susecptibles"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d20",
+      "name": "RNAseqP.sa"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d21",
+      "name": "Wsc1 project"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d22",
+      "name": "LegumeEnrichmentCapture_Rd"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d23",
+      "name": "Wheat Blast"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d24",
+      "name": "XL_PacBio_RLP_K_Seq_2019"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d25",
+      "name": "Sequencing of Magnaporthe oryzae KE002"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d26",
+      "name": "witekk_jupef_solanum"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d27",
+      "name": "HiSeq on Solanum cDNA"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "name": "Solynta sequencing"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "name": "albugo_candida"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2a",
+      "name": "Resistance to Albugo candida AcEx1 in HR-5 Oy-0 C24 and Lz-0"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2b",
+      "name": "Rice RenSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2c",
+      "name": "FOC_ST4"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2d",
+      "name": "GLTp-WGS-CintiaKawashima"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2e",
+      "name": "stegmanm_ath_mobmutants"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2f",
+      "name": "Global transcriptional analysis of surface perception"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d30",
+      "name": "Halioticida_Haliocrustida"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d31",
+      "name": "dingp_rnaseq_Novogene_strand-specific_seti_gh_eti_2020"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d32",
+      "name": "Halioticida_Haliphthoros"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d33",
+      "name": "NADPH oxidase project"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d34",
+      "name": "HK_amr5"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d35",
+      "name": "LOP-868 PacBio RenSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d36",
+      "name": "dingp_rnaseq_bgiseq500_gh_eti_2018"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d37",
+      "name": "Resistance to PLRV from Solanum tuberosum ssp. andigena (Rl-adg)"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d38",
+      "name": "Resistance to PVY from S. stoloniferum (Rysto)"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d39",
+      "name": "Sequencing of NLRs from tetraploid wheat lines"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3a",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 (Rpi-amr1 and Rpi-amr2) "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3b",
+      "name": "LegumeEnrichmentCapture_S48"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3c",
+      "name": "Rpi-amr2 in SP3675 (BC2F2 of SP2273) "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "name": "janderso_rsolani"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3e",
+      "name": "Pmk1 MAPKinase pathway appressorium development "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3f",
+      "name": "GLTp-RNASeq-CintiaKawashima"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d40",
+      "name": "cDNA PenSeq of 4 P. infestans isoaltes"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d41",
+      "name": "Wheat blast project"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d42",
+      "name": "White Rust Resistance gene cloning using RenSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d43",
+      "name": "Transcriptional regulation of melanin in Magnaporthe oryzae"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d44",
+      "name": "HR-5_Loss_of_Ex1_Resistance_M2_sequencing"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d45",
+      "name": "LegumeEnrichmentCapture_SBulk_CcRpp2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d46",
+      "name": "Transcription profiling during rice plant infection"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d47",
+      "name": "MiSeq RenSeq on various Solanum "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d48",
+      "name": "sequencing_field_isolates_of_phakopsora"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d49",
+      "name": "Resistance to Albugo candida Ac7v in Sf-2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4a",
+      "name": "HK_renseq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4b",
+      "name": "Plant Capture Enhancer"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4c",
+      "name": "Lichen Tissue RNA1"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4d",
+      "name": "Long Read Assembly of African Yam Bean"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "name": "Resistance to Albugo laibachii in Sf-2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4f",
+      "name": "matschis_ath_amb230E"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d50",
+      "name": "Sequencing Magnaporthe oryzae Guy11 "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d51",
+      "name": "ASR_sequencing_illumina"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d52",
+      "name": "ASR_sequencing_10xgenomics"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d53",
+      "name": "monaghaj_ath_bak1_5"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d54",
+      "name": "RNASeq BGI Cajanus cajan inf"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d55",
+      "name": "ppufv02_nanopore_sequencing"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d56",
+      "name": "Resistance to Albugo laibachii in HR-5"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d57",
+      "name": "Cell cycle"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "name": "Gargy-2019_RNAseq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d59",
+      "name": "Rpc-amr1; resistance to P. capsici from S. americanum SP1102"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5a",
+      "name": "CCG Expression"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5b",
+      "name": "Sequencing of Mini-chromosomes of M. oryzae 2018"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5c",
+      "name": "saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5d",
+      "name": "Medicago Trucatala  genome sequences"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5e",
+      "name": "PKG-ENQ-698NadineIlk"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5f",
+      "name": "PhilMacCLean_EnrichedPacBio_EarlhamInstitute"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "name": "Arabidopsis PacBio RenSeq"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d61",
+      "name": "monaghaj_ath_mobmutants"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d62",
+      "name": "FOC_CR1."
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d63",
+      "name": "LegumeEnrichmentCapture_RaParent"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d64",
+      "name": "dingp_Ath_mutants_FANSATACCapSeq_20170630_NextSeq500_PE_MidOutput"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d65",
+      "name": "Rnaseq M.trun"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d66",
+      "name": "witekk_s_pimpinellifolium_qcdata"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "name": "japanse_isolate_timecourse"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d68",
+      "name": "HK_amr10"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d69",
+      "name": "rallapag_ash_dieback"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6a",
+      "name": "dingp_Ath_ATACseq_2019_optimization"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6b",
+      "name": "witekk_s_americanum_gDNA_bgi"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6c",
+      "name": "ppufv02_timecourse"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6d",
+      "name": "Solanum americanum nanopore sequencing"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6e",
+      "name": "dingp_rnaseq_bgiseq500_seti_eti_2018"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6f",
+      "name": "Mtruncatula_BGI_gDNA_parents_TwoF2susceptiblebulks"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d70",
+      "name": "Ronny_Helen_Pinfestans_Pmirabilis_timecourse"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d71",
+      "name": "witekk_s_tuberosum_dm_ber2"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d72",
+      "name": "bettgenj_b_distachyon"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d73",
+      "name": "Nanopore sequences from Italian rice blast fungal isolates"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d74",
+      "name": "RNAseq_2BL-NI-Gargy_Fam1"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d75",
+      "name": "test"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d76",
+      "name": "barley_data"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d77",
+      "name": "AMR4 Mapping"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d78",
+      "name": "Genetic Variation in Albugo laibachii"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d79",
+      "name": "Sequencing of 5 strains of Kenyan Magnaporthe oryzae "
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7a",
+      "name": "Xiao_SCR74"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7b",
+      "name": "KE002 infection on rice RNA-seq timecourse"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7c",
+      "name": "dingp_Ath_mutants_RNACapSeq_20170602_NextSeq500_HiOutput"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7d",
+      "name": "ppufv02_gDNA_bgi"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7e",
+      "name": "Cajanus_70x_genomicData_reads_Illumina"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7f",
+      "name": "Turgor project"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d80",
+      "name": "PKG-ENQ-832.01NadineIlk"
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d81",
+      "name": "furzero_hpa_emwa1_illumina"
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days"
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days"
+    },
+    {
+      "projectId": "6017e292d7661b6ec22a06aa",
+      "name": "Whole genome sequencing of Bas1-8mut1, Bas1-8mut2 and Mep2-4mut1"
+    },
+    {
+      "projectId": "604f7072d7661b6ec22a06cf",
+      "name": "AdvPop7_cDNA_Nanopore"
+    },
+    {
+      "projectId": "6051c37ad7661b6ec22a06e3",
+      "name": "AdPop7_Parents_WGS_Illumina"
+    },
+    {
+      "projectId": "6054ba49d7661b6ec22a06f6",
+      "name": "Wheat Blast - Zambia 2018-2020"
+    },
+    {
+      "projectId": "605b441ad7661b6ec22a076a",
+      "name": "ChIP-seq data Mst12-GFP mycelium"
+    },
+    {
+      "projectId": "60619edfd7661b6ec22a076e",
+      "name": "DAP-seq Mst12 and Hox7 "
+    },
+    {
+      "projectId": "606c3308d7661b6ec22a0793",
+      "name": "ChIP-seq data Hox7-3XFlag mycelium"
+    },
+    {
+      "projectId": "606d815ed7661b6ec22a0799",
+      "name": "AdPop7_Progeny_BSA_Illumina"
+    },
+    {
+      "projectId": "606eb043d7661b6ec22a07a3",
+      "name": "AdPop7_RefAssembly_HiFi"
+    },
+    {
+      "projectId": "60742d61d7661b6ec22a07c3",
+      "name": "CLas RNASeq Citrus & ACP"
+    },
+    {
+      "projectId": "607dc42c837a8a261f0133ae",
+      "name": "L. crescens RNASeq in vitro extract"
+    },
+    {
+      "projectId": "60804e0b837a8a261f0133ee",
+      "name": "RNA-seq Mycelium cultures Guy11, Dhox7 and Dmst12"
+    },
+    {
+      "projectId": "60914d14837a8a261f01345d",
+      "name": "Whole genome assembly of organism X"
+    },
+    {
+      "projectId": "60b78429e788b405b6ce66aa",
+      "name": "S. americanum nanopore cDNA-RenSeq"
+    },
+    {
+      "projectId": "60ba0530e788b405b6ce66f2",
+      "name": "S. americanum SP1102 cDNA nanopore"
+    },
+    {
+      "projectId": "60be4bafe788b405b6ce6726",
+      "name": "2021_Gargy_accessions_WGS"
+    },
+    {
+      "projectId": "60bf4a7be788b405b6ce6763",
+      "name": "Ant_Project_RNAseq data"
+    },
+    {
+      "projectId": "60c8b1d3e788b405b6ce6845",
+      "name": "RNA-Seq data from N. benthamiana WT and NRC234 KO mutants"
+    },
+    {
+      "projectId": "60d1f3a0e788b405b6ce68a1",
+      "name": "RNA-Seq data from Spinach (Spinacia oleracea)"
+    },
+    {
+      "projectId": "60defd3ae788b405b6ce68db",
+      "name": "RNA-Seq data from lettuce (Lactuca sativa)"
+    },
+    {
+      "projectId": "60e4528be788b405b6ce6917",
+      "name": "RNA-Seq data from tomato LA1792 (incl. HERO)"
+    },
+    {
+      "projectId": "610fd90de788b405b6ce6946",
+      "name": "RNA-Seq data from N. benthamiana WT and ZAR1 mutants"
+    },
+    {
+      "projectId": "6116bf17e788b405b6ce69e8",
+      "name": "Transcriptomics Appressorial Assay Dznf1 TF"
+    },
+    {
+      "projectId": "6116c220e788b405b6ce69f2",
+      "name": "Transcriptomics Appressorial Assay Dhox7 TF"
+    },
+    {
+      "projectId": "6116c323e788b405b6ce69f6",
+      "name": "Generational Experiment "
+    },
+    {
+      "projectId": "611bcc57e788b405b6ce69fc",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant M. polymorpha CNL"
+    },
+    {
+      "projectId": "611bd783e788b405b6ce6a0c",
+      "name": "RNA-Seq data from NRC2/3/4 KO N. benthamiana expressing activated NLRs"
+    },
+    {
+      "projectId": "611be0c6e788b405b6ce6a3c",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant of NbRoq1"
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days"
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days"
+    },
+    {
+      "projectId": "6130d23de788b405b6ce6d93",
+      "name": "Genotyping by Sequencing Advanced Population 8"
+    },
+    {
+      "projectId": "6131ea39e788b405b6ce6da1",
+      "name": "ChIP-seq data Rpp3-GFP mycelium"
+    },
+    {
+      "projectId": "61375deae788b405b6ce6da8",
+      "name": "RenSeq on S. americanum populations 2021"
+    },
+    {
+      "projectId": "613b733ee788b405b6ce6eb8",
+      "name": " Differential gene expression analysis of Tol9 CRISPR mutants"
+    },
+    {
+      "projectId": "6143207730cbdb047de01202",
+      "name": "ChIP-seq data Znf1-GFP mycelium"
+    },
+    {
+      "projectId": "6156f86236105e13c15d588c",
+      "name": "HiFi sequencing data of PPUFV02 P. pachyrhizi isolate"
+    },
+    {
+      "projectId": "61572b1b36105e13c15d58ac",
+      "name": "RNA-Seq data from N. benthamiana transiently expressing WT and autoactive TNL"
+    },
+    {
+      "projectId": "615afaad36105e13c15d58e0",
+      "name": "ASR_SEQUENCING_PACBIO_HIFI"
+    },
+    {
+      "projectId": "6160287b36105e13c15d58f2",
+      "name": "S_americanum_NLRseek"
+    },
+    {
+      "projectId": "61701dd536105e13c15d5920",
+      "name": "Sequencing of DVts1 in Guy11 background"
+    },
+    {
+      "projectId": "61701e3436105e13c15d5922",
+      "name": "Sequencing of DATG5 in Guy11 background"
+    },
+    {
+      "projectId": "61701e8936105e13c15d5924",
+      "name": "Sequencing of ZNF1 in Guy11 background"
+    },
+    {
+      "projectId": "6177b9ea3545d74de71ebb81",
+      "name": "RNAseq of Cajanus cajan"
+    },
+    {
+      "projectId": "6177bbae3545d74de71ebb85",
+      "name": "RNAseq_Arabidopsis_thaliana_NLRseek"
+    },
+    {
+      "projectId": "61a758113545d74de71ebbec",
+      "name": "Pangenome of rice-infecting Magnaporthe oryzae"
+    },
+    {
+      "projectId": "61d59a6a3545d74de71ebd5e",
+      "name": "Purple_tomato(MM)_knock-in_ANT1_WGS"
+    },
+    {
+      "projectId": "61dff7ac1cf18a5296a13212",
+      "name": "Project_2324_KE002_Moukoto_RNA-seq "
+    },
+    {
+      "projectId": "61e6a060decd27242ab8ad97",
+      "name": "Nic_ben_Iso_seq_RNA_project"
+    },
+    {
+      "projectId": "61e83f43decd27242ab8ad9d",
+      "name": "plant-microbe interaction at single-cell level"
+    },
+    {
+      "projectId": "61e949fcdecd27242ab8ada7",
+      "name": "Lot_jap_Iso_seq_RNA_project"
+    },
+    {
+      "projectId": "61ee798cdecd27242ab8adb1",
+      "name": "Blast fungi collected from wild grasses in Germany"
+    },
+    {
+      "projectId": "61fd5d59decd27242ab8adf3",
+      "name": "Illumina sequencing of Hi-C libraries from selected Magnaporthe oryzae lineages"
+    },
+    {
+      "projectId": "6241ebb64162ad060c6a332f",
+      "name": "RNAseq_Solanum_lycopersicum_NLRseek"
+    },
+    {
+      "projectId": "624594d04162ad060c6a333f",
+      "name": "AP3_G.latifolia_F4Progeny_BSA"
+    },
+    {
+      "projectId": "624dc200033907738de9e101",
+      "name": "RNAseq_Triticum_aestivum_Foc"
+    },
+    {
+      "projectId": "627ce12b033907738de9e163",
+      "name": "Trans-Kingdom non-coding RNA project"
+    },
+    {
+      "projectId": "62d02522033907738de9e172",
+      "name": "RIPSeq of AGO proteins"
+    },
+    {
+      "projectId": "62d035e4033907738de9e17e",
+      "name": "ARGONAUTE protein-bound sRNAs during pathogen infection"
+    },
+    {
+      "projectId": "62fa40f5033907738de9e1a5",
+      "name": "Gargy_0004-PacBio_HiFi"
+    },
+    {
+      "projectId": "630dd224033907738de9e1b1",
+      "name": "Field pathogenomics of Brazilian soybean rust populations"
+    },
+    {
+      "projectId": "631a0207033907738de9e6fb",
+      "name": "Field pathogenomics of Brazilian soybean rust populations - Second Round "
+    },
+    {
+      "projectId": "631afaaf033907738de9e85d",
+      "name": "Sequencing of Soybean Rust Isolated from Herbarium Specimens"
+    },
+    {
+      "projectId": "63208a62033907738de9e8f7",
+      "name": "RenSeq on S.am 2022 - Illumina - (2022_Novogene_RH2022_I)"
+    },
+    {
+      "projectId": "633572e659448306cadd0a07",
+      "name": "AP3_latifolia_F2_GBS"
+    },
+    {
+      "projectId": "633adc8059448306cadd0a09",
+      "name": "Solanum hougasii RNAseq"
+    },
+    {
+      "projectId": "633d764f59448306cadd0a19",
+      "name": "Lupinus_ssp_RNA-Seq_unchallenged"
+    },
+    {
+      "projectId": "634fe626ee09804cf497984a",
+      "name": "BSA-RenSeq (SP3379, PITG_22825 and PITG_15718HLJ)"
+    },
+    {
+      "projectId": "634feeffee09804cf497986c",
+      "name": "BSA-RenSeq (BC1 of SP2300 x SP2271, for E382_PITG_04373_AVRamr17)"
+    },
+    {
+      "projectId": "6352b755ee09804cf4979892",
+      "name": "RNAseq_NLRseek_Triticum_aestivum_TAJT_transgenic"
+    },
+    {
+      "projectId": "63764d92ee09804cf4979990",
+      "name": "Long-read assembly of lichen symbionts' genomes"
+    },
+    {
+      "projectId": "6380f880ee09804cf4979994",
+      "name": "BSA-RenSeq for SP3460 (F2 of SP2271 x SP2297)"
+    },
+    {
+      "projectId": "63d7b208ee09804cf49799f9",
+      "name": "Mtrun_RNASeq_20220810"
+    },
+    {
+      "projectId": "63d803a0ee09804cf4979a2f",
+      "name": "2022_11_10_GBS_data_AP1_F2_Mt19n34"
+    },
+    {
+      "projectId": "63d80a5aee09804cf4979a3d",
+      "name": "2022_11_10_GBS_data_GWAS_Mtrun"
+    },
+    {
+      "projectId": "63f8bc16ee09804cf4979a69",
+      "name": "WGS_Mep3GFP_UVmutants"
+    },
+    {
+      "projectId": "63ff6a87ee09804cf4979a89",
+      "name": "Metagenomes of Xanthoria parietina lichens"
+    },
+    {
+      "projectId": "641da93aee09804cf4979b29",
+      "name": "Arabidopsis thaliana RNA sequencing after PSK treatment"
+    },
+    {
+      "projectId": "6439478cde31f67a1e8724cb",
+      "name": "Mtrun_19_Mtrun_R108_RNA-Seq"
+    },
+    {
+      "projectId": "6452a72c525e070698932583",
+      "name": "Sequencing of Br62 and I54 blast fungus isolates"
+    },
+    {
+      "projectId": "64c13517d32c7a7e4b174f20",
+      "name": "RNAseq_PikobodiesMADA"
+    },
+    {
+      "projectId": "64e5e0b8d32c7a7e4b174fd3",
+      "name": "Genomic analysis of Coccomyxa viridis alga"
+    },
+    {
+      "projectId": "6502df19d32c7a7e4b174fe8",
+      "name": "Italian blast fungus isolates from wild grasses"
+    },
+    {
+      "projectId": "652d6a83de98207ba8447f1f",
+      "name": "RNAseq_T_aestivum_Fo"
+    },
+    {
+      "projectId": "655753276a887d2209f9aef0",
+      "name": "SP_BSA_SP10448_from_SP2298"
+    },
+    {
+      "projectId": "65a52e2d6a887d2209f9af03",
+      "name": "sRNA-seq in Argonaute mutants"
+    },
+    {
+      "projectId": "65a69cad6a887d2209f9af50",
+      "name": "SP2300 HWM sequencing"
+    },
+    {
+      "projectId": "65b7b2906a887d2209f9af58",
+      "name": "RenSeq and RNAseq data for mapping potato wart resistance in the parent DG-264"
+    },
+    {
+      "projectId": "65b7ce9f6a887d2209f9af84",
+      "name": "PVY_Rywal_Romula_RenSeq_RNAseq"
+    },
+    {
+      "projectId": "65b8fd7a6a887d2209f9afcc",
+      "name": "Potato_R5_Pinfestans_RNAseq_RenSeq"
+    },
+    {
+      "projectId": "65f06e07e372f7554d754873",
+      "name": "Wheat Blast - Zambia 2023"
+    },
+    {
+      "projectId": "660c1437e372f7554d75495b",
+      "name": "NLRseek for Rpp genes in Soybean "
+    },
+    {
+      "projectId": "660d28e4e372f7554d754a21",
+      "name": "RNAseq conidia CER mutants "
+    },
+    {
+      "projectId": "661029d6e372f7554d754a73",
+      "name": "sRNA-seq in Arabidopsis accessions"
+    },
+    {
+      "projectId": "66102ac3e372f7554d754a75",
+      "name": "RNA-sequencing in soybean"
+    },
+    {
+      "projectId": "66102adde372f7554d754a77",
+      "name": "sRNA-sequencing in soybean"
+    },
+    {
+      "projectId": "6613c0e4e372f7554d754a7b",
+      "name": "WGS MGG_06465_KO transformant_n25"
+    },
+    {
+      "projectId": "661fe3f0745ccb3c643357e2",
+      "name": "G. canescens mapping pop BSA"
+    },
+    {
+      "projectId": "663b5679745ccb3c64335860",
+      "name": "RNAseq_T_aestivum_Foc_10dpi"
+    },
+    {
+      "projectId": "664b2ae6745ccb3c64335909",
+      "name": " RNA-sequencing in jujube"
+    },
+    {
+      "projectId": "6650bdeb0e8763bcf615e2b5",
+      "name": "RNAseq_T_aestivum_MoT"
+    },
+    {
+      "projectId": "665f19980e8763bcf615e2df",
+      "name": "WGS_PDS5_MGG06465_KO"
+    },
+    {
+      "projectId": "665f20c30e8763bcf615e2ef",
+      "name": "WGS_BIP1_KO_MGG_08118_Guy11"
+    },
+    {
+      "projectId": "66aa4f936e49ef189bd2ea9d",
+      "name": "Whole genome assembly of Xanthoria parietina"
+    },
+    {
+      "projectId": "66ab51e16e49ef189bd2eaa5",
+      "name": "SP2297 Whole Genome Sequencing"
+    },
+    {
+      "projectId": "66c762076e49ef189bd2eaaf",
+      "name": "WGS_Soybean_Accessions"
+    },
+    {
+      "projectId": "66cde08a6e49ef189bd2eabf",
+      "name": "HiFi reads of the Gmax_0010 "
+    },
+    {
+      "projectId": "66e9546a6e49ef189bd2eaca",
+      "name": "Medicago_GWAS_GBS_Panel"
+    },
+    {
+      "projectId": "66f554296e49ef189bd2eae4",
+      "name": "Guy11 RNAseq Appressorium"
+    },
+    {
+      "projectId": "66f59c736e49ef189bd2eb50",
+      "name": "Dvts1 RNAseq Appressorium"
+    },
+    {
+      "projectId": "670fb5fd6e49ef189bd2ebc0",
+      "name": "Transcriptome Study of Soybean infected with UFV02 and MHB1"
+    },
+    {
+      "projectId": "672893d26e49ef189bd2ec9b",
+      "name": "GBS for the IITA lines"
+    },
+    {
+      "projectId": "6747209c6e49ef189bd2ece4",
+      "name": "csRNA-seq atlas of Arabidopsis thaliana"
+    },
+    {
+      "projectId": "6784ee376e49ef189bd2ed15",
+      "name": "Sequencing of additional SSA isolates for Popgenetics"
+    },
+    {
+      "projectId": "678ed55d6e49ef189bd2edbe",
+      "name": "RNA immunoprecipitation Vts1 mycelia"
+    },
+    {
+      "projectId": "67926e8a6e49ef189bd2ee66",
+      "name": "IsoSeq_Glycines_Lupin_Medicago"
+    },
+    {
+      "projectId": "67aa326a6e49ef189bd2ee74",
+      "name": "Timecourse RNAseq BIP1-MST12"
+    },
+    {
+      "projectId": "684170e164451dc012a80fbc",
+      "name": "Trebouxia aggregata SAG 219-d genome"
+    },
+    {
+      "projectId": "68417b2664451dc012a80fca",
+      "name": "Whole genome assembly of Xanthoria calcicola"
+    },
+    {
+      "projectId": "684955ce64451dc012a80fd3",
+      "name": "Trebouxia sp. A48 isolate GTP0183 genome"
+    },
+    {
+      "projectId": "684adc84dc823951803ac376",
+      "name": "TPLEX CRISPR screen PPR gene cluster Arabidopsis (TPX0005)"
+    },
+    {
+      "projectId": "686280f4dc823951803ac390",
+      "name": "Profiling cell type-specific flg22-responsive Arabidopsis enhancers"
+    },
+    {
+      "projectId": "68628caadc823951803ac396",
+      "name": "TPLEX rice blast calibration curve (TPX0009)"
+    },
+    {
+      "projectId": "6863b1c7dc823951803ac3a4",
+      "name": "Wheat Blast - Bolivia 2023-24"
+    },
+    {
+      "projectId": "6863e922dc823951803ac406",
+      "name": "Wheat Blast - Paraguay 2023"
+    },
+    {
+      "projectId": "686be071cbe7220ab920bf7d",
+      "name": "RNAseq_TAJT_leaf_spike"
+    },
+    {
+      "projectId": "686c02c3cbe7220ab920c003",
+      "name": "RNAseq_MoT_infected_spike_HB0582"
+    },
+    {
+      "projectId": "686d2b38cbe7220ab920c07b",
+      "name": "RNAseq_TAJT_spike_Pgt_HB0583"
+    },
+    {
+      "projectId": "689091ca017c2104003eaeb6",
+      "name": "double_knockout_sep5_sep6"
+    },
+    {
+      "projectId": "6895d5d908b2f88cfa735808",
+      "name": "Generation of single-cell transcriptomic atlas for vascular pathogen infection "
+    },
+    {
+      "projectId": "689c922c08b2f88cfa735818",
+      "name": "TPLEX quantitative RT-PCR test (TPX0014)"
+    },
+    {
+      "projectId": "689dd8fe08b2f88cfa735824",
+      "name": "F3-Recombinant-Plants-Rpp1-a_Rpp1-b_cross-WGS"
+    },
+    {
+      "projectId": "68c291bae12a30b045eff97b",
+      "name": "DG_264 PacBio HiFi (Tetraploid)"
+    },
+    {
+      "projectId": "68e391c1b4f1c7501d7d03f7",
+      "name": "Lupinus_albus_Illumina"
+    },
+    {
+      "projectId": "68f0d2a27f1130c7a5228cbf",
+      "name": "WGS MGG_17301_KO transformant_n26"
+    },
+    {
+      "projectId": "68fb4abc9fb9bbefcb69686a",
+      "name": "Glycine_microphylla_LowPass_WGS"
+    },
+    {
+      "projectId": "68fb4ce89fb9bbefcb69686e",
+      "name": "TPLEX rice blast 3-strain calibration curve (TPX0015)"
+    },
+    {
+      "projectId": "68fb76619fb9bbefcb69688a",
+      "name": "TPLEX CRISPR screen TT constructs Arabidopsis (TPX0017)"
+    },
+    {
+      "projectId": "690364bcb7276cc9ffc83d3e",
+      "name": "Americanum_ssp_RNA-Seq"
+    },
+    {
+      "projectId": "690a13a295f45fc2ca25fc79",
+      "name": "TPLEX CRISPR screen PSK gene family"
+    },
+    {
+      "projectId": "69131853bac031ddd15a2f58",
+      "name": "G.canescens_WGS_HiFi"
+    },
+    {
+      "projectId": "6913460ebac031ddd15a2f66",
+      "name": "Lalb01_WholeGenome_HiFi"
+    },
+    {
+      "projectId": "69271529aeb7e7fd4521170d",
+      "name": "SP2299_Samr_WGS_HiFi"
+    },
+    {
+      "projectId": "69299ee6aeb7e7fd45211807",
+      "name": "Mst7_S358_phosphomutant_RNAseq_appressoria_timecourse"
+    },
+    {
+      "projectId": "692d86bcaeb7e7fd45211ebb",
+      "name": "Double deletion Eisosomes Marisela"
+    },
+    {
+      "projectId": "693d56ceaeb7e7fd45212b09",
+      "name": "Test Project Name For Validation"
+    },
+    {
+      "projectId": "693db6fcaeb7e7fd45212b9f",
+      "name": "Test Project 1765652218605"
+    },
+    {
+      "projectId": "693dba29aeb7e7fd45212bad",
+      "name": "Test Project 1765653031882"
+    },
+    {
+      "projectId": "693dbe09aeb7e7fd45212bce",
+      "name": "Test Project 1765654024442"
+    },
+    {
+      "projectId": "693dbec2aeb7e7fd45212bef",
+      "name": "Test Project 1765654208915"
+    },
+    {
+      "projectId": "693dbf4faeb7e7fd45212c16",
+      "name": "Test Project 1765654350020"
+    },
+    {
+      "projectId": "693dbf9eaeb7e7fd45212c3e",
+      "name": "Test Project 1765654429262"
+    },
+    {
+      "projectId": "693dbfeeaeb7e7fd45212c5f",
+      "name": "Test Project 1765654508931"
+    },
+    {
+      "projectId": "693dc06faeb7e7fd45212c87",
+      "name": "Test Project 1765654638067"
+    },
+    {
+      "projectId": "693dc150aeb7e7fd45212caf",
+      "name": "Test Project 1765654863243"
+    },
+    {
+      "projectId": "697a19587346a73160616e08",
+      "name": "Expression of g5515 from Baidou in co-infiltrated Nicotiana benthamiana"
+    },
+    {
+      "projectId": "69806aff8815bf69b9592240",
+      "name": "snMultiome atlas of plant immunity"
+    },
+    {
+      "projectId": "69808f408815bf69b95923f6",
+      "name": "TPLEX CRISPR screen TT constructs Arabidopsis (TPX0024-TPX0025)"
+    },
+    {
+      "projectId": "699464341f232321a1f771fb",
+      "name": "TPLEX CRISPR screen of TT235 T2 Arabidopsis lines (TPX0026)"
+    },
+    {
+      "projectId": "69946c681f232321a1f7726a",
+      "name": "TPLEX CRISPR screen of TT266 and TT267 T2 Arabidopsis lines (TPX0027)"
+    },
+    {
+      "projectId": "69a095cf20a8c93a2306e43e",
+      "name": "Genome sequencing of B. dothidea strains"
+    },
+    {
+      "projectId": "69a5770720a8c93a2306eb6a",
+      "name": "TPLEX screen of vector backbone in transgenic potato lines"
+    },
+    {
+      "projectId": "69a81b4920a8c93a2306efc6",
+      "name": "PacBio HiFi and LinkPrep sequencing of Stapelia leendertziae"
+    },
+    {
+      "projectId": "69ae99db20a8c93a2306f836",
+      "name": "RNA-Seq Mycelium of dosm1dsln1"
+    },
+    {
+      "projectId": "69b139f720a8c93a2306fd08",
+      "name": "TPLEX CRISPR screen of Arabidopsis T2 lines (TPX0029)"
+    },
+    {
+      "projectId": "69d503dd28866e6f1f6f2764",
+      "name": "G.canescens_Parental_RNA-seq"
+    },
+    {
+      "projectId": "69d512ba28866e6f1f6f27bd",
+      "name": "TPLEX screen of Arabidopsis T2 lines (TPX0030)"
+    },
+    {
+      "projectId": "69d5161a28866e6f1f6f2830",
+      "name": "TPLEX screen of Arabidopsis T2 lines (TPX0031)"
+    },
+    {
+      "projectId": "69d6066628866e6f1f6f2969",
+      "name": "Soy_Protoplast_RNA-seq"
+    },
+    {
+      "projectId": "69e5f5d828866e6f1f6f3b1d",
+      "name": "TPLEX Magnaporthe mixed fungal infection (TPX0033)"
+    },
+    {
+      "projectId": "69ea171428866e6f1f6f3f29",
+      "name": "Optimizing csRNA-seq for sensitive TSS mapping in Arabidopsis"
+    },
+    {
+      "projectId": "69ea171b28866e6f1f6f41e0",
+      "name": "Gene regulatory landscape of lichens"
+    },
+    {
+      "projectId": "6a201f9528866e6f1f70bd01",
+      "name": "Whole genome assemblies of Magnaporthe oryzae MEP26 knockout strains"
+    },
+    {
+      "projectId": "6a352ed028866e6f1f70d295",
+      "name": "TPLEX Magnaporthe mixed fungal infection (TPX0035)"
+    },
+    {
+      "projectId": "6a54bc2c28866e6f1f712aca",
+      "name": "RNA-seq for Stapelia leendertziae"
+    },
+    {
+      "projectId": "6a561a8428866e6f1f712f0c",
+      "name": "TPLEX Magnaporthe DPI test experiment (TPX0036)"
+    },
+    {
+      "projectId": "6a67241228866e6f1f714f66",
+      "name": "Transcriptome Sequencing of Fusarium albosuccineum Using the OSMAC Approach"
+    },
+    {
+      "projectId": "6a68b3304702a7661accaf31",
+      "name": "Kex2 mutant analysis"
+    },
+    {
+      "projectId": "6a69b73a4702a7661accb151",
+      "name": "M.tru time-course UFV02 RNA-seq"
+    },
+    {
+      "projectId": "6a70ac5d4702a7661accced8",
+      "name": "Whole Genome Sequencing of the Endophytic Fungus Fusarium albosuccineum"
+    },
+    {
+      "projectId": "6a7486f94702a7661accd51f",
+      "name": "Magnaporthe pre4 mutants"
+    },
+    {
+      "projectId": "6a7b19a4cf5d0a1ce25f309e",
+      "name": "Diversity of fusarial genomes"
+    },
+    {
+      "projectId": "6a7d9a553e6133a3227ba163",
+      "name": "TPLEX screen of Arabidopsis T1 CRISPR lines (TPX0037)"
+    },
+    {
+      "projectId": "6a7edbcf3e6133a3227ba411",
+      "name": "Resistance to P. capsici in S. americanum accession SP2308"
+    },
+    {
+      "projectId": "6a8c56f83c09c026f67d51d3",
+      "name": "Whole Genome Sequencing of the Endophytic Fungus Colletotrichum karstii"
+    },
+    {
+      "projectId": "6a8d98323c09c026f67d547e",
+      "name": "Rpp5-Kinoshita_HiFi_data"
+    },
+    {
+      "projectId": "6a8dcb153c09c026f67d74cd",
+      "name": "Gastby_Aegilops_genomes"
+    },
+    {
+      "projectId": "6a9fee13f8601f2567e36ead",
+      "name": "Phytase-like effector KOs"
+    },
+    {
+      "projectId": "6aaa7bae1e89123e38a40a3d",
+      "name": "trebouxiaA48_snRNAseq_lib"
+    },
+    {
+      "projectId": "6ab2657250bdd9a6cc9915d1",
+      "name": "PRE4 Project: Host Transcriptomics"
+    },
+    {
+      "projectId": "6abd098983b8a5a075c0e6af",
+      "name": "Whole genome sequencing_KT"
+    },
+    {
+      "projectId": "6abf6ce883b8a5a075c16aef",
+      "name": "TPX0039: Mixed fungal infection T-PLEX assay"
+    },
+    {
+      "projectId": "6abf718483b8a5a075c16cc2",
+      "name": "TPX0040: Mixed fungal infection T-PLEX assay"
+    },
+    {
+      "projectId": "6acf570c83b8a5a075c4ccee",
+      "name": "Pd_infection_timecourse_RNA-seq"
+    },
+    {
+      "projectId": "6ad0fd1e83b8a5a075c53029",
+      "name": "xantoria_lifestages_rnaseq"
+    },
+    {
+      "projectId": "6ad24adfe34eae4923a3cda4",
+      "name": "DISPOSABLE archive deployment rehearsal 20261016"
+    },
+    {
+      "projectId": "6ada03c6f17b0861e6968691",
+      "name": "Whole Genome Sequence - WGS - Soybean IITA Line"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "name": "Courville"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "name": "project_2370"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "name": "project_2035"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "name": "project_945"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "name": "project_2012"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "name": "project_809"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "name": "project_930"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "name": "project_2323"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "name": "project_2009"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "name": "project_1622"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "name": "project_1566"
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "name": "project_592_593"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "name": "project_2171"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "name": "project_539"
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "name": "project_2561"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "name": "project_230"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "name": "project_758"
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "name": "saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "name": "saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "name": "saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "name": "saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105"
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "name": "saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144"
+    },
+    {
+      "projectId": "6adb291adaa3e0403b86607b",
+      "name": "Isolates of P. pachyrhizi - whole genome sequence"
+    },
+    {
+      "projectId": "6adbb536a9968d87100ad9b9",
+      "name": "Whole Genome Sequencing Septins"
+    },
+    {
+      "projectId": "6adf609fa6b876c64372f76f",
+      "name": "TPX0043 multi-CRISPR line T-PLEX assay"
+    },
+    {
+      "projectId": "6adf62f1a6b876c64372f889",
+      "name": "TPX0044 multi-CRISPR line T-PLEX assay"
+    },
+    {
+      "projectId": "6ae4ac89a6b876c643741d27",
+      "name": "Xanthoria parietina mycobiont RNAseq"
+    },
+    {
+      "projectId": "6aedf3e871aa1c096a6d9c97",
+      "name": "Mtru23_HiFi_Assembly"
+    },
+    {
+      "projectId": "6af19ba971aa1c096a6e648a",
+      "name": "TPX0046: multi-CRISPR line T-PLEX analyses"
+    },
+    {
+      "projectId": "6afd84309bcce1567e426733",
+      "name": "Turgor sensing project"
+    },
+    {
+      "projectId": "6b0574749bcce1567e44263a",
+      "name": "Laccase gene project"
+    },
+    {
+      "projectId": "6b06e6309bcce1567e4478b7",
+      "name": "WGS_Hik_knockouts_and_point_mutants"
+    }
+  ],
+  "candidateComparisons": [
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "fieldsCompared": [
+        "name",
+        "shortDesc",
+        "longDesc",
+        "path",
+        "safeName"
+      ],
+      "differences": []
+    }
+  ],
+  "exactOrPunctuationNormalizedConflicts": [],
+  "similarityFindings": [
+    {
+      "candidate": "ntalbot-046",
+      "existingProject": "5fc012bda3efcb29338b7d50",
+      "existingName": "Sequencing Magnaporthe oryzae Guy11 ",
+      "existingShortDesc": "Sequencing Magnaporthe oryzae Guy11 in an attempt to obtain a gapless genome. ",
+      "existingLongDesc": "The sequence obtained will be used to generate a hybrid assembly of Guy11. Guy11 has already been sequenced using Illumina and Pacbio and this project used MinION to try and improve the final assembly. ",
+      "action": "Propose 36-base paired-end qualifier, evidenced by original sequencing summary."
+    },
+    {
+      "candidates": [
+        "ntalbot-018",
+        "ntalbot-028"
+      ],
+      "action": "Defer final wheat-blast titles until cohort distinction is established."
+    },
+    {
+      "candidate": "ntalbot-029",
+      "existingProject": "5fc012bda3efcb29338b7cf7",
+      "existingName": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+      "existingShortDesc": "Fungal gene expression was compared during infection of rice using leaf spray by the M. oryzae pmk1AS mutant in the presence and absence of 1NA-PP1",
+      "action": "Retain leaf-sheath qualifier; existing study describes leaf spray."
+    }
+  ]
+}

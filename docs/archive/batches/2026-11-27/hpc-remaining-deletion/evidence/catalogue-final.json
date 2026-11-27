@@ -1,0 +1,4534 @@
+{
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "at": "2026-11-27T12:22:37.316Z",
+  "projects": 174,
+  "candidateFilesInCatalogue": 14883,
+  "checkedReferences": 14883,
+  "issues": [],
+  "locations": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d00",
+      "name": "Pacbio_genome_sequencing_PPUFV02",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/pacbio_genome_sequencing_ppufv02",
+          "checkedAt": "2026-11-27T12:22:37.026Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/pacbio_genome_sequencing_ppufv02",
+          "verifiedAt": "2026-11-02T02:48:41.097Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.826Z",
+        "archiveDueAt": "2025-11-26T20:40:36.826Z",
+        "hpcDeletionEligibleAt": "2026-11-02T02:48:41.097Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264e",
+      "name": "Courville",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/Courville",
+          "checkedAt": "2026-11-27T12:22:37.028Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/Courville",
+          "verifiedAt": "2026-10-31T06:06:05.886Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-31T06:06:05.886Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfd",
+      "name": "ppufv02_transcriptome",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/ppufv02_transcriptome",
+          "checkedAt": "2026-11-27T12:22:37.031Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/ppufv02_transcriptome",
+          "verifiedAt": "2026-10-31T01:42:29.976Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-31T01:42:29.976Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d58",
+      "name": "Gargy-2019_RNAseq",
+      "preservation": {
+        "until": "2027-11-26T23:59:59.999Z",
+        "active": true,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/gargy_2019_rnaseq",
+          "checkedAt": "2026-11-27T12:22:37.033Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_rnaseq",
+          "verifiedAt": "2026-10-30T20:18:30.550Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2027-11-26T23:59:59.999Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d05",
+      "name": "Dovetail_Re-sequencing of Gargy_11_parent of 2BL-NI-Gargy_Fam1",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+          "checkedAt": "2026-11-27T12:22:37.035Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1",
+          "verifiedAt": "2026-10-30T16:18:09.890Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.839Z",
+        "archiveDueAt": "2025-11-26T20:40:36.839Z",
+        "hpcDeletionEligibleAt": "2026-10-30T16:18:09.890Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d16",
+      "name": "Phakopsora pachyrhizi GA05-1 complete infection transcriptome",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+          "checkedAt": "2026-11-27T12:22:37.038Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome",
+          "verifiedAt": "2026-10-30T12:22:24.920Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:29.000Z",
+        "archiveDueAt": "2025-11-26T20:40:29.000Z",
+        "hpcDeletionEligibleAt": "2026-10-30T12:22:24.920Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60be4bafe788b405b6ce6726",
+      "name": "2021_Gargy_accessions_WGS",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/2021_gargy_accessions_wgs",
+          "checkedAt": "2026-11-27T12:22:37.040Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/2021_gargy_accessions_wgs",
+          "verifiedAt": "2026-10-30T08:17:57.809Z"
+        },
+        "ageBasisAt": "2021-06-08T13:05:24.920Z",
+        "archiveDueAt": "2026-06-08T13:05:24.920Z",
+        "hpcDeletionEligibleAt": "2026-10-30T08:17:57.809Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfe",
+      "name": "Sequencing and de novo assembly of Glycine latifolia ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+          "checkedAt": "2026-11-27T12:22:37.041Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_",
+          "verifiedAt": "2026-10-30T04:54:46.286Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.846Z",
+        "archiveDueAt": "2025-11-26T20:40:36.846Z",
+        "hpcDeletionEligibleAt": "2026-10-30T04:54:46.286Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5f",
+      "name": "PhilMacCLean_EnrichedPacBio_EarlhamInstitute",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+          "checkedAt": "2026-11-27T12:22:37.043Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute",
+          "verifiedAt": "2026-10-30T01:48:49.426Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-30T01:48:49.426Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5e",
+      "name": "PKG-ENQ-698NadineIlk",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/pkg_enq_698nadineilk",
+          "checkedAt": "2026-11-27T12:22:37.045Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_698nadineilk",
+          "verifiedAt": "2026-10-29T16:29:39.479Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-29T16:29:39.479Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d20",
+      "name": "RNAseqP.sa",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/rnaseqp_sa",
+          "checkedAt": "2026-11-27T12:22:37.046Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/rnaseqp_sa",
+          "verifiedAt": "2026-10-29T13:59:25.290Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:29.000Z",
+        "archiveDueAt": "2025-11-26T20:40:29.000Z",
+        "hpcDeletionEligibleAt": "2026-10-29T13:59:25.290Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7e",
+      "name": "Cajanus_70x_genomicData_reads_Illumina",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+          "checkedAt": "2026-11-27T12:22:37.048Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/cajanus_70x_genomicdata_reads_illumina",
+          "verifiedAt": "2026-10-29T04:28:03.232Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-29T04:28:03.232Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6c",
+      "name": "ppufv02_timecourse",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/ppufv02_timecourse",
+          "checkedAt": "2026-11-27T12:22:37.050Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/ppufv02_timecourse",
+          "verifiedAt": "2026-10-29T00:02:38.969Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.845Z",
+        "archiveDueAt": "2025-11-26T20:40:36.845Z",
+        "hpcDeletionEligibleAt": "2026-10-29T00:02:38.969Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d67",
+      "name": "japanse_isolate_timecourse",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/japanse_isolate_timecourse",
+          "checkedAt": "2026-11-27T12:22:37.052Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/japanse_isolate_timecourse",
+          "verifiedAt": "2026-10-28T21:51:31.928Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-28T21:51:31.928Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0b",
+      "name": " Re-sequencing genomic DNA BGI",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/_re_sequencing_genomic_dna_bgi",
+          "checkedAt": "2026-11-27T12:22:37.053Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/_re_sequencing_genomic_dna_bgi",
+          "verifiedAt": "2026-10-28T16:43:43.048Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.835Z",
+        "archiveDueAt": "2025-11-26T20:40:36.835Z",
+        "hpcDeletionEligibleAt": "2026-10-28T16:43:43.048Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5d",
+      "name": "Medicago Trucatala  genome sequences",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/medicago_trucatala__genome_sequences",
+          "checkedAt": "2026-11-27T12:22:37.055Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/medicago_trucatala__genome_sequences",
+          "verifiedAt": "2026-10-28T14:23:44.721Z"
+        },
+        "ageBasisAt": "2021-09-08T14:36:08.860Z",
+        "archiveDueAt": "2026-09-08T14:36:08.860Z",
+        "hpcDeletionEligibleAt": "2026-10-28T14:23:44.721Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d07",
+      "name": "Gargy-2019_IsoSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/gargy_2019_isoseq",
+          "checkedAt": "2026-11-27T12:22:37.058Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/gargy_2019_isoseq",
+          "verifiedAt": "2026-10-28T12:12:03.676Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.845Z",
+        "archiveDueAt": "2025-11-26T20:40:36.845Z",
+        "hpcDeletionEligibleAt": "2026-10-28T12:12:03.676Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d55",
+      "name": "ppufv02_nanopore_sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/ppufv02_nanopore_sequencing",
+          "checkedAt": "2026-11-27T12:22:37.059Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/ppufv02_nanopore_sequencing",
+          "verifiedAt": "2026-10-27T22:14:31.479Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.833Z",
+        "archiveDueAt": "2025-11-26T20:40:36.833Z",
+        "hpcDeletionEligibleAt": "2026-10-27T22:14:31.479Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d08",
+      "name": "RNAseq of differential isolates of ASR",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+          "checkedAt": "2026-11-27T12:22:37.061Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/rnaseq_of_differential_isolates_of_asr",
+          "verifiedAt": "2026-10-27T15:52:15.836Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-27T15:52:15.836Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d48",
+      "name": "sequencing_field_isolates_of_phakopsora",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/sequencing_field_isolates_of_phakopsora",
+          "checkedAt": "2026-11-27T12:22:37.062Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/sequencing_field_isolates_of_phakopsora",
+          "verifiedAt": "2026-10-27T14:22:29.645Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.850Z",
+        "archiveDueAt": "2025-11-26T20:40:36.850Z",
+        "hpcDeletionEligibleAt": "2026-10-27T14:22:29.645Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1f",
+      "name": "Whole-Genome-Shotgun Illumina sequencing of Gargy_11, Gargy_04 and bulk susecptibles",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+          "checkedAt": "2026-11-27T12:22:37.064Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles",
+          "verifiedAt": "2026-10-27T12:52:04.687Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-27T12:52:04.687Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d62",
+      "name": "FOC_CR1.",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/foc_cr1_",
+          "checkedAt": "2026-11-27T12:22:37.065Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/foc_cr1_",
+          "verifiedAt": "2026-10-27T11:23:19.029Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.807Z",
+        "archiveDueAt": "2025-11-26T20:40:36.807Z",
+        "hpcDeletionEligibleAt": "2026-10-27T11:23:19.029Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "606d815ed7661b6ec22a0799",
+      "name": "AdPop7_Progeny_BSA_Illumina",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/adpop7_progeny_bsa_illumina",
+          "checkedAt": "2026-11-27T12:22:37.067Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/adpop7_progeny_bsa_illumina",
+          "verifiedAt": "2026-10-27T08:20:37.567Z"
+        },
+        "ageBasisAt": "2021-04-08T15:37:39.424Z",
+        "archiveDueAt": "2026-04-08T15:37:39.424Z",
+        "hpcDeletionEligibleAt": "2026-10-27T08:20:37.567Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6f",
+      "name": "Mtruncatula_BGI_gDNA_parents_TwoF2susceptiblebulks",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+          "checkedAt": "2026-11-27T12:22:37.068Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks",
+          "verifiedAt": "2026-10-27T06:57:23.715Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-27T06:57:23.715Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2c",
+      "name": "FOC_ST4",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/foc_st4",
+          "checkedAt": "2026-11-27T12:22:37.070Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/foc_st4",
+          "verifiedAt": "2026-10-27T05:37:36.927Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.810Z",
+        "archiveDueAt": "2025-11-26T20:40:36.810Z",
+        "hpcDeletionEligibleAt": "2026-10-27T05:37:36.927Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d54",
+      "name": "RNASeq BGI Cajanus cajan inf",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+          "checkedAt": "2026-11-27T12:22:37.071Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/rnaseq_bgi_cajanus_cajan_inf",
+          "verifiedAt": "2026-10-27T02:54:06.437Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-27T02:54:06.437Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6130d23de788b405b6ce6d93",
+      "name": "Genotyping by Sequencing Advanced Population 8",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+          "checkedAt": "2026-11-27T12:22:37.073Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/genotyping_by_sequencing_advanced_population_8",
+          "verifiedAt": "2026-10-27T01:37:30.993Z"
+        },
+        "ageBasisAt": "2021-09-13T14:31:16.689Z",
+        "archiveDueAt": "2026-09-13T14:31:16.689Z",
+        "hpcDeletionEligibleAt": "2026-10-27T01:37:30.993Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6051c37ad7661b6ec22a06e3",
+      "name": "AdPop7_Parents_WGS_Illumina",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/adpop7_parents_wgs_illumina",
+          "checkedAt": "2026-11-27T12:22:37.074Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/adpop7_parents_wgs_illumina",
+          "verifiedAt": "2026-10-26T22:10:24.828Z"
+        },
+        "ageBasisAt": "2021-03-24T12:19:24.307Z",
+        "archiveDueAt": "2026-03-24T12:19:24.307Z",
+        "hpcDeletionEligibleAt": "2026-10-26T22:10:24.828Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d52",
+      "name": "ASR_sequencing_10xgenomics",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/asr_sequencing_10xgenomics",
+          "checkedAt": "2026-11-27T12:22:37.076Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_10xgenomics",
+          "verifiedAt": "2026-10-26T21:01:37.507Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.841Z",
+        "archiveDueAt": "2025-11-26T20:40:36.841Z",
+        "hpcDeletionEligibleAt": "2026-10-26T21:01:37.507Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d51",
+      "name": "ASR_sequencing_illumina",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/asr_sequencing_illumina",
+          "checkedAt": "2026-11-27T12:22:37.077Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/asr_sequencing_illumina",
+          "verifiedAt": "2026-10-26T18:43:50.948Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.837Z",
+        "archiveDueAt": "2025-11-26T20:40:36.837Z",
+        "hpcDeletionEligibleAt": "2026-10-26T18:43:50.948Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1c",
+      "name": "Mtruncatula_BGI_RNAseq_parents",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+          "checkedAt": "2026-11-27T12:22:37.078Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/mtruncatula_bgi_rnaseq_parents",
+          "verifiedAt": "2026-10-25T17:43:14.769Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.824Z",
+        "archiveDueAt": "2025-11-26T20:40:36.824Z",
+        "hpcDeletionEligibleAt": "2026-10-25T17:43:14.769Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d18",
+      "name": "exome_capture_field_samples_jan2018",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/exome_capture_field_samples_jan2018",
+          "checkedAt": "2026-11-27T12:22:37.080Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/exome_capture_field_samples_jan2018",
+          "verifiedAt": "2026-10-25T15:30:10.440Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.843Z",
+        "archiveDueAt": "2025-11-26T20:40:36.843Z",
+        "hpcDeletionEligibleAt": "2026-10-25T15:30:10.440Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7d",
+      "name": "ppufv02_gDNA_bgi",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/ppufv02_gdna_bgi",
+          "checkedAt": "2026-11-27T12:22:37.081Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/ppufv02_gdna_bgi",
+          "verifiedAt": "2026-10-25T09:15:18.316Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.837Z",
+        "archiveDueAt": "2025-11-26T20:40:36.837Z",
+        "hpcDeletionEligibleAt": "2026-10-25T09:15:18.316Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "606eb043d7661b6ec22a07a3",
+      "name": "AdPop7_RefAssembly_HiFi",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/adpop7_refassembly_hifi",
+          "checkedAt": "2026-11-27T12:22:37.082Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/adpop7_refassembly_hifi",
+          "verifiedAt": "2026-10-25T05:30:05.554Z"
+        },
+        "ageBasisAt": "2021-04-08T14:59:32.247Z",
+        "archiveDueAt": "2026-04-08T14:59:32.247Z",
+        "hpcDeletionEligibleAt": "2026-10-25T05:30:05.554Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d15",
+      "name": "soybean_rust_dovetail_hic",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/soybean_rust_dovetail_hic",
+          "checkedAt": "2026-11-27T12:22:37.084Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/soybean_rust_dovetail_hic",
+          "verifiedAt": "2026-10-25T05:04:53.355Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.827Z",
+        "archiveDueAt": "2025-11-26T20:40:36.827Z",
+        "hpcDeletionEligibleAt": "2026-10-25T05:04:53.355Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2d",
+      "name": "GLTp-WGS-CintiaKawashima",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/gltp_wgs_cintiakawashima",
+          "checkedAt": "2026-11-27T12:22:37.086Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/gltp_wgs_cintiakawashima",
+          "verifiedAt": "2026-10-25T02:53:10.339Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.834Z",
+        "archiveDueAt": "2025-11-26T20:40:36.834Z",
+        "hpcDeletionEligibleAt": "2026-10-25T02:53:10.339Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3f",
+      "name": "GLTp-RNASeq-CintiaKawashima",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/gltp_rnaseq_cintiakawashima",
+          "checkedAt": "2026-11-27T12:22:37.087Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/gltp_rnaseq_cintiakawashima",
+          "verifiedAt": "2026-10-25T01:39:52.084Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.829Z",
+        "archiveDueAt": "2025-11-26T20:40:36.829Z",
+        "hpcDeletionEligibleAt": "2026-10-25T01:39:52.084Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d19",
+      "name": "Bulks ASR_3 screen",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/bulks_asr_3_screen",
+          "checkedAt": "2026-11-27T12:22:37.088Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/bulks_asr_3_screen",
+          "verifiedAt": "2026-10-24T23:45:13.220Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-24T23:45:13.220Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60bf4a7be788b405b6ce6763",
+      "name": "Ant_Project_RNAseq data",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/ant_project_rnaseq_data",
+          "checkedAt": "2026-11-27T12:22:37.090Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/ant_project_rnaseq_data",
+          "verifiedAt": "2026-10-24T21:40:34.384Z"
+        },
+        "ageBasisAt": "2021-06-11T10:31:40.033Z",
+        "archiveDueAt": "2026-06-11T10:31:40.033Z",
+        "hpcDeletionEligibleAt": "2026-10-24T21:40:34.384Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d45",
+      "name": "LegumeEnrichmentCapture_SBulk_CcRpp2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+          "checkedAt": "2026-11-27T12:22:37.091Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2",
+          "verifiedAt": "2026-10-23T17:30:34.759Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.822Z",
+        "archiveDueAt": "2025-11-26T20:40:36.822Z",
+        "hpcDeletionEligibleAt": "2026-10-23T17:30:34.759Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "604f7072d7661b6ec22a06cf",
+      "name": "AdvPop7_cDNA_Nanopore",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/advpop7_cdna_nanopore",
+          "checkedAt": "2026-11-27T12:22:37.093Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/advpop7_cdna_nanopore",
+          "verifiedAt": "2026-10-23T15:39:49.817Z"
+        },
+        "ageBasisAt": "2021-03-17T08:49:24.258Z",
+        "archiveDueAt": "2026-03-17T08:49:24.258Z",
+        "hpcDeletionEligibleAt": "2026-10-23T15:39:49.817Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d22",
+      "name": "LegumeEnrichmentCapture_Rd",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/legumeenrichmentcapture_rd",
+          "checkedAt": "2026-11-27T12:22:37.094Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_rd",
+          "verifiedAt": "2026-10-23T13:44:05.738Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.821Z",
+        "archiveDueAt": "2025-11-26T20:40:36.821Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:44:05.738Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3b",
+      "name": "LegumeEnrichmentCapture_S48",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/legumeenrichmentcapture_s48",
+          "checkedAt": "2026-11-27T12:22:37.096Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_s48",
+          "verifiedAt": "2026-10-23T13:04:13.485Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.829Z",
+        "archiveDueAt": "2025-11-26T20:40:36.829Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:04:13.485Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d63",
+      "name": "LegumeEnrichmentCapture_RaParent",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/legumeenrichmentcapture_raparent",
+          "checkedAt": "2026-11-27T12:22:37.097Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/legumeenrichmentcapture_raparent",
+          "verifiedAt": "2026-10-23T12:47:24.492Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.846Z",
+        "archiveDueAt": "2025-11-26T20:40:36.846Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:47:24.492Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d65",
+      "name": "Rnaseq M.trun",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/rnaseq_m_trun",
+          "checkedAt": "2026-11-27T12:22:37.099Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/rnaseq_m_trun",
+          "verifiedAt": "2026-10-23T12:36:29.818Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.827Z",
+        "archiveDueAt": "2025-11-26T20:40:36.827Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:36:29.818Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d74",
+      "name": "RNAseq_2BL-NI-Gargy_Fam1",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+          "checkedAt": "2026-11-27T12:22:37.100Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/rnaseq_2bl_ni_gargy_fam1",
+          "verifiedAt": "2026-10-23T12:12:52.447Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.828Z",
+        "archiveDueAt": "2025-11-26T20:40:36.828Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:12:52.447Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d80",
+      "name": "PKG-ENQ-832.01NadineIlk",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/two_blades/pkg_enq_832_01nadineilk",
+          "checkedAt": "2026-11-27T12:22:37.102Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/two_blades/pkg_enq_832_01nadineilk",
+          "verifiedAt": "2026-10-23T10:29:10.709Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:29:10.709Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d39",
+      "name": "Sequencing of NLRs from tetraploid wheat lines",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+          "checkedAt": "2026-11-27T12:22:37.106Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines",
+          "verifiedAt": "2026-11-02T20:55:20.889Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-11-02T20:55:20.889Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1b",
+      "name": "HK_PacBio",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hk_pacbio",
+          "checkedAt": "2026-11-27T12:22:37.108Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hk_pacbio",
+          "verifiedAt": "2026-11-02T11:46:21.380Z"
+        },
+        "ageBasisAt": "2021-09-10T14:31:44.105Z",
+        "archiveDueAt": "2026-09-10T14:31:44.105Z",
+        "hpcDeletionEligibleAt": "2026-11-02T11:46:21.380Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0a",
+      "name": "Whole genome Shotgun of Solanum americanum",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+          "checkedAt": "2026-11-27T12:22:37.110Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/whole_genome_shotgun_of_solanum_americanum",
+          "verifiedAt": "2026-10-31T22:42:06.554Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-31T22:42:06.554Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d29",
+      "name": "albugo_candida",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/albugo_candida",
+          "checkedAt": "2026-11-27T12:22:37.112Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/albugo_candida",
+          "verifiedAt": "2026-10-31T16:57:12.698Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-31T16:57:12.698Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6b",
+      "name": "witekk_s_americanum_gDNA_bgi",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_s_americanum_gDNA_bgi",
+          "checkedAt": "2026-11-27T12:22:37.114Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_s_americanum_gDNA_bgi",
+          "verifiedAt": "2026-10-31T11:07:04.131Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-31T11:07:04.131Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60b78429e788b405b6ce66aa",
+      "name": "S. americanum nanopore cDNA-RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/s__americanum_nanopore_cdna_renseq",
+          "checkedAt": "2026-11-27T12:22:37.116Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/s__americanum_nanopore_cdna_renseq",
+          "verifiedAt": "2026-10-29T11:25:13.197Z"
+        },
+        "ageBasisAt": "2021-06-04T10:44:03.072Z",
+        "archiveDueAt": "2026-06-04T10:44:03.072Z",
+        "hpcDeletionEligibleAt": "2026-10-29T11:25:13.197Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3a",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 (Rpi-amr1 and Rpi-amr2) ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+          "checkedAt": "2026-11-27T12:22:37.117Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__",
+          "verifiedAt": "2026-10-29T06:43:11.238Z"
+        },
+        "ageBasisAt": "2020-12-05T15:40:45.867Z",
+        "archiveDueAt": "2025-12-05T15:40:45.867Z",
+        "hpcDeletionEligibleAt": "2026-10-29T06:43:11.238Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60ba0530e788b405b6ce66f2",
+      "name": "S. americanum SP1102 cDNA nanopore",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/s__americanum_sp1102_cdna_nanopore",
+          "checkedAt": "2026-11-27T12:22:37.119Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/s__americanum_sp1102_cdna_nanopore",
+          "verifiedAt": "2026-10-28T08:04:50.822Z"
+        },
+        "ageBasisAt": "2021-06-04T12:47:16.562Z",
+        "archiveDueAt": "2026-06-04T12:47:16.562Z",
+        "hpcDeletionEligibleAt": "2026-10-28T08:04:50.822Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d10",
+      "name": "AJ_PathSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/aj_pathseq",
+          "checkedAt": "2026-11-27T12:22:37.122Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/aj_pathseq",
+          "verifiedAt": "2026-10-28T06:17:31.471Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-28T06:17:31.471Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d11",
+      "name": "dingp_Ath_ATACseq_2019_1",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_ath_atacseq_2019_1",
+          "checkedAt": "2026-11-27T12:22:37.124Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_ath_atacseq_2019_1",
+          "verifiedAt": "2026-10-28T03:39:29.944Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-28T03:39:29.944Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2b",
+      "name": "Rice RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/rice_renseq",
+          "checkedAt": "2026-11-27T12:22:37.126Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/rice_renseq",
+          "verifiedAt": "2026-10-28T01:59:05.989Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-28T01:59:05.989Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d66",
+      "name": "witekk_s_pimpinellifolium_qcdata",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_qcdata",
+          "checkedAt": "2026-11-27T12:22:37.128Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_qcdata",
+          "verifiedAt": "2026-10-27T17:21:58.181Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.831Z",
+        "archiveDueAt": "2025-11-26T20:40:36.831Z",
+        "hpcDeletionEligibleAt": "2026-10-27T17:21:58.181Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d24",
+      "name": "XL_PacBio_RLP_K_Seq_2019",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/xl_pacbio_rlp_k_seq_2019",
+          "checkedAt": "2026-11-27T12:22:37.129Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/xl_pacbio_rlp_k_seq_2019",
+          "verifiedAt": "2026-10-27T00:26:51.497Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.847Z",
+        "archiveDueAt": "2025-11-26T20:40:36.847Z",
+        "hpcDeletionEligibleAt": "2026-10-27T00:26:51.497Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d5a",
+      "name": "CCG Expression",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/ccg_expression",
+          "checkedAt": "2026-11-27T12:22:37.130Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/ccg_expression",
+          "verifiedAt": "2026-10-26T04:56:32.915Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.838Z",
+        "archiveDueAt": "2025-11-26T20:40:36.838Z",
+        "hpcDeletionEligibleAt": "2026-10-26T04:56:32.915Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d34",
+      "name": "HK_amr5",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hk_amr5",
+          "checkedAt": "2026-11-27T12:22:37.132Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hk_amr5",
+          "verifiedAt": "2026-10-25T22:25:47.687Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.845Z",
+        "archiveDueAt": "2025-11-26T20:40:36.845Z",
+        "hpcDeletionEligibleAt": "2026-10-25T22:25:47.687Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d26",
+      "name": "witekk_jupef_solanum",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_jupef_solanum",
+          "checkedAt": "2026-11-27T12:22:37.133Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_jupef_solanum",
+          "verifiedAt": "2026-10-25T16:14:42.467Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.812Z",
+        "archiveDueAt": "2025-11-26T20:40:36.812Z",
+        "hpcDeletionEligibleAt": "2026-10-25T16:14:42.467Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6d",
+      "name": "Solanum americanum nanopore sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/solanum_americanum_nanopore_sequencing",
+          "checkedAt": "2026-11-27T12:22:37.134Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/solanum_americanum_nanopore_sequencing",
+          "verifiedAt": "2026-10-25T14:07:07.321Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.842Z",
+        "archiveDueAt": "2025-11-26T20:40:36.842Z",
+        "hpcDeletionEligibleAt": "2026-10-25T14:07:07.321Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d38",
+      "name": "Resistance to PVY from S. stoloniferum (Rysto)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+          "checkedAt": "2026-11-27T12:22:37.136Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_",
+          "verifiedAt": "2026-10-25T04:39:11.584Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-25T04:39:11.584Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d31",
+      "name": "dingp_rnaseq_Novogene_strand-specific_seti_gh_eti_2020",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+          "checkedAt": "2026-11-27T12:22:37.137Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020",
+          "verifiedAt": "2026-10-24T23:05:32.037Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-24T23:05:32.037Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7c",
+      "name": "dingp_Ath_mutants_RNACapSeq_20170602_NextSeq500_HiOutput",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+          "checkedAt": "2026-11-27T12:22:37.141Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput",
+          "verifiedAt": "2026-10-25T12:02:48.579Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-25T12:02:48.579Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4a",
+      "name": "HK_renseq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hk_renseq",
+          "checkedAt": "2026-11-27T12:22:37.142Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hk_renseq",
+          "verifiedAt": "2026-10-24T18:48:44.239Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-24T18:48:44.239Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d78",
+      "name": "Genetic Variation in Albugo laibachii",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/genetic_variation_in_albugo_laibachii",
+          "checkedAt": "2026-11-27T12:22:37.145Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/genetic_variation_in_albugo_laibachii",
+          "verifiedAt": "2026-10-24T18:23:35.076Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.848Z",
+        "archiveDueAt": "2025-11-26T20:40:36.848Z",
+        "hpcDeletionEligibleAt": "2026-10-24T18:23:35.076Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d40",
+      "name": "cDNA PenSeq of 4 P. infestans isoaltes",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+          "checkedAt": "2026-11-27T12:22:37.145Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes",
+          "verifiedAt": "2026-10-23T16:14:42.013Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:29.000Z",
+        "archiveDueAt": "2025-11-26T20:40:29.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T16:14:42.013Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d64",
+      "name": "dingp_Ath_mutants_FANSATACCapSeq_20170630_NextSeq500_PE_MidOutput",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+          "checkedAt": "2026-11-27T12:22:37.148Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput",
+          "verifiedAt": "2026-10-25T10:33:18.589Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-25T10:33:18.589Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "61375deae788b405b6ce6da8",
+      "name": "RenSeq on S. americanum populations 2021",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/renseq_on_s__americanum_populations_2021",
+          "checkedAt": "2026-11-27T12:22:37.149Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/renseq_on_s__americanum_populations_2021",
+          "verifiedAt": "2026-10-23T14:42:47.361Z"
+        },
+        "ageBasisAt": "2021-09-08T15:01:53.139Z",
+        "archiveDueAt": "2026-09-08T15:01:53.139Z",
+        "hpcDeletionEligibleAt": "2026-10-23T14:42:47.361Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d68",
+      "name": "HK_amr10",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hk_amr10",
+          "checkedAt": "2026-11-27T12:22:37.151Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hk_amr10",
+          "verifiedAt": "2026-10-23T14:02:22.644Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.843Z",
+        "archiveDueAt": "2025-11-26T20:40:36.843Z",
+        "hpcDeletionEligibleAt": "2026-10-23T14:02:22.644Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d36",
+      "name": "dingp_rnaseq_bgiseq500_gh_eti_2018",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+          "checkedAt": "2026-11-27T12:22:37.153Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018",
+          "verifiedAt": "2026-10-23T13:27:19.994Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:27:19.994Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfc",
+      "name": "witekk_tomato_renseq_miseq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_tomato_renseq_miseq",
+          "checkedAt": "2026-11-27T12:22:37.155Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_tomato_renseq_miseq",
+          "verifiedAt": "2026-10-23T13:25:54.466Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.811Z",
+        "archiveDueAt": "2025-11-26T20:40:36.811Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:25:54.466Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d37",
+      "name": "Resistance to PLRV from Solanum tuberosum ssp. andigena (Rl-adg)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+          "checkedAt": "2026-11-27T12:22:37.157Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_",
+          "verifiedAt": "2026-10-23T13:07:06.944Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:07:06.944Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d44",
+      "name": "HR-5_Loss_of_Ex1_Resistance_M2_sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+          "checkedAt": "2026-11-27T12:22:37.158Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing",
+          "verifiedAt": "2026-10-23T12:56:03.051Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:56:03.051Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d6e",
+      "name": "dingp_rnaseq_bgiseq500_seti_eti_2018",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+          "checkedAt": "2026-11-27T12:22:37.161Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018",
+          "verifiedAt": "2026-10-23T12:40:00.948Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.847Z",
+        "archiveDueAt": "2025-11-26T20:40:36.847Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:40:00.948Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d71",
+      "name": "witekk_s_tuberosum_dm_ber2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_s_tuberosum_dm_ber2",
+          "checkedAt": "2026-11-27T12:22:37.163Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_s_tuberosum_dm_ber2",
+          "verifiedAt": "2026-10-23T12:30:03.510Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.836Z",
+        "archiveDueAt": "2025-11-26T20:40:36.836Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:30:03.510Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d01",
+      "name": "MiSeq RenSeq of Arabidopsis thaliana accessions ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+          "checkedAt": "2026-11-27T12:22:37.164Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_",
+          "verifiedAt": "2026-10-23T12:19:28.348Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:19:28.348Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d12",
+      "name": "Resistance to P. infestans in S. americanum line SP2273 - Rpi-amr2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+          "checkedAt": "2026-11-27T12:22:37.166Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2",
+          "verifiedAt": "2026-10-23T12:07:40.501Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.842Z",
+        "archiveDueAt": "2025-11-26T20:40:36.842Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:07:40.501Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d56",
+      "name": "Resistance to Albugo laibachii in HR-5",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+          "checkedAt": "2026-11-27T12:22:37.168Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_hr_5",
+          "verifiedAt": "2026-10-23T11:56:39.857Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:56:39.857Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d77",
+      "name": "AMR4 Mapping",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/amr4_mapping",
+          "checkedAt": "2026-11-27T12:22:37.170Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/amr4_mapping",
+          "verifiedAt": "2026-10-23T11:46:41.393Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:46:41.393Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1a",
+      "name": "Non-host resistance to Ac2V in Wu-0",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+          "checkedAt": "2026-11-27T12:22:37.172Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/non_host_resistance_to_ac2v_in_wu_0",
+          "verifiedAt": "2026-10-23T11:43:14.621Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:43:14.621Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1e",
+      "name": "witekk_s_pimpinellifolium_cf_ecp2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+          "checkedAt": "2026-11-27T12:22:37.174Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/witekk_s_pimpinellifolium_cf_ecp2",
+          "verifiedAt": "2026-10-23T11:40:23.793Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.838Z",
+        "archiveDueAt": "2025-11-26T20:40:36.838Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:40:23.793Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d27",
+      "name": "HiSeq on Solanum cDNA",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/hiseq_on_solanum_cdna",
+          "checkedAt": "2026-11-27T12:22:37.175Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/hiseq_on_solanum_cdna",
+          "verifiedAt": "2026-10-23T11:32:00.234Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:32:00.234Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d28",
+      "name": "Solynta sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/solynta_sequencing",
+          "checkedAt": "2026-11-27T12:22:37.177Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/solynta_sequencing",
+          "verifiedAt": "2026-10-23T11:28:49.655Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.842Z",
+        "archiveDueAt": "2025-11-26T20:40:36.842Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:28:49.655Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d81",
+      "name": "furzero_hpa_emwa1_illumina",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/furzero_hpa_emwa1_illumina",
+          "checkedAt": "2026-11-27T12:22:37.179Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/furzero_hpa_emwa1_illumina",
+          "verifiedAt": "2026-10-23T11:27:25.093Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:27:25.093Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3c",
+      "name": "Rpi-amr2 in SP3675 (BC2F2 of SP2273) ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+          "checkedAt": "2026-11-27T12:22:37.181Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__",
+          "verifiedAt": "2026-10-23T11:12:45.653Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:12:45.653Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d47",
+      "name": "MiSeq RenSeq on various Solanum ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/miseq_renseq_on_various_solanum_",
+          "checkedAt": "2026-11-27T12:22:37.183Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_on_various_solanum_",
+          "verifiedAt": "2026-10-23T11:10:13.098Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.848Z",
+        "archiveDueAt": "2025-11-26T20:40:36.848Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:10:13.098Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d59",
+      "name": "Rpc-amr1; resistance to P. capsici from S. americanum SP1102",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+          "checkedAt": "2026-11-27T12:22:37.185Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102",
+          "verifiedAt": "2026-10-23T11:08:15.089Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.837Z",
+        "archiveDueAt": "2025-11-26T20:40:36.837Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:08:15.089Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2a",
+      "name": "Resistance to Albugo candida AcEx1 in HR-5 Oy-0 C24 and Lz-0",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+          "checkedAt": "2026-11-27T12:22:37.187Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0",
+          "verifiedAt": "2026-10-23T11:06:14.583Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:06:14.583Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d60",
+      "name": "Arabidopsis PacBio RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/arabidopsis_pacbio_renseq",
+          "checkedAt": "2026-11-27T12:22:37.190Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/arabidopsis_pacbio_renseq",
+          "verifiedAt": "2026-10-23T10:57:46.114Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:57:46.114Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfb",
+      "name": "PacBio PenSeq on Phytophthora infestans",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+          "checkedAt": "2026-11-27T12:22:37.193Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/pacbio_penseq_on_phytophthora_infestans",
+          "verifiedAt": "2026-10-23T10:48:59.518Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.850Z",
+        "archiveDueAt": "2025-11-26T20:40:36.850Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:48:59.518Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d17",
+      "name": "ATAC_cseq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/atac_cseq",
+          "checkedAt": "2026-11-27T12:22:37.195Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/atac_cseq",
+          "verifiedAt": "2026-10-23T11:16:26.002Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:16:26.002Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d49",
+      "name": "Resistance to Albugo candida Ac7v in Sf-2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+          "checkedAt": "2026-11-27T12:22:37.196Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2",
+          "verifiedAt": "2026-10-23T10:40:49.854Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.842Z",
+        "archiveDueAt": "2025-11-26T20:40:36.842Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:40:49.854Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0f",
+      "name": "Col-0 RPP2 Fast Neutron Mutant RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+          "checkedAt": "2026-11-27T12:22:37.197Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq",
+          "verifiedAt": "2026-10-23T10:40:37.060Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:40:37.060Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d42",
+      "name": "White Rust Resistance gene cloning using RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+          "checkedAt": "2026-11-27T12:22:37.200Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/white_rust_resistance_gene_cloning_using_renseq",
+          "verifiedAt": "2026-10-23T10:38:49.317Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.846Z",
+        "archiveDueAt": "2025-11-26T20:40:36.846Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:38:49.317Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "name": "MiSeq RenSeq of Brassica accessions ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_",
+          "checkedAt": "2026-11-27T12:22:37.203Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_",
+          "verifiedAt": "2026-10-23T10:38:53.748Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.819Z",
+        "archiveDueAt": "2025-11-26T20:40:36.819Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:38:53.748Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d35",
+      "name": "LOP-868 PacBio RenSeq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/lop_868_pacbio_renseq",
+          "checkedAt": "2026-11-27T12:22:37.204Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/lop_868_pacbio_renseq",
+          "verifiedAt": "2026-10-23T10:37:18.160Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.831Z",
+        "archiveDueAt": "2025-11-26T20:40:36.831Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:37:18.160Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "name": "Resistance to Albugo laibachii in Sf-2",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+          "checkedAt": "2026-11-27T12:22:37.206Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2",
+          "verifiedAt": "2026-10-23T10:37:23.125Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.822Z",
+        "archiveDueAt": "2025-11-26T20:40:36.822Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:37:23.125Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d46",
+      "name": "Transcription profiling during rice plant infection",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+          "checkedAt": "2026-11-27T12:22:37.207Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/transcription_profiling_during_rice_plant_infection",
+          "verifiedAt": "2026-11-01T18:57:12.746Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-11-01T18:57:12.746Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3e",
+      "name": "Pmk1 MAPKinase pathway appressorium development ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+          "checkedAt": "2026-11-27T12:22:37.210Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_",
+          "verifiedAt": "2026-11-01T11:18:20.619Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.854Z",
+        "archiveDueAt": "2025-11-26T20:40:36.854Z",
+        "hpcDeletionEligibleAt": "2026-11-01T11:18:20.619Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d04",
+      "name": "UV_mutagenesis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/uv_mutagenesis",
+          "checkedAt": "2026-11-27T12:22:37.212Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/uv_mutagenesis",
+          "verifiedAt": "2026-10-29T22:18:17.990Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-29T22:18:17.990Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/lichen_coculture_i_21_days",
+          "checkedAt": "2026-11-27T12:22:37.214Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+          "verifiedAt": "2026-10-29T19:13:25.516Z"
+        },
+        "ageBasisAt": "2021-08-20T23:57:44.039Z",
+        "archiveDueAt": "2026-08-20T23:57:44.039Z",
+        "hpcDeletionEligibleAt": "2026-10-29T19:13:25.516Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d02",
+      "name": "WT_Guy11 and Guy11_PWL2_mutant infection on Eragrostis curvula RNA-seq timecourse",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+          "checkedAt": "2026-11-27T12:22:37.216Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse",
+          "verifiedAt": "2026-10-28T19:39:11.778Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.839Z",
+        "archiveDueAt": "2025-11-26T20:40:36.839Z",
+        "hpcDeletionEligibleAt": "2026-10-28T19:39:11.778Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d41",
+      "name": "Wheat blast project",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/wheat_blast_project",
+          "checkedAt": "2026-11-27T12:22:37.217Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/wheat_blast_project",
+          "verifiedAt": "2026-10-27T23:52:16.353Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-27T23:52:16.353Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/lichen_coculture_i_2_days",
+          "checkedAt": "2026-11-27T12:22:37.219Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+          "verifiedAt": "2026-10-27T20:44:48.707Z"
+        },
+        "ageBasisAt": "2021-08-21T19:38:13.744Z",
+        "archiveDueAt": "2026-08-21T19:38:13.744Z",
+        "hpcDeletionEligibleAt": "2026-10-27T20:44:48.707Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/lichen_coculture_i_9_days",
+          "checkedAt": "2026-11-27T12:22:37.221Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+          "verifiedAt": "2026-10-27T19:07:09.277Z"
+        },
+        "ageBasisAt": "2021-08-21T00:06:30.491Z",
+        "archiveDueAt": "2026-08-21T00:06:30.491Z",
+        "hpcDeletionEligibleAt": "2026-10-27T19:07:09.277Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/lichen_coculture_i_42_days",
+          "checkedAt": "2026-11-27T12:22:37.222Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+          "verifiedAt": "2026-10-27T09:52:39.091Z"
+        },
+        "ageBasisAt": "2020-12-17T13:12:45.730Z",
+        "archiveDueAt": "2025-12-17T13:12:45.730Z",
+        "hpcDeletionEligibleAt": "2026-10-27T09:52:39.091Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7b",
+      "name": "KE002 infection on rice RNA-seq timecourse",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+          "checkedAt": "2026-11-27T12:22:37.224Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse",
+          "verifiedAt": "2026-10-27T04:18:10.758Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.845Z",
+        "archiveDueAt": "2025-11-26T20:40:36.845Z",
+        "hpcDeletionEligibleAt": "2026-10-27T04:18:10.758Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712264f",
+      "name": "LacO insertion-site analysis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2370",
+          "checkedAt": "2026-11-27T12:22:37.225Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2370",
+          "verifiedAt": "2026-10-26T23:17:10.626Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-26T23:17:10.626Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122650",
+      "name": "PKC1 inhibition RNA-seq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2035",
+          "checkedAt": "2026-11-27T12:22:37.226Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2035",
+          "verifiedAt": "2026-10-26T19:55:25.168Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-26T19:55:25.168Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4c",
+      "name": "Lichen Tissue RNA1",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/lichen_tissue_rna1",
+          "checkedAt": "2026-11-27T12:22:37.227Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/lichen_tissue_rna1",
+          "verifiedAt": "2026-10-26T00:40:12.458Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-26T00:40:12.458Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d09",
+      "name": "RNA-seq of various mutants",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/rna_seq_of_various_mutants",
+          "checkedAt": "2026-11-27T12:22:37.229Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_of_various_mutants",
+          "verifiedAt": "2026-10-25T19:30:22.872Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-25T19:30:22.872Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d33",
+      "name": "NADPH oxidase project",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/nadph_oxidase_project",
+          "checkedAt": "2026-11-27T12:22:37.230Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/nadph_oxidase_project",
+          "verifiedAt": "2026-10-25T18:37:11.296Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-25T18:37:11.296Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6116bf17e788b405b6ce69e8",
+      "name": "Transcriptomics Appressorial Assay Dznf1 TF",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+          "checkedAt": "2026-11-27T12:22:37.232Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf",
+          "verifiedAt": "2026-10-25T04:11:38.598Z"
+        },
+        "ageBasisAt": "2021-09-02T10:35:23.531Z",
+        "archiveDueAt": "2026-09-02T10:35:23.531Z",
+        "hpcDeletionEligibleAt": "2026-10-25T04:11:38.598Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122651",
+      "name": "Wheat blast isolate sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_945",
+          "checkedAt": "2026-11-27T12:22:37.233Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_945",
+          "verifiedAt": "2026-10-25T02:03:25.627Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-25T02:03:25.627Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6116c323e788b405b6ce69f6",
+      "name": "Generational Experiment ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/generational_experiment_",
+          "checkedAt": "2026-11-27T12:22:37.234Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/generational_experiment_",
+          "verifiedAt": "2026-10-25T01:18:02.267Z"
+        },
+        "ageBasisAt": "2021-09-02T11:18:40.040Z",
+        "archiveDueAt": "2026-09-02T11:18:40.040Z",
+        "hpcDeletionEligibleAt": "2026-10-25T01:18:02.267Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60804e0b837a8a261f0133ee",
+      "name": "RNA-seq Mycelium cultures Guy11, Dhox7 and Dmst12",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+          "checkedAt": "2026-11-27T12:22:37.236Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12",
+          "verifiedAt": "2026-10-25T00:56:29.727Z"
+        },
+        "ageBasisAt": "2021-04-21T17:21:23.821Z",
+        "archiveDueAt": "2026-04-21T17:21:23.821Z",
+        "hpcDeletionEligibleAt": "2026-10-25T00:56:29.727Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d2f",
+      "name": "Global transcriptional analysis of surface perception",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+          "checkedAt": "2026-11-27T12:22:37.237Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/global_transcriptional_analysis_of_surface_perception",
+          "verifiedAt": "2026-10-25T00:35:09.291Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-25T00:35:09.291Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cfa",
+      "name": "Sequencing of Sub-Saharan Africa Magnaporthe oryzae isolates",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+          "checkedAt": "2026-11-27T12:22:37.239Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates",
+          "verifiedAt": "2026-10-25T00:13:20.600Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.852Z",
+        "archiveDueAt": "2025-11-26T20:40:36.852Z",
+        "hpcDeletionEligibleAt": "2026-10-25T00:13:20.600Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d43",
+      "name": "Transcriptional regulation of melanin in Magnaporthe oryzae",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+          "checkedAt": "2026-11-27T12:22:37.241Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae",
+          "verifiedAt": "2026-10-24T22:24:15.576Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.839Z",
+        "archiveDueAt": "2025-11-26T20:40:36.839Z",
+        "hpcDeletionEligibleAt": "2026-10-24T22:24:15.576Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122652",
+      "name": "Sequence assemblies and gene annotations",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2012",
+          "checkedAt": "2026-11-27T12:22:37.242Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2012",
+          "verifiedAt": "2026-10-24T22:05:11.532Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-24T22:05:11.532Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122653",
+      "name": "Smo1 mutant and progeny sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_809",
+          "checkedAt": "2026-11-27T12:22:37.243Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_809",
+          "verifiedAt": "2026-10-24T19:04:10.913Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-24T19:04:10.913Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cf7",
+      "name": "Study of pmk1AS mutant in presence and absence of an inhibitor",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+          "checkedAt": "2026-11-27T12:22:37.245Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor",
+          "verifiedAt": "2026-10-25T03:45:45.451Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.832Z",
+        "archiveDueAt": "2025-11-26T20:40:36.832Z",
+        "hpcDeletionEligibleAt": "2026-10-25T03:45:45.451Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d79",
+      "name": "Sequencing of 5 strains of Kenyan Magnaporthe oryzae ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+          "checkedAt": "2026-11-27T12:22:37.247Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_",
+          "verifiedAt": "2026-10-23T17:17:00.572Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-23T17:17:00.572Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122654",
+      "name": "Wheat blast assembly and gene analysis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_930",
+          "checkedAt": "2026-11-27T12:22:37.248Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_930",
+          "verifiedAt": "2026-10-23T16:58:45.281Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T16:58:45.281Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122655",
+      "name": "pmk1AS leaf-sheath infection RNA-seq",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2323",
+          "checkedAt": "2026-11-27T12:22:37.249Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2323",
+          "verifiedAt": "2026-10-23T16:35:53.982Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T16:35:53.982Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d06",
+      "name": "Sequencing melanin biosynthesis pathway CRISPR mutants in Guy11 background",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+          "checkedAt": "2026-11-27T12:22:37.251Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background",
+          "verifiedAt": "2026-10-23T15:27:14.521Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.841Z",
+        "archiveDueAt": "2025-11-26T20:40:36.841Z",
+        "hpcDeletionEligibleAt": "2026-10-23T15:27:14.521Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d1d",
+      "name": "Sequencing of Magnaporthe oryzae isolates from Kenya",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+          "checkedAt": "2026-11-27T12:22:37.253Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya",
+          "verifiedAt": "2026-10-23T15:13:21.371Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.851Z",
+        "archiveDueAt": "2025-11-26T20:40:36.851Z",
+        "hpcDeletionEligibleAt": "2026-10-23T15:13:21.371Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122656",
+      "name": "Smo1 bulk segregant analysis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2009",
+          "checkedAt": "2026-11-27T12:22:37.255Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2009",
+          "verifiedAt": "2026-10-23T14:55:49.728Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T14:55:49.728Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d57",
+      "name": "Cell cycle",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/cell_cycle",
+          "checkedAt": "2026-11-27T12:22:37.256Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/cell_cycle",
+          "verifiedAt": "2026-10-23T14:24:47.962Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.806Z",
+        "archiveDueAt": "2025-11-26T20:40:36.806Z",
+        "hpcDeletionEligibleAt": "2026-10-23T14:24:47.962Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122657",
+      "name": "Nim1 mutant and revertant sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_1622",
+          "checkedAt": "2026-11-27T12:22:37.258Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_1622",
+          "verifiedAt": "2026-10-23T14:10:43.983Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T14:10:43.983Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "606c3308d7661b6ec22a0793",
+      "name": "ChIP-seq data Hox7-3XFlag mycelium",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+          "checkedAt": "2026-11-27T12:22:37.260Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium",
+          "verifiedAt": "2026-10-23T13:15:01.393Z"
+        },
+        "ageBasisAt": "2021-04-21T14:36:49.711Z",
+        "archiveDueAt": "2026-04-21T14:36:49.711Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:15:01.393Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122658",
+      "name": "MG bulk read alignment",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_1566",
+          "checkedAt": "2026-11-27T12:22:37.261Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_1566",
+          "verifiedAt": "2026-10-23T12:53:12.385Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:53:12.385Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d03",
+      "name": "Sequencing PWL2 mutants in Guy11 background",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+          "checkedAt": "2026-11-27T12:22:37.263Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background",
+          "verifiedAt": "2026-10-23T12:27:42.310Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.830Z",
+        "archiveDueAt": "2025-11-26T20:40:36.830Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:27:42.310Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6116c220e788b405b6ce69f2",
+      "name": "Transcriptomics Appressorial Assay Dhox7 TF",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+          "checkedAt": "2026-11-27T12:22:37.264Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf",
+          "verifiedAt": "2026-10-23T12:02:54.702Z"
+        },
+        "ageBasisAt": "2021-09-02T10:39:08.870Z",
+        "archiveDueAt": "2026-09-02T10:39:08.870Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:02:54.702Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae17122659",
+      "name": "Buf mutant bulk segregant analysis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_592_593",
+          "checkedAt": "2026-11-27T12:22:37.266Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_592_593",
+          "verifiedAt": "2026-10-23T11:48:21.658Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:48:21.658Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "605b441ad7661b6ec22a076a",
+      "name": "ChIP-seq data Mst12-GFP mycelium",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+          "checkedAt": "2026-11-27T12:22:37.268Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/chip_seq_data_mst12_gfp_mycelium",
+          "verifiedAt": "2026-10-23T11:38:19.603Z"
+        },
+        "ageBasisAt": "2021-04-21T15:01:13.187Z",
+        "archiveDueAt": "2026-04-21T15:01:13.187Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:38:19.603Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60619edfd7661b6ec22a076e",
+      "name": "DAP-seq Mst12 and Hox7 ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/dap_seq_mst12_and_hox7_",
+          "checkedAt": "2026-11-27T12:22:37.270Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/dap_seq_mst12_and_hox7_",
+          "verifiedAt": "2026-10-23T11:33:55.537Z"
+        },
+        "ageBasisAt": "2021-03-29T13:49:18.708Z",
+        "archiveDueAt": "2026-03-29T13:49:18.708Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:33:55.537Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d21",
+      "name": "Wsc1 project",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/wsc1_project",
+          "checkedAt": "2026-11-27T12:22:37.271Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/wsc1_project",
+          "verifiedAt": "2026-10-23T11:23:46.163Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.850Z",
+        "archiveDueAt": "2025-11-26T20:40:36.850Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:23:46.163Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265a",
+      "name": "Guy11 paired-end read alignment",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2171",
+          "checkedAt": "2026-11-27T12:22:37.272Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2171",
+          "verifiedAt": "2026-10-23T11:22:04.867Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:22:04.867Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d7f",
+      "name": "Turgor project",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/turgor_project",
+          "checkedAt": "2026-11-27T12:22:37.274Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/turgor_project",
+          "verifiedAt": "2026-10-23T11:18:30.540Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.845Z",
+        "archiveDueAt": "2025-11-26T20:40:36.845Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:18:30.540Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265b",
+      "name": "Guy11 36-base paired-end genome sequencing",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_539",
+          "checkedAt": "2026-11-27T12:22:37.274Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_539",
+          "verifiedAt": "2026-10-23T11:15:25.687Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:15:25.687Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4457c017ae1712265c",
+      "name": "Lichen genome annotation",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_2561",
+          "checkedAt": "2026-11-27T12:22:37.276Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_2561",
+          "verifiedAt": "2026-10-23T11:03:17.585Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:20.000Z",
+        "archiveDueAt": "2031-10-22T20:04:20.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:03:17.585Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d25",
+      "name": "Sequencing of Magnaporthe oryzae KE002",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+          "checkedAt": "2026-11-27T12:22:37.277Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002",
+          "verifiedAt": "2026-10-23T10:29:04.696Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.837Z",
+        "archiveDueAt": "2025-11-26T20:40:36.837Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:29:04.696Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d50",
+      "name": "Sequencing Magnaporthe oryzae Guy11 ",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+          "checkedAt": "2026-11-27T12:22:37.279Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_",
+          "verifiedAt": "2026-10-23T10:28:32.444Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.837Z",
+        "archiveDueAt": "2025-11-26T20:40:36.837Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:28:32.444Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265d",
+      "name": "Mycelium RNA-seq expression tables",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_230",
+          "checkedAt": "2026-11-27T12:22:37.280Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_230",
+          "verifiedAt": "2026-10-23T10:28:43.410Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:28:43.410Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265e",
+      "name": "M. oryzae T-DNA insertion-site analysis",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/ntalbot/project_758",
+          "checkedAt": "2026-11-27T12:22:37.281Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/ntalbot/project_758",
+          "verifiedAt": "2026-10-23T10:27:52.930Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:27:52.930Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d0c",
+      "name": "Rice Blast",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rice_blast",
+          "checkedAt": "2026-11-27T12:22:37.282Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rice_blast",
+          "verifiedAt": "2026-11-01T04:49:38.347Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-11-01T04:49:38.347Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7cff",
+      "name": "Wheat Blast 2017",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/wheat_blast_2017",
+          "checkedAt": "2026-11-27T12:22:37.284Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/wheat_blast_2017",
+          "verifiedAt": "2026-10-26T02:49:30.278Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-26T02:49:30.278Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d73",
+      "name": "Nanopore sequences from Italian rice blast fungal isolates",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+          "checkedAt": "2026-11-27T12:22:37.286Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates",
+          "verifiedAt": "2026-10-25T20:22:53.949Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.853Z",
+        "archiveDueAt": "2025-11-26T20:40:36.853Z",
+        "hpcDeletionEligibleAt": "2026-10-25T20:22:53.949Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d23",
+      "name": "Wheat Blast",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/wheat_blast",
+          "checkedAt": "2026-11-27T12:22:37.287Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/wheat_blast",
+          "verifiedAt": "2026-10-25T21:20:50.254Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.849Z",
+        "archiveDueAt": "2025-11-26T20:40:36.849Z",
+        "hpcDeletionEligibleAt": "2026-10-25T21:20:50.254Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d32",
+      "name": "Halioticida_Haliphthoros",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/halioticida_haliphthoros",
+          "checkedAt": "2026-11-27T12:22:37.288Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliphthoros",
+          "verifiedAt": "2026-10-23T11:53:15.824Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.829Z",
+        "archiveDueAt": "2025-11-26T20:40:36.829Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:53:15.824Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d3d",
+      "name": "janderso_rsolani",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/janderso_rsolani",
+          "checkedAt": "2026-11-27T12:22:37.289Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/janderso_rsolani",
+          "verifiedAt": "2026-10-29T09:04:14.901Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:36.828Z",
+        "archiveDueAt": "2025-11-26T20:40:36.828Z",
+        "hpcDeletionEligibleAt": "2026-10-29T09:04:14.901Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d30",
+      "name": "Halioticida_Haliocrustida",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/halioticida_haliocrustida",
+          "checkedAt": "2026-11-27T12:22:37.290Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliocrustida",
+          "verifiedAt": "2026-10-23T10:27:45.121Z"
+        },
+        "ageBasisAt": "2020-11-26T20:40:29.000Z",
+        "archiveDueAt": "2025-11-26T20:40:29.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T10:27:45.121Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60defd3ae788b405b6ce68db",
+      "name": "RNA-Seq data from lettuce (Lactuca sativa)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+          "checkedAt": "2026-11-27T12:22:37.291Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_",
+          "verifiedAt": "2026-10-25T16:58:35.319Z"
+        },
+        "ageBasisAt": "2021-07-02T13:04:01.946Z",
+        "archiveDueAt": "2026-07-02T13:04:01.946Z",
+        "hpcDeletionEligibleAt": "2026-10-25T16:58:35.319Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60d1f3a0e788b405b6ce68a1",
+      "name": "RNA-Seq data from Spinach (Spinacia oleracea)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+          "checkedAt": "2026-11-27T12:22:37.293Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_",
+          "verifiedAt": "2026-10-25T05:57:42.621Z"
+        },
+        "ageBasisAt": "2021-06-22T14:59:01.471Z",
+        "archiveDueAt": "2026-06-22T14:59:01.471Z",
+        "hpcDeletionEligibleAt": "2026-10-25T05:57:42.621Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60c8b1d3e788b405b6ce6845",
+      "name": "RNA-Seq data from N. benthamiana WT and NRC234 KO mutants",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+          "checkedAt": "2026-11-27T12:22:37.295Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants",
+          "verifiedAt": "2026-10-28T10:03:09.749Z"
+        },
+        "ageBasisAt": "2021-07-21T08:51:36.145Z",
+        "archiveDueAt": "2026-07-21T08:51:36.145Z",
+        "hpcDeletionEligibleAt": "2026-10-28T10:03:09.749Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "60e4528be788b405b6ce6917",
+      "name": "RNA-Seq data from tomato LA1792 (incl. HERO)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+          "checkedAt": "2026-11-27T12:22:37.296Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_",
+          "verifiedAt": "2026-10-25T02:26:49.563Z"
+        },
+        "ageBasisAt": "2021-07-06T13:17:52.396Z",
+        "archiveDueAt": "2026-07-06T13:17:52.396Z",
+        "hpcDeletionEligibleAt": "2026-10-25T02:26:49.563Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "610fd90de788b405b6ce6946",
+      "name": "RNA-Seq data from N. benthamiana WT and ZAR1 mutants",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+          "checkedAt": "2026-11-27T12:22:37.297Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants",
+          "verifiedAt": "2026-10-29T02:15:24.194Z"
+        },
+        "ageBasisAt": "2021-08-09T13:15:41.400Z",
+        "archiveDueAt": "2026-08-09T13:15:41.400Z",
+        "hpcDeletionEligibleAt": "2026-10-29T02:15:24.194Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "611bd783e788b405b6ce6a0c",
+      "name": "RNA-Seq data from NRC2/3/4 KO N. benthamiana expressing activated NLRs",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+          "checkedAt": "2026-11-27T12:22:37.299Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs",
+          "verifiedAt": "2026-10-24T23:25:13.498Z"
+        },
+        "ageBasisAt": "2021-08-17T16:09:12.294Z",
+        "archiveDueAt": "2026-08-17T16:09:12.294Z",
+        "hpcDeletionEligibleAt": "2026-10-24T23:25:13.498Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "611bcc57e788b405b6ce69fc",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant M. polymorpha CNL",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+          "checkedAt": "2026-11-27T12:22:37.300Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl",
+          "verifiedAt": "2026-10-23T13:41:23.978Z"
+        },
+        "ageBasisAt": "2021-08-17T15:18:40.273Z",
+        "archiveDueAt": "2026-08-17T15:18:40.273Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:41:23.978Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "611be0c6e788b405b6ce6a3c",
+      "name": "RNA-Seq data from N. benthamiana expressing WT and DV mutant of NbRoq1",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+          "checkedAt": "2026-11-27T12:22:37.302Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1",
+          "verifiedAt": "2026-10-23T13:16:19.190Z"
+        },
+        "ageBasisAt": "2021-08-17T16:49:32.589Z",
+        "archiveDueAt": "2026-08-17T16:49:32.589Z",
+        "hpcDeletionEligibleAt": "2026-10-23T13:16:19.190Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "613b733ee788b405b6ce6eb8",
+      "name": " Differential gene expression analysis of Tol9 CRISPR mutants",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+          "checkedAt": "2026-11-27T12:22:37.304Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants",
+          "verifiedAt": "2026-10-26T01:37:25.471Z"
+        },
+        "ageBasisAt": "2021-09-10T16:16:42.577Z",
+        "archiveDueAt": "2026-09-10T16:16:42.577Z",
+        "hpcDeletionEligibleAt": "2026-10-26T01:37:25.471Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "61572b1b36105e13c15d58ac",
+      "name": "RNA-Seq data from N. benthamiana transiently expressing WT and autoactive TNL",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+          "checkedAt": "2026-11-27T12:22:37.305Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl",
+          "verifiedAt": "2026-10-24T19:41:24.823Z"
+        },
+        "ageBasisAt": "2021-10-01T16:09:14.113Z",
+        "archiveDueAt": "2026-10-01T16:09:14.113Z",
+        "hpcDeletionEligibleAt": "2026-10-24T19:41:24.823Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6452a72c525e070698932583",
+      "name": "Sequencing of Br62 and I54 blast fungus isolates",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+          "checkedAt": "2026-11-27T12:22:37.307Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates",
+          "verifiedAt": "2026-10-23T12:20:05.113Z"
+        },
+        "ageBasisAt": "2023-05-03T19:45:51.875Z",
+        "archiveDueAt": "2028-05-03T19:45:51.875Z",
+        "hpcDeletionEligibleAt": "2026-10-23T12:20:05.113Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "64c13517d32c7a7e4b174f20",
+      "name": "RNAseq_PikobodiesMADA",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/rnaseq_pikobodiesmada",
+          "checkedAt": "2026-11-27T12:22:37.308Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/rnaseq_pikobodiesmada",
+          "verifiedAt": "2026-10-26T03:55:36.349Z"
+        },
+        "ageBasisAt": "2023-07-30T17:53:18.073Z",
+        "archiveDueAt": "2028-07-30T17:53:18.073Z",
+        "hpcDeletionEligibleAt": "2026-10-26T03:55:36.349Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae1712265f",
+      "name": "P. striiformis TCS (JIC.CL.20130409.01)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+          "checkedAt": "2026-11-27T12:22:37.310Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01",
+          "verifiedAt": "2026-10-25T23:40:42.508Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-25T23:40:42.508Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122660",
+      "name": "P. striiformis TCS (TSL.DS.20130809.01, 113)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+          "checkedAt": "2026-11-27T12:22:37.311Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113",
+          "verifiedAt": "2026-10-24T22:44:55.251Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-24T22:44:55.251Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122661",
+      "name": "P. striiformis TCS 99 (TSL.DS.20130722.01)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+          "checkedAt": "2026-11-27T12:22:37.312Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99",
+          "verifiedAt": "2026-10-23T11:59:36.131Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-23T11:59:36.131Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122662",
+      "name": "P. striiformis TCS 105 (TSL.DS.20130730.01)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+          "checkedAt": "2026-11-27T12:22:37.313Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105",
+          "verifiedAt": "2026-10-25T03:18:53.147Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-25T03:18:53.147Z",
+        "hpcPreservationInvalid": false
+      }
+    },
+    {
+      "projectId": "6ada6c4557c017ae17122663",
+      "name": "P. striiformis TCS 144 (TSL.DS.20131010.01rev2)",
+      "preservation": {
+        "until": null,
+        "active": false,
+        "invalid": false
+      },
+      "locations": {
+        "hpc": {
+          "status": "present",
+          "uri": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+          "checkedAt": "2026-11-27T12:22:37.314Z",
+          "reason": null
+        },
+        "aws": {
+          "status": "verified",
+          "uri": "s3://tsl-hpc-reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144",
+          "verifiedAt": "2026-10-24T19:23:58.163Z"
+        },
+        "ageBasisAt": "2026-10-22T20:04:21.000Z",
+        "archiveDueAt": "2031-10-22T20:04:21.000Z",
+        "hpcDeletionEligibleAt": "2026-10-24T19:23:58.163Z",
+        "hpcPreservationInvalid": false
+      }
+    }
+  ]
+}

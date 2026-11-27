@@ -1,0 +1,13 @@
+/tsl/data/reads/two_blades/gargy_2019_rnaseq
+/tsl/data/reads/skamoun/sequencing_of_mini_chromosomes_of_m__oryzae_2018
+/tsl/data/reads/skamoun/wheat_blast___zambia_2018_2020
+/tsl/data/reads/skamoun/ronny_helen_pinfestans_pmirabilis_timecourse
+/tsl/data/reads/skamoun/pangenome_of_rice_infecting_magnaporthe_oryzae
+/tsl/data/reads/skamoun/blast_fungi_collected_from_wild_grasses_in_germany
+/tsl/data/reads/skamoun/illumina_sequencing_of_hi_c_libraries_from_selected_magnaporthe_oryzae_lineages
+/tsl/data/reads/skamoun/italian_blast_fungus_isolates_from_wild_grasses
+/tsl/data/reads/skamoun/wheat_blast___bolivia_2023_24
+/tsl/data/reads/skamoun/wheat_blast___zambia_2023
+/tsl/data/reads/skamoun/wheat_blast___paraguay_2023
+/tsl/data/reads/skamoun/pacbio_hifi_and_linkprep_sequencing_of_stapelia_leendertziae
+/tsl/data/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq

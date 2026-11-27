@@ -1,0 +1,88 @@
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-direct-disposal.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK
+inventory.json: OK
+inventory_direct_disposal.py: OK
+retirement-receipt.json: OK
+sealed-source-baseline.json: OK
+Job=25342010 Tasks=1 CPUsPerTask=1 Nodes=1 MemoryPerNodeMB=1024
+t384n8
+Python 3.9.25
+rm (GNU coreutils) 8.32
+JobId=25342010 JobName=komondor-kamoun-6
+   UserId=deeks(14014) GroupId=TSL_20(11045) MCS_label=N/A
+   Priority=10889 Nice=0 Account=tsl QOS=normal WCKey=*bioinformatics_core
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:00 TimeLimit=02:00:00 TimeMin=N/A
+   SubmitTime=2026-11-27T15:20:03 EligibleTime=2026-11-27T15:20:03
+   AccrueTime=2026-11-27T15:20:03
+   StartTime=2026-11-27T15:20:04 EndTime=2026-11-27T17:20:04 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-27T15:20:04 Scheduler=Main
+   Partition=tsl-compute AllocNode:Sid=localhost:3930488
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=t384n8
+   BatchHost=t384n8
+   NumNodes=1 NumCPUs=1 NumTasks=1 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=1,mem=1G,node=1,billing=1
+   AllocTRES=cpu=1,mem=1G,node=1,billing=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryNode=1G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/hpc-home/deeks/komondor-kamoun-six-20261127/komondor-kamoun-six-delete-20261127-01/delete.sbatch
+   WorkDir=/hpc-home/deeks/komondor-kamoun-six-20261127/komondor-kamoun-six-delete-20261127-01
+   AdminComment=** partition (tsl-short) ** 
+   StdErr=/hpc-home/deeks/komondor-kamoun-six-20261127/komondor-kamoun-six-delete-20261127-01/komondor-kamoun-6-25342010.log
+   StdIn=/dev/null
+   StdOut=/hpc-home/deeks/komondor-kamoun-six-20261127/komondor-kamoun-six-delete-20261127-01/komondor-kamoun-6-25342010.log
+   Power=
+   
+
+{"at": "2026-11-27T15:20:04.651947+00:00", "event": "started", "execute": true, "host": "t384n8", "mount": {"device": 230, "mountAncestor": "/tsl/data"}, "noS3Copy": true, "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55", "retirementReceiptSha256": "db51476307a2365576f3aa513a65efc5c367fab78ea57464a55c0319a6c56b7a", "slurmJobId": "25342010", "stage": "kamoun-six-no-s3", "uid": 14014}
+{"at": "2026-11-27T15:20:05.000600+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:05.068017+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:05.184593+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:05.303927+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:05.830764+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:05.909703+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:05.942211+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:14.812697+00:00", "bytes": 48614994012, "event": "deleted", "files": 260, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130227.01", "projectId": "5fc012bda3efcb29338b7cf9"}
+{"at": "2026-11-27T15:20:14.835481+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:17.752712+00:00", "bytes": 109802811903, "event": "deleted", "files": 24, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_South_African_isolates", "projectId": "5fc012bda3efcb29338b7cf5"}
+{"at": "2026-11-27T15:20:17.794476+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:21.190545+00:00", "bytes": 72013629033, "event": "deleted", "files": 106, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130516.01_TCS_68", "projectId": "5fc012bda3efcb29338b7d5c"}
+{"at": "2026-11-27T15:20:21.227645+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/xiao_scr74", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:23.637542+00:00", "bytes": 161447455740, "event": "deleted", "files": 62, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/xiao_scr74", "projectId": "5fc012bda3efcb29338b7d7a"}
+{"at": "2026-11-27T15:20:23.843252+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:53.293631+00:00", "bytes": 239985996303, "event": "deleted", "files": 641, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_GEL139_ClareLewis_JIC.CL.20121001.01", "projectId": "5fc012bda3efcb29338b7d0d"}
+{"at": "2026-11-27T15:20:53.347171+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:56.697703+00:00", "bytes": 158139688071, "event": "deleted", "files": 124, "noS3Copy": true, "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130626.01_TCS_83", "projectId": "5fc012bda3efcb29338b7cf8"}
+{"at": "2026-11-27T15:20:56.704036+00:00", "bytes": 790004575062, "event": "complete", "files": 1217, "independentAbsenceConfirmationRequired": true, "noS3Copy": true, "projects": 6, "protectedRootsIntact": true, "retiredRecordsRetained": true}
+	Command being timed: "python3 delete-direct-disposal.py --plan deletion-plan.json --sha256 9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55 --execute --log deletion-25342010.jsonl"
+	User time (seconds): 0.40
+	System time (seconds): 0.27
+	Percent of CPU this job got: 1%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:52.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 23468
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 10316
+	Voluntary context switches: 3433
+	Involuntary context switches: 96
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 224
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,31 @@
+{
+  "kind": "komondor-publication-validation-v1",
+  "at": "2026-11-27T15:33:15.557634+00:00",
+  "success": true,
+  "manifestSha256": "16c44debaf739908fdd331d9bf26cd01d721eb3cbe61c9a5314aa8be2feda642",
+  "checks": {
+    "includedVerified": 376,
+    "narrativeEdits": [
+      "docs/archive/batches/2026-11-27/hpc-remaining-deletion/HANDOVER.md",
+      "docs/archive/batches/2026-11-27/hpc-remaining-deletion/README.md",
+      "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/README.md",
+      "docs/archive/batches/2026-11-27/kamoun-direct-disposal/README.md"
+    ],
+    "errors": [],
+    "brokenLinks": [],
+    "registeredExternalChecksumTargets": [
+      "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz"
+    ]
+  },
+  "publicationScope": "Evidence and documentation only; preserved application code from origin/master 5a707a1",
+  "retainedExternalArtifacts": 18,
+  "protectedSourceEvidenceUnmodified": true,
+  "priorBranchHistoryIncluded": "4b0895a4fb9b23c0138a480f291239d1fcad6463",
+  "currentMasterBase": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "whitespace": {
+    "narrativeDocumentation": "clean",
+    "historicalEvidencePreserved": "Whitespace warnings in captured logs/diff and sealed TSV files are intentionally retained byte-for-byte."
+  },
+  "mergeConflictsResolved": true,
+  "allChangedPathsUnderDocs": true
+}

@@ -1,0 +1,11 @@
+{
+  "archive": "destination-review-20261127T142029Z.tar.gz",
+  "bytes": 108392,
+  "sha256": "50e9dd13be4a06105b57448315540497a7142425ad8a53bc376db8fe87b547cb",
+  "destinationReceiptSha256": "92c5eeeaa09aa4952da5386b9f365bb039775b7e074b699f09e9c03dc81d3bf9",
+  "source": "/storage/komondor-gulnara-source-review-20261127-01",
+  "exit": {
+    "at": "2026-11-27T14:20:29.507282+00:00",
+    "exitCode": 0
+  }
+}

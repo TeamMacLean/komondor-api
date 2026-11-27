@@ -1,0 +1,12 @@
+{
+  "oldHead": "12e7f1da1537b693f60c86d692f0c3236edcf299",
+  "newHead": "2474c4a4b070041a4e42f4148a25f8c7832137eb",
+  "workingTreeClean": true,
+  "runtimeChangedFiles": [
+    "lib/s3-archive/cli.js"
+  ],
+  "confirmAbsentIdentical": true,
+  "confirmAbsentSha256": "3938ad016a9534487eb42ea6e11a76c2b2c7b4bad542c1a8b80fe5ca795ed9c1",
+  "failedAttemptConfirmedProjects": [],
+  "failedAttemptNativeCommands": []
+}

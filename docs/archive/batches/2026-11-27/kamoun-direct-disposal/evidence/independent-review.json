@@ -1,0 +1,117 @@
+{
+  "kind": "kamoun-direct-disposal-independent-review-v1",
+  "at": "2026-11-27T15:04:38.055158+00:00",
+  "reviewer": "gulnara_job_prep",
+  "success": true,
+  "blockingFindings": [],
+  "status": "review-passed-retirement-not-yet-executed",
+  "productionRetirementExecuted": false,
+  "physicalDeletionExecuted": false,
+  "deletionPackageReleased": false,
+  "reviewedSha256": {
+    "retirement-plan.json": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+    "retirement-plan-r1.json": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed",
+    "execution-ready.json": "cc57ffef067ebabda5df3daef939cf6078283de88e926893164f16391ce22f85",
+    "tools/retirement.cjs": "d4d8cadf6c2b978887be16cce80750c3b61fd07020299469344333d9a7d102c4",
+    "tools/window.cjs": "7db541fa41fe1ae652000866979e8b891269d0445f38613aee17770dc982b57e",
+    "tools/state-probe.cjs": "89d095a8eeabf5c3b8a086c76db004e3c56216f4c06434e99d43e0a9100c8dc1",
+    "tools/listener-probe.cjs": "c9edae04d2ff8fb333c755f914363152fee5e95b8507bb0f7fdd7e80e57887e2",
+    "tools/inventory_direct_disposal.py": "a43a12f41ca3c0009a434509d581f5637dd8db42fe46b92ebb33695edc601341",
+    "tools/sealed-source-baseline.json": "02cbef278520346ea035855b7de410f6a2ed9130fb4e52e5ff59259bc93b4e30",
+    "tools/delete-direct-disposal.py": "ed52f65c1ccd2b6a2a491142702752fbe236bbc24c91d542b89448459eae9209",
+    "tools/delete.sbatch.in": "707dd7b2dc246736fba79323a2f211af4c9a4f91f1b1817f051121a8d29ad42c",
+    "evidence/rehearsal-01.json": "b9078b5dcc2ec63526bc2c6d3907d01e94def20d9ecb1b58bffa70c4bd01a642",
+    "evidence/rehearsal-final.json": "fda305efaf0b270a227d9b03d17d7c879699273f3db31634a340eaa41b46adb8",
+    "evidence/code-review-5a707a1.json": "89130d09341bbb7454376d732f0bdeb8072441c019eab001a87a4dc096261794"
+  },
+  "scope": {
+    "projectIds": [
+      "5fc012bda3efcb29338b7cf9",
+      "5fc012bda3efcb29338b7cf5",
+      "5fc012bda3efcb29338b7d5c",
+      "5fc012bda3efcb29338b7d7a",
+      "5fc012bda3efcb29338b7d0d",
+      "5fc012bda3efcb29338b7cf8"
+    ],
+    "projects": 6,
+    "regularFiles": 1217,
+    "regularBytes": 790004575062,
+    "knownSymlinks": 1,
+    "protectedProjects": 13,
+    "retirementRecords": 2459,
+    "noS3Copy": true
+  },
+  "provenance": [
+    "The six identities and exact mixed-case physical roots match the Oct22 sealed reconciliation plan and applied BSON after-images.",
+    "Xiao has 62 physical files: 53 new catalogue pairs plus nine existing File records. The new-pair count is not a filesystem count.",
+    "All six direct-disposal IDs are outside the 175-project archive register; the five archived extra Saunders projects are excluded."
+  ],
+  "inventoryAndDeletionReview": [
+    "Exact six targets and thirteen protected roots; prefix-overlap refusal; exact historical path/type/size match.",
+    "Descriptor-relative nofollow traversal and lstat/readlink permit only the single sealed sibling symlink, whose target must remain a regular file.",
+    "Fresh inode, permissions, ownership, links, sizes and timestamps are preserved; only mount-local device numbers are ignored across VM/HPC.",
+    "All six preflights precede any removal; private receipts, six-hour expiry, explicit manual submission and successful metadata-retirement receipt are mandatory.",
+    "Deletion draft still contains unreplaced seal placeholders; no executable release package was made by this reviewer."
+  ],
+  "retirementReview": [
+    "All 2459 before/after operations were locally inspected for typed BSON preservation, unchanged storage/archive fields and retained reconciliation history.",
+    "Full graph closure and protected snapshots gate exact whole-document compare-and-set updates; each write is read back and recorded.",
+    "Partial or divergent state fails closed; inspected resume adopts only the same reviewed execution and exact before/after records.",
+    "Normal model queries must hide retired IDs while raw records and history remain; Project nudge and ENA submission are disabled.",
+    "Exact paused receipt, live controller, immutable execution manifest and exclusive mutation/reopen locks prevent service-restart races.",
+    "The controller restores only an independently classified all-before or all-applied graph; partial state remains stopped.",
+    "Final durability change fsyncs critical parent directories after file creation, output-directory creation and own-lock unlink; private receipt mode is set before file fsync. Failure leaves execution blocked or failed rather than reporting success."
+  ],
+  "validation": [
+    {
+      "test": "disposal guard tests",
+      "passed": 22,
+      "execution": "reviewer ran locally; separately rerun by gulnara_cleanup_review"
+    },
+    {
+      "test": "retirement and window tests",
+      "passed": 34,
+      "execution": "reviewer ran locally before final directory-fsync addition; core and handshake unchanged"
+    },
+    {
+      "test": "final retirement focused tests",
+      "passed": 18,
+      "execution": "reported by gulnara_native_review for final d4d8cadf helper; not independently rerun"
+    },
+    {
+      "test": "actual MongoDB rehearsal",
+      "receipt": "evidence/rehearsal-final.json",
+      "execution": "run by parent in isolated scratch database; receipt inspected locally",
+      "records": 2459,
+      "success": true,
+      "productionWrites": 0,
+      "payloadWrites": 0,
+      "nativeQuiescenceAndInventoryExercised": false
+    }
+  ],
+  "planRevision": {
+    "originalPlanSha256": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed",
+    "currentPlanSha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e",
+    "independentlyComparedChangedTopLevelFields": [
+      "apiHead",
+      "evidenceHashes"
+    ],
+    "currentApiHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+    "runtimeUnchangedEvidence": "evidence/code-review-5a707a1.json",
+    "limitation": "The parent inspected the production Git diff as documentation-only. Those two objects are unavailable in this local checkout, so this reviewer inspected the receipt but did not independently reproduce that Git diff."
+  },
+  "remainingReleaseConditions": [
+    "Successful production read-only probe and exact scoped quiescence window.",
+    "Successful production retirement with independently reviewed immutable completion receipt and unchanged source inventory.",
+    "Fresh final deletion plan binding the actual retirement receipt, substituted seals and checksums, followed by independent package review.",
+    "George personally submits the reviewed Slurm deletion package; later absence is independently confirmed."
+  ],
+  "reviewActions": {
+    "productionAccess": false,
+    "productionWrites": 0,
+    "payloadWrites": 0,
+    "awsOperations": 0,
+    "servicesChanged": false,
+    "jobsSubmitted": 0
+  }
+}

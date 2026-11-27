@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-27T10:19:35.898Z",
+  "projectId": "5fc012bda3efcb29338b7d30",
+  "name": "Halioticida_Haliocrustida",
+  "createdAt": "2020-11-26T20:40:30.106Z",
+  "files": 2,
+  "bytes": 9129,
+  "vmPath": "/mnt/reads/skamoun/halioticida_haliocrustida",
+  "hpcPath": "/tsl/data/reads/skamoun/halioticida_haliocrustida",
+  "migrationId": "6adb36072f2b2c46efb0e841",
+  "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliocrustida",
+  "s3VerifiedAt": "2026-10-23T10:27:45.121Z",
+  "preservation": {
+    "until": null,
+    "active": false,
+    "invalid": false
+  },
+  "gargyPreservation": {
+    "until": "2027-11-26T23:59:59.999Z",
+    "active": true,
+    "invalid": false
+  },
+  "manualExclusions": [
+    "5fc012bda3efcb29338b7d58",
+    "5fd1ed55d8dd4a63058cc1c9",
+    "5fdb2d62d7661b6ec22a0571",
+    "611ff26de788b405b6ce6a4c",
+    "61204424e788b405b6ce6bde"
+  ],
+  "mount": {
+    "target": "/mnt/reads",
+    "source": "nfs.tsl-hpc-data:/ifs/apricot/TSL/PrimaryData/DATABASES/reads",
+    "fstype": "nfs"
+  },
+  "apiHead": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+  "commands": [
+    {
+      "args": [
+        "status",
+        "--project-id",
+        "5fc012bda3efcb29338b7d30",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"command\": \"status\",\n  \"identity\": {\n    \"projectId\": \"5fc012bda3efcb29338b7d30\",\n    \"projectName\": \"Halioticida_Haliocrustida\",\n    \"migrationId\": \"6adb36072f2b2c46efb0e841\",\n    \"osUser\": \"deeks\",\n    \"awsArn\": \"arn:aws:sts::958120753368:assumed-role/KomondorArchiveV1333/706484f53ed8b3701e379922ea7105f456f71b\",\n    \"awsAccountId\": \"958120753368\",\n    \"bucket\": \"tsl-hpc-reads\",\n    \"basePrefix\": \"\"\n  },\n  \"state\": \"aws_pending_hpc_deletion\",\n  \"preserveOnHpcUntil\": null,\n  \"hpcPreservationActive\": false,\n  \"hpcPreservationInvalid\": false,\n  \"phase\": \"verified\",\n  \"migration\": {\n    \"id\": \"6adb36072f2b2c46efb0e841\",\n    \"movedBy\": \"deeks\",\n    \"startedAt\": \"2026-10-23T10:25:13.199Z\",\n    \"updatedAt\": \"2026-10-23T10:27:45.121Z\",\n    \"lastError\": null,\n    \"resumeCount\": 0,\n    \"restartedFrom\": [],\n    \"manifests\": {\n      \"fileCount\": 2,\n      \"skippedEntries\": 0,\n      \"sourceS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/source-manifest.v1.json\",\n      \"sourceSealedAt\": \"2026-10-23T10:27:34.972Z\",\n      \"sourceSha256\": \"2a7c1628e31a908fbf1e7c1bee613d9a27c627b7edecb5eeb2083324e7b32cba\",\n      \"totalBytes\": 9129,\n      \"version\": 1,\n      \"verificationS3Uri\": \"s3://tsl-hpc-reads/_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/verification-report.v1.json\",\n      \"verificationSealedAt\": \"2026-10-23T10:27:45.121Z\",\n      \"verificationSha256\": \"ab979528bfe3fed4c11b233ae31c4c0a1805cc595c5118970b70db626fd7cbbc\"\n    }\n  },\n  \"sourceManifest\": {\n    \"exists\": true,\n    \"digestMatches\": true\n  },\n  \"objects\": {\n    \"total\": 2,\n    \"owned\": [\n      {\n        \"key\": \"skamoun/halioticida_haliocrustida/additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5\",\n        \"size\": 0,\n        \"migrationId\": \"6adb36072f2b2c46efb0e841\"\n      },\n      {\n        \"key\": \"skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx\",\n        \"size\": 9129,\n        \"migrationId\": \"6adb36072f2b2c46efb0e841\"\n      }\n    ],\n    \"prior\": [],\n    \"foreign\": []\n  },\n  \"multipartUploads\": [],\n  \"controlObjects\": [\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/source-manifest.v1.json\",\n      \"size\": 6439\n    },\n    {\n      \"key\": \"_control/projects/5fc012bda3efcb29338b7d30/6adb36072f2b2c46efb0e841/verification-report.v1.json\",\n      \"size\": 2195\n    }\n  ],\n  \"hpcExists\": true,\n  \"cleanupWarning\": null,\n  \"cleanupCommands\": []\n}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "deletion-command",
+        "--project-id",
+        "5fc012bda3efcb29338b7d30"
+      ],
+      "exitCode": 0,
+      "stdout": "# Project 5fc012bda3efcb29338b7d30 \"Halioticida_Haliocrustida\" — migration 6adb36072f2b2c46efb0e841 — verified in S3 2026-10-23T10:27:45.121Z\n# 2 files, 9129 bytes. This removes the HPC copy. S3 is authoritative.\nrm -rf -- '/mnt/reads/skamoun/halioticida_haliocrustida'\n",
+      "stderr": ""
+    }
+  ],
+  "deletionPerformed": false,
+  "finalizationPerformed": false,
+  "serverEvidence": "/storage/komondor-hpc-first-deletion-20261127T101935Z"
+}

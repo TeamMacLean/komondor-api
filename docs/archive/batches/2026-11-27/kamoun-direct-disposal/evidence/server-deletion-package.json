@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-27T15:12:15.952753+00:00",
+  "archive": "/storage/komondor-kamoun-six-delete-20261127-01.tar.gz",
+  "archiveSha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19",
+  "archiveBytes": 98331,
+  "remoteChecksumPassed": true,
+  "mode": "0600",
+  "owner": "deeks",
+  "jobSubmitted": false,
+  "expiresAt": "2026-11-27T20:58:38.850548+00:00"
+}

@@ -1,0 +1,3 @@
+projectId	name	hpcPath	bytes	files	s3Uri
+5fc012bda3efcb29338b7d13	MiSeq RenSeq of Brassica accessions 	/tsl/data/reads/jjones/miseq_renseq_of_brassica_accessions_	298166898	16	s3://tsl-hpc-reads/jjones/miseq_renseq_of_brassica_accessions_
+5fc012bda3efcb29338b7d4e	Resistance to Albugo laibachii in Sf-2	/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_sf_2	89834094	7	s3://tsl-hpc-reads/jjones/resistance_to_albugo_laibachii_in_sf_2

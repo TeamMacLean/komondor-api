@@ -1,0 +1,26 @@
+{
+  "parentPlanSha256": "4f81e4b7188e3de52ea4c0eff7d26bc0925aa30f3da0bddf319f3440eac69ad9",
+  "stages": [
+    {
+      "stage": "pilot-2",
+      "projects": 2,
+      "files": 23,
+      "bytes": 388000992,
+      "planSha256": "79778948f8d92ae888a3c8ba275c2245d248bbdf41c717c094a1043a23269489",
+      "releaseStatus": "ready-for-user-submission",
+      "reviewCompletedAt": "2026-11-27T12:22:07.856Z",
+      "expiresAt": "2026-11-27T18:22:07.856000+00:00"
+    },
+    {
+      "stage": "remaining-167",
+      "projects": 167,
+      "files": 14860,
+      "bytes": 12690838486686,
+      "planSha256": "038bad960ea1a3fca7b9c445a9f3d603500aadee9c6725978dcccdefc474155c",
+      "releaseStatus": "blocked-pending-pilot-review",
+      "reviewCompletedAt": "2026-11-27T12:22:07.856Z",
+      "expiresAt": "2026-11-27T18:22:07.856000+00:00"
+    }
+  ],
+  "disjointAndComplete": true
+}

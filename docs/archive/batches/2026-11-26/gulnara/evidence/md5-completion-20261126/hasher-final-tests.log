@@ -1,0 +1,12 @@
+test_all_hashes_sidecar_own_bytes_and_private_fresh_output (test_hash_fastqs.HashTests.test_all_hashes_sidecar_own_bytes_and_private_fresh_output) ... ok
+test_payload_mismatch_retains_successes_but_never_completes (test_hash_fastqs.HashTests.test_payload_mismatch_retains_successes_but_never_completes) ... ok
+test_review_digest_and_wrong_expected_md5_fail (test_hash_fastqs.HashTests.test_review_digest_and_wrong_expected_md5_fail) ... ok
+test_same_size_write_during_hash_is_detected_even_with_restored_mtime (test_hash_fastqs.HashTests.test_same_size_write_during_hash_is_detected_even_with_restored_mtime) ... ok
+test_scope_duplicate_ids_omitted_sidecar_and_escape_are_refused (test_hash_fastqs.HashTests.test_scope_duplicate_ids_omitted_sidecar_and_escape_are_refused) ... ok
+test_sidecar_seal_and_mapping_changes_fail_before_any_fastq_receipt (test_hash_fastqs.HashTests.test_sidecar_seal_and_mapping_changes_fail_before_any_fastq_receipt) ... ok
+test_symlink_leaf_and_ancestor_are_refused (test_hash_fastqs.HashTests.test_symlink_leaf_and_ancestor_are_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.573s
+
+OK

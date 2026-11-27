@@ -1,0 +1,18 @@
+{
+    "AcceptRanges": "bytes",
+    "LastModified": "2026-10-23T10:27:41+00:00",
+    "ContentLength": 9129,
+    "ChecksumCRC64NVME": "kawkuaesEMk=",
+    "ChecksumType": "FULL_OBJECT",
+    "ETag": "\"57f3a270669e5a7d6a208a39d22a810a\"",
+    "VersionId": "m3G_vCCOG40k4O.MH5wVQu.bQutg6AFC",
+    "ContentType": "application/octet-stream",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {
+        "komondor-migration-id": "6adb36072f2b2c46efb0e841",
+        "komondor-entry-sha256": "cf0721f9b36fec6c12a28c3ae10eab1cffc6a1461390ab44758866d6e196b290",
+        "komondor-source-manifest-sha256": "2a7c1628e31a908fbf1e7c1bee613d9a27c627b7edecb5eeb2083324e7b32cba",
+        "komondor-project-id": "5fc012bda3efcb29338b7d30"
+    },
+    "StorageClass": "DEEP_ARCHIVE"
+}

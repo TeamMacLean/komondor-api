@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-27T14:42:08.699Z",
+  "projectId": "5fdb2d62d7661b6ec22a0571",
+  "args": [
+    "confirm-absent",
+    "--project-id",
+    "5fdb2d62d7661b6ec22a0571",
+    "--confirmed-by",
+    "deeks",
+    "--execute"
+  ],
+  "exitCode": 0,
+  "stdout": "{\n  \"command\": \"confirm-absent\",\n  \"state\": \"aws\",\n  \"phase\": \"completed\",\n  \"migrationId\": \"6adb34c02f2b2c46efb0e295\"\n}\n",
+  "stderr": ""
+}

@@ -1,0 +1,85 @@
+{
+  "kind": "gulnara-four-source-deletion-review-scope-v1",
+  "projects": [
+    {
+      "projectId": "61204424e788b405b6ce6bde",
+      "entries": [
+        "ntalbot-008"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34bc2f2b2c46efb0e26a",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+      "s3VerifiedAt": "2026-10-27T20:44:48.707Z",
+      "fileCount": 99,
+      "bytes": 105611175618,
+      "sourceSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+      "verificationSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/verification-report.v1.json",
+      "name": "Lichen CoCulture_I 2 days",
+      "preserveOnHpcUntil": null,
+      "excluded": false
+    },
+    {
+      "projectId": "611ff26de788b405b6ce6a4c",
+      "entries": [
+        "ntalbot-009"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34be2f2b2c46efb0e274",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+      "s3VerifiedAt": "2026-10-27T19:07:09.277Z",
+      "fileCount": 122,
+      "bytes": 103438441044,
+      "sourceSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+      "verificationSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/verification-report.v1.json",
+      "name": "Lichen CoCulture_I 9 days",
+      "preserveOnHpcUntil": null,
+      "excluded": false
+    },
+    {
+      "projectId": "5fd1ed55d8dd4a63058cc1c9",
+      "entries": [
+        "ntalbot-005"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34b02f2b2c46efb0e202",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+      "s3VerifiedAt": "2026-10-29T19:13:25.516Z",
+      "fileCount": 142,
+      "bytes": 173734125362,
+      "sourceSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+      "verificationSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/verification-report.v1.json",
+      "name": "Lichen CoCulture_I 21 days",
+      "preserveOnHpcUntil": null,
+      "excluded": false
+    },
+    {
+      "projectId": "5fdb2d62d7661b6ec22a0571",
+      "entries": [
+        "ntalbot-010"
+      ],
+      "alreadyCopiedPilot": false,
+      "migrationId": "6adb34c02f2b2c46efb0e295",
+      "hpcPath": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+      "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+      "s3VerifiedAt": "2026-10-27T09:52:39.091Z",
+      "fileCount": 89,
+      "bytes": 99954671448,
+      "sourceSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+      "verificationSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06",
+      "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/source-manifest.v1.json",
+      "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/verification-report.v1.json",
+      "name": "Lichen CoCulture_I 42 days",
+      "preserveOnHpcUntil": null,
+      "excluded": false
+    }
+  ]
+}

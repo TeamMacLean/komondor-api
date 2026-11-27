@@ -1,0 +1,36 @@
+test_added_file_prevents_any_deletion (test_delete_reviewed.Guards) ... ok
+test_failed_rm_has_no_success_receipt (test_delete_reviewed.Guards) ... ok
+test_missing_delete_permission_stops_before_rm (test_delete_reviewed.Guards) ... ok
+test_missing_file_stops (test_delete_reviewed.Guards) ... ok
+test_nested_mount_stops (test_delete_reviewed.Guards) ... ok
+test_path_traversal_and_group_root_stop (test_delete_reviewed.Guards) ... ok
+test_same_size_changed_file_stops (test_delete_reviewed.Guards) ... ok
+test_stale_review_stops (test_delete_reviewed.Guards) ... ok
+test_symlink_to_retained_data_stops (test_delete_reviewed.Guards) ... ok
+test_target_symlink_stops (test_delete_reviewed.Guards) ... ok
+test_valid_then_remove_only_exact_target (test_delete_reviewed.Guards) ... ok
+test_exact_partition_and_unchanged_evidence (test_split.SplitChecks) ... ok
+test_missing_actual_reads_rejected (test_split.SplitChecks) ... ok
+test_pilot_only_exact_approved_ids (test_split.SplitChecks) ... ok
+test_remainder_cannot_be_released_by_marker (test_split.SplitChecks) ... ok
+test_review_cannot_be_extended_or_rebased (test_split.SplitChecks) ... ok
+test_stage_count_mismatch (test_split.SplitChecks) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.185s
+
+OK
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-reviewed-projects.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK
+HELD_PATHS.txt: OK
+HPC_PATHS.txt: OK
+PROJECTS.tsv: OK
+README.md: OK
+delete-reviewed-projects.py: OK
+delete.sbatch: OK
+deletion-plan.json: OK

@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "recordedOn": "2026-11-26",
+  "status": "read_only_preflight_passed_execution_not_performed",
+  "observedAt": {
+    "database": "2026-11-26T11:34:35.176Z",
+    "filesystem": "2026-11-26T11:34:36.328Z",
+    "environment": "2026-11-26T11:32:39.490Z"
+  },
+  "counts": {
+    "projects": 5,
+    "samples": 12,
+    "runs": 12,
+    "files": 40,
+    "bytes": 41432635417,
+    "fastqFiles": 24,
+    "checksumTextFiles": 16,
+    "reads": 31,
+    "readRowsContainingChecksumText": 7,
+    "additionalFiles": 9,
+    "proposedUpdates": 64,
+    "existingPinnedFileIdentities": 16,
+    "newIdentityPinsProposed": 48,
+    "sourceProjectOnlyAttachmentsRetained": 7
+  },
+  "targetProject": {
+    "_id": "6ae4ac89a6b876c643741d27",
+    "name": "Xanthoria parietina mycobiont RNAseq",
+    "path": "/ntalbot/xanthoria_parietina_mycobiont_rnaseq",
+    "createdAt": "2026-10-30T14:41:13.635Z",
+    "storage": {
+      "state": "hpc"
+    }
+  },
+  "targetObservedEmpty": true,
+  "expectedArchiveDueAfterReassignmentIfNoNewerRuns": "2031-10-30T14:41:13.635Z",
+  "sourceProjects": [
+    {
+      "_id": "5fd1ed55d8dd4a63058cc1c9",
+      "name": "Lichen CoCulture_I 21 days",
+      "path": "/ntalbot/lichen_coculture_i_21_days",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_21_days",
+        "s3VerifiedAt": "2026-10-29T19:13:25.516Z"
+      },
+      "archiveMigration": {
+        "resumeCount": 0,
+        "restartedFrom": [],
+        "id": "6adb34b02f2b2c46efb0e202",
+        "phase": "verified",
+        "movedBy": "deeks",
+        "osUser": "deeks",
+        "awsIdentityArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+        "awsAccountId": "958120753368",
+        "startedAt": "2026-10-23T10:19:30.271Z",
+        "updatedAt": "2026-10-29T19:13:25.516Z",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_21_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_21_days",
+        "anomalyAcknowledgement": {
+          "by": "deeks",
+          "at": "2026-10-23T10:19:30.271Z",
+          "manifestSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2"
+        },
+        "manifests": {
+          "fileCount": 142,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-29T17:20:37.116Z",
+          "sourceSha256": "de23f1d33c64bca18bf17668be54d34694b70613b9fe0a26132f6c28d1bb88f2",
+          "totalBytes": 173734125362,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fd1ed55d8dd4a63058cc1c9/6adb34b02f2b2c46efb0e202/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-29T19:13:25.516Z",
+          "verificationSha256": "5edf7d3aef2c8480ff04a2f15ddb258ab4eda228331eeb76dea2a11c395089b4"
+        }
+      }
+    },
+    {
+      "_id": "5fdb2d62d7661b6ec22a0571",
+      "name": "Lichen CoCulture_I 42 days",
+      "path": "/ntalbot/lichen_coculture_i_42_days",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_42_days",
+        "s3VerifiedAt": "2026-10-27T09:52:39.091Z"
+      },
+      "archiveMigration": {
+        "resumeCount": 0,
+        "restartedFrom": [],
+        "id": "6adb34c02f2b2c46efb0e295",
+        "phase": "verified",
+        "movedBy": "deeks",
+        "osUser": "deeks",
+        "awsIdentityArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+        "awsAccountId": "958120753368",
+        "startedAt": "2026-10-23T10:19:46.758Z",
+        "updatedAt": "2026-10-27T09:52:39.091Z",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_42_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_42_days",
+        "anomalyAcknowledgement": {
+          "by": "deeks",
+          "at": "2026-10-23T10:19:46.758Z",
+          "manifestSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981"
+        },
+        "manifests": {
+          "fileCount": 89,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T08:47:35.973Z",
+          "sourceSha256": "22632ff0ed5c9f9627cfa3498dcd65061428598d281a469a3d1f3fc409133981",
+          "totalBytes": 99954671448,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/5fdb2d62d7661b6ec22a0571/6adb34c02f2b2c46efb0e295/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T09:52:39.091Z",
+          "verificationSha256": "514708c71b1b17f600222ca51c90f47a3617311903ef5613f4a27701f536ec06"
+        }
+      }
+    },
+    {
+      "_id": "611ff26de788b405b6ce6a4c",
+      "name": "Lichen CoCulture_I 9 days",
+      "path": "/ntalbot/lichen_coculture_i_9_days",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_9_days",
+        "s3VerifiedAt": "2026-10-27T19:07:09.277Z"
+      },
+      "archiveMigration": {
+        "resumeCount": 0,
+        "restartedFrom": [],
+        "id": "6adb34be2f2b2c46efb0e274",
+        "phase": "verified",
+        "movedBy": "deeks",
+        "osUser": "deeks",
+        "awsIdentityArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+        "awsAccountId": "958120753368",
+        "startedAt": "2026-10-23T10:19:44.565Z",
+        "updatedAt": "2026-10-27T19:07:09.277Z",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_9_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_9_days",
+        "anomalyAcknowledgement": {
+          "by": "deeks",
+          "at": "2026-10-23T10:19:44.565Z",
+          "manifestSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9"
+        },
+        "manifests": {
+          "fileCount": 122,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T17:51:11.953Z",
+          "sourceSha256": "bb03c584bc9bc9c6a550991240432844ff10148ebfaf2aec653480b0f2fb49e9",
+          "totalBytes": 103438441044,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/611ff26de788b405b6ce6a4c/6adb34be2f2b2c46efb0e274/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T19:07:09.277Z",
+          "verificationSha256": "bdcda12fac87234446b6bbaa006dfb3eaa83779062ec8167f38eed7c0cd283aa"
+        }
+      }
+    },
+    {
+      "_id": "61204424e788b405b6ce6bde",
+      "name": "Lichen CoCulture_I 2 days",
+      "path": "/ntalbot/lichen_coculture_i_2_days",
+      "storage": {
+        "state": "aws_pending_hpc_deletion",
+        "s3Uri": "s3://tsl-hpc-reads/ntalbot/lichen_coculture_i_2_days",
+        "s3VerifiedAt": "2026-10-27T20:44:48.707Z"
+      },
+      "archiveMigration": {
+        "resumeCount": 0,
+        "restartedFrom": [],
+        "id": "6adb34bc2f2b2c46efb0e26a",
+        "phase": "verified",
+        "movedBy": "deeks",
+        "osUser": "deeks",
+        "awsIdentityArn": "arn:aws:sts::958120753368:assumed-role/AWSReservedSSO_KomondorArchiveMover_db132768d91e41ad/georgedeeks-archive",
+        "awsAccountId": "958120753368",
+        "startedAt": "2026-10-23T10:19:42.784Z",
+        "updatedAt": "2026-10-27T20:44:48.707Z",
+        "sourceRoot": "/mnt/reads/ntalbot/lichen_coculture_i_2_days",
+        "sourceRelativeRoot": "ntalbot/lichen_coculture_i_2_days",
+        "anomalyAcknowledgement": {
+          "by": "deeks",
+          "at": "2026-10-23T10:19:42.784Z",
+          "manifestSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579"
+        },
+        "manifests": {
+          "fileCount": 99,
+          "skippedEntries": 0,
+          "sourceS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/source-manifest.v1.json",
+          "sourceSealedAt": "2026-10-27T19:36:05.831Z",
+          "sourceSha256": "64ce8fe9492f39b1c8301200149bb943d343a4a69f9bb6578b55bc5a7cb40579",
+          "totalBytes": 105611175618,
+          "version": 1,
+          "verificationS3Uri": "s3://tsl-hpc-reads/_control/projects/61204424e788b405b6ce6bde/6adb34bc2f2b2c46efb0e26a/verification-report.v1.json",
+          "verificationSealedAt": "2026-10-27T20:44:48.707Z",
+          "verificationSha256": "d6b2cdb75a2083699a6ec33ac1985416cd92b5f1084194d629ce3101f25421ca"
+        }
+      }
+    }
+  ],
+  "checks": {
+    "databaseIssues": [],
+    "filesystemIssues": [],
+    "exactDiskDatabaseSealedFileIdsMatch": true,
+    "noObservedActiveIngestJobs": true,
+    "runProcessingFields": "Absent on all twelve legacy runs; absence is not independent proof of no external writer.",
+    "payloadChecksumsRecomputed": false,
+    "freshS3RequestsMade": false,
+    "metadataSnapshotAtomic": false
+  },
+  "capacity": {
+    "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq",
+    "availableBytes": "65705355509760",
+    "freeBytes": "65705355509760",
+    "blockSize": "524288",
+    "availableInodes": "343462876410",
+    "limitation": "Filesystem availability only; user/group quotas and concurrent allocations are not established.",
+    "selectedCopyBytes": 41432635417,
+    "exceedsSelectedCopyBytes": true
+  },
+  "topology": {
+    "setName": null,
+    "isWritablePrimary": true,
+    "logicalSessionTimeoutMinutes": 30
+  },
+  "environment": {
+    "at": "2026-11-26T11:32:39.490Z",
+    "host": "v1333",
+    "user": "deeks",
+    "node": "v24.11.1",
+    "api": {
+      "head": "550074e2b24a03c25cb0568c393b9bffed1bd701",
+      "status": ""
+    },
+    "config": {
+      "DATASTORE_ROOT": "/mnt/reads",
+      "READS_ROOT_PATH": null,
+      "HPC_RETENTION_YEARS": null,
+      "PORT": "3061"
+    },
+    "roots": [
+      {
+        "path": "/mnt/reads",
+        "realPath": "/mnt/reads",
+        "dev": 42,
+        "ino": 5624967852,
+        "isDirectory": true
+      },
+      {
+        "path": "/tsl/data/reads",
+        "error": "ENOENT"
+      },
+      {
+        "path": "/mnt/reads",
+        "realPath": "/mnt/reads",
+        "dev": 42,
+        "ino": 5624967852,
+        "isDirectory": true
+      }
+    ]
+  },
+  "permissions": {
+    "at": "2026-11-26T11:38:04.362Z",
+    "observedUser": "deeks",
+    "destinationWritableAccessCheck": true,
+    "tsldata": {
+      "name": "tsldata",
+      "uid": 11449,
+      "gid": 12318
+    },
+    "tsldataGroups": "12318 115234 115092 112650",
+    "limitation": "No write attempted; quotas and external HPC jobs not established"
+  },
+  "enaGate": "Current export includes seven MD5.txt Read rows. Use a reviewed scope-specific 24-FASTQ list; validate the actual submission CSV and consumer mounts. No records reclassified here.",
+  "remainingExecutionGates": [
+    "tested copy and journalled CAS/recovery executors",
+    "fresh frozen inventory and BSON-preserving backups",
+    "full source/destination checksum verification",
+    "operator writer freeze and service window",
+    "ENA file-list and consumer path validation"
+  ],
+  "retention": "Four original source trees remain excluded until explicit release review; no archive changes, deletion, or hold release.",
+  "sourceEvidence": [
+    {
+      "filename": "database-02.json",
+      "sha256": "f1dbcf951001f068cc8f4a8c1baa1c60ad606b44ded4107043e1b5c59426f8b3"
+    },
+    {
+      "filename": "filesystem-02.json",
+      "sha256": "f17b1d839c4eedc7d305da49bca22359aba98d5fe538ce9bd13638c3ea14d12a"
+    },
+    {
+      "filename": "environment-01.json",
+      "sha256": "75683827e23e97b2801e555390f54b4824edad74c1e138cb7656a8ba41941b4d"
+    },
+    {
+      "filename": "permissions-01.json",
+      "sha256": "5c29c776b250747e2f630611d405ec8703cb30c36fd8d28bb1578b9d863b0f53"
+    }
+  ],
+  "collectorDigests": {
+    "database": "4ad1c45b6c7e991d08e1e99ca447d43ecd6504ce0b945f4335ca0831c0ae9be0",
+    "filesystem": "523420f652be0181cd0744d8286bdd88f69501974b0b43785dcb3a085e3adb08"
+  },
+  "scopeSha256": "c4a06402be3a548ccc24497aff9d0ec598b854f6979bd4efe64e65a3e73a039e",
+  "representation": "Derived review JSON; original private read-only output retained on Mac. Not a typed BSON backup or executable mutation plan."
+}

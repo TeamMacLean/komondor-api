@@ -1,0 +1,3 @@
+/tsl/data/reads/ntalbot/.gulnara-staging-20261126-c1f78c6d-3a3f-4165-abe5-706ded74bf99
+/tsl/data/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq
+/tsl/data/reads/two_blades/gargy_2019_rnaseq

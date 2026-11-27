@@ -1,0 +1,266 @@
+{
+  "at": "2026-11-26T13:25:25.894Z",
+  "kind": "gulnara-scoped-ena-export",
+  "status": "validated_local_export_not_submitted",
+  "databaseWrites": false,
+  "enaSubmission": false,
+  "rows": 12,
+  "rawReadFiles": 31,
+  "sequenceFiles": 24,
+  "excludedChecksumReads": 7,
+  "recordsReclassifiedOrDeleted": false,
+  "sourceRouteSha256": "eee9f91a968bfc302a13e1c48dbfcf6be2a4ef4cd27bba7f2771643d90f2512b",
+  "sourceRoute": "routes/accessions.js",
+  "serializer": "Actual deployed /accessions/csv GET handler in isolated VM with query-only scoped facades",
+  "readsRoot": "/tsl/data/reads",
+  "vmRoot": "/mnt/reads",
+  "rawCsvSha256": "f9c15ed221b6c0fc3cfce14654fd3b9fa442fa6d2c38f0a41bf623f4a9dc957e",
+  "filteredCsvSha256": "038dfbf08e59bfc37f79c8bb5f55acc37cf11c78cc854b742e78034d768c8a83",
+  "fileChecks": [
+    {
+      "fileId": "5fd205a8d8dd4a63058cc28d",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/raw/S_21XB1_1.fq.gz",
+      "bytes": 1753161275,
+      "dev": 42,
+      "ino": 61764415114,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "c40b489e9513921bd27bc7b3e64403da7bf790ea942686d2fdc113ffb5834719",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fd205a8d8dd4a63058cc28e",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+      "bytes": 1805995784,
+      "dev": 42,
+      "ino": 61622890253,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "dc304b5815ce94efdbf296614b9025e5488ba4fed50167115d5761b6bc7107aa",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "6120427ee788b405b6ce6bcc",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/KS21XB1_1.fq.gz",
+      "bytes": 1706933260,
+      "dev": 42,
+      "ino": 61616663352,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "dc65dd8d55a6ee6bf3176b009985ad36320ebcce715cb07aecfd60f6b140a88e",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "6120427ee788b405b6ce6bcd",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/KS21XB1_2.fq.gz",
+      "bytes": 1779889359,
+      "dev": 42,
+      "ino": 61617662478,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "8ab940d854c62890b4d620e9a25532b287845da2d133d17599f8e94c4ccdc9e1",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fd20673d8dd4a63058cc298",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/raw/S_21XB3_1.fq.gz",
+      "bytes": 1768462507,
+      "dev": 42,
+      "ino": 62039200056,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "3ec338dfb0db68c8fef546eec0c17eafa99984fee8d590ed3006b885602cd742",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fd20673d8dd4a63058cc299",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/raw/S_21XB3_2.fq.gz",
+      "bytes": 1825854746,
+      "dev": 42,
+      "ino": 61645676010,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "d43544c8c76335d8f7eb9c33eb7402608993cf7e1eb7ea70d4f76157485362bd",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb5229d7661b6ec22a0645",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/raw/S_42XB1_1.fq.gz",
+      "bytes": 1752377726,
+      "dev": 42,
+      "ino": 61632245604,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "e578a47e3728defe5e2e64e8a25a122968511e3392ff7b7458f81f20ae97f22f",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb5229d7661b6ec22a0646",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/raw/S_42XB1_2.fq.gz",
+      "bytes": 1792521795,
+      "dev": 42,
+      "ino": 61622180375,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "38bd0892d975b31cb3df90766dad20c5276f375c93a3d48f922e84c307d73a92",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb5388d7661b6ec22a064d",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm2_ks/s_42xb2/raw/S_42XB2_1.fq.gz",
+      "bytes": 1353117852,
+      "dev": 42,
+      "ino": 61616663354,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "0b2fe48855f7d31bac61880abc376dd76f4718dc61016495d5924075e44293e2",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb5388d7661b6ec22a064e",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm2_ks/s_42xb2/raw/S_42XB2_2.fq.gz",
+      "bytes": 1380164410,
+      "dev": 42,
+      "ino": 61592170879,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "2147608b49ad0a9c4c7378f4171a7a2758bfd12adb3e5c29a52c8f4cad970171",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb543bd7661b6ec22a0657",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm3_ks/s_42xb3/raw/S_42XB3_1.fq.gz",
+      "bytes": 1622463882,
+      "dev": 42,
+      "ino": 61619089275,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "f5d10fefb037126328607f884016eb20c3c7a3ec28576243c0d15cbee48ac342",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "5fdb543bd7661b6ec22a0658",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm3_ks/s_42xb3/raw/S_42XB3_2.fq.gz",
+      "bytes": 1651967916,
+      "dev": 42,
+      "ino": 61589546301,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "4303b8fed9bbf92f50fae969cb4d0d20fd7ccf5712e80045f0ffc7d81930bb94",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61214ec2e788b405b6ce6ccc",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm1_ks/ks48xb1/raw/KS48XB1_1.fq.gz",
+      "bytes": 1720079224,
+      "dev": 42,
+      "ino": 61609065392,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "b76113e7a97bb6957b8d78e0d67c52edcedf28b9b1ffa5c71f5b18d2a465f151",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61214ec2e788b405b6ce6ccd",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm1_ks/ks48xb1/raw/KS48XB1_2.fq.gz",
+      "bytes": 1815256278,
+      "dev": 42,
+      "ino": 61586985710,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "54a816b8e2f034a84429949172d49bc3d5ff7e679098087a9302b6aae585a2ed",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61214f77e788b405b6ce6cd6",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm2_ks/ks48xb2/raw/KS48XB2_1.fq.gz",
+      "bytes": 1753837292,
+      "dev": 42,
+      "ino": 61649146601,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "964edc81c9ed3be24a027f7e98b90b2ad5624571cfa193980052ceabc3ac0bf4",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61214f77e788b405b6ce6cd7",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm2_ks/ks48xb2/raw/KS48XB2_2.fq.gz",
+      "bytes": 1860307985,
+      "dev": 42,
+      "ino": 61747508420,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "1810463d4bf533ac830b86dbfa221eb6a8b83d0c4bc340b0496d17a44bdaa5a2",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61215030e788b405b6ce6ce0",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/KS48XB3_1.fq.gz",
+      "bytes": 1745187398,
+      "dev": 42,
+      "ino": 61817493851,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "672a0d60ffe92a1b20a780b3a7a2d24a4e64681b0cf1dd952d80c0655efee108",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61215030e788b405b6ce6ce1",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/KS48XB3_2.fq.gz",
+      "bytes": 1841578611,
+      "dev": 42,
+      "ino": 61817437693,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "8393626b3369c4dab76d93465d77fc025d0a16be38739cf8c3d412a0fa2a7d52",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "612014e8e788b405b6ce6b48",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/ks9xb1/raw/KS9XB1_1.fq.gz",
+      "bytes": 1820529456,
+      "dev": 42,
+      "ino": 61598846124,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "4957568ef468bb18ed8ff0be76bf7e0c4dbf3d66f47c9fbed8b1ac63bccdc54b",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "612014e8e788b405b6ce6b49",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/ks9xb1/raw/KS9XB1_2.fq.gz",
+      "bytes": 1873106252,
+      "dev": 42,
+      "ino": 61818220380,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "1dd50232d7891dbadca02fc581a2f0348f787e0365e246920d9c8e4b3b34db53",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "612019d6e788b405b6ce6b54",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/KS9XB2_1.fq.gz",
+      "bytes": 1533238728,
+      "dev": 42,
+      "ino": 61649556051,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "6ef9b9c1f14141742f56de1bfeda411bb6f2f8e3d3bf2f2ed37eb0b677701464",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "612019d6e788b405b6ce6b55",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/KS9XB2_2.fq.gz",
+      "bytes": 1572421169,
+      "dev": 42,
+      "ino": 61714946664,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "a8098160a7cc2341a84688d6598759acb40300054dc06fb52863485b95764dda",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61201af1e788b405b6ce6b60",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/ks9xb3/raw/KS9XB3_1.fq.gz",
+      "bytes": 1818369506,
+      "dev": 42,
+      "ino": 62042080349,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "109abb544e5d61f5d3fc658f5617ce176092340f16bea324a277e13d072523c8",
+      "payloadRehashed": false
+    },
+    {
+      "fileId": "61201af1e788b405b6ce6b61",
+      "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/ks9xb3/raw/KS9XB3_2.fq.gz",
+      "bytes": 1885811418,
+      "dev": 42,
+      "ino": 62042080350,
+      "retainedStageLink": true,
+      "linkReceiptSha256": "1df11035f719fe167f7d7bdacf65b13e33d8c4e86478cb5a8cf9b8650ae165f3",
+      "payloadRehashed": false
+    }
+  ],
+  "limitations": [
+    "Scoped export, not a request to the live authenticated endpoint.",
+    "No fresh payload hash; immutable copy receipts and current regular-file metadata checked.",
+    "No submission or ENA accession writes."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "reportedOn": "2026-11-27",
+  "source": "George's chat report; raw job files and sacct output requested separately",
+  "hpcPackagePath": "/hpc-home/deeks/komondor-pilot2.MeCiIF/pilot-2",
+  "hpcPackageChecksumsPassed": 7,
+  "testOnlyJobId": "25339707",
+  "testOnlyStartEstimate": "2026-11-28T16:53:11",
+  "submittedJobId": "25339708",
+  "reportedExecutionExitCode": 0,
+  "reportedDeletedProjects": 2,
+  "reportedDeletedBytes": 388000992,
+  "reportedDatabaseConfirmationRequired": true,
+  "stdoutFile": "komondor-pilot-2-25339708.log",
+  "auditFile": "deletion-25339708.jsonl",
+  "rawLogsInspected": false,
+  "schedulerAccountingInspected": false,
+  "note": "The test-only start estimate is not evidence of the actual submitted job's start or completion time."
+}

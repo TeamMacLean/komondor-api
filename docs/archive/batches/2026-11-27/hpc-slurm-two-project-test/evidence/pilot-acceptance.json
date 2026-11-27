@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "at": "2026-11-27T13:02:54.331347+00:00",
+  "jobId": "25339708",
+  "projectIds": [
+    "5fc012bda3efcb29338b7d13",
+    "5fc012bda3efcb29338b7d4e"
+  ],
+  "nativeConfirmed": true,
+  "webChecked": true,
+  "projects": [
+    {
+      "projectId": "5fc012bda3efcb29338b7d13",
+      "state": "aws",
+      "phase": "completed",
+      "hpcAbsent": true,
+      "associatedRecordsUnchanged": true,
+      "s3VerifiedAtUnchanged": true
+    },
+    {
+      "projectId": "5fc012bda3efcb29338b7d4e",
+      "state": "aws",
+      "phase": "completed",
+      "hpcAbsent": true,
+      "associatedRecordsUnchanged": true,
+      "s3VerifiedAtUnchanged": true
+    }
+  ],
+  "slurm": {
+    "provenance": "User-pasted actual audit events, job output and sacct result, inspected against sealed plan and independent native/browser evidence",
+    "state": "COMPLETED",
+    "exitCode": "0:0",
+    "elapsedSeconds": 5,
+    "allocatedCpus": 1,
+    "requestedMemoryMiB": 1024,
+    "gnuTimePeakRssKiB": 16640,
+    "totalCpuSeconds": 0.175,
+    "deletedBytes": 388000992
+  },
+  "evidenceSha256": {
+    "user-pasted-deletion-25339708.jsonl": "c57ca29afecbd640c1f91b1a04825680a113ec26ba2512ee3c6c491a2c49c450",
+    "user-pasted-resource-excerpts-25339708.txt": "74f0e0e83f7bbd5aa1636f5907b803a5ebe5bde9bf1f2e9b4eb7cf8b235dc6d4",
+    "native-confirmation.json": "25b52a0f3a346b0d92029ce7bed0036f94d5655de2953736dca1bad174bf8281",
+    "native-confirmation-server-20261127.tar.gz": "e18a0fa6b83ba3bfae4980c3a20de35a7bcd8f848709460fb78c394eb16be364",
+    "website-checks-20261127.json": "13987c7985cdec3d257996d5bfe6341d03f531555a2c02b1ef69d1ab3035087c"
+  },
+  "remaining167Submitted": false
+}

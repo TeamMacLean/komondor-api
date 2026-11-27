@@ -1,0 +1,412 @@
+{
+  "at": "2026-11-27T10:32:15.593Z",
+  "projects": [
+    {
+      "project": {
+        "_id": "5fc012bda3efcb29338b7d30",
+        "name": "Halioticida_Haliocrustida",
+        "path": "/skamoun/halioticida_haliocrustida",
+        "createdAt": "2020-11-26T20:40:30.106Z",
+        "storage": {
+          "state": "aws_pending_hpc_deletion",
+          "s3Uri": "s3://tsl-hpc-reads/skamoun/halioticida_haliocrustida",
+          "s3VerifiedAt": "2026-10-23T10:27:45.121Z"
+        }
+      },
+      "counts": {
+        "samples": 0,
+        "runs": 0,
+        "unfinishedJobs": 0,
+        "reads": 0,
+        "additionalFiles": 2
+      },
+      "extraSamples": [],
+      "pathRuns": [],
+      "pathFiles": [
+        {
+          "_id": "5fc012c5a3efcb29338b88d7",
+          "name": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+          "path": "/skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx"
+        },
+        {
+          "_id": "6ada77fcd21dd41b8058747a",
+          "name": "reconciled-6ada77fcd21dd41b8058747a",
+          "path": "/skamoun/halioticida_haliocrustida/additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5"
+        }
+      ],
+      "samples": [],
+      "runs": [],
+      "reads": [],
+      "additional": [
+        {
+          "_id": "5fc012c6a3efcb29338b89a0",
+          "project": "5fc012bda3efcb29338b7d30",
+          "file": {
+            "_id": "5fc012c5a3efcb29338b88d7",
+            "type": "project",
+            "name": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+            "path": "/skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+            "uploadName": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+            "originalName": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+            "tempUploadPath": "/skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+            "createdAt": "2020-11-26T20:40:38.006Z",
+            "updatedAt": "2026-10-22T21:06:16.554Z",
+            "__v": 0,
+            "reconciliation": {
+              "version": 1,
+              "operationId": "2bd883d6-b944-48de-a6be-5629bf68b259",
+              "batchId": "2026-10-16",
+              "entryId": "skamoun-017",
+              "identity": {
+                "path": "/skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+                "name": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+                "originalName": "Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx"
+              },
+              "currentObservation": {
+                "byteScope": "physical-file-as-stored",
+                "bytes": 9129,
+                "canonicalPath": "/mnt/reads/skamoun/halioticida_haliocrustida/additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+                "entryId": "skamoun-017",
+                "historicalVerification": "not-established",
+                "identity": {
+                  "ctimeMs": 1621845199256.179,
+                  "dev": 42,
+                  "gid": 0,
+                  "ino": 21030762514,
+                  "mode": 33272,
+                  "mtimeMs": 1477471239716.562,
+                  "nlink": 1,
+                  "size": 9129,
+                  "uid": 0
+                },
+                "md5": "57f3a270669e5a7d6a208a39d22a810a",
+                "observedAt": "2026-10-22T16:52:43.120Z",
+                "purpose": "current-baseline-only",
+                "receipt": "live-evidence/hash-20261022T165213Z.command.json",
+                "relPath": "additional/Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx",
+                "sha256": "cf0721f9b36fec6c12a28c3ae10eab1cffc6a1461390ab44758866d6e196b290",
+                "sourceEvidenceSha256": "220313af96374969fa187f4c381f543eafebbe21070428764df4cd1a93c4ed72",
+                "stable": true,
+                "startedAt": "2026-10-22T16:52:43.096Z",
+                "type": "checksum"
+              },
+              "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+            }
+          }
+        },
+        {
+          "_id": "6ada77fcd21dd41b8058747b",
+          "project": "5fc012bda3efcb29338b7d30",
+          "file": {
+            "_id": "6ada77fcd21dd41b8058747a",
+            "name": "reconciled-6ada77fcd21dd41b8058747a",
+            "type": "application/octet-stream",
+            "uploadName": ".Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+            "originalName": ".Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+            "path": "/skamoun/halioticida_haliocrustida/additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+            "uploadMethod": "administrative-catalogue",
+            "createFileDocumentId": "reconcile-6ada77fcd21dd41b8058747a",
+            "description": "Existing physical file preserved; scientific classification and historical upload verification are unconfirmed.",
+            "__v": 0,
+            "reconciliation": {
+              "version": 1,
+              "operationId": "2ffa251e-1579-4b30-a771-15194c79f7e7",
+              "batchId": "2026-10-16",
+              "entryId": "skamoun-017",
+              "identity": {
+                "path": "/skamoun/halioticida_haliocrustida/additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+                "name": "reconciled-6ada77fcd21dd41b8058747a",
+                "originalName": ".Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5"
+              },
+              "classification": "checksum-file-candidate",
+              "classificationBasis": "filename-and-directory-only; scientific role unconfirmed",
+              "currentObservation": {
+                "byteScope": "physical-file-as-stored",
+                "bytes": 0,
+                "canonicalPath": "/mnt/reads/skamoun/halioticida_haliocrustida/additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+                "entryId": "skamoun-017",
+                "historicalVerification": "not-established",
+                "identity": {
+                  "ctimeMs": 1621845199147.449,
+                  "dev": 42,
+                  "gid": 0,
+                  "ino": 21030762513,
+                  "mode": 33272,
+                  "mtimeMs": 1507737180903.6804,
+                  "nlink": 1,
+                  "size": 0,
+                  "uid": 0
+                },
+                "md5": "d41d8cd98f00b204e9800998ecf8427e",
+                "observedAt": "2026-10-22T16:52:43.096Z",
+                "purpose": "current-baseline-only",
+                "receipt": "live-evidence/hash-20261022T165213Z.command.json",
+                "relPath": "additional/.Copy of ENQ-1934_PIP-1347_PSEQ-1206_datasum_20.10.16.xlsx.md5",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "sourceEvidenceSha256": "220313af96374969fa187f4c381f543eafebbe21070428764df4cd1a93c4ed72",
+                "stable": true,
+                "startedAt": "2026-10-22T16:52:43.096Z",
+                "type": "checksum"
+              },
+              "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+            },
+            "createdAt": "2026-10-22T21:06:16.554Z",
+            "updatedAt": "2026-10-22T21:06:16.554Z"
+          }
+        }
+      ]
+    },
+    {
+      "project": {
+        "_id": "5fc012bda3efcb29338b7d4b",
+        "name": "Plant Capture Enhancer",
+        "path": "/jjones/plant_capture_enhancer",
+        "createdAt": "2020-11-26T20:40:30.156Z",
+        "storage": {
+          "state": "aws_pending_hpc_deletion",
+          "s3Uri": "s3://tsl-hpc-reads/jjones/plant_capture_enhancer",
+          "s3VerifiedAt": "2026-10-23T08:30:52.069Z"
+        }
+      },
+      "counts": {
+        "samples": 1,
+        "runs": 1,
+        "unfinishedJobs": 0,
+        "reads": 2,
+        "additionalFiles": 1
+      },
+      "extraSamples": [
+        {
+          "_id": "5fc012bea3efcb29338b7ed7",
+          "project": "5fc012bda3efcb29338b7d4b",
+          "name": "PCE",
+          "path": "/jjones/plant_capture_enhancer/pce"
+        }
+      ],
+      "pathRuns": [
+        {
+          "_id": "5fc012c3a3efcb29338b83ab",
+          "sample": "5fc012bea3efcb29338b7ed7",
+          "name": "PCE",
+          "path": "/jjones/plant_capture_enhancer/pce/pce"
+        }
+      ],
+      "pathFiles": [
+        {
+          "_id": "5fc012c5a3efcb29338b88a4",
+          "name": "SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+          "path": "/jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf"
+        },
+        {
+          "_id": "5fc012c8a3efcb29338b8fcf",
+          "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+          "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz"
+        },
+        {
+          "_id": "5fc012c7a3efcb29338b8c4c",
+          "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+          "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz"
+        }
+      ],
+      "samples": [
+        {
+          "_id": "5fc012bea3efcb29338b7ed7",
+          "name": "PCE",
+          "path": "/jjones/plant_capture_enhancer/pce"
+        }
+      ],
+      "runs": [
+        {
+          "_id": "5fc012c3a3efcb29338b83ab",
+          "name": "PCE",
+          "path": "/jjones/plant_capture_enhancer/pce/pce",
+          "sample": "5fc012bea3efcb29338b7ed7"
+        }
+      ],
+      "reads": [
+        {
+          "_id": "5fc012cba3efcb29338b979a",
+          "run": "5fc012c3a3efcb29338b83ab",
+          "file": {
+            "_id": "5fc012c7a3efcb29338b8c4c",
+            "type": "run",
+            "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+            "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+            "uploadName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+            "originalName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+            "tempUploadPath": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+            "createdAt": "2020-11-26T20:40:42.264Z",
+            "updatedAt": "2026-10-22T21:06:16.554Z",
+            "__v": 0,
+            "reconciliation": {
+              "version": 1,
+              "operationId": "e964352a-3385-4485-918c-1c64b958a1d6",
+              "batchId": "2026-10-16",
+              "entryId": "jjones-056",
+              "identity": {
+                "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+                "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+                "originalName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz"
+              },
+              "currentObservation": {
+                "byteScope": "physical-file-as-stored",
+                "bytes": 17160504,
+                "canonicalPath": "/mnt/reads/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+                "entryId": "jjones-056",
+                "historicalVerification": "not-established",
+                "identity": {
+                  "ctimeMs": 1621619273283.136,
+                  "dev": 42,
+                  "gid": 0,
+                  "ino": 20649245044,
+                  "mode": 33272,
+                  "mtimeMs": 1552488675886.4143,
+                  "nlink": 1,
+                  "size": 17160504,
+                  "uid": 0
+                },
+                "md5": "a3af3e2026b47e8ba7dc4724b55de574",
+                "observedAt": "2026-10-22T16:52:33.579Z",
+                "purpose": "current-baseline-only",
+                "receipt": "live-evidence/hash-20261022T165213Z.command.json",
+                "relPath": "pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_2.fq.gz",
+                "sha256": "4f4edbdd626b9e8afbd7cafaeff2ee97a262610d123ea17a63d2bd07beedae64",
+                "sourceEvidenceSha256": "220313af96374969fa187f4c381f543eafebbe21070428764df4cd1a93c4ed72",
+                "stable": true,
+                "startedAt": "2026-10-22T16:52:32.955Z",
+                "type": "checksum"
+              },
+              "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+            }
+          }
+        },
+        {
+          "_id": "5fc012cca3efcb29338b9b1d",
+          "run": "5fc012c3a3efcb29338b83ab",
+          "file": {
+            "_id": "5fc012c8a3efcb29338b8fcf",
+            "type": "run",
+            "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+            "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+            "uploadName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+            "originalName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+            "tempUploadPath": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+            "createdAt": "2020-11-26T20:40:42.291Z",
+            "updatedAt": "2026-10-22T21:06:16.554Z",
+            "__v": 0,
+            "reconciliation": {
+              "version": 1,
+              "operationId": "42258e45-9d21-4b3e-ace9-b5108b0135b1",
+              "batchId": "2026-10-16",
+              "entryId": "jjones-056",
+              "identity": {
+                "path": "/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+                "name": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+                "originalName": "PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz"
+              },
+              "currentObservation": {
+                "byteScope": "physical-file-as-stored",
+                "bytes": 17209559,
+                "canonicalPath": "/mnt/reads/jjones/plant_capture_enhancer/pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+                "entryId": "jjones-056",
+                "historicalVerification": "not-established",
+                "identity": {
+                  "ctimeMs": 1621619273043.378,
+                  "dev": 42,
+                  "gid": 0,
+                  "ino": 20737830649,
+                  "mode": 33272,
+                  "mtimeMs": 1552488675418.601,
+                  "nlink": 1,
+                  "size": 17209559,
+                  "uid": 0
+                },
+                "md5": "40722bbff4fdf43a99837dac90c0280f",
+                "observedAt": "2026-10-22T16:52:33.578Z",
+                "purpose": "current-baseline-only",
+                "receipt": "live-evidence/hash-20261022T165213Z.command.json",
+                "relPath": "pce/pce/raw/PCE_TKD180301086-AK3145_HCGHWBCX2_L2_1.fq.gz",
+                "sha256": "e7a9e2fed3b1d8d4dc1c22de343c7a3cdd2bb7c8f147488bc21a22a5e8adccf9",
+                "sourceEvidenceSha256": "220313af96374969fa187f4c381f543eafebbe21070428764df4cd1a93c4ed72",
+                "stable": true,
+                "startedAt": "2026-10-22T16:52:32.955Z",
+                "type": "checksum"
+              },
+              "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+            }
+          }
+        }
+      ],
+      "additional": [
+        {
+          "_id": "5fc012c6a3efcb29338b896d",
+          "project": "5fc012bda3efcb29338b7d4b",
+          "file": {
+            "_id": "5fc012c5a3efcb29338b88a4",
+            "type": "project",
+            "name": "SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+            "path": "/jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+            "uploadName": "SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+            "originalName": "SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+            "tempUploadPath": "/jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+            "createdAt": "2020-11-26T20:40:38.005Z",
+            "updatedAt": "2026-10-22T21:06:16.554Z",
+            "__v": 0,
+            "reconciliation": {
+              "version": 1,
+              "operationId": "0c8314c4-a202-46f6-9593-14159fe2c07b",
+              "batchId": "2026-10-16",
+              "entryId": "jjones-056",
+              "identity": {
+                "path": "/jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+                "name": "SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+                "originalName": "SeqCapEZ_Library_Technical_Note_May_2012.pdf"
+              },
+              "currentObservation": {
+                "byteScope": "physical-file-as-stored",
+                "bytes": 277280,
+                "canonicalPath": "/mnt/reads/jjones/plant_capture_enhancer/additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+                "entryId": "jjones-056",
+                "historicalVerification": "not-established",
+                "identity": {
+                  "ctimeMs": 1621619273499.111,
+                  "dev": 42,
+                  "gid": 0,
+                  "ino": 20649245046,
+                  "mode": 33272,
+                  "mtimeMs": 1552488500954.0066,
+                  "nlink": 1,
+                  "size": 277280,
+                  "uid": 0
+                },
+                "md5": "9c6fca7b5bf22cfe76ff9614a1a5c7ba",
+                "observedAt": "2026-10-22T16:52:32.988Z",
+                "purpose": "current-baseline-only",
+                "receipt": "live-evidence/hash-20261022T165213Z.command.json",
+                "relPath": "additional/SeqCapEZ_Library_Technical_Note_May_2012.pdf",
+                "sha256": "586a490a87be4ee6836e88d5a8f47364cee611b3c3edb1af71f0f43d561f7870",
+                "sourceEvidenceSha256": "220313af96374969fa187f4c381f543eafebbe21070428764df4cd1a93c4ed72",
+                "stable": true,
+                "startedAt": "2026-10-22T16:52:32.954Z",
+                "type": "checksum"
+              },
+              "planSha256": "6ba8c00fddf137fe36f2288fd7c1d151ee589edc852903fc66e2e9e0a8b3e303"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "similar": [
+    {
+      "_id": "5fc012bda3efcb29338b7d30",
+      "name": "Halioticida_Haliocrustida",
+      "path": "/skamoun/halioticida_haliocrustida"
+    },
+    {
+      "_id": "5fc012bda3efcb29338b7d32",
+      "name": "Halioticida_Haliphthoros",
+      "path": "/skamoun/halioticida_haliphthoros"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "fileId": "6120146fe788b405b6ce6b44",
+  "sampleId": "6120146ee788b405b6ce6b42",
+  "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/additional/MD5.txt",
+  "bytes": 98,
+  "sha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+  "at": "2026-11-26T14:12:53.473370+00:00",
+  "kind": "sidecar-own-byte-digest",
+  "calculatedMd5": "69d0b67dfc91fa08bbdc6539894690ef",
+  "calculatedSha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+  "metadata": {
+    "dev": "42",
+    "ino": "61620727457",
+    "mode": "33272",
+    "nlink": "2",
+    "uid": "11449",
+    "gid": "12318",
+    "size": "98",
+    "mtime_ns": "1629492335049000000",
+    "ctime_ns": "1795699481403470000"
+  },
+  "mappingVerified": true
+}

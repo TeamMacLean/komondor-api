@@ -1,0 +1,16 @@
+{
+  "recordedAt": "2026-11-27T13:30:54.468816+00:00",
+  "provenance": "George supplied Slurm completion summary in chat; full job files requested separately",
+  "jobId": "25340024",
+  "state": "COMPLETED",
+  "exitCode": "0:0",
+  "startedAtSlurm": "2026-11-27 13:14:31",
+  "finishedAtSlurm": "2026-11-27 13:24:17",
+  "runtimeSeconds": 586,
+  "batchAndExternSucceeded": true,
+  "rawLogsInspected": false,
+  "expectedProjects": 167,
+  "expectedFiles": 14860,
+  "expectedBytes": 12690838486686,
+  "nativeConfirmationsPending": true
+}

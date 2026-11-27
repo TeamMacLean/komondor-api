@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-27T15:05:03.483Z",
+  "stopped": true,
+  "reason": "two-consecutive-connection-refusals",
+  "host": "127.0.0.1",
+  "port": 3061,
+  "elapsedMs": 204,
+  "attempts": [
+    {
+      "attempt": 1,
+      "at": "2026-11-27T15:05:03.282Z",
+      "state": "refused",
+      "code": "ECONNREFUSED",
+      "elapsedMs": 3
+    },
+    {
+      "attempt": 2,
+      "at": "2026-11-27T15:05:03.483Z",
+      "state": "refused",
+      "code": "ECONNREFUSED",
+      "elapsedMs": 1
+    }
+  ]
+}

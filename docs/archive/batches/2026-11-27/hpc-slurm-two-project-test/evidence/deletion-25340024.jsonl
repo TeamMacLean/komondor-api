@@ -1,0 +1,503 @@
+{"at": "2026-11-27T13:14:32.366997+00:00", "event": "started", "execute": true, "host": "t384n18", "planSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7", "slurmJobId": "25340024", "stage": "remaining-167-released", "uid": 14014}
+{"at": "2026-11-27T13:14:34.816837+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d10"}
+{"at": "2026-11-27T13:14:35.887049+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d29"}
+{"at": "2026-11-27T13:14:36.002236+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d77"}
+{"at": "2026-11-27T13:14:36.450695+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d60"}
+{"at": "2026-11-27T13:14:37.436436+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d17"}
+{"at": "2026-11-27T13:14:37.592112+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5a"}
+{"at": "2026-11-27T13:14:37.602828+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d40"}
+{"at": "2026-11-27T13:14:37.635476+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0f"}
+{"at": "2026-11-27T13:14:38.366123+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d11"}
+{"at": "2026-11-27T13:14:40.242480+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d64"}
+{"at": "2026-11-27T13:14:42.771081+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7c"}
+{"at": "2026-11-27T13:14:43.013696+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d36"}
+{"at": "2026-11-27T13:14:43.107984+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d6e"}
+{"at": "2026-11-27T13:14:43.314289+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d31"}
+{"at": "2026-11-27T13:14:43.353016+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d81"}
+{"at": "2026-11-27T13:14:43.423732+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d78"}
+{"at": "2026-11-27T13:14:43.502792+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d27"}
+{"at": "2026-11-27T13:14:43.638709+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d68"}
+{"at": "2026-11-27T13:14:43.914436+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d34"}
+{"at": "2026-11-27T13:14:44.763920+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1b"}
+{"at": "2026-11-27T13:14:45.379844+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d4a"}
+{"at": "2026-11-27T13:14:45.639092+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d44"}
+{"at": "2026-11-27T13:14:45.662640+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d35"}
+{"at": "2026-11-27T13:14:46.066597+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d01"}
+{"at": "2026-11-27T13:14:46.142394+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d47"}
+{"at": "2026-11-27T13:14:46.237063+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1a"}
+{"at": "2026-11-27T13:14:46.301588+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cfb"}
+{"at": "2026-11-27T13:14:46.598543+00:00", "event": "preflight-passed", "projectId": "61375deae788b405b6ce6da8"}
+{"at": "2026-11-27T13:14:46.649781+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d49"}
+{"at": "2026-11-27T13:14:46.718272+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d2a"}
+{"at": "2026-11-27T13:14:46.824048+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d56"}
+{"at": "2026-11-27T13:14:46.901501+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d12"}
+{"at": "2026-11-27T13:14:47.135136+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3a"}
+{"at": "2026-11-27T13:14:47.285644+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d37"}
+{"at": "2026-11-27T13:14:47.432068+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d38"}
+{"at": "2026-11-27T13:14:50.211334+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d2b"}
+{"at": "2026-11-27T13:14:50.288952+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d59"}
+{"at": "2026-11-27T13:14:50.331140+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3c"}
+{"at": "2026-11-27T13:14:50.402681+00:00", "event": "preflight-passed", "projectId": "60b78429e788b405b6ce66aa"}
+{"at": "2026-11-27T13:14:50.458591+00:00", "event": "preflight-passed", "projectId": "60ba0530e788b405b6ce66f2"}
+{"at": "2026-11-27T13:14:52.887344+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d39"}
+{"at": "2026-11-27T13:14:54.506778+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d6d"}
+{"at": "2026-11-27T13:14:54.667221+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d28"}
+{"at": "2026-11-27T13:14:54.716245+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d42"}
+{"at": "2026-11-27T13:14:55.689455+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0a"}
+{"at": "2026-11-27T13:14:55.856284+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d26"}
+{"at": "2026-11-27T13:14:56.167936+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d6b"}
+{"at": "2026-11-27T13:14:56.207870+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1e"}
+{"at": "2026-11-27T13:14:56.270507+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d66"}
+{"at": "2026-11-27T13:14:56.339243+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d71"}
+{"at": "2026-11-27T13:14:56.368140+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cfc"}
+{"at": "2026-11-27T13:14:56.399673+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d24"}
+{"at": "2026-11-27T13:14:56.443737+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d57"}
+{"at": "2026-11-27T13:14:56.544491+00:00", "event": "preflight-passed", "projectId": "606c3308d7661b6ec22a0793"}
+{"at": "2026-11-27T13:14:56.632430+00:00", "event": "preflight-passed", "projectId": "605b441ad7661b6ec22a076a"}
+{"at": "2026-11-27T13:14:56.700663+00:00", "event": "preflight-passed", "projectId": "60619edfd7661b6ec22a076e"}
+{"at": "2026-11-27T13:14:56.801746+00:00", "event": "preflight-passed", "projectId": "6116c323e788b405b6ce69f6"}
+{"at": "2026-11-27T13:14:56.992955+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d2f"}
+{"at": "2026-11-27T13:14:57.188810+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7b"}
+{"at": "2026-11-27T13:14:57.546876+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d4c"}
+{"at": "2026-11-27T13:14:57.666472+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d33"}
+{"at": "2026-11-27T13:14:58.543575+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3e"}
+{"at": "2026-11-27T13:14:58.565020+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122658"}
+{"at": "2026-11-27T13:14:58.619653+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122657"}
+{"at": "2026-11-27T13:14:58.647588+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122656"}
+{"at": "2026-11-27T13:14:58.749676+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122652"}
+{"at": "2026-11-27T13:14:58.812444+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122650"}
+{"at": "2026-11-27T13:14:58.839562+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae1712265a"}
+{"at": "2026-11-27T13:14:58.849638+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae1712265d"}
+{"at": "2026-11-27T13:14:58.918481+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122655"}
+{"at": "2026-11-27T13:14:58.958224+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae1712264f"}
+{"at": "2026-11-27T13:14:58.988053+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae1712265c"}
+{"at": "2026-11-27T13:14:59.037603+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae1712265b"}
+{"at": "2026-11-27T13:14:59.057778+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122659"}
+{"at": "2026-11-27T13:14:59.069214+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae1712265e"}
+{"at": "2026-11-27T13:14:59.087446+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122653"}
+{"at": "2026-11-27T13:14:59.137820+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122654"}
+{"at": "2026-11-27T13:14:59.180019+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae17122651"}
+{"at": "2026-11-27T13:14:59.300323+00:00", "event": "preflight-passed", "projectId": "60804e0b837a8a261f0133ee"}
+{"at": "2026-11-27T13:14:59.434354+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d09"}
+{"at": "2026-11-27T13:14:59.482011+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d50"}
+{"at": "2026-11-27T13:14:59.641536+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d06"}
+{"at": "2026-11-27T13:14:59.734717+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d79"}
+{"at": "2026-11-27T13:14:59.931891+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1d"}
+{"at": "2026-11-27T13:14:59.969667+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d25"}
+{"at": "2026-11-27T13:15:00.740466+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cfa"}
+{"at": "2026-11-27T13:15:00.804784+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d03"}
+{"at": "2026-11-27T13:15:00.939518+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cf7"}
+{"at": "2026-11-27T13:15:01.433223+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d46"}
+{"at": "2026-11-27T13:15:01.478549+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d43"}
+{"at": "2026-11-27T13:15:01.501001+00:00", "event": "preflight-passed", "projectId": "6116c220e788b405b6ce69f2"}
+{"at": "2026-11-27T13:15:01.592455+00:00", "event": "preflight-passed", "projectId": "6116bf17e788b405b6ce69e8"}
+{"at": "2026-11-27T13:15:01.674862+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7f"}
+{"at": "2026-11-27T13:15:02.342980+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d04"}
+{"at": "2026-11-27T13:15:02.789852+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d41"}
+{"at": "2026-11-27T13:15:02.895366+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d21"}
+{"at": "2026-11-27T13:15:02.981373+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d02"}
+{"at": "2026-11-27T13:15:03.105422+00:00", "event": "preflight-passed", "projectId": "613b733ee788b405b6ce6eb8"}
+{"at": "2026-11-27T13:15:03.112958+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d30"}
+{"at": "2026-11-27T13:15:03.290913+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d32"}
+{"at": "2026-11-27T13:15:03.341656+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3d"}
+{"at": "2026-11-27T13:15:03.587055+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d73"}
+{"at": "2026-11-27T13:15:04.133293+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0c"}
+{"at": "2026-11-27T13:15:04.229021+00:00", "event": "preflight-passed", "projectId": "60defd3ae788b405b6ce68db"}
+{"at": "2026-11-27T13:15:04.250317+00:00", "event": "preflight-passed", "projectId": "611bcc57e788b405b6ce69fc"}
+{"at": "2026-11-27T13:15:04.278185+00:00", "event": "preflight-passed", "projectId": "611be0c6e788b405b6ce6a3c"}
+{"at": "2026-11-27T13:15:04.370595+00:00", "event": "preflight-passed", "projectId": "61572b1b36105e13c15d58ac"}
+{"at": "2026-11-27T13:15:04.533518+00:00", "event": "preflight-passed", "projectId": "60c8b1d3e788b405b6ce6845"}
+{"at": "2026-11-27T13:15:04.673408+00:00", "event": "preflight-passed", "projectId": "610fd90de788b405b6ce6946"}
+{"at": "2026-11-27T13:15:04.771299+00:00", "event": "preflight-passed", "projectId": "611bd783e788b405b6ce6a0c"}
+{"at": "2026-11-27T13:15:04.872586+00:00", "event": "preflight-passed", "projectId": "60d1f3a0e788b405b6ce68a1"}
+{"at": "2026-11-27T13:15:04.902166+00:00", "event": "preflight-passed", "projectId": "60e4528be788b405b6ce6917"}
+{"at": "2026-11-27T13:15:05.105292+00:00", "event": "preflight-passed", "projectId": "64c13517d32c7a7e4b174f20"}
+{"at": "2026-11-27T13:15:05.331378+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae1712265f"}
+{"at": "2026-11-27T13:15:05.479578+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae17122660"}
+{"at": "2026-11-27T13:15:05.509734+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae17122661"}
+{"at": "2026-11-27T13:15:05.614839+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae17122662"}
+{"at": "2026-11-27T13:15:05.857963+00:00", "event": "preflight-passed", "projectId": "6ada6c4557c017ae17122663"}
+{"at": "2026-11-27T13:15:05.901590+00:00", "event": "preflight-passed", "projectId": "6452a72c525e070698932583"}
+{"at": "2026-11-27T13:15:06.016878+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d23"}
+{"at": "2026-11-27T13:15:06.505596+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cff"}
+{"at": "2026-11-27T13:15:06.639348+00:00", "event": "preflight-passed", "projectId": "60be4bafe788b405b6ce6726"}
+{"at": "2026-11-27T13:15:06.767578+00:00", "event": "preflight-passed", "projectId": "6ada6c4457c017ae1712264e"}
+{"at": "2026-11-27T13:15:07.057579+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d0b"}
+{"at": "2026-11-27T13:15:07.117425+00:00", "event": "preflight-passed", "projectId": "6051c37ad7661b6ec22a06e3"}
+{"at": "2026-11-27T13:15:07.237958+00:00", "event": "preflight-passed", "projectId": "606d815ed7661b6ec22a0799"}
+{"at": "2026-11-27T13:15:07.268135+00:00", "event": "preflight-passed", "projectId": "606eb043d7661b6ec22a07a3"}
+{"at": "2026-11-27T13:15:07.308251+00:00", "event": "preflight-passed", "projectId": "604f7072d7661b6ec22a06cf"}
+{"at": "2026-11-27T13:15:07.424970+00:00", "event": "preflight-passed", "projectId": "60bf4a7be788b405b6ce6763"}
+{"at": "2026-11-27T13:15:07.463118+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d52"}
+{"at": "2026-11-27T13:15:07.493174+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d51"}
+{"at": "2026-11-27T13:15:07.528012+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d19"}
+{"at": "2026-11-27T13:15:07.745881+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7e"}
+{"at": "2026-11-27T13:15:07.860829+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d05"}
+{"at": "2026-11-27T13:15:08.159801+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d18"}
+{"at": "2026-11-27T13:15:08.290474+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d62"}
+{"at": "2026-11-27T13:15:08.319751+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d2c"}
+{"at": "2026-11-27T13:15:08.375651+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d07"}
+{"at": "2026-11-27T13:15:09.256479+00:00", "event": "preflight-passed", "projectId": "6130d23de788b405b6ce6d93"}
+{"at": "2026-11-27T13:15:09.360521+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3f"}
+{"at": "2026-11-27T13:15:09.409014+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d2d"}
+{"at": "2026-11-27T13:15:09.588939+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d67"}
+{"at": "2026-11-27T13:15:09.629923+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d63"}
+{"at": "2026-11-27T13:15:09.660125+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d22"}
+{"at": "2026-11-27T13:15:09.698801+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d3b"}
+{"at": "2026-11-27T13:15:09.724544+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d45"}
+{"at": "2026-11-27T13:15:09.877690+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5d"}
+{"at": "2026-11-27T13:15:09.968146+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d6f"}
+{"at": "2026-11-27T13:15:10.013845+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1c"}
+{"at": "2026-11-27T13:15:10.992589+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d00"}
+{"at": "2026-11-27T13:15:12.608537+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d16"}
+{"at": "2026-11-27T13:15:12.894697+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5f"}
+{"at": "2026-11-27T13:15:13.156603+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d5e"}
+{"at": "2026-11-27T13:15:13.190147+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d80"}
+{"at": "2026-11-27T13:15:13.240725+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d7d"}
+{"at": "2026-11-27T13:15:13.265515+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d55"}
+{"at": "2026-11-27T13:15:13.852221+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d6c"}
+{"at": "2026-11-27T13:15:15.129944+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cfd"}
+{"at": "2026-11-27T13:15:15.176074+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d74"}
+{"at": "2026-11-27T13:15:15.268120+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d54"}
+{"at": "2026-11-27T13:15:15.316309+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d65"}
+{"at": "2026-11-27T13:15:15.504229+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d08"}
+{"at": "2026-11-27T13:15:15.588851+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d20"}
+{"at": "2026-11-27T13:15:15.657245+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7cfe"}
+{"at": "2026-11-27T13:15:15.742737+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d48"}
+{"at": "2026-11-27T13:15:15.786070+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d15"}
+{"at": "2026-11-27T13:15:15.930853+00:00", "event": "preflight-passed", "projectId": "5fc012bda3efcb29338b7d1f"}
+{"at": "2026-11-27T13:15:16.508432+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/aj_pathseq", "projectId": "5fc012bda3efcb29338b7d10"}
+{"at": "2026-11-27T13:15:44.637870+00:00", "bytes": 110493830761, "event": "deleted", "path": "/tsl/data/reads/jjones/aj_pathseq", "projectId": "5fc012bda3efcb29338b7d10"}
+{"at": "2026-11-27T13:15:44.883836+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/albugo_candida", "projectId": "5fc012bda3efcb29338b7d29"}
+{"at": "2026-11-27T13:16:00.141491+00:00", "bytes": 359930630710, "event": "deleted", "path": "/tsl/data/reads/jjones/albugo_candida", "projectId": "5fc012bda3efcb29338b7d29"}
+{"at": "2026-11-27T13:16:00.171110+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/amr4_mapping", "projectId": "5fc012bda3efcb29338b7d77"}
+{"at": "2026-11-27T13:16:00.585503+00:00", "bytes": 5110227961, "event": "deleted", "path": "/tsl/data/reads/jjones/amr4_mapping", "projectId": "5fc012bda3efcb29338b7d77"}
+{"at": "2026-11-27T13:16:00.681975+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/arabidopsis_pacbio_renseq", "projectId": "5fc012bda3efcb29338b7d60"}
+{"at": "2026-11-27T13:16:03.205166+00:00", "bytes": 1215896390, "event": "deleted", "path": "/tsl/data/reads/jjones/arabidopsis_pacbio_renseq", "projectId": "5fc012bda3efcb29338b7d60"}
+{"at": "2026-11-27T13:16:03.421831+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/atac_cseq", "projectId": "5fc012bda3efcb29338b7d17"}
+{"at": "2026-11-27T13:16:17.037450+00:00", "bytes": 675008621, "event": "deleted", "path": "/tsl/data/reads/jjones/atac_cseq", "projectId": "5fc012bda3efcb29338b7d17"}
+{"at": "2026-11-27T13:16:17.061042+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/ccg_expression", "projectId": "5fc012bda3efcb29338b7d5a"}
+{"at": "2026-11-27T13:16:17.367854+00:00", "bytes": 72453154755, "event": "deleted", "path": "/tsl/data/reads/jjones/ccg_expression", "projectId": "5fc012bda3efcb29338b7d5a"}
+{"at": "2026-11-27T13:16:17.371298+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes", "projectId": "5fc012bda3efcb29338b7d40"}
+{"at": "2026-11-27T13:16:17.862953+00:00", "bytes": 21003151360, "event": "deleted", "path": "/tsl/data/reads/jjones/cdna_penseq_of_4_p__infestans_isoaltes", "projectId": "5fc012bda3efcb29338b7d40"}
+{"at": "2026-11-27T13:16:17.875433+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq", "projectId": "5fc012bda3efcb29338b7d0f"}
+{"at": "2026-11-27T13:16:18.521502+00:00", "bytes": 618589074, "event": "deleted", "path": "/tsl/data/reads/jjones/col_0_rpp2_fast_neutron_mutant_renseq", "projectId": "5fc012bda3efcb29338b7d0f"}
+{"at": "2026-11-27T13:16:18.670092+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_ath_atacseq_2019_1", "projectId": "5fc012bda3efcb29338b7d11"}
+{"at": "2026-11-27T13:16:22.500783+00:00", "bytes": 109121636160, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_ath_atacseq_2019_1", "projectId": "5fc012bda3efcb29338b7d11"}
+{"at": "2026-11-27T13:16:23.026206+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput", "projectId": "5fc012bda3efcb29338b7d64"}
+{"at": "2026-11-27T13:16:42.315109+00:00", "bytes": 14327908887, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_ath_mutants_fansataccapseq_20170630_nextseq500_pe_midoutput", "projectId": "5fc012bda3efcb29338b7d64"}
+{"at": "2026-11-27T13:16:42.929871+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput", "projectId": "5fc012bda3efcb29338b7d7c"}
+{"at": "2026-11-27T13:16:58.093032+00:00", "bytes": 29761259708, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_ath_mutants_rnacapseq_20170602_nextseq500_hioutput", "projectId": "5fc012bda3efcb29338b7d7c"}
+{"at": "2026-11-27T13:16:58.156088+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018", "projectId": "5fc012bda3efcb29338b7d36"}
+{"at": "2026-11-27T13:16:59.124238+00:00", "bytes": 9649016353, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_gh_eti_2018", "projectId": "5fc012bda3efcb29338b7d36"}
+{"at": "2026-11-27T13:16:59.152935+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018", "projectId": "5fc012bda3efcb29338b7d6e"}
+{"at": "2026-11-27T13:16:59.643352+00:00", "bytes": 8502152467, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_rnaseq_bgiseq500_seti_eti_2018", "projectId": "5fc012bda3efcb29338b7d6e"}
+{"at": "2026-11-27T13:16:59.694947+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020", "projectId": "5fc012bda3efcb29338b7d31"}
+{"at": "2026-11-27T13:17:00.607707+00:00", "bytes": 32167515043, "event": "deleted", "path": "/tsl/data/reads/jjones/dingp_rnaseq_novogene_strand_specific_seti_gh_eti_2020", "projectId": "5fc012bda3efcb29338b7d31"}
+{"at": "2026-11-27T13:17:00.620643+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/furzero_hpa_emwa1_illumina", "projectId": "5fc012bda3efcb29338b7d81"}
+{"at": "2026-11-27T13:17:01.032752+00:00", "bytes": 3873656200, "event": "deleted", "path": "/tsl/data/reads/jjones/furzero_hpa_emwa1_illumina", "projectId": "5fc012bda3efcb29338b7d81"}
+{"at": "2026-11-27T13:17:01.059463+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/genetic_variation_in_albugo_laibachii", "projectId": "5fc012bda3efcb29338b7d78"}
+{"at": "2026-11-27T13:17:02.183486+00:00", "bytes": 24445469078, "event": "deleted", "path": "/tsl/data/reads/jjones/genetic_variation_in_albugo_laibachii", "projectId": "5fc012bda3efcb29338b7d78"}
+{"at": "2026-11-27T13:17:02.203033+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hiseq_on_solanum_cdna", "projectId": "5fc012bda3efcb29338b7d27"}
+{"at": "2026-11-27T13:17:02.611049+00:00", "bytes": 4102243516, "event": "deleted", "path": "/tsl/data/reads/jjones/hiseq_on_solanum_cdna", "projectId": "5fc012bda3efcb29338b7d27"}
+{"at": "2026-11-27T13:17:02.652983+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hk_amr10", "projectId": "5fc012bda3efcb29338b7d68"}
+{"at": "2026-11-27T13:17:03.129140+00:00", "bytes": 10055314240, "event": "deleted", "path": "/tsl/data/reads/jjones/hk_amr10", "projectId": "5fc012bda3efcb29338b7d68"}
+{"at": "2026-11-27T13:17:03.207485+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hk_amr5", "projectId": "5fc012bda3efcb29338b7d34"}
+{"at": "2026-11-27T13:17:10.767582+00:00", "bytes": 64299925771, "event": "deleted", "path": "/tsl/data/reads/jjones/hk_amr5", "projectId": "5fc012bda3efcb29338b7d34"}
+{"at": "2026-11-27T13:17:11.065951+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hk_pacbio", "projectId": "5fc012bda3efcb29338b7d1b"}
+{"at": "2026-11-27T13:17:44.136791+00:00", "bytes": 550447162305, "event": "deleted", "path": "/tsl/data/reads/jjones/hk_pacbio", "projectId": "5fc012bda3efcb29338b7d1b"}
+{"at": "2026-11-27T13:17:44.275000+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hk_renseq", "projectId": "5fc012bda3efcb29338b7d4a"}
+{"at": "2026-11-27T13:17:46.859932+00:00", "bytes": 24941668725, "event": "deleted", "path": "/tsl/data/reads/jjones/hk_renseq", "projectId": "5fc012bda3efcb29338b7d4a"}
+{"at": "2026-11-27T13:17:46.933645+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing", "projectId": "5fc012bda3efcb29338b7d44"}
+{"at": "2026-11-27T13:17:48.480534+00:00", "bytes": 8808616053, "event": "deleted", "path": "/tsl/data/reads/jjones/hr_5_loss_of_ex1_resistance_m2_sequencing", "projectId": "5fc012bda3efcb29338b7d44"}
+{"at": "2026-11-27T13:17:48.489615+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/lop_868_pacbio_renseq", "projectId": "5fc012bda3efcb29338b7d35"}
+{"at": "2026-11-27T13:17:49.109727+00:00", "bytes": 285483141, "event": "deleted", "path": "/tsl/data/reads/jjones/lop_868_pacbio_renseq", "projectId": "5fc012bda3efcb29338b7d35"}
+{"at": "2026-11-27T13:17:49.178833+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_", "projectId": "5fc012bda3efcb29338b7d01"}
+{"at": "2026-11-27T13:17:50.725891+00:00", "bytes": 6953929735, "event": "deleted", "path": "/tsl/data/reads/jjones/miseq_renseq_of_arabidopsis_thaliana_accessions_", "projectId": "5fc012bda3efcb29338b7d01"}
+{"at": "2026-11-27T13:17:50.740731+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/miseq_renseq_on_various_solanum_", "projectId": "5fc012bda3efcb29338b7d47"}
+{"at": "2026-11-27T13:17:51.837750+00:00", "bytes": 2200967737, "event": "deleted", "path": "/tsl/data/reads/jjones/miseq_renseq_on_various_solanum_", "projectId": "5fc012bda3efcb29338b7d47"}
+{"at": "2026-11-27T13:17:51.862182+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/non_host_resistance_to_ac2v_in_wu_0", "projectId": "5fc012bda3efcb29338b7d1a"}
+{"at": "2026-11-27T13:17:52.297510+00:00", "bytes": 4995073219, "event": "deleted", "path": "/tsl/data/reads/jjones/non_host_resistance_to_ac2v_in_wu_0", "projectId": "5fc012bda3efcb29338b7d1a"}
+{"at": "2026-11-27T13:17:52.313807+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/pacbio_penseq_on_phytophthora_infestans", "projectId": "5fc012bda3efcb29338b7cfb"}
+{"at": "2026-11-27T13:17:52.569775+00:00", "bytes": 847658798, "event": "deleted", "path": "/tsl/data/reads/jjones/pacbio_penseq_on_phytophthora_infestans", "projectId": "5fc012bda3efcb29338b7cfb"}
+{"at": "2026-11-27T13:17:52.619493+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/renseq_on_s__americanum_populations_2021", "projectId": "61375deae788b405b6ce6da8"}
+{"at": "2026-11-27T13:17:58.739555+00:00", "bytes": 12775990456, "event": "deleted", "path": "/tsl/data/reads/jjones/renseq_on_s__americanum_populations_2021", "projectId": "61375deae788b405b6ce6da8"}
+{"at": "2026-11-27T13:17:58.757141+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2", "projectId": "5fc012bda3efcb29338b7d49"}
+{"at": "2026-11-27T13:17:59.456311+00:00", "bytes": 655616074, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_albugo_candida_ac7v_in_sf_2", "projectId": "5fc012bda3efcb29338b7d49"}
+{"at": "2026-11-27T13:17:59.478270+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0", "projectId": "5fc012bda3efcb29338b7d2a"}
+{"at": "2026-11-27T13:17:59.780829+00:00", "bytes": 1685058123, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_albugo_candida_acex1_in_hr_5_oy_0_c24_and_lz_0", "projectId": "5fc012bda3efcb29338b7d2a"}
+{"at": "2026-11-27T13:17:59.799018+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_hr_5", "projectId": "5fc012bda3efcb29338b7d56"}
+{"at": "2026-11-27T13:18:00.708202+00:00", "bytes": 5337064647, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_albugo_laibachii_in_hr_5", "projectId": "5fc012bda3efcb29338b7d56"}
+{"at": "2026-11-27T13:18:00.728012+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2", "projectId": "5fc012bda3efcb29338b7d12"}
+{"at": "2026-11-27T13:18:01.696895+00:00", "bytes": 6419055524, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273___rpi_amr2", "projectId": "5fc012bda3efcb29338b7d12"}
+{"at": "2026-11-27T13:18:01.751878+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__", "projectId": "5fc012bda3efcb29338b7d3a"}
+{"at": "2026-11-27T13:18:02.938656+00:00", "bytes": 154231387866, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_p__infestans_in_s__americanum_line_sp2273__rpi_amr1_and_rpi_amr2__", "projectId": "5fc012bda3efcb29338b7d3a"}
+{"at": "2026-11-27T13:18:02.963190+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_", "projectId": "5fc012bda3efcb29338b7d37"}
+{"at": "2026-11-27T13:18:03.273643+00:00", "bytes": 9244025241, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_plrv_from_solanum_tuberosum_ssp__andigena__rl_adg_", "projectId": "5fc012bda3efcb29338b7d37"}
+{"at": "2026-11-27T13:18:03.312798+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_", "projectId": "5fc012bda3efcb29338b7d38"}
+{"at": "2026-11-27T13:18:03.985402+00:00", "bytes": 42992833523, "event": "deleted", "path": "/tsl/data/reads/jjones/resistance_to_pvy_from_s__stoloniferum__rysto_", "projectId": "5fc012bda3efcb29338b7d38"}
+{"at": "2026-11-27T13:18:04.399232+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/rice_renseq", "projectId": "5fc012bda3efcb29338b7d2b"}
+{"at": "2026-11-27T13:18:17.245646+00:00", "bytes": 108509578131, "event": "deleted", "path": "/tsl/data/reads/jjones/rice_renseq", "projectId": "5fc012bda3efcb29338b7d2b"}
+{"at": "2026-11-27T13:18:17.268678+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102", "projectId": "5fc012bda3efcb29338b7d59"}
+{"at": "2026-11-27T13:18:17.672421+00:00", "bytes": 1999188163, "event": "deleted", "path": "/tsl/data/reads/jjones/rpc_amr1__resistance_to_p__capsici_from_s__americanum_sp1102", "projectId": "5fc012bda3efcb29338b7d59"}
+{"at": "2026-11-27T13:18:17.687536+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__", "projectId": "5fc012bda3efcb29338b7d3c"}
+{"at": "2026-11-27T13:18:17.884561+00:00", "bytes": 2271599624, "event": "deleted", "path": "/tsl/data/reads/jjones/rpi_amr2_in_sp3675__bc2f2_of_sp2273__", "projectId": "5fc012bda3efcb29338b7d3c"}
+{"at": "2026-11-27T13:18:17.902115+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/s__americanum_nanopore_cdna_renseq", "projectId": "60b78429e788b405b6ce66aa"}
+{"at": "2026-11-27T13:18:23.006443+00:00", "bytes": 162591239741, "event": "deleted", "path": "/tsl/data/reads/jjones/s__americanum_nanopore_cdna_renseq", "projectId": "60b78429e788b405b6ce66aa"}
+{"at": "2026-11-27T13:18:23.019950+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/s__americanum_sp1102_cdna_nanopore", "projectId": "60ba0530e788b405b6ce66f2"}
+{"at": "2026-11-27T13:18:24.760255+00:00", "bytes": 120693731678, "event": "deleted", "path": "/tsl/data/reads/jjones/s__americanum_sp1102_cdna_nanopore", "projectId": "60ba0530e788b405b6ce66f2"}
+{"at": "2026-11-27T13:18:25.260877+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines", "projectId": "5fc012bda3efcb29338b7d39"}
+{"at": "2026-11-27T13:18:35.110244+00:00", "bytes": 577790849790, "event": "deleted", "path": "/tsl/data/reads/jjones/sequencing_of_nlrs_from_tetraploid_wheat_lines", "projectId": "5fc012bda3efcb29338b7d39"}
+{"at": "2026-11-27T13:18:35.445598+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/solanum_americanum_nanopore_sequencing", "projectId": "5fc012bda3efcb29338b7d6d"}
+{"at": "2026-11-27T13:18:49.218364+00:00", "bytes": 48063375008, "event": "deleted", "path": "/tsl/data/reads/jjones/solanum_americanum_nanopore_sequencing", "projectId": "5fc012bda3efcb29338b7d6d"}
+{"at": "2026-11-27T13:18:49.248390+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/solynta_sequencing", "projectId": "5fc012bda3efcb29338b7d28"}
+{"at": "2026-11-27T13:18:49.662522+00:00", "bytes": 4044941281, "event": "deleted", "path": "/tsl/data/reads/jjones/solynta_sequencing", "projectId": "5fc012bda3efcb29338b7d28"}
+{"at": "2026-11-27T13:18:49.674551+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/white_rust_resistance_gene_cloning_using_renseq", "projectId": "5fc012bda3efcb29338b7d42"}
+{"at": "2026-11-27T13:18:50.093500+00:00", "bytes": 336972337, "event": "deleted", "path": "/tsl/data/reads/jjones/white_rust_resistance_gene_cloning_using_renseq", "projectId": "5fc012bda3efcb29338b7d42"}
+{"at": "2026-11-27T13:18:50.293939+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/whole_genome_shotgun_of_solanum_americanum", "projectId": "5fc012bda3efcb29338b7d0a"}
+{"at": "2026-11-27T13:18:54.726658+00:00", "bytes": 377051587961, "event": "deleted", "path": "/tsl/data/reads/jjones/whole_genome_shotgun_of_solanum_americanum", "projectId": "5fc012bda3efcb29338b7d0a"}
+{"at": "2026-11-27T13:18:54.745266+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_jupef_solanum", "projectId": "5fc012bda3efcb29338b7d26"}
+{"at": "2026-11-27T13:18:55.119667+00:00", "bytes": 49905834495, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_jupef_solanum", "projectId": "5fc012bda3efcb29338b7d26"}
+{"at": "2026-11-27T13:18:55.177880+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_s_americanum_gDNA_bgi", "projectId": "5fc012bda3efcb29338b7d6b"}
+{"at": "2026-11-27T13:18:56.914885+00:00", "bytes": 319776477622, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_s_americanum_gDNA_bgi", "projectId": "5fc012bda3efcb29338b7d6b"}
+{"at": "2026-11-27T13:18:56.927652+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2", "projectId": "5fc012bda3efcb29338b7d1e"}
+{"at": "2026-11-27T13:18:57.209641+00:00", "bytes": 4725542901, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_cf_ecp2", "projectId": "5fc012bda3efcb29338b7d1e"}
+{"at": "2026-11-27T13:18:57.224628+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_qcdata", "projectId": "5fc012bda3efcb29338b7d66"}
+{"at": "2026-11-27T13:18:57.652105+00:00", "bytes": 103435674582, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_s_pimpinellifolium_qcdata", "projectId": "5fc012bda3efcb29338b7d66"}
+{"at": "2026-11-27T13:18:57.668363+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_s_tuberosum_dm_ber2", "projectId": "5fc012bda3efcb29338b7d71"}
+{"at": "2026-11-27T13:18:57.981533+00:00", "bytes": 8210369537, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_s_tuberosum_dm_ber2", "projectId": "5fc012bda3efcb29338b7d71"}
+{"at": "2026-11-27T13:18:57.994547+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/witekk_tomato_renseq_miseq", "projectId": "5fc012bda3efcb29338b7cfc"}
+{"at": "2026-11-27T13:18:58.555582+00:00", "bytes": 9528073071, "event": "deleted", "path": "/tsl/data/reads/jjones/witekk_tomato_renseq_miseq", "projectId": "5fc012bda3efcb29338b7cfc"}
+{"at": "2026-11-27T13:18:58.567623+00:00", "event": "deletion-started", "path": "/tsl/data/reads/jjones/xl_pacbio_rlp_k_seq_2019", "projectId": "5fc012bda3efcb29338b7d24"}
+{"at": "2026-11-27T13:18:59.167708+00:00", "bytes": 79718025620, "event": "deleted", "path": "/tsl/data/reads/jjones/xl_pacbio_rlp_k_seq_2019", "projectId": "5fc012bda3efcb29338b7d24"}
+{"at": "2026-11-27T13:18:59.178040+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/cell_cycle", "projectId": "5fc012bda3efcb29338b7d57"}
+{"at": "2026-11-27T13:19:00.772027+00:00", "bytes": 12147621942, "event": "deleted", "path": "/tsl/data/reads/ntalbot/cell_cycle", "projectId": "5fc012bda3efcb29338b7d57"}
+{"at": "2026-11-27T13:19:00.791890+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium", "projectId": "606c3308d7661b6ec22a0793"}
+{"at": "2026-11-27T13:19:02.953887+00:00", "bytes": 9339040375, "event": "deleted", "path": "/tsl/data/reads/ntalbot/chip_seq_data_hox7_3xflag_mycelium", "projectId": "606c3308d7661b6ec22a0793"}
+{"at": "2026-11-27T13:19:02.966659+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium", "projectId": "605b441ad7661b6ec22a076a"}
+{"at": "2026-11-27T13:19:04.696915+00:00", "bytes": 4808078917, "event": "deleted", "path": "/tsl/data/reads/ntalbot/chip_seq_data_mst12_gfp_mycelium", "projectId": "605b441ad7661b6ec22a076a"}
+{"at": "2026-11-27T13:19:04.710964+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/dap_seq_mst12_and_hox7_", "projectId": "60619edfd7661b6ec22a076e"}
+{"at": "2026-11-27T13:19:07.630447+00:00", "bytes": 4448038873, "event": "deleted", "path": "/tsl/data/reads/ntalbot/dap_seq_mst12_and_hox7_", "projectId": "60619edfd7661b6ec22a076e"}
+{"at": "2026-11-27T13:19:07.647384+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/generational_experiment_", "projectId": "6116c323e788b405b6ce69f6"}
+{"at": "2026-11-27T13:19:09.698607+00:00", "bytes": 36630086564, "event": "deleted", "path": "/tsl/data/reads/ntalbot/generational_experiment_", "projectId": "6116c323e788b405b6ce69f6"}
+{"at": "2026-11-27T13:19:09.735997+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/global_transcriptional_analysis_of_surface_perception", "projectId": "5fc012bda3efcb29338b7d2f"}
+{"at": "2026-11-27T13:19:14.020062+00:00", "bytes": 35075963678, "event": "deleted", "path": "/tsl/data/reads/ntalbot/global_transcriptional_analysis_of_surface_perception", "projectId": "5fc012bda3efcb29338b7d2f"}
+{"at": "2026-11-27T13:19:14.072325+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse", "projectId": "5fc012bda3efcb29338b7d7b"}
+{"at": "2026-11-27T13:19:20.244724+00:00", "bytes": 85999414527, "event": "deleted", "path": "/tsl/data/reads/ntalbot/ke002_infection_on_rice_rna_seq_timecourse", "projectId": "5fc012bda3efcb29338b7d7b"}
+{"at": "2026-11-27T13:19:20.318094+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/lichen_tissue_rna1", "projectId": "5fc012bda3efcb29338b7d4c"}
+{"at": "2026-11-27T13:19:26.140553+00:00", "bytes": 65384995837, "event": "deleted", "path": "/tsl/data/reads/ntalbot/lichen_tissue_rna1", "projectId": "5fc012bda3efcb29338b7d4c"}
+{"at": "2026-11-27T13:19:26.177147+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/nadph_oxidase_project", "projectId": "5fc012bda3efcb29338b7d33"}
+{"at": "2026-11-27T13:19:31.160515+00:00", "bytes": 52231000289, "event": "deleted", "path": "/tsl/data/reads/ntalbot/nadph_oxidase_project", "projectId": "5fc012bda3efcb29338b7d33"}
+{"at": "2026-11-27T13:19:31.336324+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_", "projectId": "5fc012bda3efcb29338b7d3e"}
+{"at": "2026-11-27T13:19:52.868570+00:00", "bytes": 423593913251, "event": "deleted", "path": "/tsl/data/reads/ntalbot/pmk1_mapkinase_pathway_appressorium_development_", "projectId": "5fc012bda3efcb29338b7d3e"}
+{"at": "2026-11-27T13:19:52.877450+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_1566", "projectId": "6ada6c4457c017ae17122658"}
+{"at": "2026-11-27T13:19:53.312585+00:00", "bytes": 8982368958, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_1566", "projectId": "6ada6c4457c017ae17122658"}
+{"at": "2026-11-27T13:19:53.323436+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_1622", "projectId": "6ada6c4457c017ae17122657"}
+{"at": "2026-11-27T13:19:54.269561+00:00", "bytes": 10629370636, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_1622", "projectId": "6ada6c4457c017ae17122657"}
+{"at": "2026-11-27T13:19:54.283906+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2009", "projectId": "6ada6c4457c017ae17122656"}
+{"at": "2026-11-27T13:19:54.894594+00:00", "bytes": 14852621710, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2009", "projectId": "6ada6c4457c017ae17122656"}
+{"at": "2026-11-27T13:19:54.921016+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2012", "projectId": "6ada6c4457c017ae17122652"}
+{"at": "2026-11-27T13:19:57.649936+00:00", "bytes": 31629123970, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2012", "projectId": "6ada6c4457c017ae17122652"}
+{"at": "2026-11-27T13:19:57.695050+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2035", "projectId": "6ada6c4457c017ae17122650"}
+{"at": "2026-11-27T13:20:01.893689+00:00", "bytes": 75397724663, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2035", "projectId": "6ada6c4457c017ae17122650"}
+{"at": "2026-11-27T13:20:01.900793+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2171", "projectId": "6ada6c4457c017ae1712265a"}
+{"at": "2026-11-27T13:20:02.779504+00:00", "bytes": 3557810271, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2171", "projectId": "6ada6c4457c017ae1712265a"}
+{"at": "2026-11-27T13:20:02.785613+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_230", "projectId": "6ada6c4557c017ae1712265d"}
+{"at": "2026-11-27T13:20:03.440867+00:00", "bytes": 8728408, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_230", "projectId": "6ada6c4557c017ae1712265d"}
+{"at": "2026-11-27T13:20:03.459785+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2323", "projectId": "6ada6c4457c017ae17122655"}
+{"at": "2026-11-27T13:20:05.083107+00:00", "bytes": 22039506100, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2323", "projectId": "6ada6c4457c017ae17122655"}
+{"at": "2026-11-27T13:20:05.094622+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2370", "projectId": "6ada6c4457c017ae1712264f"}
+{"at": "2026-11-27T13:20:05.831147+00:00", "bytes": 78243529352, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2370", "projectId": "6ada6c4457c017ae1712264f"}
+{"at": "2026-11-27T13:20:05.847144+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_2561", "projectId": "6ada6c4457c017ae1712265c"}
+{"at": "2026-11-27T13:20:07.517399+00:00", "bytes": 1523739906, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_2561", "projectId": "6ada6c4457c017ae1712265c"}
+{"at": "2026-11-27T13:20:07.529097+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_539", "projectId": "6ada6c4457c017ae1712265b"}
+{"at": "2026-11-27T13:20:08.713491+00:00", "bytes": 2914165083, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_539", "projectId": "6ada6c4457c017ae1712265b"}
+{"at": "2026-11-27T13:20:08.721112+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_592_593", "projectId": "6ada6c4457c017ae17122659"}
+{"at": "2026-11-27T13:20:08.972315+00:00", "bytes": 5229182384, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_592_593", "projectId": "6ada6c4457c017ae17122659"}
+{"at": "2026-11-27T13:20:08.978444+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_758", "projectId": "6ada6c4557c017ae1712265e"}
+{"at": "2026-11-27T13:20:09.443420+00:00", "bytes": 119591, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_758", "projectId": "6ada6c4557c017ae1712265e"}
+{"at": "2026-11-27T13:20:09.453124+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_809", "projectId": "6ada6c4457c017ae17122653"}
+{"at": "2026-11-27T13:20:09.669690+00:00", "bytes": 27090686963, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_809", "projectId": "6ada6c4457c017ae17122653"}
+{"at": "2026-11-27T13:20:09.692328+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_930", "projectId": "6ada6c4457c017ae17122654"}
+{"at": "2026-11-27T13:20:12.815609+00:00", "bytes": 22742214458, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_930", "projectId": "6ada6c4457c017ae17122654"}
+{"at": "2026-11-27T13:20:12.832308+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/project_945", "projectId": "6ada6c4457c017ae17122651"}
+{"at": "2026-11-27T13:20:14.115687+00:00", "bytes": 38737500366, "event": "deleted", "path": "/tsl/data/reads/ntalbot/project_945", "projectId": "6ada6c4457c017ae17122651"}
+{"at": "2026-11-27T13:20:14.137846+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12", "projectId": "60804e0b837a8a261f0133ee"}
+{"at": "2026-11-27T13:20:17.026792+00:00", "bytes": 35736656386, "event": "deleted", "path": "/tsl/data/reads/ntalbot/rna_seq_mycelium_cultures_guy11__dhox7_and_dmst12", "projectId": "60804e0b837a8a261f0133ee"}
+{"at": "2026-11-27T13:20:17.057630+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/rna_seq_of_various_mutants", "projectId": "5fc012bda3efcb29338b7d09"}
+{"at": "2026-11-27T13:20:21.353138+00:00", "bytes": 58826618808, "event": "deleted", "path": "/tsl/data/reads/ntalbot/rna_seq_of_various_mutants", "projectId": "5fc012bda3efcb29338b7d09"}
+{"at": "2026-11-27T13:20:21.366419+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_", "projectId": "5fc012bda3efcb29338b7d50"}
+{"at": "2026-11-27T13:20:22.635835+00:00", "bytes": 51087911, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_magnaporthe_oryzae_guy11_", "projectId": "5fc012bda3efcb29338b7d50"}
+{"at": "2026-11-27T13:20:22.664482+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background", "projectId": "5fc012bda3efcb29338b7d06"}
+{"at": "2026-11-27T13:20:25.587573+00:00", "bytes": 19142588085, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_melanin_biosynthesis_pathway_crispr_mutants_in_guy11_background", "projectId": "5fc012bda3efcb29338b7d06"}
+{"at": "2026-11-27T13:20:25.616263+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_", "projectId": "5fc012bda3efcb29338b7d79"}
+{"at": "2026-11-27T13:20:26.403467+00:00", "bytes": 23114728859, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_of_5_strains_of_kenyan_magnaporthe_oryzae_", "projectId": "5fc012bda3efcb29338b7d79"}
+{"at": "2026-11-27T13:20:26.437013+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya", "projectId": "5fc012bda3efcb29338b7d1d"}
+{"at": "2026-11-27T13:20:27.672381+00:00", "bytes": 16867382244, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_isolates_from_kenya", "projectId": "5fc012bda3efcb29338b7d1d"}
+{"at": "2026-11-27T13:20:27.683113+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002", "projectId": "5fc012bda3efcb29338b7d25"}
+{"at": "2026-11-27T13:20:28.029133+00:00", "bytes": 57901188, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_of_magnaporthe_oryzae_ke002", "projectId": "5fc012bda3efcb29338b7d25"}
+{"at": "2026-11-27T13:20:28.106272+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates", "projectId": "5fc012bda3efcb29338b7cfa"}
+{"at": "2026-11-27T13:20:30.079623+00:00", "bytes": 34152118080, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_of_sub_saharan_africa_magnaporthe_oryzae_isolates", "projectId": "5fc012bda3efcb29338b7cfa"}
+{"at": "2026-11-27T13:20:30.090115+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background", "projectId": "5fc012bda3efcb29338b7d03"}
+{"at": "2026-11-27T13:20:30.281563+00:00", "bytes": 7545919237, "event": "deleted", "path": "/tsl/data/reads/ntalbot/sequencing_pwl2_mutants_in_guy11_background", "projectId": "5fc012bda3efcb29338b7d03"}
+{"at": "2026-11-27T13:20:30.308988+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor", "projectId": "5fc012bda3efcb29338b7cf7"}
+{"at": "2026-11-27T13:20:32.441266+00:00", "bytes": 41849908492, "event": "deleted", "path": "/tsl/data/reads/ntalbot/study_of_pmk1as_mutant_in_presence_and_absence_of_an_inhibitor", "projectId": "5fc012bda3efcb29338b7cf7"}
+{"at": "2026-11-27T13:20:32.649204+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/transcription_profiling_during_rice_plant_infection", "projectId": "5fc012bda3efcb29338b7d46"}
+{"at": "2026-11-27T13:21:09.024131+00:00", "bytes": 457914621055, "event": "deleted", "path": "/tsl/data/reads/ntalbot/transcription_profiling_during_rice_plant_infection", "projectId": "5fc012bda3efcb29338b7d46"}
+{"at": "2026-11-27T13:21:09.042274+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae", "projectId": "5fc012bda3efcb29338b7d43"}
+{"at": "2026-11-27T13:21:11.261798+00:00", "bytes": 32153599360, "event": "deleted", "path": "/tsl/data/reads/ntalbot/transcriptional_regulation_of_melanin_in_magnaporthe_oryzae", "projectId": "5fc012bda3efcb29338b7d43"}
+{"at": "2026-11-27T13:21:11.303145+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf", "projectId": "6116c220e788b405b6ce69f2"}
+{"at": "2026-11-27T13:21:11.452577+00:00", "bytes": 6209130977, "event": "deleted", "path": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dhox7_tf", "projectId": "6116c220e788b405b6ce69f2"}
+{"at": "2026-11-27T13:21:11.473473+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf", "projectId": "6116bf17e788b405b6ce69e8"}
+{"at": "2026-11-27T13:21:13.124274+00:00", "bytes": 42891475718, "event": "deleted", "path": "/tsl/data/reads/ntalbot/transcriptomics_appressorial_assay_dznf1_tf", "projectId": "6116bf17e788b405b6ce69e8"}
+{"at": "2026-11-27T13:21:13.141696+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/turgor_project", "projectId": "5fc012bda3efcb29338b7d7f"}
+{"at": "2026-11-27T13:21:14.427992+00:00", "bytes": 3039086281, "event": "deleted", "path": "/tsl/data/reads/ntalbot/turgor_project", "projectId": "5fc012bda3efcb29338b7d7f"}
+{"at": "2026-11-27T13:21:14.591942+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/uv_mutagenesis", "projectId": "5fc012bda3efcb29338b7d04"}
+{"at": "2026-11-27T13:21:32.375398+00:00", "bytes": 184379087191, "event": "deleted", "path": "/tsl/data/reads/ntalbot/uv_mutagenesis", "projectId": "5fc012bda3efcb29338b7d04"}
+{"at": "2026-11-27T13:21:32.477791+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/wheat_blast_project", "projectId": "5fc012bda3efcb29338b7d41"}
+{"at": "2026-11-27T13:21:35.840284+00:00", "bytes": 106623504945, "event": "deleted", "path": "/tsl/data/reads/ntalbot/wheat_blast_project", "projectId": "5fc012bda3efcb29338b7d41"}
+{"at": "2026-11-27T13:21:35.863158+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/wsc1_project", "projectId": "5fc012bda3efcb29338b7d21"}
+{"at": "2026-11-27T13:21:36.680631+00:00", "bytes": 3744179136, "event": "deleted", "path": "/tsl/data/reads/ntalbot/wsc1_project", "projectId": "5fc012bda3efcb29338b7d21"}
+{"at": "2026-11-27T13:21:36.697943+00:00", "event": "deletion-started", "path": "/tsl/data/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse", "projectId": "5fc012bda3efcb29338b7d02"}
+{"at": "2026-11-27T13:21:38.111941+00:00", "bytes": 141690619948, "event": "deleted", "path": "/tsl/data/reads/ntalbot/wt_guy11_and_guy11_pwl2_mutant_infection_on_eragrostis_curvula_rna_seq_timecourse", "projectId": "5fc012bda3efcb29338b7d02"}
+{"at": "2026-11-27T13:21:38.141729+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants", "projectId": "613b733ee788b405b6ce6eb8"}
+{"at": "2026-11-27T13:21:39.392656+00:00", "bytes": 66190383789, "event": "deleted", "path": "/tsl/data/reads/skamoun/_differential_gene_expression_analysis_of_tol9_crispr_mutants", "projectId": "613b733ee788b405b6ce6eb8"}
+{"at": "2026-11-27T13:21:39.397494+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/halioticida_haliocrustida", "projectId": "5fc012bda3efcb29338b7d30"}
+{"at": "2026-11-27T13:21:39.787226+00:00", "bytes": 9129, "event": "deleted", "path": "/tsl/data/reads/skamoun/halioticida_haliocrustida", "projectId": "5fc012bda3efcb29338b7d30"}
+{"at": "2026-11-27T13:21:39.809387+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/halioticida_haliphthoros", "projectId": "5fc012bda3efcb29338b7d32"}
+{"at": "2026-11-27T13:21:40.620165+00:00", "bytes": 5332457063, "event": "deleted", "path": "/tsl/data/reads/skamoun/halioticida_haliphthoros", "projectId": "5fc012bda3efcb29338b7d32"}
+{"at": "2026-11-27T13:21:40.638722+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/janderso_rsolani", "projectId": "5fc012bda3efcb29338b7d3d"}
+{"at": "2026-11-27T13:21:41.632832+00:00", "bytes": 161890791630, "event": "deleted", "path": "/tsl/data/reads/skamoun/janderso_rsolani", "projectId": "5fc012bda3efcb29338b7d3d"}
+{"at": "2026-11-27T13:21:41.677005+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates", "projectId": "5fc012bda3efcb29338b7d73"}
+{"at": "2026-11-27T13:21:42.622416+00:00", "bytes": 61328719175, "event": "deleted", "path": "/tsl/data/reads/skamoun/nanopore_sequences_from_italian_rice_blast_fungal_isolates", "projectId": "5fc012bda3efcb29338b7d73"}
+{"at": "2026-11-27T13:21:42.737957+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rice_blast", "projectId": "5fc012bda3efcb29338b7d0c"}
+{"at": "2026-11-27T13:21:44.844063+00:00", "bytes": 408575806056, "event": "deleted", "path": "/tsl/data/reads/skamoun/rice_blast", "projectId": "5fc012bda3efcb29338b7d0c"}
+{"at": "2026-11-27T13:21:44.863536+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_", "projectId": "60defd3ae788b405b6ce68db"}
+{"at": "2026-11-27T13:21:46.682336+00:00", "bytes": 50687234252, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_lettuce__lactuca_sativa_", "projectId": "60defd3ae788b405b6ce68db"}
+{"at": "2026-11-27T13:21:46.691563+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl", "projectId": "611bcc57e788b405b6ce69fc"}
+{"at": "2026-11-27T13:21:47.428123+00:00", "bytes": 9739985962, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_m__polymorpha_cnl", "projectId": "611bcc57e788b405b6ce69fc"}
+{"at": "2026-11-27T13:21:47.435341+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1", "projectId": "611be0c6e788b405b6ce6a3c"}
+{"at": "2026-11-27T13:21:47.920314+00:00", "bytes": 9377213032, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_expressing_wt_and_dv_mutant_of_nbroq1", "projectId": "611be0c6e788b405b6ce6a3c"}
+{"at": "2026-11-27T13:21:47.936855+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl", "projectId": "61572b1b36105e13c15d58ac"}
+{"at": "2026-11-27T13:21:49.192494+00:00", "bytes": 29715892569, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_transiently_expressing_wt_and_autoactive_tnl", "projectId": "61572b1b36105e13c15d58ac"}
+{"at": "2026-11-27T13:21:49.220492+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants", "projectId": "60c8b1d3e788b405b6ce6845"}
+{"at": "2026-11-27T13:21:52.853124+00:00", "bytes": 123144455087, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_nrc234_ko_mutants", "projectId": "60c8b1d3e788b405b6ce6845"}
+{"at": "2026-11-27T13:21:52.892995+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants", "projectId": "610fd90de788b405b6ce6946"}
+{"at": "2026-11-27T13:21:56.570891+00:00", "bytes": 149454437756, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_n__benthamiana_wt_and_zar1_mutants", "projectId": "610fd90de788b405b6ce6946"}
+{"at": "2026-11-27T13:21:56.587063+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs", "projectId": "611bd783e788b405b6ce6a0c"}
+{"at": "2026-11-27T13:21:57.428946+00:00", "bytes": 33201255555, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_nrc2_3_4_ko_n__benthamiana_expressing_activated_nlrs", "projectId": "611bd783e788b405b6ce6a0c"}
+{"at": "2026-11-27T13:21:57.450415+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_", "projectId": "60d1f3a0e788b405b6ce68a1"}
+{"at": "2026-11-27T13:21:58.619917+00:00", "bytes": 47942838875, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_spinach__spinacia_oleracea_", "projectId": "60d1f3a0e788b405b6ce68a1"}
+{"at": "2026-11-27T13:21:58.629362+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_", "projectId": "60e4528be788b405b6ce6917"}
+{"at": "2026-11-27T13:21:59.562495+00:00", "bytes": 39838925625, "event": "deleted", "path": "/tsl/data/reads/skamoun/rna_seq_data_from_tomato_la1792__incl__hero_", "projectId": "60e4528be788b405b6ce6917"}
+{"at": "2026-11-27T13:21:59.611772+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/rnaseq_pikobodiesmada", "projectId": "64c13517d32c7a7e4b174f20"}
+{"at": "2026-11-27T13:22:04.191391+00:00", "bytes": 72238981053, "event": "deleted", "path": "/tsl/data/reads/skamoun/rnaseq_pikobodiesmada", "projectId": "64c13517d32c7a7e4b174f20"}
+{"at": "2026-11-27T13:22:04.295066+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01", "projectId": "6ada6c4557c017ae1712265f"}
+{"at": "2026-11-27T13:22:10.204856+00:00", "bytes": 65286846255, "event": "deleted", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_Project_TCS_ClareLewis_JIC.CL.20130409.01", "projectId": "6ada6c4557c017ae1712265f"}
+{"at": "2026-11-27T13:22:10.243934+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113", "projectId": "6ada6c4557c017ae17122660"}
+{"at": "2026-11-27T13:22:11.818944+00:00", "bytes": 32165487135, "event": "deleted", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TCS_DianeSaunders_TSL.DS.20130809.01_113", "projectId": "6ada6c4557c017ae17122660"}
+{"at": "2026-11-27T13:22:11.830552+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99", "projectId": "6ada6c4557c017ae17122661"}
+{"at": "2026-11-27T13:22:12.333846+00:00", "bytes": 6156498502, "event": "deleted", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130722.01_TCS_99", "projectId": "6ada6c4557c017ae17122661"}
+{"at": "2026-11-27T13:22:12.363019+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105", "projectId": "6ada6c4557c017ae17122662"}
+{"at": "2026-11-27T13:22:13.362512+00:00", "bytes": 41786044848, "event": "deleted", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20130730.01_TCS_105", "projectId": "6ada6c4557c017ae17122662"}
+{"at": "2026-11-27T13:22:13.425863+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144", "projectId": "6ada6c4557c017ae17122663"}
+{"at": "2026-11-27T13:22:15.753271+00:00", "bytes": 27554681601, "event": "deleted", "path": "/tsl/data/reads/skamoun/saunderd_pstriiformis_TSL.DS.20131010.01rev2_1x_Rapid_Lane_TCS_144", "projectId": "6ada6c4557c017ae17122663"}
+{"at": "2026-11-27T13:22:15.763950+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates", "projectId": "6452a72c525e070698932583"}
+{"at": "2026-11-27T13:22:16.912302+00:00", "bytes": 7449731477, "event": "deleted", "path": "/tsl/data/reads/skamoun/sequencing_of_br62_and_i54_blast_fungus_isolates", "projectId": "6452a72c525e070698932583"}
+{"at": "2026-11-27T13:22:16.957661+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/wheat_blast", "projectId": "5fc012bda3efcb29338b7d23"}
+{"at": "2026-11-27T13:22:17.914655+00:00", "bytes": 61698523958, "event": "deleted", "path": "/tsl/data/reads/skamoun/wheat_blast", "projectId": "5fc012bda3efcb29338b7d23"}
+{"at": "2026-11-27T13:22:18.056637+00:00", "event": "deletion-started", "path": "/tsl/data/reads/skamoun/wheat_blast_2017", "projectId": "5fc012bda3efcb29338b7cff"}
+{"at": "2026-11-27T13:22:22.097611+00:00", "bytes": 66261978234, "event": "deleted", "path": "/tsl/data/reads/skamoun/wheat_blast_2017", "projectId": "5fc012bda3efcb29338b7cff"}
+{"at": "2026-11-27T13:22:22.133890+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/2021_gargy_accessions_wgs", "projectId": "60be4bafe788b405b6ce6726"}
+{"at": "2026-11-27T13:22:25.582286+00:00", "bytes": 225146340583, "event": "deleted", "path": "/tsl/data/reads/two_blades/2021_gargy_accessions_wgs", "projectId": "60be4bafe788b405b6ce6726"}
+{"at": "2026-11-27T13:22:25.615964+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/Courville", "projectId": "6ada6c4457c017ae1712264e"}
+{"at": "2026-11-27T13:22:27.196929+00:00", "bytes": 298805448427, "event": "deleted", "path": "/tsl/data/reads/two_blades/Courville", "projectId": "6ada6c4457c017ae1712264e"}
+{"at": "2026-11-27T13:22:27.245962+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/_re_sequencing_genomic_dna_bgi", "projectId": "5fc012bda3efcb29338b7d0b"}
+{"at": "2026-11-27T13:22:28.564642+00:00", "bytes": 139553461709, "event": "deleted", "path": "/tsl/data/reads/two_blades/_re_sequencing_genomic_dna_bgi", "projectId": "5fc012bda3efcb29338b7d0b"}
+{"at": "2026-11-27T13:22:28.574311+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/adpop7_parents_wgs_illumina", "projectId": "6051c37ad7661b6ec22a06e3"}
+{"at": "2026-11-27T13:22:29.672161+00:00", "bytes": 77132674232, "event": "deleted", "path": "/tsl/data/reads/two_blades/adpop7_parents_wgs_illumina", "projectId": "6051c37ad7661b6ec22a06e3"}
+{"at": "2026-11-27T13:22:29.684987+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/adpop7_progeny_bsa_illumina", "projectId": "606d815ed7661b6ec22a0799"}
+{"at": "2026-11-27T13:22:30.876776+00:00", "bytes": 97868724548, "event": "deleted", "path": "/tsl/data/reads/two_blades/adpop7_progeny_bsa_illumina", "projectId": "606d815ed7661b6ec22a0799"}
+{"at": "2026-11-27T13:22:30.883329+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/adpop7_refassembly_hifi", "projectId": "606eb043d7661b6ec22a07a3"}
+{"at": "2026-11-27T13:22:31.066591+00:00", "bytes": 46103572077, "event": "deleted", "path": "/tsl/data/reads/two_blades/adpop7_refassembly_hifi", "projectId": "606eb043d7661b6ec22a07a3"}
+{"at": "2026-11-27T13:22:31.073675+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/advpop7_cdna_nanopore", "projectId": "604f7072d7661b6ec22a06cf"}
+{"at": "2026-11-27T13:22:31.443511+00:00", "bytes": 20841174602, "event": "deleted", "path": "/tsl/data/reads/two_blades/advpop7_cdna_nanopore", "projectId": "604f7072d7661b6ec22a06cf"}
+{"at": "2026-11-27T13:22:31.467767+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/ant_project_rnaseq_data", "projectId": "60bf4a7be788b405b6ce6763"}
+{"at": "2026-11-27T13:22:32.498034+00:00", "bytes": 31061957907, "event": "deleted", "path": "/tsl/data/reads/two_blades/ant_project_rnaseq_data", "projectId": "60bf4a7be788b405b6ce6763"}
+{"at": "2026-11-27T13:22:32.510675+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/asr_sequencing_10xgenomics", "projectId": "5fc012bda3efcb29338b7d52"}
+{"at": "2026-11-27T13:22:32.901371+00:00", "bytes": 77051692759, "event": "deleted", "path": "/tsl/data/reads/two_blades/asr_sequencing_10xgenomics", "projectId": "5fc012bda3efcb29338b7d52"}
+{"at": "2026-11-27T13:22:32.912072+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/asr_sequencing_illumina", "projectId": "5fc012bda3efcb29338b7d51"}
+{"at": "2026-11-27T13:22:33.465985+00:00", "bytes": 72453177309, "event": "deleted", "path": "/tsl/data/reads/two_blades/asr_sequencing_illumina", "projectId": "5fc012bda3efcb29338b7d51"}
+{"at": "2026-11-27T13:22:33.477649+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/bulks_asr_3_screen", "projectId": "5fc012bda3efcb29338b7d19"}
+{"at": "2026-11-27T13:22:34.120394+00:00", "bytes": 33872870524, "event": "deleted", "path": "/tsl/data/reads/two_blades/bulks_asr_3_screen", "projectId": "5fc012bda3efcb29338b7d19"}
+{"at": "2026-11-27T13:22:34.188361+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/cajanus_70x_genomicdata_reads_illumina", "projectId": "5fc012bda3efcb29338b7d7e"}
+{"at": "2026-11-27T13:22:35.815981+00:00", "bytes": 150156064373, "event": "deleted", "path": "/tsl/data/reads/two_blades/cajanus_70x_genomicdata_reads_illumina", "projectId": "5fc012bda3efcb29338b7d7e"}
+{"at": "2026-11-27T13:22:35.847708+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1", "projectId": "5fc012bda3efcb29338b7d05"}
+{"at": "2026-11-27T13:22:39.653817+00:00", "bytes": 271991566056, "event": "deleted", "path": "/tsl/data/reads/two_blades/dovetail_re_sequencing_of_gargy_11_parent_of_2bl_ni_gargy_fam1", "projectId": "5fc012bda3efcb29338b7d05"}
+{"at": "2026-11-27T13:22:39.757729+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/exome_capture_field_samples_jan2018", "projectId": "5fc012bda3efcb29338b7d18"}
+{"at": "2026-11-27T13:22:44.555787+00:00", "bytes": 49872696933, "event": "deleted", "path": "/tsl/data/reads/two_blades/exome_capture_field_samples_jan2018", "projectId": "5fc012bda3efcb29338b7d18"}
+{"at": "2026-11-27T13:22:44.580124+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/foc_cr1_", "projectId": "5fc012bda3efcb29338b7d62"}
+{"at": "2026-11-27T13:22:45.835556+00:00", "bytes": 100272415170, "event": "deleted", "path": "/tsl/data/reads/two_blades/foc_cr1_", "projectId": "5fc012bda3efcb29338b7d62"}
+{"at": "2026-11-27T13:22:45.856212+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/foc_st4", "projectId": "5fc012bda3efcb29338b7d2c"}
+{"at": "2026-11-27T13:22:47.302524+00:00", "bytes": 89668270245, "event": "deleted", "path": "/tsl/data/reads/two_blades/foc_st4", "projectId": "5fc012bda3efcb29338b7d2c"}
+{"at": "2026-11-27T13:22:47.318632+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/gargy_2019_isoseq", "projectId": "5fc012bda3efcb29338b7d07"}
+{"at": "2026-11-27T13:22:48.625925+00:00", "bytes": 123255416179, "event": "deleted", "path": "/tsl/data/reads/two_blades/gargy_2019_isoseq", "projectId": "5fc012bda3efcb29338b7d07"}
+{"at": "2026-11-27T13:22:48.638143+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/genotyping_by_sequencing_advanced_population_8", "projectId": "6130d23de788b405b6ce6d93"}
+{"at": "2026-11-27T13:22:49.834439+00:00", "bytes": 81147190680, "event": "deleted", "path": "/tsl/data/reads/two_blades/genotyping_by_sequencing_advanced_population_8", "projectId": "6130d23de788b405b6ce6d93"}
+{"at": "2026-11-27T13:22:49.852549+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/gltp_rnaseq_cintiakawashima", "projectId": "5fc012bda3efcb29338b7d3f"}
+{"at": "2026-11-27T13:22:50.686466+00:00", "bytes": 37991753431, "event": "deleted", "path": "/tsl/data/reads/two_blades/gltp_rnaseq_cintiakawashima", "projectId": "5fc012bda3efcb29338b7d3f"}
+{"at": "2026-11-27T13:22:50.701772+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/gltp_wgs_cintiakawashima", "projectId": "5fc012bda3efcb29338b7d2d"}
+{"at": "2026-11-27T13:22:50.946408+00:00", "bytes": 40690750463, "event": "deleted", "path": "/tsl/data/reads/two_blades/gltp_wgs_cintiakawashima", "projectId": "5fc012bda3efcb29338b7d2d"}
+{"at": "2026-11-27T13:22:50.992268+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/japanse_isolate_timecourse", "projectId": "5fc012bda3efcb29338b7d67"}
+{"at": "2026-11-27T13:22:52.211671+00:00", "bytes": 145459637100, "event": "deleted", "path": "/tsl/data/reads/two_blades/japanse_isolate_timecourse", "projectId": "5fc012bda3efcb29338b7d67"}
+{"at": "2026-11-27T13:22:52.219880+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_raparent", "projectId": "5fc012bda3efcb29338b7d63"}
+{"at": "2026-11-27T13:22:52.351701+00:00", "bytes": 8833478265, "event": "deleted", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_raparent", "projectId": "5fc012bda3efcb29338b7d63"}
+{"at": "2026-11-27T13:22:52.360546+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_rd", "projectId": "5fc012bda3efcb29338b7d22"}
+{"at": "2026-11-27T13:22:52.431243+00:00", "bytes": 9850699379, "event": "deleted", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_rd", "projectId": "5fc012bda3efcb29338b7d22"}
+{"at": "2026-11-27T13:22:52.439983+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_s48", "projectId": "5fc012bda3efcb29338b7d3b"}
+{"at": "2026-11-27T13:22:52.519468+00:00", "bytes": 9238905532, "event": "deleted", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_s48", "projectId": "5fc012bda3efcb29338b7d3b"}
+{"at": "2026-11-27T13:22:52.528520+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2", "projectId": "5fc012bda3efcb29338b7d45"}
+{"at": "2026-11-27T13:22:52.613182+00:00", "bytes": 23555304813, "event": "deleted", "path": "/tsl/data/reads/two_blades/legumeenrichmentcapture_sbulk_ccrpp2", "projectId": "5fc012bda3efcb29338b7d45"}
+{"at": "2026-11-27T13:22:52.644094+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/medicago_trucatala__genome_sequences", "projectId": "5fc012bda3efcb29338b7d5d"}
+{"at": "2026-11-27T13:22:54.931009+00:00", "bytes": 133328625562, "event": "deleted", "path": "/tsl/data/reads/two_blades/medicago_trucatala__genome_sequences", "projectId": "5fc012bda3efcb29338b7d5d"}
+{"at": "2026-11-27T13:22:54.961278+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks", "projectId": "5fc012bda3efcb29338b7d6f"}
+{"at": "2026-11-27T13:22:56.107118+00:00", "bytes": 89741146441, "event": "deleted", "path": "/tsl/data/reads/two_blades/mtruncatula_bgi_gdna_parents_twof2susceptiblebulks", "projectId": "5fc012bda3efcb29338b7d6f"}
+{"at": "2026-11-27T13:22:56.120246+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/mtruncatula_bgi_rnaseq_parents", "projectId": "5fc012bda3efcb29338b7d1c"}
+{"at": "2026-11-27T13:22:56.584434+00:00", "bytes": 51726945153, "event": "deleted", "path": "/tsl/data/reads/two_blades/mtruncatula_bgi_rnaseq_parents", "projectId": "5fc012bda3efcb29338b7d1c"}
+{"at": "2026-11-27T13:22:56.696173+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/pacbio_genome_sequencing_ppufv02", "projectId": "5fc012bda3efcb29338b7d00"}
+{"at": "2026-11-27T13:23:07.494531+00:00", "bytes": 521252084820, "event": "deleted", "path": "/tsl/data/reads/two_blades/pacbio_genome_sequencing_ppufv02", "projectId": "5fc012bda3efcb29338b7d00"}
+{"at": "2026-11-27T13:23:07.675008+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome", "projectId": "5fc012bda3efcb29338b7d16"}
+{"at": "2026-11-27T13:23:27.082873+00:00", "bytes": 249579426855, "event": "deleted", "path": "/tsl/data/reads/two_blades/phakopsora_pachyrhizi_ga05_1_complete_infection_transcriptome", "projectId": "5fc012bda3efcb29338b7d16"}
+{"at": "2026-11-27T13:23:27.173855+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute", "projectId": "5fc012bda3efcb29338b7d5f"}
+{"at": "2026-11-27T13:23:37.625223+00:00", "bytes": 214088937044, "event": "deleted", "path": "/tsl/data/reads/two_blades/philmacclean_enrichedpacbio_earlhaminstitute", "projectId": "5fc012bda3efcb29338b7d5f"}
+{"at": "2026-11-27T13:23:37.685114+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/pkg_enq_698nadineilk", "projectId": "5fc012bda3efcb29338b7d5e"}
+{"at": "2026-11-27T13:23:38.845342+00:00", "bytes": 168220436830, "event": "deleted", "path": "/tsl/data/reads/two_blades/pkg_enq_698nadineilk", "projectId": "5fc012bda3efcb29338b7d5e"}
+{"at": "2026-11-27T13:23:38.857145+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/pkg_enq_832_01nadineilk", "projectId": "5fc012bda3efcb29338b7d80"}
+{"at": "2026-11-27T13:23:39.036568+00:00", "bytes": 75672305, "event": "deleted", "path": "/tsl/data/reads/two_blades/pkg_enq_832_01nadineilk", "projectId": "5fc012bda3efcb29338b7d80"}
+{"at": "2026-11-27T13:23:39.049163+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/ppufv02_gdna_bgi", "projectId": "5fc012bda3efcb29338b7d7d"}
+{"at": "2026-11-27T13:23:39.771315+00:00", "bytes": 49736660585, "event": "deleted", "path": "/tsl/data/reads/two_blades/ppufv02_gdna_bgi", "projectId": "5fc012bda3efcb29338b7d7d"}
+{"at": "2026-11-27T13:23:39.780043+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/ppufv02_nanopore_sequencing", "projectId": "5fc012bda3efcb29338b7d55"}
+{"at": "2026-11-27T13:23:40.559296+00:00", "bytes": 106000044545, "event": "deleted", "path": "/tsl/data/reads/two_blades/ppufv02_nanopore_sequencing", "projectId": "5fc012bda3efcb29338b7d55"}
+{"at": "2026-11-27T13:23:40.609036+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/ppufv02_timecourse", "projectId": "5fc012bda3efcb29338b7d6c"}
+{"at": "2026-11-27T13:23:41.386641+00:00", "bytes": 148918476355, "event": "deleted", "path": "/tsl/data/reads/two_blades/ppufv02_timecourse", "projectId": "5fc012bda3efcb29338b7d6c"}
+{"at": "2026-11-27T13:23:41.694605+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/ppufv02_transcriptome", "projectId": "5fc012bda3efcb29338b7cfd"}
+{"at": "2026-11-27T13:24:01.699055+00:00", "bytes": 298625577302, "event": "deleted", "path": "/tsl/data/reads/two_blades/ppufv02_transcriptome", "projectId": "5fc012bda3efcb29338b7cfd"}
+{"at": "2026-11-27T13:24:01.711933+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/rnaseq_2bl_ni_gargy_fam1", "projectId": "5fc012bda3efcb29338b7d74"}
+{"at": "2026-11-27T13:24:02.466263+00:00", "bytes": 7270673459, "event": "deleted", "path": "/tsl/data/reads/two_blades/rnaseq_2bl_ni_gargy_fam1", "projectId": "5fc012bda3efcb29338b7d74"}
+{"at": "2026-11-27T13:24:02.498718+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf", "projectId": "5fc012bda3efcb29338b7d54"}
+{"at": "2026-11-27T13:24:04.050147+00:00", "bytes": 85588402376, "event": "deleted", "path": "/tsl/data/reads/two_blades/rnaseq_bgi_cajanus_cajan_inf", "projectId": "5fc012bda3efcb29338b7d54"}
+{"at": "2026-11-27T13:24:04.066262+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/rnaseq_m_trun", "projectId": "5fc012bda3efcb29338b7d65"}
+{"at": "2026-11-27T13:24:04.259599+00:00", "bytes": 8236352627, "event": "deleted", "path": "/tsl/data/reads/two_blades/rnaseq_m_trun", "projectId": "5fc012bda3efcb29338b7d65"}
+{"at": "2026-11-27T13:24:04.301490+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/rnaseq_of_differential_isolates_of_asr", "projectId": "5fc012bda3efcb29338b7d08"}
+{"at": "2026-11-27T13:24:06.091317+00:00", "bytes": 103376057393, "event": "deleted", "path": "/tsl/data/reads/two_blades/rnaseq_of_differential_isolates_of_asr", "projectId": "5fc012bda3efcb29338b7d08"}
+{"at": "2026-11-27T13:24:06.126707+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/rnaseqp_sa", "projectId": "5fc012bda3efcb29338b7d20"}
+{"at": "2026-11-27T13:24:06.956309+00:00", "bytes": 166467707030, "event": "deleted", "path": "/tsl/data/reads/two_blades/rnaseqp_sa", "projectId": "5fc012bda3efcb29338b7d20"}
+{"at": "2026-11-27T13:24:06.975716+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_", "projectId": "5fc012bda3efcb29338b7cfe"}
+{"at": "2026-11-27T13:24:12.910012+00:00", "bytes": 219297530739, "event": "deleted", "path": "/tsl/data/reads/two_blades/sequencing_and_de_novo_assembly_of_glycine_latifolia_", "projectId": "5fc012bda3efcb29338b7cfe"}
+{"at": "2026-11-27T13:24:12.941449+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/sequencing_field_isolates_of_phakopsora", "projectId": "5fc012bda3efcb29338b7d48"}
+{"at": "2026-11-27T13:24:13.973414+00:00", "bytes": 102821725130, "event": "deleted", "path": "/tsl/data/reads/two_blades/sequencing_field_isolates_of_phakopsora", "projectId": "5fc012bda3efcb29338b7d48"}
+{"at": "2026-11-27T13:24:13.988942+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/soybean_rust_dovetail_hic", "projectId": "5fc012bda3efcb29338b7d15"}
+{"at": "2026-11-27T13:24:16.589374+00:00", "bytes": 44801395583, "event": "deleted", "path": "/tsl/data/reads/two_blades/soybean_rust_dovetail_hic", "projectId": "5fc012bda3efcb29338b7d15"}
+{"at": "2026-11-27T13:24:16.615912+00:00", "event": "deletion-started", "path": "/tsl/data/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles", "projectId": "5fc012bda3efcb29338b7d1f"}
+{"at": "2026-11-27T13:24:17.628829+00:00", "bytes": 100282185901, "event": "deleted", "path": "/tsl/data/reads/two_blades/whole_genome_shotgun_illumina_sequencing_of_gargy_11__gargy_04_and_bulk_susecptibles", "projectId": "5fc012bda3efcb29338b7d1f"}
+{"at": "2026-11-27T13:24:17.630041+00:00", "databaseConfirmationRequired": true, "event": "complete", "projects": 167}

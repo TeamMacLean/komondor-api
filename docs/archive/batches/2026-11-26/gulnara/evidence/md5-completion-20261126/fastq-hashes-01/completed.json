@@ -1,0 +1,1162 @@
+{
+  "at": "2026-11-26T14:24:18.645579+00:00",
+  "kind": "gulnara-independent-md5-sha256-completion",
+  "projectId": "6ae4ac89a6b876c643741d27",
+  "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563",
+  "copyManifestSha256": "0a2efc9c49c37c5da0a402d0a4906355583e50684331a2c02abd451e9768371e",
+  "allVerified": true,
+  "fastqCount": 24,
+  "sidecarCount": 16,
+  "bytes": 41432633829,
+  "fastqs": [
+    {
+      "record": {
+        "sampleId": "5fd20521d8dd4a63058cc289",
+        "fileId": "5fd205a8d8dd4a63058cc28d",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/raw/S_21XB1_1.fq.gz",
+        "bytes": 1753161275,
+        "sealedSha256": "ce7f2852f167fe9111f5f4725cfba8c6026c85cb114bbe954234f2bb011ec911",
+        "expectedMd5FromSidecars": "27ff5eeeb5cc08dc24e5d312b3050579",
+        "sidecarFileIds": [
+          "5fd205a8d8dd4a63058cc28f"
+        ],
+        "md5": "27ff5eeeb5cc08dc24e5d312b3050579",
+        "sha256": "ce7f2852f167fe9111f5f4725cfba8c6026c85cb114bbe954234f2bb011ec911",
+        "metadata": {
+          "dev": "42",
+          "ino": "61764415114",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1753161275",
+          "mtime_ns": "1607599540660000000",
+          "ctime_ns": "1795699468014082000"
+        },
+        "at": "2026-11-26T14:13:13.700491+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "2dee6ab58cead33307ee67cefa938bba0111bcd99aaf431607ca4c51b677d958"
+    },
+    {
+      "record": {
+        "sampleId": "5fd20521d8dd4a63058cc289",
+        "fileId": "5fd205a8d8dd4a63058cc28e",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/raw/S_21XB1_2.fq.gz",
+        "bytes": 1805995784,
+        "sealedSha256": "322fbf35126e88954616335e7c7b0747321a46b31c03c928673605e8755ad740",
+        "expectedMd5FromSidecars": "95ec70c69650817098938176db4c7d00",
+        "sidecarFileIds": [
+          "5fd205a8d8dd4a63058cc28f"
+        ],
+        "md5": "95ec70c69650817098938176db4c7d00",
+        "sha256": "322fbf35126e88954616335e7c7b0747321a46b31c03c928673605e8755ad740",
+        "metadata": {
+          "dev": "42",
+          "ino": "61622890253",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1805995784",
+          "mtime_ns": "1607599538609999000",
+          "ctime_ns": "1795699468608944000"
+        },
+        "at": "2026-11-26T14:13:39.653898+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "b0b1646ed2441e199978938ab95648e05c85d56e643861b46704d0c1997650be"
+    },
+    {
+      "record": {
+        "sampleId": "612041f4e788b405b6ce6bc6",
+        "fileId": "6120427ee788b405b6ce6bcc",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/KS21XB1_1.fq.gz",
+        "bytes": 1706933260,
+        "sealedSha256": "5bc8decc70ced3ff7d367240e55d6a068594b0795623bef39396880364076a3f",
+        "expectedMd5FromSidecars": "4d80099fc30209e3774ba88ea8b59462",
+        "sidecarFileIds": [
+          "612041f4e788b405b6ce6bc8",
+          "6120427ee788b405b6ce6bce"
+        ],
+        "md5": "4d80099fc30209e3774ba88ea8b59462",
+        "sha256": "5bc8decc70ced3ff7d367240e55d6a068594b0795623bef39396880364076a3f",
+        "metadata": {
+          "dev": "42",
+          "ino": "61616663352",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1706933260",
+          "mtime_ns": "1629504137332999000",
+          "ctime_ns": "1795699469523897000"
+        },
+        "at": "2026-11-26T14:14:13.126828+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "1e3542c30aa19f62a8fc47018bba31086cf372597daafc4069bd0ff1f392ceb2"
+    },
+    {
+      "record": {
+        "sampleId": "612041f4e788b405b6ce6bc6",
+        "fileId": "6120427ee788b405b6ce6bcd",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/KS21XB1_2.fq.gz",
+        "bytes": 1779889359,
+        "sealedSha256": "52923cf0b82e39dca2273ca31d61ecb3d46a544845515e21855100b3199b2f36",
+        "expectedMd5FromSidecars": "bc44a021966a3c8877b88d0fd4b94bde",
+        "sidecarFileIds": [
+          "612041f4e788b405b6ce6bc8",
+          "6120427ee788b405b6ce6bce"
+        ],
+        "md5": "bc44a021966a3c8877b88d0fd4b94bde",
+        "sha256": "52923cf0b82e39dca2273ca31d61ecb3d46a544845515e21855100b3199b2f36",
+        "metadata": {
+          "dev": "42",
+          "ino": "61617662478",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1779889359",
+          "mtime_ns": "1629504134950000000",
+          "ctime_ns": "1795699470467387000"
+        },
+        "at": "2026-11-26T14:14:36.119204+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "c2d714b557434ce547a2d8436e9e7662e96948561761651008577ab3019f1864"
+    },
+    {
+      "record": {
+        "sampleId": "5fd205d6d8dd4a63058cc293",
+        "fileId": "5fd20673d8dd4a63058cc298",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/raw/S_21XB3_1.fq.gz",
+        "bytes": 1768462507,
+        "sealedSha256": "d582ca7cd182076e52d1a83d0c151d7cdcd57f7a56e481f0b55d9c8b7a81d5ee",
+        "expectedMd5FromSidecars": "27db2e04688f499ff10618a8a9863208",
+        "sidecarFileIds": [
+          "5fd20673d8dd4a63058cc297"
+        ],
+        "md5": "27db2e04688f499ff10618a8a9863208",
+        "sha256": "d582ca7cd182076e52d1a83d0c151d7cdcd57f7a56e481f0b55d9c8b7a81d5ee",
+        "metadata": {
+          "dev": "42",
+          "ino": "62039200056",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1768462507",
+          "mtime_ns": "1607599742959000000",
+          "ctime_ns": "1795699471990708000"
+        },
+        "at": "2026-11-26T14:15:07.013142+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "0326551d8c95763a376f8e825fe8720fbc7634690580c7ca2eb59788166ac2f7"
+    },
+    {
+      "record": {
+        "sampleId": "5fd205d6d8dd4a63058cc293",
+        "fileId": "5fd20673d8dd4a63058cc299",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/raw/S_21XB3_2.fq.gz",
+        "bytes": 1825854746,
+        "sealedSha256": "9d03967311f4f11b689281f251435a121c303584f87aad012eb30b90f8b8bea1",
+        "expectedMd5FromSidecars": "e9abd3a1cd7e45a7cba7762ade55f11a",
+        "sidecarFileIds": [
+          "5fd20673d8dd4a63058cc297"
+        ],
+        "md5": "e9abd3a1cd7e45a7cba7762ade55f11a",
+        "sha256": "9d03967311f4f11b689281f251435a121c303584f87aad012eb30b90f8b8bea1",
+        "metadata": {
+          "dev": "42",
+          "ino": "61645676010",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1825854746",
+          "mtime_ns": "1607599745270999000",
+          "ctime_ns": "1795699472476097000"
+        },
+        "at": "2026-11-26T14:15:32.325552+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "645caf2b8dd19a58ed1f6145a00c21392a45dc38c9da76f8e0674547e8456f60"
+    },
+    {
+      "record": {
+        "sampleId": "61214e4ee788b405b6ce6cc8",
+        "fileId": "61214ec2e788b405b6ce6ccc",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm1_ks/ks48xb1/raw/KS48XB1_1.fq.gz",
+        "bytes": 1720079224,
+        "sealedSha256": "3f93b92a541820b6390f472bd8170eed924739dd4d738f2a2d9c97d0c6defb41",
+        "expectedMd5FromSidecars": "5bdf66652f7aeaf2490299222409746e",
+        "sidecarFileIds": [
+          "61214ec2e788b405b6ce6cce"
+        ],
+        "md5": "5bdf66652f7aeaf2490299222409746e",
+        "sha256": "3f93b92a541820b6390f472bd8170eed924739dd4d738f2a2d9c97d0c6defb41",
+        "metadata": {
+          "dev": "42",
+          "ino": "61609065392",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1720079224",
+          "mtime_ns": "1629572811960000000",
+          "ctime_ns": "1795699472973970000"
+        },
+        "at": "2026-11-26T14:15:59.338744+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "5ad17e816fea952eff4a1534d5b3ee39835f6f08c5df186b79979e19d7dd61fe"
+    },
+    {
+      "record": {
+        "sampleId": "61214e4ee788b405b6ce6cc8",
+        "fileId": "61214ec2e788b405b6ce6ccd",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm1_ks/ks48xb1/raw/KS48XB1_2.fq.gz",
+        "bytes": 1815256278,
+        "sealedSha256": "0a6dc2b119bd71c19a9722c03f66d83fd2898cbf070cea6a7645871257b000bc",
+        "expectedMd5FromSidecars": "798b12d68b3ad44b7f7a4f640c4c5acc",
+        "sidecarFileIds": [
+          "61214ec2e788b405b6ce6cce"
+        ],
+        "md5": "798b12d68b3ad44b7f7a4f640c4c5acc",
+        "sha256": "0a6dc2b119bd71c19a9722c03f66d83fd2898cbf070cea6a7645871257b000bc",
+        "metadata": {
+          "dev": "42",
+          "ino": "61586985710",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1815256278",
+          "mtime_ns": "1629572813618999000",
+          "ctime_ns": "1795699473439059000"
+        },
+        "at": "2026-11-26T14:16:23.847816+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "66f1c6fbbed50dbd5793cdaeba7657df96ec829719b56a11cfa4767537715c97"
+    },
+    {
+      "record": {
+        "sampleId": "61214f0be788b405b6ce6cd2",
+        "fileId": "61214f77e788b405b6ce6cd6",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm2_ks/ks48xb2/raw/KS48XB2_1.fq.gz",
+        "bytes": 1753837292,
+        "sealedSha256": "b14145438c95a333ba9ecf056b8a498b6a3c9048b32d5000c734e1fe8e85337e",
+        "expectedMd5FromSidecars": "04d8e3b78d6df116eb26c917be0e7510",
+        "sidecarFileIds": [
+          "61214f77e788b405b6ce6cd8"
+        ],
+        "md5": "04d8e3b78d6df116eb26c917be0e7510",
+        "sha256": "b14145438c95a333ba9ecf056b8a498b6a3c9048b32d5000c734e1fe8e85337e",
+        "metadata": {
+          "dev": "42",
+          "ino": "61649146601",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1753837292",
+          "mtime_ns": "1629572992388999000",
+          "ctime_ns": "1795699474315420000"
+        },
+        "at": "2026-11-26T14:16:37.471934+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "d78e826b718ae88e2d0ab51d4917e0495aac037250862d0d4d326596b28f74c1"
+    },
+    {
+      "record": {
+        "sampleId": "61214f0be788b405b6ce6cd2",
+        "fileId": "61214f77e788b405b6ce6cd7",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm2_ks/ks48xb2/raw/KS48XB2_2.fq.gz",
+        "bytes": 1860307985,
+        "sealedSha256": "6d63ddb6b58084e74de2b6d2efe261662c8ef7f29dd27535f7cef6eb9be48078",
+        "expectedMd5FromSidecars": "efb45a4219f10b80e790cacd1f37bbf6",
+        "sidecarFileIds": [
+          "61214f77e788b405b6ce6cd8"
+        ],
+        "md5": "efb45a4219f10b80e790cacd1f37bbf6",
+        "sha256": "6d63ddb6b58084e74de2b6d2efe261662c8ef7f29dd27535f7cef6eb9be48078",
+        "metadata": {
+          "dev": "42",
+          "ino": "61747508420",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1860307985",
+          "mtime_ns": "1629572994779999000",
+          "ctime_ns": "1795699474950754000"
+        },
+        "at": "2026-11-26T14:17:10.519111+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "596537ca90dd4583218fcbbe09c092a87bafb69faf98c3a436e8116c3bedd59b"
+    },
+    {
+      "record": {
+        "sampleId": "61214fc6e788b405b6ce6cdc",
+        "fileId": "61215030e788b405b6ce6ce0",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/KS48XB3_1.fq.gz",
+        "bytes": 1745187398,
+        "sealedSha256": "2c797cfc3c4f40c0108e80e049fa70d46b209e42878bdeebe19facb7e979df4f",
+        "expectedMd5FromSidecars": "6d5b54eb296e45d8ae82dcf6b6e86749",
+        "sidecarFileIds": [
+          "61215030e788b405b6ce6ce2"
+        ],
+        "md5": "6d5b54eb296e45d8ae82dcf6b6e86749",
+        "sha256": "2c797cfc3c4f40c0108e80e049fa70d46b209e42878bdeebe19facb7e979df4f",
+        "metadata": {
+          "dev": "42",
+          "ino": "61817493851",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1745187398",
+          "mtime_ns": "1629573179717999000",
+          "ctime_ns": "1795699475885114000"
+        },
+        "at": "2026-11-26T14:17:24.615806+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "e63f6a4aa8cf4a2a3ea1d947c3d1d98753ae4424fb8ffb4b72b0efc3f3fb8db7"
+    },
+    {
+      "record": {
+        "sampleId": "61214fc6e788b405b6ce6cdc",
+        "fileId": "61215030e788b405b6ce6ce1",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/KS48XB3_2.fq.gz",
+        "bytes": 1841578611,
+        "sealedSha256": "48517aea0d969e7fa047ce2122016ba751f084a118cf56c77e4393746fb6b6f3",
+        "expectedMd5FromSidecars": "a8229ab2fbc12a0af77d643a4596d9b2",
+        "sidecarFileIds": [
+          "61215030e788b405b6ce6ce2"
+        ],
+        "md5": "a8229ab2fbc12a0af77d643a4596d9b2",
+        "sha256": "48517aea0d969e7fa047ce2122016ba751f084a118cf56c77e4393746fb6b6f3",
+        "metadata": {
+          "dev": "42",
+          "ino": "61817437693",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1841578611",
+          "mtime_ns": "1629573176667999000",
+          "ctime_ns": "1795699476376352000"
+        },
+        "at": "2026-11-26T14:18:06.859407+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "50b363eb51977a0246aec974c3df00428d9e551087e63157312083b34cbd6ad0"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb51a8d7661b6ec22a063f",
+        "fileId": "5fdb5229d7661b6ec22a0645",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/raw/S_42XB1_1.fq.gz",
+        "bytes": 1752377726,
+        "sealedSha256": "a1eaa66c3e62b90b5e67060e38e97cc0ad0b9f40b93e6f30e29039755d3227c1",
+        "expectedMd5FromSidecars": "6720c605bcac55d79f56abbc9396dd64",
+        "sidecarFileIds": [
+          "5fdb5229d7661b6ec22a0643"
+        ],
+        "md5": "6720c605bcac55d79f56abbc9396dd64",
+        "sha256": "a1eaa66c3e62b90b5e67060e38e97cc0ad0b9f40b93e6f30e29039755d3227c1",
+        "metadata": {
+          "dev": "42",
+          "ino": "61632245604",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1752377726",
+          "mtime_ns": "1608208948484999000",
+          "ctime_ns": "1795699477789884000"
+        },
+        "at": "2026-11-26T14:18:42.976260+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "e22eac3a3e66eb0e1514ddbcd1efcab2fee7b81da7cef14dbf19d1423253f1f0"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb51a8d7661b6ec22a063f",
+        "fileId": "5fdb5229d7661b6ec22a0646",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/raw/S_42XB1_2.fq.gz",
+        "bytes": 1792521795,
+        "sealedSha256": "f4a21d082d3f9da34025aebfd7458d497419dd847fd8e8c6a5591bb9f4e75f93",
+        "expectedMd5FromSidecars": "c09865ed9c61f1ac83823206f078235d",
+        "sidecarFileIds": [
+          "5fdb5229d7661b6ec22a0643"
+        ],
+        "md5": "c09865ed9c61f1ac83823206f078235d",
+        "sha256": "f4a21d082d3f9da34025aebfd7458d497419dd847fd8e8c6a5591bb9f4e75f93",
+        "metadata": {
+          "dev": "42",
+          "ino": "61622180375",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1792521795",
+          "mtime_ns": "1608208947019999000",
+          "ctime_ns": "1795699478236325000"
+        },
+        "at": "2026-11-26T14:19:06.994598+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "ac1234a8a531afae1deaaf105ed6cbf20cec045baf2b312eda7b862e6a23f141"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb5260d7661b6ec22a0649",
+        "fileId": "5fdb5388d7661b6ec22a064d",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm2_ks/s_42xb2/raw/S_42XB2_1.fq.gz",
+        "bytes": 1353117852,
+        "sealedSha256": "0bb272468fc5752c8c8649c0490a5327c75b266b11f8454b71a6fccef7557d0b",
+        "expectedMd5FromSidecars": "ced3b23ea1bcd047c93f117d8e910d30",
+        "sidecarFileIds": [
+          "5fdb5388d7661b6ec22a064f"
+        ],
+        "md5": "ced3b23ea1bcd047c93f117d8e910d30",
+        "sha256": "0bb272468fc5752c8c8649c0490a5327c75b266b11f8454b71a6fccef7557d0b",
+        "metadata": {
+          "dev": "42",
+          "ino": "61616663354",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1353117852",
+          "mtime_ns": "1608209294107000000",
+          "ctime_ns": "1795699479143649000"
+        },
+        "at": "2026-11-26T14:19:34.938432+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "3df304798fccd4732442c5dc9224ad0f4389d47c1e54b9357d6ad18ce46d45c4"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb5260d7661b6ec22a0649",
+        "fileId": "5fdb5388d7661b6ec22a064e",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm2_ks/s_42xb2/raw/S_42XB2_2.fq.gz",
+        "bytes": 1380164410,
+        "sealedSha256": "1b7479eaa8debd0fae303264061f9cfb9ac6c22502b3432105c69b0894b837c6",
+        "expectedMd5FromSidecars": "6b206bb5089a3ee86f5b194dd65a5eed",
+        "sidecarFileIds": [
+          "5fdb5388d7661b6ec22a064f"
+        ],
+        "md5": "6b206bb5089a3ee86f5b194dd65a5eed",
+        "sha256": "1b7479eaa8debd0fae303264061f9cfb9ac6c22502b3432105c69b0894b837c6",
+        "metadata": {
+          "dev": "42",
+          "ino": "61592170879",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1380164410",
+          "mtime_ns": "1608209295831000000",
+          "ctime_ns": "1795699479607369000"
+        },
+        "at": "2026-11-26T14:20:07.310054+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "758553e73af042de0505e3de1607d0ad5d239a8857dd2b686c52982a31647ea4"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb53b8d7661b6ec22a0653",
+        "fileId": "5fdb543bd7661b6ec22a0657",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm3_ks/s_42xb3/raw/S_42XB3_1.fq.gz",
+        "bytes": 1622463882,
+        "sealedSha256": "a92ee7616a80c784bfb247aec0443826ea2bacbeafe2640629fc0e3e1788a407",
+        "expectedMd5FromSidecars": "b52aed5028bcd4fa3f66d99328fa92ab",
+        "sidecarFileIds": [
+          "5fdb543bd7661b6ec22a0659"
+        ],
+        "md5": "b52aed5028bcd4fa3f66d99328fa92ab",
+        "sha256": "a92ee7616a80c784bfb247aec0443826ea2bacbeafe2640629fc0e3e1788a407",
+        "metadata": {
+          "dev": "42",
+          "ino": "61619089275",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1622463882",
+          "mtime_ns": "1608209477634999000",
+          "ctime_ns": "1795699480525063000"
+        },
+        "at": "2026-11-26T14:20:43.656824+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "723b11ecdfeec91353625c8a16c7ba1a8d9e128fadb16ca06231b974cea70986"
+    },
+    {
+      "record": {
+        "sampleId": "5fdb53b8d7661b6ec22a0653",
+        "fileId": "5fdb543bd7661b6ec22a0658",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm3_ks/s_42xb3/raw/S_42XB3_2.fq.gz",
+        "bytes": 1651967916,
+        "sealedSha256": "5d88530b9f0a67b72167b40d4382dd575f704366ce53a997df52266f9161a1a9",
+        "expectedMd5FromSidecars": "a9d6899952bf60202636629cceb300e0",
+        "sidecarFileIds": [
+          "5fdb543bd7661b6ec22a0659"
+        ],
+        "md5": "a9d6899952bf60202636629cceb300e0",
+        "sha256": "5d88530b9f0a67b72167b40d4382dd575f704366ce53a997df52266f9161a1a9",
+        "metadata": {
+          "dev": "42",
+          "ino": "61589546301",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1651967916",
+          "mtime_ns": "1608209476234999000",
+          "ctime_ns": "1795699480965075000"
+        },
+        "at": "2026-11-26T14:21:16.458211+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "575177171c5ebaf6191f91be63d4a0ff47d3a9532c5f29c4ecc438dd193d0d25"
+    },
+    {
+      "record": {
+        "sampleId": "6120146ee788b405b6ce6b42",
+        "fileId": "612014e8e788b405b6ce6b48",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/ks9xb1/raw/KS9XB1_1.fq.gz",
+        "bytes": 1820529456,
+        "sealedSha256": "b6aa356dead5793357e23a88a1685320758a65ca8bbd1ef11e5f5acfca4bc0ac",
+        "expectedMd5FromSidecars": "0096f83aa651f92dc5eb04a10e584dc6",
+        "sidecarFileIds": [
+          "6120146fe788b405b6ce6b44",
+          "612014e8e788b405b6ce6b4a"
+        ],
+        "md5": "0096f83aa651f92dc5eb04a10e584dc6",
+        "sha256": "b6aa356dead5793357e23a88a1685320758a65ca8bbd1ef11e5f5acfca4bc0ac",
+        "metadata": {
+          "dev": "42",
+          "ino": "61598846124",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1820529456",
+          "mtime_ns": "1629492466275000000",
+          "ctime_ns": "1795699481836741000"
+        },
+        "at": "2026-11-26T14:21:50.675725+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "83f4b8c55291d2511d811642291b3388080c08fd5cddd877946430324f611e41"
+    },
+    {
+      "record": {
+        "sampleId": "6120146ee788b405b6ce6b42",
+        "fileId": "612014e8e788b405b6ce6b49",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/ks9xb1/raw/KS9XB1_2.fq.gz",
+        "bytes": 1873106252,
+        "sealedSha256": "0ed86949569def8cca2bfd5ef3a4ae67b6f1bd65e95d003860a13a6bc0f9dec6",
+        "expectedMd5FromSidecars": "1c748d86fa33424dc929d6ffb107c381",
+        "sidecarFileIds": [
+          "6120146fe788b405b6ce6b44",
+          "612014e8e788b405b6ce6b4a"
+        ],
+        "md5": "1c748d86fa33424dc929d6ffb107c381",
+        "sha256": "0ed86949569def8cca2bfd5ef3a4ae67b6f1bd65e95d003860a13a6bc0f9dec6",
+        "metadata": {
+          "dev": "42",
+          "ino": "61818220380",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1873106252",
+          "mtime_ns": "1629492465609999000",
+          "ctime_ns": "1795699482376835000"
+        },
+        "at": "2026-11-26T14:22:15.552130+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "d683e1009a33e76f2d61e5a3719331261a68e3e123be892ab450ff2f528dd7fe"
+    },
+    {
+      "record": {
+        "sampleId": "61201563e788b405b6ce6b4e",
+        "fileId": "612019d6e788b405b6ce6b54",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/KS9XB2_1.fq.gz",
+        "bytes": 1533238728,
+        "sealedSha256": "e00a3c68d6ad4b71d8ecb6d2f95aac076eb0ff0c7495762b36e08be45425d6a1",
+        "expectedMd5FromSidecars": "9f96a6ed66e1e8437be6e775b867140d",
+        "sidecarFileIds": [
+          "61201564e788b405b6ce6b50",
+          "612019d6e788b405b6ce6b56"
+        ],
+        "md5": "9f96a6ed66e1e8437be6e775b867140d",
+        "sha256": "e00a3c68d6ad4b71d8ecb6d2f95aac076eb0ff0c7495762b36e08be45425d6a1",
+        "metadata": {
+          "dev": "42",
+          "ino": "61649556051",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1533238728",
+          "mtime_ns": "1629493728266999000",
+          "ctime_ns": "1795699483737924000"
+        },
+        "at": "2026-11-26T14:22:33.856662+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "75c1c7ab4cd11db7fefb05ffaefc0ff3c6e19b534fe43d36f60bd9b351561426"
+    },
+    {
+      "record": {
+        "sampleId": "61201563e788b405b6ce6b4e",
+        "fileId": "612019d6e788b405b6ce6b55",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/KS9XB2_2.fq.gz",
+        "bytes": 1572421169,
+        "sealedSha256": "55323ff62901e4b2b226c71d03a3e3b100f2e17ded684b6beb62777067cedb44",
+        "expectedMd5FromSidecars": "11e47c41316cd584bef70858283c6f4a",
+        "sidecarFileIds": [
+          "61201564e788b405b6ce6b50",
+          "612019d6e788b405b6ce6b56"
+        ],
+        "md5": "11e47c41316cd584bef70858283c6f4a",
+        "sha256": "55323ff62901e4b2b226c71d03a3e3b100f2e17ded684b6beb62777067cedb44",
+        "metadata": {
+          "dev": "42",
+          "ino": "61714946664",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1572421169",
+          "mtime_ns": "1629493725994999000",
+          "ctime_ns": "1795699484176212000"
+        },
+        "at": "2026-11-26T14:23:01.789647+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "eb746b768cd41916fccb949e8e56a6c54101000bb8186dd4e97c4c48b70bbe83"
+    },
+    {
+      "record": {
+        "sampleId": "61201a4de788b405b6ce6b5a",
+        "fileId": "61201af1e788b405b6ce6b60",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/ks9xb3/raw/KS9XB3_1.fq.gz",
+        "bytes": 1818369506,
+        "sealedSha256": "cf0b2194239be5af251719eea7d1341cfc8a74a163aae9a44b33341225d7bf3c",
+        "expectedMd5FromSidecars": "d12b7f58321874b57b2a0b92afbbb923",
+        "sidecarFileIds": [
+          "61201a4de788b405b6ce6b5c",
+          "61201af1e788b405b6ce6b62"
+        ],
+        "md5": "d12b7f58321874b57b2a0b92afbbb923",
+        "sha256": "cf0b2194239be5af251719eea7d1341cfc8a74a163aae9a44b33341225d7bf3c",
+        "metadata": {
+          "dev": "42",
+          "ino": "62042080349",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1818369506",
+          "mtime_ns": "1629494012312999000",
+          "ctime_ns": "1795699485567719000"
+        },
+        "at": "2026-11-26T14:23:52.146917+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "4d1808e7b4b4d6f17296a8056063c42e57b3a39a5b1cc0b04cbcddbf43983690"
+    },
+    {
+      "record": {
+        "sampleId": "61201a4de788b405b6ce6b5a",
+        "fileId": "61201af1e788b405b6ce6b61",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/ks9xb3/raw/KS9XB3_2.fq.gz",
+        "bytes": 1885811418,
+        "sealedSha256": "fb6f2486c07ce7269cbca4f414a09ed9f6347031fd3b939cceef589955349172",
+        "expectedMd5FromSidecars": "984e35d0bb24d63bb9281e57c73de89c",
+        "sidecarFileIds": [
+          "61201a4de788b405b6ce6b5c",
+          "61201af1e788b405b6ce6b62"
+        ],
+        "md5": "984e35d0bb24d63bb9281e57c73de89c",
+        "sha256": "fb6f2486c07ce7269cbca4f414a09ed9f6347031fd3b939cceef589955349172",
+        "metadata": {
+          "dev": "42",
+          "ino": "62042080350",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "1885811418",
+          "mtime_ns": "1629494014029999000",
+          "ctime_ns": "1795699486000634000"
+        },
+        "at": "2026-11-26T14:24:18.584877+00:00",
+        "verified": true,
+        "inputSha256": "07a0bad0d751ca2a8e6211b6f736de79b1a205a5b9999f37e6e430ff43303563"
+      },
+      "receiptSha256": "cfd08f3155429918c0fb31192f23be6dfaf3eb0b56f320206e893d2ab73028a4"
+    }
+  ],
+  "sidecars": [
+    {
+      "record": {
+        "fileId": "5fd205a8d8dd4a63058cc28f",
+        "sampleId": "5fd20521d8dd4a63058cc289",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm1_ks/s_21xb1/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "798a57b5ecdbbeb6ecff39cff1b134bdbfd9ab1107698933909e079fdfe29b20",
+        "at": "2026-11-26T14:12:53.393099+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "e3fcd763cbc3ba185eb8d5939c75edb8",
+        "calculatedSha256": "798a57b5ecdbbeb6ecff39cff1b134bdbfd9ab1107698933909e079fdfe29b20",
+        "metadata": {
+          "dev": "42",
+          "ino": "61644618136",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1607599528532999000",
+          "ctime_ns": "1795699467354659000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "1131d4eb0fe36bb69874d26e22607354030d1f78fde874aa6fe75140282c2c0c"
+    },
+    {
+      "record": {
+        "fileId": "612041f4e788b405b6ce6bc8",
+        "sampleId": "612041f4e788b405b6ce6bc6",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "40fbe1f8c65bf9966667840617aa4d84b67aafdcea32b9a172a6038128ba4292",
+        "at": "2026-11-26T14:12:53.399042+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "4b05a2e05cccb3321662454648c95bb1",
+        "calculatedSha256": "40fbe1f8c65bf9966667840617aa4d84b67aafdcea32b9a172a6038128ba4292",
+        "metadata": {
+          "dev": "42",
+          "ino": "61689195162",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1629503988404000000",
+          "ctime_ns": "1795699469056880000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "050bc01d59c70649ec8e07a8af667858fe302d89d19dd25c61d29e53361006ce"
+    },
+    {
+      "record": {
+        "fileId": "6120427ee788b405b6ce6bce",
+        "sampleId": "612041f4e788b405b6ce6bc6",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/ks21xb1/raw/MD5.txt",
+        "bytes": 100,
+        "sha256": "40fbe1f8c65bf9966667840617aa4d84b67aafdcea32b9a172a6038128ba4292",
+        "at": "2026-11-26T14:12:53.406299+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "4b05a2e05cccb3321662454648c95bb1",
+        "calculatedSha256": "40fbe1f8c65bf9966667840617aa4d84b67aafdcea32b9a172a6038128ba4292",
+        "metadata": {
+          "dev": "42",
+          "ino": "61734074228",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1629504126428999000",
+          "ctime_ns": "1795699471053264000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "aadb8cd71c950cfa14b30b7440cd721e179e39da32109a4aeadb6bc80b923ed6"
+    },
+    {
+      "record": {
+        "fileId": "5fd20673d8dd4a63058cc297",
+        "sampleId": "5fd205d6d8dd4a63058cc293",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm3_ks/s_21xb3/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "d0b164eb930a922f283aefd1c323e629cf16270b8a0d699b8fa6d9f70643b0f7",
+        "at": "2026-11-26T14:12:53.413227+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "d349933f2cd19580ab7dfabc018d87a9",
+        "calculatedSha256": "d0b164eb930a922f283aefd1c323e629cf16270b8a0d699b8fa6d9f70643b0f7",
+        "metadata": {
+          "dev": "42",
+          "ino": "61765077758",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1607599731598000000",
+          "ctime_ns": "1795699471497815000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "dd4d1d2edde2f1e96586df760249ac6966ab1f5c2ebd24cb83229b87023e2053"
+    },
+    {
+      "record": {
+        "fileId": "61214ec2e788b405b6ce6cce",
+        "sampleId": "61214e4ee788b405b6ce6cc8",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm1_ks/ks48xb1/raw/MD5.txt",
+        "bytes": 100,
+        "sha256": "c64f772679f9b3a8f53bde368a18d8ce0d8e02a3d052c5fb63059484fd0f407f",
+        "at": "2026-11-26T14:12:53.421559+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "30e1795c8109ad7907de0ab39cf085db",
+        "calculatedSha256": "c64f772679f9b3a8f53bde368a18d8ce0d8e02a3d052c5fb63059484fd0f407f",
+        "metadata": {
+          "dev": "42",
+          "ino": "61622433591",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1629572802944999000",
+          "ctime_ns": "1795699473871152000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "d4df424a4c08f1f5a2de1697d3eba1fc167132825bf17bcfa88f430bc60b1db4"
+    },
+    {
+      "record": {
+        "fileId": "61214f77e788b405b6ce6cd8",
+        "sampleId": "61214f0be788b405b6ce6cd2",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm2_ks/ks48xb2/raw/MD5.txt",
+        "bytes": 100,
+        "sha256": "57e50ae43448d22bb081c28640f8465df40c5e6e99b4082df0570a1fbb12b21b",
+        "at": "2026-11-26T14:12:53.429475+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "8bc89f5513596867cef04dc377660854",
+        "calculatedSha256": "57e50ae43448d22bb081c28640f8465df40c5e6e99b4082df0570a1fbb12b21b",
+        "metadata": {
+          "dev": "42",
+          "ino": "61645676014",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1629572983948999000",
+          "ctime_ns": "1795699475383786000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "9f17b5181dfa22562f1a5b24a68e8b9203c17d2c1f9bbc6aa281eb331e174fa0"
+    },
+    {
+      "record": {
+        "fileId": "61215030e788b405b6ce6ce2",
+        "sampleId": "61214fc6e788b405b6ce6cdc",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/48x_bmm3_ks/ks48xb3/raw/MD5.txt",
+        "bytes": 100,
+        "sha256": "323f922a013298437d5ebfe29b25562d70d7ed8dac41e6b4965be894dcc056a0",
+        "at": "2026-11-26T14:12:53.437778+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "9e83bebb1d6a1c755c99b7d7d19a9c39",
+        "calculatedSha256": "323f922a013298437d5ebfe29b25562d70d7ed8dac41e6b4965be894dcc056a0",
+        "metadata": {
+          "dev": "42",
+          "ino": "61587479711",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1629573168961999000",
+          "ctime_ns": "1795699476888660000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "45f0736c4906a3c794b997027d8018b1a2c97e5e831c02122f27137c7e156a3d"
+    },
+    {
+      "record": {
+        "fileId": "5fdb5229d7661b6ec22a0643",
+        "sampleId": "5fdb51a8d7661b6ec22a063f",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm1_ks/s_42xb1/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "e05f7a15a9dc33a2e0c2c160b674156420d9f0663560ecb8532ae755cb11276f",
+        "at": "2026-11-26T14:12:53.445874+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "ef836aa12d025d84d49323cd4b01cb9b",
+        "calculatedSha256": "e05f7a15a9dc33a2e0c2c160b674156420d9f0663560ecb8532ae755cb11276f",
+        "metadata": {
+          "dev": "42",
+          "ino": "61817691136",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1608208937967999000",
+          "ctime_ns": "1795699477339014000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "b37a3b90dbddd234e33694c34dbb95b1a7b0b70b9696da833076b86ab6cc31dd"
+    },
+    {
+      "record": {
+        "fileId": "5fdb5388d7661b6ec22a064f",
+        "sampleId": "5fdb5260d7661b6ec22a0649",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm2_ks/s_42xb2/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "17f50bca81f4e3092efe3405e15659638e8e916890f8d2d89c6a05e55e93b1bd",
+        "at": "2026-11-26T14:12:53.455594+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "bf06e7291a653e2702dcda0f7e7b5ccb",
+        "calculatedSha256": "17f50bca81f4e3092efe3405e15659638e8e916890f8d2d89c6a05e55e93b1bd",
+        "metadata": {
+          "dev": "42",
+          "ino": "61644618145",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1608209288329999000",
+          "ctime_ns": "1795699478706831000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "1b5ef315bca8dd25f3b99cc4aa56964d0094d932ebbfd9ec024681a9623d05b0"
+    },
+    {
+      "record": {
+        "fileId": "5fdb543bd7661b6ec22a0659",
+        "sampleId": "5fdb53b8d7661b6ec22a0653",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/42x_bmm3_ks/s_42xb3/additional/MD5.txt",
+        "bytes": 100,
+        "sha256": "cfbe2769b32167ece8cfb856b017d88a380ffa7fc70d7bfd9221c469703036bc",
+        "at": "2026-11-26T14:12:53.465841+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "859a611b0ccc7b18afe10d0d00c8cd4d",
+        "calculatedSha256": "cfbe2769b32167ece8cfb856b017d88a380ffa7fc70d7bfd9221c469703036bc",
+        "metadata": {
+          "dev": "42",
+          "ino": "61680541791",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "100",
+          "mtime_ns": "1608209467555999000",
+          "ctime_ns": "1795699480064046000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "1eae2e49e60bafe05a787e2f220a0c7a48112dab8471c7bfc3646ed467a1f6ca"
+    },
+    {
+      "record": {
+        "fileId": "6120146fe788b405b6ce6b44",
+        "sampleId": "6120146ee788b405b6ce6b42",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/additional/MD5.txt",
+        "bytes": 98,
+        "sha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+        "at": "2026-11-26T14:12:53.473370+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "69d0b67dfc91fa08bbdc6539894690ef",
+        "calculatedSha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+        "metadata": {
+          "dev": "42",
+          "ino": "61620727457",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629492335049000000",
+          "ctime_ns": "1795699481403470000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "2b67b45e02b70e646197a2eda6a7103ccc4a8b7acd3bc85f6801c262dfd90081"
+    },
+    {
+      "record": {
+        "fileId": "612014e8e788b405b6ce6b4a",
+        "sampleId": "6120146ee788b405b6ce6b42",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm1_ks/ks9xb1/raw/MD5.txt",
+        "bytes": 98,
+        "sha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+        "at": "2026-11-26T14:12:53.481400+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "69d0b67dfc91fa08bbdc6539894690ef",
+        "calculatedSha256": "069940d72bb6b037b684ea2198bc7480cd443f3511087da41a9884789c62f1e0",
+        "metadata": {
+          "dev": "42",
+          "ino": "61817172032",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629492456591000000",
+          "ctime_ns": "1795699482808640000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "4d442929eaed14e77ccb1322115c9cb10ad6a3c2055ce86be1a4181c453b8674"
+    },
+    {
+      "record": {
+        "fileId": "61201564e788b405b6ce6b50",
+        "sampleId": "61201563e788b405b6ce6b4e",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/additional/MD5.txt",
+        "bytes": 98,
+        "sha256": "4078284120d3eabd24897bf7a478fee455003c380a7f91c46425860db069146e",
+        "at": "2026-11-26T14:12:53.488681+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "2613fc48d128a6f39ec2dde4efe358b7",
+        "calculatedSha256": "4078284120d3eabd24897bf7a478fee455003c380a7f91c46425860db069146e",
+        "metadata": {
+          "dev": "42",
+          "ino": "62042080348",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629492580105999000",
+          "ctime_ns": "1795699483301446000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "bc1b70307befe07034a27995cf4ab39bf4fa9db1f578892175706ab812cf7bde"
+    },
+    {
+      "record": {
+        "fileId": "612019d6e788b405b6ce6b56",
+        "sampleId": "61201563e788b405b6ce6b4e",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm2_ks/ks9xb2/raw/MD5.txt",
+        "bytes": 98,
+        "sha256": "4078284120d3eabd24897bf7a478fee455003c380a7f91c46425860db069146e",
+        "at": "2026-11-26T14:12:53.497234+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "2613fc48d128a6f39ec2dde4efe358b7",
+        "calculatedSha256": "4078284120d3eabd24897bf7a478fee455003c380a7f91c46425860db069146e",
+        "metadata": {
+          "dev": "42",
+          "ino": "61618176056",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629493718318000000",
+          "ctime_ns": "1795699484638017000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "ff96702686c70b2d17547ef7b2b13038b2bbcb778212f1531eba3cc328033bbd"
+    },
+    {
+      "record": {
+        "fileId": "61201a4de788b405b6ce6b5c",
+        "sampleId": "61201a4de788b405b6ce6b5a",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/additional/MD5.txt",
+        "bytes": 98,
+        "sha256": "baa73d41dd519853b1ebd9411a88baaea229ded809e632fe0a39f9dd79892185",
+        "at": "2026-11-26T14:12:53.505594+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "78edf4ec608e789fda9534cfe31f2d74",
+        "calculatedSha256": "baa73d41dd519853b1ebd9411a88baaea229ded809e632fe0a39f9dd79892185",
+        "metadata": {
+          "dev": "42",
+          "ino": "61645676019",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629493837674999000",
+          "ctime_ns": "1795699485133205000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "9352549b589dbc7daf4f812e7aec6b0effd5a0afdf35b567524756c1cc8a90ce"
+    },
+    {
+      "record": {
+        "fileId": "61201af1e788b405b6ce6b62",
+        "sampleId": "61201a4de788b405b6ce6b5a",
+        "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/9x_bmm3_ks/ks9xb3/raw/MD5.txt",
+        "bytes": 98,
+        "sha256": "baa73d41dd519853b1ebd9411a88baaea229ded809e632fe0a39f9dd79892185",
+        "at": "2026-11-26T14:12:53.514573+00:00",
+        "kind": "sidecar-own-byte-digest",
+        "calculatedMd5": "78edf4ec608e789fda9534cfe31f2d74",
+        "calculatedSha256": "baa73d41dd519853b1ebd9411a88baaea229ded809e632fe0a39f9dd79892185",
+        "metadata": {
+          "dev": "42",
+          "ino": "61645676021",
+          "mode": "33272",
+          "nlink": "2",
+          "uid": "11449",
+          "gid": "12318",
+          "size": "98",
+          "mtime_ns": "1629494001811000000",
+          "ctime_ns": "1795699486433603000"
+        },
+        "mappingVerified": true
+      },
+      "receiptSha256": "9b932df38eeddd4c5963310ca8f0b5b39f4076f72db4fd0c1a4f0e2adfe50cc6"
+    }
+  ],
+  "databaseWrites": false,
+  "payloadWrites": false,
+  "sidecarProvenance": "Preserved historical sidecars; not authenticated provider provenance."
+}

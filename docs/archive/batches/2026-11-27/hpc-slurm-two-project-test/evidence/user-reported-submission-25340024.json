@@ -1,0 +1,10 @@
+{
+  "recordedAt": "2026-11-27T13:18:14.127863+00:00",
+  "jobId": "25340024",
+  "source": "George confirmed submission in chat",
+  "scope": "remaining 167 eligible Projects",
+  "planSha256": "bb298f391cf1df504b1e5983fdba1a948c5d248f4ea343758a5ceef4e5ecfee7",
+  "expectedHpcPackagePath": "/hpc-home/deeks/komondor-remaining167-20261127/komondor-hpc-delete-remaining167-20261127-01",
+  "actualStartAndCompletionNotYetVerified": true,
+  "fiveHeldProjectsExcluded": true
+}

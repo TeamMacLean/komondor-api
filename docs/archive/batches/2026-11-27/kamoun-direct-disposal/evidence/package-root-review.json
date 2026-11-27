@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "archiveSha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19",
+  "membersVerified": 12,
+  "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+  "retirementReceiptVerified": true,
+  "exactSixTargetsVerified": true,
+  "protectedProjects": 13,
+  "expired": false,
+  "noPayloadCommandsExecuted": true
+}

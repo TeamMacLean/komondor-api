@@ -1,17 +1,29 @@
 # Gargy — candidate for George's HPC preservation test
 
-Prepared 13 November 2026. **Not executed. No production date has been set.**
-The API and web feature was deployed on 16 November
-([record](DEPLOYMENT_2026-11-16.md)); George will now test the project-page
-control. He suggested approximately a year and will
-choose the actual date himself.
+Prepared 13 November; updated 27 November 2026. **The saved date was verified
+and the live page showed both HPC/AWS locations and the keep date.** The
+[26 November evidence](evidence/hpc-retention-20261126/README.md) is George's
+read-back. A scoped production read at 14:54 UTC on 27 November independently
+confirmed the date/requester/history. The browser observation is recorded with
+the [27 November checks](batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-website-checks-20261127.json).
+These checks do not claim a rerun of the complete test matrix below; no repeat
+save is needed. [Current status](STATUS.md).
+George reported the feature and retention follow-up deployed on 16 November
+([record](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
+
+On 26 November George confirmed he had told **Sara one year unless she asks
+otherwise**. The saved preserve-through date is **26 November 2027**, inclusive
+through 23:59:59.999 UTC. Requested by: **Sara**.
+Saved reason: "One year of HPC retention agreed with Sara; retain through
+26 November 2027 unless an extension is requested." This replaces the earlier unspecified duration and five-year
+suggestion; see the [keep-date decision](HPC_RETENTION.md#keep-dates-to-set-george).
 
 ## Exact candidate
 
 | Field | Value |
 | --- | --- |
 | Project ID | `5fc012bda3efcb29338b7d58` |
-| Project | Gargy 2019 RNAseq |
+| Project | `Gargy-2019_RNAseq` in the production read-back |
 | Requested HPC directory | `/tsl/data/reads/two_blades/gargy_2019_rnaseq/` |
 | Recorded archive-host root | `/mnt/reads/two_blades/gargy_2019_rnaseq` |
 | S3 prefix | `s3://tsl-hpc-reads/two_blades/gargy_2019_rnaseq` |
@@ -25,28 +37,31 @@ That is historical transfer evidence, not a fresh presence check. The two HPC
 mount roots must not be substituted blindly.
 
 Gargy remains in the [manual retention exclusions](HPC_RETENTION.md), independent
-of Gulnara. Testing the UI, clearing a date, or letting a date expire does not
-release that existing instruction. Keep its source tree and S3 archive intact.
+of Gulnara. Keep its source tree for the agreed year and preserve the S3
+archive. Testing or clearing the date is not deletion approval; expiry permits
+fresh manual review only.
 
-## Manual test after deployment
+## Original test checklist — optional unexercised checks remain
 
-1. Open the project page for the exact ID above as an administrator. Confirm
-   the project identity and both displayed paths. AWS should show its recorded
+1. Open the project page for the exact ID above as local `admin` (George's
+   LDAP/ENA-admin login does not have this permission). Read any existing
+   keep date, requester and reason first. Confirm the current deployed versions,
+   project identity and both displayed paths. AWS should show its recorded
    verification date. HPC should show a current directory presence observation;
    if it is unknown or absent, investigate before treating the copy as present.
-2. In **Preserve on HPC until**, choose the desired future date, fill in
-   **Requested by** and **Reason** (required once the retention follow-up is
-   deployed), and save. The date is inclusive through the end of that UTC day.
-   No MongoDB shell edits or storage-state changes are required.
+2. Inspect **Preserve on HPC until**, **Requested by** and **Reason** against
+   the saved values above. The audited batch already set them; no repeat save
+   is needed for this display check. A later deliberate change can test the
+   admin save path separately and must be recorded as such.
 3. Reload the page. Confirm the saved date persists, both location indicators
    remain independent, and the notice tells users to contact **George Deeks**
-   if they need longer HPC retention. After the follow-up deployment, the
-   requester and reason also show, and the name is a `mailto:` link if the web
+   if they need longer HPC retention. The requester and reason must also
+   show, and the name is a `mailto:` link if the web
    `HPC_RETENTION_CONTACT_EMAIL` is set.
 4. View the same project as a non-admin user who has access. Confirm the date
    and extension notice are visible, and the editing controls are absent.
 5. Have the AI/operator inspect the latest Project's `preserveOnHpcUntil` and
-   [manual exclusions](hpc-retention-holds.json) during deletion review. The
+   [current retention decisions](HPC_RETENTION.md) during deletion review. The
    deployed feature's native `status --json` also reports `preserveOnHpcUntil`,
    `hpcPreservationActive` and `hpcPreservationInvalid`.
 6. If checking the command safeguard, use only the native read-only
@@ -58,15 +73,18 @@ release that existing instruction. Keep its source tree and S3 archive intact.
    below. Leave the date set after the test. Any later release of the separate
    manual exclusion needs an explicit recorded decision from George.
 
-## Result — awaiting George
+## Result — database and scoped page checks passed
 
-- Chosen preserve-through date (UTC): not set
-- Test performed at: pending
-- API/web deployed heads: API `f2e464c`, web `5e7bcf2` (16 November)
-- Admin save and reload: pending
-- Reader-visible notice / no reader editing control: pending
-- AWS/HPC location observations: pending
-- Optional deletion-command refusal: pending
+- Saved preserve-through date (UTC): `2027-11-26T23:59:59.999Z`
+- Saved requester/reason: Sara and the exact reason above; verified
+- BSON date type: `date`; history entries: 1; matching latest audit: passed
+- Database verification evidence supplied: 26 November 2026; exact apply/verification time not present in the output
+- API/web deployed heads: George reported API `2474c4a`, web `a470095` on
+  27 November; the browser observation does not establish loaded commit identity
+- Admin form save path: not exercised by the mongosh batch; keep-date display observed 27 November
+- Reader-visible notice / no reader editing control: not independently retested here
+- AWS/HPC location observations: both shown on the live page, 27 November
+- Optional dedicated deletion-command refusal test: not recorded; not a completion blocker
 - Source files and S3 archive retained: required
 
 The feature does not schedule deletion. All future deletions still require fresh

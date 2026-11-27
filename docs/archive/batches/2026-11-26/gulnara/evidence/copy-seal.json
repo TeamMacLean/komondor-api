@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-26T12:13:50.511931+00:00",
+  "operationId": "c1f78c6d-3a3f-4165-abe5-706ded74bf99",
+  "files": {
+    "copy-runner.cjs": "d315ff9817639ac85cfa0f24041e5f5e9f114be4cc4aa7de354ab8a8fb54154b",
+    "db-preflight.cjs": "4ad1c45b6c7e991d08e1e99ca447d43ecd6504ce0b945f4335ca0831c0ae9be0",
+    "fs-preflight.cjs": "523420f652be0181cd0744d8286bdd88f69501974b0b43785dcb3a085e3adb08",
+    "exec/copy.cjs": "b88a35e4d16e307a3e6cd690a8008abad5d1e17b00d5a9f722bdf9ad4544e754",
+    "change-plan.json": "6c45e852a95f4ebd768b3afc473cc4da3a403431fe651f74c8f598fab2ca2b51",
+    "copy-manifest.json": "0a2efc9c49c37c5da0a402d0a4906355583e50684331a2c02abd451e9768371e",
+    "ena-fastq-preview.json": "edddc2fd4153ea510625de3bd0aa85ab0228aba2db8572d1f6527e48b8485169",
+    "scope.json": "c4a06402be3a548ccc24497aff9d0ec598b854f6979bd4efe64e65a3e73a039e",
+    "filesystem-baseline.json": "015b882e5bee71b1c34897638b60bc0a4be7793d5c30d1cfe205b6cb50e93832",
+    "config.json": "779fa54ddfa02634249b65657b4fffd88f3a005ebe72252d202bce511a44165c",
+    "copy-approval.json": "45a98ef03c7b31fd60531fe6f8d04ad70c90c871f84195fcd5c8c671f8a7b2d2"
+  },
+  "review": "14 copy fixture tests and independent staged-copy review passed; no publication or DB mutation in this runner"
+}

@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-27T15:21:56.588575+00:00",
+  "source": "George in this chat",
+  "slurmJobId": "25342010",
+  "reportedStatus": "still ongoing",
+  "actualSubmissionTimeUnknown": true,
+  "planSha256": "9830c9b1e81a6d5100dd99331fffb57dd2794cc592bb231c5b53b4e295271d55",
+  "archiveSha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19",
+  "noS3Copy": true,
+  "completionNotYetVerified": true
+}

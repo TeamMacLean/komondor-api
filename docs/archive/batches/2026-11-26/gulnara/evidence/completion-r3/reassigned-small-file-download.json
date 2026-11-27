@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-26T13:28:15.575Z",
+  "fileId": "612041f4e788b405b6ce6bc8",
+  "path": "/mnt/reads/ntalbot/xanthoria_parietina_mycobiont_rnaseq/21x_bmm2_ks/additional/MD5.txt",
+  "bytes": 100,
+  "sha256": "40fbe1f8c65bf9966667840617aa4d84b67aafdcea32b9a172a6038128ba4292",
+  "crc64nvme": "28o8XiENhFg=",
+  "graphVerified": true,
+  "publishedFiles": 40,
+  "sourceAndStageRetained": true,
+  "macSha256AndCrc64NvmeVerified": true,
+  "transport": "SSH from VM-mounted published path; no browser download control exposed",
+  "localFile": "/Users/deeks/.codex/artifacts/gulnara-preflight-20261126/downloaded-reassigned-MD5.txt"
+}

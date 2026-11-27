@@ -1,0 +1,10 @@
+{
+  "archive": "native-review-20261127T141323Z.tar.gz",
+  "bytes": 279448,
+  "sha256": "f571e39a3338ae1661e2095c60840e5a2cb1c80ddeaf2af6415a18187e4548db",
+  "source": "/storage/komondor-gulnara-source-review-20261127-01",
+  "nativeExit": {
+    "at": "2026-11-27T14:13:23.799155+00:00",
+    "exitCode": 0
+  }
+}
