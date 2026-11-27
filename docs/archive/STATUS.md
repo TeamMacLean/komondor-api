@@ -20,7 +20,11 @@ The completion evidence below comes from scoped live checks and execution
 receipts on 26–27 November. Deployment heads remain attributed to George's
 27 November report; a checkout observation alone does not prove which code a
 running process has loaded. This documentation reconciliation performs no new
-production operation. George approved promotion to master and the documentation-only production sync on 27 November.
+production operation. Published on master and pulled to v1333 at **16:30 UTC on 27 November**.
+The release changes documentation/evidence only: no install, build, service
+restart or database mutation was needed. All four HTTP checks and the final
+data checks passed after the pull.
+[Production sync receipt](batches/2026-11-27/production-documentation-sync-20261127.json).
 
 ## Done
 
@@ -136,7 +140,8 @@ production operation. George approved promotion to master and the documentation-
    further removal due from the completed batch.
 2. **Preserve the published execution evidence.** This reconciliation retains
    current master deployment/policy updates and the completed execution records.
-   George approved master publication and the production documentation sync.
+   Master publication and the production documentation sync completed on
+   27 November; the final read-only checks passed.
    Full raw evidence was preserved outside Git before cleaning the local API
    checkouts; see the [preservation receipt](batches/2026-11-27/local-preservation-20261127.json).
    Preserve original sealed receipts, logs and historical plans. Do not rerun

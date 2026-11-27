@@ -10,7 +10,8 @@ remain intact. Do not repeat completed jobs, reassignment or confirmation.
 No Gulnara reply, chasing or other action is due for this archival task.
 Scientific review, ENA submission, staging/CSV cleanup and any AWS revision are
 separate ad-hoc decisions if later requested, not outstanding requirements.
-George approved publishing the evidence on master and syncing the production documentation on 27 November.
+The evidence is published on master and the production documentation was
+synced on 27 November; the final read-only checks passed.
 
 ## Source deletion completed — 27 November 2026
 

@@ -21,6 +21,16 @@ The approved archive cleanup and six separate Kamoun direct disposals are comple
 
 Final Slurm accounting was supplied by George; copied raw execution logs independently establish runner completion and exit status. Independent mounted-filesystem and database checks establish the recorded final state. File bytes removed are logical totals; physical quota reclamation and snapshot retention were not measured.
 
+## Production sync and closure
+
+George approved master publication and production sync. The documentation-only
+release `e13c3ea` was fast-forwarded on v1333 at **16:30 UTC**. No runtime code,
+dependency, service or database change was required. The post-pull read-only
+check again passed all cohort, retention, disposal and application-health checks.
+[Production sync receipt](production-documentation-sync-20261127.json).
+The follow-up commit records this receipt and closure wording only. No data-work
+blocker remains; the chat can be archived once its local checkouts are synced.
+
 ## Final live verification
 
 The [fresh read-only check](final-live-check-20261127.json) at **16:29 UTC**

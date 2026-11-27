@@ -7,8 +7,9 @@ reported API master `2474c4a` and web master `a470095` in production on
 27 November ([deployment](DEPLOYMENT_2026-11-03.md),
 [retention follow-up](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
 Deployment reports and dated live observations are distinguished below.
-This documentation reconciliation makes no production change; its review-branch
-publication is approved for master and the production documentation sync.
+The documentation/evidence release is published on master and was pulled to
+v1333 on 27 November. It changed no runtime code or production data; the final
+read-only checks passed.
 
 ## Policy from 27 November 2026: AWS only after the HPC date has passed
 

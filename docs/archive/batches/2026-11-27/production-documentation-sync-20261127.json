@@ -1,0 +1,67 @@
+{
+  "kind": "komondor-production-documentation-sync-v1",
+  "at": "2026-11-27T16:30:57.321451+00:00",
+  "success": true,
+  "host": "v1333",
+  "operator": "deeks",
+  "branch": "master",
+  "beforeHead": "5a707a16e5843fc18b7ada016dce962a393c432b",
+  "afterHead": "e13c3eac50413b05dfd19f09ec0fbb57494cb59d",
+  "fastForwardOnly": true,
+  "worktreeClean": true,
+  "runtimeChanges": [],
+  "installBuildOrServiceRestartRequired": false,
+  "serviceRestartPerformed": false,
+  "databaseMutationPerformed": false,
+  "postPullReadOnlyCheck": {
+    "at": "2026-11-27T16:30:57.179Z",
+    "kind": "komondor-final-live-readonly-check-v1",
+    "readOnly": true,
+    "success": true,
+    "counts": {
+      "cohortProjects": 175,
+      "awsOnly": 174,
+      "hpcAndAws": 1,
+      "originalS3VerificationDatesMatched": 175,
+      "protectedProjects": 13,
+      "protectedRootsPresent": 13,
+      "keepDatesMatched": 13,
+      "disposedProjectsRetired": 6,
+      "disposedRootsAbsent": 6
+    },
+    "health": [
+      {
+        "name": "api",
+        "port": 3061,
+        "ok": true,
+        "status": 200
+      },
+      {
+        "name": "web",
+        "port": 3060,
+        "ok": true,
+        "status": 200
+      },
+      {
+        "name": "nudge",
+        "port": 3128,
+        "ok": true,
+        "status": 200
+      },
+      {
+        "name": "power",
+        "port": 3026,
+        "ok": true,
+        "status": 200,
+        "expectedTitle": "Sequences Power User",
+        "titleMatches": true
+      }
+    ],
+    "issues": [],
+    "mountVerified": true,
+    "cohortEvidenceSha256": "d2426710c806a49d9881bfbe76e96e1530e6227e0fa6d43663e970cafcbb18e1",
+    "apiCheckoutHead": "e13c3eac50413b05dfd19f09ec0fbb57494cb59d",
+    "databaseIdentityVerified": true,
+    "finishedAt": "2026-11-27T16:30:57.316Z"
+  }
+}
