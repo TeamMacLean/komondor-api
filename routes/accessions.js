@@ -11,6 +11,11 @@ const {
   hasFullRecordsAccess: userHasFullRecordsAccess,
 } = require("../lib/utils/fullAccessUsers");
 const _path = require("path");
+const {
+  isHiddenFromSite,
+  loadHiddenSiteIds,
+  siteVisibleProjectFilter,
+} = require("../lib/site-visibility");
 const { handleError } = require("./_utils");
 const {
   resolveStorageState,
@@ -72,6 +77,19 @@ const groupIsLive = async (groupId) => {
   }).select("_id");
 
   return Boolean(group);
+};
+
+/**
+ * Whether a project, sample or run sits under a Project hidden from the site.
+ * @param {string} type - "project", "sample" or "run".
+ * @param {object} entity - The loaded record.
+ * @returns {Promise<boolean>} True if its Project is hidden.
+ */
+const entityIsHidden = async (type, entity) => {
+  if (type === "project") return isHiddenFromSite(entity);
+  const hidden = await loadHiddenSiteIds();
+  const ids = type === "sample" ? hidden.sampleIds : hidden.runIds;
+  return ids.some((id) => String(id) === String(entity._id));
 };
 
 /**
@@ -153,7 +171,8 @@ router
       // Loaded before writing so the record's group can be checked first.
       const entity = await ENTITY_MODELS[type].findById(typeId);
 
-      if (!entity) {
+      // Records under a hidden project answer as missing (lib/site-visibility).
+      if (!entity || (await entityIsHidden(type, entity))) {
         return res
           .status(404)
           .send({ error: `${type} with ID ${typeId} not found` });
@@ -179,11 +198,17 @@ router
   });
 
 const getMatrixOfData = async () => {
-  const runsWithSamplesAndGroups = await Run.find({})
+  // Hidden projects, and their samples and runs, are left out of the export
+  // up front, so they are neither listed nor logged as orphans below.
+  const hidden = await loadHiddenSiteIds();
+  const runFilter = hidden.sampleIds.length
+    ? { sample: { $nin: hidden.sampleIds } }
+    : {};
+  const runsWithSamplesAndGroups = await Run.find(runFilter)
     .populate("sample")
     .populate("group");
 
-  const projects = await Project.find({});
+  const projects = await Project.find(siteVisibleProjectFilter());
   const reads = await Read.find({}).populate("file");
 
   const projectsById = projects.reduce((acc, p) => {

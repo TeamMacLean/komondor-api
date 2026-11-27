@@ -853,6 +853,12 @@ paths:
 
         Sorted by `createdAt` descending, in JavaScript rather than in Mongo.
         `group` is populated.
+
+        Projects with `displayOnSite: false` are excluded for every caller,
+        admins included, and so are their Samples, Runs and news items on the
+        list, search, user and news endpoints. Detail, names, status and write
+        routes answer such records with their ordinary not-found response. See
+        docs/PROJECT_SITE_VISIBILITY.md.
       responses:
         "200":
           description: Visible projects, newest first.
@@ -883,6 +889,9 @@ paths:
         `Project.name` carries a unique index, so a client needs the full list
         to tell a user that the name they have chosen is already taken. It
         returns names only — no ids, owners or group membership.
+
+        Names of Projects with `displayOnSite: false` are withheld. They stay
+        unique: `POST /projects/new` answers any clash with a generic 409.
       responses:
         "200":
           description: All project names, across every group.
@@ -1186,8 +1195,13 @@ paths:
         afterwards.
 
         NOT idempotent, unlike `/samples/new` and `/runs/new`: a repeated name
-        hits the unique index on `Project.name` and fails. There is no 200
-        branch here.
+        fails. There is no 200 branch here. A name already held by any Project,
+        including one hidden with `displayOnSite: false`, answers 409 with code
+        `PROJECT_NAME_UNAVAILABLE` and fixed text that identifies nothing about
+        the holder. This replaces the former E11000 500. The unique index still
+        decides a race, and that race maps to the same 409.
+
+        `displayOnSite` is administrative and is ignored in the body.
 
         On failure after the document is saved, the handler deletes it again —
         but files already moved are not cleaned up.
@@ -1245,6 +1259,24 @@ paths:
           $ref: "#/components/responses/Unauthenticated"
         "403":
           $ref: "#/components/responses/GroupPermissionDenied"
+        "409":
+          description: |
+            The name is already in use, by a visible or a hidden Project. The
+            body is identical in both cases and carries no `requestId`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: This project name is already in use or unavailable. Choose a different name.
+                  detail:
+                    type: string
+                    example: Project name unavailable
+                  code:
+                    type: string
+                    enum: [PROJECT_NAME_UNAVAILABLE]
         "500":
           $ref: "#/components/responses/ServerError"
 
@@ -3542,6 +3574,13 @@ components:
         isPublic:
           type: boolean
           default: false
+        displayOnSite:
+          type: boolean
+          description: |
+            Administrative website visibility, set only through reviewed mongosh
+            commands (docs/PROJECT_SITE_VISIBILITY.md) and never through this
+            API. Absent or true means visible. Only false hides, and ordinary
+            responses never contain a hidden Project. Unrelated to `isPublic`.
         accessions:
           type: array
           items:

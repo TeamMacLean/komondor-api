@@ -12,6 +12,11 @@ const {
 } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
 const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const {
+  isHiddenFromSite,
+  siteVisibleProjectFilter,
+  NAME_UNAVAILABLE_CODE,
+} = require("../lib/site-visibility");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const { parsePreservationDate, parseNewPreservationDate } = require("../lib/hpc-preservation");
 const { projectStorageLocations } = require("../lib/project-storage-locations");
@@ -60,6 +65,32 @@ const asBoolean = (value) => (typeof value === "boolean" ? value : undefined);
  */
 const groupIdOf = (project) =>
   project && project.group ? project.group._id || project.group : undefined;
+
+/**
+ * Whether a save failed on the unique index over Project.name.
+ * @param {Error} error - The save error.
+ * @returns {boolean} True for an E11000 on `name`.
+ */
+const isDuplicateNameError = (error) =>
+  Boolean(error) &&
+  error.code === 11000 &&
+  (Boolean(error.keyPattern && error.keyPattern.name) ||
+    Boolean(error.keyValue && "name" in error.keyValue) ||
+    /index: name_/.test(String(error.message)));
+
+/**
+ * The answer to a taken project name, whoever holds it. Fixed text and no
+ * E11000 detail, so a hidden project's existence is never distinguishable
+ * from a visible one's and no identity, owner or group is disclosed.
+ * @param {object} res - Express response.
+ * @returns {object} The response.
+ */
+const projectNameUnavailable = (res) =>
+  res.status(409).send({
+    error: "This project name is already in use or unavailable. Choose a different name.",
+    detail: "Project name unavailable",
+    code: NAME_UNAVAILABLE_CODE,
+  });
 
 // Operational provenance is intentionally absent from ordinary project JSON.
 router.get("/project/reconciliation-history", isAuthenticated, async (req, res) => {
@@ -116,11 +147,12 @@ router
  * GET /projects/names
  * Fetches the names of all projects. Deliberately not scoped to the caller's
  * groups: Project.name is unique, so the client needs the whole list to warn
- * that a new name is taken.
+ * that a new name is taken. Hidden projects' names are withheld; their names
+ * stay unique, and POST /projects/new answers a clash with a generic 409.
  */
 router.get("/projects/names", isAuthenticated, async (req, res) => {
   try {
-    const projects = await Project.find({}).select("name");
+    const projects = await Project.find(siteVisibleProjectFilter()).select("name");
     const projectNames = projects.map((project) => project.name);
     res.status(200).send({ projectNames });
   } catch (error) {
@@ -153,7 +185,9 @@ router
         .populate({ path: "additionalFiles", populate: { path: "file" } })
         .exec();
 
-      if (!project) {
+      // A hidden project answers exactly as a missing one, for everyone,
+      // administrators included (lib/site-visibility).
+      if (!project || isHiddenFromSite(project)) {
         return handleError(res, new Error("Project not found."), 404);
       }
 
@@ -342,9 +376,9 @@ router
     }
 
     try {
-      const project = await Project.findById(_id).select("group");
+      const project = await Project.findById(_id).select("group displayOnSite");
 
-      if (!project) {
+      if (!project || isHiddenFromSite(project)) {
         return handleError(res, new Error("Project not found."), 404);
       }
 
@@ -441,6 +475,14 @@ router
         );
       }
 
+      // Uniqueness spans every project, hidden ones included. One generic
+      // answer for any clash, so it cannot reveal whether the holder is
+      // hidden, or anything else about it. The unique index still decides a
+      // race; that E11000 is mapped to the same answer below.
+      if (typeof name === "string" && name && (await Project.exists({ name }))) {
+        return projectNameUnavailable(res);
+      }
+
       const newProject = new Project({
         name: asString(name),
         group: groupId,
@@ -491,6 +533,10 @@ router
 
       if (error.name === "ValidationError") {
         return handleError(res, error, 400, "Project validation failed.");
+      }
+
+      if (isDuplicateNameError(error)) {
+        return projectNameUnavailable(res);
       }
 
       handleError(res, error, 500, "Failed to create new project.");

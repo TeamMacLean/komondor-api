@@ -15,7 +15,12 @@ const {
 // Namespace as well as named: requeueFailedIngest below prefers the queue's own
 // reset if it exports one, and destructuring would freeze that at require time.
 const ingestQueue = require("../lib/ingest-queue");
-const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const {
+  isHiddenFromSite,
+  isProjectHiddenById,
+  loadHiddenSiteIds,
+  websiteScope,
+} = require("../lib/site-visibility");
 const { enqueueRunIngest, idempotencyKeyFor, IngestJob } = ingestQueue;
 const {
   handleError,
@@ -104,7 +109,7 @@ const projectForSample = async (sampleLike) => {
   }
 
   return Project.findById(sample.project).select(
-    "path storage preserveOnHpcUntil hpcPreservationRequestedBy hpcPreservationReason +archiveMigration",
+    "path storage displayOnSite preserveOnHpcUntil hpcPreservationRequestedBy hpcPreservationReason +archiveMigration",
   );
 };
 
@@ -209,8 +214,8 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      const groupIds = await visibleGroupIds(req.user);
-      const runs = await Run.iCanSee(req.user, groupIds)
+      const { groupIds, hidden } = await websiteScope(req.user);
+      const runs = await Run.iCanSee(req.user, groupIds, hidden)
         .populate("group")
         .sort("-createdAt")
         .exec();
@@ -239,9 +244,10 @@ router
     try {
       // Run names carry project and experiment detail, so this is authorised
       // against the sample the runs hang off.
-      const sample = await Sample.findById(sampleId).select("group");
+      const sample = await Sample.findById(sampleId).select("group project");
 
-      if (!sample) {
+      // Under a hidden project the sample answers as missing.
+      if (!sample || (await isProjectHiddenById(sample.project))) {
         return handleError(res, new Error("Sample not found."), 404);
       }
 
@@ -299,6 +305,13 @@ router
         return handleError(res, new Error("Run not found."), 404);
       }
 
+      // Loaded before the permission check so a run under a hidden project
+      // answers as missing for everyone (lib/site-visibility).
+      const project = await projectForRun(run);
+      if (isHiddenFromSite(project)) {
+        return handleError(res, new Error("Run not found."), 404);
+      }
+
       // Group membership is the whole test; no owner fallback (see
       // lib/utils/groupAccess).
       const canAccess = await canReadGroup(
@@ -315,7 +328,6 @@ router
         );
       }
 
-      const project = await projectForRun(run);
       const storageState = resolveStorageState(project);
       setDerivedField(run, "projectStorage", publicStorageSummary(project));
 
@@ -465,7 +477,9 @@ router
       // of any group can hang a run, and its files, off another group's sample.
       const parentSample =
         await Sample.findById(sampleId).select("group project");
-      if (!parentSample) {
+      // A sample under a hidden project answers as missing: no new runs, and
+      // no idempotent answer revealing existing ones.
+      if (!parentSample || (await isProjectHiddenById(parentSample.project))) {
         return handleError(
           res,
           new Error("The submitted sample does not exist."),
@@ -732,7 +746,10 @@ router
         .populate("rawFiles")
         .populate("additionalFiles");
 
-      if (!run) {
+      // Loaded before the permission check: a hidden project's run answers
+      // as missing for everyone.
+      const project = run ? await projectForRun(run) : null;
+      if (!run || isHiddenFromSite(project)) {
         return handleError(
           res,
           new Error("Run not found"),
@@ -774,7 +791,6 @@ router
       // Only the queue can say whether a run stuck at "pending" with no files
       // is queued, being worked on, or permanently failed.
       const ingestJobs = await findIngestJobs([run._id]);
-      const project = await projectForRun(run);
       const projectStorage = publicStorageSummary(project);
       const md5VerificationApplicable =
         projectStorage.acceptsHpcWrites === true;
@@ -1004,7 +1020,9 @@ router
         "name group owner status libraryType sample",
       );
 
-      if (!run) {
+      // No ingest changes under a hidden project; it answers as missing.
+      const project = run ? await projectForRun(run) : null;
+      if (!run || isHiddenFromSite(project)) {
         return handleError(
           res,
           new Error("Run not found"),
@@ -1026,7 +1044,6 @@ router
         );
       }
 
-      const project = await projectForRun(run);
       if (!project) {
         return handleError(
           res,
@@ -1370,16 +1387,25 @@ router
           )
         : [];
 
-      // One read of the user's groups for the whole batch, not one per run.
+      // One read of the user's groups, and of the hidden set, for the whole
+      // batch, not one per run.
+      const [groups, hidden] = await Promise.all([
+        groupsICanRead(req.user),
+        loadHiddenSiteIds(),
+      ]);
       const readableGroups = new Set(
-        (await groupsICanRead(req.user))
+        groups
           .map((group) => group && group._id && String(group._id))
           .filter(Boolean),
       );
+      const hiddenRuns = new Set(hidden.runIds.map(String));
 
-      // Group membership decides visibility, exactly as on GET /run.
-      const visibleRuns = (runs || []).filter((run) =>
-        readableGroups.has(String(run.group)),
+      // Group membership decides visibility, exactly as on GET /run; runs under
+      // a hidden project are reported missing, like any unreadable run.
+      const visibleRuns = (runs || []).filter(
+        (run) =>
+          readableGroups.has(String(run.group)) &&
+          !hiddenRuns.has(String(run._id)),
       );
 
       const ingestJobs = await findIngestJobs(

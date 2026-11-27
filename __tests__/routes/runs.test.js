@@ -13,6 +13,10 @@ const { compareFilesToDirectory } = require("../../routes/_utils");
 const { isAuthenticated } = require("../../routes/middleware");
 
 // Mock the middleware
+// Nothing hidden unless a test says so; see __tests__/setup/siteVisibilityMock.js.
+jest.mock("../../lib/site-visibility", () =>
+  require("../setup/siteVisibilityMock")(),
+);
 jest.mock("../../routes/middleware", () => ({
   isAuthenticated: jest.fn((req, res, next) => {
     req.user = { username: "testuser", isAdmin: false, groups: ["group-123"] };

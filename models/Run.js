@@ -9,6 +9,7 @@ const { join } = require("path");
 //import generateSafeName from '../lib/utils/generateSafeName';
 const generateSafeName = require("../lib/utils/generateSafeName").default;
 const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { siteFilterFor } = require("../lib/site-visibility");
 
 const schema = new Schema(
   {
@@ -239,9 +240,10 @@ schema.methods.getAbsPath = function getPath() {
  *   rather than defaulted, because falling back to the token's `groups` claim
  *   serves soft-deleted groups until the token expires. `null` is accepted and
  *   maps to a filter matching nothing, so the old sentinel fails closed.
- * @returns {mongoose.Query} A query scoped to what the user may read.
+ * @param {object} hidden - Hidden ids from loadHiddenSiteIds() (lib/site-visibility).
+ * @returns {mongoose.Query} A query scoped to what the user may read on the website.
  */
-schema.statics.iCanSee = function iCanSee(user, groupIds) {
+schema.statics.iCanSee = function iCanSee(user, groupIds, hidden) {
   if (groupIds !== null && !Array.isArray(groupIds)) {
     throw new TypeError(
       "Run.iCanSee(user, groupIds) requires the live group ids from " +
@@ -250,7 +252,14 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
     );
   }
 
-  const filter = buildVisibilityFilter(user, groupIds);
+  // Records under a Project with displayOnSite: false are excluded for
+  // everyone; `hidden` comes from loadHiddenSiteIds() and is required, so a
+  // caller that forgets it fails rather than leaking them. Merged, not $and:
+  // the two filters never share a key.
+  const filter = {
+    ...buildVisibilityFilter(user, groupIds),
+    ...siteFilterFor("Run", hidden),
+  };
   // Passed straight through, with no null-to-{} fallback: that fallback is a
   // path to an unfiltered Run.find({}).
   return Run.find(filter);

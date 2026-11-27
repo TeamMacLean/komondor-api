@@ -6,6 +6,10 @@ const request = require("supertest");
 const express = require("express");
 const mongoose = require("mongoose");
 
+// Nothing hidden unless a test says so; see __tests__/setup/siteVisibilityMock.js.
+jest.mock("../../lib/site-visibility", () =>
+  require("../setup/siteVisibilityMock")(),
+);
 jest.mock("../../models/Project", () => ({
   findByIdAndUpdate: jest.fn(),
   findById: jest.fn(),

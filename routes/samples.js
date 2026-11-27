@@ -8,7 +8,7 @@ const Project = require("../models/Project");
 const { isAuthenticated } = require("./middleware");
 const { canReadGroup, canCreateInGroup } = require("../lib/utils/groupAccess");
 const { sortAdditionalFiles } = require("../lib/sortAssociatedFiles");
-const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const { isHiddenFromSite, websiteScope } = require("../lib/site-visibility");
 const sendOverseerEmail = require("../lib/utils/sendOverseerEmail");
 const {
   handleError,
@@ -110,8 +110,8 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      const groupIds = await visibleGroupIds(req.user);
-      const samples = await Sample.iCanSee(req.user, groupIds)
+      const { groupIds, hidden } = await websiteScope(req.user);
+      const samples = await Sample.iCanSee(req.user, groupIds, hidden)
         .populate("group")
         .sort("-createdAt")
         .exec();
@@ -146,7 +146,9 @@ router
       // authorisation as any other read of that project's records.
       const project = await Project.findById(projectId);
 
-      if (!project) {
+      // Hidden answers as missing (lib/site-visibility). Sample names are
+      // unique only within a project, so withholding them leaks nothing.
+      if (!project || isHiddenFromSite(project)) {
         return handleError(res, new Error("Project not found."), 404);
       }
 
@@ -207,7 +209,8 @@ router
         .populate({ path: "additionalFiles", populate: { path: "file" } })
         .exec();
 
-      if (!sample) {
+      // A sample under a hidden project answers as missing, for everyone.
+      if (!sample || isHiddenFromSite(sample.project)) {
         return handleError(res, new Error("Sample not found."), 404);
       }
 
@@ -315,7 +318,9 @@ router
 
       const project = await Project.findById(projectId);
 
-      if (!project) {
+      // No new samples under a hidden project, and no idempotent answer
+      // revealing an existing one: it answers as missing.
+      if (!project || isHiddenFromSite(project)) {
         return handleError(res, new Error("Project not found."), 404);
       }
 

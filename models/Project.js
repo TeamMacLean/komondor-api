@@ -4,6 +4,7 @@ const generateSafeName = require("../lib/utils/generateSafeName").default;
 const fs = require("fs");
 const NewsItem = require("./NewsItem");
 const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { siteVisibleProjectFilter } = require("../lib/site-visibility");
 const { assertRegistrationIdentity, installRegistrationGuards } = require("../lib/project-registration-history");
 const {
   STORAGE_STATES,
@@ -82,6 +83,13 @@ const schema = new mongoose.Schema(
       required: true,
     },
     isPublic: { type: Boolean, default: false },
+
+    // Website visibility, set only by a reviewed mongosh command (see
+    // docs/PROJECT_SITE_VISIBILITY.md). Only an explicit false hides; missing
+    // and true are visible, so there is no default and no backfill. Unrelated
+    // to isPublic and reconciliation.retiredAt. cast:false refuses "false",
+    // "no" and 0, which Boolean casting would otherwise store as false.
+    displayOnSite: { type: Boolean, cast: false },
 
     // GG new fields
     oldId: { type: String }, // TODO i dont think i need this but hard to extract // warning, post migration i removed unique=true
@@ -309,7 +317,9 @@ schema.methods.getAbsPath = function getPath() {
  * @param {object} user - Authenticated user.
  * @param {Array} groupIds - Live group ids from visibleGroupIds(user); the
  *   token's `groups` claim is stale for groups deleted since login.
- * @returns {mongoose.Query} A query scoped to what the user may read.
+ * @returns {mongoose.Query} A query scoped to what the user may read on the
+ *   website: Projects with `displayOnSite: false` are excluded for everyone,
+ *   administrators included. Operational code must not use this.
  */
 schema.statics.iCanSee = function iCanSee(user, groupIds) {
   if (groupIds !== null && !Array.isArray(groupIds)) {
@@ -320,7 +330,8 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
     );
   }
 
-  const filter = buildVisibilityFilter(user, groupIds);
+  // Merged, not $and: the group filter never uses the displayOnSite key.
+  const filter = { ...buildVisibilityFilter(user, groupIds), ...siteVisibleProjectFilter() };
   // Passed straight through: a `filter || {}` fallback here would be find({}).
   // The public transform needs the hidden migration timestamps/error to derive
   // migrationHealth. It strips the whole archiveMigration object before JSON.

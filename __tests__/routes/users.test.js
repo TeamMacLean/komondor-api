@@ -5,6 +5,10 @@
 const request = require("supertest");
 const express = require("express");
 
+// Nothing hidden unless a test says so; see __tests__/setup/siteVisibilityMock.js.
+jest.mock("../../lib/site-visibility", () =>
+  require("../setup/siteVisibilityMock")(),
+);
 jest.mock("../../models/User", () => ({ find: jest.fn(), findOne: jest.fn() }));
 jest.mock("../../models/Project", () => ({ find: jest.fn() }));
 jest.mock("../../lib/ldap", () => ({ verifyUserExists: jest.fn() }));
@@ -215,7 +219,12 @@ describe("GET /user", () => {
     // `$or: [{ owner }, { group }]`; the owner clause was a read grant that
     // removing somebody from a group could not withdraw.
     expect(Project.find).toHaveBeenCalledWith({
-      $and: [{ owner: "alice" }, { group: { $in: ["group-1"] } }],
+      $and: [
+        { owner: "alice" },
+        { group: { $in: ["group-1"] } },
+        // Hidden projects never appear on a profile (displayOnSite).
+        { displayOnSite: { $ne: false } },
+      ],
     });
   });
 
@@ -244,7 +253,11 @@ describe("GET /user", () => {
     await request(app).get("/user").query({ username: "alice" });
 
     expect(Project.find).toHaveBeenCalledWith({
-      $and: [{ owner: "alice" }, { group: { $in: ["group-1", "group-2"] } }],
+      $and: [
+        { owner: "alice" },
+        { group: { $in: ["group-1", "group-2"] } },
+        { displayOnSite: { $ne: false } },
+      ],
     });
   });
 
@@ -264,7 +277,11 @@ describe("GET /user", () => {
     await request(app).get("/user").query({ username: "alice" });
 
     expect(Project.find).toHaveBeenCalledWith({
-      $and: [{ owner: "alice" }, { _id: { $in: [] } }],
+      $and: [
+        { owner: "alice" },
+        { _id: { $in: [] } },
+        { displayOnSite: { $ne: false } },
+      ],
     });
   });
 

@@ -24,8 +24,9 @@ const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 // `Model.find({})` and so returned records belonging to soft-deleted groups.
 // GroupsIAmIn hands those principals every *live* group instead, so their reach
 // arrives here as a group list like anyone else's.
-const buildSearch = (Model, user, query, groupIds = []) =>
-  Model.iCanSee(user, groupIds)
+const NONE_HIDDEN = { projectIds: [], sampleIds: [], runIds: [] };
+const buildSearch = (Model, user, query, groupIds = [], hidden = NONE_HIDDEN) =>
+  Model.iCanSee(user, groupIds, hidden)
     .where("name")
     .regex(new RegExp(escapeRegex(query), "i"))
     .populate("group");

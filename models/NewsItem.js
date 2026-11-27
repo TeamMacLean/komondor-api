@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { siteFilterFor } = require("../lib/site-visibility");
 
 const schema = new mongoose.Schema(
   {
@@ -20,11 +21,12 @@ const schema = new mongoose.Schema(
  * @param {object} user - Authenticated user.
  * @param {Array} groupIds - Live group ids from visibleGroupIds(user); the
  *   token's `groups` claim is stale for groups deleted since login.
- * @returns {mongoose.Query} A query scoped to what the user may read.
+ * @param {object} hidden - Hidden ids from loadHiddenSiteIds() (lib/site-visibility).
+ * @returns {mongoose.Query} A query scoped to what the user may read on the website.
  */
 require("../lib/reconciliation-state").installReconciliationGuards(schema);
 
-schema.statics.iCanSee = function iCanSee(user, groupIds) {
+schema.statics.iCanSee = function iCanSee(user, groupIds, hidden) {
   if (groupIds !== null && !Array.isArray(groupIds)) {
     throw new TypeError(
       "NewsItem.iCanSee(user, groupIds) requires the live group ids from " +
@@ -33,7 +35,14 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
     );
   }
 
-  const filter = buildVisibilityFilter(user, groupIds);
+  // Records under a Project with displayOnSite: false are excluded for
+  // everyone; `hidden` comes from loadHiddenSiteIds() and is required, so a
+  // caller that forgets it fails rather than leaking them. Merged, not $and:
+  // the two filters never share a key.
+  const filter = {
+    ...buildVisibilityFilter(user, groupIds),
+    ...siteFilterFor("NewsItem", hidden),
+  };
   // Passed straight through: a `filter || {}` fallback here would be find({}).
   return NewsItem.find(filter);
 };

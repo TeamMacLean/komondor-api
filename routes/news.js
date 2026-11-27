@@ -3,7 +3,7 @@ const express = require("express");
 let router = express.Router();
 const NewsItem = require("../models/NewsItem");
 const { handleError } = require("./_utils");
-const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const { websiteScope } = require("../lib/site-visibility");
 
 // Native replacement for moment().calendar()
 function formatDateCalendar(date) {
@@ -48,9 +48,10 @@ router
   .all(isAuthenticated)
   .get(async (req, res) => {
     try {
-      // Live group ids, not the token's claim — see routes/projects.js.
-      const groupIds = await visibleGroupIds(req.user);
-      const newsItems = await NewsItem.iCanSee(req.user, groupIds)
+      // Live group ids, not the token's claim — see routes/projects.js. News
+      // about a hidden project, or its samples and runs, is left out.
+      const { groupIds, hidden } = await websiteScope(req.user);
+      const newsItems = await NewsItem.iCanSee(req.user, groupIds, hidden)
         .sort("-createdAt")
         .limit(20);
 

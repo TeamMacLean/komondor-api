@@ -1420,3 +1420,113 @@ describe("POST /projects/new — nudgeable and boundary typing", () => {
     expect(username).toBe("testuser");
   });
 });
+
+describe("website visibility (displayOnSite)", () => {
+  const projectId = new mongoose.Types.ObjectId().toString();
+  const groupId = new mongoose.Types.ObjectId().toString();
+  const asGroup = { _id: { toString: () => groupId }, name: "bioinformatics" };
+  const body = {
+    name: "Hidden Name",
+    group: groupId,
+    shortDesc: "Short description",
+    longDesc: "Long description",
+  };
+  const GENERIC_409 = {
+    error: "This project name is already in use or unavailable. Choose a different name.",
+    detail: "Project name unavailable",
+    code: "PROJECT_NAME_UNAVAILABLE",
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUser = { username: "deeks", groups: [], isAdmin: true };
+    Group.GroupsIAmIn.mockResolvedValue([asGroup]);
+  });
+
+  test("GET /project answers a hidden project as missing, for admins too", async () => {
+    const query = {
+      populate: jest.fn(),
+      exec: jest.fn().mockResolvedValue({
+        _id: projectId,
+        name: "Hidden",
+        path: "/g/hidden",
+        group: { _id: groupId },
+        displayOnSite: false,
+      }),
+    };
+    query.populate.mockReturnValue(query);
+    Project.findById = jest.fn().mockReturnValue(query);
+
+    const response = await request(app).get(`/project?id=${projectId}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe("Project not found.");
+    expect(JSON.stringify(response.body)).not.toContain("/g/hidden");
+    expect(Group.GroupsIAmIn).not.toHaveBeenCalled();
+  });
+
+  test("GET /projects/names asks only for visible projects", async () => {
+    const select = jest.fn().mockResolvedValue([{ name: "Visible" }]);
+    Project.find = jest.fn().mockReturnValue({ select });
+
+    const response = await request(app).get("/projects/names");
+
+    expect(Project.find).toHaveBeenCalledWith({ displayOnSite: { $ne: false } });
+    expect(response.body.projectNames).toEqual(["Visible"]);
+  });
+
+  test("a taken name is a generic 409 before anything is saved", async () => {
+    Project.exists = jest.fn().mockResolvedValue(true);
+    const save = jest.fn();
+    Project.mockImplementation(() => ({ save }));
+
+    const response = await request(app).post("/projects/new").send(body);
+
+    expect(response.status).toBe(409);
+    expect(response.body).toEqual(GENERIC_409);
+    expect(Project.exists).toHaveBeenCalledWith({ name: "Hidden Name" });
+    expect(save).not.toHaveBeenCalled();
+  });
+
+  test("losing the unique-index race gets the same 409, not the E11000 text", async () => {
+    Project.exists = jest.fn().mockResolvedValue(null);
+    const duplicate = Object.assign(
+      new Error('E11000 duplicate key error collection: projects index: name_1 dup key: { name: "Hidden Name" }'),
+      { code: 11000, keyPattern: { name: 1 }, keyValue: { name: "Hidden Name" } },
+    );
+    Project.mockImplementation(() => ({ save: jest.fn().mockRejectedValue(duplicate) }));
+
+    const response = await request(app).post("/projects/new").send(body);
+
+    expect(response.status).toBe(409);
+    expect(response.body).toEqual(GENERIC_409);
+  });
+
+  test("an unrelated duplicate key still fails as before", async () => {
+    Project.exists = jest.fn().mockResolvedValue(null);
+    const duplicate = Object.assign(new Error("E11000 duplicate key error index: path_1"), {
+      code: 11000,
+      keyPattern: { path: 1 },
+      keyValue: { path: "/g/x" },
+    });
+    Project.mockImplementation(() => ({ save: jest.fn().mockRejectedValue(duplicate) }));
+
+    const response = await request(app).post("/projects/new").send(body);
+
+    expect(response.status).toBe(500);
+  });
+
+  test("toggle-nudgeable answers a hidden project as missing and writes nothing", async () => {
+    Project.findById = jest.fn().mockReturnValue({
+      select: jest.fn().mockResolvedValue({ _id: projectId, group: groupId, displayOnSite: false }),
+    });
+    Project.findByIdAndUpdate = jest.fn();
+
+    const response = await request(app)
+      .put("/project/toggle-nudgeable")
+      .send({ _id: projectId, nudgeable: true });
+
+    expect(response.status).toBe(404);
+    expect(Project.findByIdAndUpdate).not.toHaveBeenCalled();
+  });
+});

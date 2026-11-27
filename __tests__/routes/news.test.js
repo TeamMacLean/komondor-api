@@ -9,6 +9,10 @@ const express = require("express");
 // a visibility filter, rather than trusting the `groups` claim baked into the
 // token at login. That resolution is a database round trip through
 // lib/utils/groupAccess, so it is stubbed here.
+// Nothing hidden unless a test says so; see __tests__/setup/siteVisibilityMock.js.
+jest.mock("../../lib/site-visibility", () =>
+  require("../setup/siteVisibilityMock")(),
+);
 jest.mock("../../lib/utils/groupAccess", () => ({
   groupsICanRead: jest.fn().mockResolvedValue([{ _id: "g1" }]),
 }));
@@ -87,9 +91,12 @@ describe("GET /news", () => {
 
     // Second argument: the live group ids, resolved from the database rather
     // than read off the token's claim.
+    // Third: the hidden-project ids (none here), so news about a project with
+    // displayOnSite:false is filtered in the same query.
     expect(NewsItem.iCanSee).toHaveBeenCalledWith(
       expect.objectContaining({ username: "testuser" }),
       ["g1"],
+      { projectIds: [], sampleIds: [], runIds: [] },
     );
   });
 

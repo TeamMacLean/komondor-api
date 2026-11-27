@@ -4,6 +4,7 @@ const User = require("../models/User");
 const Project = require("../models/Project");
 const { verifyUserExists } = require("../lib/ldap");
 const { resolveVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { siteVisibleProjectFilter } = require("../lib/site-visibility");
 const { handleError } = require("./_utils");
 
 const express = require("express");
@@ -48,7 +49,10 @@ router
     // be a way to read any owner's projects. $and, not a merge: both conditions
     // must hold and neither may overwrite the other's keys.
     const visibility = await resolveVisibilityFilter(req.user);
-    const projectFilter = { $and: [{ owner: username }, visibility] };
+    // Hidden projects are left out of the profile too, for every caller.
+    const projectFilter = {
+      $and: [{ owner: username }, visibility, siteVisibleProjectFilter()],
+    };
 
     try {
       const [foundProjects, foundUser] = await Promise.all([

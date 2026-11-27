@@ -22,6 +22,10 @@ const Group = require("../../models/Group");
 const samplesRouter = require("../../routes/samples");
 
 // Mock dependencies
+// Nothing hidden unless a test says so; see __tests__/setup/siteVisibilityMock.js.
+jest.mock("../../lib/site-visibility", () =>
+  require("../setup/siteVisibilityMock")(),
+);
 jest.mock("../../models/Sample");
 jest.mock("../../models/Project");
 jest.mock("../../models/Group", () => ({
@@ -65,6 +69,8 @@ jest.mock("../../routes/_utils", () => ({
     }),
   ),
 }));
+
+const { NONE_HIDDEN } = require("../setup/siteVisibilityMock");
 
 // Create test app
 const app = express();
@@ -560,7 +566,7 @@ describe("GET /samples", () => {
     const response = await request(app).get("/samples");
 
     expect(response.status).toBe(200);
-    expect(Sample.iCanSee).toHaveBeenCalledWith(mockUser, []);
+    expect(Sample.iCanSee).toHaveBeenCalledWith(mockUser, [], NONE_HIDDEN);
   });
 });
 

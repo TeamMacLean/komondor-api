@@ -4,6 +4,7 @@ const NewsItem = require("./NewsItem");
 
 const generateSafeName = require("../lib/utils/generateSafeName").default;
 const { buildVisibilityFilter } = require("../lib/utils/fullAccessUsers");
+const { siteFilterFor } = require("../lib/site-visibility");
 const fs = require("fs");
 const { join } = require("path");
 
@@ -252,9 +253,10 @@ schema.methods.getAbsPath = function getPath() {
  * @param {object} user - Authenticated user.
  * @param {Array} groupIds - Live group ids from visibleGroupIds(user); the
  *   token's `groups` claim is stale for groups deleted since login.
- * @returns {mongoose.Query} A query scoped to what the user may read.
+ * @param {object} hidden - Hidden ids from loadHiddenSiteIds() (lib/site-visibility).
+ * @returns {mongoose.Query} A query scoped to what the user may read on the website.
  */
-schema.statics.iCanSee = function iCanSee(user, groupIds) {
+schema.statics.iCanSee = function iCanSee(user, groupIds, hidden) {
   if (groupIds !== null && !Array.isArray(groupIds)) {
     throw new TypeError(
       "Sample.iCanSee(user, groupIds) requires the live group ids from " +
@@ -263,7 +265,14 @@ schema.statics.iCanSee = function iCanSee(user, groupIds) {
     );
   }
 
-  const filter = buildVisibilityFilter(user, groupIds);
+  // Records under a Project with displayOnSite: false are excluded for
+  // everyone; `hidden` comes from loadHiddenSiteIds() and is required, so a
+  // caller that forgets it fails rather than leaking them. Merged, not $and:
+  // the two filters never share a key.
+  const filter = {
+    ...buildVisibilityFilter(user, groupIds),
+    ...siteFilterFor("Sample", hidden),
+  };
   // Passed straight through: a `filter || {}` fallback here would be find({}).
   return Sample.find(filter);
 };

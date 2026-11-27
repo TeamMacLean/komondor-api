@@ -6,7 +6,7 @@ let router = express.Router();
 const Project = require("../models/Project");
 const Sample = require("../models/Sample");
 const Run = require("../models/Run");
-const { visibleGroupIds } = require("../lib/utils/fullAccessUsers");
+const { websiteScope } = require("../lib/site-visibility");
 const { attachProjectStorage } = require("../lib/storage-state");
 
 // Upper bound on a search term: long terms produce pathological regexes.
@@ -48,10 +48,11 @@ const normaliseQuery = (raw) => {
  * @returns {Promise<Array>} The matching documents.
  */
 const searchByName = async (Model, user, query) => {
-  // Live group ids, not the token's claim — see routes/projects.js.
-  const groupIds = await visibleGroupIds(user);
+  // Live group ids, not the token's claim — see routes/projects.js — and the
+  // hidden-project set, so hidden records never reach search or autocomplete.
+  const { groupIds, hidden } = await websiteScope(user);
 
-  return Model.iCanSee(user, groupIds)
+  return Model.iCanSee(user, groupIds, hidden)
     .where("name")
     .regex(new RegExp(escapeRegex(query), "i"))
     .populate("group")

@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased — Per-project website visibility
+
+- Added the administrative `Project.displayOnSite` flag. Only an explicit `false`
+  hides a Project, with its Samples, Runs, news and file information, from
+  website lists, search, profiles, detail, status, ENA export and descendant
+  writes, for administrators too. Missing and `true` stay visible, so no backfill.
+- The flag is set only by reviewed mongosh commands. Request bodies cannot set
+  it, the model refuses non-boolean values, and no web toggle or endpoint was added.
+- Archive, reconciliation, retention, worker and Nudge behaviour is unchanged.
+  Admin-only audit endpoints still return hidden records.
+- `/projects/names` withholds hidden names. `POST /projects/new` now answers any
+  taken name with a generic 409 `PROJECT_NAME_UNAVAILABLE`, replacing the E11000 500.
+- Nothing was deployed and no production flag was set.
+
+Operation: [project site visibility](docs/PROJECT_SITE_VISIBILITY.md).
+
 ## 2026-10-22 — Production registration completed
 
 - Created and verified 22 Projects: 17 under `shrestha`, five under `winj`, each

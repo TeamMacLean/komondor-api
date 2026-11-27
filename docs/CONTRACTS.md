@@ -299,6 +299,28 @@ Migration ids, operator identities, manifest locations and digests are never
 part of the HTTP contract. Detail routes supply a ready-made `location`; web
 clients should not reconstruct an HPC or S3 root from entity paths.
 
+### 10. `Project.displayOnSite: false` hides a Project from the website
+
+An administrator sets this with mongosh (docs/PROJECT_SITE_VISIBILITY.md). No
+API route sets it. When it is set:
+
+- **komondor-web**: the Project, its Samples, Runs and news items leave every
+  list, search and profile. Their detail pages get the same 404 as a missing
+  record. No web change is needed.
+- **komondor-power**: creating Samples or Runs under a hidden Project gets the
+  existing "Project not found" 404 or "sample does not exist" 400.
+  `POST /runs/batch-status` lists hidden runs as `missing`. Separately,
+  `POST /projects/new` with a taken name now answers **409**
+  `PROJECT_NAME_UNAVAILABLE` instead of the E11000 500, whether the name is
+  held by a hidden or a visible Project. Like the storage 409, it is terminal:
+  retrying cannot succeed.
+- **komondor-nudge**: unaffected. It reads MongoDB directly and does not look
+  at the field. Whether a hidden Project should still be nudged is an open
+  follow-up.
+
+Only a BSON `false` hides. A missing field (every legacy Project) or `true`
+leaves the Project visible, and `true` grants no access.
+
 ## Needs coordinated action in komondor-power
 
 **`POST /projects/new` honours a client-supplied `nudgeable`, but
