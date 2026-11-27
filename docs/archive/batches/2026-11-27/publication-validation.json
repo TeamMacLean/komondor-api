@@ -2,7 +2,7 @@
   "kind": "komondor-publication-validation-v1",
   "at": "2026-11-27T15:33:15.557634+00:00",
   "success": true,
-  "manifestSha256": "16c44debaf739908fdd331d9bf26cd01d721eb3cbe61c9a5314aa8be2feda642",
+  "manifestSha256": "97ee6a0f25e96f283fb5a5bdbe7ca22b75bf58ae5186526ae3c9ea5b411f8891",
   "checks": {
     "includedVerified": 376,
     "narrativeEdits": [
@@ -27,5 +27,13 @@
     "historicalEvidencePreserved": "Whitespace warnings in captured logs/diff and sealed TSV files are intentionally retained byte-for-byte."
   },
   "mergeConflictsResolved": true,
-  "allChangedPathsUnderDocs": true
+  "allChangedPathsUnderDocs": true,
+  "externalArtifactRelocationVerified": true,
+  "preservationReceipt": "local-preservation-20261127.json",
+  "finalReadOnlyCheck": {
+    "path": "final-live-check-20261127.json",
+    "success": true,
+    "sha256": "76e3ab7baa5cecaa2a041ce1ee4728a651e36312b0f26d3b81d5e070dc91e933",
+    "observerSha256": "3e4e2f10dd930bac2fad77ca0cdf16f9bcf5a8c7d9f7f43b7b6679b8f61449d1"
+  }
 }

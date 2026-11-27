@@ -118,7 +118,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz",
-      "registerAnchor": "artifact-1"
+      "registerAnchor": "artifact-1",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/summary.json",
@@ -227,7 +228,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz",
-      "registerAnchor": "artifact-2"
+      "registerAnchor": "artifact-2",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmed-20261127.json",
@@ -396,7 +398,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz",
-      "registerAnchor": "artifact-3"
+      "registerAnchor": "artifact-3",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/hold-release.json",
@@ -845,7 +848,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json",
-      "registerAnchor": "artifact-4"
+      "registerAnchor": "artifact-4",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
@@ -854,7 +858,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
-      "registerAnchor": "artifact-5"
+      "registerAnchor": "artifact-5",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
@@ -863,7 +868,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
-      "registerAnchor": "artifact-6"
+      "registerAnchor": "artifact-6",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/initial-observations.json",
@@ -922,7 +928,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz",
-      "registerAnchor": "artifact-7"
+      "registerAnchor": "artifact-7",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-copy.json",
@@ -971,7 +978,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz",
-      "registerAnchor": "artifact-8"
+      "registerAnchor": "artifact-8",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-staging.json",
@@ -1300,7 +1308,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json",
-      "registerAnchor": "artifact-9"
+      "registerAnchor": "artifact-9",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
@@ -1309,7 +1318,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
-      "registerAnchor": "artifact-10"
+      "registerAnchor": "artifact-10",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/file-5fd205a8d8dd4a63058cc28d.json",
@@ -2236,7 +2246,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz",
-      "registerAnchor": "artifact-11"
+      "registerAnchor": "artifact-11",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/package-validation.json",
@@ -2485,7 +2496,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
-      "registerAnchor": "artifact-12"
+      "registerAnchor": "artifact-12",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation.json",
@@ -2604,7 +2616,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz",
-      "registerAnchor": "artifact-13"
+      "registerAnchor": "artifact-13",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation.json",
@@ -3249,7 +3262,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json",
-      "registerAnchor": "artifact-14"
+      "registerAnchor": "artifact-14",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/disposal-tests.txt",
@@ -3488,7 +3502,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz",
-      "registerAnchor": "artifact-15"
+      "registerAnchor": "artifact-15",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-copy-verified.json",
@@ -3807,7 +3822,8 @@
       "recommendation": "external-retained",
       "category": "sealed-binary-archive",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz",
-      "registerAnchor": "artifact-16"
+      "registerAnchor": "artifact-16",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz"
     },
     {
       "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz.sha256",
@@ -3826,7 +3842,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json",
-      "registerAnchor": "artifact-17"
+      "registerAnchor": "artifact-17",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
@@ -3835,7 +3852,8 @@
       "recommendation": "external-retained",
       "category": "raw-database-graph",
       "retainedLocalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
-      "registerAnchor": "artifact-18"
+      "registerAnchor": "artifact-18",
+      "currentRetainedLocalPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json"
     },
     {
       "path": "docs/archive/batches/2026-11-27/kamoun-direct-disposal/targets.json",

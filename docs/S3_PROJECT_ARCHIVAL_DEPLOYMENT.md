@@ -2,16 +2,22 @@
 
 Use this once before the first production archive, and repeat affected checks
 when the host, AWS CLI, credentials, encryption, bucket policy or mover changes.
-For each six-monthly batch use the [operator runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md).
+For each ad hoc batch use the [operator runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md).
 The [architecture record](S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md) explains
 the design; this document owns the deployment procedure.
+For approved multi-day copying without recurring human sign-ins, also use the
+[unattended transfer guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md). It records the
+workload identity, detached queue, bounded recovery and evidence requirements
+proven during the October 2026 batch.
 
 **Repository tests do not constitute production acceptance.** The real AWS,
 HPC mount, credential-renewal and consumer checks below must have dated evidence
 before deleting the first real project's source. No production AWS rehearsal is
 implied by passing those tests. The
 [16 October 2026 acceptance record](archive/PRODUCTION_ACCEPTANCE_2026-10-16.md)
-records completed live rehearsals and the remaining pilot/handover requirements.
+records the early live rehearsals. The pilot, completed copying and manual HPC
+removals are recorded in the [27 November completion record](archive/batches/2026-11-27/PUBLICATION.md).
+Those dated results do not replace affected acceptance checks for a later batch.
 
 ## 1. Record the deployment inputs
 
@@ -21,7 +27,7 @@ Create an access-controlled release record outside `DATASTORE_ROOT`. Record:
 | --- | --- |
 | Releases | Exact API, web, Power and Nudge commits; clean checkouts |
 | AWS destination | Dedicated general-purpose bucket, region, account ID, optional immutable base prefix |
-| AWS identity | Named modern SSO profile, mover IAM role ARN, role/login session settings |
+| AWS identity | Named mover profile, exact IAM role/account; workload certificate and renewal evidence for unattended work, or role/login session settings for human SSO |
 | Host | Canonical datastore mount, operator OS identity, Node and AWS CLI versions |
 | Services | Exact commands to stop/start **all** API instances and other writers; real readiness URL |
 | Database | Confirm the intended MongoDB database; current backup and restore procedure |
@@ -32,11 +38,14 @@ Create an access-controlled release record outside `DATASTORE_ROOT`. Record:
 Do not invent a project age cutoff or deletion grace period at execution time.
 The initial selection scope is the operator's
 [16 October supplied-list register](archive/batches/2026-10-16/README.md), with
-KEEP decisions and audit status preserved. Ten years is only a proposed policy
-for future batches; settling it does not block recording or assessing this
-explicit initial list. Agree and record the deletion review interval before
-the pilot. An unexpired interval is a reason to leave the project in
-`aws_pending_hpc_deletion`.
+KEEP decisions and audit status preserved. For later batches, use the
+[27 November retention policy](archive/HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed):
+archive after the later of the age-based review date (default five years) and
+any keep date. The earlier ten-year proposal is superseded. Agree and record
+any separate post-copy review interval; the operator removed the initial
+batch's seven-day hold on 23 October. An active hold or an agreed unexpired
+interval still requires leaving the Project pending; verification alone never
+authorizes automatic deletion.
 
 Use the repository's [general deployment checks](PRE_DEPLOY_MANUAL_CHECKS.md)
 as well. They cover database indexes and ingest compatibility that this archive
@@ -115,6 +124,13 @@ Versioning is recovery protection, not immutability: exclusive archive writers
 and stable bucket policy are operating requirements.
 
 ## 3. Configure SSO and the operator shell
+
+This section's login commands are for **human SSO operation**. For unattended
+multi-day copying, provision and validate the certificate-based workload
+identity using the [unattended guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md#2-give-the-server-a-renewable-workload-identity),
+then use its isolated configuration and profile with the same account/role
+fences and archive settings below. Do not run `aws sso login` for a workload
+profile. Administrator access is for provisioning only and stays off the worker.
 
 Configure a modern `sso-session` profile with `aws configure sso --profile
 komondor-archive-mover`. Select the recorded account, mover permission set and
@@ -271,12 +287,15 @@ Also test the real service boundaries, recording evidence:
    credentials work. A hard kill may leave parts; record them and confirm the
    seven-day lifecycle backstop, or abort those exact upload IDs manually.
    Re-run upload and prove completed files are reused.
-3. With a **separate test permission set/profile**, one-hour role credentials
+3. Prove real renewal for the chosen credential provider. For unattended work,
+   follow the [isolated workload expiry test](S3_PROJECT_ARCHIVAL_UNATTENDED.md#prove-renewal-before-switching-the-queue)
+   and record its exact coverage. For human SSO, use a **separate test permission set/profile**, one-hour role credentials
    and a transfer throttled to last longer than an hour, prove renewal occurs
    without another login. Set the expected role ARN to that test role. Capture
    start/end times and successful completion across expiry. Do not shorten the
    production role or treat simulated ExpiredToken tests as evidence of real
-   renewal. Restore the production profile/role settings afterwards.
+   renewal. Restore the production profile/role settings afterwards. An SSO
+   role-renewal test does not prove that the human login can refresh indefinitely.
 
 ## 6. Disposable project, then first real pilot
 

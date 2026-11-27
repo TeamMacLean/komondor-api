@@ -8,7 +8,7 @@ reported API master `2474c4a` and web master `a470095` in production on
 [retention follow-up](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)).
 Deployment reports and dated live observations are distinguished below.
 This documentation reconciliation makes no production change; its review-branch
-publication is pending merge.
+publication is approved for master and the production documentation sync.
 
 ## Policy from 27 November 2026: AWS only after the HPC date has passed
 

@@ -1,19 +1,29 @@
 # S3 project archival specification
 
-Status: **implemented reference; production acceptance outstanding**. Version 1 of the manually supervised
-workflow that archives one Komondor project from the HPC datastore to Amazon S3.
+Status: **implemented reference; dated production outcomes recorded separately**.
+Version 1 of the manually supervised workflow that archives one Komondor project
+from the HPC datastore to Amazon S3. See the [current status](archive/STATUS.md)
+and [27 November completion record](archive/batches/2026-11-27/PUBLICATION.md);
+older implementation and acceptance sections below are reference material, not
+claims that the completed batch must be rerun.
 
-> **Reconciled with the architecture decision record, 15 October 2026.**
+> **Reconciled with the architecture decision record, 15 October 2026;
+> authentication updated 26 October 2026.**
 > `S3_PROJECT_ARCHIVAL_ARCHITECTURE_DECISIONS.md` (10 September 2026) supersedes
 > this document on bucket layout, storage classes and authentication. Those
 > three areas have been updated in place below and the code now matches:
 > groups sit at the archive root with no `data/` level, manifests live under the
 > reserved `_control/` prefix, payload is written straight into Glacier Deep
-> Archive, and the mover authenticates with IAM Identity Center SSO. Where this
+> Archive, and AWS calls use a named profile with exact account/role checks.
+> Human operation can use IAM Identity Center SSO; the approved unattended queue
+> used certificate-based workload credentials as described in the
+> [unattended transfer guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md). Its batch runner
+> is an operational wrapper around the native CLI, not a new CLI subcommand. Where this
 > specification and the decision record still disagree on anything else, the
 > decision record wins. The current executable deployment procedure is in
 > [S3_PROJECT_ARCHIVAL_DEPLOYMENT.md](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md); the
-> [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) owns semi-annual operation.
+> [runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md) owns ad hoc batch operation and the
+> current five-year/default keep-date selection policy.
 
 Every code citation below was verified against the working trees of
 `komondor-api`, `komondor-web`, `komondor-power` and `komondor-nudge` on

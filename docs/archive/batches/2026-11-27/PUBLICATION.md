@@ -1,6 +1,6 @@
 # Archive execution completion — 27 November 2026
 
-The approved archive cleanup and six separate Kamoun direct disposals are complete. This review branch starts from `origin/master` `5a707a1`; the already-published `codex/archive-status-20261126` branch at `4b0895a` is incorporated here, preserving its eleven November 26 evidence commits. Those commits were not yet on master. It adds execution evidence and reconciles current documentation. It changes no application code or production data. Do not rerun historical deletion packages, controllers or confirmation helpers.
+The approved archive cleanup and six separate Kamoun direct disposals are complete. The completion release starts from `origin/master` `5a707a1`; the already-published `codex/archive-status-20261126` branch at `4b0895a` is incorporated here, preserving its eleven November 26 evidence commits. Those commits were not yet on master. George approved promotion to master and the production documentation sync on 27 November. It adds execution evidence and reconciles current documentation, including the previously unpublished unattended-transfer guide and dated October operation notes. It changes no application code or production data. Do not rerun historical deletion packages, controllers or confirmation helpers.
 
 ## Final outcome
 
@@ -21,11 +21,20 @@ The approved archive cleanup and six separate Kamoun direct disposals are comple
 
 Final Slurm accounting was supplied by George; copied raw execution logs independently establish runner completion and exit status. Independent mounted-filesystem and database checks establish the recorded final state. File bytes removed are logical totals; physical quota reclamation and snapshot retention were not measured.
 
+## Final live verification
+
+The [fresh read-only check](final-live-check-20261127.json) at **16:29 UTC**
+passed: all 175 archive states and original verification dates match, 174
+roots are absent, Gargy is retained, all thirteen protected roots/date policies
+match and all six disposal roots are absent with their Project records retired.
+API, Web, Power and Nudge each returned HTTP 200. The mounted datastore and
+database identity match the sealed evidence. [Read-only observer](final-live-check.cjs).
+
 ## Publication boundaries
 
-The [machine-readable manifest](publication-manifest.json) records source sizes and SHA-256 digests for all 410 files examined. It publishes 376 readable evidence/tool files; 18 full database snapshots or duplicate transport archives remain external, and 16 generated Python caches are excluded. Only unsealed narrative README/handover links and historical-status notices are adjusted for publication; sealed receipts, scripts, plans and package checksums are unchanged. The sealed November 26 review README retains its historical archive link; that external target is identified in the register below. The manifest records both hashes where a narrative differs.
+The initial [machine-readable manifest](publication-manifest.json) records source sizes and SHA-256 digests for all 410 files examined. It publishes 376 readable evidence/tool files; 18 full database snapshots or duplicate transport archives remain external, and 16 generated Python caches are excluded. Only unsealed narrative README/handover links and historical-status notices are adjusted for publication; sealed receipts, scripts, plans and package checksums are unchanged. The sealed November 26 review README retains its historical archive link; that external target is identified in the register below. The manifest records both hashes where a narrative differs.
 
-Full raw database graphs contain historical research metadata and are not needed in Git to review completion. Their unchanged originals remain in the original local worktree and the recorded v1333 evidence packs. The locations below identify original retained copies or the containing server evidence pack, not new uploads by this publication. Never remove the original worktree/evidence until these external copies have been deliberately migrated and verified.
+Full raw database graphs contain historical research metadata and are not needed in Git to review completion. To leave the two local API checkouts clean, all 420 working files (68,315,547 bytes) were preserved and checksum-verified under `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127`. The original untracked trees were renamed into its `originals/` directory, not deleted; verified copies are in `snapshots/`. All eighteen external artifacts match their original hashes. Their current local locations are listed below and in the [preservation receipt](local-preservation-20261127.json). The recorded v1333 evidence packs are unchanged. Keep the artifact directory; archiving this chat does not authorize deleting these evidence copies.
 
 Some historical forensic tests need the exact retained raw plan (notably the Kamoun retirement and release-builder tests). Retrieve the listed artifact, verify its digest and use an isolated review environment; do not run execution commands against production. Historical package commands are evidence, not current instructions.
 
@@ -36,7 +45,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 5,965,287.
 - SHA-256: `b71f30a2344e3b69be0e4ee196dabe0ee79a9098fde1058b884bc8060ac6b71a`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-deletion-review-20261126-02`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -45,7 +54,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 5,090.
 - SHA-256: `e4bcb23fc487ec454b1ce4e94c3b790483d5c6601526ffb1dfc139bb3fb7ba06`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-plant-capture-confirm-20261127T110444Z`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -54,7 +63,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 108,392.
 - SHA-256: `50e9dd13be4a06105b57448315540497a7142425ad8a53bc376db8fe87b547cb`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -63,7 +72,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 258,470.
 - SHA-256: `44643780dd06713fcc381f9115c476068b52fabf9884c8e597cb7ee97aae0a3f`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -72,7 +81,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 258,162.
 - SHA-256: `bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -81,7 +90,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 258,162.
 - SHA-256: `6dc384471bae38a4e069bc87b096c7c99887c862e151bd7eff9c413ae8a54351`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -90,7 +99,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 443,321.
 - SHA-256: `b01ea88dcb253646f85a753c7bc9ea12b79088b92b87d1a620ca8db729f38ab4`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -99,7 +108,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 279,448.
 - SHA-256: `f571e39a3338ae1661e2095c60840e5a2cb1c80ddeaf2af6415a18187e4548db`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -108,7 +117,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 258,162.
 - SHA-256: `bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -117,7 +126,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 258,162.
 - SHA-256: `f2fcefa6a8b4c80772604297fe458783869e95136af79d872c6074a2415bd13f`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-gulnara-source-review-20261127-01 and /storage/komondor-gulnara-source-confirm-r2-20261127T144132Z`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -126,7 +135,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 4,794,162.
 - SHA-256: `64dd0fb8c431eb67bb5f9f93b90e24195895c2bc6466c1bfa47f5e6355258ee1`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-deletion-refresh-20261127-01`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -135,7 +144,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 9,774,589.
 - SHA-256: `8b345727c83f7eee455392540a083c4a3f3c1d7e0f60d239fd8ce1aedd7c1824`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-slurm-bulk-confirm-20261127T133428Z and /storage/komondor-hpc-delete-split-20261127-01`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -144,7 +153,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 36,951.
 - SHA-256: `e18a0fa6b83ba3bfae4980c3a20de35a7bcd8f848709460fb78c394eb16be364`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-slurm-bulk-confirm-20261127T133428Z and /storage/komondor-hpc-delete-split-20261127-01`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -153,7 +162,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 5,618,890.
 - SHA-256: `244a5582e7e54ee9f1b05d820f3c8a6f4be3aa4a98432d4972e850f84c12b4b5`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-kamoun-disposal-20261127-01, /storage/komondor-kamoun-disposal-backup-20261127-01 and /storage/komondor-kamoun-retirement-20261127-01`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -162,7 +171,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 1,599,735.
 - SHA-256: `0e8556d081bba266e10a33c3f67beecea6a97a414e02b84921cac4d503dd56ef`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-kamoun-disposal-20261127-01, /storage/komondor-kamoun-disposal-backup-20261127-01 and /storage/komondor-kamoun-retirement-20261127-01`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -171,7 +180,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 98,331.
 - SHA-256: `16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-kamoun-disposal-20261127-01, /storage/komondor-kamoun-disposal-backup-20261127-01 and /storage/komondor-kamoun-retirement-20261127-01`.
 - Retained as: sealed-binary-archive. Original bytes unchanged.
 
@@ -180,7 +189,7 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 6,206,137.
 - SHA-256: `e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-kamoun-disposal-20261127-01, /storage/komondor-kamoun-disposal-backup-20261127-01 and /storage/komondor-kamoun-retirement-20261127-01`.
 - Retained as: raw-database-graph. Original bytes unchanged.
 
@@ -189,6 +198,6 @@ Some historical forensic tests need the exact retained raw plan (notably the Kam
 
 - Bytes: 6,206,246.
 - SHA-256: `47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e`.
-- Original local copy: `/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json`.
+- Preserved local copy: `/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json`.
 - Server evidence pack(s), as recorded in the execution receipts: `/storage/komondor-kamoun-disposal-20261127-01, /storage/komondor-kamoun-disposal-backup-20261127-01 and /storage/komondor-kamoun-retirement-20261127-01`.
 - Retained as: raw-database-graph. Original bytes unchanged.

@@ -11,11 +11,16 @@ through **26 November 2027**. The six separate Kamoun no-S3 disposals also
 completed, with their metadata and history retained. No further disposal or
 owner email is due from this batch.
 
+A fresh read-only check at **16:29 UTC on 27 November** reconfirmed all 175
+archive states and original transfer dates, thirteen retained roots/date policies,
+and six completed disposals. API, Web, Power and Nudge all returned HTTP 200.
+[Final live check](batches/2026-11-27/final-live-check-20261127.json).
+
 The completion evidence below comes from scoped live checks and execution
 receipts on 26–27 November. Deployment heads remain attributed to George's
 27 November report; a checkout observation alone does not prove which code a
 running process has loaded. This documentation reconciliation performs no new
-production operation. Publication is on a review branch pending merge.
+production operation. George approved promotion to master and the documentation-only production sync on 27 November.
 
 ## Done
 
@@ -129,9 +134,11 @@ production operation. Publication is on a review branch pending merge.
    through 26 November 2031; Xanthoria stays on HPC under the normal age policy.
    These dates permit a future review, never automatic deletion. There is no
    further removal due from the completed batch.
-2. **Merge the reviewed execution evidence.** This reconciliation retains the
-   current master deployment/policy updates and adds the completed execution
-   records. Publication is on a review branch; merging it is still pending.
+2. **Preserve the published execution evidence.** This reconciliation retains
+   current master deployment/policy updates and the completed execution records.
+   George approved master publication and the production documentation sync.
+   Full raw evidence was preserved outside Git before cleaning the local API
+   checkouts; see the [preservation receipt](batches/2026-11-27/local-preservation-20261127.json).
    Preserve original sealed receipts, logs and historical plans. Do not rerun
    old deletion packages, reassignment scripts or native confirmations.
 3. **Reports and optional cleanup are ad hoc.** George reported that API

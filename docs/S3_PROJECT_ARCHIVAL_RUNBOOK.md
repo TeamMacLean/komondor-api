@@ -3,13 +3,15 @@
 **Start here for each archive batch.** Batches are ad hoc: George runs one
 when he chooses, somewhere between twice a year and once every five years.
 Twice a year is the ideal, not a requirement, and nothing is overdue if a
-review is skipped. Projects are selected and archived manually; there is no
-automatic archiving or HPC deletion. George intends to make this
-semi-automated at some point; nothing is built yet. The optional email
-schedule below sends a review report only.
+review is skipped. Project selection and HPC deletion remain manual. A
+reviewed queue can perform the approved copy stage unattended; it does not
+select future batches or delete HPC data. A general semi-automated batch
+management flow remains future work. The optional email schedule below sends
+a review report only.
 
 - First use or changed infrastructure: [deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md).
-- Before every batch: [renew SSO login](#before-each-archive-batch).
+- Before every batch: [check the execution identity](#before-each-archive-batch).
+- Multi-day copying: [unattended transfer guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md).
 - Routine batch: [batch procedure](#batch-procedure).
 - Original scope and KEEP decisions: [16 October 2026 register](archive/batches/2026-10-16/README.md).
 - Initial batch coverage on 30 October: [175 of 366 project records, 47.8%](archive/INITIAL_MIGRATION_COVERAGE_2026-10-30.md).
@@ -26,6 +28,16 @@ configured S3 root; manifests live in `_control/projects/ID/MIGRATION/` and
 stay in Standard. Payload defaults to Deep Archive.
 
 ## Before each archive batch
+
+Choose the execution identity recorded for the batch. For multi-day work without
+recurring human sign-ins, follow the [unattended transfer guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md):
+check the server certificate, isolated profile and automatic credential renewal
+before launch. The completed October 2026 queue used that workload identity. Raw AWS
+commands must use its isolated configuration and workload profile too; the old
+SSO profile does not select it. Do not overwrite its configuration or run a
+second queue alongside an active one.
+
+The following login procedure applies to **human-operated SSO sessions**:
 
 On the archive execution host (currently **v1333**), open the operator shell or
 tmux session as the **same Linux user that will run the archive commands**.
@@ -101,8 +113,8 @@ next batch. This runbook does not create an automation.
    row with its live project ID and canonical path. Then confirm that it is
    finished, no incoming sequencing/ingest/MD5 work is pending, no external jobs
    write its tree, and it is not under a hold. Select by verified ID.
-4. **Renew access and recheck infrastructure.** Complete the
-   [batch login check](#before-each-archive-batch), then verify account/role,
+4. **Verify access and recheck infrastructure.** Complete the
+   [batch identity check](#before-each-archive-batch), then verify account/role,
    versioning, lifecycle, encryption-key access
    and the datastore mount. Every CLI invocation enforces the AWS checks; an
    infrastructure failure is a stop, never permission to bypass preflight.
@@ -115,7 +127,9 @@ next batch. This runbook does not create an automation.
    checks; a large file may restart from zero. There is no arbitrary TB cap.
    Record owner approval and decisions about unexpected, missing or unreadable
    data before execution. Start with one project; process projects sequentially.
-6. **Archive each project** using the next section. Keep its source frozen
+6. **Archive each project** using the next section, or the reviewed
+   [unattended queue procedure](S3_PROJECT_ARCHIVAL_UNATTENDED.md) for a large batch.
+   Keep its source frozen
    from lock until deletion or an allowed abort. Other projects can keep using
    the API after the short lock window. Save logs, IDs, digests and receipts.
 7. **Review pending archives separately.** Observe the recorded review interval,
@@ -150,8 +164,8 @@ eligibility from a project name, ObjectId, or Nudge's publication-reminder age.
 
 ### 1. Set identity and inspect the plan
 
-Use the exports and profile configured during deployment and renewed in the
-[batch login check](#before-each-archive-batch). The `.env` belongs to this exact
+Use the exports and profile configured during deployment and verified in the
+[batch identity check](#before-each-archive-batch). The `.env` belongs to this exact
 checkout/database; raw `aws` calls require explicit profile arguments. In the
 operator shell, set real values:
 
@@ -208,8 +222,11 @@ lock; this project must now reject writes. Keep external writers frozen.
 
 ### 3. Seal, copy and verify
 
-Use a persistent terminal session for a long copy. It may run across renewed
-SSO role credentials; an expired login needs the recovery procedure.
+Use a persistent server session or the reviewed detached queue for a long copy.
+The [unattended procedure](S3_PROJECT_ARCHIVAL_UNATTENDED.md) removes recurring
+human SSO renewal from the copy stage. A human SSO session still needs a new
+login when it can no longer refresh. Closing the laptop or losing its VPN does
+not stop a detached server-to-S3 copy, but it prevents remote inspection.
 
 ```bash
 node scripts/move-project-to-s3.js copy --project-id "$ARCHIVE_PROJECT_ID" --moved-by "$ARCHIVE_OPERATOR"
@@ -310,7 +327,8 @@ if preflight fails, resolve that before expecting a status report.
 
 | Situation | Action |
 | --- | --- |
-| Login/credentials expired | Log in to the same profile; then resume the same ID/manifest |
+| Human SSO login expired | Log in to the same SSO profile; inspect the stopped attempt, then resume the same ID/manifest |
+| Workload credentials cannot renew | Inspect certificate expiry, exact identity, private file permissions and proxy access using the [unattended guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md); preserve evidence and do not silently switch to SSO |
 | Source sealed, phase source_sealed/copying/copied | `resume` below; completed files are checked and reused, unfinished files restart at byte zero |
 | Locked/inventoried, no sealed manifest and empty destination | Fix the cause and retry copy, or use the allowed pre-copy abort |
 | Source changed after sealing | Stop; preserve changed data separately. Restore the original sealed tree if possible, otherwise reviewed cleanup/restart |

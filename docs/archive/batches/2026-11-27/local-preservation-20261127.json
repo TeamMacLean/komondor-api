@@ -1,0 +1,127 @@
+{
+  "kind": "komondor-local-preservation-published-receipt-v1",
+  "at": "2026-11-27T15:45:12.908144+00:00",
+  "success": true,
+  "preservationRoot": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127",
+  "allWorkingFilesPreserved": 420,
+  "bytes": 68315547,
+  "snapshotManifestSha256": "fcec7e6791b0ccd016efec82b557f9d0d16ee45f20c71fc0e5f3b640fb2dbb99",
+  "relocationReceiptSha256": "130549a97cef62acabe40a8262fca52f9418b52be5f25b172b181661624a53c3",
+  "originalTreesRenamedNotDeleted": true,
+  "all18RegisteredExternalArtifactsVerified": true,
+  "artifacts": [
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-deletion-review/evidence/server-audit-20261126.tar.gz",
+      "bytes": 5965287,
+      "sha256": "b71f30a2344e3b69be0e4ee196dabe0ee79a9098fde1058b884bc8060ac6b71a"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-26/hpc-first-deletion/evidence/plant-capture-confirmation-server-20261127.tar.gz",
+      "bytes": 5090,
+      "sha256": "e4bcb23fc487ec454b1ce4e94c3b790483d5c6601526ffb1dfc139bb3fb7ba06"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/destination-review-20261127T142029Z.tar.gz",
+      "bytes": 108392,
+      "sha256": "50e9dd13be4a06105b57448315540497a7142425ad8a53bc376db8fe87b547cb"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-after.json",
+      "bytes": 258470,
+      "sha256": "44643780dd06713fcc381f9115c476068b52fabf9884c8e597cb7ee97aae0a3f"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-baseline.json",
+      "bytes": 258162,
+      "sha256": "bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation/destination-graph-before.json",
+      "bytes": 258162,
+      "sha256": "6dc384471bae38a4e069bc87b096c7c99887c862e151bd7eff9c413ae8a54351"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-confirmation-20261127T144213Z.tar.gz",
+      "bytes": 443321,
+      "sha256": "b01ea88dcb253646f85a753c7bc9ea12b79088b92b87d1a620ca8db729f38ab4"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/native-review-20261127T141323Z.tar.gz",
+      "bytes": 279448,
+      "sha256": "f571e39a3338ae1661e2095c60840e5a2cb1c80ddeaf2af6415a18187e4548db"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-after.json",
+      "bytes": 258162,
+      "sha256": "bad9782ead46998a2c60d011fb8f6546cd05bb01d6639d3367f6ae81b42e6a3d"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/gulnara-source-deletion/evidence/server-review/destination-evidence/destination-db-before.json",
+      "bytes": 258162,
+      "sha256": "f2fcefa6a8b4c80772604297fe458783869e95136af79d872c6074a2415bd13f"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-remaining-deletion/evidence/native-refresh-20261127.tar.gz",
+      "bytes": 4794162,
+      "sha256": "64dd0fb8c431eb67bb5f9f93b90e24195895c2bc6466c1bfa47f5e6355258ee1"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/bulk-native-confirmation-server-20261127.tar.gz",
+      "bytes": 9774589,
+      "sha256": "8b345727c83f7eee455392540a083c4a3f3c1d7e0f60d239fd8ce1aedd7c1824"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/hpc-slurm-two-project-test/evidence/native-confirmation-server-20261127.tar.gz",
+      "bytes": 36951,
+      "sha256": "e18a0fa6b83ba3bfae4980c3a20de35a7bcd8f848709460fb78c394eb16be364"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/db-preflight-20261127.json",
+      "bytes": 5618890,
+      "sha256": "244a5582e7e54ee9f1b05d820f3c8a6f4be3aa4a98432d4972e850f84c12b4b5"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/evidence/retirement-evidence-20261127T150600Z.tar.gz",
+      "bytes": 1599735,
+      "sha256": "0e8556d081bba266e10a33c3f67beecea6a97a414e02b84921cac4d503dd56ef"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/komondor-kamoun-six-delete-20261127-01.tar.gz",
+      "bytes": 98331,
+      "sha256": "16fbfe33a8b6019330220117b679984c0bead80e3c27fca73be453449b488d19"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan-r1.json",
+      "bytes": 6206137,
+      "sha256": "e9dbd1828b6d93fb0a77bea7041b2dc5f545a881fdab89810a10618ac490beed"
+    },
+    {
+      "historicalPath": "/Users/deeks/.codex/worktrees/archive-execution-evidence/komondor-api/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
+      "currentPath": "/Users/deeks/.codex/artifacts/archive-completion-preserved-20261127/snapshots/execution-worktree/docs/archive/batches/2026-11-27/kamoun-direct-disposal/retirement-plan.json",
+      "bytes": 6206246,
+      "sha256": "47a03545ab758e871b8e07bea9daf57c02276f70bd245783878c1d4887bacd4e"
+    }
+  ],
+  "oldLocalMaster": {
+    "commit": "fe37054ea89ff58836ff2f3d0453be7166b36858",
+    "preservedAs": "codex/local-master-preserved-20261127",
+    "all13PatchesAlreadyUpstream": true
+  }
+}

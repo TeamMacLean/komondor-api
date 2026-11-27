@@ -1,8 +1,11 @@
 # Komondor S3 archive — architecture decisions
 
-Status: Accepted design; repository safeguards implemented; real deployment acceptance outstanding.
+Status: Accepted design; repository safeguards implemented; dated production
+acceptance and batch evidence remain required before deletion.
 Date: 10 September 2026; implementation review updated 15 October 2026;
-current batch scope and future age-policy proposal recorded on 16 October 2026.
+current batch scope and future age-policy proposal recorded on 16 October 2026;
+unattended copy-stage authentication adopted on 26 October 2026;
+current policy and completed outcomes reconciled on 27 November 2026.
 Decider: George Deeks.
 
 This is a standalone record of what we agreed and why. It supersedes earlier
@@ -11,7 +14,8 @@ specification and runbook. It does not replace their detailed migration workflow
 or certify that the implementation is ready for production.
 
 Operational entry points: [first deployment and acceptance](S3_PROJECT_ARCHIVAL_DEPLOYMENT.md)
-and [semi-annual operator runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md). Neither the
+and [operator runbook](S3_PROJECT_ARCHIVAL_RUNBOOK.md), with the
+[unattended transfer guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md) for multi-day copying. Neither the
 architecture nor a passing unit suite authorizes deletion without those checks.
 
 ## Context and priorities
@@ -22,8 +26,11 @@ deliberate and potentially expensive. Automatic retrieval is out of scope.
 
 The priority is a small, reliable system that an administrator can operate a few
 times a year. Preserve understandable paths, verify the copy, make interruption
-recoverable, and keep deletion a separate human decision. Do not build unattended
-infrastructure or elaborate edge-case machinery for this manual workflow.
+recoverable, and keep deletion a separate human decision. On 26 October the
+operator explicitly adopted unattended copying for the approved batch, with
+reliable completion and little intervention taking priority over speed. Use a
+renewable server identity and bounded recovery; keep selection, exceptional
+recovery and deletion under operator control.
 
 Only `DATASTORE_ROOT` is in scope. `HPC_TRANSFER_DIRECTORY` is temporary staging
 and is not archived or audited by this system.
@@ -110,27 +117,33 @@ to change it.
 
 ## 3. Operation: manually selected batches, manually deleted HPC data
 
-At a semi-annual review (approximately every six months), the administrator
-identifies old, unarchived projects, reviews a batch and starts the archive
-commands. **The initial batch is the operator's explicit
+Reviews are ad hoc, at George's discretion; twice a year is an ideal rather
+than a schedule or obligation. The administrator identifies eligible unarchived
+projects, reviews a batch and starts the archive commands. **The initial batch is the operator's explicit
 [16 October 2026 disposition register](archive/batches/2026-10-16/README.md).**
 Its supplied lists and per-project decisions define the current scope, including
 the first real pilot. Keep entries are excluded; unaudited entries and requests
 to delete without archiving are recorded separately. Do not reinterpret every
 workbook row as an archive request or re-filter this batch by a new age cutoff.
 
-For future batches, the operator has proposed **ten years**, tentatively; this
-is not yet an adopted rule. Agree the numerical threshold and the date evidence
-used before building a new shortlist. Small size, completed runs or convenient
-test coverage do not override the agreed selection scope. A newly created,
-explicitly disposable synthetic fixture is a rehearsal, not a real-project
-exception to that policy.
+For later batches, George's **27 November policy** selects Projects only after
+their HPC deletion-review date has passed: the later of the age-based archive
+date (`HPC_RETENTION_YEARS`, default five years) and any keep date. This
+supersedes the earlier ten-year proposal and does not re-filter the initial
+supplied list. The CLI reports the date and refuses an early lock unless the
+operator explicitly records a `--before-review-date` reason. See the
+[current retention policy](archive/HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed).
+Small size, completed runs or convenient test coverage do not establish policy
+eligibility; a disposable synthetic fixture is a rehearsal, not an exception
+for a real Project.
 
 Being listed does not establish technical readiness or authorize immediate
 deletion. Confirm that the project is finished, has no continuing writers or
 hold, and has the required owner/operator decision. The six Kamoun requests
 marked `archive? = no` and `notes = delete` are not part of the archive lifecycle
-below; their disposal procedure and execution approval remain outstanding.
+below. Their separately reviewed metadata retirement and manual HPC deletion
+completed on 27 November, with no S3 copy; see the
+[completion record](archive/batches/2026-11-27/kamoun-direct-disposal/README.md).
 
 The project lifecycle remains:
 
@@ -158,9 +171,15 @@ project tree: include unexpected regular files and record skipped symlinks or
 special files. Any genuinely unreadable data needs an explicit, recorded
 decision; do not silently treat it as successfully copied.
 
-## 4. Authentication: SSO, not unattended credentials
+## 4. Authentication: workload identity for unattended copying
 
-Use AWS IAM Identity Center SSO and a dedicated archive-mover permission set.
+The original manual workflow used IAM Identity Center SSO. After human login
+expiry stopped the live batch, the operator explicitly requested unattended
+authentication on 26 October 2026. The October on-premises queue used a dedicated
+IAM Roles Anywhere role and server certificate through `credential_process`.
+This supersedes the earlier decision that certificate management was unnecessary.
+Human SSO remains available for administration and attended archive operations.
+
 Allow the listing, upload, verification and incomplete-upload-abort operations
 the mover needs, including `s3:RestoreObject` for rehearsals and retrieval. Do not allow deletion of completed S3 objects or their versions.
 
@@ -170,14 +189,13 @@ static access keys are removed from their environment. STS must identify the
 configured assumed role, not merely someone in the right account. Keep
 cleanup/administration in a separate profile and role.
 
-Roles Anywhere is **not needed**, not a deferred implementation task. Do not
-build certificate management or unattended authentication now. Revisit the
-authentication choice only if unattended operation is deliberately adopted.
-
-SSO avoids long-lived access keys and certificate rotation in this workflow.
-It does not mean there are no secrets: temporary authentication tokens are
-cached on the HPC and must be protected. Use the restricted mover profile for
-archive work, not an administrator profile. See [AWS's SSO configuration guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html).
+The workload role retains the original mover permissions and explicit deletion
+deny. Restrict trust to the approved account, trust anchor, certificate subject
+and issuer. Protect the server private key and temporary credential cache; keep
+the CA private key separately. Record certificate expiry and renewal/retirement
+ownership. No administrator credentials or static AWS access keys are installed
+on the server. The [unattended guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md) owns the
+setup, real expiry test, graceful handover and evidence requirements.
 
 AWS permissions protect S3, not the HPC filesystem. The local deletion boundary
 comes from the tool never performing that deletion and the administrator taking
@@ -185,7 +203,17 @@ a separate manual action.
 
 ## 5. Long transfers: renewable credentials, not a 12-hour deadline
 
-There are two separate session settings:
+For an unattended queue, temporary AWS credentials renew from the server
+certificate without a human login. The October deployment requested one-hour
+credentials; that certificate's recorded expiry is 24 January 2027. A real
+expiry/reissue test passed on 26 October, and the queue switched at 21:04 UTC.
+The batch is now complete; the certificate and observer must be freshly checked
+before reuse or separately retired. Certificate renewal is separate from
+temporary credential renewal and does not imply automatic failure recovery.
+
+The following records the **human SSO settings**, unchanged by this deployment.
+They are not dependencies of the workload-authenticated queue. There are two
+separate session settings:
 
 | Setting | Console location in IAM Identity Center | Selected value |
 |---|---|---|
@@ -235,7 +263,7 @@ Resume is at **file level**, not at the last uploaded byte of an unfinished file
 - An interrupted file starts again from byte zero, using a new upload.
 - If credentials cannot be renewed, stop with an error. Do not record successful
   verification, authorize deletion or remove HPC data.
-- After logging in again, use Komondor's `resume` command for the same migration,
+- After restoring the configured credential provider, use Komondor's `resume` command for the same migration,
   with the original source files unchanged. Do not substitute a raw `s3 sync`
   for the database-aware workflow.
 
@@ -273,10 +301,12 @@ Add these targeted checks to the existing upload and verification tests:
    `__tests__/lib/s3-archive/cli.test.js` ("archive CLI interrupted copy and
    resume") covers the recorded error, the withheld deletion command and the
    resumed run that reaches `verified`.
-2. **Real credential renewal:** on the actual HPC, use a separate test permission
-   set with a one-hour session and a throttled transfer lasting across renewal.
-   Prove the installed CLI refreshes without another login. Do not shorten the
-   production permission set just to run this test.
+2. **Real credential renewal:** test the actual provider on the execution host.
+   For workload authentication, use the isolated expiry/reissue procedure in the
+   [unattended guide](S3_PROJECT_ARCHIVAL_UNATTENDED.md#prove-renewal-before-switching-the-queue).
+   For human SSO, use a separate test permission set with a one-hour session and
+   a throttled transfer lasting across renewal. Do not shorten production
+   credentials or infer indefinite human-login validity from role renewal.
 3. **Restore rehearsal before the pilot:** upload representative disposable files
    to Deep Archive, request a restore, download them and compare their checksums
    with the originals. An upload-only test is not sufficient evidence before
