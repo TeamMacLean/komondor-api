@@ -20,6 +20,13 @@ dated 3 November; this update performs no new live check.
   Deployment is pending
   ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md),
   [review](HPC_RETENTION_FOLLOWUP_REVIEW_2026-11-16.md)).
+- **Web master, 27 November: `af16f37`, not yet deployed.** Web-only; no API
+  change is needed. Since `284f762` it adds the project-page redesign
+  (`6905b26`, `7cc01c7`, `84af546`), retires HPC-only controls once a
+  Project's HPC copy is gone and locks accession editing on archived Projects
+  (`89cadf1`), and shows "In AWS · verified <date>" on archived file lists in
+  place of the arrival MD5 columns (`d29cc35`). Checked by the web unit tests
+  and a production build only, not against a live archived Project.
 - **Database reconciliation (22 October).** 22 unregistered directories were
   registered as Projects, then 26,724 operations corrected paths, added
   13,052 File/AdditionalFile pairs, retired two empty Projects and recorded
