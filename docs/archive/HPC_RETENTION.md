@@ -7,6 +7,29 @@ merged to master on 16 November; its deployment is pending
 ([procedure](DEPLOYMENT_2026-11-16_RETENTION_FOLLOWUP.md)). This page does not
 verify today's filesystem.
 
+## Policy from 27 November 2026: AWS only after the HPC date has passed
+
+George's instruction, 27 November 2026. **A Project is copied to AWS only once
+its HPC deletion-review date has passed**: the later of its age-based archive
+date (`HPC_RETENTION_YEARS`, default 5) and its keep date, if one is set. The
+copy and the HPC deletion review then happen together in the same batch. A
+Project with a future keep date therefore stays HPC-only, and writable, until
+that date passes.
+
+The archive CLI enforces this at `lock`, the first step that changes anything
+(API master, not yet deployed). `lock` refuses a Project whose date is still
+ahead, unknown, or blocked by an invalid keep date. George can still send a
+Project to AWS early as a deliberate exception by adding
+`--before-review-date "<reason>"`; the reason is printed in the lock output, so
+save that output in the batch record. `plan` never refuses but reports the date
+and whether it has passed under `reviewDate`. Until this is deployed, the rule
+is a selection rule for the operator only. The keep date itself still blocks
+`deletion-command` and `confirm-absent` as before.
+
+It applies from now on. The 175 Projects of the October 2026 batch are already
+on AWS and stay as they are, including the five holds below, which are on both
+AWS and HPC.
+
 ## Active manual exclusions
 
 **Do not prepare or run HPC deletion commands for these five Projects.**
@@ -69,8 +92,10 @@ Set Gargy first: it doubles as the
 year. The five holds matter now, because they already have verified AWS copies
 and `deletion-command` would otherwise print a command for them. The 11 Kamoun
 KEEP Projects are still HPC-only. Their date records the "please keep" decision
-for when they are archived. Copying them to AWS stays allowed and makes them
-read-only in Komondor.
+and, under the [27 November policy](#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed),
+they are not copied to AWS until it has passed. An earlier copy needs
+`lock --before-review-date "<reason>"` and makes the Project read-only in
+Komondor.
 
 | Project | Project ID | Suggested keep-until | Why |
 | --- | --- | --- | --- |
@@ -176,8 +201,12 @@ are computed in the asynchronous storage-locations response and never stored.
 The date is visible from project creation. Invalid `HPC_RETENTION_YEARS` fails
 startup. If a later date lookup/calculation fails, the page retains project and
 storage details with unavailable dates; it never treats missing dates as
-permission to delete. Keep dates block HPC deletion only; they never delay
-copying to AWS. Archiving makes the project read-only.
+permission to delete. As deployed on 16 November, keep dates block HPC deletion
+only. By
+[policy since 27 November](#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed),
+a Project is not copied to AWS until its deletion-review date has passed, and
+`lock` refuses it without a recorded reason. Archiving makes the project
+read-only.
 
 For HPC/migrating projects, deletion review is due at the later of the archive
 date and keep date; an AWS copy is still required first. For verified copies

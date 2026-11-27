@@ -117,6 +117,12 @@ dated 3 November; this update performs no new live check.
 
 ## Standing rules
 
+- **AWS only after the HPC date has passed (George, 27 November 2026).** A
+  Project is selected for copying to AWS only once its deletion-review date,
+  the later of its 5-year archive date and any keep date, has passed. `lock`
+  refuses earlier copies unless given `--before-review-date "<reason>"` (API
+  master, not yet deployed). The October batch is unaffected.
+  [Details](HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed).
 - Silence is consent for projects on the three plus-5-years exports. Owners are
   contacted only about a genuine new discrepancy, with a short deadline.
 - Deletion is always manual. Never hand-edit `storage.*` or `archiveMigration.*`.

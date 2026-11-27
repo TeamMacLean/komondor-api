@@ -30,6 +30,17 @@ jest.mock("../../../lib/s3-archive/upload", () => ({
   verifyManifestObjects: jest.fn(),
 }));
 
+// The real lookup queries Sample and Run; these tests have no database.
+jest.mock("../../../lib/hpc-retention", () => {
+  const actual = jest.requireActual("../../../lib/hpc-retention");
+  return {
+    ...actual,
+    // A plain function: jest.resetAllMocks() would strip a jest.fn body.
+    projectRetentionDates: async (project, options) =>
+      actual.computeRetentionDates(project, { now: options.now }),
+  };
+});
+
 const inventory = require("../../../lib/s3-archive/inventory");
 const preflight = require("../../../lib/s3-archive/preflight");
 const state = require("../../../lib/s3-archive/state");
@@ -323,6 +334,92 @@ describe("archive CLI operator flow", () => {
       awsAccountId: "123456789012",
     });
     expect(dependencies.stderr).not.toHaveBeenCalled();
+  });
+
+  describe("AWS only after the HPC deletion-review date", () => {
+    const recent = (extra = {}) => ({
+      _id: PROJECT_ID,
+      name: "Project One",
+      path: "group/project",
+      createdAt: "2025-01-01T00:00:00.000Z",
+      ...extra,
+    });
+    const lockArgs = (...extra) => [
+      "lock", "--project-id", PROJECT_ID, "--moved-by", "alice", ...extra,
+    ];
+
+    test("lock refuses a Project whose review date is still ahead", async () => {
+      state.loadProject.mockResolvedValue(recent());
+      const dependencies = makeDependencies();
+      const code = await runCli(lockArgs("--execute"), dependencies);
+      expect(code).not.toBe(0);
+      expect(dependencies.stderr.mock.calls.join("")).toMatch(
+        /not due for AWS until 2030-01-01T00:00:00.000Z.*--before-review-date/s,
+      );
+      expect(preflight.apiAppearsStopped).not.toHaveBeenCalled();
+      expect(state.lockProject).not.toHaveBeenCalled();
+    });
+
+    test("a future keep date defers an otherwise old Project", async () => {
+      state.loadProject.mockResolvedValue(recent({
+        createdAt: "2015-01-01T00:00:00.000Z",
+        preserveOnHpcUntil: new Date("2027-06-30T23:59:59.999Z"),
+      }));
+      const dependencies = makeDependencies();
+      expect(await runCli(lockArgs(), dependencies)).not.toBe(0);
+      expect(dependencies.stderr.mock.calls.join("")).toContain(
+        "2027-06-30T23:59:59.999Z",
+      );
+    });
+
+    test("an invalid keep date refuses because the review date is unknown", async () => {
+      state.loadProject.mockResolvedValue(recent({
+        createdAt: "2015-01-01T00:00:00.000Z",
+        preserveOnHpcUntil: "2027-06-30",
+      }));
+      const dependencies = makeDependencies();
+      expect(await runCli(lockArgs(), dependencies)).not.toBe(0);
+      expect(dependencies.stderr.mock.calls.join("")).toContain(
+        "Invalid preserveOnHpcUntil",
+      );
+    });
+
+    test("an explicit reason allows an early copy and is echoed", async () => {
+      state.loadProject.mockResolvedValue(recent());
+      const dependencies = makeDependencies();
+      const code = await runCli(
+        lockArgs("--before-review-date", " owner request "),
+        dependencies,
+      );
+      expect(code).toBe(0);
+      expect(JSON.parse(dependencies.stdout.mock.calls[0][0]).reviewDate).toEqual({
+        eligibleFrom: "2030-01-01T00:00:00.000Z",
+        archiveDueAt: "2030-01-01T00:00:00.000Z",
+        passed: false,
+        earlyCopyReason: "owner request",
+      });
+    });
+
+    test("a blank reason is rejected", async () => {
+      state.loadProject.mockResolvedValue(recent());
+      const dependencies = makeDependencies();
+      expect(
+        await runCli(lockArgs("--before-review-date", "  "), dependencies),
+      ).not.toBe(0);
+      expect(dependencies.stderr.mock.calls.join("")).toContain(
+        "--before-review-date requires a reason",
+      );
+    });
+
+    test("plan reports the review date without refusing", async () => {
+      state.loadProject.mockResolvedValue(recent());
+      const dependencies = makeDependencies();
+      const code = await runCli(["plan", "--project-id", PROJECT_ID], dependencies);
+      expect(code).toBe(0);
+      expect(JSON.parse(dependencies.stdout.mock.calls[0][0]).reviewDate).toMatchObject({
+        eligibleFrom: "2030-01-01T00:00:00.000Z", passed: false, earlyCopyReason: null,
+      });
+    });
   });
 
   test("executes a locked migration through source sealing, copy, verification and the final fence", async () => {

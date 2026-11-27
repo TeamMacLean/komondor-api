@@ -109,7 +109,9 @@ beforeEach(async () => {
   id = new mongo.mongoose.Types.ObjectId();
   await db()
     .collection("projects")
-    .insertOne({ _id: id, name: "Archive test", path: "/group/project" });
+    .insertOne({ _id: id, name: "Archive test", path: "/group/project",
+      // Old enough that the 5-year HPC deletion-review date has passed.
+      createdAt: new Date("2019-01-01T00:00:00.000Z") });
   await db().collection("users").insertOne({ username: "alice" });
   await writeStore({ objects: {}, uploads: [] });
 });
@@ -307,7 +309,17 @@ test("real CLI retains HPC preservation through copying and refuses deletion or 
   const until = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
   await db().collection("projects").updateOne({ _id: id }, { $set: { preserveOnHpcUntil: until } });
   const originalBytes = await fs.readFile(`${source}/a.fastq`);
-  expectSuccess(await lock());
+  // Policy: a future keep date defers the AWS copy unless a reason is given.
+  const early = await lock();
+  expect(early.code).not.toBe(0);
+  expect(early.stderr).toMatch(/not due for AWS until .*--before-review-date/s);
+  expect((await project()).archiveMigration).toBeUndefined();
+  const planned = JSON.parse((await cli("plan", "--json")).stdout);
+  expect(planned.reviewDate).toMatchObject({ passed: false, eligibleFrom: until.toISOString(), earlyCopyReason: null });
+  const overridden = await cli("lock", "--moved-by", "alice", "--acknowledge-known-anomalies",
+    "--before-review-date", "owner asked for an early archive", "--execute");
+  expectSuccess(overridden);
+  expect(overridden.stdout).toContain("owner asked for an early archive");
   expect((await project()).preserveOnHpcUntil).toEqual(until);
   expectSuccess(await copy());
   const verified = await project();

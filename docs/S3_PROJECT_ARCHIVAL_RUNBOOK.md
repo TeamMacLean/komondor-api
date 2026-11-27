@@ -82,9 +82,16 @@ runbook does not create an automation.
    pending group decisions before treating an earmarked entry as archive-approved.
    Direct-disposal requests need their own agreed procedure; this archive runbook
    does not execute them. KEEP entries must remain excluded.
-   For later batches, agree and record the minimum age/cutoff and date evidence
-   before building a shortlist. Ten years is currently a proposal, not a settled
-   rule, and must not be applied retroactively to the initial supplied list.
+   For later batches, shortlist only Projects whose HPC deletion-review date
+   has passed: the later of the age-based archive date (`HPC_RETENTION_YEARS`,
+   default 5) and any keep date. These are the overdue, not-yet-on-AWS rows of
+   the [deletion-due report](#deletion-due-review-report). This is George's
+   [27 November 2026 policy](archive/HPC_RETENTION.md#policy-from-27-november-2026-aws-only-after-the-hpc-date-has-passed);
+   it replaces the earlier ten-year proposal and is not applied retroactively
+   to the initial supplied list. `plan` reports the date under `reviewDate`,
+   and `lock` refuses a Project that is not yet due. A deliberate early copy
+   needs `lock --before-review-date "<reason>"`; keep the lock output, which
+   echoes the reason, in the batch record.
    A small recent project is not a substitute for an in-scope project; neither
    the CLI nor a clean plan establishes policy eligibility. Reconcile each source
    row with its live project ID and canonical path. Then confirm that it is
@@ -168,6 +175,12 @@ writers to this project's tree (scheduled pipelines, users, manual copies).
 A failed readiness probe alone is not proof of quiescence: verify processes and
 queues as well. `KOMONDOR_READY_URL` must name the real local API, not an unused
 port. The CLI refuses lock if it receives any HTTP response.
+
+Lock also refuses a Project whose HPC deletion-review date has not passed (the
+later of its age-based archive date and any keep date), or whose date is
+unknown. `plan` shows the date under `reviewDate`. For a deliberate early copy,
+add `--before-review-date "<reason>"` to both lock commands below; the reason
+is echoed in `lock.json`.
 
 Preview the lock, then execute it:
 

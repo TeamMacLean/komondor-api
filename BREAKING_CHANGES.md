@@ -1,5 +1,19 @@
 # Breaking changes — hardening refactor
 
+## Archive CLI: lock refuses Projects not yet due (27 November 2026; not deployed)
+
+**Affected consumers:** operators and scripts running
+`scripts/move-project-to-s3.js lock`. No API route, database field or other
+application changes.
+
+`lock` now refuses a Project whose HPC deletion-review date (the later of its
+age-based archive date and any keep date) is in the future or unknown,
+including when the stored keep date is invalid. Pass
+`--before-review-date "<reason>"` to copy early; the reason appears in the lock
+output only and is not stored on the Project. `plan` gains a `reviewDate`
+object and never refuses on it. Projects already locked or later in a migration
+are unaffected.
+
 ## HPC retention follow-up (16 November 2026; review branch, not deployed)
 
 **Affected consumers:** komondor-web and scripts calling
